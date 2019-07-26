@@ -1,0 +1,8 @@
+#pragma once
+enum ComponentEvent
+{
+	RESIZE_EVENT,
+	POSITION_CHANGED_EVENT,
+	MOUSE_HOVER_EVENT,
+	ACTION_PERFORMED_EVENT,
+};
