@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Enums">
+      <UniqueIdentifier>{ed661e06-c21b-4cf2-bc2b-959c73c98a09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CoreWindowFrame.cpp">
@@ -48,7 +51,10 @@
     <ClCompile Include="VectorContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventInfo.cpp">
+    <ClCompile Include="AddEventInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMoveInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,9 +72,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ApplicationController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="IDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
@@ -92,13 +95,10 @@
     <ClInclude Include="VectorContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventInfo.h">
+    <ClInclude Include="AddEventInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventModifierIds.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentEventIds.h">
+    <ClInclude Include="EventMoveInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

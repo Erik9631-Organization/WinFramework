@@ -2,6 +2,7 @@
 #include "WindowFrame.h"
 #include "CoreWindowFrame.h"
 #include "OnAddListener.h"
+#include "AddEventInfo.h"
 
 void Component::Add(Component& component)
 {
@@ -13,7 +14,7 @@ void Component::Add(Component& component)
 		Component& rootComponent = this->GetRoot();
 		rootComponent.Add(component);
 	}
-	NotifyOnAddListeners(*this);
+	NotifyOnAddListeners(AddEventInfo(component, *this));
 }
 
 Component::Component()
@@ -23,15 +24,21 @@ Component::Component()
 	backgroundColor = Color(255, 255, 255);
 }
 
-void Component::NotifyOnAddListeners(Component& component)
+void Component::NotifyOnAddListeners(AddEventInfo& eventInfo)
 {
 	for (OnAddListener& i : onAddListeners)
-		i.OnAdd(component);
+		i.OnAdd(eventInfo);
 }
 
 void Component::NotifyComponentListeners(EventInfo & e)
 {
 
+}
+
+void Component::NotifyOnMoveListeners(EventMoveInfo & eventInfo)
+{
+	for (OnAddListener& i : onAddListeners)
+		i.OnAdd(eventInfo);
 }
 
 void Component::SetParent(Component * parent)
@@ -99,6 +106,7 @@ int Component::GetX()
 
 int Component::GetY()
 {
+	return pos.Y;
 }
 
 Component * Component::GetParent()

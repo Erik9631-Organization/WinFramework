@@ -3,16 +3,22 @@
   The class acts as an observer and is a composite for the class Shape and class Vgraphics
 */
 #pragma once
-#include "IDrawable.h"
+#include <Windows.h>
+#include <gdiplus.h>
 #include <vector>
 #include <string>
 class ComponentListener;
-class EventInfo;
 class OnAddListener;
 
+class EventInfo;
+class AddEventInfo;
+class EventMoveInfo;
+class EventResizeInfo;
+class EventHoverInfo;
 
 using namespace std;
-class Component : IDrawable
+using namespace Gdiplus;
+class Component
 {
 protected:
 	vector<reference_wrapper<Component>>components;
@@ -27,9 +33,14 @@ protected:
 	//Listeners
 	vector<reference_wrapper<ComponentListener>>ComponentListeners;
 	vector<reference_wrapper<OnAddListener>>onAddListeners; //Will be changed later to delegate to VectorContainer.Add event. Used for testing.
+	vector<reference_wrapper<OnMoveListeners>>onAddListeners;
 
-	void NotifyOnAddListeners(Component& component);
-	void NotifyComponentListeners(EventInfo& e);
+	void NotifyOnAddListeners(AddEventInfo& eventInfo);
+	void NotifyComponentListeners(EventInfo& eventInfo);
+	void NotifyOnMoveListeners(EventMoveInfo& eventInfo);
+	void NotifyOnResizeListeners(EventResizeInfo& eventInfo);
+	void NotifyOnHoveListeners(EventResizeInfo& eventInfo);
+
 
 	void UpdateComponent();
 

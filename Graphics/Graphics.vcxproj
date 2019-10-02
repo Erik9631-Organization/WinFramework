@@ -19,16 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddEventInfo.h" />
     <ClInclude Include="ApplicationController.h" />
     <ClInclude Include="Border.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="EventInfo.h" />
     <ClInclude Include="ComponentListener.h" />
     <ClInclude Include="CoreWindowFrame.h" />
-    <ClInclude Include="ComponentEventIds.h" />
-    <ClInclude Include="EventModifierIds.h" />
-    <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="EventMoveInfo.h" />
     <ClInclude Include="OnAddListener.h" />
     <ClInclude Include="Pane.h" />
     <ClInclude Include="resource.h" />
@@ -37,12 +35,13 @@
     <ClInclude Include="WinWrapper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AddEventInfo.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
     <ClCompile Include="Border.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
-    <ClCompile Include="EventInfo.cpp" />
+    <ClCompile Include="EventMoveInfo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CoreWindowFrame.cpp" />
     <ClCompile Include="OnAddListener.cpp" />

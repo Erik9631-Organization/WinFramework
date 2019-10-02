@@ -1,7 +1,6 @@
 #include "ComponentListener.h"
 
 
-
 ComponentListener::ComponentListener()
 {
 }
