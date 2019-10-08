@@ -1,14 +1,11 @@
 #pragma once
+#include "EventInfo.h"
 class Component;
-class AddEventInfo
+class AddEventInfo : EventInfo
 {
-private:
-	Component & addedComponent;
-	Component & parentComponent;
 public:
-	AddEventInfo(Component & addedComponent, Component& parentComponent);
-	Component & GetAddedComponent();
-	Component & GetParentComponent();
+	AddEventInfo(Component & addedComponent);
+	Component * GetParentComponent();
 	~AddEventInfo();
 };
 

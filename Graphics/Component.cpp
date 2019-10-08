@@ -3,6 +3,9 @@
 #include "CoreWindowFrame.h"
 #include "OnAddListener.h"
 #include "AddEventInfo.h"
+#include "EventMoveInfo.h"
+#include "ComponentListener.h"
+#include "EventResizeInfo.h"
 
 void Component::Add(Component& component)
 {
@@ -14,7 +17,7 @@ void Component::Add(Component& component)
 		Component& rootComponent = this->GetRoot();
 		rootComponent.Add(component);
 	}
-	NotifyOnAddListeners(AddEventInfo(component, *this));
+	NotifyOnAddListeners(AddEventInfo(component));
 }
 
 Component::Component()
@@ -30,15 +33,16 @@ void Component::NotifyOnAddListeners(AddEventInfo& eventInfo)
 		i.OnAdd(eventInfo);
 }
 
-void Component::NotifyComponentListeners(EventInfo & e)
-{
-
-}
-
 void Component::NotifyOnMoveListeners(EventMoveInfo & eventInfo)
 {
-	for (OnAddListener& i : onAddListeners)
-		i.OnAdd(eventInfo);
+	for (ComponentListener& i : ComponentListeners)
+		i.OnMove(eventInfo);
+}
+
+void Component::NotifyOnResizeListeners(EventResizeInfo & eventInfo)
+{
+	for (ComponentListener& i : ComponentListeners)
+		i.OnResize(eventInfo);
 }
 
 void Component::SetParent(Component * parent)

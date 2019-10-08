@@ -26,7 +26,10 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentListener.h" />
     <ClInclude Include="CoreWindowFrame.h" />
+    <ClInclude Include="EventHoverInfo.h" />
+    <ClInclude Include="EventInfo.h" />
     <ClInclude Include="EventMoveInfo.h" />
+    <ClInclude Include="EventResizeInfo.h" />
     <ClInclude Include="OnAddListener.h" />
     <ClInclude Include="Pane.h" />
     <ClInclude Include="resource.h" />
@@ -41,7 +44,10 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
+    <ClCompile Include="EventHoverInfo.cpp" />
+    <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="EventMoveInfo.cpp" />
+    <ClCompile Include="EventResizeInfo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="CoreWindowFrame.cpp" />
     <ClCompile Include="OnAddListener.cpp" />

@@ -33,10 +33,8 @@ protected:
 	//Listeners
 	vector<reference_wrapper<ComponentListener>>ComponentListeners;
 	vector<reference_wrapper<OnAddListener>>onAddListeners; //Will be changed later to delegate to VectorContainer.Add event. Used for testing.
-	vector<reference_wrapper<OnMoveListeners>>onAddListeners;
 
 	void NotifyOnAddListeners(AddEventInfo& eventInfo);
-	void NotifyComponentListeners(EventInfo& eventInfo);
 	void NotifyOnMoveListeners(EventMoveInfo& eventInfo);
 	void NotifyOnResizeListeners(EventResizeInfo& eventInfo);
 	void NotifyOnHoveListeners(EventResizeInfo& eventInfo);

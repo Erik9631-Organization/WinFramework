@@ -7,18 +7,14 @@ Point EventMoveInfo::GetRelativeOffset()
 	return newPosition;
 }
 
-Component & EventMoveInfo::GetComponent()
-{
-	return component;
-}
-
 Point EventMoveInfo::GetPosition()
 {
 	return component.GetPosition();
 }
 
-EventMoveInfo::EventMoveInfo(Point oldPosition, Component & component) : component(component), oldPosition(oldPosition)
+EventMoveInfo::EventMoveInfo(Point oldPosition, Component & component) : EventInfo(component)
 {
+	this->oldPosition = oldPosition;
 }
 
 

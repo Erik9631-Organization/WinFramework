@@ -1,19 +1,14 @@
 #include "AddEventInfo.h"
 #include "Component.h"
 
-AddEventInfo::AddEventInfo(Component & addedComponent, Component& parentComponent) : addedComponent(addedComponent), parentComponent(parentComponent)
+AddEventInfo::AddEventInfo(Component & addedComponent) : EventInfo(addedComponent)
 {
 
 }
 
-Component & AddEventInfo::GetAddedComponent()
+Component * AddEventInfo::GetParentComponent()
 {
-	return addedComponent;
-}
-
-Component & AddEventInfo::GetParentComponent()
-{
-	return parentComponent;
+	return component.GetParent();
 }
 
 
