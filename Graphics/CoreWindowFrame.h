@@ -1,9 +1,8 @@
 #pragma once
+#include "WindowFrame.h"
 #include <Windows.h>
 #include <string>
-#include <condition_variable>
 #include <gdiplus.h>
-#include "WindowFrame.h"
 #include "OnAddListener.h"
 #include "ApplicationController.h"
 
@@ -13,12 +12,11 @@ class CoreWindowFrame
 {
 private:
 	HWND windowHandle;
-	condition_variable* waitForUpdate;
 	int width, height;
 	int posX, posY;
 	void CreateConsole();
 	HDC secondaryBuffer;
-	WindowFrame* wrapperFrame;
+	WindowFrame& wrapperFrame;
 	HDC CreateGraphicsBuffer();
 	void CleanGraphicsBuffer();
 	void RenderGraphics(HDC GraphicsBuffer);
@@ -26,7 +24,7 @@ private:
 	vector<reference_wrapper<Component>> components;
 
 public:
-	CoreWindowFrame(ApplicationController::WinEntryArgs &args, condition_variable& var, WindowFrame* wrapperFrame,string windowName);
+	CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame,string windowName);
 	void ComponentAdded(Component& component);
 	void SetPosition(int x, int y);
 	void SetSize(int width, int height);

@@ -6,24 +6,29 @@
 #include "ApplicationController.h"
 #include <string>
 using namespace std;
+condition_variable WindowFrame::initWait;
+bool WindowFrame::initNotified = false;
 
 void WindowFrame::CreateCoreWindow(int x, int y, int width, int height, string windowName)
 {
 	mutex windowInit;
-	condition_variable* var = new condition_variable();
 
 	thread windowThread([=]
 	{
 		ApplicationController::WinEntryArgs args = ApplicationController::GetWinEntryArgs();
-		coreFrame = new CoreWindowFrame(args, *var, this, windowName);
-		ApplicationController::SubscribeToMessageLoop(coreFrame);
-		SetPosition(x, y);
-		SetSize(width, height);
+		coreFrame = new CoreWindowFrame(args , *this, windowName);
+		CoreWindowFrame::ConsoleWrite("Construction complete");
+		initNotified = true;
+		initWait.notify_all();
+		ApplicationController::SubscribeToMessageLoop(*coreFrame);
 		coreFrame->MessageLoop();
 	}); 
 	windowThread.detach();
 	unique_lock<mutex>lock(windowInit);
-	var->wait(lock);
+	initWait.wait(lock, [=] {return initNotified; });
+	coreFrame->ComponentAdded(*this);
+	SetPosition(x, y);
+	SetSize(width, height);
 	CoreWindowFrame::ConsoleWrite("Init done");
 }
 
@@ -53,7 +58,7 @@ void WindowFrame::SetPosition(Point point)
 }
 
 void WindowFrame::UpdateWindow()
-{
+{	
 	coreFrame->RedrawWindow();
 }
 
@@ -67,9 +72,6 @@ WindowFrame::WindowFrame(string windowName) : Component()
 {
 	CreateCoreWindow(0, 0, 800, 600, windowName);
 	componentName = "Window";
-
-	AddOnAddListener(this);
-	OnAdd(*this);
 	coreFrame->RedrawWindow();
 
 }
@@ -81,13 +83,13 @@ WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName)
 	coreFrame->RedrawWindow();
 }
 
-WindowFrame::~WindowFrame()
+void WindowFrame::Add(Component & component)
 {
+	Component::Add(component);
+	coreFrame->ComponentAdded(component);
 }
 
-void WindowFrame::OnAdd(Component & component)
+WindowFrame::~WindowFrame()
 {
-	CoreWindowFrame::ConsoleWrite("Component added: " + component.GetComponentType());
-	coreFrame->ComponentAdded(component);
-	UpdateWindow();
+	delete coreFrame;
 }

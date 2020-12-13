@@ -41,9 +41,8 @@ void CoreWindowFrame::AssignGraphicsToComponents()
 {
 	for (Component& i : components)
 	{
-		Graphics* graphics = new Graphics(secondaryBuffer);
-		i.Paint(*graphics);
-		delete graphics;
+		Graphics graphics(secondaryBuffer);
+		i.Paint(graphics);
 	}
 }
 
@@ -60,6 +59,8 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		ConsoleWrite("WM_SIZE RECIEVED");
 		width = *((unsigned short*)&lParam);
 		height = ((unsigned short*)&lParam)[1];
+		ConsoleWrite("ProcessMessage This: " + to_string(((long long)this)));
+
 		ConsoleWrite(to_string(width) + " " + to_string(height));
 
 		break;
@@ -82,7 +83,7 @@ void CoreWindowFrame::RedrawWindow()
 
 WindowFrame& CoreWindowFrame::GetWrapperFrame()
 {
-	return *wrapperFrame;
+	return wrapperFrame;
 }
 
 HDC * CoreWindowFrame::GetHdc()
@@ -102,9 +103,9 @@ void CoreWindowFrame::ConsoleWrite(string output)
 	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
-CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, condition_variable& var, WindowFrame* wrapperFrame, string windowName)
+CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame)
 {
-	this->wrapperFrame = wrapperFrame;
+	//this->wrapperFrame = wrapperFrame;
 	//Arguments
 	HINSTANCE hInstance = args.hInstance;
 	HINSTANCE hPrevInstance = args.hPrevInstance;
@@ -146,14 +147,14 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, cond
 	}
 	ShowWindow(windowHandle, SW_SHOW);
 	UpdateWindow(windowHandle);
+	//components = new vector<reference_wrapper<Component>>();
 	//Critical Section
-	ConsoleWrite("Notified Mutex");
-	var.notify_all();
 }
 
 void CoreWindowFrame::ComponentAdded(Component & component)
 {
 	components.push_back(component);
+	RedrawWindow();
 }
 
 void CoreWindowFrame::SetPosition(int x, int y)

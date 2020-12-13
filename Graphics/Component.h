@@ -1,27 +1,51 @@
+/**
+* Class responsibility is to generate resize events, position change events, onHover events and onAction evenets.
+  The class acts as an observer and is a composite for the class Shape and class Vgraphics
+*/
 #pragma once
-#include "IDrawable.h"
+#include <Windows.h>
+#include <gdiplus.h>
 #include <vector>
-#include "OnAddListener.h"
 #include <string>
+class ComponentListener;
+class OnAddListener;
+
+class EventInfo;
+class AddEventInfo;
+class EventMoveInfo;
+class EventResizeInfo;
+class EventHoverInfo;
+
 using namespace std;
-class Component : IDrawable
+using namespace Gdiplus;
+class Component
 {
 protected:
-	void NotifyOnAddListeners(Component& component);
-	void UpdateComponent();
-	vector<Component*>*components;
-	vector<OnAddListener*>*OnAddListeners;
+	vector<reference_wrapper<Component>>components;
 	Component* parent;
 	Component* root;
 	Graphics* graphics;
 	Point pos;
 	Size size;
 	string componentName;
-	Color backgroundcolor;
+	Color backgroundColor;
+
+	//Listeners
+	vector<reference_wrapper<ComponentListener>>ComponentListeners;
+	vector<reference_wrapper<OnAddListener>>onAddListeners; //Will be changed later to delegate to VectorContainer.Add event. Used for testing.
+
+	void NotifyOnAddListeners(AddEventInfo& eventInfo);
+	void NotifyOnMoveListeners(EventMoveInfo& eventInfo);
+	void NotifyOnResizeListeners(EventResizeInfo& eventInfo);
+	void NotifyOnHoveListeners(EventResizeInfo& eventInfo);
+
+
+	void UpdateComponent();
 
 public:
 	void SetParent(Component * parent);
-	Component* GetRoot();
+	bool IsRoot();
+	Component& GetRoot();
 	Size GetSize();
 	Point GetPosition();
 	int GetWidth();
@@ -31,7 +55,8 @@ public:
 	Component * GetParent();
 	virtual void SetSize(int width, int height);
 	virtual void SetSize(Size size);
-	void AddOnAddListener(OnAddListener* listener); 
+	void AddOnAddListener(OnAddListener & listener); 
+	void AddOnResizeListener(ComponentListener& listener);
 	virtual void Paint(Graphics& graphics);
 	Graphics* GetGraphics();
 	string GetComponentType();
@@ -42,7 +67,7 @@ public:
 	void SetBackgroundColor(Color color);
 	void GetBackgroundColor();
 
-	virtual void Add(Component* component);
+	virtual void Add(Component& component);
 	Component();
 	virtual ~Component(){};
 };

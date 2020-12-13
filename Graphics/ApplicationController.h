@@ -17,10 +17,10 @@ public:
 		int nCmdShow;
 	};
 	ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
-	static vector<CoreWindowFrame*>* windows;
+	static vector<reference_wrapper<CoreWindowFrame>> windows;
 	static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static WinEntryArgs GetWinEntryArgs();
-	static void SubscribeToMessageLoop(CoreWindowFrame* frame);
+	static void SubscribeToMessageLoop(CoreWindowFrame& frame);
 	static GdiplusStartupOutput getGdiOutput();
 	~ApplicationController();
 private:

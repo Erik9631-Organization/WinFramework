@@ -1,7 +1,7 @@
 #include "ApplicationController.h"
 #include "CoreWindowFrame.h"
 ApplicationController::WinEntryArgs ApplicationController::args;
-vector<CoreWindowFrame*>* ApplicationController::windows = new vector<CoreWindowFrame*>();
+vector<reference_wrapper<CoreWindowFrame>> ApplicationController::windows = vector<reference_wrapper<CoreWindowFrame>>();
 ULONG ApplicationController::token = 0;
 GdiplusStartupOutput ApplicationController::output;
 
@@ -25,9 +25,9 @@ ApplicationController::WinEntryArgs ApplicationController::GetWinEntryArgs()
 	return args;
 }
 
-void ApplicationController::SubscribeToMessageLoop(CoreWindowFrame* frame)
+void ApplicationController::SubscribeToMessageLoop(CoreWindowFrame& frame)
 {
-	windows->push_back(frame);
+	windows.push_back(frame);
 }
 
 GdiplusStartupOutput ApplicationController::getGdiOutput()
@@ -37,10 +37,10 @@ GdiplusStartupOutput ApplicationController::getGdiOutput()
 
 LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	for (CoreWindowFrame* i : *windows)
+	for (CoreWindowFrame& i : windows)
 	{
-		if (i->GetWindowHandle() == hwnd)
-			i->ProcessMessage(uMsg, wParam, lParam);
+		if (i.GetWindowHandle() == hwnd)
+			i.ProcessMessage(uMsg, wParam, lParam);
 	}
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }

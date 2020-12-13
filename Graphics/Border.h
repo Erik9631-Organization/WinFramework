@@ -1,6 +1,8 @@
 #pragma once
-#include "IDrawable.h"
-class Border : IDrawable
+#include <Windows.h>
+#include <gdiplus.h>
+using namespace Gdiplus;
+class Border
 {
 protected:
 	Pen* pen;

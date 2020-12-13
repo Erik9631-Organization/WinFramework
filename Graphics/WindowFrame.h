@@ -1,15 +1,17 @@
 #pragma once
 #include <Windows.h>
+#include <condition_variable>
 #include <string>
 #include "Component.h"
 #include <vector>
 using namespace std;
-
-class CoreWindowFrame; 
-class WindowFrame : public Component, public OnAddListener
+class CoreWindowFrame;
+class WindowFrame : public Component
 {
 private:
 	CoreWindowFrame* coreFrame;
+	static condition_variable initWait;
+	static bool initNotified;
 	void CreateCoreWindow(int x, int y, int width, int height, string windowName);
 public:
 	void SetSize(int width, int height) override;
@@ -23,9 +25,7 @@ public:
 	void Paint(Graphics& g) override;
 	WindowFrame(std::string windowName);
 	WindowFrame(int x, int y, int width, int height, std::string windowName);
+	virtual void Add(Component& component) override;
 	~WindowFrame();
-
-	// Inherited via OnAddListener
-	virtual void OnAdd(Component & component) override;
 };
 

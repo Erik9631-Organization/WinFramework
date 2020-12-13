@@ -1,32 +1,48 @@
 #include "Component.h"
 #include "WindowFrame.h"
 #include "CoreWindowFrame.h"
+#include "OnAddListener.h"
+#include "AddEventInfo.h"
+#include "EventMoveInfo.h"
+#include "ComponentListener.h"
+#include "EventResizeInfo.h"
 
-void Component::Add(Component* component)
+void Component::Add(Component& component)
 {
-	components->push_back(component);
-	component->SetParent(this);
-	component->UpdateComponent();
-	dynamic_cast<WindowFrame*>(GetRoot())->UpdateWindow();
-	OnAddListener* root = dynamic_cast<OnAddListener*>(component->GetRoot());
-	if (root)
-		component->AddOnAddListener(root);
-	NotifyOnAddListeners(*component);
+	components.push_back(component);
+	component.SetParent(this);
+	component.UpdateComponent();
+	if (!IsRoot())
+	{
+		Component& rootComponent = this->GetRoot();
+		rootComponent.Add(component);
+	}
+	NotifyOnAddListeners(AddEventInfo(component));
 }
 
 Component::Component()
 {
-	components = new vector<Component*>();
-	OnAddListeners = new vector<OnAddListener*>();
 	parent = NULL;
 	root = NULL;
-	backgroundcolor = Color(255, 255, 255);
+	backgroundColor = Color(255, 255, 255);
 }
 
-void Component::NotifyOnAddListeners(Component& component)
+void Component::NotifyOnAddListeners(AddEventInfo& eventInfo)
 {
-	for (OnAddListener* i : *OnAddListeners)
-		i->OnAdd(component);
+	for (OnAddListener& i : onAddListeners)
+		i.OnAdd(eventInfo);
+}
+
+void Component::NotifyOnMoveListeners(EventMoveInfo & eventInfo)
+{
+	for (ComponentListener& i : ComponentListeners)
+		i.OnMove(eventInfo);
+}
+
+void Component::NotifyOnResizeListeners(EventResizeInfo & eventInfo)
+{
+	for (ComponentListener& i : ComponentListeners)
+		i.OnResize(eventInfo);
 }
 
 void Component::SetParent(Component * parent)
@@ -34,11 +50,20 @@ void Component::SetParent(Component * parent)
 	this->parent = parent;
 }
 
-Component* Component::GetRoot()
+bool Component::IsRoot()
+{
+	if (this->GetParent() == nullptr)
+		return true;
+	else
+		return false;
+
+}
+
+Component& Component::GetRoot()
 {
 	Component* root = GetParent();
 	if (root == NULL)
-		return this;
+		return *this;
 	else
 		return root->GetRoot();
 }
@@ -104,10 +129,11 @@ void Component::SetSize(Size size)
 	this->size = size;
 }
 
-void Component::AddOnAddListener(OnAddListener* listener)
+void Component::AddOnAddListener(OnAddListener& listener)
 {
-	OnAddListeners->push_back(listener);
+	onAddListeners.push_back(listener);
 }
+
 
 void Component::UpdateComponent()
 {
@@ -116,7 +142,8 @@ void Component::UpdateComponent()
 
 void Component::SetPosition(int x, int y)
 {
-	if (parent == NULL)
+	Component& root = this->GetRoot();
+	if (this->IsRoot() || this->GetParent() == &root)
 	{
 		pos.X = x;
 		pos.Y = y;
@@ -134,5 +161,5 @@ void Component::SetPosition(Point pos)
 
 void Component::SetBackgroundColor(Color color)
 {
-	this->backgroundcolor = color;
+	this->backgroundColor = color;
 }
