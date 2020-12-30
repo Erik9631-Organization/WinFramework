@@ -1,5 +1,10 @@
 #pragma once
 #include "Component.h"
+/**
+* Pane is a basic form of grouping. The purpose of Pane is having its own
+* viewport and group multiple components together.
+*/
+
 class Pane : public Component
 {
 private:

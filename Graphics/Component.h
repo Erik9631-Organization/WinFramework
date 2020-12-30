@@ -37,7 +37,7 @@ protected:
 	void NotifyOnAddListeners(AddEventInfo& eventInfo);
 	void NotifyOnMoveListeners(EventMoveInfo& eventInfo);
 	void NotifyOnResizeListeners(EventResizeInfo& eventInfo);
-	void NotifyOnHoveListeners(EventResizeInfo& eventInfo);
+	void NotifyOnHoverListeners(EventResizeInfo& eventInfo);
 
 
 	void UpdateComponent();

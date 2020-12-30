@@ -11,8 +11,14 @@
 
 //Testing
 #include "AddEventInfo.h"
-
 using namespace std;
+
+/**
+* TODO
+* Create WindowManager
+* Window manager is responsible for processing messages, fetching windows and its positions, finding window by ID and so on.
+* ApplicationController should only take care of the entry point and the GDI startup. It should also recieve all the events in the framework and dispatch them to the appropriate event handler
+*/
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -22,14 +28,16 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 int WinEntry()
 {
-	WindowFrame* frame = new WindowFrame("Window 1");
-	frame->SetPosition(100, 100);
-	Button button = Button(0, 0, 100, 100);
-	frame->Add(button);
-	Button button2 = Button(10, 10, 50, 50);
-	button.Add(button2);
+	WindowFrame frame = WindowFrame("Window 1");
+	frame.SetPosition(100, 100);
+	Pane pane = Pane();
+	pane.SetPosition(50, 50);
+	pane.SetColor(0, 0, 0);
+	frame.Add(pane);
+	Button button2 = Button(10, 10, 20, 20);
+	pane.Add(button2);
 
 
-	system("PAUSE");
+	system("PAUSE"); // Replace with Join
 	return 0;
 }

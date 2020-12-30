@@ -20,7 +20,7 @@ void WindowFrame::CreateCoreWindow(int x, int y, int width, int height, string w
 		CoreWindowFrame::ConsoleWrite("Construction complete");
 		initNotified = true;
 		initWait.notify_all();
-		ApplicationController::SubscribeToMessageLoop(*coreFrame);
+		ApplicationController::SubscribeToMessageLoop(*coreFrame); //Not subscription. This is only the callback where all the messages from the windows are processed.
 		coreFrame->MessageLoop();
 	}); 
 	windowThread.detach();

@@ -32,17 +32,20 @@ void CoreWindowFrame::CleanGraphicsBuffer()
 	DeleteDC(windowHdc);
 }
 
-void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer)
+void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
 {
 	BitBlt(windowHdc, 0, 0, width, height, secondaryBuffer, 0, 0, MERGECOPY);
 }
-
+/**
+* Components should be gettable from the WindowFrame
+* Should iterate through components as a tree. First you set the clipping region with the parents graphics and his graphics, then you pass render event and let it draw
+*/
 void CoreWindowFrame::AssignGraphicsToComponents()
 {
-	for (Component& i : components)
+	for (Component& i : components) //Each graphics component should have its own bitmap. The bitmap should have the size of the component. The bitmaps should be merged. 
 	{
-		Graphics graphics(secondaryBuffer);
-		i.Paint(graphics);
+		Graphics graphics(secondaryBuffer); //Rendering is basically a tree
+		i.Paint(graphics); //Handle clipping via graphics.setClip and use AND (Intersect)
 	}
 }
 
@@ -60,7 +63,6 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		width = *((unsigned short*)&lParam);
 		height = ((unsigned short*)&lParam)[1];
 		ConsoleWrite("ProcessMessage This: " + to_string(((long long)this)));
-
 		ConsoleWrite(to_string(width) + " " + to_string(height));
 
 		break;
@@ -68,7 +70,7 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		ConsoleWrite("WM_PAINT RECIEVED");
 		HDC graphicsBuffer = CreateGraphicsBuffer();
 		AssignGraphicsToComponents();
-		RenderGraphics(graphicsBuffer);
+		RenderGraphics(graphicsBuffer); //Performs block transfer of the secondary buffer to the primary buffer
 		CleanGraphicsBuffer();
 		ValidateRgn(GetWindowHandle(), NULL);
 		break;
@@ -105,7 +107,6 @@ void CoreWindowFrame::ConsoleWrite(string output)
 
 CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame)
 {
-	//this->wrapperFrame = wrapperFrame;
 	//Arguments
 	HINSTANCE hInstance = args.hInstance;
 	HINSTANCE hPrevInstance = args.hPrevInstance;
