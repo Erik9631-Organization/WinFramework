@@ -16,21 +16,30 @@
     <Filter Include="Enums">
       <UniqueIdentifier>{ed661e06-c21b-4cf2-bc2b-959c73c98a09}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{824ebf94-b27c-4a7d-94d9-5d21efbd1b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{2d4f2e98-77e9-4f2c-b397-76496cc272f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{6d2cec7e-c833-41bf-8556-94665b076abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{43c386d8-7a2e-410c-a497-bdd14aa6ba93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Events\EventTypes">
+      <UniqueIdentifier>{7df7713d-d11d-4423-a153-3bf86643c907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\EventTypes">
+      <UniqueIdentifier>{10fe9e9a-0c61-4ae5-b12c-9caf6d41a5db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CoreWindowFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowFrame.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ApplicationController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
@@ -54,17 +63,59 @@
     <ClCompile Include="AddEventInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventMoveInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EventResizeInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EventInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="EventHoverInfo.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResizeSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyStateSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseStateSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="MovableSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ResizeSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyStateSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventResizeInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseStateSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMouseStateInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="EventMoveInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="EventInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowFrame.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CoreWindowFrame.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Resizable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Movable.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,19 +125,10 @@
     <ClInclude Include="CoreWindowFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="WindowFrame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="WinWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ApplicationController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Border.h">
@@ -107,17 +149,59 @@
     <ClInclude Include="AddEventInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventMoveInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EventResizeInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EventInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EventHoverInfo.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResizeSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseStateSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyStateSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MovableSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ResizeSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyStateSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventResizeInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseStateSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMouseStateInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="EventMoveInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="EventInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowFrame.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Resizable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

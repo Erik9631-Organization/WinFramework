@@ -2,14 +2,13 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include "EventInfo.h"
-class Component;
-class EventResizeInfo : EventInfo
+class EventResizeInfo
 {
+private:
+	Gdiplus::Size size;
 public:
-	Gdiplus::Size oldSize;
 	Gdiplus::Size GetSize();
-	Gdiplus::Size GetRelativeSize();
-	EventResizeInfo(Component & component);
+	EventResizeInfo(Gdiplus::Size size);
 	~EventResizeInfo();
 };
 

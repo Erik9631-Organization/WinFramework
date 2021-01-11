@@ -4,17 +4,13 @@
 
 Gdiplus::Size EventResizeInfo::GetSize()
 {
-	return component.GetSize();
+	return this->size;
 }
 
-Gdiplus::Size EventResizeInfo::GetRelativeSize()
-{
-	return component.GetSize() - oldSize;
-}
 
-EventResizeInfo::EventResizeInfo(Component & component) : EventInfo(component)
+EventResizeInfo::EventResizeInfo(Gdiplus::Size size)
 {
-
+	this->size = size;
 }
 
 

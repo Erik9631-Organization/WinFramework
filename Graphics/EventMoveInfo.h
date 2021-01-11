@@ -4,15 +4,13 @@
 #include "EventInfo.h"
 class Component;
 
-using namespace Gdiplus;
-class EventMoveInfo : EventInfo
+class EventMoveInfo
 {
 private:
-	Point oldPosition;
+	Gdiplus::Point position;
 public:
-	Point GetRelativeOffset();
-	Point GetPosition();
-	EventMoveInfo(Point oldPosition, Component & component);
+	Gdiplus::Point GetPosition();
+	EventMoveInfo(Gdiplus::Point position);
 	~EventMoveInfo();
 };
 
