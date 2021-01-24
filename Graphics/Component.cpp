@@ -9,18 +9,12 @@
 
 void Component::Add(Component& component)
 {
-	components.push_back(component);
-	component.SetParent(this);
 	component.UpdateComponent();
-	if (!IsRoot())
-	{
-		Component& rootComponent = this->GetRoot();
-		rootComponent.Add(component);
-	}
+	componentNode.Add(component.GetComponentNode());
 	NotifyOnAddListeners(AddEventInfo(component));
 }
 
-Component::Component()
+Component::Component() : componentNode(*this)
 {
 	parent = NULL;
 	root = NULL;
@@ -45,32 +39,19 @@ void Component::NotifyOnResizeListeners(EventResizeInfo & eventInfo)
 		i.OnResize(eventInfo);
 }
 
-void Component::SetParent(Component * parent)
-{
-	this->parent = parent;
-}
-
 bool Component::IsRoot()
 {
-	if (this->GetParent() == nullptr)
-		return true;
-	else
-		return false;
-
+	return componentNode.IsRoot();
 }
 
 Component& Component::GetRoot()
 {
-	Component* root = GetParent();
-	if (root == NULL)
-		return *this;
-	else
-		return root->GetRoot();
+	return componentNode.GetRoot().GetValue();
 }
 
 void Component::Paint(Graphics& graphics)
 {
-	CoreWindowFrame::ConsoleWrite("Painting: " + componentName);
+	CoreWindowFrame::ConsoleWrite("Painting: " + componentType);
 }
 
 Graphics * Component::GetGraphics()
@@ -80,7 +61,17 @@ Graphics * Component::GetGraphics()
 
 string Component::GetComponentType()
 {
-	return componentName;
+	return componentType;
+}
+
+string Component::GetComponentName()
+{
+	return name;
+}
+
+void Component::SetComponentName(string name)
+{
+	this->name = name;
 }
 
 Size Component::GetSize()
@@ -108,6 +99,11 @@ int Component::GetX()
 	return pos.X;
 }
 
+DefaultMultiTree<Component&>& Component::GetComponentNode()
+{
+	return componentNode;
+}
+
 int Component::GetY()
 {
 	return pos.Y;
@@ -115,7 +111,9 @@ int Component::GetY()
 
 Component * Component::GetParent()
 {
-	return parent;
+	if (componentNode.GetParent() == nullptr)
+		return nullptr;
+	return (Component*)&componentNode.GetParent()->GetValue();
 }
 
 void Component::SetSize(int width, int height)

@@ -4,6 +4,9 @@
 #include <string>
 #include "Component.h"
 #include <vector>
+#include "MoveSubscriber.h"
+#include "ResizeSubscriber.h"
+
 using namespace std;
 class CoreWindowFrame;
 class WindowFrame : public Component

@@ -2,6 +2,9 @@
 #include <Windows.h>
 #include <iostream>
 #include <functional>
+#include "Resizable.h"
+#include "EventResizeInfo.h"
+
 HDC windowHdc;
 using namespace std;
 
@@ -19,7 +22,7 @@ HDC CoreWindowFrame::CreateGraphicsBuffer()
 {
 	windowHdc = GetDC(windowHandle);
 	secondaryBuffer = CreateCompatibleDC(windowHdc);
-	HBITMAP map = CreateCompatibleBitmap(windowHdc, width, height);
+	HBITMAP map = CreateCompatibleBitmap(windowHdc, size.Width, size.Height);
 	SelectObject(secondaryBuffer, map);
 	return secondaryBuffer;
 }
@@ -34,7 +37,7 @@ void CoreWindowFrame::CleanGraphicsBuffer()
 
 void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
 {
-	BitBlt(windowHdc, 0, 0, width, height, secondaryBuffer, 0, 0, MERGECOPY);
+	BitBlt(windowHdc, 0, 0, size.Width, size.Height, secondaryBuffer, 0, 0, MERGECOPY);
 }
 /**
 * Components should be gettable from the WindowFrame
@@ -58,16 +61,17 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		delete this;
 		break;
+	case WM_MOVE:
+		position.X = *((unsigned short*)&lParam);
+		position.Y = ((unsigned short*)&lParam)[1];
+		NotifyOnMoveSubscribers(EventMoveInfo(position));
+		break;
 	case WM_SIZE:
-		ConsoleWrite("WM_SIZE RECIEVED");
-		width = *((unsigned short*)&lParam);
-		height = ((unsigned short*)&lParam)[1];
-		ConsoleWrite("ProcessMessage This: " + to_string(((long long)this)));
-		ConsoleWrite(to_string(width) + " " + to_string(height));
-
+		size.Width = *((unsigned short*)&lParam);
+		size.Height = ((unsigned short*)&lParam)[1];
+		NotifyOnResizeSubscribers(EventResizeInfo(size));
 		break;
 	case WM_PAINT: // Put into function, DrawWindow since it handles WindowDrawing explicitely, from any call not just WM_PAINT
-		ConsoleWrite("WM_PAINT RECIEVED");
 		HDC graphicsBuffer = CreateGraphicsBuffer();
 		AssignGraphicsToComponents();
 		RenderGraphics(graphicsBuffer); //Performs block transfer of the secondary buffer to the primary buffer
@@ -127,10 +131,10 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 	windowInfo->lpszMenuName = NULL;
 	windowInfo->lpszClassName = windowName.c_str();
 
-	width = 800;
-	height = 600;
-	posX = 800;
-	posY = 600;
+	size.Width = 800;
+	size.Height = 600;
+	position.X = 800;
+	position.Y = 600;
 
 	if (!RegisterClass(windowInfo))
 	{
@@ -139,7 +143,7 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 		exit(0);
 	}
 
-	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, width, height, posX, posY, NULL, NULL, hInstance, NULL);
+	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, size.Width, size.Height, position.X, position.Y, NULL, NULL, hInstance, NULL);
 	if (!windowHandle)
 	{
 		ConsoleWrite("Error creating window handle");
@@ -158,28 +162,15 @@ void CoreWindowFrame::ComponentAdded(Component & component)
 	RedrawWindow();
 }
 
-void CoreWindowFrame::SetPosition(int x, int y)
-{
-	posX = x;
-	posY = y;
-	SetWindowPos(windowHandle, NULL, x, y, NULL, NULL, SWP_NOSIZE);
-}
-
-void CoreWindowFrame::SetSize(int width, int height)
-{
-	this->width = width;
-	this->height = height;
-	SetWindowPos(windowHandle, NULL, NULL, NULL, width, height, SWP_NOMOVE);
-}
 
 int CoreWindowFrame::GetX()
 {
-	return posX;
+	return position.X;
 }
 
 int CoreWindowFrame::GetY()
 {
-	return posY;
+	return position.Y;
 }
 
 HWND CoreWindowFrame::GetWindowHandle()
@@ -190,4 +181,108 @@ HWND CoreWindowFrame::GetWindowHandle()
 CoreWindowFrame::~CoreWindowFrame()
 {
 	CleanGraphicsBuffer();
+}
+
+void CoreWindowFrame::NotifyOnResizeSubscribers(EventResizeInfo event)
+{
+	for (ResizeSubscriber& subscriber : resizeSubscribers)
+		subscriber.OnResize(event);
+}
+
+void CoreWindowFrame::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	resizeSubscribers.push_back(subscriber);
+}
+
+void CoreWindowFrame::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	std::vector<reference_wrapper<ResizeSubscriber>>::iterator it = resizeSubscribers.begin();
+	for (int i = 0; i < resizeSubscribers.size(); i++, it++)
+	{
+		if (&resizeSubscribers.at(i).get() == &subscriber)
+			resizeSubscribers.erase(it);
+	}
+}
+
+Gdiplus::Size CoreWindowFrame::GetSize()
+{
+	return size;
+}
+
+int CoreWindowFrame::GetWidth()
+{
+	return size.Width;
+}
+
+int CoreWindowFrame::GetHeight()
+{
+	return size.Height;
+}
+
+void CoreWindowFrame::SetSize(Gdiplus::Size size)
+{
+	this->size = size;
+	SetWindowPos(windowHandle, NULL, NULL, NULL, size.Width, size.Height, SWP_NOMOVE);
+}
+
+void CoreWindowFrame::SetWidth(int width)
+{
+	SetSize(Size(width, size.Height));
+}
+
+void CoreWindowFrame::SetHeight(int height)
+{
+	SetSize(Size(height, size.Width));
+}
+
+Gdiplus::Point CoreWindowFrame::GetPosition()
+{
+	return Point(this->GetX(), this->GetY());
+}
+
+void CoreWindowFrame::SetPosition(Gdiplus::Point position)
+{
+	this->position = position;
+	SetWindowPos(windowHandle, NULL, position.X, position.Y, NULL, NULL, SWP_NOSIZE);
+}
+
+void CoreWindowFrame::SetX(int x)
+{
+	SetPosition(Point(x, position.Y));
+}
+
+void CoreWindowFrame::SetY(int y)
+{
+	SetPosition(Point(position.X, y));
+}
+
+void CoreWindowFrame::AddOnMoveSubscriber(MoveSubscriber& subscriber)
+{
+	moveSubscribers.push_back(subscriber);
+}
+
+void CoreWindowFrame::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
+{
+	std::vector<reference_wrapper<MoveSubscriber>>::iterator it = moveSubscribers.begin();
+	for (int i = 0; i < moveSubscribers.size(); i++, it++)
+	{
+		if (&moveSubscribers.at(i).get() == &subscriber)
+			moveSubscribers.erase(it);
+	}
+}
+
+void CoreWindowFrame::NotifyOnMoveSubscribers(EventMoveInfo event)
+{
+	for (MoveSubscriber& subscriber : moveSubscribers)
+		subscriber.OnMove(event);
+}
+
+void CoreWindowFrame::SetPosition(int x, int y)
+{
+	SetPosition(Point(x, y));
+}
+
+void CoreWindowFrame::SetSize(int width, int height)
+{
+	SetSize(Size(width, height));
 }

@@ -24,7 +24,9 @@
     <ClInclude Include="Border.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DefaultMultiTree.h" />
     <ClInclude Include="ComponentListener.h" />
+    <ClInclude Include="MultiTree.h" />
     <ClInclude Include="CoreWindowFrame.h" />
     <ClInclude Include="EventHoverInfo.h" />
     <ClInclude Include="EventInfo.h" />
@@ -36,7 +38,7 @@
     <ClInclude Include="MouseStateSubject.h" />
     <ClInclude Include="MouseStateSubscriber.h" />
     <ClInclude Include="Movable.h" />
-    <ClInclude Include="MovableSubscriber.h" />
+    <ClInclude Include="MoveSubscriber.h" />
     <ClInclude Include="MoveSubject.h" />
     <ClInclude Include="OnAddListener.h" />
     <ClInclude Include="Pane.h" />
@@ -54,7 +56,9 @@
     <ClCompile Include="Border.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DefaultMultiTree.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
+    <ClCompile Include="MultiTree.cpp" />
     <ClCompile Include="EventHoverInfo.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="EventMouseStateInfo.cpp" />
@@ -67,7 +71,7 @@
     <ClCompile Include="MouseStateSubject.cpp" />
     <ClCompile Include="MouseStateSubscriber.cpp" />
     <ClCompile Include="Movable.cpp" />
-    <ClCompile Include="MovableSubscriber.cpp" />
+    <ClCompile Include="MoveSubscriber.cpp" />
     <ClCompile Include="MoveSubject.cpp" />
     <ClCompile Include="OnAddListener.cpp" />
     <ClCompile Include="Pane.cpp" />

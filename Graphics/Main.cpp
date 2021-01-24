@@ -8,6 +8,7 @@
 #include <string>
 #include "CoreWindowFrame.h"
 #include <gdiplus.h>
+#include "DefaultMultiTree.h"
 
 //Testing
 #include "AddEventInfo.h"
@@ -28,16 +29,26 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 int WinEntry()
 {
-	WindowFrame frame = WindowFrame("Window 1");
-	frame.SetPosition(100, 100);
-	Pane pane = Pane();
-	pane.SetPosition(50, 50);
-	pane.SetColor(0, 0, 0);
-	frame.Add(pane);
-	Button button2 = Button(10, 10, 20, 20);
-	pane.Add(button2);
+	WindowFrame frame = WindowFrame("testFrame");
+	Button button1 = Button(0, 0, 10, 10);
+	button1.SetComponentName("button1");
 
+	Button button2 = Button(0, 0, 10, 10);
+	button2.SetComponentName("button2");
+
+	Button button3 = Button(0, 0, 10, 10);
+	button3.SetComponentName("button3");
+
+	Button button4 = Button(0, 0, 10, 10);
+	button4.SetComponentName("button4");
+
+	//frame.Add(button1);
+	button1.Add(button2);
+	button1.Add(button3);
+	button3.Add(button4);
+
+	CoreWindowFrame::ConsoleWrite(button4.GetParent()->GetParent()->GetComponentNode().Get(0).GetValue().GetComponentName());
 
 	system("PAUSE"); // Replace with Join
 	return 0;
-}
+} 

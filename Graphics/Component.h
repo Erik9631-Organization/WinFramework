@@ -7,6 +7,7 @@
 #include <gdiplus.h>
 #include <vector>
 #include <string>
+#include "DefaultMultiTree.h"
 class ComponentListener;
 class OnAddListener;
 
@@ -27,8 +28,11 @@ protected:
 	Graphics* graphics;
 	Point pos;
 	Size size;
-	string componentName;
+	string componentType;
+	string name;
 	Color backgroundColor;
+	DefaultMultiTree<Component&> componentNode;
+
 
 	//Listeners
 	vector<reference_wrapper<ComponentListener>>ComponentListeners;
@@ -51,6 +55,7 @@ public:
 	int GetWidth();
 	int GetHeight();
 	int GetX();
+	DefaultMultiTree<Component&>& GetComponentNode();
 	int GetY();
 	Component * GetParent();
 	virtual void SetSize(int width, int height);
@@ -60,6 +65,8 @@ public:
 	virtual void Paint(Graphics& graphics);
 	Graphics* GetGraphics();
 	string GetComponentType();
+	string GetComponentName();
+	void SetComponentName(string name);
 
 
 	virtual void SetPosition(int x, int y);

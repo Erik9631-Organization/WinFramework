@@ -34,6 +34,12 @@
     <Filter Include="Source Files\Events\EventTypes">
       <UniqueIdentifier>{10fe9e9a-0c61-4ae5-b12c-9caf6d41a5db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DataTypes">
+      <UniqueIdentifier>{45847060-6343-4c6e-b873-27575a8543a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataTypes">
+      <UniqueIdentifier>{69accaa5-55c3-410e-a008-e984732cab49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationController.cpp">
@@ -78,9 +84,6 @@
     <ClCompile Include="MouseStateSubject.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
-    <ClCompile Include="MovableSubscriber.cpp">
-      <Filter>Source Files\Events</Filter>
-    </ClCompile>
     <ClCompile Include="ResizeSubscriber.cpp">
       <Filter>Source Files\Events</Filter>
     </ClCompile>
@@ -116,6 +119,15 @@
     </ClCompile>
     <ClCompile Include="Movable.cpp">
       <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTree.cpp">
+      <Filter>Source Files\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMultiTree.cpp">
+      <Filter>Source Files\DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +176,6 @@
     <ClInclude Include="KeyStateSubject.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="MovableSubscriber.h">
-      <Filter>Header Files\Events</Filter>
-    </ClInclude>
     <ClInclude Include="ResizeSubscriber.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -202,6 +211,15 @@
     </ClInclude>
     <ClInclude Include="Movable.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTree.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMultiTree.h">
+      <Filter>Header Files\DataTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

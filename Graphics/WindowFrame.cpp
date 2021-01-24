@@ -5,6 +5,7 @@
 #include <condition_variable>
 #include "ApplicationController.h"
 #include <string>
+#include "EventResizeInfo.h"
 using namespace std;
 condition_variable WindowFrame::initWait;
 bool WindowFrame::initNotified = false;
@@ -71,7 +72,7 @@ void WindowFrame::Paint(Graphics& graphics)
 WindowFrame::WindowFrame(string windowName) : Component()
 {
 	CreateCoreWindow(0, 0, 800, 600, windowName);
-	componentName = "Window";
+	componentType = "Window";
 	coreFrame->RedrawWindow();
 
 }
@@ -79,7 +80,7 @@ WindowFrame::WindowFrame(string windowName) : Component()
 WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName)
 {
 	CreateCoreWindow(x, y, width, height, windowName);
-	componentName = "WindowFrame";
+	componentType = "WindowFrame";
 	coreFrame->RedrawWindow();
 }
 

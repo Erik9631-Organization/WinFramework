@@ -26,7 +26,7 @@ Button::Button(int x, int y, int width, int height)
 	SetSize(width, height);
 	SetPosition(x, y);
 	SetBorderStyle(new Border(size, pos));
-	componentName = "Button";
+	componentType = "Button";
 }
 
 

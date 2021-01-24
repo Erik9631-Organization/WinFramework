@@ -1,8 +1,9 @@
 #pragma once
 class EventMoveInfo;
 
-class MovableSubscriber
+class MoveSubscriber
 {
+public:
 	virtual void OnMove(EventMoveInfo e) = 0;
 };
 

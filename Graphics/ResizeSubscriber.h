@@ -2,6 +2,7 @@
 class EventResizeInfo;
 class ResizeSubscriber
 {
-	virtual void OnResize(EventResizeInfo event) = 0;
+public:
+	virtual void OnResize(EventResizeInfo e) = 0;
 };
 
