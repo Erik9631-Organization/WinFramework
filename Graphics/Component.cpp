@@ -1,42 +1,323 @@
 #include "Component.h"
 #include "WindowFrame.h"
 #include "CoreWindowFrame.h"
-#include "OnAddListener.h"
-#include "AddEventInfo.h"
 #include "EventMoveInfo.h"
 #include "ComponentListener.h"
 #include "EventResizeInfo.h"
+#include "RenderEventInfo.h"
+#include "EventUpdateInfo.h"
 
 void Component::Add(Component& component)
 {
-	component.UpdateComponent();
 	componentNode.Add(component.GetComponentNode());
-	NotifyOnAddListeners(AddEventInfo(component));
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
 }
 
-Component::Component() : componentNode(*this)
+
+
+Component::Component() : Component(0, 0, 0, 0, "")
 {
-	parent = NULL;
-	root = NULL;
-	backgroundColor = Color(255, 255, 255);
+
 }
 
-void Component::NotifyOnAddListeners(AddEventInfo& eventInfo)
+Component::Component(string name) : Component(0, 0, 0, 0, name)
 {
-	for (OnAddListener& i : onAddListeners)
-		i.OnAdd(eventInfo);
 }
 
-void Component::NotifyOnMoveListeners(EventMoveInfo & eventInfo)
+Component::Component(int x, int y, int width, int height, string name) : componentNode(*this), moveBehavior((MultiTree<Adjustable&>&)componentNode), renderBehavior(*this), viewport(*this)
 {
-	for (ComponentListener& i : ComponentListeners)
-		i.OnMove(eventInfo);
+	moveBehavior.SetPosition(x, y);
+	resizeBehavior.SetSize(width, height);
+	this->name = name;
 }
 
-void Component::NotifyOnResizeListeners(EventResizeInfo & eventInfo)
+void Component::AddOnMoveSubscriber(MoveSubscriber& subscriber)
 {
-	for (ComponentListener& i : ComponentListeners)
-		i.OnResize(eventInfo);
+	moveBehavior.AddOnMoveSubscriber(subscriber);
+}
+
+void Component::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
+{
+	moveBehavior.RemoveOnMoveSubscriber(subscriber);
+}
+
+void Component::NotifyOnMoveSubscribers(EventMoveInfo event)
+{
+	moveBehavior.NotifyOnMoveSubscribers(event);
+}
+
+void Component::SetX(int x)
+{
+	moveBehavior.SetX(x);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+}
+
+void Component::SetY(int y)
+{
+	moveBehavior.SetY(y);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+}
+
+void Component::OnRender(RenderEventInfo e)
+{
+	Gdiplus::Matrix* matrix = new Gdiplus::Matrix();
+	if( !IsRoot() ) //Root should always translate from 0, 0
+		matrix->Translate(GetAbsoluteX(), GetAbsoluteY());
+	matrix->Scale(GetWidth(), GetHeight());
+
+	e.GetGraphics()->SetTransform(matrix);
+	renderBehavior.OnRender(e);
+	delete matrix;
+}
+
+void Component::Repaint()
+{
+	if (IsRoot())
+		return;
+	GetRoot().Repaint();
+}
+
+void Component::AddRenderable(Renderable& renderable)
+{
+	renderBehavior.AddRenderable(renderable);
+}
+
+void Component::RemoveRenderable(Renderable& renderable)
+{
+	renderBehavior.RemoveRenderable(renderable);
+}
+
+void Component::NotifyOnResizeSubscribers(EventResizeInfo event)
+{
+	resizeBehavior.NotifyOnResizeSubscribers(event);
+}
+
+void Component::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	resizeBehavior.AddOnResizeSubscriber(subscriber);
+}
+
+void Component::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
+}
+
+void Component::SetWidth(int width)
+{
+	resizeBehavior.SetWidth(width);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+}
+
+void Component::SetHeight(int height)
+{
+	resizeBehavior.SetHeight(height);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+}
+
+std::vector<std::reference_wrapper<Renderable>> Component::GetRenderables()
+{
+	return renderBehavior.GetRenderables();
+}
+
+void Component::AddOnViewportMoveSubscriber(MoveSubscriber& subscriber)
+{
+	viewport.AddOnMoveSubscriber(subscriber);
+}
+
+void Component::RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber)
+{
+	viewport.RemoveOnMoveSubscriber(subscriber);
+}
+
+void Component::NotifyOnViewportMoveSubscribers(EventMoveInfo event)
+{
+	viewport.NotifyOnMoveSubscribers(event);
+}
+
+void Component::SetViewportXMultiplier(float x)
+{
+	viewport.SetXMultiplier(x);
+}
+
+void Component::SetViewportYMultiplier(float y)
+{
+	viewport.SetYMultiplier(y);
+}
+
+void Component::SetViewportWidthMultiplier(float width)
+{
+	viewport.SetWidthMultiplier(width);
+}
+
+void Component::SetViewportHeightMultiplier(float height)
+{
+	viewport.SetHeightMultiplier(height);
+}
+
+float Component::GetViewportXMultiplier()
+{
+	return viewport.GetViewportXMultiplier();
+}
+
+float Component::GetViewportYMultiplier()
+{
+	return viewport.GetViewportYMultiplier();
+}
+
+float Component::GetViewportWidthMultiplier()
+{
+	return viewport.GetViewportWidthMultiplier();
+}
+
+float Component::GetViewportHeightMultiplier()
+{
+	return viewport.GetViewportHeightMultiplier();
+}
+
+void Component::SetViewportXOffset(int x)
+{
+	viewport.SetX(x);
+}
+
+void Component::SetViewportYOffset(int y)
+{
+	viewport.SetY(y);
+}
+
+void Component::SetViewportOffset(Gdiplus::Point offset)
+{
+	viewport.SetPosition(offset);
+}
+
+int Component::GetViewportAbsoluteX()
+{
+	return viewport.GetAbsoluteX();
+}
+
+int Component::GetViewportAbsoluteY()
+{
+	return viewport.GetAbsoluteY();
+}
+
+Gdiplus::Point Component::GetViewportAbsolutePosition()
+{
+	return viewport.GetAbsolutePosition();
+}
+
+int Component::GetViewportX()
+{
+	return viewport.GetX();
+}
+
+int Component::GetViewportY()
+{
+	return viewport.GetY();
+}
+
+Gdiplus::Point Component::GetViewportPosition()
+{
+	return viewport.GetPosition();
+}
+
+void Component::NotifyOnViewportResizeSubscribers(EventResizeInfo event)
+{
+	viewport.NotifyOnResizeSubscribers(event);
+}
+
+void Component::AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	viewport.AddOnResizeSubscriber(subscriber);
+}
+
+void Component::RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
+{
+	viewport.RemoveOnResizeSubscriber(subscriber);
+}
+
+int Component::GetViewportWidth()
+{
+	return viewport.GetWidth();
+}
+
+int Component::GetViewportHeight()
+{
+	return viewport.GetHeight();
+}
+
+void Component::SetViewportSize(Gdiplus::Size size)
+{
+	viewport.SetSize(size);
+}
+
+void Component::SetViewportSize(int width, int height)
+{
+	viewport.SetSize(width, height);
+}
+
+void Component::SetViewportWidth(int width)
+{
+	viewport.SetWidth(width);
+}
+
+void Component::SetViewportHeight(int height)
+{
+	viewport.SetHeight(height);
+}
+
+Gdiplus::Size Component::GetViewportSize()
+{
+	return viewport.GetSize();
+}
+
+int Component::GetViewportAbsoluteWidth()
+{
+	return viewport.GetViewportAbsoluteWidth();
+}
+
+int Component::GetViewportAbsoluteHeight()
+{
+	return viewport.GetViewportAbsoluteHeight();
+}
+
+Gdiplus::Size Component::GetViewportAbsoluteSize()
+{
+	return viewport.GetViewportAbsoluteSize();
+}
+
+void Component::OnUpdate(EventUpdateInfo e)
+{
+	moveBehavior.CalculateAbsolutePosition(); 
+	viewport.OnUpdate(e);
+	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call update.
+	if (!e.HasFlag(EventUpdateFlags::Redraw))
+		return;
+	CoreWindowFrame::ConsoleWrite(name + " Sending repaint request...");
+	Repaint();
+}
+
+void Component::UpdateSubNodes(EventUpdateInfo e)
+{
+	e.DisableFlag(EventUpdateFlags::Redraw); //Only the top of the subTree should do redraw
+	for (int i = 0; i < componentNode.GetNodeCount(); i++)
+	{
+		MultiTree<Component&>& node = (MultiTree<Component&>&) componentNode.Get(i);
+		node.GetValue().OnUpdate(EventUpdateInfo(e));
+	}
+}
+
+int Component::GetAbsoluteX()
+{
+	return moveBehavior.GetAbsoluteX();
+}
+
+int Component::GetAbsoluteY()
+{
+	return moveBehavior.GetAbsoluteY();
+}
+
+Gdiplus::Point Component::GetAbsolutePosition()
+{
+	return moveBehavior.GetAbsolutePosition();
 }
 
 bool Component::IsRoot()
@@ -47,16 +328,6 @@ bool Component::IsRoot()
 Component& Component::GetRoot()
 {
 	return componentNode.GetRoot().GetValue();
-}
-
-void Component::Paint(Graphics& graphics)
-{
-	CoreWindowFrame::ConsoleWrite("Painting: " + componentType);
-}
-
-Graphics * Component::GetGraphics()
-{
-	return graphics;
 }
 
 string Component::GetComponentType()
@@ -76,27 +347,27 @@ void Component::SetComponentName(string name)
 
 Size Component::GetSize()
 {
-	return size;
+	return resizeBehavior.GetSize();
 }
 
 Point Component::GetPosition()
 {
-	return pos;
+	return moveBehavior.GetPosition();
 }
 
 int Component::GetWidth()
 {
-	return size.Width;
+	return resizeBehavior.GetWidth();
 }
 
 int Component::GetHeight()
 {
-	return size.Height;
+	return resizeBehavior.GetHeight();
 }
 
 int Component::GetX()
 {
-	return pos.X;
+	return moveBehavior.GetX();
 }
 
 DefaultMultiTree<Component&>& Component::GetComponentNode()
@@ -106,7 +377,7 @@ DefaultMultiTree<Component&>& Component::GetComponentNode()
 
 int Component::GetY()
 {
-	return pos.Y;
+	return moveBehavior.GetY();
 }
 
 Component * Component::GetParent()
@@ -118,46 +389,29 @@ Component * Component::GetParent()
 
 void Component::SetSize(int width, int height)
 {
-	size.Width = width;
-	size.Height = height;
+	resizeBehavior.SetSize(width, height);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
 void Component::SetSize(Size size)
 {
-	this->size = size;
+	resizeBehavior.SetSize(size);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::AddOnAddListener(OnAddListener& listener)
+void Component::AddOnResizeListener(ResizeSubscriber& subscriber)
 {
-	onAddListeners.push_back(listener);
-}
-
-
-void Component::UpdateComponent()
-{
-	SetPosition(pos.X, pos.Y);
+	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
 void Component::SetPosition(int x, int y)
 {
-	Component& root = this->GetRoot();
-	if (this->IsRoot() || this->GetParent() == &root)
-	{
-		pos.X = x;
-		pos.Y = y;
-		return;
-	}
-	pos.X = x + parent->GetX();
-	pos.Y = y + parent->GetY();
-
+	moveBehavior.SetPosition(x, y);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
 void Component::SetPosition(Point pos)
 {
-	this->pos = pos;
-}
-
-void Component::SetBackgroundColor(Color color)
-{
-	this->backgroundColor = color;
+	moveBehavior.SetPosition(pos);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }

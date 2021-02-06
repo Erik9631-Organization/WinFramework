@@ -4,6 +4,7 @@
 #include <gdiplus.h>
 class Resizable : public ResizeSubject
 {
+public:
 	virtual Gdiplus::Size GetSize() = 0;
 	virtual int GetWidth() = 0;
 	virtual int GetHeight() = 0;

@@ -5,9 +5,15 @@
 
 class Movable : public MoveSubject
 {
+public:
 	virtual Gdiplus::Point GetPosition() = 0;
 	virtual int GetX() = 0;
 	virtual int GetY() = 0;
+
+	virtual int GetAbsoluteX() = 0;
+	virtual int GetAbsoluteY() = 0;
+	virtual Gdiplus::Point GetAbsolutePosition() = 0;
+
 	virtual void SetPosition(Gdiplus::Point position) = 0;
 	virtual void SetPosition(int x, int y) = 0;
 	virtual void SetX(int x) = 0;

@@ -40,6 +40,18 @@
     <Filter Include="Source Files\DataTypes">
       <UniqueIdentifier>{69accaa5-55c3-410e-a008-e984732cab49}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Behavior">
+      <UniqueIdentifier>{b12b06b9-255c-4daf-ae0f-b7bec54a4a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behavior">
+      <UniqueIdentifier>{c19dc16a-3588-4cf7-a44a-8cd1b0045d20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{40ddd2ca-da61-495d-b123-d690639b8f2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{5dae9ad0-57f5-40ac-9df2-dccdc032921c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ApplicationController.cpp">
@@ -48,28 +60,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Border.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OnAddListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pane.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentListener.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VectorContainer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AddEventInfo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EventHoverInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResizeSubject.cpp">
@@ -129,11 +120,50 @@
     <ClCompile Include="DefaultMultiTree.cpp">
       <Filter>Source Files\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="DefaultMove.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultResize.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEventInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderableSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultRender.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleBorder.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Background.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewport.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Adjustable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Viewable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UpdateSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="EventUpdateInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CoreWindowFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -143,25 +173,7 @@
     <ClInclude Include="ApplicationController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Border.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OnAddListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pane.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ComponentListener.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VectorContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AddEventInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EventHoverInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ResizeSubject.h">
@@ -220,6 +232,51 @@
     </ClInclude>
     <ClInclude Include="DefaultMultiTree.h">
       <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMove.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultResize.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEventInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultRender.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleBorder.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Background.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewport.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="Adjustable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Viewable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="UpdateSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="EventUpdateInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="EventUpdateFlags.h">
+      <Filter>Source Files\Events\EventTypes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,8 @@
 #include <functional>
 #include "Resizable.h"
 #include "EventResizeInfo.h"
+#include "RenderEventInfo.h"
+#include <stack>
 
 HDC windowHdc;
 using namespace std;
@@ -11,7 +13,7 @@ using namespace std;
 void CoreWindowFrame::MessageLoop()
 {
 	MSG currentMsg;
-	while (GetMessage(&currentMsg, windowHandle, NULL, NULL))
+	while (GetMessage(&currentMsg, NULL, NULL, NULL))
 	{
 		TranslateMessage(&currentMsg);
 		DispatchMessage(&currentMsg);
@@ -22,8 +24,8 @@ HDC CoreWindowFrame::CreateGraphicsBuffer()
 {
 	windowHdc = GetDC(windowHandle);
 	secondaryBuffer = CreateCompatibleDC(windowHdc);
-	HBITMAP map = CreateCompatibleBitmap(windowHdc, size.Width, size.Height);
-	SelectObject(secondaryBuffer, map);
+	currentBitmap = CreateCompatibleBitmap(windowHdc, wrapperFrame.GetWidth(), wrapperFrame.GetHeight());
+	SelectObject(secondaryBuffer, currentBitmap);
 	return secondaryBuffer;
 }
 
@@ -33,23 +35,48 @@ void CoreWindowFrame::CleanGraphicsBuffer()
 	ReleaseDC(windowHandle, windowHdc);
 	DeleteDC(secondaryBuffer);
 	DeleteDC(windowHdc);
+	DeleteObject(currentBitmap);
 }
 
 void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
 {
-	BitBlt(windowHdc, 0, 0, size.Width, size.Height, secondaryBuffer, 0, 0, MERGECOPY);
+	BitBlt(windowHdc, 0, 0, wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), secondaryBuffer, 0, 0, MERGECOPY);
 }
 /**
 * Components should be gettable from the WindowFrame
 * Should iterate through components as a tree. First you set the clipping region with the parents graphics and his graphics, then you pass render event and let it draw
 */
+
+
+
 void CoreWindowFrame::AssignGraphicsToComponents()
 {
-	for (Component& i : components) //Each graphics component should have its own bitmap. The bitmap should have the size of the component. The bitmaps should be merged. 
+	Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
+	assignGraphicsToNodes(wrapperFrame.GetComponentNode(), rootViewport);
+}
+
+void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Rect parentViewport)
+{
+	Graphics graphics(secondaryBuffer);
+	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+
+	Gdiplus::Rect viewport;
+	if(!node.IsRoot())
 	{
-		Graphics graphics(secondaryBuffer); //Rendering is basically a tree
-		i.Paint(graphics); //Handle clipping via graphics.setClip and use AND (Intersect)
+		//viewport = Rect(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY(), node.GetValue().GetWidth() + 1, node.GetValue().GetHeight() + 1);
+		viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
+		graphics.SetClip(viewport);
+		graphics.IntersectClip(parentViewport);
 	}
+	else
+		viewport = parentViewport;
+
+	RenderEventInfo renderEvent = RenderEventInfo(&graphics);
+	node.GetValue().OnRender(renderEvent);
+
+	for (int i = 0; i < node.GetNodeCount(); i++)
+		assignGraphicsToNodes(node.Get(i), viewport);
+	return;
 }
 
 void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
@@ -59,25 +86,17 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_DESTROY:
 		PostQuitMessage(0);
-		delete this;
 		break;
 	case WM_MOVE:
-		position.X = *((unsigned short*)&lParam);
-		position.Y = ((unsigned short*)&lParam)[1];
-		NotifyOnMoveSubscribers(EventMoveInfo(position));
+		wrapperFrame.SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_SIZE:
-		size.Width = *((unsigned short*)&lParam);
-		size.Height = ((unsigned short*)&lParam)[1];
-		NotifyOnResizeSubscribers(EventResizeInfo(size));
+		wrapperFrame.SetSize(Gdiplus::Size(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_PAINT: // Put into function, DrawWindow since it handles WindowDrawing explicitely, from any call not just WM_PAINT
-		HDC graphicsBuffer = CreateGraphicsBuffer();
-		AssignGraphicsToComponents();
-		RenderGraphics(graphicsBuffer); //Performs block transfer of the secondary buffer to the primary buffer
-		CleanGraphicsBuffer();
-		ValidateRgn(GetWindowHandle(), NULL);
+		OnRender(RenderEventInfo(nullptr));
 		break;
+
 	}
 }
 
@@ -109,7 +128,7 @@ void CoreWindowFrame::ConsoleWrite(string output)
 	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
-CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame)
+CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
 	//Arguments
 	HINSTANCE hInstance = args.hInstance;
@@ -131,47 +150,27 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 	windowInfo->lpszMenuName = NULL;
 	windowInfo->lpszClassName = windowName.c_str();
 
-	size.Width = 800;
-	size.Height = 600;
-	position.X = 800;
-	position.Y = 600;
-
 	if (!RegisterClass(windowInfo))
 	{
-		ConsoleWrite("Register Class error" + to_string(GetLastError()));
+		ConsoleWrite("Register Class error: " + to_string(GetLastError()));
 		system("PAUSE");
 		exit(0);
 	}
 
-	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, size.Width, size.Height, position.X, position.Y, NULL, NULL, hInstance, NULL);
+	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
 	if (!windowHandle)
 	{
 		ConsoleWrite("Error creating window handle");
 		system("PAUSE");
 		exit(0);
 	}
+	SetWindowLong(windowHandle, GWL_USERDATA, (LONG)this);
+
 	ShowWindow(windowHandle, SW_SHOW);
 	UpdateWindow(windowHandle);
-	//components = new vector<reference_wrapper<Component>>();
 	//Critical Section
 }
 
-void CoreWindowFrame::ComponentAdded(Component & component)
-{
-	components.push_back(component);
-	RedrawWindow();
-}
-
-
-int CoreWindowFrame::GetX()
-{
-	return position.X;
-}
-
-int CoreWindowFrame::GetY()
-{
-	return position.Y;
-}
 
 HWND CoreWindowFrame::GetWindowHandle()
 {
@@ -183,106 +182,33 @@ CoreWindowFrame::~CoreWindowFrame()
 	CleanGraphicsBuffer();
 }
 
-void CoreWindowFrame::NotifyOnResizeSubscribers(EventResizeInfo event)
+void CoreWindowFrame::Repaint()
 {
-	for (ResizeSubscriber& subscriber : resizeSubscribers)
-		subscriber.OnResize(event);
+	RedrawWindow();
 }
 
-void CoreWindowFrame::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
+void CoreWindowFrame::AddRenderable(Renderable& renderable)
 {
-	resizeSubscribers.push_back(subscriber);
+	renderBehavior.AddRenderable(renderable);
 }
 
-void CoreWindowFrame::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
+void CoreWindowFrame::RemoveRenderable(Renderable& renderable)
 {
-	std::vector<reference_wrapper<ResizeSubscriber>>::iterator it = resizeSubscribers.begin();
-	for (int i = 0; i < resizeSubscribers.size(); i++, it++)
-	{
-		if (&resizeSubscribers.at(i).get() == &subscriber)
-			resizeSubscribers.erase(it);
-	}
+	renderBehavior.RemoveRenderable(renderable);
 }
 
-Gdiplus::Size CoreWindowFrame::GetSize()
+std::vector<std::reference_wrapper<Renderable>> CoreWindowFrame::GetRenderables()
 {
-	return size;
+	return renderBehavior.GetRenderables();
 }
 
-int CoreWindowFrame::GetWidth()
-{
-	return size.Width;
-}
 
-int CoreWindowFrame::GetHeight()
+void CoreWindowFrame::OnRender(RenderEventInfo e)
 {
-	return size.Height;
-}
-
-void CoreWindowFrame::SetSize(Gdiplus::Size size)
-{
-	this->size = size;
-	SetWindowPos(windowHandle, NULL, NULL, NULL, size.Width, size.Height, SWP_NOMOVE);
-}
-
-void CoreWindowFrame::SetWidth(int width)
-{
-	SetSize(Size(width, size.Height));
-}
-
-void CoreWindowFrame::SetHeight(int height)
-{
-	SetSize(Size(height, size.Width));
-}
-
-Gdiplus::Point CoreWindowFrame::GetPosition()
-{
-	return Point(this->GetX(), this->GetY());
-}
-
-void CoreWindowFrame::SetPosition(Gdiplus::Point position)
-{
-	this->position = position;
-	SetWindowPos(windowHandle, NULL, position.X, position.Y, NULL, NULL, SWP_NOSIZE);
-}
-
-void CoreWindowFrame::SetX(int x)
-{
-	SetPosition(Point(x, position.Y));
-}
-
-void CoreWindowFrame::SetY(int y)
-{
-	SetPosition(Point(position.X, y));
-}
-
-void CoreWindowFrame::AddOnMoveSubscriber(MoveSubscriber& subscriber)
-{
-	moveSubscribers.push_back(subscriber);
-}
-
-void CoreWindowFrame::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
-{
-	std::vector<reference_wrapper<MoveSubscriber>>::iterator it = moveSubscribers.begin();
-	for (int i = 0; i < moveSubscribers.size(); i++, it++)
-	{
-		if (&moveSubscribers.at(i).get() == &subscriber)
-			moveSubscribers.erase(it);
-	}
-}
-
-void CoreWindowFrame::NotifyOnMoveSubscribers(EventMoveInfo event)
-{
-	for (MoveSubscriber& subscriber : moveSubscribers)
-		subscriber.OnMove(event);
-}
-
-void CoreWindowFrame::SetPosition(int x, int y)
-{
-	SetPosition(Point(x, y));
-}
-
-void CoreWindowFrame::SetSize(int width, int height)
-{
-	SetSize(Size(width, height));
+	HDC graphicsBuffer = CreateGraphicsBuffer();
+	AssignGraphicsToComponents();
+	RenderGraphics(graphicsBuffer); //Performs block transfer of the secondary buffer to the primary buffer
+	CleanGraphicsBuffer();
+	ValidateRgn(GetWindowHandle(), NULL);
+	renderBehavior.OnRender(e);
 }

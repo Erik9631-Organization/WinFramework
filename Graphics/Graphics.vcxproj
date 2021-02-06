@@ -19,16 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AddEventInfo.h" />
+    <ClInclude Include="Adjustable.h" />
     <ClInclude Include="ApplicationController.h" />
-    <ClInclude Include="Border.h" />
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DefaultMove.h" />
     <ClInclude Include="DefaultMultiTree.h" />
     <ClInclude Include="ComponentListener.h" />
+    <ClInclude Include="DefaultRender.h" />
+    <ClInclude Include="DefaultResize.h" />
+    <ClInclude Include="EventUpdateFlags.h" />
     <ClInclude Include="MultiTree.h" />
     <ClInclude Include="CoreWindowFrame.h" />
-    <ClInclude Include="EventHoverInfo.h" />
     <ClInclude Include="EventInfo.h" />
     <ClInclude Include="EventMouseStateInfo.h" />
     <ClInclude Include="EventMoveInfo.h" />
@@ -40,26 +43,33 @@
     <ClInclude Include="Movable.h" />
     <ClInclude Include="MoveSubscriber.h" />
     <ClInclude Include="MoveSubject.h" />
-    <ClInclude Include="OnAddListener.h" />
-    <ClInclude Include="Pane.h" />
+    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="RenderableSubscriber.h" />
+    <ClInclude Include="RenderEventInfo.h" />
     <ClInclude Include="Resizable.h" />
     <ClInclude Include="ResizeSubject.h" />
     <ClInclude Include="ResizeSubscriber.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="VectorContainer.h" />
+    <ClInclude Include="SimpleBorder.h" />
+    <ClInclude Include="UpdateSubject.h" />
+    <ClInclude Include="UpdateSubscriber.h" />
+    <ClInclude Include="EventUpdateInfo.h" />
+    <ClInclude Include="Viewable.h" />
+    <ClInclude Include="Viewport.h" />
     <ClInclude Include="WindowFrame.h" />
     <ClInclude Include="WinWrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AddEventInfo.cpp" />
+    <ClCompile Include="Adjustable.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
-    <ClCompile Include="Border.cpp" />
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DefaultMove.cpp" />
     <ClCompile Include="DefaultMultiTree.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
+    <ClCompile Include="DefaultRender.cpp" />
+    <ClCompile Include="DefaultResize.cpp" />
     <ClCompile Include="MultiTree.cpp" />
-    <ClCompile Include="EventHoverInfo.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="EventMouseStateInfo.cpp" />
     <ClCompile Include="EventMoveInfo.cpp" />
@@ -73,12 +83,17 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveSubscriber.cpp" />
     <ClCompile Include="MoveSubject.cpp" />
-    <ClCompile Include="OnAddListener.cpp" />
-    <ClCompile Include="Pane.cpp" />
+    <ClCompile Include="Renderable.cpp" />
+    <ClCompile Include="RenderableSubscriber.cpp" />
+    <ClCompile Include="RenderEventInfo.cpp" />
     <ClCompile Include="Resizable.cpp" />
     <ClCompile Include="ResizeSubject.cpp" />
     <ClCompile Include="ResizeSubscriber.cpp" />
-    <ClCompile Include="VectorContainer.cpp" />
+    <ClCompile Include="SimpleBorder.cpp" />
+    <ClCompile Include="UpdateSubject.cpp" />
+    <ClCompile Include="EventUpdateInfo.cpp" />
+    <ClCompile Include="Viewable.cpp" />
+    <ClCompile Include="Viewport.cpp" />
     <ClCompile Include="WindowFrame.cpp" />
   </ItemGroup>
   <ItemGroup>

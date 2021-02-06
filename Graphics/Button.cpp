@@ -1,36 +1,39 @@
 #include "Button.h"
 #include "CoreWindowFrame.h"
-void Button::SetBorderStyle(Border* border)
-{
-	this->border = border;
-}
-
+#include "RenderEventInfo.h"
 void Button::SetBorderColor(COLORREF color)
 {
-	border->SetBorderColor(color);
+	border.SetColor(color);
+}
+
+void Button::SetBackgroundColor(COLORREF color)
+{
+	background.SetColor(color);
 }
 
 void Button::SetBorderThickness(float thickness)
 {
-	border->SetBorderThickness(thickness);
+	border.SetThickness(thickness);
 }
 
-void Button::Paint(Graphics& graphics)
-{
-	Component::Paint(graphics);
-	border->Paint(graphics);
-}
 
 Button::Button(int x, int y, int width, int height)
 {
 	SetSize(width, height);
 	SetPosition(x, y);
-	SetBorderStyle(new Border(size, pos));
 	componentType = "Button";
+
+	border.SetColor(Color::Red);
+	border.SetThickness(1);
+
+	background.SetColor(Color(33, 150, 243));
+
+	renderBehavior.AddRenderable(background);
+	renderBehavior.AddRenderable(border);
 }
 
 
 Button::~Button()
 {
-	delete pen;
+
 }

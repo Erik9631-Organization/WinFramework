@@ -2,53 +2,56 @@
 #include "ApplicationController.h"
 #include "WinWrapper.h" // Needed
 #include "Button.h"
-#include "Pane.h"
 #include <Windows.h>
 
 #include <string>
 #include "CoreWindowFrame.h"
 #include <gdiplus.h>
 #include "DefaultMultiTree.h"
-
-//Testing
-#include "AddEventInfo.h"
+#include "MoveSubscriber.h"
+#include "EventUpdateInfo.h";
 using namespace std;
 
-/**
-* TODO
-* Create WindowManager
-* Window manager is responsible for processing messages, fetching windows and its positions, finding window by ID and so on.
-* ApplicationController should only take care of the entry point and the GDI startup. It should also recieve all the events in the framework and dispatch them to the appropriate event handler
-*/
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	ApplicationController controller(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-	return WinEntry();
+	int returnVal = WinEntry();
+
+	//Thread cleanup
+	ApplicationController::JoinThreads();
+
+	return returnVal;
 }
 
+class TestSubscriber : public MoveSubscriber
+{
+	// Inherited via MoveSubscriber
+	virtual void OnMove(EventMoveInfo e) override
+	{
+		CoreWindowFrame::ConsoleWrite(to_string(e.GetPosition().X) + " " + to_string(e.GetPosition().Y));
+	}
+};
+	
 int WinEntry()
 {
-	WindowFrame frame = WindowFrame("testFrame");
-	Button button1 = Button(0, 0, 10, 10);
-	button1.SetComponentName("button1");
+	WindowFrame frame = WindowFrame(800, 600, 800, 600, "testFrame");
 
-	Button button2 = Button(0, 0, 10, 10);
+	TestSubscriber subscriber = TestSubscriber();
+	Button button1 = Button(100, 50, 100, 40);
+	Button button2 = Button(100, 100, 80, 80);
+	Button button3 = Button(0, 0, 10, 10);
+
+	button1.SetComponentName("button1");
 	button2.SetComponentName("button2");
 
-	Button button3 = Button(0, 0, 10, 10);
 	button3.SetComponentName("button3");
+	button3.SetBackgroundColor(Gdiplus::Color::Red);
+	button2.Add(button3);
+	frame.Add(button1);
+	frame.Add(button2);
 
-	Button button4 = Button(0, 0, 10, 10);
-	button4.SetComponentName("button4");
 
-	//frame.Add(button1);
-	button1.Add(button2);
-	button1.Add(button3);
-	button3.Add(button4);
-
-	CoreWindowFrame::ConsoleWrite(button4.GetParent()->GetParent()->GetComponentNode().Get(0).GetValue().GetComponentName());
-
-	system("PAUSE"); // Replace with Join
+	ApplicationController::JoinThreads();
 	return 0;
 } 

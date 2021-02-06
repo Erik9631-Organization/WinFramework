@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <vector>
 #include <gdiplus.h>
+#include <thread>
 using namespace Gdiplus;
 using namespace std;
 class CoreWindowFrame;
@@ -20,10 +21,13 @@ public:
 	static vector<reference_wrapper<CoreWindowFrame>> windows;
 	static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static WinEntryArgs GetWinEntryArgs();
-	static void SubscribeToMessageLoop(CoreWindowFrame& frame);
+	static void SubscribeToWinProc(CoreWindowFrame& frame);
 	static GdiplusStartupOutput getGdiOutput();
+	static void JoinThreads();
+	static void AddThread(thread* joinableThread);
 	~ApplicationController();
 private:
+	static vector<thread*> threads;
 	static WinEntryArgs args;
 	static ULONG token;
 	static GdiplusStartupOutput output;

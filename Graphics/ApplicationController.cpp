@@ -1,9 +1,12 @@
 #include "ApplicationController.h"
 #include "CoreWindowFrame.h"
+#include <thread>
+
 ApplicationController::WinEntryArgs ApplicationController::args;
 vector<reference_wrapper<CoreWindowFrame>> ApplicationController::windows = vector<reference_wrapper<CoreWindowFrame>>();
 ULONG ApplicationController::token = 0;
 GdiplusStartupOutput ApplicationController::output;
+vector<thread*> ApplicationController::threads;
 
 ApplicationController::ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -25,7 +28,7 @@ ApplicationController::WinEntryArgs ApplicationController::GetWinEntryArgs()
 	return args;
 }
 
-void ApplicationController::SubscribeToMessageLoop(CoreWindowFrame& frame)
+void ApplicationController::SubscribeToWinProc(CoreWindowFrame& frame)
 {
 	windows.push_back(frame);
 }
@@ -35,13 +38,26 @@ GdiplusStartupOutput ApplicationController::getGdiOutput()
 	return output;
 }
 
+void ApplicationController::JoinThreads()
+{
+	for (thread* i : threads)
+	{
+		if(i->joinable())
+			i->join();
+	}
+}
+
+void ApplicationController::AddThread(thread* joinableThread)
+{
+	threads.push_back(joinableThread);
+}
+
 LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	for (CoreWindowFrame& i : windows)
-	{
-		if (i.GetWindowHandle() == hwnd)
-			i.ProcessMessage(uMsg, wParam, lParam);
-	}
+	CoreWindowFrame* frame = (CoreWindowFrame*)GetWindowLong(hwnd, GWL_USERDATA);
+	if (frame != nullptr)
+		frame->ProcessMessage(uMsg, wParam, lParam);
+
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 

@@ -23,6 +23,7 @@ public:
 	virtual bool IsRoot() override;
 	virtual MultiTree<T>* GetParent() override;
 	virtual MultiTree<T>& Get(int index) override;
+    virtual int GetNodeCount() override;
 
 	// Inherited via Container
 	virtual T GetValue() override;
@@ -92,6 +93,12 @@ template <class T> MultiTree<T>* DefaultMultiTree<T>::GetParent()
 template <class T> MultiTree<T>& DefaultMultiTree<T>::Get(int index)
 {
     return elementList.at(index);
+}
+
+template<class T>
+inline int DefaultMultiTree<T>::GetNodeCount()
+{
+    return elementList.size();
 }
 
 template <class T> T DefaultMultiTree<T>::GetValue()
