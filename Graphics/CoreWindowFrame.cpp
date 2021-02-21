@@ -6,6 +6,7 @@
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
 #include <stack>
+#include "EventMouseStateInfo.h"
 
 HDC windowHdc;
 using namespace std;
@@ -63,7 +64,6 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Rect pa
 	Gdiplus::Rect viewport;
 	if(!node.IsRoot())
 	{
-		//viewport = Rect(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY(), node.GetValue().GetWidth() + 1, node.GetValue().GetHeight() + 1);
 		viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
 		graphics.SetClip(viewport);
 		graphics.IntersectClip(parentViewport);
@@ -77,6 +77,16 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Rect pa
 	for (int i = 0; i < node.GetNodeCount(); i++)
 		assignGraphicsToNodes(node.Get(i), viewport);
 	return;
+}
+
+void CoreWindowFrame::NotifyMouseState(Gdiplus::Point point)
+{
+	/*for (int i = 0; i < wrapperFrame.GetComponentNode().GetNodeCount(); i++)
+	{
+		if (wrapperFrame.GetComponentNode().Get(i).GetValue().ColidesWithPoint(point));
+			wrapperFrame.NotifyOnMouseMove(EventMouseStateInfo(point, 0));
+	}*/
+
 }
 
 void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
@@ -95,6 +105,20 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_PAINT: // Put into function, DrawWindow since it handles WindowDrawing explicitely, from any call not just WM_PAINT
 		OnRender(RenderEventInfo(nullptr));
+		break;
+	case WM_MOUSEMOVE:
+		lastMouseX = ((unsigned short*)&lParam)[0];
+		lastMouseY = ((unsigned short*)&lParam)[1];
+		wrapperFrame.NotifyOnMouseMove(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), 0, &wrapperFrame));
+		break;
+	case WM_LBUTTONDOWN:
+		wrapperFrame.NotifyOnMouseDown(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
+		break;
+	case WM_LBUTTONUP:
+		wrapperFrame.NotifyOnMouseUp(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
+		break;
+	case WM_LBUTTONDBLCLK:
+		wrapperFrame.NotifyOnMousePressed(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
 		break;
 
 	}

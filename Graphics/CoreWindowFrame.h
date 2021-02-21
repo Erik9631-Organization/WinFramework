@@ -16,6 +16,8 @@ using namespace Gdiplus;
 class CoreWindowFrame : Renderable
 {
 private:
+	int lastMouseX;
+	int lastMouseY;
 	HWND windowHandle;
 	void CreateConsole();
 	HDC secondaryBuffer;
@@ -26,6 +28,7 @@ private:
 	void RenderGraphics(HDC GraphicsBuffer);
 	void AssignGraphicsToComponents();
 	void assignGraphicsToNodes(MultiTree<Component&>& node, Rect viewPort);
+	void NotifyMouseState(Gdiplus::Point point);
 
 	DefaultRender renderBehavior;
 

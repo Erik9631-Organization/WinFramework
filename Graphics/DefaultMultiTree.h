@@ -34,6 +34,7 @@ template<class T>
 inline DefaultMultiTree<T>::DefaultMultiTree(T associatedObj) : nodeObject(associatedObj)
 {
     parent = nullptr;
+    
 }
 
 template<class T>
@@ -51,7 +52,7 @@ template <class T> void DefaultMultiTree<T>::Add(MultiTree<T>& object)
 
 template <class T> void DefaultMultiTree<T>::Remove(MultiTree<T>& object)
 {
-    std::vector<reference_wrapper<MultiTree<T>>>::iterator it = elementList.begin();
+    std::vector<std::reference_wrapper<MultiTree<T>>>::iterator it = elementList.begin();
     for (int i = 0; i < elementList.size(); i++, it++)
     {
         if (&elementList.at(i).get() == &object)
@@ -61,7 +62,7 @@ template <class T> void DefaultMultiTree<T>::Remove(MultiTree<T>& object)
 
 template <class T> void DefaultMultiTree<T>::Remove(int index)
 {
-    std::vector<reference_wrapper<MultiTree<T>>>::iterator elementIterator = elementList.begin() + index;
+    std::vector<std::reference_wrapper<MultiTree<T>>>::iterator elementIterator = elementList.begin() + index;
     elementList.erase(elementIterator);
 }
 

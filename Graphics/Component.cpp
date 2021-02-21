@@ -6,6 +6,7 @@
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
 #include "EventUpdateInfo.h"
+#include "EventMouseStateInfo.h"
 
 void Component::Add(Component& component)
 {
@@ -24,7 +25,12 @@ Component::Component(string name) : Component(0, 0, 0, 0, name)
 {
 }
 
-Component::Component(int x, int y, int width, int height, string name) : componentNode(*this), moveBehavior((MultiTree<Adjustable&>&)componentNode), renderBehavior(*this), viewport(*this)
+Component::Component(int x, int y, int width, int height, string name) :
+	componentNode(*this),
+	moveBehavior(componentNode), 
+	mouseHandler(componentNode),
+	renderBehavior(*this),
+	viewport(*this)
 {
 	moveBehavior.SetPosition(x, y);
 	resizeBehavior.SetSize(width, height);
@@ -60,14 +66,13 @@ void Component::SetY(int y)
 
 void Component::OnRender(RenderEventInfo e)
 {
-	Gdiplus::Matrix* matrix = new Gdiplus::Matrix();
+	Gdiplus::Matrix matrix{};
 	if( !IsRoot() ) //Root should always translate from 0, 0
-		matrix->Translate(GetAbsoluteX(), GetAbsoluteY());
-	matrix->Scale(GetWidth(), GetHeight());
+		matrix.Translate(GetAbsoluteX(), GetAbsoluteY());
+	matrix.Scale(GetWidth(), GetHeight());
 
-	e.GetGraphics()->SetTransform(matrix);
+	e.GetGraphics()->SetTransform(&matrix);
 	renderBehavior.OnRender(e);
-	delete matrix;
 }
 
 void Component::Repaint()
@@ -288,11 +293,102 @@ void Component::OnUpdate(EventUpdateInfo e)
 {
 	moveBehavior.CalculateAbsolutePosition(); 
 	viewport.OnUpdate(e);
-	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call update.
+	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
 	CoreWindowFrame::ConsoleWrite(name + " Sending repaint request...");
 	Repaint();
+}
+
+void Component::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
+{
+	activateBehavior.AddOnActivateSubscriber(subscriber);
+}
+
+void Component::RemoveOnActivateSubscriber(ActivateSubscriber& subscriber)
+{
+	activateBehavior.RemoveOnActivateSubscriber(subscriber);
+}
+
+void Component::NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo)
+{
+	activateBehavior.NotifyOnActivateStateChanged(activateInfo);
+}
+
+void Component::SetActive(bool state)
+{
+	activateBehavior.SetActive(state);
+}
+
+bool Component::IsActive()
+{
+	return activateBehavior.IsActive();
+}
+
+void Component::NotifyOnMouseDown(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, this));
+}
+
+void Component::NotifyOnMouseUp(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, this));
+}
+
+void Component::NotifyOnMousePressed(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, this));
+}
+
+void Component::NotifyOnMouseMove(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMouseMove(EventMouseStateInfo(e, this));
+}
+
+
+
+void Component::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
+{
+	mouseHandler.AddMouseStateSubscriber(subscriber);
+}
+
+void Component::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
+{
+	mouseHandler.RemoveMouseStateSubscriber(subscriber);
+}
+
+bool Component::ColidesWithPoint(Gdiplus::Point point)
+{
+	if ( !(point.X >= GetAbsoluteX() && point.X <= GetAbsoluteX() + GetWidth()) )
+		return false;
+	if ( !(point.Y >= GetAbsoluteY() && point.Y <= GetAbsoluteY() + GetHeight()) )
+		return false;
+	return true;
+}
+
+void Component::NotifyOnMouseEnter(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMouseEnter(e);
+}
+
+void Component::NotifyOnMouseLeave(EventMouseStateInfo e)
+{
+	mouseHandler.NotifyOnMouseLeave(e);
+}
+
+bool Component::HasMouseEntered()
+{
+	return mouseHandler.HasMouseEntered();
+}
+
+std::any Component::ColidesWithUpmost(Gdiplus::Point point)
+{
+	for (int i = 0; i < componentNode.GetNodeCount(); i++)
+	{
+		if (componentNode.Get(i).GetValue().ColidesWithPoint(point))
+			return std::any_cast<Component*>(componentNode.Get(i).GetValue().ColidesWithUpmost(point));
+	}
+	return std::make_any<Component*>(this);
 }
 
 void Component::UpdateSubNodes(EventUpdateInfo e)
@@ -304,6 +400,7 @@ void Component::UpdateSubNodes(EventUpdateInfo e)
 		node.GetValue().OnUpdate(EventUpdateInfo(e));
 	}
 }
+
 
 int Component::GetAbsoluteX()
 {
@@ -370,10 +467,11 @@ int Component::GetX()
 	return moveBehavior.GetX();
 }
 
-DefaultMultiTree<Component&>& Component::GetComponentNode()
+MultiTree<Component&>& Component::GetComponentNode()
 {
 	return componentNode;
 }
+
 
 int Component::GetY()
 {

@@ -6,6 +6,8 @@
 #include "ApplicationController.h"
 #include <string>
 #include "EventResizeInfo.h"
+#include "EventMouseStateInfo.h"
+
 using namespace std;
 
 void WindowFrame::CreateCoreWindow()
@@ -26,6 +28,7 @@ void WindowFrame::CreateCoreWindow()
 	unique_lock<mutex>lock(windowInit);
 	initWait->wait(lock, [=] {return initNotified; });
 	CoreWindowFrame::ConsoleWrite("Init done");
+	initDone = true;
 }
 
 
@@ -43,6 +46,20 @@ void WindowFrame::Repaint()
 {
 	if(coreFrame != nullptr)
 		coreFrame->RedrawWindow();
+}
+
+void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
+{
+	Component::NotifyOnMouseDown(e);
+	Component* result = std::any_cast<Component*>(ColidesWithUpmost(e.GetMousePosition()));
+	if (currentFocus == result)
+		return;
+
+	if (currentFocus != nullptr)
+		currentFocus->SetActive(false);
+
+	result->SetActive(true);
+	currentFocus = result;
 }
 
 void WindowFrame::SetPosition(int x, int y)
@@ -69,8 +86,8 @@ WindowFrame::WindowFrame(string windowName) : WindowFrame(800, 600, 800, 600, wi
 WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName) : Component(x, y, width, height, windowName)
 {
 	initWait = new condition_variable();
-	CreateCoreWindow();
 	componentType = "Window";
+	CreateCoreWindow();
 	coreFrame->RedrawWindow();
 	background.SetColor(Color::White);
 	AddRenderable(background);

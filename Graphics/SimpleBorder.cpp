@@ -1,13 +1,21 @@
 #include "SimpleBorder.h"
 #include "RenderEventInfo.h"
+#include "CoreWindowFrame.h"
 
 
-SimpleBorder::SimpleBorder() : renderBehavior(*this)
+SimpleBorder::SimpleBorder() : renderBehavior(*this), reflectionContainer(*this)
 {
+	//Set up meta data
+	reflectionContainer.RegisterMethod("border-color", "SetColor", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod("border-style", "SetBorderStyle", &SimpleBorder::SetBorderStyle);
+	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
+
+
 	brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
 	pen = new Gdiplus::Pen(brush);
 	pen->SetWidth(0.01f);
 }
+
 
 SimpleBorder::~SimpleBorder()
 {
@@ -17,7 +25,13 @@ SimpleBorder::~SimpleBorder()
 
 void SimpleBorder::SetColor(Gdiplus::Color color)
 {
+	this->color = color;
 	pen->SetColor(color);
+}
+
+Gdiplus::Color SimpleBorder::GetColor()
+{
+	return color;
 }
 
 void SimpleBorder::SetBorderStyle(Gdiplus::DashStyle style)
@@ -55,3 +69,14 @@ std::vector<std::reference_wrapper<Renderable>> SimpleBorder::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
+
+bool SimpleBorder::HasMethod(std::string method)
+{
+	return reflectionContainer.HasMethod(method);
+}
+
+ReflectionContainer<SimpleBorder>& SimpleBorder::GetReflectionContainer()
+{
+	return reflectionContainer;
+}
+

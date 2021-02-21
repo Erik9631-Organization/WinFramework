@@ -15,9 +15,12 @@
 #include "Viewport.h"
 #include "Viewable.h"
 #include "UpdateSubscriber.h"
+#include "DefaultActivate.h"
+#include "Collidable.h"
+#include "MouseInteractable.h"
+#include "DefaultMouseBehavior.h"
+#include "AccessTools.h"
 
-class ComponentListener;
-class OnAddListener;
 
 class EventInfo;
 class AddEventInfo;
@@ -27,24 +30,26 @@ class EventHoverInfo;
 
 using namespace std;
 using namespace Gdiplus;
-class Component : public Adjustable, public Renderable, public Viewable
+class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
-
 protected:
 	string componentType;
 	string name;
-	DefaultMultiTree<Component&> componentNode;
+	DefaultMultiTree <Component&> componentNode;
 	DefaultRender renderBehavior;
-	DefaultMove moveBehavior;
+	DefaultMove<MultiTree<Component&>&> moveBehavior;
+	DefaultMouseBehavior<MultiTree<Component&>&> mouseHandler;
 	DefaultResize resizeBehavior;
+	DefaultActivate activateBehavior;
 	Viewport viewport;
 
 public:
 	Component();
 	Component(string name);
 	Component(int x, int y, int width, int height, string windowName);
+
 	bool IsRoot();
 	Component& GetRoot();
 	Size GetSize() override;
@@ -52,7 +57,7 @@ public:
 	int GetWidth() override;
 	int GetHeight() override;
 	int GetX() override;
-	DefaultMultiTree<Component&>& GetComponentNode();
+	MultiTree<Component&>& GetComponentNode();
 	int GetY() override;
 	Component * GetParent();
 	virtual void SetSize(int width, int height) override;
@@ -61,7 +66,6 @@ public:
 	string GetComponentType();
 	string GetComponentName();
 	void SetComponentName(string name);
-
 
 	virtual void SetPosition(int x, int y);
 	virtual void SetPosition(Point pos);
@@ -134,4 +138,40 @@ public:
 
 	// Inherited via UpdateSubscriber
 	virtual void OnUpdate(EventUpdateInfo e) override;
+
+	// Inherited via Activatable
+	virtual void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+	virtual void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+	virtual void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
+	virtual void SetActive(bool state) override;
+	virtual bool IsActive() override;
+
+	// Inherited via MouseStateSubject
+	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
+	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseMove(EventMouseStateInfo e) override;
+	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+
+	// Inherited via Collidable
+	virtual bool ColidesWithPoint(Gdiplus::Point) override;
+
+	// Inherited via MouseStateSubject
+	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseLeave(EventMouseStateInfo e) override;
+
+	// Inherited via MouseInteractable
+	virtual bool HasMouseEntered() override;
+
+
+	template<typename ... Args>
+	void SetProperty(std::string name, Args ... args)
+	{
+		for (Renderable& renderable : GetRenderables())
+			AccessTools::Invoke<void>(name, renderable, args ...);
+	}
+
+	// Inherited via MouseInteractable
+	virtual std::any ColidesWithUpmost(Gdiplus::Point) override;
 };

@@ -14,7 +14,7 @@ private:
 	Adjustable& associatedAdjustable;
 	DefaultMultiTree<Adjustable&> viewportNode; //For the default behavior
 
-	DefaultMove moveBehavior;
+	DefaultMove<DefaultMultiTree<Adjustable&>&> moveBehavior;
 	DefaultResize resizeBehavior;
 
 	Gdiplus::Size absoluteSize;

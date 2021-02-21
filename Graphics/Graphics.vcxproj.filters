@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
@@ -16,14 +12,8 @@
     <Filter Include="Enums">
       <UniqueIdentifier>{ed661e06-c21b-4cf2-bc2b-959c73c98a09}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Components">
-      <UniqueIdentifier>{824ebf94-b27c-4a7d-94d9-5d21efbd1b1e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{2d4f2e98-77e9-4f2c-b397-76496cc272f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Events">
-      <UniqueIdentifier>{6d2cec7e-c833-41bf-8556-94665b076abc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{43c386d8-7a2e-410c-a497-bdd14aa6ba93}</UniqueIdentifier>
@@ -31,26 +21,54 @@
     <Filter Include="Header Files\Events\EventTypes">
       <UniqueIdentifier>{7df7713d-d11d-4423-a153-3bf86643c907}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Events\EventTypes">
-      <UniqueIdentifier>{10fe9e9a-0c61-4ae5-b12c-9caf6d41a5db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\DataTypes">
       <UniqueIdentifier>{45847060-6343-4c6e-b873-27575a8543a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\DataTypes">
-      <UniqueIdentifier>{69accaa5-55c3-410e-a008-e984732cab49}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Behavior">
       <UniqueIdentifier>{b12b06b9-255c-4daf-ae0f-b7bec54a4a62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Behavior">
-      <UniqueIdentifier>{c19dc16a-3588-4cf7-a44a-8cd1b0045d20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Graphics">
       <UniqueIdentifier>{40ddd2ca-da61-495d-b123-d690639b8f2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utils">
+      <UniqueIdentifier>{882a059c-cf5f-4dbb-87e8-ce49c5c59e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{824ebf94-b27c-4a7d-94d9-5d21efbd1b1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{6d2cec7e-c833-41bf-8556-94665b076abc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events\EventTypes">
+      <UniqueIdentifier>{10fe9e9a-0c61-4ae5-b12c-9caf6d41a5db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataTypes">
+      <UniqueIdentifier>{69accaa5-55c3-410e-a008-e984732cab49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Behavior">
+      <UniqueIdentifier>{c19dc16a-3588-4cf7-a44a-8cd1b0045d20}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{5dae9ad0-57f5-40ac-9df2-dccdc032921c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{a0b68d62-79e7-4e4f-8a82-fd3ee3795613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Graphical States">
+      <UniqueIdentifier>{72cea50b-5c60-4198-b5a5-6f92646818e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Graphical States">
+      <UniqueIdentifier>{1219b551-170d-474d-a528-ed833a1cfe2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Meta Objects">
+      <UniqueIdentifier>{95676757-087d-48d6-b667-5dd0726e309f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Meta Objects">
+      <UniqueIdentifier>{06f79975-3c74-4e84-8b26-5e70ee8947e6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +179,63 @@
     </ClCompile>
     <ClCompile Include="EventUpdateInfo.cpp">
       <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="ActivateSubject.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="ActivateSubscriber.cpp">
+      <Filter>Source Files\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Activatable.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultActivate.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="EventOnActivateInfo.cpp">
+      <Filter>Source Files\Events\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Collidable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultGraphicStates.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="ButtonGraphicalState.cpp">
+      <Filter>Source Files\Graphics\Graphical States</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseInteractable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultMouseBehavior.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Label.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CastableTree.cpp">
+      <Filter>Source Files\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassMethod.cpp">
+      <Filter>Source Files\Meta Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Source Files\Meta Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Source Files\Meta Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Reflectable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectionContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AccessTools.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -275,8 +350,65 @@
     <ClInclude Include="EventUpdateInfo.h">
       <Filter>Header Files\Events\EventTypes</Filter>
     </ClInclude>
+    <ClInclude Include="ActivateSubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ActivateSubscriber.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
     <ClInclude Include="EventUpdateFlags.h">
-      <Filter>Source Files\Events\EventTypes</Filter>
+      <Filter>Enums</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultActivate.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="EventOnActivateInfo.h">
+      <Filter>Header Files\Events\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Activatable.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Collidable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultGraphicStates.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="ButtonGraphicalState.h">
+      <Filter>Header Files\Graphics\Graphical States</Filter>
+    </ClInclude>
+    <ClInclude Include="MouseInteractable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Label.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CastableTree.h">
+      <Filter>Header Files\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultMouseBehavior.h">
+      <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassMethod.h">
+      <Filter>Header Files\Meta Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>Header Files\Meta Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Header Files\Meta Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflectable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReflectionContainer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AccessTools.h">
+      <Filter>Header Files\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

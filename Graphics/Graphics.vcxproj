@@ -19,17 +19,32 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AccessTools.h" />
+    <ClInclude Include="Activatable.h" />
+    <ClInclude Include="ActivateSubject.h" />
+    <ClInclude Include="ActivateSubscriber.h" />
     <ClInclude Include="Adjustable.h" />
     <ClInclude Include="ApplicationController.h" />
     <ClInclude Include="Background.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ButtonGraphicalState.h" />
+    <ClInclude Include="CastableTree.h" />
+    <ClInclude Include="ClassMethod.h" />
+    <ClInclude Include="Collidable.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="DefaultActivate.h" />
+    <ClInclude Include="DefaultGraphicStates.h" />
+    <ClInclude Include="DefaultMouseBehavior.h" />
     <ClInclude Include="DefaultMove.h" />
     <ClInclude Include="DefaultMultiTree.h" />
     <ClInclude Include="ComponentListener.h" />
     <ClInclude Include="DefaultRender.h" />
     <ClInclude Include="DefaultResize.h" />
+    <ClInclude Include="EventOnActivateInfo.h" />
     <ClInclude Include="EventUpdateFlags.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="Label.h" />
+    <ClInclude Include="MouseInteractable.h" />
     <ClInclude Include="MultiTree.h" />
     <ClInclude Include="CoreWindowFrame.h" />
     <ClInclude Include="EventInfo.h" />
@@ -43,6 +58,9 @@
     <ClInclude Include="Movable.h" />
     <ClInclude Include="MoveSubscriber.h" />
     <ClInclude Include="MoveSubject.h" />
+    <ClInclude Include="Reflectable.h" />
+    <ClInclude Include="Primitive.h" />
+    <ClInclude Include="ReflectionContainer.h" />
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="RenderableSubscriber.h" />
     <ClInclude Include="RenderEventInfo.h" />
@@ -50,6 +68,7 @@
     <ClInclude Include="ResizeSubject.h" />
     <ClInclude Include="ResizeSubscriber.h" />
     <ClInclude Include="SimpleBorder.h" />
+    <ClInclude Include="Text.h" />
     <ClInclude Include="UpdateSubject.h" />
     <ClInclude Include="UpdateSubscriber.h" />
     <ClInclude Include="EventUpdateInfo.h" />
@@ -59,16 +78,31 @@
     <ClInclude Include="WinWrapper.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AccessTools.cpp" />
+    <ClCompile Include="Activatable.cpp" />
+    <ClCompile Include="ActivateSubject.cpp" />
+    <ClCompile Include="ActivateSubscriber.cpp" />
     <ClCompile Include="Adjustable.cpp" />
     <ClCompile Include="ApplicationController.cpp" />
     <ClCompile Include="Background.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="ButtonGraphicalState.cpp" />
+    <ClCompile Include="CastableTree.cpp" />
+    <ClCompile Include="ClassMethod.cpp" />
+    <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="DefaultActivate.cpp" />
+    <ClCompile Include="DefaultGraphicStates.cpp" />
     <ClCompile Include="DefaultMove.cpp" />
     <ClCompile Include="DefaultMultiTree.cpp" />
     <ClCompile Include="ComponentListener.cpp" />
     <ClCompile Include="DefaultRender.cpp" />
     <ClCompile Include="DefaultResize.cpp" />
+    <ClCompile Include="EventOnActivateInfo.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Label.cpp" />
+    <ClCompile Include="MouseInteractable.cpp" />
+    <ClCompile Include="DefaultMouseBehavior.cpp" />
     <ClCompile Include="MultiTree.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="EventMouseStateInfo.cpp" />
@@ -83,6 +117,9 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="MoveSubscriber.cpp" />
     <ClCompile Include="MoveSubject.cpp" />
+    <ClCompile Include="Reflectable.cpp" />
+    <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="ReflectionContainer.cpp" />
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="RenderableSubscriber.cpp" />
     <ClCompile Include="RenderEventInfo.cpp" />
@@ -90,6 +127,7 @@
     <ClCompile Include="ResizeSubject.cpp" />
     <ClCompile Include="ResizeSubscriber.cpp" />
     <ClCompile Include="SimpleBorder.cpp" />
+    <ClCompile Include="Text.cpp" />
     <ClCompile Include="UpdateSubject.cpp" />
     <ClCompile Include="EventUpdateInfo.cpp" />
     <ClCompile Include="Viewable.cpp" />
@@ -155,6 +193,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -171,6 +210,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>

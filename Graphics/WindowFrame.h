@@ -15,18 +15,22 @@ class CoreWindowFrame;
 class WindowFrame : public Component
 {
 private:
+	Component* currentFocus = nullptr;
 	CoreWindowFrame* coreFrame;
 	thread* windowThread;
 	condition_variable* initWait;
 	bool initNotified = false;
 	Background background;
+	void SetComponentFocus(EventMouseStateInfo e);
 
 	void CreateCoreWindow();
 
 public:
+	bool initDone = false;
 	void SetSize(int width, int height) override;
 	void SetSize(Size size) override;
 	void Repaint() override;;
+	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(int x, int y) override;
 	void SetPosition(Point point) override;

@@ -42,3 +42,4 @@ std::vector<std::reference_wrapper<Renderable>> DefaultRender::GetRenderables()
 {
 	return renderables;
 }
+
