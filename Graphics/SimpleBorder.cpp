@@ -9,6 +9,12 @@ SimpleBorder::SimpleBorder() : renderBehavior(*this), reflectionContainer(*this)
 	reflectionContainer.RegisterMethod("border-color", "SetColor", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-style", "SetBorderStyle", &SimpleBorder::SetBorderStyle);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
+	
+	offset.X = 0.0f;
+	offset.Y = 0.0f;
+
+	size.Width = 1.0f;
+	size.Height = 1.0f;
 
 
 	brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
@@ -44,9 +50,37 @@ void SimpleBorder::SetThickness(float thickness)
 	pen->SetWidth(thickness / 100);
 }
 
+void SimpleBorder::SetScalingType(int type)
+{
+	scalingType = type;
+}
+
+void SimpleBorder::HorizontalCentering(bool state)
+{
+	horizontalCentering = state;
+}
+
+void SimpleBorder::SetVerticalCentering(bool state)
+{
+	verticalCentering = state;
+}
+
 void SimpleBorder::OnRender(RenderEventInfo e)
 {
-	e.GetGraphics()->DrawRectangle(pen, 0.0f, 0.0f, 1.0f, 1.0f);
+	SizeF calculatedSize(size);
+	PointF calculatedPosition(offset);
+	if (scalingType == 1)
+	{
+		calculatedSize.Width = size.Width / e.GetParentSize().Width;
+		calculatedSize.Height = size.Height / e.GetParentSize().Height;
+	}
+
+	if (verticalCentering)
+		calculatedPosition.Y -= calculatedSize.Height / 2;
+	if(horizontalCentering)
+		calculatedPosition.X -= calculatedSize.Width / 2;
+
+	e.GetGraphics()->DrawRectangle(pen, calculatedPosition.X, calculatedPosition.Y, calculatedSize.Width, calculatedSize.Height);
 	renderBehavior.OnRender(e);
 }
 
@@ -80,3 +114,12 @@ ReflectionContainer<SimpleBorder>& SimpleBorder::GetReflectionContainer()
 	return reflectionContainer;
 }
 
+Gdiplus::SizeF& SimpleBorder::GetSize()
+{
+	return this->size;
+}
+
+Gdiplus::PointF& SimpleBorder::GetPercentualPosition()
+{
+	return this->offset;
+}

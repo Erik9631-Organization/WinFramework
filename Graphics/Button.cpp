@@ -49,9 +49,12 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), mouseGraphi
 	componentType = "Button";
 
 	border.SetColor(Color::MakeARGB(100, 0, 0, 0));
-	border.SetThickness(1);
+	border.SetThickness(1.0f);
 
 	background.SetColor(Color(30, 30, 30));
+	text.SetPercentualPosition(PointF(0.5f, 0.5f));
+	text.SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
+	text.SetAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
 
 	renderBehavior.AddRenderable(background);
 	renderBehavior.AddRenderable(border);

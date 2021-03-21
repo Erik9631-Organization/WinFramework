@@ -19,6 +19,13 @@ private:
 	DefaultRender renderBehavior;
 	Gdiplus::Color color;
 
+	Gdiplus::PointF offset;
+	Gdiplus::SizeF size;
+	int scalingType = 0;
+	bool verticalCentering = false;
+	bool horizontalCentering = false;
+	bool textCentering = false;
+
 public:
 	ReflectionContainer<SimpleBorder> reflectionContainer;
 	SimpleBorder(); 
@@ -27,6 +34,9 @@ public:
 	Gdiplus::Color GetColor();
 	void SetBorderStyle(Gdiplus::DashStyle style);
 	void SetThickness(float thickness);
+	void SetScalingType(int type);
+	void SetVerticalCentering(bool state);
+	void HorizontalCentering(bool state);
 
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;
@@ -34,6 +44,8 @@ public:
 	virtual void AddRenderable(Renderable& renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	Gdiplus::SizeF& GetSize();
+	Gdiplus::PointF& GetPercentualPosition();
 
 	// Inherited via Reflectable
 	virtual bool HasMethod(std::string method) override;

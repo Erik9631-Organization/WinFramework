@@ -106,4 +106,3 @@ template <class T> T DefaultMultiTree<T>::GetValue()
 {
     return nodeObject;
 }
-

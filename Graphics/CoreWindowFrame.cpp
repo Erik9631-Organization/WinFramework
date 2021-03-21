@@ -7,6 +7,7 @@
 #include "RenderEventInfo.h"
 #include <stack>
 #include "EventMouseStateInfo.h"
+#include "EventKeyStateInfo.h"
 
 HDC windowHdc;
 using namespace std;
@@ -89,6 +90,27 @@ void CoreWindowFrame::NotifyMouseState(Gdiplus::Point point)
 
 }
 
+void CoreWindowFrame::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	HKL currentLayout = GetKeyboardLayout(0); // For the current thread
+
+	wchar_t unicodeKey = 0;
+	unsigned int scanCode = MapVirtualKeyA(wParam, MAPVK_VK_TO_VSC);
+	BYTE keyboardState[256];
+	bool state = GetKeyboardState(keyboardState);
+	int returnValue = ToUnicodeEx(wParam, scanCode, keyboardState, &unicodeKey, 1, 0, currentLayout);
+	if (msg == WM_KEYDOWN)
+	{
+		if( !(lParam & 1073741824) ) //30th bit (Bit count from 0)	The previous key state. The value is 1 if the key is down before the message is sent, or it is zero if the key is up.
+			wrapperFrame.NotifyOnKeyDown(EventKeyStateInfo(nullptr, wParam, unicodeKey, keyboardState));
+		else
+			wrapperFrame.NotifyOnKeyPressed(EventKeyStateInfo(nullptr, wParam, unicodeKey, keyboardState));
+	}
+
+	else if(msg == WM_KEYUP)
+		wrapperFrame.NotifyOnKeyUp(EventKeyStateInfo(nullptr, wParam, unicodeKey, keyboardState));
+}
+
 void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT paintInfo;
@@ -120,6 +142,12 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_LBUTTONDBLCLK:
 		wrapperFrame.NotifyOnMousePressed(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
 		break;
+	case WM_KEYDOWN:
+		ProcessKeyState(msg, wParam, lParam);
+		break;
+	case WM_KEYUP:
+		ProcessKeyState(msg, wParam, lParam);
+		break;
 
 	}
 }
@@ -150,6 +178,13 @@ void CoreWindowFrame::ConsoleWrite(string output)
 	DWORD succWritten;
 	output.append("\n");
 	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
+}
+
+void CoreWindowFrame::UnicodeConsoleWrite(std::wstring output)
+{
+	DWORD succWritten;
+	output.append(L"\n");
+	WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
 CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame), renderBehavior(*this)

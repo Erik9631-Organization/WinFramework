@@ -1,4 +1,3 @@
-#include "ButtonGraphicalState.h"
 #include "EventMouseStateInfo.h"
 #include "Button.h"
 ButtonGraphicalState::ButtonGraphicalState(Button& button) : associatedButton(button)

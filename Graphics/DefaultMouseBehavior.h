@@ -6,15 +6,15 @@
 #include "EventMouseStateInfo.h"
 #include "MouseStateSubscriber.h"
 
-template<class T>
+template<class TreeNode>
 class DefaultMouseBehavior : public MouseStateSubject
 {
 private:
 	std::vector<std::reference_wrapper<MouseStateSubscriber>> subscribers;
-	T associatedNode;
+	TreeNode associatedNode;
 	bool mouseEntered = false;
 public:
-	DefaultMouseBehavior(T node);
+	DefaultMouseBehavior(TreeNode node);
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
@@ -26,14 +26,14 @@ public:
 	virtual bool HasMouseEntered() override;
 };
 
-template<class T>
-DefaultMouseBehavior<T>::DefaultMouseBehavior(T node) : associatedNode(node)
+template<class TreeNode>
+DefaultMouseBehavior<TreeNode>::DefaultMouseBehavior(TreeNode node) : associatedNode(node)
 {
 
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMouseDown(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseDown(EventMouseStateInfo e)
 {
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
@@ -51,8 +51,8 @@ void DefaultMouseBehavior<T>::NotifyOnMouseDown(EventMouseStateInfo e)
 		subscriber.OnMouseDown(e);
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMouseUp(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseUp(EventMouseStateInfo e)
 {
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
@@ -70,8 +70,8 @@ void DefaultMouseBehavior<T>::NotifyOnMouseUp(EventMouseStateInfo e)
 		subscriber.OnMouseUp(e);
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMousePressed(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 {
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
@@ -89,8 +89,8 @@ void DefaultMouseBehavior<T>::NotifyOnMousePressed(EventMouseStateInfo e)
 		subscriber.OnMousePressed(e);
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMouseMove(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseMove(EventMouseStateInfo e)
 {
 	if (!mouseEntered)
 		NotifyOnMouseEnter(e);
@@ -118,14 +118,14 @@ void DefaultMouseBehavior<T>::NotifyOnMouseMove(EventMouseStateInfo e)
 }
 
 
-template<class T>
-void DefaultMouseBehavior<T>::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
 	subscribers.push_back(subscriber);
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
 	for (std::vector<std::reference_wrapper<MouseStateSubscriber>>::iterator i = subscribers.begin(); i != subscribers.end(); i++)
 	{
@@ -137,16 +137,16 @@ void DefaultMouseBehavior<T>::RemoveMouseStateSubscriber(MouseStateSubscriber& s
 	}
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMouseEnter(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseEnter(EventMouseStateInfo e)
 {
 	mouseEntered = true;
 	for (MouseStateSubscriber& subscriber : subscribers)
 		subscriber.OnMouseEntered(e);
 }
 
-template<class T>
-void DefaultMouseBehavior<T>::NotifyOnMouseLeave(EventMouseStateInfo e)
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseLeave(EventMouseStateInfo e)
 {
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Check if left from any of the subcomponents
 	{
@@ -159,8 +159,8 @@ void DefaultMouseBehavior<T>::NotifyOnMouseLeave(EventMouseStateInfo e)
 		subscriber.OnMouseLeft(e);
 }
 
-template<class T>
-bool DefaultMouseBehavior<T>::HasMouseEntered()
+template<class TreeNode>
+bool DefaultMouseBehavior<TreeNode>::HasMouseEntered()
 {
 	return mouseEntered;
 }

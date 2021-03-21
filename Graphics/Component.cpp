@@ -7,6 +7,7 @@
 #include "RenderEventInfo.h"
 #include "EventUpdateInfo.h"
 #include "EventMouseStateInfo.h"
+#include "EventKeyStateInfo.h"
 
 void Component::Add(Component& component)
 {
@@ -30,7 +31,8 @@ Component::Component(int x, int y, int width, int height, string name) :
 	moveBehavior(componentNode), 
 	mouseHandler(componentNode),
 	renderBehavior(*this),
-	viewport(*this)
+	viewport(*this),
+	keyStateBehavior(*this)
 {
 	moveBehavior.SetPosition(x, y);
 	resizeBehavior.SetSize(width, height);
@@ -70,6 +72,7 @@ void Component::OnRender(RenderEventInfo e)
 	if( !IsRoot() ) //Root should always translate from 0, 0
 		matrix.Translate(GetAbsoluteX(), GetAbsoluteY());
 	matrix.Scale(GetWidth(), GetHeight());
+	e.SetParentSize(GetSize());
 
 	e.GetGraphics()->SetTransform(&matrix);
 	renderBehavior.OnRender(e);
@@ -389,6 +392,31 @@ std::any Component::ColidesWithUpmost(Gdiplus::Point point)
 			return std::any_cast<Component*>(componentNode.Get(i).GetValue().ColidesWithUpmost(point));
 	}
 	return std::make_any<Component*>(this);
+}
+
+void Component::NotifyOnKeyDown(EventKeyStateInfo e)
+{
+	keyStateBehavior.NotifyOnKeyDown(e);
+}
+
+void Component::NotifyOnKeyUp(EventKeyStateInfo e)
+{
+	keyStateBehavior.NotifyOnKeyUp(e);
+}
+
+void Component::NotifyOnKeyPressed(EventKeyStateInfo e)
+{
+	keyStateBehavior.NotifyOnKeyPressed(e);
+}
+
+void Component::AddKeyStateSubscriber(KeyStateSubscriber& subscriber)
+{
+	keyStateBehavior.AddKeyStateSubscriber(subscriber);
+}
+
+void Component::RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber)
+{
+	keyStateBehavior.RemoveKeyStateSubscriber(subscriber);
 }
 
 void Component::UpdateSubNodes(EventUpdateInfo e)

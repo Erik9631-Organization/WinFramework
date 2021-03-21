@@ -2,14 +2,14 @@
 #include <string>
 #include <any>
 #include "ClassMethod.h"
-template<class T>
+template<class TreeNode>
 class ReflectionContainer;
 
-template<class T>
+template<class TreeNode>
 class Reflectable
 {
 public:
 	virtual bool HasMethod(std::string method) = 0;
-	virtual ReflectionContainer<T>& GetReflectionContainer() = 0;
+	virtual ReflectionContainer<TreeNode>& GetReflectionContainer() = 0;
 };
 

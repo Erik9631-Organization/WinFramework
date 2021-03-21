@@ -5,6 +5,6 @@ private:
 	bool state;
 public:
 	EventOnActivateInfo(bool state);
-	bool GetState();
+	bool IsActive();
 };
 

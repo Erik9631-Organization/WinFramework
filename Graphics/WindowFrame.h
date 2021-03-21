@@ -21,7 +21,6 @@ private:
 	condition_variable* initWait;
 	bool initNotified = false;
 	Background background;
-	void SetComponentFocus(EventMouseStateInfo e);
 
 	void CreateCoreWindow();
 
@@ -34,6 +33,10 @@ public:
 
 	void SetPosition(int x, int y) override;
 	void SetPosition(Point point) override;
+
+	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
+	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
+	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
 
 	void UpdateWindow();
 	WindowFrame(std::string windowName);

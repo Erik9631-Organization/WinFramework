@@ -2,6 +2,27 @@
 #include "RenderEventInfo.h"
 #include "ClassMethod.h"
 
+void Text::SetLineAlignment(Gdiplus::StringAlignment alignment)
+{
+    this->lineAlignment = alignment;
+}
+
+void Text::SetAlignment(Gdiplus::StringAlignment alignment)
+{
+    this->alignment = alignment;
+}
+
+Gdiplus::StringAlignment Text::GetLineAlignment()
+{
+    return lineAlignment;
+}
+
+Gdiplus::StringAlignment Text::GetAlignment()
+{
+    return alignment;
+}
+
+
 Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(*this)
 {
     reflectionContainer.RegisterMethod("text-color", "SetColor", &Text::SetColor);
@@ -12,6 +33,7 @@ Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
     brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
     position = Gdiplus::PointF(0, 0);
+    percentualPosition = Gdiplus::PointF(0, 0);
 }
 
 void Text::SetText(std::wstring text)
@@ -27,6 +49,11 @@ std::wstring Text::GetText()
 void Text::SetPosition(Gdiplus::PointF position)
 {
     this->position = position;
+}
+
+void Text::SetPercentualPosition(Gdiplus::PointF position)
+{
+    percentualPosition = position;
 }
 
 Gdiplus::PointF Text::GetPosition()
@@ -48,15 +75,25 @@ void Text::SetFontSize(double fontSize)
 
 void Text::OnRender(RenderEventInfo e)
 {
+    Gdiplus::PointF realPosition = position;
     Gdiplus::Graphics* g = e.GetGraphics();
     Gdiplus::Matrix matrix{};
     g->GetTransform(&matrix);
-    matrix.Scale(1, 1);
     g->ResetTransform();
     g->TranslateTransform(matrix.OffsetX(), matrix.OffsetY());
 
     g->SetTextRenderingHint(Gdiplus::TextRenderingHintAntiAlias);
-    g->DrawString(text.c_str(), -1, font, position, brush);
+
+
+     realPosition.X += (float)e.GetParentSize().Width * percentualPosition.X;
+     realPosition.Y += (float)e.GetParentSize().Height * percentualPosition.Y;
+
+    Gdiplus::StringFormat format;
+    format.SetAlignment(alignment);
+    format.SetLineAlignment(lineAlignment);
+    g->DrawString(text.c_str(), -1, font, realPosition, &format, brush);
+    g->SetTransform(&matrix);
+
 }
 
 void Text::Repaint()

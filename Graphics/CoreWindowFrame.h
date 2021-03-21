@@ -29,6 +29,7 @@ private:
 	void AssignGraphicsToComponents();
 	void assignGraphicsToNodes(MultiTree<Component&>& node, Rect viewPort);
 	void NotifyMouseState(Gdiplus::Point point);
+	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
 
 	DefaultRender renderBehavior;
 
@@ -41,6 +42,7 @@ public:
 	HDC* GetHdc();
 	HWND GetWindowHandle();
 	static void ConsoleWrite(string output);
+	static void UnicodeConsoleWrite(std::wstring output);
 	~CoreWindowFrame();
 
 	// Inherited via Renderable

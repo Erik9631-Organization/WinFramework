@@ -7,6 +7,7 @@
 #include <string>
 #include "EventResizeInfo.h"
 #include "EventMouseStateInfo.h"
+#include "EventKeyStateInfo.h"
 
 using namespace std;
 
@@ -70,6 +71,27 @@ void WindowFrame::SetPosition(int x, int y)
 void WindowFrame::SetPosition(Point point)
 {
 	Component::SetPosition(point);
+}
+
+void WindowFrame::NotifyOnKeyDown(EventKeyStateInfo e)
+{
+	Component::NotifyOnKeyDown(e);
+	if (currentFocus != nullptr && currentFocus != this)
+		currentFocus->NotifyOnKeyDown(e);
+}
+
+void WindowFrame::NotifyOnKeyUp(EventKeyStateInfo e)
+{
+	Component::NotifyOnKeyUp(e);
+	if (currentFocus != nullptr && currentFocus != this)
+		currentFocus->NotifyOnKeyUp(e);
+}
+
+void WindowFrame::NotifyOnKeyPressed(EventKeyStateInfo e)
+{
+	Component::NotifyOnKeyPressed(e);
+	if (currentFocus != nullptr && currentFocus != this)
+		currentFocus->NotifyOnKeyPressed(e);
 }
 
 void WindowFrame::UpdateWindow()

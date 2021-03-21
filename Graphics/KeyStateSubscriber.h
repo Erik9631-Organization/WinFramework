@@ -1,10 +1,11 @@
-#pragma 
-class KeyStateInfo;
+#pragma once
+class EventKeyStateInfo;
 
 class KeyStateSubscriber
 {
-	virtual void OnKeyDown(KeyStateInfo e) = 0;
-	virtual void OnKeyUp(KeyStateInfo e) = 0;
-	virtual void OnKeyPressed(KeyStateInfo e) = 0;
+public:
+	virtual void OnKeyDown(EventKeyStateInfo e) = 0;
+	virtual void OnKeyUp(EventKeyStateInfo e) = 0;
+	virtual void OnKeyPressed(EventKeyStateInfo e) = 0;
 };
 

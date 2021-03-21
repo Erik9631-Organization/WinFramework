@@ -19,6 +19,7 @@
 #include "Collidable.h"
 #include "MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
+#include "DefaultKeyStateBehavior.h"
 #include "AccessTools.h"
 
 
@@ -30,7 +31,7 @@ class EventHoverInfo;
 
 using namespace std;
 using namespace Gdiplus;
-class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable
+class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -41,6 +42,7 @@ protected:
 	DefaultRender renderBehavior;
 	DefaultMove<MultiTree<Component&>&> moveBehavior;
 	DefaultMouseBehavior<MultiTree<Component&>&> mouseHandler;
+	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
 	Viewport viewport;
@@ -169,9 +171,20 @@ public:
 	void SetProperty(std::string name, Args ... args)
 	{
 		for (Renderable& renderable : GetRenderables())
+		{
 			AccessTools::Invoke<void>(name, renderable, args ...);
+		}
+		Repaint();
+
 	}
 
 	// Inherited via MouseInteractable
 	virtual std::any ColidesWithUpmost(Gdiplus::Point) override;
+
+	// Inherited via KeyStateSubject
+	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
+	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
+	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
+	virtual void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+	virtual void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
 };
