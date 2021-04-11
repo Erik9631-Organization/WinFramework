@@ -52,7 +52,7 @@ void WindowFrame::Repaint()
 void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
 {
 	Component::NotifyOnMouseDown(e);
-	Component* result = std::any_cast<Component*>(ColidesWithUpmost(e.GetMousePosition()));
+	Component* result = std::any_cast<Component*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
 	if (currentFocus == result)
 		return;
 

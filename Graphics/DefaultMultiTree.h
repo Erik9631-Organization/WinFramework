@@ -3,6 +3,7 @@
 #include <vector>
 #include <stack>
 #include <memory>
+#include "OnAddHandler.h"
 class Component;
 
 template <class T>
@@ -12,6 +13,7 @@ private:
 	std::vector<std::reference_wrapper<MultiTree<T>>> elementList;
 	MultiTree<T>* parent;
 	T nodeObject;
+    OnAddHandler<T> onAddHandler;
 public:
 	DefaultMultiTree(T associatedObj);
 	// Inherited via Container
@@ -24,6 +26,9 @@ public:
 	virtual MultiTree<T>* GetParent() override;
 	virtual MultiTree<T>& Get(int index) override;
     virtual int GetNodeCount() override;
+    virtual void NotifyOnAddInfo(EventOnAddInfo<T> e) override;
+    virtual void AddOnAddSubscriber(OnAddSubscriber<T>& subscriber) override;
+    virtual void RemoveOnAddSubscriber(OnAddSubscriber<T>& subscriber) override;
 
 	// Inherited via Container
 	virtual T GetValue() override;
@@ -46,6 +51,7 @@ void DefaultMultiTree<T>::SetParent(MultiTree<T>* obj)
 template <class T> void DefaultMultiTree<T>::Add(MultiTree<T>& object)
 {
     elementList.push_back(object);
+    onAddHandler.NotifyOnAddInfo(EventOnAddInfo<T>(object.GetValue()));
     object.SetParent((MultiTree<T>*)this);
 }
 
@@ -100,6 +106,24 @@ template<class T>
 inline int DefaultMultiTree<T>::GetNodeCount()
 {
     return elementList.size();
+}
+
+template<class T>
+inline void DefaultMultiTree<T>::NotifyOnAddInfo(EventOnAddInfo<T> e)
+{
+    onAddHandler.NotifyOnAddInfo(e);
+}
+
+template<class T>
+inline void DefaultMultiTree<T>::AddOnAddSubscriber(OnAddSubscriber<T>& subscriber)
+{
+    onAddHandler.AddOnAddSubscriber(subscriber);
+}
+
+template<class T>
+inline void DefaultMultiTree<T>::RemoveOnAddSubscriber(OnAddSubscriber<T>& subscriber)
+{
+    onAddHandler.RemoveOnAddSubscriber(subscriber);
 }
 
 template <class T> T DefaultMultiTree<T>::GetValue()

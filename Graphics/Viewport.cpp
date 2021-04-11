@@ -16,11 +16,12 @@ void Viewport::CalculateAbsoluteSize(Gdiplus::Size size)
     absoluteSize.Height = (size.Height + associatedAdjustable.GetHeight() + 1) * heightMultiplier;
 }
 
-Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable&)*this), moveBehavior(viewportNode)
+Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable&)*this), moveBehavior(viewportNode), resizeBehavior(*this)
 {
 
     CalculateAbsoluteSize(Gdiplus::Size(0, 0));
     CalculateAbsolutePosition(Gdiplus::Point(0, 0));
+    internalOffset = Gdiplus::Point(0, 0);
 }
 
 
@@ -198,4 +199,34 @@ void Viewport::OnUpdate(EventUpdateInfo e)
 {
     CalculateAbsolutePosition(moveBehavior.GetPosition());
     CalculateAbsoluteSize(resizeBehavior.GetSize());
+}
+
+void Viewport::SetElementOffset(Gdiplus::Point offset)
+{
+    moveBehavior.SetElementOffset(offset);
+}
+
+void Viewport::SetElementXOffset(int x)
+{
+    moveBehavior.SetElementXOffset(x);
+}
+
+void Viewport::SetElementYOffset(int y)
+{
+    moveBehavior.SetElementYOffset(y);
+}
+
+Gdiplus::Point Viewport::GetElementOffset()
+{
+    return moveBehavior.GetElementOffset();
+}
+
+int Viewport::GetElementXOffset()
+{
+    return moveBehavior.GetElementXOffset();
+}
+
+int Viewport::GetElementYOffset()
+{
+    return moveBehavior.GetElementYOffset();
 }

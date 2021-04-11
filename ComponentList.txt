@@ -3,15 +3,18 @@ Button - Done
 Label - Done
 TextField - Done
 TextArea - Done
-PasswordField - Almost done
-Checkbox - Almost done
-RadioButton - Almost done
-List - Not done (Dependent on slider)
+PasswordField - Done
+Checkbox - Done
+RadioButton - Done
+List - Not done (Dependent on slider and grid)
 Combobox - Not done
 FileBrowser - Not done
-TabbedPanel - Not done
-Slider - Almost done
+TabbedPanel - Not done - (Dependent on grid)
+TrackBar - Done
+Panel - Done
+LoadingBar - Not done
+Slider 
 
 #LayoutMangers
-Grid - Not done
+Grid - In Progress
 Flex - Not done

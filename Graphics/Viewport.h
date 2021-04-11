@@ -14,12 +14,12 @@ private:
 	Adjustable& associatedAdjustable;
 	DefaultMultiTree<Adjustable&> viewportNode; //For the default behavior
 
-	DefaultMove<DefaultMultiTree<Adjustable&>&> moveBehavior;
+	DefaultMove<Adjustable&> moveBehavior;
 	DefaultResize resizeBehavior;
 
 	Gdiplus::Size absoluteSize;
-
 	Gdiplus::Point absolutePosition;
+	Gdiplus::Point internalOffset;
 
 	float xMultiplier = 1;
 	float yMultiplier = 1;
@@ -75,5 +75,20 @@ public:
 
 	// Inherited via Adjustable
 	virtual void OnUpdate(EventUpdateInfo e) override;
+
+
+	// Inherited via Adjustable
+	virtual void SetElementOffset(Gdiplus::Point offset) override;
+
+	virtual void SetElementXOffset(int x) override;
+
+	virtual void SetElementYOffset(int y) override;
+
+	virtual Gdiplus::Point GetElementOffset() override;
+
+	virtual int GetElementXOffset() override;
+
+	virtual int GetElementYOffset() override;
+
 };
 

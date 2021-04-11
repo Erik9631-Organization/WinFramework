@@ -9,23 +9,45 @@ EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, Compo
 
 EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Component* source) : src(source)
 {
-	position = e.GetMousePosition();
+	position = e.GetMouseAbsolutePosition();
 	key = e.GetKey();
 }
 
-Gdiplus::Point EventMouseStateInfo::GetMousePosition()
+Gdiplus::Point EventMouseStateInfo::GetMouseAbsolutePosition()
 {
 	return position;
 }
 
-int EventMouseStateInfo::GetMouseX()
+Gdiplus::Point EventMouseStateInfo::GetMousePosition()
+{
+	if (src == nullptr)
+		return GetMouseAbsolutePosition();
+	return Point(GetMouseX(), GetMouseY());
+}
+
+int EventMouseStateInfo::GetAbsoluteMouseX()
 {
 	return position.X;
 }
 
-int EventMouseStateInfo::GetMouseY()
+int EventMouseStateInfo::GetAbsoluteMouseY()
 {
 	return position.Y;
+}
+
+int EventMouseStateInfo::GetMouseX()
+{
+	if (src == nullptr)
+		return GetAbsoluteMouseX();
+	return position.X - src->GetAbsoluteX();
+}
+
+int EventMouseStateInfo::GetMouseY()
+{
+	if (src == nullptr)
+		return GetAbsoluteMouseY();
+
+	return  position.Y - src->GetAbsoluteY();
 }
 
 int EventMouseStateInfo::GetKey()

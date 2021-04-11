@@ -4,7 +4,11 @@
 
 Background::Background() : renderBehavior(*this), reflectionContainer(*this)
 {
+    percentualPos = Gdiplus::PointF(0.0f, 0.0f);
+    size = Gdiplus::SizeF(1.0f, 1.0f);
+
     reflectionContainer.RegisterMethod("background-color", "SetColor", &Background::SetColor);
+    reflectionContainer.RegisterMethod("get-background-color", "SetColor", &Background::GetColor);
     brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
 }
 
@@ -24,9 +28,49 @@ Gdiplus::Color Background::GetColor()
     return currentColor;
 }
 
+void Background::SetWidth(float width)
+{
+    size.Width = width;
+}
+
+void Background::SetHeight(float height)
+{
+    size.Height = height;
+}
+
+void Background::SetPercentualPosX(float x)
+{
+    percentualPos.X = x;
+}
+
+void Background::SetPercentualPosY(float y)
+{
+    percentualPos.Y = y;
+}
+
+float Background::GetWidth()
+{
+    return size.Width;
+}
+
+float Background::GetHeight()
+{
+    return size.Height;
+}
+
+float Background::GetPercentualPosX()
+{
+    return percentualPos.X;
+}
+
+float Background::GetPercentualPosY()
+{
+    return percentualPos.Y;
+}
+
 void Background::OnRender(RenderEventInfo e)
 {
-    e.GetGraphics()->FillRectangle(brush, 0.0f, 0.0f, 1.0f, 1.0f);
+    e.GetGraphics()->FillRectangle(brush, percentualPos.X, percentualPos.Y, size.Width, size.Height);
 }
 
 void Background::Repaint()

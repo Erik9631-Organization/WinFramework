@@ -2,7 +2,6 @@
 #include "WindowFrame.h"
 #include "CoreWindowFrame.h"
 #include "EventMoveInfo.h"
-#include "ComponentListener.h"
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
 #include "EventUpdateInfo.h"
@@ -28,15 +27,37 @@ Component::Component(string name) : Component(0, 0, 0, 0, name)
 
 Component::Component(int x, int y, int width, int height, string name) :
 	componentNode(*this),
-	moveBehavior(componentNode), 
+	moveBehavior(componentNode),
 	mouseHandler(componentNode),
 	renderBehavior(*this),
 	viewport(*this),
-	keyStateBehavior(*this)
+	keyStateBehavior(*this),
+	resizeBehavior(*this)
 {
 	moveBehavior.SetPosition(x, y);
 	resizeBehavior.SetSize(width, height);
 	this->name = name;
+}
+
+std::wstring Component::GetText()
+{
+	return text;
+}
+
+void Component::SetText(std::wstring text)
+{
+	this->text = text;
+	Repaint();
+}
+
+void Component::SetIgnoreOffset(bool ignoreOffset)
+{
+	this->ignoreOffset = ignoreOffset;
+}
+
+bool Component::IsIgnoringOffset()
+{
+	return ignoreOffset;
 }
 
 void Component::AddOnMoveSubscriber(MoveSubscriber& subscriber)
@@ -113,7 +134,7 @@ void Component::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 void Component::SetWidth(int width)
 {
 	resizeBehavior.SetWidth(width);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+	 
 }
 
 void Component::SetHeight(int height)
@@ -299,7 +320,6 @@ void Component::OnUpdate(EventUpdateInfo e)
 	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
-	CoreWindowFrame::ConsoleWrite(name + " Sending repaint request...");
 	Repaint();
 }
 
@@ -418,6 +438,73 @@ void Component::RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber)
 {
 	keyStateBehavior.RemoveKeyStateSubscriber(subscriber);
 }
+
+void Component::NotifyOnAddInfo(EventOnAddInfo<Component&> e)
+{
+	componentNode.NotifyOnAddInfo(e);
+}
+
+void Component::AddOnAddSubscriber(OnAddSubscriber<Component&>& subscriber)
+{
+	componentNode.AddOnAddSubscriber(subscriber);
+}
+
+void Component::RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber)
+{
+	componentNode.RemoveOnAddSubscriber(subscriber);
+}
+
+void Component::SetElementOffset(Gdiplus::Point offset)
+{
+	if (ignoreOffset)
+		return;
+
+	moveBehavior.SetElementOffset(offset);
+}
+
+void Component::SetElementXOffset(int x)
+{
+	if (ignoreOffset)
+		return;
+	moveBehavior.SetElementXOffset(x);
+}
+
+void Component::SetElementYOffset(int y)
+{
+	if (ignoreOffset)
+		return;
+
+	moveBehavior.SetElementYOffset(y);
+}
+
+Gdiplus::Point Component::GetElementOffset()
+{
+	return moveBehavior.GetElementOffset();
+}
+
+int Component::GetElementXOffset()
+{
+	return moveBehavior.GetElementXOffset();
+}
+
+int Component::GetElementYOffset()
+{
+	return moveBehavior.GetElementYOffset();
+}
+
+Gdiplus::Point Component::GetInternalOffset()
+{
+	return moveBehavior.GetInternalOffset();
+}
+
+void Component::SetInternalOffset(Gdiplus::Point internalOffset)
+{
+	if (ignoreOffset)
+		return;
+	moveBehavior.SetInternalOffset(internalOffset);
+	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+}
+
 
 void Component::UpdateSubNodes(EventUpdateInfo e)
 {

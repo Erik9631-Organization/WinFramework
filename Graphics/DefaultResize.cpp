@@ -1,6 +1,11 @@
 #include "DefaultResize.h"
 #include "EventResizeInfo.h"
 #include "ResizeSubscriber.h"
+#include "GenericObj.h"
+
+DefaultResize::DefaultResize(Resizable& resizeComponent) : associatedResizable(resizeComponent)
+{
+}
 
 void DefaultResize::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
@@ -40,11 +45,12 @@ int DefaultResize::GetHeight()
 void DefaultResize::SetSize(Gdiplus::Size size)
 {
     this->size = size;
+    NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
 }
 
 void DefaultResize::SetSize(int width, int height)
 {
-    this->size = Gdiplus::Size(width, height);
+    SetSize(Gdiplus::Size(width, height));
 }
 
 void DefaultResize::SetWidth(int width)

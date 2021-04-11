@@ -12,6 +12,10 @@ private:
 	Gdiplus::SolidBrush* brush;
 	Gdiplus::Color currentColor;
 	ReflectionContainer<Background> reflectionContainer;
+	Gdiplus::PointF percentualPos;
+	Gdiplus::PointF posOffset;
+
+	Gdiplus::SizeF size;
 
 public:
 	Background();
@@ -19,6 +23,15 @@ public:
 
 	void SetColor(Gdiplus::Color color);
 	Gdiplus::Color GetColor();
+	void SetWidth(float width);
+	void SetHeight(float height);
+	void SetPercentualPosX(float x);
+	void SetPercentualPosY(float y);
+
+	float GetWidth();
+	float GetHeight();
+	float GetPercentualPosX();
+	float GetPercentualPosY();
 
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;

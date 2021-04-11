@@ -2,14 +2,16 @@
 #include "MouseStateSubscriber.h"
 #include <vector>
 #include <memory>
+#include "RadioButtonStateSubject.h"
 
 class RadioButton;
 
-class RadioButtonBehavior : MouseStateSubscriber
+class RadioButtonBehavior : MouseStateSubscriber, public RadioButtonStateSubject
 {
 private:
 	RadioButton& associatedRadioButton;
 	std::shared_ptr<std::vector<std::reference_wrapper<RadioButton>>> group;
+	std::vector<std::reference_wrapper<RadioButtonStateSubscriber>> subscribers;
 	void RemoveFromGroup(RadioButton& button);
 
 public: 
@@ -31,6 +33,14 @@ public:
 	virtual void OnMouseEntered(EventMouseStateInfo e) override;
 
 	virtual void OnMouseLeft(EventMouseStateInfo e) override;
+
+
+	// Inherited via RadioButtonStateSubject
+	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;
+
+	virtual void AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
+
+	virtual void RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
 
 };
 

@@ -21,6 +21,7 @@
 #include "DefaultMouseBehavior.h"
 #include "DefaultKeyStateBehavior.h"
 #include "AccessTools.h"
+#include "AddSubject.h"
 
 
 class EventInfo;
@@ -31,7 +32,7 @@ class EventHoverInfo;
 
 using namespace std;
 using namespace Gdiplus;
-class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject
+class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<Component&>
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -40,17 +41,23 @@ protected:
 	string name;
 	DefaultMultiTree <Component&> componentNode;
 	DefaultRender renderBehavior;
-	DefaultMove<MultiTree<Component&>&> moveBehavior;
+	DefaultMove<Component&> moveBehavior;
 	DefaultMouseBehavior<MultiTree<Component&>&> mouseHandler;
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
 	Viewport viewport;
+	std::wstring text;
+	bool ignoreOffset = false;
 
 public:
 	Component();
 	Component(string name);
 	Component(int x, int y, int width, int height, string windowName);
+	virtual std::wstring GetText();
+	virtual void SetText(std::wstring text);
+	void SetIgnoreOffset(bool ignoreOffset);
+	bool IsIgnoringOffset();
 
 	bool IsRoot();
 	Component& GetRoot();
@@ -178,6 +185,15 @@ public:
 
 	}
 
+	template<typename returnType, typename ... Args>
+	returnType GetPropery(std::string name, Args ... args)
+	{
+		for (Renderable& renderable : GetRenderables())
+		{
+			return AccessTools::Invoke<returnType>(name, renderable, args ...);
+		}
+	}
+
 	// Inherited via MouseInteractable
 	virtual std::any ColidesWithUpmost(Gdiplus::Point) override;
 
@@ -187,4 +203,23 @@ public:
 	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
 	virtual void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
 	virtual void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+
+
+	// Inherited via AddSubject
+	virtual void NotifyOnAddInfo(EventOnAddInfo<Component&> e) override;
+	virtual void AddOnAddSubscriber(OnAddSubscriber<Component&>& subscriber) override;
+	virtual void RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber) override;
+
+	// Inherited via Viewable
+	virtual void SetElementOffset(Gdiplus::Point offset) override;
+	virtual void SetElementXOffset(int x) override;
+	virtual void SetElementYOffset(int Y) override;
+
+	// Inherited via Adjustable
+	virtual Gdiplus::Point GetElementOffset() override;
+	virtual int GetElementXOffset() override;
+	virtual int GetElementYOffset() override;
+
+	Gdiplus::Point GetInternalOffset();
+	void SetInternalOffset(Gdiplus::Point internalOffset);
 };

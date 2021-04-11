@@ -6,7 +6,9 @@ class DefaultResize : public Resizable
 private:
 	Gdiplus::Size size;
 	std::vector<std::reference_wrapper<ResizeSubscriber>> subscribers;
+	Resizable& associatedResizable;
 public:
+	DefaultResize(Resizable& resizeComponent);
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;

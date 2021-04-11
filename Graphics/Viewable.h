@@ -35,7 +35,7 @@ class Viewable
 	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) = 0;
 	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) = 0;
 
-	virtual int GetViewportWidth() = 0;;
+	virtual int GetViewportWidth() = 0;
 	virtual int GetViewportHeight() = 0;
 	virtual void SetViewportSize(Gdiplus::Size size) = 0;
 	virtual void SetViewportSize(int width, int height) = 0;

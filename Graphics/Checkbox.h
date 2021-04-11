@@ -17,9 +17,9 @@ private:
 	Text checkBoxChar;
 	Text text;
 public:
-	void SetText(std::wstring text);
+	void SetText(std::wstring text) override;
 	void Check();
-	std::wstring GetText();
+	std::wstring GetText() override;
 	void SetChecked(bool state);
 	bool IsChecked();
 	Checkbox();

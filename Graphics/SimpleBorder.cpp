@@ -1,6 +1,7 @@
 #include "SimpleBorder.h"
 #include "RenderEventInfo.h"
 #include "CoreWindowFrame.h"
+#include "AccessTools.h"
 
 
 SimpleBorder::SimpleBorder() : renderBehavior(*this), reflectionContainer(*this)
@@ -9,6 +10,7 @@ SimpleBorder::SimpleBorder() : renderBehavior(*this), reflectionContainer(*this)
 	reflectionContainer.RegisterMethod("border-color", "SetColor", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-style", "SetBorderStyle", &SimpleBorder::SetBorderStyle);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
+
 	
 	offset.X = 0.0f;
 	offset.Y = 0.0f;

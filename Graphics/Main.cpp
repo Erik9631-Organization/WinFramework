@@ -23,6 +23,13 @@
 #include "Checkbox.h"
 #include "EventCheckboxStateInfo.h"
 #include "RadioButton.h"
+#include "RadioButtonStateSubscriber.h"
+#include "EventRadioButtonStateInfo.h"
+#include "PasswordField.h"
+#include "TrackBar.h"
+#include "OnAddSubscriber.h"
+#include "Panel.h"
+#include "Grid.h"
 
 using namespace std;
 
@@ -137,6 +144,60 @@ class CheckboxTester : public CheckboxStateSubscriber
 	}
 };
 
+class RadioButtonTester : public RadioButtonStateSubscriber
+{
+	// Inherited via RadioButtonStateSubscriber
+	virtual void OnRadioButtonSelected(EventRadioButtonStateInfo e) override
+	{
+		RadioButton* src = std::any_cast<RadioButton*>(e.GetSrc());
+		if (e.IsSelected())
+			CoreWindowFrame::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
+		else
+			CoreWindowFrame::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
+	}
+};
+
+class FormSubmiter : public MouseStateSubscriber
+{
+private:
+	Label& result;
+	PasswordField& field;
+public:
+	FormSubmiter(Label& resultLabel, PasswordField& srcField) : result(resultLabel), field(srcField)
+	{
+
+	}
+
+
+	// Inherited via MouseStateSubscriber
+	virtual void OnMouseDown(EventMouseStateInfo e) override
+	{
+	}
+
+	virtual void OnMouseUp(EventMouseStateInfo e) override
+	{
+		result.SetText(field.GetText());
+	}
+
+	virtual void OnMousePressed(EventMouseStateInfo e) override
+	{
+	}
+
+	virtual void OnMouseMove(EventMouseStateInfo e) override
+	{
+	}
+
+	virtual void OnMouseEntered(EventMouseStateInfo e) override
+	{
+	}
+
+	virtual void OnMouseLeft(EventMouseStateInfo e) override
+	{
+	}
+
+};
+
+
 /*
 * TODO
 * 1) Add OnActionEvent for buttons
@@ -156,6 +217,16 @@ class CheckboxTester : public CheckboxStateSubscriber
 * 14) Checkbox should be a graphical component on its own, similar to radio button
 * 15) Matrix transformation reset applies to renderables on the same layer. Graphic is a POINTER!!!!!
 * 16) Scaling type should be somehow transfered into the matrix so the user doesn't have to calculate it on his own.
+* 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
+* 18) Specialize the trackbar behavior to either vertical or horizontal
+* 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover
+* 20) Fix InternalOffset calls causing massive slow down (Internal offset calls Element offset which causes updates, this is temporarily disabled for the sake of functionality)
+* 21) Remove methods called Listeners instead of Subscribers from component
+* 
+* Optimization
+* 1) Create rendering queve and rendering request class which specifies the rendering source. Each class should have an ID (Either real or pregenerated from the type)
+*	 The rendering queve should be handled by the root and it should limit the maximum amount of renders to 30 repaints per second
+*	 The rendering queve should automatically 
 */
 	
 int WinEntry()
@@ -169,6 +240,64 @@ int WinEntry()
 	SimpleBorder border = SimpleBorder();
 	TestClass inputTest = TestClass();
 	CheckboxTester checkboxTester = CheckboxTester();
+	RadioButtonTester radioButtonTester = RadioButtonTester();
+	TrackBar trackbar = TrackBar(0, 10, 10, 150, "trackbar");
+	Panel panel = Panel(50, 300, 300, 250, "panel");
+	panel.Add(trackbar);
+	trackbar.Control(panel);
+
+
+
+
+	/*
+	* Grid Test Start
+	*/
+	Grid grid = Grid(800, 10, 500, 500);
+	grid.SetGridColumns({ 50, 150, 75, 50 });
+	grid.SetGridRows({ 100, 25, 25, 200 });
+
+	for (int i = 0; i < 30; i++)
+	{
+		Label* gridTestLabel = new Label(0, 0, 0, 0, "Label");
+		grid.Add(*gridTestLabel);
+	}
+
+	/*
+	* Grid Test end
+	*/
+	
+
+	/*
+	* Password Form START
+	*/
+	PasswordField passwordField = PasswordField(490, 210, 100, 30, "PasswordField");
+	Button submitButton = Button(600, 210, 100, 30);
+	submitButton.SetText(L"Submit");
+	Label resultLabel = Label(490, 250, 100, 50, "resultLabel");
+
+
+	FormSubmiter submiter = FormSubmiter(resultLabel, passwordField);
+	submitButton.AddMouseStateSubscriber(submiter);
+	/*
+	* Password Form END
+	*/
+
+	/*
+	* SCROLLBAR TEST START
+	*/
+
+	for (int i = 0; i < 10; i++)
+	{
+		Label* scrollBarTest = new Label(0, 10+110 * i, 100, 100, "testLabel");
+		
+		scrollBarTest->SetText(L"TestLabel " + to_wstring(i));
+		panel.Add(*scrollBarTest);
+	}
+
+	/*
+	* SCROLL BAR TEST END
+	*/
+
 	RadioButton radioButton1 = RadioButton(600, 100, 100, 30, "radioButton1");
 	RadioButton radioButton2 = RadioButton(600, 135, 100, 30, "radioButton2");
 	RadioButton radioButton3 = RadioButton(600, 170, 100, 30, "radioButton3");
@@ -176,6 +305,14 @@ int WinEntry()
 	RadioButton radioButtonG1 = RadioButton(490, 100, 100, 30, "radioButtonG1");
 	RadioButton radioButtonG2 = RadioButton(490, 135, 100, 30, "radioButtonG2");
 	RadioButton radioButtonG3 = RadioButton(490, 170, 100, 30, "radioButtonG3");
+
+	radioButton1.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButton2.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButton3.AddRadioButtonStateSubscriber(radioButtonTester);
+
+	radioButtonG1.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButtonG2.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButtonG3.AddRadioButtonStateSubscriber(radioButtonTester);
 
 	Label groupLabel1 = Label(600, 60, 100, 30, "Group1");
 	groupLabel1.SetText(L"Group 1 buttons");
@@ -196,9 +333,8 @@ int WinEntry()
 	radioButtonG1.AddToGroup(radioButtonG2);
 	radioButtonG2.AddToGroup(radioButtonG3);
 
-	radioButtonG3.UnGroup();
 
-	TextInput input = TextInput(500, 300, 200, 100, "input");
+	TextInput input = TextInput(500, 500, 200, 100, "input");
 	input.SetText(L"おはよお");
 
 	Checkbox checkbox = Checkbox(600, 20, 105, 35, "Checkbox1");
@@ -220,6 +356,11 @@ int WinEntry()
 	frame.Add(radioButtonG3);
 	frame.Add(groupLabel1);
 	frame.Add(groupLabel2);
+	frame.Add(passwordField);
+	frame.Add(resultLabel);
+	frame.Add(submitButton);
+	frame.Add(panel);
+	frame.Add(grid);
 
 	Label outputLabel = Label(offset, offset - height - gap, width*3 + gap*3, height, "outputLabel");
 	Button addButton = Button(width * 3 + offset + gap*3, offset, width + gap*3, (height * 3 + gap*3)/2);
@@ -253,7 +394,6 @@ int WinEntry()
 		}
 
 	}
-
 
 	ApplicationController::JoinThreads();
 	return 0;

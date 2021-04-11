@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
+#include "AddSubject.h"
 template<class T>
-class MultiTree
+class MultiTree : AddSubject<T>
 {
 public:
 	virtual void Add(MultiTree<T>& object) = 0;
@@ -14,5 +15,9 @@ public:
 	virtual MultiTree<T>* GetParent() = 0;
 	virtual MultiTree<T>& Get(int index) = 0;
 	virtual T GetValue() = 0;
+
+	virtual void NotifyOnAddInfo(EventOnAddInfo<T> e) = 0;
+	virtual void AddOnAddSubscriber(OnAddSubscriber<T>& subscriber) = 0;
+	virtual void RemoveOnAddSubscriber(OnAddSubscriber<T>& subscriber) = 0;
 };
 

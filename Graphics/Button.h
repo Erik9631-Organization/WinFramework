@@ -17,8 +17,8 @@ private:
 
 public:
 	Button(int x, int y, int width, int height);
-	void SetText(std::wstring text);
-	std::wstring GetText();
+	void SetText(std::wstring text) override;
+	std::wstring GetText() override;
 	void SetBorderColor(COLORREF color);
 	void SetBackgroundColor(COLORREF color);
 	void SetBorderColor(Color color);

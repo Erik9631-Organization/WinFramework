@@ -7,12 +7,17 @@ Gdiplus::Size EventResizeInfo::GetSize()
 	return this->size;
 }
 
-
-EventResizeInfo::EventResizeInfo(Gdiplus::Size size)
+Resizable* EventResizeInfo::GetSrc()
 {
-	this->size = size;
+	return src;
 }
 
+
+EventResizeInfo::EventResizeInfo(Gdiplus::Size size, Resizable* obj) : src(obj)
+{
+	this->size = size;
+	this->src = src;
+}
 
 EventResizeInfo::~EventResizeInfo()
 {

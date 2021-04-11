@@ -19,6 +19,7 @@ public:
 	void RegisterMethod(std::string accessName, std::string methodName, ReturnType (Type::*methodAddress)(Args ...))
 	{
 		methods[accessName] = new ClassMethod<Type>(accessName, &associatedInstance, methodAddress);
+		//AccessTools::RegisterClassMethod<ReturnType, Type, Args...>(associatedInstance);
 
 	}
 	template<typename ReturnType, typename ... Args>
