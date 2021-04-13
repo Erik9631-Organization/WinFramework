@@ -2,17 +2,33 @@
 #include "Adjustable.h"
 #include "EventResizeInfo.h"
 #include "EventMoveInfo.h"
+#include "GridSpan.h"
+
 class Grid;
+
+/*
+* How spanning should work:
+* 1) Each GridCell should have Setspan parameter. It recieved a data type that contains grid-column-start, grid-column-end, grid-row-start, grid-row-end
+* 2) When the span is set, the span parent is calculated. This is the top left cell of the entire span area.
+* 3) This way, all the cells within the span will refer to the top corner.
+* 4) The methods will be automatically delegated to the parent. Size and position should be an exception as the parent will use those values to calculate the spanning of its component
+* The idea is that spanning should be possible with the existing grid system, without creating incompatibilities
+*/
 
 class GridCell : Adjustable
 {
 private:
 	Grid& parentGrid;
 	Adjustable* associatedAdjustable;
+
 	Gdiplus::Size cellSize;
 	Gdiplus::Point indexPos; 
 	Gdiplus::Point position;
-	Gdiplus::Point CalculatePixelPosition();
+	Gdiplus::Point CalculatePixelPosition();;
+
+	GridSpan span;
+
+	Gdiplus::Size GetSpanSize();
 public:
 
 	void ControlAdjustable(Adjustable* associatedAdjustable);
@@ -20,6 +36,15 @@ public:
 
 	GridCell(Grid& parentGrid);
 	// Inherited via Adjustable
+
+	GridCell* GetSpanParent(); // Can't be a variable since the parent can't exist unless the row exists
+	GridCell* GetSpanCorner(); // Returns grid of the bottom right corner of the span
+
+	void SetSpan(GridSpan span);
+	GridSpan GetSpan();
+	bool IsSpanParent();
+
+
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;

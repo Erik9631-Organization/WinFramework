@@ -2,22 +2,63 @@
 
 void Grid::AddRow()
 {
+	//Add new row only if over the capacity
+
 	std::vector<GridCell*>* row = new std::vector<GridCell*>();
 	gridArray.push_back(row);
 
 
-	int lastRow = 0;
+	int lastRowIndex = 0;
 	if (gridArray.size() > 1)
-		lastRow = gridArray.size() - 1;
+		lastRowIndex = gridArray.size() - 1;
 
-	for (int i = 0; i < columnWidths.size(); i++)
+	for (int i = 0; i < columnWidths.size(); i++) //Create new row
 	{
 		GridCell* cell = new GridCell(*this);
-		cell->SetPosition(i, lastRow);
-		cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRow));
+		//Check if current index is spanning and capture the index of the span
+
+		//If == -1 then cell.SetSpan(spanVector[returnVal])
+		//Get spans Y find the different between current row and preemtivly add rows till the last span, use recursion
+		//Create last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
+		cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex)); // First position
+		cell->SetPosition(i, lastRowIndex); // Then size since position is dependent on size
 	}
 
+	//Once row is created, check if prempetive row is required
+
+}
+
+void Grid::AddRows(int count)
+{
+	for (; count > 0; count--)
+		AddRow();
+}
+
+
+bool Grid::AreSpansColliding(GridSpan a, GridSpan b)
+{
+
+	if (a.GetGridColumnStart() <= b.GetGridColumnStart() && a.GetGridColumnEnd() >= b.GetGridColumnStart() ||
+		a.GetGridColumnStart() <= b.GetGridColumnEnd() && a.GetGridColumnEnd() >= b.GetGridColumnEnd())
+		if (a.GetGridRowStart() <= b.GetGridRowStart() && a.GetGridRowEnd() >= b.GetGridRowStart() || 
+			a.GetGridRowStart() <= b.GetGridRowEnd() && a.GetGridRowEnd() >= b.GetGridRowEnd())
+			return true;
+	return false;
+}
+
+void Grid::CreateSpan(GridSpan span)
+{
+	//Check if rows need to be added
+
+	int currentRows = gridArray.size();
+	int requiredRows = (span.GetGridRowEnd() + 1) - currentRows;
+	AddRows(requiredRows);
+
+
+	for (int iy = span.GetGridRowStart(); iy <= span.GetGridRowEnd(); iy++)
+		for (int ix = span.GetGridColumnStart(); ix <= span.GetGridColumnEnd(); ix++)
+			gridArray.at(iy)->at(ix)->SetSpan(span);
 }
 
 int Grid::GetGridColumnSize(int index)
@@ -46,10 +87,69 @@ Grid::Grid() : Grid(0, 0, 0, 0)
 
 Grid::Grid(int x, int y, int width, int height) : Grid(x, y, width, height, "")
 {
+
 }
 
 Grid::Grid(int x, int y, int width, int height, std::string name) : Panel(x, y, width, height, name)
 {
+
+}
+
+void Grid::SetRowGap(int rowGap)
+{
+	this->rowGap = rowGap;
+}
+
+void Grid::SetColumnGap(int columnGap)
+{
+	this->columnGap = columnGap;
+}
+
+int Grid::GetColumnGap()
+{
+	return columnGap;
+}
+
+int Grid::GetRowGap()
+{
+	return rowGap;
+}
+
+
+void Grid::AddColumnSpan(int columnStart, int columnEnd)
+{
+	GridSpan span  = GridSpan::CreateColumnSpan(columnStart, columnEnd);
+	CreateSpan(span);
+	spans.push_back(GridSpan::CreateColumnSpan(columnStart, columnEnd));
+}
+
+void Grid::AddRowSpan(int rowStart, int rowEnd)
+{
+	GridSpan span = GridSpan::CreateRowSpan(rowStart, rowEnd);
+	CreateSpan(span);
+	spans.push_back(span);
+}
+
+void Grid::AddSpan(int columnStart, int columnEnd, int rowStart, int rowEnd)
+{
+	GridSpan span = GridSpan::CreateSpan(columnStart, columnEnd, rowStart, rowEnd);
+	CreateSpan(span);
+	spans.push_back(span);
+}
+
+void Grid::AddColumnSpan(int columnStart, int columnEnd, int row)
+{
+	AddSpan(columnStart, columnEnd, row, row);
+}
+
+void Grid::AddRowSpan(int rowStart, int rowEnd, int column)
+{
+	AddSpan(column, column, rowStart, rowEnd);
+}
+
+bool Grid::CheckSpanCollision(GridSpan span)
+{
+	return false;
 }
 
 int Grid::GetDefaultColumnSize()
@@ -74,9 +174,9 @@ void Grid::SetDefaultRowSize(int defaultRowSize)
 
 GridCell* Grid::GetGridCell(int x, int y)
 {
-	if (y > gridArray.size() || y < 0)
+	if ( y >= gridArray.size() || y < 0)
 		return nullptr;
-	if (x > gridArray.at(y)->size() || x < 0)
+	if (x >= gridArray.at(y)->size() || x < 0)
 		return nullptr;
 
 	return gridArray.at(y)->at(x);
@@ -97,22 +197,26 @@ void Grid::Add(Component& component)
 	Panel::Add(component); //Super
 	//First check if there is a row that can contain a component
 
-	int lastRow = 0;
-	if (gridArray.size() > 1)
-		lastRow = gridArray.size() - 1;
-	if (lastRow < gridArray.size())
-		for (GridCell* cell : *gridArray.at(lastRow))
-			if (cell->GetControlledAdjustable() == nullptr)
+	//int lastRow = 0;
+
+		for (int i = currentRowIndex; i < gridArray.size(); i++)
+		{
+			for (GridCell* cell : *gridArray.at(i))
 			{
-				cell->ControlAdjustable(&static_cast<Adjustable&>(component));
-				return; //Successfully added
+				if (cell->GetControlledAdjustable() == nullptr)
+				{
+					cell->ControlAdjustable(&static_cast<Adjustable&>(component));
+					return; //Successfully added
+				}
 			}
+		}
+
+
 
 	//Failed to find a row, add a new row and insert the component
 	AddRow();
-
 	if (gridArray.size() > 1)
-		lastRow = gridArray.size() - 1;
+		currentRowIndex++;
 
-	gridArray.at(lastRow)->at(0)->ControlAdjustable(&static_cast<Adjustable&>(component));
+	gridArray.at(currentRowIndex)->at(0)->ControlAdjustable(&static_cast<Adjustable&>(component));
 }

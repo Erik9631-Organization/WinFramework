@@ -327,6 +327,9 @@
     <ClCompile Include="GridCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GridSpan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResizeSubject.h">
@@ -588,6 +591,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GridCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridSpan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

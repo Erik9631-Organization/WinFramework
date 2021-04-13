@@ -27,6 +27,7 @@
     <ClInclude Include="GenericObj.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridCell.h" />
+    <ClInclude Include="GridSpan.h" />
     <ClInclude Include="OnAddHandler.h" />
     <ClInclude Include="OnAddSubscriber.h" />
     <ClInclude Include="Adjustable.h" />
@@ -116,6 +117,7 @@
     <ClCompile Include="GenericObj.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridCell.cpp" />
+    <ClCompile Include="GridSpan.cpp" />
     <ClCompile Include="OnAddHandler.cpp" />
     <ClCompile Include="OnAddSubscriber.cpp" />
     <ClCompile Include="Adjustable.cpp" />

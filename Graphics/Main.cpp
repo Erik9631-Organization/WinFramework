@@ -222,6 +222,8 @@ public:
 * 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover
 * 20) Fix InternalOffset calls causing massive slow down (Internal offset calls Element offset which causes updates, this is temporarily disabled for the sake of functionality)
 * 21) Remove methods called Listeners instead of Subscribers from component
+* 22) Wrap grid into a builder so the parameters cant be changed after its creation
+* 23) Finish collision checking so invalid spans can't be added to the grid
 * 
 * Optimization
 * 1) Create rendering queve and rendering request class which specifies the rendering source. Each class should have an ID (Either real or pregenerated from the type)
@@ -253,12 +255,14 @@ int WinEntry()
 	* Grid Test Start
 	*/
 	Grid grid = Grid(800, 10, 500, 500);
-	grid.SetGridColumns({ 50, 150, 75, 50 });
+	grid.SetGridColumns({ 50, 200, 75, 50 });
 	grid.SetGridRows({ 100, 25, 25, 200 });
+	grid.SetColumnGap(5);
+	grid.SetRowGap(1);
 
 	for (int i = 0; i < 30; i++)
 	{
-		Label* gridTestLabel = new Label(0, 0, 0, 0, "Label");
+		Label* gridTestLabel = new Label(0, 0, 0, 0, "Label" + to_string(i));
 		grid.Add(*gridTestLabel);
 	}
 
