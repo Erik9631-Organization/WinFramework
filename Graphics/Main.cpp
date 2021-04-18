@@ -30,6 +30,7 @@
 #include "OnAddSubscriber.h"
 #include "Panel.h"
 #include "Grid.h"
+#include "FileBrowser.h"
 
 using namespace std;
 
@@ -197,6 +198,78 @@ public:
 
 };
 
+class FileBrowserTester : public MouseStateSubscriber
+{
+private:
+	FileBrowser browser;
+	TextInput& outputField;
+	void ReadFile()
+	{
+		browser.Open();
+		std::wfstream* fileStream = browser.GetFileStream(std::ios::in);
+		if (fileStream == nullptr)
+			return;
+		std::wstring output;
+		while (!fileStream->eof())
+		{
+			wchar_t line[100];
+			fileStream->getline(line, 100);
+			output += line + wstring(L"\r\n");
+		}
+
+		outputField.SetText(output);
+	}
+
+	void SaveToFile()
+	{
+		browser.Save();
+		std::wfstream* fileStream = browser.GetFileStream(std::ios::out);
+		if (fileStream == nullptr)
+			return;
+		outputField.GetText();
+		fileStream->write(outputField.GetText().c_str(), outputField.GetText().size());
+		fileStream->close();
+		delete fileStream;
+	}
+public:
+	 FileBrowserTester(TextInput& outputField) : outputField(outputField)
+	{
+		 browser.SetTitle("Test file browser");
+		 browser.AddFilter("TextFiles (*.txt)", "*.txt");
+		 browser.AddFilter("All Files (*)", "*.*");
+		 browser.AddFilter("Dat files (*.dat)", "*.dat");
+	}
+
+	virtual void OnMouseDown(EventMouseStateInfo e) override
+	{
+	}
+	virtual void OnMouseUp(EventMouseStateInfo e) override
+	{
+		Button* src = dynamic_cast<Button*>(e.GetSrc());
+
+		if (src->GetText().compare(L"Browse") == 0)
+			ReadFile();
+
+		if((src->GetText().compare(L"Save")) == 0)
+			SaveToFile();
+
+		if ((src->GetText().compare(L"Clear")) == 0)
+			outputField.SetText(L"");
+	}
+	virtual void OnMousePressed(EventMouseStateInfo e) override
+	{
+	}
+	virtual void OnMouseMove(EventMouseStateInfo e) override
+	{
+	}
+	virtual void OnMouseEntered(EventMouseStateInfo e) override
+	{
+	}
+	virtual void OnMouseLeft(EventMouseStateInfo e) override
+	{
+	}
+};
+
 
 /*
 * TODO
@@ -204,10 +277,6 @@ public:
 * 2) Repaint not being used on pure renderable components. Investigate better design --- interface pollution
 *	A) Repaint should notify the parent component which in return should send a repaint request
 * 3) Create a global event class that has event src as parameter. All events MUST derive from that
-* 4) Create top level inheritance hierarchy class that all classes within the framework need to derive from
-* 6) Checkbox - DONE
-* 7) ComboBox
-* 8) RadioButton - DONE
 * 9) Input is propagated by the root to whoever has the focus. To make the design consistent, each component should propagate the input to its subcomponents. The component recieving
 *	 The event should then decide whether it should notify the subscribers or not (Based on IsFocus). Revisit this design and improve.
 * 10) Every renderable should have scaling option and offset option. Either relative or relative with %
@@ -215,20 +284,20 @@ public:
 * 12) Renderables lack visibility option.
 * 13) Renderables should have rendering order
 * 14) Checkbox should be a graphical component on its own, similar to radio button
-* 15) Matrix transformation reset applies to renderables on the same layer. Graphic is a POINTER!!!!!
-* 16) Scaling type should be somehow transfered into the matrix so the user doesn't have to calculate it on his own.
+* 15) Matrix transformation reset applies to renderables on the same layer. Graphics is a POINTER!!!!! -- I think I fixed this??? lol
 * 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
 * 18) Specialize the trackbar behavior to either vertical or horizontal
-* 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover
+* 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover -- Should differentiate between OnHover and OnMove (One hovers when mouse within, the other when focused)
 * 20) Fix InternalOffset calls causing massive slow down (Internal offset calls Element offset which causes updates, this is temporarily disabled for the sake of functionality)
-* 21) Remove methods called Listeners instead of Subscribers from component
-* 22) Wrap grid into a builder so the parameters cant be changed after its creation
-* 23) Finish collision checking so invalid spans can't be added to the grid
+*		Should be removed entirely. The offsets should be handled by the matrix you fucking moron
+* 21) Duplicate methods. "Listener methods" leftover in the components. 
+* 22) Wrap grid into a builder. The parameters should not be changed after the grid is created. Explore other options making it possible.
+* 23) Finish collision checking so invalid spans can't be added to the grid --- done, grid should only call the method now.
+* 24) Fix event GetSrc generics. Some return components some return any and some return your custom made generic type. Explore if it is necessary and try to avoid it.
 * 
 * Optimization
 * 1) Create rendering queve and rendering request class which specifies the rendering source. Each class should have an ID (Either real or pregenerated from the type)
 *	 The rendering queve should be handled by the root and it should limit the maximum amount of renders to 30 repaints per second
-*	 The rendering queve should automatically 
 */
 	
 int WinEntry()
@@ -254,17 +323,64 @@ int WinEntry()
 	/*
 	* Grid Test Start
 	*/
-	Grid grid = Grid(800, 10, 500, 500);
-	grid.SetGridColumns({ 50, 200, 75, 50 });
-	grid.SetGridRows({ 100, 25, 25, 200 });
-	grid.SetColumnGap(5);
-	grid.SetRowGap(1);
+	Grid mainTestGrid = Grid(800, 10, 500, 500);
+	mainTestGrid.SetGridColumns({ 100, 400 });
+	mainTestGrid.SetGridRows({ 100, 300, 100 });
+	mainTestGrid.SetColumnGap(2);
+	mainTestGrid.SetRowGap(2);
+	mainTestGrid.AddRowSpan(0, 2);
 
-	for (int i = 0; i < 30; i++)
+	Grid contentGrid = Grid(0, 0, 0, 0);
+	contentGrid.SetRowGap(2);
+	contentGrid.SetGridColumns({ 100, 100, 100, 100 });
+	contentGrid.SetDefaultRowSize(100);
+
+	
+	Label header = Label(0, 0, 0, 0, "header");
+	header.SetText(L"header");
+
+	Label footer = Label(0, 0, 0, 0, "footer");
+	footer.SetText(L"footer");
+
+	Label content = Label(0, 0, 0, 0, "content");
+	content.SetText(L"content");
+
+	Label navBar = Label(0, 0, 0, 0, "navBar");
+	navBar.SetText(L"navBar");
+
+
+	mainTestGrid.Add(navBar);
+	mainTestGrid.Add(header);
+	mainTestGrid.Add(contentGrid);
+	mainTestGrid.Add(footer);
+	contentGrid.Add(content);
+
+	for (int i = 0; i < 11; i++)
 	{
-		Label* gridTestLabel = new Label(0, 0, 0, 0, "Label" + to_string(i));
-		grid.Add(*gridTestLabel);
+		Label* contentLabel = new Label(0, 0, 100, 100, "ContentLabel" + to_string(i));
+		contentGrid.Add(*contentLabel);
 	}
+
+
+	/*
+	* File browser test start
+	*/
+	Button fileBrowseButton = Button(490, 320, 100, 25);
+	Button fileSaveButton = Button(595, 320, 100, 25);
+	Button clearButton = Button(700, 320, 100, 25);
+	TextInput fileOutput = TextInput(490, 350, 300, 100, "File Content");
+	fileOutput.SetMultiline(true);
+	fileBrowseButton.SetText(L"Browse");
+	fileSaveButton.SetText(L"Save");
+	clearButton.SetText(L"Clear");
+	FileBrowserTester tester = FileBrowserTester(fileOutput);
+	fileSaveButton.AddMouseStateSubscriber(tester);
+	clearButton.AddMouseStateSubscriber(tester);
+	fileBrowseButton.AddMouseStateSubscriber(tester);
+
+	/*
+	* File browser test end
+	*/
 
 	/*
 	* Grid Test end
@@ -364,40 +480,62 @@ int WinEntry()
 	frame.Add(resultLabel);
 	frame.Add(submitButton);
 	frame.Add(panel);
-	frame.Add(grid);
+	frame.Add(mainTestGrid);
+	frame.Add(fileBrowseButton);
+	frame.Add(fileOutput);
+	frame.Add(fileSaveButton);
+	frame.Add(clearButton);
+
+
+
+	Grid calculatorGrid = Grid(10, 10, 208, 208);
+	calculatorGrid.SetGridColumns({ 50, 50, 50, 50 });
+	calculatorGrid.SetGridRows({ 50, 50, 50, 50 });
+	calculatorGrid.AddColumnSpan(0, 3);
+	calculatorGrid.SetColumnGap(2);
+	calculatorGrid.SetRowGap(2);
+	frame.Add(calculatorGrid);
 
 	Label outputLabel = Label(offset, offset - height - gap, width*3 + gap*3, height, "outputLabel");
 	Button addButton = Button(width * 3 + offset + gap*3, offset, width + gap*3, (height * 3 + gap*3)/2);
 	Button multButton = Button(width * 3 + offset + gap * 3, addButton.GetY() + addButton.GetHeight(), width + gap * 3, (height * 3 + gap * 3)/2);
-	addButton.SetProperty("background-color", Gdiplus::Color::Red);
+	calculatorGrid.Add(outputLabel);
 
 	multButton.SetText(L"Multiply");
 	multButton.AddKeyStateSubscriber(inputTest);
-	frame.Add(multButton);
 
 	addButton.SetText(L"Add");
-	frame.Add(addButton);
-	frame.Add(outputLabel);
 	SimpleCalculator calculator = SimpleCalculator(outputLabel);
 	addButton.AddMouseStateSubscriber(calculator);
 	multButton.AddMouseStateSubscriber(calculator);
 
-
-	Button button1 = Button(5, 5, 35, 35);
-	int counter = 0;
-
-	for (int iy = 0; iy < 3; iy++)
+	for (int i = 0; i < 11; i++)
 	{
-		for (int ix = 0; ix < 3; ix++)
-		{
-			counter++;
-			Button* inputButton = new Button(offset + (ix * (width+gap)), offset + iy * (height+gap), width, height);
-			inputButton->SetText(to_wstring(counter));
-			frame.Add(*inputButton);
-			inputButton->AddMouseStateSubscriber(calculator);
-		}
-
+		Button* inputButton = new Button(0, 0, 0, 0);
+		inputButton->SetText(to_wstring(i));
+		if(i == 3)
+			inputButton->SetText(L"Add");
+		if(i == 7)
+			inputButton->SetText(L"Multiply");
+		calculatorGrid.Add(*inputButton);
+		inputButton->AddMouseStateSubscriber(calculator);
 	}
+
+	/*char fileName[1024];
+	char fileTitle[1024];
+	OPENFILENAMEA fileBrowser;
+	memset(&fileBrowser, 0, sizeof(OPENFILENAME));
+	fileBrowser.lStructSize = sizeof(OPENFILENAMEA);
+	fileBrowser.hwndOwner = nullptr;
+	fileBrowser.nMaxFile = 1024;
+	fileBrowser.lpstrFile = fileName;
+	fileBrowser.lpstrFileTitle = fileTitle;
+	fileBrowser.nMaxFileTitle = 1024;
+	fileBrowser.lpstrFile[0] = 0;
+
+	GetOpenFileNameA(&fileBrowser);*/
+
+
 
 	ApplicationController::JoinThreads();
 	return 0;

@@ -27,8 +27,14 @@ Gdiplus::Size GridCell::GetSpanSize()
     int spanX = GetSpanCorner()->GetPixelPosition().X;
     int spanParentX = GetSpanParent()->GetPixelPosition().X;
 
-    spanSize.Width = GetSpanCorner()->GetPixelPosition().X - GetSpanParent()->GetPixelPosition().X + GetSpanCorner()->GetSize().Width;
-    spanSize.Height = GetSpanCorner()->GetPixelPosition().Y - GetSpanParent()->GetPixelPosition().Y + GetSpanCorner()->GetSize().Height;
+    GridCell* cornerCell = GetSpanCorner();
+    GridCell* parentCell = GetSpanParent();
+
+    int columnGapSum = (span.GetGridColumnEnd() - span.GetGridColumnStart()) * parentGrid.GetColumnGap();
+    int rowGapSum = (span.GetGridRowEnd() - span.GetGridRowStart()) * parentGrid.GetRowGap();
+
+    spanSize.Width = cornerCell->GetPixelPosition().X - parentCell->GetPixelPosition().X + cornerCell->GetSize().Width + columnGapSum;
+    spanSize.Height = cornerCell->GetPixelPosition().Y - parentCell->GetPixelPosition().Y + cornerCell->GetSize().Height + rowGapSum;
     return spanSize;
 }
 
