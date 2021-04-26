@@ -24,6 +24,8 @@
     <ClInclude Include="ActivateSubject.h" />
     <ClInclude Include="ActivateSubscriber.h" />
     <ClInclude Include="AddSubject.h" />
+    <ClInclude Include="ComboElement.h" />
+    <ClInclude Include="ComboSelection.h" />
     <ClInclude Include="FileBrowser.h" />
     <ClInclude Include="GenericObj.h" />
     <ClInclude Include="Grid.h" />
@@ -115,6 +117,8 @@
     <ClCompile Include="ActivateSubject.cpp" />
     <ClCompile Include="ActivateSubscriber.cpp" />
     <ClCompile Include="AddSubject.cpp" />
+    <ClCompile Include="ComboElement.cpp" />
+    <ClCompile Include="ComboSelection.cpp" />
     <ClCompile Include="FileBrowser.cpp" />
     <ClCompile Include="GenericObj.cpp" />
     <ClCompile Include="Grid.cpp" />

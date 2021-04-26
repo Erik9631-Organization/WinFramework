@@ -31,6 +31,7 @@
 #include "Panel.h"
 #include "Grid.h"
 #include "FileBrowser.h"
+#include "ComboSelection.h"
 
 using namespace std;
 
@@ -205,7 +206,7 @@ private:
 	TextInput& outputField;
 	void ReadFile()
 	{
-		browser.Open();
+		browser.Open(); //Lock
 		std::wfstream* fileStream = browser.GetFileStream(std::ios::in);
 		if (fileStream == nullptr)
 			return;
@@ -302,6 +303,17 @@ public:
 	
 int WinEntry()
 {
+	ComboSelection selection = ComboSelection();
+	selection.CreateComboElement(L"First");
+	selection.CreateComboElement(L"Second");
+	selection.CreateComboElement(L"Third");
+	selection.CreateGui(100, 100, 100, 100);
+
+	
+
+
+
+
 	int width = 60;
 	int height = 60;
 	int offset = 100;
@@ -521,20 +533,7 @@ int WinEntry()
 		inputButton->AddMouseStateSubscriber(calculator);
 	}
 
-	/*char fileName[1024];
-	char fileTitle[1024];
-	OPENFILENAMEA fileBrowser;
-	memset(&fileBrowser, 0, sizeof(OPENFILENAME));
-	fileBrowser.lStructSize = sizeof(OPENFILENAMEA);
-	fileBrowser.hwndOwner = nullptr;
-	fileBrowser.nMaxFile = 1024;
-	fileBrowser.lpstrFile = fileName;
-	fileBrowser.lpstrFileTitle = fileTitle;
-	fileBrowser.nMaxFileTitle = 1024;
-	fileBrowser.lpstrFile[0] = 0;
-
-	GetOpenFileNameA(&fileBrowser);*/
-
+	frame.Repaint();
 
 
 	ApplicationController::JoinThreads();

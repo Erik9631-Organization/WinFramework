@@ -30,10 +30,10 @@ private:
 	void assignGraphicsToNodes(MultiTree<Component&>& node, Rect viewPort);
 	void NotifyMouseState(Gdiplus::Point point);
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
-
 	DefaultRender renderBehavior;
 
 public:
+	void UpdateScale();
 	CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame,string windowName);
 	void MessageLoop();
 	void ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam);
@@ -51,5 +51,7 @@ public:
 	virtual void AddRenderable(Renderable& renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	LONG SetWindowAttributes(int index, LONG parameter);
+	LONG RemoveWindowAttributes(int index, LONG parameter);
 };
 

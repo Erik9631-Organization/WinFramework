@@ -1,4 +1,5 @@
 #include "EventMouseStateInfo.h"
+#include "MouseStateSubject.h"
 #include "Component.h"
 
 EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, Component* source) : src(source)
@@ -55,7 +56,7 @@ int EventMouseStateInfo::GetKey()
 	return key;
 }
 
-Component* EventMouseStateInfo::GetSrc()
+MouseStateSubject* EventMouseStateInfo::GetSrc()
 {
 	return src;
 }

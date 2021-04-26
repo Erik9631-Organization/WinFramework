@@ -3,6 +3,7 @@
 #include <gdiplus.h>
 
 class Component;
+class MouseStateSubject;
 class EventMouseStateInfo
 {
 private:
@@ -20,6 +21,6 @@ public:
 	int GetMouseX();
 	int GetMouseY();
 	int GetKey();
-	Component* GetSrc();
+	MouseStateSubject* GetSrc();
 
 };

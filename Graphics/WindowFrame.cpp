@@ -33,14 +33,38 @@ void WindowFrame::CreateCoreWindow()
 }
 
 
+void WindowFrame::AddWindowStyle(LONG styleFlags)
+{
+	coreFrame->SetWindowAttributes(GWL_STYLE, styleFlags);
+}
+
+void WindowFrame::RemoveWindowStyle(LONG styleFlags)
+{
+	coreFrame->RemoveWindowAttributes(GWL_STYLE, styleFlags);
+}
+
+void WindowFrame::AddWindowExtendedStyle(LONG styleFlags)
+{
+	coreFrame->SetWindowAttributes(GWL_EXSTYLE, styleFlags);
+}
+
+void WindowFrame::RemoveWindowExtendedStyle(LONG styleFlags)
+{
+	coreFrame->RemoveWindowAttributes(GWL_EXSTYLE, styleFlags);
+}
+
 void WindowFrame::SetSize(int width, int height)
 {
 	Component::SetSize(width, height);
+	if (coreFrame != nullptr)
+		coreFrame->UpdateScale();
 }
 
 void WindowFrame::SetSize(Size size)
 {
 	Component::SetSize(size);
+	if (coreFrame != nullptr)
+		coreFrame->UpdateScale();
 }
 
 void WindowFrame::Repaint()
@@ -66,11 +90,15 @@ void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
 void WindowFrame::SetPosition(int x, int y)
 {
 	Component::SetPosition(x, y);
+	if (coreFrame != nullptr)
+		coreFrame->UpdateScale();
 }
 
 void WindowFrame::SetPosition(Point point)
 {
 	Component::SetPosition(point);
+	if (coreFrame != nullptr)
+		coreFrame->UpdateScale();
 }
 
 void WindowFrame::NotifyOnKeyDown(EventKeyStateInfo e)

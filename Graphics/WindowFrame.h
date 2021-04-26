@@ -25,10 +25,16 @@ private:
 	void CreateCoreWindow();
 
 public:
+	void AddWindowStyle(LONG styleFlags);
+	void RemoveWindowStyle(LONG styleFlags);
+
+	void AddWindowExtendedStyle(LONG styleFlags);
+	void RemoveWindowExtendedStyle(LONG styleFlags);
+
 	bool initDone = false;
 	void SetSize(int width, int height) override;
 	void SetSize(Size size) override;
-	void Repaint() override;;
+	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(int x, int y) override;

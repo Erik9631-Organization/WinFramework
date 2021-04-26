@@ -111,6 +111,24 @@ void CoreWindowFrame::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 		wrapperFrame.NotifyOnKeyUp(EventKeyStateInfo(nullptr, wParam, unicodeKey, keyboardState));
 }
 
+LONG CoreWindowFrame::SetWindowAttributes(int index, LONG parameter)
+{
+	LONG currentAttributes = GetWindowLong(windowHandle, index);
+	LONG newAttributes = currentAttributes | parameter;
+	LONG returnVal = SetWindowLong(windowHandle, index, newAttributes);
+	SetWindowPos(windowHandle, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
+	return returnVal;
+}
+
+LONG CoreWindowFrame::RemoveWindowAttributes(int index, LONG parameter)
+{
+	LONG currentAttributes = GetWindowLong(windowHandle, index);
+	LONG newAttributes = currentAttributes & (~parameter);
+	LONG returnVal = SetWindowLong(windowHandle, index, newAttributes);
+	SetWindowPos(windowHandle, NULL, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_NOOWNERZORDER);
+	return returnVal;
+}
+
 void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT paintInfo;
@@ -120,10 +138,10 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_MOVE:
-		wrapperFrame.SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
+		wrapperFrame.::Component::SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_SIZE:
-		wrapperFrame.SetSize(Gdiplus::Size(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
+		wrapperFrame.::Component::SetSize(Gdiplus::Size(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_PAINT: // Put into function, DrawWindow since it handles WindowDrawing explicitely, from any call not just WM_PAINT
 		OnRender(RenderEventInfo(nullptr));
@@ -187,6 +205,11 @@ void CoreWindowFrame::UnicodeConsoleWrite(std::wstring output)
 	WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
+void CoreWindowFrame::UpdateScale()
+{
+	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+}
+
 CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
 	//Arguments
@@ -215,8 +238,8 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 		system("PAUSE");
 		exit(0);
 	}
-
 	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
+
 	if (!windowHandle)
 	{
 		ConsoleWrite("Error creating window handle");

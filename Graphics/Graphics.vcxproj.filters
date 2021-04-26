@@ -70,6 +70,12 @@
     <Filter Include="Header Files\Meta Objects">
       <UniqueIdentifier>{06f79975-3c74-4e84-8b26-5e70ee8947e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components\ComboBox">
+      <UniqueIdentifier>{672ec5c9-7a5e-4b5e-9878-1ab76aa54bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\ComboBox">
+      <UniqueIdentifier>{616d152d-d6f8-4c4c-b386-6d2ff241013e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -331,6 +337,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FileBrowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboSelection.cpp">
+      <Filter>Source Files\Components\ComboBox</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboElement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -600,6 +612,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileBrowser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboSelection.h">
+      <Filter>Header Files\Components\ComboBox</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboElement.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
