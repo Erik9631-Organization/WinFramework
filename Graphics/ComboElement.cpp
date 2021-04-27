@@ -4,10 +4,14 @@
 #include "ComboSelection.h"
 #include <Windows.h>
 #include <gdiplus.h>
+#include <mutex>
+#include "CoreWindowFrame.h"
 
 ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText) : comboSelection(comboSelection), text(displayText)
 {
 	elementGui == nullptr;
+	deleteSyncMutex = new std::mutex();
+	deleteSync = new std::condition_variable();
 }
 
 
@@ -29,7 +33,7 @@ void ComboElement::DisplayElementGui()
 	elementGui = new Button(0, 0, 0, 0);
 
 	if(isSelected == true)
-		elementGui->SetProperty("background-color", Gdiplus::Color(200, 200, 200));
+		elementGui->SetProperty("background-color", Gdiplus::Color(75, 75, 75));
 
 	elementGui->SetText(text);
 	elementGui->AddMouseStateSubscriber(*this);
@@ -38,8 +42,12 @@ void ComboElement::DisplayElementGui()
 
 void ComboElement::RemoveElementGui()
 {
-	delete elementGui;
+	std::unique_lock<std::mutex> lock(*deleteSyncMutex);
+
+	std::thread::id deleteThreadId = std::this_thread::get_id();
+	deleteSync->wait(lock, [=] {return eventSentSignalContinue || (eventThreadId == deleteThreadId); }); // false means wait;
 	elementGui = nullptr;
+	delete elementGui;
 }
 
 bool ComboElement::IsSelected()
@@ -90,14 +98,14 @@ void ComboElement::NotifyOnMouseLeave(EventMouseStateInfo e)
 
 void ComboElement::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
-	mouseSubscribers.push_back(subscriber);
+	comboBoxStateSubscribers.push_back(subscriber);
 }
 
 void ComboElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
-	for (std::vector<reference_wrapper<MouseStateSubscriber>>::iterator it = mouseSubscribers.begin(); it != mouseSubscribers.end(); it++)
+	for (std::vector<reference_wrapper<MouseStateSubscriber>>::iterator it = comboBoxStateSubscribers.begin(); it != comboBoxStateSubscribers.end(); it++)
 		if (&it->get() == &subscriber)
-			mouseSubscribers.erase(it);
+			comboBoxStateSubscribers.erase(it);
 }
 
 bool ComboElement::HasMouseEntered()
@@ -110,41 +118,50 @@ bool ComboElement::HasMouseEntered()
 
 void ComboElement::OnMouseDown(EventMouseStateInfo e)
 {
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMouseDown(e);
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+		subscriber.OnMouseDown(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void ComboElement::OnMouseUp(EventMouseStateInfo e)
 {
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMouseUp(e);
+	eventSentSignalContinue = false;
+	eventThreadId = std::this_thread::get_id();
+
 	Button* button = dynamic_cast<Button*>(e.GetSrc());
 	comboSelection.UnselectOptions();
 	isSelected = true;
 	button->SetProperty("background-color", Gdiplus::Color(150, 150, 150));
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+	{
+		if (elementGui != nullptr)
+			subscriber.OnMouseUp(EventMouseStateInfo(e, e.GetMousePosition(), this));
+	}
+
+	eventSentSignalContinue = true;
+	deleteSync->notify_all();
 }
 
 void ComboElement::OnMousePressed(EventMouseStateInfo e)
 {
 	
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMousePressed(EventMouseStateInfo(e) );
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+		subscriber.OnMousePressed(EventMouseStateInfo(EventMouseStateInfo(e, e.GetMousePosition(), this)) );
 }
 
 void ComboElement::OnMouseMove(EventMouseStateInfo e)
 {
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMouseMove(e);
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+		subscriber.OnMouseMove(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void ComboElement::OnMouseEntered(EventMouseStateInfo e)
 {
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMouseEntered(e);
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+		subscriber.OnMouseEntered(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void ComboElement::OnMouseLeft(EventMouseStateInfo e)
 {
-	for (MouseStateSubscriber& subscriber : mouseSubscribers)
-		subscriber.OnMouseLeft(e);
+	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
+		subscriber.OnMouseLeft(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }

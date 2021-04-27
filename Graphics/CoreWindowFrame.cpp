@@ -134,6 +134,11 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT paintInfo;
 	switch (msg)
 	{
+	case WM_CLOSE:
+		DestroyWindow(windowHandle);
+		if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
+			ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -176,6 +181,11 @@ void CoreWindowFrame::RedrawWindow()
 	UpdateWindow(windowHandle);
 }
 
+void CoreWindowFrame::CloseWindow()
+{
+	PostMessage(windowHandle, WM_CLOSE, NULL, NULL);
+}
+
 WindowFrame& CoreWindowFrame::GetWrapperFrame()
 {
 	return wrapperFrame;
@@ -210,10 +220,10 @@ void CoreWindowFrame::UpdateScale()
 	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
 	//Arguments
-	HINSTANCE hInstance = args.hInstance;
+	hInstance = args.hInstance;
 	HINSTANCE hPrevInstance = args.hPrevInstance;
 	LPSTR lpCmdLine = args.lpCmdLine;
 	int nCmdShow = args.nCmdShow;
@@ -232,13 +242,15 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 	windowInfo->lpszMenuName = NULL;
 	windowInfo->lpszClassName = windowName.c_str();
 
+
+
 	if (!RegisterClass(windowInfo))
 	{
 		ConsoleWrite("Register Class error: " + to_string(GetLastError()));
 		system("PAUSE");
 		exit(0);
 	}
-	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, WS_OVERLAPPEDWINDOW, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
+	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
 
 	if (!windowHandle)
 	{

@@ -32,6 +32,7 @@
 #include "Grid.h"
 #include "FileBrowser.h"
 #include "ComboSelection.h"
+#include "ComboBox.h"
 
 using namespace std;
 
@@ -299,15 +300,20 @@ public:
 * Optimization
 * 1) Create rendering queve and rendering request class which specifies the rendering source. Each class should have an ID (Either real or pregenerated from the type)
 *	 The rendering queve should be handled by the root and it should limit the maximum amount of renders to 30 repaints per second
+* 2) Combobox memory leaks
+* 
+* Design
+* 1) Remove generics from all the events and send the src as subject by default. The inheritance hierarchy will allow you to cast it to the correct type. Src is ALWAYS a subject.
+* 2) All the behaviors should be covered by a common interface to be able to make them hot swappable. (It is not going to be completely possible, but at least create a common interface for the same behavioral groups)
 */
 	
 int WinEntry()
 {
-	ComboSelection selection = ComboSelection();
-	selection.CreateComboElement(L"First");
-	selection.CreateComboElement(L"Second");
-	selection.CreateComboElement(L"Third");
-	selection.CreateGui(100, 100, 100, 100);
+	/*ComboSelection selections = ComboSelection();
+	selections.CreateComboElement(L"First");
+	selections.CreateComboElement(L"Second");
+	selections.CreateComboElement(L"Third");
+	selections.CreateGui(100, 100, 100, 100);*/
 
 	
 
@@ -329,7 +335,18 @@ int WinEntry()
 	panel.Add(trackbar);
 	trackbar.Control(panel);
 
+	/*
+	* ComboBox test start
+	*/
+	ComboBox comboBox = ComboBox(250, 10, 100, 30, "ComboBox");
+	comboBox.SetText(L"Combo Box");
+	comboBox.CreateComboElement(L"First");
+	comboBox.CreateComboElement(L"Second");
+	comboBox.CreateComboElement(L"Third");
 
+	/*
+	* ComboBox test end
+	*/
 
 
 	/*
@@ -497,6 +514,7 @@ int WinEntry()
 	frame.Add(fileOutput);
 	frame.Add(fileSaveButton);
 	frame.Add(clearButton);
+	frame.Add(comboBox);
 
 
 

@@ -11,14 +11,14 @@
 
 using namespace std;
 
-void WindowFrame::CreateCoreWindow()
+void WindowFrame::CreateCoreWindow(LONG style)
 {
 	mutex windowInit;
 
 	windowThread = new thread([=]
 	{
 		ApplicationController::WinEntryArgs args = ApplicationController::GetWinEntryArgs();
-		coreFrame = new CoreWindowFrame(args , *this, name);
+		coreFrame = new CoreWindowFrame(args , *this, name, style);
 		CoreWindowFrame::ConsoleWrite("Construction complete");
 		initNotified = true;
 		initWait->notify_one();
@@ -122,6 +122,12 @@ void WindowFrame::NotifyOnKeyPressed(EventKeyStateInfo e)
 		currentFocus->NotifyOnKeyPressed(e);
 }
 
+void WindowFrame::CloseWindow()
+{
+	if (coreFrame != nullptr)
+		coreFrame->CloseWindow();
+}
+
 void WindowFrame::UpdateWindow()
 {
 	if(coreFrame != nullptr)
@@ -133,11 +139,17 @@ WindowFrame::WindowFrame(string windowName) : WindowFrame(800, 600, 800, 600, wi
 
 }
 
-WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName) : Component(x, y, width, height, windowName)
+WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName) : WindowFrame(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW)
+{
+
+}
+
+
+WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName, LONG style) : Component(x, y, width, height, windowName)
 {
 	initWait = new condition_variable();
 	componentType = "Window";
-	CreateCoreWindow();
+	CreateCoreWindow(style);
 	coreFrame->RedrawWindow();
 	background.SetColor(Color::White);
 	AddRenderable(background);

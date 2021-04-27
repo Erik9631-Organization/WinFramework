@@ -3,6 +3,8 @@
 #include "MouseStateSubscriber.h"
 #include <string>
 #include <vector>
+#include <condition_variable>
+#include <thread>
 
 class Button;
 class ComboSelection;
@@ -13,8 +15,12 @@ private:
 	std::wstring text;
 	Button* elementGui;
 	ComboSelection& comboSelection;
-	std::vector<std::reference_wrapper<MouseStateSubscriber>> mouseSubscribers;
+	std::vector<std::reference_wrapper<MouseStateSubscriber>> comboBoxStateSubscribers;
 	bool isSelected = false;
+	std::mutex* deleteSyncMutex;
+	std::condition_variable* deleteSync;
+	bool eventSentSignalContinue = true;
+	std::thread::id eventThreadId;
 
 public:
 	ComboElement(ComboSelection& comboSelection, std::wstring displayText);

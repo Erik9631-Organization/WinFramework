@@ -31,13 +31,15 @@ private:
 	void NotifyMouseState(Gdiplus::Point point);
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
 	DefaultRender renderBehavior;
+	HINSTANCE hInstance;
 
 public:
 	void UpdateScale();
-	CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame,string windowName);
+	CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame,string windowName, LONG style);
 	void MessageLoop();
 	void ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 	void RedrawWindow();
+	void CloseWindow();
 	WindowFrame& GetWrapperFrame();
 	HDC* GetHdc();
 	HWND GetWindowHandle();

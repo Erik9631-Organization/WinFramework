@@ -22,7 +22,7 @@ private:
 	bool initNotified = false;
 	Background background;
 
-	void CreateCoreWindow();
+	void CreateCoreWindow(LONG style);
 
 public:
 	void AddWindowStyle(LONG styleFlags);
@@ -43,10 +43,12 @@ public:
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
+	void CloseWindow();
 
 	void UpdateWindow();
 	WindowFrame(std::string windowName);
 	WindowFrame(int x, int y, int width, int height, std::string windowName);
+	WindowFrame(int x, int y, int width, int height, std::string windowName, LONG style);
 	virtual void Add(Component& component) override;
 	~WindowFrame();
 };

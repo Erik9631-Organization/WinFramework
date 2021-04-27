@@ -24,8 +24,13 @@
     <ClInclude Include="ActivateSubject.h" />
     <ClInclude Include="ActivateSubscriber.h" />
     <ClInclude Include="AddSubject.h" />
+    <ClInclude Include="ComboBox.h" />
+    <ClInclude Include="ComboBoxStateSubject.h" />
+    <ClInclude Include="ComboBoxStateSubscriber.h" />
     <ClInclude Include="ComboElement.h" />
     <ClInclude Include="ComboSelection.h" />
+    <ClInclude Include="DefaultComboBoxBehavior.h" />
+    <ClInclude Include="EventComboBoxStateInfo.h" />
     <ClInclude Include="FileBrowser.h" />
     <ClInclude Include="GenericObj.h" />
     <ClInclude Include="Grid.h" />
@@ -117,8 +122,13 @@
     <ClCompile Include="ActivateSubject.cpp" />
     <ClCompile Include="ActivateSubscriber.cpp" />
     <ClCompile Include="AddSubject.cpp" />
+    <ClCompile Include="ComboBox.cpp" />
+    <ClCompile Include="ComboBoxStateSubject.cpp" />
+    <ClCompile Include="ComboBoxStateSubscriber.cpp" />
     <ClCompile Include="ComboElement.cpp" />
     <ClCompile Include="ComboSelection.cpp" />
+    <ClCompile Include="DefaultComboBoxBehavior.cpp" />
+    <ClCompile Include="EventComboBoxStateInfo.cpp" />
     <ClCompile Include="FileBrowser.cpp" />
     <ClCompile Include="GenericObj.cpp" />
     <ClCompile Include="Grid.cpp" />
