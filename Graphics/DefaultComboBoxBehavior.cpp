@@ -29,7 +29,17 @@ void DefaultComboBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 
 void DefaultComboBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	associatedComboBox.Upack();
+	if (associatedComboBox.IsPacked() == true)
+	{
+		associatedComboBox.Upack();
+		NotifyOnComboBoxOpened(EventComboBoxStateInfo(nullptr, associatedComboBox)); //combobox needs to be a subject
+	}
+	else
+	{
+		associatedComboBox.Pack();
+		NotifyOnComboBoxClosed(EventComboBoxStateInfo(nullptr, associatedComboBox));
+	}
+
 }
 
 void DefaultComboBoxBehavior::OnMousePressed(EventMouseStateInfo e)
@@ -51,8 +61,11 @@ void DefaultComboBoxBehavior::OnMouseLeft(EventMouseStateInfo e)
 
 void DefaultComboBoxBehavior::OnActiveStateChanged(EventOnActivateInfo e)
 {
-	if (!e.IsActive())
+	if (!e.IsActive() && !associatedComboBox.IsPacked())
+	{
 		associatedComboBox.Pack();
+		NotifyOnComboBoxClosed(EventComboBoxStateInfo(nullptr, associatedComboBox));
+	}
 }
 
 void DefaultComboBoxBehavior::OnComboBoxOpened(EventComboBoxStateInfo e)
@@ -67,7 +80,39 @@ void DefaultComboBoxBehavior::OnComboBoxClosed(EventComboBoxStateInfo e)
 
 void DefaultComboBoxBehavior::OnSelectionChanged(EventComboBoxStateInfo e)
 {
-	ComboElement& element = e.GetElement();
-	associatedComboBox.SetText(e.GetElement().GetText());
+	ComboElement& element = *e.GetElement();
+	associatedComboBox.SetText(element.GetText());
 	associatedComboBox.Pack();
+	NotifyOnComboBoxClosed(EventComboBoxStateInfo(nullptr, associatedComboBox));
+	NotifyOnSelectionChanged(EventComboBoxStateInfo(e.GetElement(), associatedComboBox));
+}
+
+void DefaultComboBoxBehavior::NotifyOnComboBoxOpened(EventComboBoxStateInfo e)
+{
+	for (ComboBoxStateSubscriber& subscriber : subscribers)
+		subscriber.OnComboBoxOpened(e);
+}
+
+void DefaultComboBoxBehavior::NotifyOnComboBoxClosed(EventComboBoxStateInfo e)
+{
+	for (ComboBoxStateSubscriber& subscriber : subscribers)
+		subscriber.OnComboBoxClosed(e);
+}
+
+void DefaultComboBoxBehavior::NotifyOnSelectionChanged(EventComboBoxStateInfo e)
+{
+	for (ComboBoxStateSubscriber& subscriber : subscribers)
+		subscriber.OnSelectionChanged(e);
+}
+
+void DefaultComboBoxBehavior::AddComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber)
+{
+	subscribers.push_back(subscriber);
+}
+
+void DefaultComboBoxBehavior::RemoveComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber)
+{
+	for (std::vector<std::reference_wrapper<ComboBoxStateSubscriber>>::iterator it; it < subscribers.end(); it++)
+		if (&it->get() == &subscriber)
+			subscribers.erase(it);
 }

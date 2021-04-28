@@ -4,6 +4,11 @@
 #include "CoreWindowFrame.h"
 #include "ComboElement.h"
 
+bool ComboBox::IsPacked()
+{
+	return isPacked;
+}
+
 ComboBox::ComboBox() : ComboBox("")
 {
 
@@ -37,9 +42,9 @@ void ComboBox::SetText(std::wstring text)
 	button->SetText(text);
 }
 
-MouseStateSubject& ComboBox::CreateComboElement(std::wstring comboElementText)
+MouseStateSubject& ComboBox::CreateComboElement(std::wstring comboElementText, std::any value)
 {
-	MouseStateSubject& subject = selections.CreateComboElement(comboElementText);
+	MouseStateSubject& subject = selections.CreateComboElement(comboElementText, value);
 	if (selections.GetElements().size() == 1)
 		SetText(selections.GetElements().at(0)->GetText());
 	return subject;
@@ -53,12 +58,42 @@ void ComboBox::Upack()
 	int comboSelectionX = GetAbsoluteX() + windowPosX;
 	int comboSelectionY = GetAbsoluteY() + windowPosY + GetHeight();
 
-	CoreWindowFrame::ConsoleWrite(to_string(comboSelectionX) + " " + to_string(comboSelectionY));
-
 	selections.CreateGui(comboSelectionX, comboSelectionY, GetWidth(), GetHeight());
+	isPacked = false;
 }
 
 void ComboBox::Pack()
 {
 	selections.CloseGui();
+	isPacked = true;
+}
+
+ComboElement& ComboBox::GetSelectedElement()
+{
+	return selections.GetSelectedElement();
+}
+
+void ComboBox::NotifyOnComboBoxOpened(EventComboBoxStateInfo e)
+{
+	behavior.NotifyOnComboBoxOpened(e);
+}
+
+void ComboBox::NotifyOnComboBoxClosed(EventComboBoxStateInfo e)
+{
+	behavior.NotifyOnComboBoxClosed(e);
+}
+
+void ComboBox::NotifyOnSelectionChanged(EventComboBoxStateInfo e)
+{
+	behavior.NotifyOnSelectionChanged(e);
+}
+
+void ComboBox::AddComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber)
+{
+	behavior.AddComboBoxStateSubscriber(subscriber);
+}
+
+void ComboBox::RemoveComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber)
+{
+	behavior.RemoveComboBoxStateSubscriber(subscriber);
 }

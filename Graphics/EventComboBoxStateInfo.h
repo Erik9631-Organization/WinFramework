@@ -6,11 +6,11 @@ class ComboBoxStateSubject;
 class EventComboBoxStateInfo
 {
 private:
-	ComboElement& element;
+	ComboElement* element;
 	ComboBoxStateSubject& src;
 public:
-	EventComboBoxStateInfo(ComboElement& element, ComboBoxStateSubject& src);
-	ComboElement& GetElement();
+	EventComboBoxStateInfo(ComboElement* element, ComboBoxStateSubject& src);
+	ComboElement* GetElement();
 	ComboBoxStateSubject& GetSrc();
 };
 

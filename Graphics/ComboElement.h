@@ -5,6 +5,7 @@
 #include <vector>
 #include <condition_variable>
 #include <thread>
+#include <any>
 
 class Button;
 class ComboSelection;
@@ -13,6 +14,7 @@ class ComboElement : public MouseStateSubscriber, public MouseStateSubject
 {
 private:
 	std::wstring text;
+	std::any value;
 	Button* elementGui;
 	ComboSelection& comboSelection;
 	std::vector<std::reference_wrapper<MouseStateSubscriber>> comboBoxStateSubscribers;
@@ -23,8 +25,9 @@ private:
 	std::thread::id eventThreadId;
 
 public:
-	ComboElement(ComboSelection& comboSelection, std::wstring displayText);
+	ComboElement(ComboSelection& comboSelection, std::wstring displayText, std::any value);
 	std::wstring GetText();
+	std::any GetValue();
 	void SetText(std::wstring text);
 
 	void DisplayElementGui();

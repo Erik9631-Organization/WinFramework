@@ -4,6 +4,7 @@
 #include "MouseStateSubject.h"
 #include "MouseStateSubscriber.h"
 #include "ComboBoxStateSubject.h"
+#include <any>
 
 class Button;
 class ComboElement;
@@ -24,11 +25,12 @@ private:
 public:
 	ComboSelection();
 	void AddComboElementGui(Button& button);
-	MouseStateSubject& CreateComboElement(std::wstring comboElementText);
+	MouseStateSubject& CreateComboElement(std::wstring comboElementText, std::any value);
 	void CreateGui(int x, int y, int width, int height);
 	void CloseGui();
 	void SetElementHeight(int width);
 	void UnselectOptions();
+	ComboElement& GetSelectedElement();
 	std::vector<ComboElement*> GetElements();
 
 	 // Inherited via MouseStateSubscriber

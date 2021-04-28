@@ -33,6 +33,7 @@
 #include "FileBrowser.h"
 #include "ComboSelection.h"
 #include "ComboBox.h"
+#include "ComboElement.h"
 
 using namespace std;
 
@@ -273,6 +274,41 @@ public:
 };
 
 
+class ComboBoxTester : public ComboBoxStateSubscriber
+{
+private:
+	ComboBox& testedComboBox;
+
+public:
+	ComboBoxTester(ComboBox& comboBox) : testedComboBox(comboBox)
+	{
+
+	}
+	// Inherited via ComboBoxStateSubscriber
+	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
+	{
+		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
+		CoreWindowFrame::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
+	}
+
+	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
+	{
+		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
+		CoreWindowFrame::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
+	}
+
+	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
+	{
+		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
+		if (e.GetElement() == nullptr)
+			return;
+		ComboElement& element = *e.GetElement();
+		CoreWindowFrame::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
+		CoreWindowFrame::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
+	}
+
+};
+
 /*
 * TODO
 * 1) Add OnActionEvent for buttons
@@ -338,11 +374,16 @@ int WinEntry()
 	/*
 	* ComboBox test start
 	*/
-	ComboBox comboBox = ComboBox(250, 10, 100, 30, "ComboBox");
+
+	ComboBox comboBox = ComboBox(490, 20, 100, 30, "ComboBox");
 	comboBox.SetText(L"Combo Box");
-	comboBox.CreateComboElement(L"First");
-	comboBox.CreateComboElement(L"Second");
-	comboBox.CreateComboElement(L"Third");
+	comboBox.CreateComboElement(L"First", std::make_any<int>(1));
+	comboBox.CreateComboElement(L"Second", std::make_any<int>(2));
+	comboBox.CreateComboElement(L"Third", std::make_any<int>(3));
+	comboBox.CreateComboElement(L"Fourth", std::make_any<int>(4));
+	comboBox.CreateComboElement(L"Fifth", std::make_any<int>(5));
+	ComboBoxTester comboBoxTester = ComboBoxTester(comboBox);
+	comboBox.AddComboBoxStateSubscriber(comboBoxTester);
 
 	/*
 	* ComboBox test end

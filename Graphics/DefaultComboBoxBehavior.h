@@ -3,17 +3,20 @@
 #include "MouseStateSubscriber.h"
 #include "ActivateSubscriber.h"
 #include "ComboBoxStateSubscriber.h"
+#include "ComboBoxStateSubject.h"
+#include <vector>
 
 class ComboBox;
 class Button;
 class ComboSelection;
 
-class DefaultComboBoxBehavior : public ResizeSubscriber, public MouseStateSubscriber, public ActivateSubscriber, public ComboBoxStateSubscriber
+class DefaultComboBoxBehavior : public ResizeSubscriber, public MouseStateSubscriber, public ActivateSubscriber, public ComboBoxStateSubscriber, public ComboBoxStateSubject
 {
 private:
 	ComboBox& associatedComboBox;
 	ComboSelection& associatedComboSelection;
 	Button* comboBoxButton = nullptr;
+	std::vector<std::reference_wrapper<ComboBoxStateSubscriber>> subscribers;
 
 public:
 	DefaultComboBoxBehavior(ComboBox& associatedComboBox, Button* comboBoxButton, ComboSelection& selection);
@@ -46,6 +49,18 @@ public:
 	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override;
 
 	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override;
+
+
+	// Inherited via ComboBoxStateSubject
+	virtual void NotifyOnComboBoxOpened(EventComboBoxStateInfo e) override;
+
+	virtual void NotifyOnComboBoxClosed(EventComboBoxStateInfo e) override;
+
+	virtual void NotifyOnSelectionChanged(EventComboBoxStateInfo e) override;
+
+	virtual void AddComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber) override;
+
+	virtual void RemoveComboBoxStateSubscriber(ComboBoxStateSubscriber& subscriber) override;
 
 };
 

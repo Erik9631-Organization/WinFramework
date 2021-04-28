@@ -7,8 +7,9 @@
 #include <mutex>
 #include "CoreWindowFrame.h"
 
-ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText) : comboSelection(comboSelection), text(displayText)
+ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText, std::any value) : comboSelection(comboSelection), text(displayText)
 {
+	this->value = value;
 	elementGui == nullptr;
 	deleteSyncMutex = new std::mutex();
 	deleteSync = new std::condition_variable();
@@ -18,6 +19,11 @@ ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayT
 std::wstring ComboElement::GetText()
 {
 	return text;
+}
+
+std::any ComboElement::GetValue()
+{
+	return value;
 }
 
 void ComboElement::SetText(std::wstring text)

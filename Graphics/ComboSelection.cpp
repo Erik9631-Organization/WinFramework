@@ -65,10 +65,19 @@ void ComboSelection::OnMouseDown(EventMouseStateInfo e)
 
 }
 
+ComboElement& ComboSelection::GetSelectedElement()
+{
+	return *comboElements.at(selectedIndex);
+}
+
 void ComboSelection::OnMouseUp(EventMouseStateInfo e)
 {
 	ComboElement* element = dynamic_cast<ComboElement*>(e.GetSrc());
-	EventComboBoxStateInfo info = EventComboBoxStateInfo(*element, *this);
+	EventComboBoxStateInfo info = EventComboBoxStateInfo(element, *this);
+	for (int i = 0; i < comboElements.size(); i++)
+		if (comboElements.at(i) == e.GetSrc())
+			selectedIndex = i;
+
 
 	NotifyOnSelectionChanged(info);
 }
@@ -127,9 +136,9 @@ void ComboSelection::AddComboElementGui(Button& button)
 	comboGrid->Add((Component&)button);
 }
 
-MouseStateSubject& ComboSelection::CreateComboElement(std::wstring comboElementText)
+MouseStateSubject& ComboSelection::CreateComboElement(std::wstring comboElementText, std::any value)
 {
-	ComboElement* element = new ComboElement(*this, comboElementText);
+	ComboElement* element = new ComboElement(*this, comboElementText, value);
 	element->AddMouseStateSubscriber(*this);
 	comboElements.push_back(element);
 	return *element;
