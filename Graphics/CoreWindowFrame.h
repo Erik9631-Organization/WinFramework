@@ -27,7 +27,7 @@ private:
 	void CleanGraphicsBuffer();
 	void RenderGraphics(HDC GraphicsBuffer);
 	void AssignGraphicsToComponents();
-	void assignGraphicsToNodes(MultiTree<Component&>& node, Rect viewPort);
+	void assignGraphicsToNodes(MultiTree<Component&>& node, Region& clippingRegion);
 	void NotifyMouseState(Gdiplus::Point point);
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
 	DefaultRender renderBehavior;

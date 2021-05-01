@@ -13,7 +13,7 @@ public:
 	Label();
 	Label(int x, int y, int width, int height, std::string name);
 	void SetBackground(Gdiplus::Color color);
-	void GetBackground(Gdiplus::Color color);
+	Gdiplus::Color GetBackground();
 	void SetText(std::wstring str);
 	std::wstring GetText();
 };

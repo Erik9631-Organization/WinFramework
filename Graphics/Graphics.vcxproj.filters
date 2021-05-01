@@ -360,6 +360,15 @@
     <ClCompile Include="DefaultComboBoxBehavior.cpp">
       <Filter>Source Files\Behavior</Filter>
     </ClCompile>
+    <ClCompile Include="TableElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ListBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultListBoxBehavior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ResizeSubject.h">
@@ -649,6 +658,15 @@
     </ClInclude>
     <ClInclude Include="DefaultComboBoxBehavior.h">
       <Filter>Header Files\Behavior</Filter>
+    </ClInclude>
+    <ClInclude Include="TableElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ListBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultListBoxBehavior.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

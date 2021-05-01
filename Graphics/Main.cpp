@@ -34,6 +34,7 @@
 #include "ComboSelection.h"
 #include "ComboBox.h"
 #include "ComboElement.h"
+#include "ListBox.h"
 
 using namespace std;
 
@@ -341,6 +342,13 @@ public:
 * Design
 * 1) Remove generics from all the events and send the src as subject by default. The inheritance hierarchy will allow you to cast it to the correct type. Src is ALWAYS a subject.
 * 2) All the behaviors should be covered by a common interface to be able to make them hot swappable. (It is not going to be completely possible, but at least create a common interface for the same behavioral groups)
+* 3) Trackbar
+*		1) UpdateTracker() vs UpdateTrackerHeight, rename and recheck the design. What is the difference, why is UpdateTrackbar not calling UpdateTracker --- optimize and change
+* 
+* Bugs
+* Trackbar
+*	1) If trackbar width is called after trackbar control, the width doesn't get updated
+*	2) If component is added to the controlled trackbar before the trackbar is added as a control, the size doesn't update
 */
 	
 int WinEntry()
@@ -362,14 +370,28 @@ int WinEntry()
 	int gap = 1;
 
 
-	SimpleBorder border = SimpleBorder();
 	TestClass inputTest = TestClass();
 	CheckboxTester checkboxTester = CheckboxTester();
 	RadioButtonTester radioButtonTester = RadioButtonTester();
-	TrackBar trackbar = TrackBar(0, 10, 10, 150, "trackbar");
+
+	TrackBar trackbar = TrackBar(0, 10, 10, 0, "trackbar");
 	Panel panel = Panel(50, 300, 300, 250, "panel");
 	panel.Add(trackbar);
 	trackbar.Control(panel);
+
+
+	/*
+	* Listbox test start
+	*/
+
+	ListBox listBox = ListBox(225, 30, 100, 250, "TestListbox");
+
+	for (int i = 0; i < 10; i++)
+		listBox.CreateListElement(L"Value "+to_wstring(i), std::make_any<int>(i));
+
+	/*
+	* Listbox test end
+	*/
 
 	/*
 	* ComboBox test start
@@ -556,6 +578,7 @@ int WinEntry()
 	frame.Add(fileSaveButton);
 	frame.Add(clearButton);
 	frame.Add(comboBox);
+	frame.Add(listBox);
 
 
 

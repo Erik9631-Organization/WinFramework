@@ -115,7 +115,12 @@ void VerticalTrackbarBehavior::OnMove(EventMoveInfo e)
 
 	Adjustable* adjustable = dynamic_cast<Adjustable*>(movable);
 	if (adjustable != nullptr)
+	{
 		UpdateDownmostComponent(*adjustable);
+		UpdateTrackbar();
+		UpdateTrackerHeight();
+	}
+
 }
 
 void VerticalTrackbarBehavior::OnResize(EventResizeInfo e)
@@ -129,6 +134,8 @@ void VerticalTrackbarBehavior::OnResize(EventResizeInfo e)
 		Adjustable* adjustable = dynamic_cast<Adjustable*>(resizable);
 		if (adjustable != nullptr)
 			UpdateDownmostComponent(*adjustable);
+		UpdateTrackbar();
+		UpdateTrackerHeight();
 	}
 
 }

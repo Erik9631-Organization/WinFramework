@@ -24,6 +24,8 @@ private:
 	
 	void CreateSpan(GridSpan span);
 
+	bool autoExtend = false;
+
 public:
 	Grid();
 	Grid(int x, int y, int width, int height);
@@ -51,6 +53,8 @@ public:
 	void SetGridRows(std::initializer_list<int> rows);
 	int GetGridRowSize(int index);
 	int GetGridColumnSize(int index);
+	void SetAutoExtend(bool state);
+	bool IsAutoextending();
 
 	virtual void Add(Component& component) override;
 };

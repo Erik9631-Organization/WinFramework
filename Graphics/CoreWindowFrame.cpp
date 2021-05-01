@@ -54,29 +54,39 @@ void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
 void CoreWindowFrame::AssignGraphicsToComponents()
 {
 	Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
-	assignGraphicsToNodes(wrapperFrame.GetComponentNode(), rootViewport);
+	Region clippingRegion = Region(rootViewport);
+	assignGraphicsToNodes(wrapperFrame.GetComponentNode(), clippingRegion);
 }
 
-void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Rect parentViewport)
+void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region& clippingRegion)
 {
 	Graphics graphics(secondaryBuffer);
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
-	Gdiplus::Rect viewport;
+	if (node.GetValue().GetComponentName().compare("panel") == 0) // they equal
+		CoreWindowFrame::ConsoleWrite("Found panel!");
+
+	//Gdiplus::Rect viewport;
 	if(!node.IsRoot())
 	{
-		viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
+		Rect viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
 		graphics.SetClip(viewport);
-		graphics.IntersectClip(parentViewport);
+		clippingRegion.Intersect(viewport);
+		graphics.IntersectClip(&clippingRegion);
 	}
-	else
-		viewport = parentViewport;
+	/*else
+		viewport = clippingRegion;*/
 
 	RenderEventInfo renderEvent = RenderEventInfo(&graphics);
 	node.GetValue().OnRender(renderEvent);
 
 	for (int i = 0; i < node.GetNodeCount(); i++)
-		assignGraphicsToNodes(node.Get(i), viewport);
+	{
+		Region* newRegion = clippingRegion.Clone();
+		assignGraphicsToNodes(node.Get(i), *newRegion);
+		delete newRegion;
+	}
+
 	return;
 }
 

@@ -18,11 +18,12 @@ Label::Label(int x, int y, int width, int height, std::string name) : Component(
 void Label::SetBackground(Gdiplus::Color color)
 {
 	background.SetColor(color);
+	Repaint();
 }
 
-void Label::GetBackground(Gdiplus::Color color)
+Gdiplus::Color Label::GetBackground()
 {
-	background.GetColor();
+	return background.GetColor();
 }
 
 void Label::SetText(std::wstring str)

@@ -24,8 +24,21 @@ void Grid::AddRow()
 		cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex)); // First position
 		cell->SetPosition(i, lastRowIndex); // Then size since position is dependent on size
 	}
+	if (autoExtend == false)
+		return;
 
-	//Once row is created, check if prempetive row is required
+	if (gridArray.size() == 0)
+		return;
+
+	if (gridArray.at(gridArray.size()-1)->at(0) == nullptr)
+		return;
+	//If autoextend enabled check if grid extention required
+	
+	int lastY = gridArray.at(gridArray.size()-1)->at(0)->GetPixelY();
+	int lastHeight = gridArray.at(gridArray.size() - 1)->at(0)->GetHeight();
+
+	if (lastY > GetHeight())
+		SetHeight(lastY + lastHeight);
 
 }
 
@@ -69,6 +82,16 @@ int Grid::GetGridColumnSize(int index)
 	if (index >= columnWidths.size() || index < 0)
 		return defaultColumnSize;
 	return columnWidths.at(index);
+}
+
+void Grid::SetAutoExtend(bool state)
+{
+	autoExtend = state;
+}
+
+bool Grid::IsAutoextending()
+{
+	return autoExtend;
 }
 
 int Grid::GetGridRowSize(int index)
