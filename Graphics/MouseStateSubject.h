@@ -8,7 +8,7 @@ public:
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) = 0;
 	virtual void NotifyOnMouseUp(EventMouseStateInfo e) = 0;
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) = 0;
-	virtual void NotifyOnMouseMove(EventMouseStateInfo e) = 0;
+	virtual void NotifyOnMouseHover(EventMouseStateInfo e) = 0;
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) = 0;
 	virtual void NotifyOnMouseLeave(EventMouseStateInfo e) = 0;
 	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) = 0;

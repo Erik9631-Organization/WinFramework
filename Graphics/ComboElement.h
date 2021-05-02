@@ -44,7 +44,7 @@ public:
 
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
 
-	virtual void NotifyOnMouseMove(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
 

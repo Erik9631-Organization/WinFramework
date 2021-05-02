@@ -2,6 +2,16 @@
 #include "EventOnActivateInfo.h"
 #include "ActivateSubscriber.h"
 
+void DefaultActivate::SetActivatable(bool state)
+{
+    activatable = state;
+}
+
+bool DefaultActivate::IsActivatable()
+{
+    return activatable;
+}
+
 void DefaultActivate::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
 {
     subscribers.push_back(subscriber);
@@ -29,6 +39,9 @@ void DefaultActivate::SetActive(bool state)
 
 bool DefaultActivate::IsActive()
 {
+    if (activatable == false)
+        return false;
+
     return state;
 }
 

@@ -20,6 +20,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Component* sourc
 {
 	position = e.GetMouseAbsolutePosition();
 	relativePosition = position - source->GetAbsolutePosition();
+	recursive = e.recursive;
 	key = e.GetKey();
 }
 
@@ -28,6 +29,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point r
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
 	this->key = e.GetKey();
+	this->recursive = e.recursive;
 }
 
 Gdiplus::Point EventMouseStateInfo::GetMouseAbsolutePosition()
@@ -81,4 +83,14 @@ MouseStateSubject* EventMouseStateInfo::GetSrc()
 
 	if(mouseSrc == nullptr)
 		return src;
+}
+
+void EventMouseStateInfo::SetRecursive(bool state)
+{
+	recursive = state;
+}
+
+bool EventMouseStateInfo::IsRecursive()
+{
+	return recursive;
 }

@@ -344,6 +344,9 @@ public:
 * 2) All the behaviors should be covered by a common interface to be able to make them hot swappable. (It is not going to be completely possible, but at least create a common interface for the same behavioral groups)
 * 3) Trackbar
 *		1) UpdateTracker() vs UpdateTrackerHeight, rename and recheck the design. What is the difference, why is UpdateTrackbar not calling UpdateTracker --- optimize and change
+* 3) ListBox and combobox
+*		1) Both have internal factories that generate the elements. Give an option to place any factory inside the components so any element can be part of it.
+* 4) Introduce a merge function, so composite components handle events as a single logical component
 * 
 * Bugs
 * Trackbar
@@ -385,6 +388,8 @@ int WinEntry()
 	*/
 
 	ListBox listBox = ListBox(225, 30, 100, 250, "TestListbox");
+	ListBox listBoxDragTest = ListBox(335, 30, 100, 250, "TestListboxDrag");
+	listBoxDragTest.CreateListElement(L"value 1", std::make_any<int>(1));
 
 	for (int i = 0; i < 10; i++)
 		listBox.CreateListElement(L"Value "+to_wstring(i), std::make_any<int>(i));
@@ -579,6 +584,7 @@ int WinEntry()
 	frame.Add(clearButton);
 	frame.Add(comboBox);
 	frame.Add(listBox);
+	frame.Add(listBoxDragTest);
 
 
 

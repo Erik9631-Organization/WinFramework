@@ -63,10 +63,6 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region&
 	Graphics graphics(secondaryBuffer);
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
-	if (node.GetValue().GetComponentName().compare("panel") == 0) // they equal
-		CoreWindowFrame::ConsoleWrite("Found panel!");
-
-	//Gdiplus::Rect viewport;
 	if(!node.IsRoot())
 	{
 		Rect viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
@@ -74,8 +70,6 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region&
 		clippingRegion.Intersect(viewport);
 		graphics.IntersectClip(&clippingRegion);
 	}
-	/*else
-		viewport = clippingRegion;*/
 
 	RenderEventInfo renderEvent = RenderEventInfo(&graphics);
 	node.GetValue().OnRender(renderEvent);
@@ -95,7 +89,7 @@ void CoreWindowFrame::NotifyMouseState(Gdiplus::Point point)
 	/*for (int i = 0; i < wrapperFrame.GetComponentNode().GetNodeCount(); i++)
 	{
 		if (wrapperFrame.GetComponentNode().Get(i).GetValue().ColidesWithPoint(point));
-			wrapperFrame.NotifyOnMouseMove(EventMouseStateInfo(point, 0));
+			wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(point, 0));
 	}*/
 
 }
@@ -164,7 +158,7 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MOUSEMOVE:
 		lastMouseX = ((unsigned short*)&lParam)[0];
 		lastMouseY = ((unsigned short*)&lParam)[1];
-		wrapperFrame.NotifyOnMouseMove(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), 0, &wrapperFrame));
+		wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), 0, &wrapperFrame));
 		break;
 	case WM_LBUTTONDOWN:
 		wrapperFrame.NotifyOnMouseDown(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));

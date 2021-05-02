@@ -18,7 +18,7 @@ public:
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseMove(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseHover(EventMouseStateInfo e) override;
 	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
@@ -35,6 +35,14 @@ DefaultMouseBehavior<TreeNode>::DefaultMouseBehavior(TreeNode node) : associated
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::NotifyOnMouseDown(EventMouseStateInfo e)
 {
+	if (!e.IsRecursive())
+	{
+		for (MouseStateSubscriber& subscriber : subscribers)
+			subscriber.OnMouseDown(e);
+		return;
+	}
+
+
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
@@ -54,6 +62,14 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseDown(EventMouseStateInfo e)
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::NotifyOnMouseUp(EventMouseStateInfo e)
 {
+	if (!e.IsRecursive())
+	{
+		for (MouseStateSubscriber& subscriber : subscribers)
+			subscriber.OnMouseUp(e);
+		return;
+	}
+
+
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
@@ -73,6 +89,16 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseUp(EventMouseStateInfo e)
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 {
+	if (!e.IsRecursive())
+	{
+		for (MouseStateSubscriber& subscriber : subscribers)
+			subscriber.OnMousePressed(e);
+		return;
+	}
+
+
+
+
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
@@ -90,17 +116,25 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 }
 
 template<class TreeNode>
-void DefaultMouseBehavior<TreeNode>::NotifyOnMouseMove(EventMouseStateInfo e)
+void DefaultMouseBehavior<TreeNode>::NotifyOnMouseHover(EventMouseStateInfo e)
 {
 	if (!mouseEntered)
 		NotifyOnMouseEnter(e);
+
+	if (!e.IsRecursive())
+	{
+		for (MouseStateSubscriber& subscriber : subscribers)
+			subscriber.OnMouseMove(e);
+		return;
+	}
+
 
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
 		if (associatedNode.Get(i).GetValue().ColidesWithPoint(e.GetMouseAbsolutePosition()))
 		{
-			associatedNode.Get(i).GetValue().NotifyOnMouseMove(e);
+			associatedNode.Get(i).GetValue().NotifyOnMouseHover(e);
 			subComponentCollision = true;
 		}
 		else
@@ -148,6 +182,7 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseEnter(EventMouseStateInfo e)
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::NotifyOnMouseLeave(EventMouseStateInfo e)
 {
+
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Check if left from any of the subcomponents
 	{
 		if (associatedNode.Get(i).GetValue().HasMouseEntered())

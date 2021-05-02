@@ -84,10 +84,10 @@ void ComboElement::NotifyOnMousePressed(EventMouseStateInfo e)
 		elementGui->NotifyOnMousePressed(e);
 }
 
-void ComboElement::NotifyOnMouseMove(EventMouseStateInfo e)
+void ComboElement::NotifyOnMouseHover(EventMouseStateInfo e)
 {
 	if (elementGui != nullptr)
-		elementGui->NotifyOnMouseMove(e);
+		elementGui->NotifyOnMouseHover(e);
 }
 
 void ComboElement::NotifyOnMouseEnter(EventMouseStateInfo e)

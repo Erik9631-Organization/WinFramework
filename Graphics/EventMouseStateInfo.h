@@ -11,6 +11,7 @@ private:
 	Gdiplus::Point relativePosition;
 	Component* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
+	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
 	int key;
 public:
 	EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, int key, MouseStateSubject* src);
@@ -27,5 +28,7 @@ public:
 	int GetMouseY();
 	int GetKey();
 	MouseStateSubject* GetSrc();
+	void SetRecursive(bool state);
+	bool IsRecursive();
 
 };

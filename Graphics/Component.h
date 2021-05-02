@@ -82,6 +82,9 @@ public:
 	virtual void Add(Component& component);
 	virtual ~Component(){};
 
+	void SetActivatable(bool state);
+	bool IsActivatable();
+
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
@@ -159,7 +162,7 @@ public:
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseMove(EventMouseStateInfo e) override;
+	virtual void NotifyOnMouseHover(EventMouseStateInfo e) override;
 	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
