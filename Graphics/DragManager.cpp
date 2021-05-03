@@ -22,9 +22,16 @@ void DragManager::OnDragStart()
 
 void DragManager::OnDragEnd()
 {
-	if (currentDragObj == associatedDragable) // Cant drop on itself
-		return;
 	CoreWindowFrame::ConsoleWrite("Drag ended!");
+	if (currentDragObj == associatedDragable) // Cant drop on itself
+	{
+		// Reset states
+		srcManager = nullptr;
+		currentDragObj = nullptr;
+		isDragging = false;
+		return;
+	}
+
 	srcManager->NotifyOnDragEnd(EventOnDragInfo(*currentDragObj)); // Notify the original that the drag has ended
 	NotifyOnDrop(EventOnDragInfo(*currentDragObj)); // Then notify the current that drop happened
 
@@ -79,6 +86,7 @@ void DragManager::OnMouseEntered(EventMouseStateInfo e)
 
 void DragManager::OnMouseLeft(EventMouseStateInfo e)
 {
+	mouseDown = false;
 }
 
 void DragManager::NotifyOnDrop(EventOnDragInfo e)

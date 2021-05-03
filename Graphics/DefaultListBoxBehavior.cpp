@@ -128,7 +128,8 @@ void DefaultListBoxBehavior::OnMouseEntered(EventMouseStateInfo e)
 
 void DefaultListBoxBehavior::OnMouseLeft(EventMouseStateInfo e)
 {
-
+	e.SetRecursive(false);
+	associatedListBox.NotifyOnMouseLeave(e);
 }
 
 std::any DefaultListBoxBehavior::GetDragContent()
