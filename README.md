@@ -1,8 +1,8 @@
 # Lii Framework
 Lii framework is an open source framework which allows you to create interactive desktop applications on windows platform with ease.
 
-
 ## Installation
+### Make sure you have the latest Visual Studio version!
 1. Download the file from the release tab.
 2. Extract it somewhere to your disk.
 3. In visual studio, point the compiler to the include/header directory where you extracted your lib.
