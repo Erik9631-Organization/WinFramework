@@ -12,6 +12,8 @@ Lii framework is an open source framework which allows you to create interactive
 5. Include the lib in the additional dependencies.
 	- This is located under Linker > Input > Additional Dependencies.
 	- Type in the name of the lib (Lii.lib for release and LiiDebug.lib for debug configuration)
+6. Under Linker > System change the subsystem time to Windows Application
+7. Under C/C++ > General set the language version to C++17
 	
 ## Entry point
 Once everything is linked, you can create your first source file.
@@ -26,3 +28,4 @@ int WinEntry()
 	return 0;
 }
 ```
+
