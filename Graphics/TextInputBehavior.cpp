@@ -59,7 +59,7 @@ TextInputBehavior::TextInputBehavior(Component& textInput) : associatedTextInput
 	textInput.AddKeyStateSubscriber(*this);
 
 
-	originalColor = textInput.GetPropery<Gdiplus::Color>("get-background-color");
+	//originalColor = textInput.GetPropery<Gdiplus::Color>("get-background-color");
 
 	//originalColor = textInput.GetBackgroundColor();
 }

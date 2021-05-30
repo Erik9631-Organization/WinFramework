@@ -15,7 +15,7 @@ void DragManager::OnDragStart()
 {
 	CoreWindowFrame::ConsoleWrite("Drag started!");
 	isDragging = true;
-	currentDragObj = associatedDragable;
+	currentDragObj = associatedDraggable;
 	srcManager = this;
 	NotifyOnDragStart(EventOnDragInfo(*currentDragObj));
 }
@@ -23,7 +23,7 @@ void DragManager::OnDragStart()
 void DragManager::OnDragEnd()
 {
 	CoreWindowFrame::ConsoleWrite("Drag ended!");
-	if (currentDragObj == associatedDragable) // Cant drop on itself
+	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
 		// Reset states
 		srcManager = nullptr;
@@ -48,13 +48,13 @@ DragManager::DragManager(MouseStateSubject& subject) : DragManager(subject, null
 
 DragManager::DragManager(MouseStateSubject& subject, Draggable* associatedDraggable)
 {
-	this->associatedDragable = associatedDragable;
+	this->associatedDraggable = associatedDraggable;
 	subject.AddMouseStateSubscriber(*this);
 }
 
-void DragManager::SetAssociatedDraggable(Draggable* associatedDragable)
+void DragManager::SetAssociatedDraggable(Draggable* associatedDraggable)
 {
-	this->associatedDragable = associatedDragable;
+	this->associatedDraggable = associatedDraggable;
 }
 
 void DragManager::OnMouseDown(EventMouseStateInfo e)

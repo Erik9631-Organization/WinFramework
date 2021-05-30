@@ -28,6 +28,12 @@ public:
 	int GetMouseY();
 	int GetKey();
 	MouseStateSubject* GetSrc();
+
+
+	/*
+	* Sets recursive stuff
+	* \param state is a state parameter.
+	*/
 	void SetRecursive(bool state);
 	bool IsRecursive();
 

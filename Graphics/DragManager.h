@@ -17,7 +17,7 @@ private:
 	static bool isDragging;
 	static DragManager* srcManager;
 
-	Draggable* associatedDragable;
+	Draggable* associatedDraggable;
 	std::vector<std::reference_wrapper<DragSubscriber>> dragSubscribers;
 	std::vector<std::reference_wrapper<DropSubscriber>> dropSubscribers;
 	bool mouseDown = false;
@@ -27,7 +27,7 @@ public:
 	DragManager(MouseStateSubject& subject);
 	DragManager(MouseStateSubject& subject, Draggable* associatedDraggable);
 
-	void SetAssociatedDraggable(Draggable* associatedDragable);
+	void SetAssociatedDraggable(Draggable* associatedDraggable);
 	// Inherited via MouseStateSubscriber
 	virtual void OnMouseDown(EventMouseStateInfo e) override;
 

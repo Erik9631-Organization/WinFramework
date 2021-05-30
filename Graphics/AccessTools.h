@@ -16,7 +16,7 @@ class AccessTools
 private:
 	template<typename ReturnType, typename Type, typename ... Args>
 	static std::unordered_map<std::string, ReturnType(Type::*)(Args ...)>convertionTable;
-
+	 
 	template<typename RealType, typename ReturnType, typename ... Args>
 	static ReturnType HandleInvoke(std::string functionName, void* instance, Args ... args)
 	{

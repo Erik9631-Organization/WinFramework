@@ -11,7 +11,7 @@ ListBox::ListBox(std::string name) : ListBox(0, 0, 0, 0, name)
 
 }
 
-ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(x, y, width, height, name), layout(0, 0, width, height+50), dragManager(*this), behavior(*this)
+ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(x, y, width, height, name), layout(0, 0, width, height+50), dragManager(*this, this), behavior(*this)
 {
 	this->Panel::Add(trackbar);
 	trackbar.SetWidth(10);
@@ -21,7 +21,6 @@ ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(
 	layout.SetGridColumns({ width - trackbar.GetWidth() });
 	layout.SetRowGap(1);
 	layout.SetDefaultRowSize(30);
-	dragManager.SetAssociatedDraggable(this); // temporary fix, should be in the initializer
 }
 
 std::vector<TableElement*> ListBox::GetElements()

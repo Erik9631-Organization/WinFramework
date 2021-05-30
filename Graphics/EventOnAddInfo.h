@@ -10,7 +10,7 @@ public:
 
 	}
 
-	type& EventOnAddInfo<type>::GetAddedComponent()
+	type GetAddedComponent()
 	{
 		return addedElement;
 	}

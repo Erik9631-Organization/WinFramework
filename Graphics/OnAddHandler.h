@@ -23,7 +23,7 @@ public:
 
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<type>& subscriber) override
 	{
-		for (std::vector<std::reference_wrapper<OnAddSubscriber<type>>>::iterator it = subscribers.begin(); it != subscribers.end(); it++)
+		for (typename std::vector<std::reference_wrapper<OnAddSubscriber<type>>>::iterator it = subscribers.begin(); it != subscribers.end(); it++)
 			if (&it->get() == &subscriber)
 			{
 				subscribers.erase(it);

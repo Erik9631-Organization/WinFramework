@@ -31,6 +31,7 @@
     <ClInclude Include="ComboSelection.h" />
     <ClInclude Include="DefaultComboBoxBehavior.h" />
     <ClInclude Include="DefaultListBoxBehavior.h" />
+    <ClInclude Include="DemoApplication.h" />
     <ClInclude Include="Draggable.h" />
     <ClInclude Include="DragManager.h" />
     <ClInclude Include="DragSubject.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="ComboSelection.cpp" />
     <ClCompile Include="DefaultComboBoxBehavior.cpp" />
     <ClCompile Include="DefaultListBoxBehavior.cpp" />
+    <ClCompile Include="DemoApplication.cpp" />
     <ClCompile Include="Draggable.cpp" />
     <ClCompile Include="DragManager.cpp" />
     <ClCompile Include="DragSubject.cpp" />
