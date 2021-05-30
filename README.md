@@ -5,7 +5,7 @@ Lii framework is an open source framework which allows you to create interactive
 ### Make sure you have the latest Visual Studio version!
 1. Download the file from the release tab.
 2. Extract it somewhere to your disk.
-3. In visual studio, point the compiler to the include/header directory where you extracted your lib.
+3. In visual studio, point the compiler to the include/header directory where you extracted your zip.
 	- This is found under C/C++ > General > Additional Include Directories.
 4. Point the compiler to the .lib file located in the include directory.
 	- This is found under Linker > General > Additional Library Directories
