@@ -1,5 +1,9 @@
 #pragma once
 class Component;
+
+/**
+ * \deprecated Deprecated. Subject for removal.
+ */
 class EventInfo
 {
 protected:

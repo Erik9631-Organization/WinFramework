@@ -7,7 +7,13 @@
 #include <unordered_map>
 #include "Reflectable.h"
 #include "ReflectionContainer.h"
-
+/**
+ * A border renderable. Draws a border around the edges of the target object.
+ * Supported properties:<br>
+ * border-color, args: Gdiplus::Color, return void<br>
+ * border-style, args: Gdiplus::DashStyle<br>
+ * border-thickness, args: float
+ */
 
 class SimpleBorder : public Renderable, public Reflectable<SimpleBorder>
 {

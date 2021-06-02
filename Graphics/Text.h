@@ -8,6 +8,12 @@
 #include <unordered_map>
 #include "ReflectionContainer.h"
 
+/**
+ * A text renderable. Draws text within the canvas of the defined object.
+ * Supported properties:<br>
+ * text-color, args: Gdiplus::Color<br>
+ * font-size, args: double
+ */
 class Text : public Renderable, public Reflectable<Text>
 {
 private:

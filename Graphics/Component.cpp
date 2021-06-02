@@ -14,18 +14,6 @@ void Component::Add(Component& component)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
 }
 
-void Component::SetActivatable(bool state)
-{
-	activateBehavior.SetActivatable(state);
-}
-
-bool Component::IsActivatable()
-{
-	return activateBehavior.IsActivatable();
-}
-
-
-
 Component::Component() : Component(0, 0, 0, 0, "")
 {
 

@@ -321,13 +321,7 @@
     <ClCompile Include="OnAddHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Panel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GenericObj.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GridCell.cpp">
@@ -336,14 +330,8 @@
     <ClCompile Include="GridSpan.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FileBrowser.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ComboSelection.cpp">
       <Filter>Source Files\Components\ComboBox</Filter>
-    </ClCompile>
-    <ClCompile Include="ComboElement.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EventComboBoxStateInfo.cpp">
       <Filter>Source Files\Events\EventTypes</Filter>
@@ -354,16 +342,10 @@
     <ClCompile Include="ComboBoxStateSubject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ComboBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DefaultComboBoxBehavior.cpp">
       <Filter>Source Files\Behavior</Filter>
     </ClCompile>
     <ClCompile Include="TableElement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ListBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DefaultListBoxBehavior.cpp">
@@ -398,6 +380,24 @@
     </ClCompile>
     <ClCompile Include="DemoApplication.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboBox.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="ComboElement.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="FileBrowser.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="ListBox.cpp">
+      <Filter>Source Files\Behavior</Filter>
+    </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Source Files\Behavior</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -650,13 +650,7 @@
     <ClInclude Include="OnAddHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Panel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GenericObj.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GridCell.h">
@@ -665,14 +659,8 @@
     <ClInclude Include="GridSpan.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FileBrowser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ComboSelection.h">
       <Filter>Header Files\Components\ComboBox</Filter>
-    </ClInclude>
-    <ClInclude Include="ComboElement.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EventComboBoxStateInfo.h">
       <Filter>Header Files\Events\EventTypes</Filter>
@@ -683,16 +671,10 @@
     <ClInclude Include="ComboBoxStateSubject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ComboBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DefaultComboBoxBehavior.h">
       <Filter>Header Files\Behavior</Filter>
     </ClInclude>
     <ClInclude Include="TableElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ListBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DefaultListBoxBehavior.h">
@@ -727,6 +709,24 @@
     </ClInclude>
     <ClInclude Include="DemoApplication.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileBrowser.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ListBox.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboElement.h">
+      <Filter>Header Files\Components\ComboBox</Filter>
+    </ClInclude>
+    <ClInclude Include="ComboBox.h">
+      <Filter>Header Files\Components\ComboBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

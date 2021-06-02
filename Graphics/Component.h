@@ -54,36 +54,97 @@ public:
 	Component();
 	Component(string name);
 	Component(int x, int y, int width, int height, string windowName);
+	/**
+	 * Returns the text value of the component. (Usually used for name or description)
+	 * \return returns unicode string value
+	 */
 	virtual std::wstring GetText();
+	
+	/**
+	 * Sets the text value of the component. (Usually used for name or description)
+	 * \param text sets the unicode text value of the component.
+	 */
 	virtual void SetText(std::wstring text);
+
+	/**
+	 * Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset
+	 * \param ignoreOffset true for ignoring the offset, false for not ignoring the offset
+	 */
 	void SetIgnoreOffset(bool ignoreOffset);
+	
+	/**
+	 * Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset
+	 * \param ignoreOffset true for ignoring the offset, false for not ignoring the offset
+	 */
 	bool IsIgnoringOffset();
 
+	/**
+	 * Returns whether the component is at the top of the containment hierarchy
+	 * \return returns true if it is at the top of the containment hierarchy, otherwise returns false.
+	 */
 	bool IsRoot();
+
+	/**
+	 * Returns the component at the top of the containment hierarchy
+	 * \return returns reference to the component at the top of the containment hierarchy.
+	 */
 	Component& GetRoot();
+
 	Size GetSize() override;
 	Point GetPosition() override;
 	int GetWidth() override;
 	int GetHeight() override;
 	int GetX() override;
+	
+	/**
+	 * Gets the current node within the containment hierarchy
+	 * \return returns a node within the Tree of the containment hierarchy.
+	 */
 	MultiTree<Component&>& GetComponentNode();
 	int GetY() override;
+
+	/**
+	 * Gets the pointer to the parent of this component
+	 * \return returns pointer of the parent component.
+	 */
 	Component * GetParent();
-	virtual void SetSize(int width, int height) override;
-	virtual void SetSize(Size size) override;
+	void SetSize(int width, int height) override;
+	void SetSize(Gdiplus::Size size) override;
+	
+	/**
+	 * \deprecated use AddOnResizeSubscriber instead
+	 */
 	void AddOnResizeListener(ResizeSubscriber& listener);
+	
+	/**
+	 * Returns meta information about the component type
+	 * \return returns string containing the information about the type of the component. 
+	 */
 	string GetComponentType();
+	
+	/**
+	 * Returns the name of the component.
+	 * \return returns string containing the name of the component
+	 */
 	string GetComponentName();
+
+	/**
+	 * Sets the name of the component
+	 * \param name string containing the name of the component
+	 */
 	void SetComponentName(string name);
 
 	virtual void SetPosition(int x, int y);
-	virtual void SetPosition(Point pos);
+	virtual void SetPosition(Gdiplus::Point pos);
 
+	/**
+	 * Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window.
+	 * \param component the component to be added 
+	 */
 	virtual void Add(Component& component);
 	virtual ~Component(){};
+	
 
-	void SetActivatable(bool state);
-	bool IsActivatable();
 
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
@@ -176,7 +237,12 @@ public:
 	// Inherited via MouseInteractable
 	virtual bool HasMouseEntered() override;
 
-
+	/**
+	 * Sets the property via the meta object protocol. List of available properties can be found in all classes that implement the Renderable interface.
+	 * \param name the property name that should be changed
+	 * \param args the arguments of the property that should be changed.
+	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
+	 */
 	template<typename ... Args>
 	void SetProperty(std::string name, Args ... args)
 	{
@@ -188,6 +254,12 @@ public:
 
 	}
 
+	/**
+	 * Get the property via the meta object protocol. List of available properties can be found in all classes the implement the Renderable interface.
+	 * \param name the property name the value of which you want returned.
+	 * \param args the arguments of the property.
+	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
+	 */
 	template<typename returnType, typename ... Args>
 	returnType GetPropery(std::string name, Args ... args)
 	{
@@ -222,7 +294,16 @@ public:
 	virtual Gdiplus::Point GetElementOffset() override;
 	virtual int GetElementXOffset() override;
 	virtual int GetElementYOffset() override;
-
+	
+	/**
+	 * Gets the internal offset of the child components
+	 * \return returns the point that contains X and Y of the internal offset.
+	 */
 	Gdiplus::Point GetInternalOffset();
+	
+	/**
+	 * Sets the offset of all the subcomponents that are owned by this component at once
+	 * \param internalOffset the offset 
+	 */
 	void SetInternalOffset(Gdiplus::Point internalOffset);
 };

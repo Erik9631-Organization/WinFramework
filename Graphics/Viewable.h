@@ -6,6 +6,9 @@ class EventResizeInfo;
 class ResizeSubscriber;
 class EventMoveInfo;
 
+/**
+ * Class which defines the viewport properties. This class will be deprecated and is subject to change, therefore not documented.
+ */
 class Viewable
 {
 	virtual void AddOnViewportMoveSubscriber(MoveSubscriber& subscriber) = 0;

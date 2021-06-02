@@ -4,7 +4,12 @@
 #include <gdiplus.h>
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
-
+/**
+ * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
+ * Supported properties:
+ * background-color, args: Gdiplus::Color, return void
+ * get-background-color, return Gdiplus::Color
+ */
 class Background : public Renderable, public Reflectable<Background>
 {
 private:

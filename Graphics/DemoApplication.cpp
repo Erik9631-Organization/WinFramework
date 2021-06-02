@@ -361,7 +361,7 @@ void DemoApplication::LaunchDemoApp()
 	int offset = 100;
 	int gap = 1;
 
-
+	
 	TestClass inputTest = TestClass();
 	CheckboxTester checkboxTester = CheckboxTester();
 	RadioButtonTester radioButtonTester = RadioButtonTester();

@@ -24,7 +24,7 @@ Gdiplus::Color Button::GetBackgroundColor()
 	return background.GetColor();
 }
 
-Gdiplus::Color Button::GetBorderColor(Color color)
+Gdiplus::Color Button::GetBorderColor()
 {
 	return border.GetColor();
 }
