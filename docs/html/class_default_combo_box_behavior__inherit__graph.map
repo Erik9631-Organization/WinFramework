@@ -1,0 +1,8 @@
+<map id="DefaultComboBoxBehavior" name="DefaultComboBoxBehavior">
+<area shape="rect" id="node1" title=" " alt="" coords="232,107,407,133"/>
+<area shape="rect" id="node2" href="$class_resize_subscriber.html" title=" " alt="" coords="33,5,157,32"/>
+<area shape="rect" id="node3" href="$class_mouse_state_subscriber.html" title=" " alt="" coords="17,56,172,83"/>
+<area shape="rect" id="node4" href="$class_activate_subscriber.html" title=" " alt="" coords="29,107,160,133"/>
+<area shape="rect" id="node5" href="$class_combo_box_state_subscriber.html" title=" " alt="" coords="5,157,184,184"/>
+<area shape="rect" id="node6" href="$class_combo_box_state_subject.html" title=" " alt="" coords="14,208,175,235"/>
+</map>

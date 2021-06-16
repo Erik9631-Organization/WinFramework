@@ -1,0 +1,97 @@
+\hypertarget{class_drag_subject}{}\doxysection{Drag\+Subject Class Reference}
+\label{class_drag_subject}\index{DragSubject@{DragSubject}}
+
+
+{\ttfamily \#include $<$Drag\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Drag\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_drag_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_drag_subject_ace68335372966a633bb80ca44e2aaa51}{Notify\+On\+Drag\+Start}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_drag_subject_a8028bd7fb32ca8320dc6d3ee652f451f}{Notify\+On\+Drag\+End}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_drag_subject_a52407f4cc10d53b1309d46f631dfc8c2}{Add\+On\+Drag\+Subscriber}} (\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_drag_subject_aac8ea59ed561f6571c25ec977b4a34ec}{Remove\+On\+Drag\+Subscriber}} (\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&subscriber)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by all the classes that can send drag events 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_drag_subject_a52407f4cc10d53b1309d46f631dfc8c2}\label{class_drag_subject_a52407f4cc10d53b1309d46f631dfc8c2}} 
+\index{DragSubject@{DragSubject}!AddOnDragSubscriber@{AddOnDragSubscriber}}
+\index{AddOnDragSubscriber@{AddOnDragSubscriber}!DragSubject@{DragSubject}}
+\doxysubsubsection{\texorpdfstring{AddOnDragSubscriber()}{AddOnDragSubscriber()}}
+{\footnotesize\ttfamily virtual void Drag\+Subject\+::\+Add\+On\+Drag\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Adds the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a63934069c8681d9695a0365c2945ae80}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_a147e6591b9bb1daf9ae98a134216ae70}{Drag\+Manager}}.
+
+\mbox{\Hypertarget{class_drag_subject_a8028bd7fb32ca8320dc6d3ee652f451f}\label{class_drag_subject_a8028bd7fb32ca8320dc6d3ee652f451f}} 
+\index{DragSubject@{DragSubject}!NotifyOnDragEnd@{NotifyOnDragEnd}}
+\index{NotifyOnDragEnd@{NotifyOnDragEnd}!DragSubject@{DragSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDragEnd()}{NotifyOnDragEnd()}}
+{\footnotesize\ttfamily virtual void Drag\+Subject\+::\+Notify\+On\+Drag\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Calls On\+Drag\+End on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_aec6ff85a56dd54081fffbf8abdd782e6}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_a4c58df907e54c753d70c71770c6cb296}{Drag\+Manager}}.
+
+\mbox{\Hypertarget{class_drag_subject_ace68335372966a633bb80ca44e2aaa51}\label{class_drag_subject_ace68335372966a633bb80ca44e2aaa51}} 
+\index{DragSubject@{DragSubject}!NotifyOnDragStart@{NotifyOnDragStart}}
+\index{NotifyOnDragStart@{NotifyOnDragStart}!DragSubject@{DragSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDragStart()}{NotifyOnDragStart()}}
+{\footnotesize\ttfamily virtual void Drag\+Subject\+::\+Notify\+On\+Drag\+Start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Calls On\+Drag\+Start on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a68d91bfe7ab688537919a1e632318832}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_afa4f84113d5c011e785b084f8c975f65}{Drag\+Manager}}.
+
+\mbox{\Hypertarget{class_drag_subject_aac8ea59ed561f6571c25ec977b4a34ec}\label{class_drag_subject_aac8ea59ed561f6571c25ec977b4a34ec}} 
+\index{DragSubject@{DragSubject}!RemoveOnDragSubscriber@{RemoveOnDragSubscriber}}
+\index{RemoveOnDragSubscriber@{RemoveOnDragSubscriber}!DragSubject@{DragSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveOnDragSubscriber()}{RemoveOnDragSubscriber()}}
+{\footnotesize\ttfamily virtual void Drag\+Subject\+::\+Remove\+On\+Drag\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Removes the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a121ebb2d8422a37cd90e81f2c1f30a54}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_ac542317ff0333ad48964048d46f3c844}{Drag\+Manager}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Drag\+Subject.\+h\end{DoxyCompactItemize}

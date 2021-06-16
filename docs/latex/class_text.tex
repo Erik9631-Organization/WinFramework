@@ -1,0 +1,152 @@
+\hypertarget{class_text}{}\doxysection{Text Class Reference}
+\label{class_text}\index{Text@{Text}}
+
+
+{\ttfamily \#include $<$Text.\+h$>$}
+
+
+
+Inheritance diagram for Text\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{class_text__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_text_a88614910c7562b04c90c0d68740fe274}\label{class_text_a88614910c7562b04c90c0d68740fe274}} 
+void {\bfseries Set\+Line\+Alignment} (Gdiplus\+::\+String\+Alignment alignment)
+\item 
+\mbox{\Hypertarget{class_text_a90fd1611819a955c93e7b6a5747fcd13}\label{class_text_a90fd1611819a955c93e7b6a5747fcd13}} 
+void {\bfseries Set\+Alignment} (Gdiplus\+::\+String\+Alignment alignment)
+\item 
+\mbox{\Hypertarget{class_text_a5ad7b08f95cb6d766241e95954dc805b}\label{class_text_a5ad7b08f95cb6d766241e95954dc805b}} 
+Gdiplus\+::\+String\+Alignment {\bfseries Get\+Line\+Alignment} ()
+\item 
+\mbox{\Hypertarget{class_text_a6d7766b0acad117a846c562b2b467ff5}\label{class_text_a6d7766b0acad117a846c562b2b467ff5}} 
+Gdiplus\+::\+String\+Alignment {\bfseries Get\+Alignment} ()
+\item 
+\mbox{\Hypertarget{class_text_a027b36cc994dd7959fa40adacd734982}\label{class_text_a027b36cc994dd7959fa40adacd734982}} 
+{\bfseries Text} (std\+::string font\+Family)
+\item 
+\mbox{\Hypertarget{class_text_ad30609f12ec59c6aa3e79d7fcd36a080}\label{class_text_ad30609f12ec59c6aa3e79d7fcd36a080}} 
+void {\bfseries Set\+Text} (std\+::wstring text)
+\item 
+\mbox{\Hypertarget{class_text_a98ac9b212506362a3e2a6b9337d17de9}\label{class_text_a98ac9b212506362a3e2a6b9337d17de9}} 
+std\+::wstring {\bfseries Get\+Text} ()
+\item 
+\mbox{\Hypertarget{class_text_a7830dbf9c931351d4bd40f2bbf35d511}\label{class_text_a7830dbf9c931351d4bd40f2bbf35d511}} 
+void {\bfseries Set\+Position} (Gdiplus\+::\+PointF position)
+\item 
+\mbox{\Hypertarget{class_text_ac1eeba8e20c85eb3f1c4b64aa6661948}\label{class_text_ac1eeba8e20c85eb3f1c4b64aa6661948}} 
+void {\bfseries Set\+Percentual\+Position} (Gdiplus\+::\+PointF position)
+\item 
+\mbox{\Hypertarget{class_text_a17df84029c27a08fb04c64bfdc5e0624}\label{class_text_a17df84029c27a08fb04c64bfdc5e0624}} 
+Gdiplus\+::\+PointF {\bfseries Get\+Position} ()
+\item 
+\mbox{\Hypertarget{class_text_a443aa2171d4150a8df97bb9c914fce07}\label{class_text_a443aa2171d4150a8df97bb9c914fce07}} 
+virtual void {\bfseries Set\+Color} (Gdiplus\+::\+Color)
+\item 
+\mbox{\Hypertarget{class_text_a58d6496f1eac33d42f55086617898efb}\label{class_text_a58d6496f1eac33d42f55086617898efb}} 
+virtual void {\bfseries Set\+Font\+Size} (double font\+Size)
+\item 
+virtual void \mbox{\hyperlink{class_text_aa2ef280be31859afe89b2eff2d534165}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_text_a8a49776ad81abc46192eac44522d52ed}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_text_a53705895335451aa1fd622c9c350689c}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_text_a87f911d0c96b62ec4c23dba39f61e91c}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_text_aba457e5b72efb75ce5ac6eb4b8439fa0}{Get\+Renderables}} () override
+\item 
+\mbox{\Hypertarget{class_text_a7ece0f2401b96ad09b1514737416d058}\label{class_text_a7ece0f2401b96ad09b1514737416d058}} 
+virtual bool {\bfseries Has\+Method} (std\+::string method) override
+\item 
+\mbox{\Hypertarget{class_text_a2c8fa9d3786753f10f4bceea43f7cec0}\label{class_text_a2c8fa9d3786753f10f4bceea43f7cec0}} 
+virtual \mbox{\hyperlink{class_reflection_container}{Reflection\+Container}}$<$ \mbox{\hyperlink{class_text}{Text}} $>$ \& {\bfseries Get\+Reflection\+Container} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A text renderable. Draws text within the canvas of the defined object. Supported properties\+:~\newline
+ text-\/color, args\+: Gdiplus\+::\+Color~\newline
+ font-\/size, args\+: double 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_a53705895335451aa1fd622c9c350689c}\label{class_text_a53705895335451aa1fd622c9c350689c}} 
+\index{Text@{Text}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Text\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_text_aba457e5b72efb75ce5ac6eb4b8439fa0}\label{class_text_aba457e5b72efb75ce5ac6eb4b8439fa0}} 
+\index{Text@{Text}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Text\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_text_aa2ef280be31859afe89b2eff2d534165}\label{class_text_aa2ef280be31859afe89b2eff2d534165}} 
+\index{Text@{Text}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Text\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Method which recieves the render events 
+\begin{DoxyParams}{Parameters}
+{\em e} & the render event object which contains the graphics on which the rendering is to be done. Check \mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} class. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_text_a87f911d0c96b62ec4c23dba39f61e91c}\label{class_text_a87f911d0c96b62ec4c23dba39f61e91c}} 
+\index{Text@{Text}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Text\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_text_a8a49776ad81abc46192eac44522d52ed}\label{class_text_a8a49776ad81abc46192eac44522d52ed}} 
+\index{Text@{Text}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!Text@{Text}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Text\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Text.\+h\item 
+Graphics/Text.\+cpp\end{DoxyCompactItemize}

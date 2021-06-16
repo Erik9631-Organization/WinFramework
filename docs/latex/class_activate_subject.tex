@@ -1,0 +1,80 @@
+\hypertarget{class_activate_subject}{}\doxysection{Activate\+Subject Class Reference}
+\label{class_activate_subject}\index{ActivateSubject@{ActivateSubject}}
+
+
+{\ttfamily \#include $<$Activate\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Activate\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_activate_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_activate_subject_aee48e351365defb3778e27489d11211c}{Add\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_activate_subject_aaea6c2da9efb470def3ae30e050cb5a8}{Remove\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_activate_subject_a4897f3bc76f85aaa326c4854916aabd2}{Notify\+On\+Activate\+State\+Changed}} (\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&e)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by all classes which can be observed for focus events. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activate_subject_aee48e351365defb3778e27489d11211c}\label{class_activate_subject_aee48e351365defb3778e27489d11211c}} 
+\index{ActivateSubject@{ActivateSubject}!AddOnActivateSubscriber@{AddOnActivateSubscriber}}
+\index{AddOnActivateSubscriber@{AddOnActivateSubscriber}!ActivateSubject@{ActivateSubject}}
+\doxysubsubsection{\texorpdfstring{AddOnActivateSubscriber()}{AddOnActivateSubscriber()}}
+{\footnotesize\ttfamily virtual void Activate\+Subject\+::\+Add\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Adds a subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be added \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_activate_a4c9486305d1d0c02c2e9b0c0e883cd24}{Default\+Activate}}, and \mbox{\hyperlink{class_component_ac4c989798e867b7230aa614dd6831eb4}{Component}}.
+
+\mbox{\Hypertarget{class_activate_subject_a4897f3bc76f85aaa326c4854916aabd2}\label{class_activate_subject_a4897f3bc76f85aaa326c4854916aabd2}} 
+\index{ActivateSubject@{ActivateSubject}!NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}}
+\index{NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}!ActivateSubject@{ActivateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnActivateStateChanged()}{NotifyOnActivateStateChanged()}}
+{\footnotesize\ttfamily virtual void Activate\+Subject\+::\+Notify\+On\+Activate\+State\+Changed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sends a focus which is propagated to all the subscribers. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_activate_add07385f6a8c215e138363c93e194569}{Default\+Activate}}, and \mbox{\hyperlink{class_component_a030a1e13ff92ee3887f5319d5bea8e73}{Component}}.
+
+\mbox{\Hypertarget{class_activate_subject_aaea6c2da9efb470def3ae30e050cb5a8}\label{class_activate_subject_aaea6c2da9efb470def3ae30e050cb5a8}} 
+\index{ActivateSubject@{ActivateSubject}!RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}}
+\index{RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}!ActivateSubject@{ActivateSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveOnActivateSubscriber()}{RemoveOnActivateSubscriber()}}
+{\footnotesize\ttfamily virtual void Activate\+Subject\+::\+Remove\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_activate_a8f63853e5964ef896c3879f6a4eb9ae0}{Default\+Activate}}, and \mbox{\hyperlink{class_component_a3bb385f8c3d03b0bca3b1675b9d73248}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Activate\+Subject.\+h\end{DoxyCompactItemize}

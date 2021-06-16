@@ -1,0 +1,180 @@
+\hypertarget{class_mouse_state_subject}{}\doxysection{Mouse\+State\+Subject Class Reference}
+\label{class_mouse_state_subject}\index{MouseStateSubject@{MouseStateSubject}}
+
+
+{\ttfamily \#include $<$Mouse\+State\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Mouse\+State\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_mouse_state_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_a66d1e64a2be0f618f4b94e3424ab310b}{Notify\+On\+Mouse\+Down}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_acf27d4a5745534a514f8523751de13bd}{Notify\+On\+Mouse\+Up}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_a596368e18900147db5667733af63f621}{Notify\+On\+Mouse\+Pressed}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_a7cb72b3851c48e2e65be5d31519b5d80}{Notify\+On\+Mouse\+Hover}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_adcbf378e2aca6a5f5e3ec3e0d4f0dd25}{Notify\+On\+Mouse\+Enter}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_abf97158ea2ffa6ae78cd36721d9073dd}{Notify\+On\+Mouse\+Leave}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_a990c2bdb7b8ae4db22146681a5bf5564}{Add\+Mouse\+State\+Subscriber}} (\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_mouse_state_subject_a79177e10983ae8b95703dbd49e2e34aa}{Remove\+Mouse\+State\+Subscriber}} (\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&subscriber)=0
+\item 
+virtual bool \mbox{\hyperlink{class_mouse_state_subject_a6da942984515e044dfa5b8b2355dacb6}{Has\+Mouse\+Entered}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by classes which can be observed for mouse events. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_mouse_state_subject_a990c2bdb7b8ae4db22146681a5bf5564}\label{class_mouse_state_subject_a990c2bdb7b8ae4db22146681a5bf5564}} 
+\index{MouseStateSubject@{MouseStateSubject}!AddMouseStateSubscriber@{AddMouseStateSubscriber}}
+\index{AddMouseStateSubscriber@{AddMouseStateSubscriber}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{AddMouseStateSubscriber()}{AddMouseStateSubscriber()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Add\+Mouse\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Adds a subscriber which can listen to mouse events. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber which should be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_aa718793e135bcc2db2b0e2f4b98d15b5}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_aa718793e135bcc2db2b0e2f4b98d15b5}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_acb7e911d98992ebc50353152a2839850}{Component}}, \mbox{\hyperlink{class_combo_element_a6187ac1b3e1bd403e4cb79689b8d8f1a}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_a6196e348fa8be549547098448261bbd4}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_a6196e348fa8be549547098448261bbd4}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_a6da942984515e044dfa5b8b2355dacb6}\label{class_mouse_state_subject_a6da942984515e044dfa5b8b2355dacb6}} 
+\index{MouseStateSubject@{MouseStateSubject}!HasMouseEntered@{HasMouseEntered}}
+\index{HasMouseEntered@{HasMouseEntered}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{HasMouseEntered()}{HasMouseEntered()}}
+{\footnotesize\ttfamily virtual bool Mouse\+State\+Subject\+::\+Has\+Mouse\+Entered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns whether the mouse is within the boundaries of the component. \begin{DoxyReturn}{Returns}
+returns true if within the boundaries false if outside. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_a62b93bebe5ba8e3bfab6322022067a36}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a62b93bebe5ba8e3bfab6322022067a36}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_ae97da27c861e74e4e28cc7cc72bb752e}{Component}}, \mbox{\hyperlink{class_combo_element_a5cafc96e01a82b6b429d31ef974e40f6}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_aa442e1234bfd2831670a3bb27871afb6}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_aa442e1234bfd2831670a3bb27871afb6}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_a66d1e64a2be0f618f4b94e3424ab310b}\label{class_mouse_state_subject_a66d1e64a2be0f618f4b94e3424ab310b}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMouseDown@{NotifyOnMouseDown}}
+\index{NotifyOnMouseDown@{NotifyOnMouseDown}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseDown()}{NotifyOnMouseDown()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the left mouse button is down 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_window_frame_ae43e561da745e2b5620ae8dfb604342c}{Window\+Frame}}, \mbox{\hyperlink{class_default_mouse_behavior_a7ff33016b25683a5e9b780219bca51ff}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a7ff33016b25683a5e9b780219bca51ff}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_a4a5600dfca3d0a8548916d6d943b541b}{Component}}, \mbox{\hyperlink{class_combo_element_a7b55f4900e3c6e3cc9910eab546a642f}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_a8398cdcba294bc28fd655dd783c6ac50}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_a8398cdcba294bc28fd655dd783c6ac50}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_adcbf378e2aca6a5f5e3ec3e0d4f0dd25}\label{class_mouse_state_subject_adcbf378e2aca6a5f5e3ec3e0d4f0dd25}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMouseEnter@{NotifyOnMouseEnter}}
+\index{NotifyOnMouseEnter@{NotifyOnMouseEnter}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseEnter()}{NotifyOnMouseEnter()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the mouse enters the component 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_a42de738777ee5aaef2fa8de8c00a3ea2}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a42de738777ee5aaef2fa8de8c00a3ea2}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_abdc413313d15dddd3c0098a466470add}{Component}}, \mbox{\hyperlink{class_combo_element_a71814e42d88060a6c25a3a08c1d97b88}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_a821097bbae143755d752e5d1e7dc7283}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_a821097bbae143755d752e5d1e7dc7283}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_a7cb72b3851c48e2e65be5d31519b5d80}\label{class_mouse_state_subject_a7cb72b3851c48e2e65be5d31519b5d80}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMouseHover@{NotifyOnMouseHover}}
+\index{NotifyOnMouseHover@{NotifyOnMouseHover}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseHover()}{NotifyOnMouseHover()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Hover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the mouse hovers over the object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_ac28c3fcf50f1612093ed76bb6fe5edaa}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_ac28c3fcf50f1612093ed76bb6fe5edaa}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_adef21fb00940f47d78a43c5f4c82e19f}{Component}}, and \mbox{\hyperlink{class_combo_element_a517380df7a6c87f45576702a5f85c8a5}{Combo\+Element}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_abf97158ea2ffa6ae78cd36721d9073dd}\label{class_mouse_state_subject_abf97158ea2ffa6ae78cd36721d9073dd}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMouseLeave@{NotifyOnMouseLeave}}
+\index{NotifyOnMouseLeave@{NotifyOnMouseLeave}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseLeave()}{NotifyOnMouseLeave()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Leave (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the mouse leaves the component. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_a9cec94855c249edc13ff5838d4310f38}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a9cec94855c249edc13ff5838d4310f38}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_a82ef5b1d835db7d031ab93ccadd220e1}{Component}}, \mbox{\hyperlink{class_combo_element_a45ce6e2308c768b3452f46cad92a1730}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_afe5824223154b3dc4baeb1b658f7fc72}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_afe5824223154b3dc4baeb1b658f7fc72}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_a596368e18900147db5667733af63f621}\label{class_mouse_state_subject_a596368e18900147db5667733af63f621}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMousePressed@{NotifyOnMousePressed}}
+\index{NotifyOnMousePressed@{NotifyOnMousePressed}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMousePressed()}{NotifyOnMousePressed()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the left mouse button is pressed 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_a58d94a7bec5c0362ed96dfb952469c54}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a58d94a7bec5c0362ed96dfb952469c54}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_a33e2540c029caae819356eee27446ef5}{Component}}, \mbox{\hyperlink{class_combo_element_ab1b15099b5661f936a10c7018d8ddcef}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_afb7dbd5749abb3ad1395c1ab52a2bc81}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_afb7dbd5749abb3ad1395c1ab52a2bc81}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_acf27d4a5745534a514f8523751de13bd}\label{class_mouse_state_subject_acf27d4a5745534a514f8523751de13bd}} 
+\index{MouseStateSubject@{MouseStateSubject}!NotifyOnMouseUp@{NotifyOnMouseUp}}
+\index{NotifyOnMouseUp@{NotifyOnMouseUp}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseUp()}{NotifyOnMouseUp()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Notify\+On\+Mouse\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Recieves event whenever the left mouse button is up 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_a9ee1eb821dddb741d5d4c169f8a75463}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_a9ee1eb821dddb741d5d4c169f8a75463}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_a7b1439c1704842c1126ea2c6d7eb4ae4}{Component}}, \mbox{\hyperlink{class_combo_element_a56b0aa9791c0bc34255f4fd10e796dcc}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_ab4b2fc06738d5d1e569ad1c93f9cc786}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_ab4b2fc06738d5d1e569ad1c93f9cc786}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+\mbox{\Hypertarget{class_mouse_state_subject_a79177e10983ae8b95703dbd49e2e34aa}\label{class_mouse_state_subject_a79177e10983ae8b95703dbd49e2e34aa}} 
+\index{MouseStateSubject@{MouseStateSubject}!RemoveMouseStateSubscriber@{RemoveMouseStateSubscriber}}
+\index{RemoveMouseStateSubscriber@{RemoveMouseStateSubscriber}!MouseStateSubject@{MouseStateSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveMouseStateSubscriber()}{RemoveMouseStateSubscriber()}}
+{\footnotesize\ttfamily virtual void Mouse\+State\+Subject\+::\+Remove\+Mouse\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Removes a subscriber which can listen to mouse events. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber which should be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_mouse_behavior_af3c372ab1492b41eb5455d851dd6642d}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, \mbox{\hyperlink{class_default_mouse_behavior_af3c372ab1492b41eb5455d851dd6642d}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}, \mbox{\hyperlink{class_component_a8ab56a99416bf5241a5e6aa2b8d9e5e9}{Component}}, \mbox{\hyperlink{class_combo_element_a05304a5bd85e5d331dbf224760fa9b2b}{Combo\+Element}}, \mbox{\hyperlink{class_default_mouse_behavior_a0d2d2792203fb73e8d1ea34150dd20e8}{Default\+Mouse\+Behavior$<$ Tree\+Node $>$}}, and \mbox{\hyperlink{class_default_mouse_behavior_a0d2d2792203fb73e8d1ea34150dd20e8}{Default\+Mouse\+Behavior$<$ Multi\+Tree$<$ Component \& $>$ \& $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Mouse\+State\+Subject.\+h\end{DoxyCompactItemize}

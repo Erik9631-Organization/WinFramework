@@ -1,0 +1,207 @@
+\hypertarget{class_file_browser}{}\doxysection{File\+Browser Class Reference}
+\label{class_file_browser}\index{FileBrowser@{FileBrowser}}
+
+
+{\ttfamily \#include $<$File\+Browser.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_file_browser_a497b8f105abe221111a071b3b6fac03e}{File\+Browser}} (std\+::string title)
+\item 
+bool \mbox{\hyperlink{class_file_browser_a348bc30476d89a29c63a350974c99daf}{Save}} ()
+\item 
+bool \mbox{\hyperlink{class_file_browser_af527369465c396ed324f9b0ec2757f2d}{Open}} ()
+\item 
+void \mbox{\hyperlink{class_file_browser_a4e8427d000ffe0a3437e85e950589d4b}{Add\+Filter}} (std\+::string filter\+Name, std\+::string pattern)
+\item 
+void \mbox{\hyperlink{class_file_browser_a3a1998cb18712c0a279b1e168b621375}{Set\+Default\+Directory}} (std\+::string initial\+Dir)
+\item 
+void \mbox{\hyperlink{class_file_browser_a1cd62c24999d4fb8f8371c070631c504}{Set\+Selected\+Filter}} (int index)
+\item 
+void \mbox{\hyperlink{class_file_browser_a36a145af6c2fc3209b15bdcbf0d34b0c}{Set\+Default\+Extention}} (std\+::string extention)
+\item 
+void \mbox{\hyperlink{class_file_browser_a44a0824d854eb9384a9f5220b2283eb5}{Set\+Title}} (std\+::string title)
+\item 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& \mbox{\hyperlink{class_file_browser_aa6966e18979c9dd5476c408dbe9e6f7f}{Allow\+Multi\+Select}} ()
+\item 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& \mbox{\hyperlink{class_file_browser_a975b1a6ad9dfe740f616ee36be207216}{Create\+Prompt}} ()
+\item 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& \mbox{\hyperlink{class_file_browser_a55490b45d27c45b050d620abef81f45b}{Enable\+Resizing}} ()
+\item 
+\mbox{\Hypertarget{class_file_browser_a8d20be7373a8af7a2bf1c591b7f666a2}\label{class_file_browser_a8d20be7373a8af7a2bf1c591b7f666a2}} 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& {\bfseries File\+Must\+Exist} ()
+\item 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& \mbox{\hyperlink{class_file_browser_ab5653e7a8d70e7bbee97e47b28b79d0c}{Show\+Hidden\+Files}} ()
+\item 
+\mbox{\hyperlink{class_file_browser}{File\+Browser}} \& \mbox{\hyperlink{class_file_browser_a43ef5a14757b4f578ec40552308563dd}{Set\+Flags}} (DWORD Flags)
+\item 
+std\+::string \mbox{\hyperlink{class_file_browser_a26f2432d744cf6bc47e34033a0f4eba0}{Get\+Path}} ()
+\item 
+std\+::string \mbox{\hyperlink{class_file_browser_abc05e7d57f7db7690960d65c40b42ad4}{Get\+File\+Name}} ()
+\item 
+std\+::wfstream $\ast$ \mbox{\hyperlink{class_file_browser_a44c0de387a78acb975ac2f829c9555bf}{Get\+File\+Stream}} (std\+::ios\+\_\+base\+::openmode mode)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A filebrwoser class. If \mbox{\hyperlink{class_file_browser_af527369465c396ed324f9b0ec2757f2d}{File\+Browser\+::\+Open}} is called, a file browser window is openned, allowing the user to select the file to save / load. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_file_browser_a497b8f105abe221111a071b3b6fac03e}\label{class_file_browser_a497b8f105abe221111a071b3b6fac03e}} 
+\index{FileBrowser@{FileBrowser}!FileBrowser@{FileBrowser}}
+\index{FileBrowser@{FileBrowser}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{FileBrowser()}{FileBrowser()}}
+{\footnotesize\ttfamily File\+Browser\+::\+File\+Browser (\begin{DoxyParamCaption}\item[{std\+::string}]{title }\end{DoxyParamCaption})}
+
+The title that will appear at the top of the filebrowser window 
+\begin{DoxyParams}{Parameters}
+{\em title} & the string that will be displayed as a title \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_file_browser_a4e8427d000ffe0a3437e85e950589d4b}\label{class_file_browser_a4e8427d000ffe0a3437e85e950589d4b}} 
+\index{FileBrowser@{FileBrowser}!AddFilter@{AddFilter}}
+\index{AddFilter@{AddFilter}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{AddFilter()}{AddFilter()}}
+{\footnotesize\ttfamily void File\+Browser\+::\+Add\+Filter (\begin{DoxyParamCaption}\item[{std\+::string}]{filter\+Name,  }\item[{std\+::string}]{pattern }\end{DoxyParamCaption})}
+
+Adds a new filter option to the file browser. 
+\begin{DoxyParams}{Parameters}
+{\em filter\+Name} & the filter name under which the filter will be displayed. \\
+\hline
+{\em pattern} & the pattern the filter should follow. Check \href{https://docs.microsoft.com/en-us/windows/win32/api/commdlg/ns-commdlg-openfilenamea}{\texttt{ MSDN}} for more information. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_aa6966e18979c9dd5476c408dbe9e6f7f}\label{class_file_browser_aa6966e18979c9dd5476c408dbe9e6f7f}} 
+\index{FileBrowser@{FileBrowser}!AllowMultiSelect@{AllowMultiSelect}}
+\index{AllowMultiSelect@{AllowMultiSelect}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{AllowMultiSelect()}{AllowMultiSelect()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_file_browser}{File\+Browser}} \& File\+Browser\+::\+Allow\+Multi\+Select (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Allows multi selecting files in the window. \mbox{\Hypertarget{class_file_browser_a975b1a6ad9dfe740f616ee36be207216}\label{class_file_browser_a975b1a6ad9dfe740f616ee36be207216}} 
+\index{FileBrowser@{FileBrowser}!CreatePrompt@{CreatePrompt}}
+\index{CreatePrompt@{CreatePrompt}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{CreatePrompt()}{CreatePrompt()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_file_browser}{File\+Browser}} \& File\+Browser\+::\+Create\+Prompt (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sets the create prompt flag. \mbox{\Hypertarget{class_file_browser_a55490b45d27c45b050d620abef81f45b}\label{class_file_browser_a55490b45d27c45b050d620abef81f45b}} 
+\index{FileBrowser@{FileBrowser}!EnableResizing@{EnableResizing}}
+\index{EnableResizing@{EnableResizing}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{EnableResizing()}{EnableResizing()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_file_browser}{File\+Browser}} \& File\+Browser\+::\+Enable\+Resizing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Enables or disables resizing of the file browswer. \mbox{\Hypertarget{class_file_browser_abc05e7d57f7db7690960d65c40b42ad4}\label{class_file_browser_abc05e7d57f7db7690960d65c40b42ad4}} 
+\index{FileBrowser@{FileBrowser}!GetFileName@{GetFileName}}
+\index{GetFileName@{GetFileName}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{GetFileName()}{GetFileName()}}
+{\footnotesize\ttfamily std\+::string File\+Browser\+::\+Get\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the selected file name. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_browser_a44c0de387a78acb975ac2f829c9555bf}\label{class_file_browser_a44c0de387a78acb975ac2f829c9555bf}} 
+\index{FileBrowser@{FileBrowser}!GetFileStream@{GetFileStream}}
+\index{GetFileStream@{GetFileStream}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{GetFileStream()}{GetFileStream()}}
+{\footnotesize\ttfamily std\+::wfstream $\ast$ File\+Browser\+::\+Get\+File\+Stream (\begin{DoxyParamCaption}\item[{std\+::ios\+\_\+base\+::openmode}]{mode }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns a unicode stream to the selected file. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_browser_a26f2432d744cf6bc47e34033a0f4eba0}\label{class_file_browser_a26f2432d744cf6bc47e34033a0f4eba0}} 
+\index{FileBrowser@{FileBrowser}!GetPath@{GetPath}}
+\index{GetPath@{GetPath}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{GetPath()}{GetPath()}}
+{\footnotesize\ttfamily std\+::string File\+Browser\+::\+Get\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the selected path. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_browser_af527369465c396ed324f9b0ec2757f2d}\label{class_file_browser_af527369465c396ed324f9b0ec2757f2d}} 
+\index{FileBrowser@{FileBrowser}!Open@{Open}}
+\index{Open@{Open}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{Open()}{Open()}}
+{\footnotesize\ttfamily bool File\+Browser\+::\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens a file browser window designed for loading files. This is a blocking function and the exection is halted here until the dialog window is closed. \begin{DoxyReturn}{Returns}
+returns true on success and false on failure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_browser_a348bc30476d89a29c63a350974c99daf}\label{class_file_browser_a348bc30476d89a29c63a350974c99daf}} 
+\index{FileBrowser@{FileBrowser}!Save@{Save}}
+\index{Save@{Save}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{Save()}{Save()}}
+{\footnotesize\ttfamily bool File\+Browser\+::\+Save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens a file browser window designed for saving files. This is a blocking function and the exection is halted here until the dialog window is closed. \begin{DoxyReturn}{Returns}
+returns true on success and false on failure. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_file_browser_a3a1998cb18712c0a279b1e168b621375}\label{class_file_browser_a3a1998cb18712c0a279b1e168b621375}} 
+\index{FileBrowser@{FileBrowser}!SetDefaultDirectory@{SetDefaultDirectory}}
+\index{SetDefaultDirectory@{SetDefaultDirectory}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{SetDefaultDirectory()}{SetDefaultDirectory()}}
+{\footnotesize\ttfamily void File\+Browser\+::\+Set\+Default\+Directory (\begin{DoxyParamCaption}\item[{std\+::string}]{initial\+Dir }\end{DoxyParamCaption})}
+
+Sets the directory that the filebrowser should point to after it is opened. 
+\begin{DoxyParams}{Parameters}
+{\em initial\+Dir} & the directory path parameter. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_a36a145af6c2fc3209b15bdcbf0d34b0c}\label{class_file_browser_a36a145af6c2fc3209b15bdcbf0d34b0c}} 
+\index{FileBrowser@{FileBrowser}!SetDefaultExtention@{SetDefaultExtention}}
+\index{SetDefaultExtention@{SetDefaultExtention}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{SetDefaultExtention()}{SetDefaultExtention()}}
+{\footnotesize\ttfamily void File\+Browser\+::\+Set\+Default\+Extention (\begin{DoxyParamCaption}\item[{std\+::string}]{extention }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em extention} & the default extention that is appended to the filename in the \char`\"{}\+File Name\char`\"{} text field. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_a43ef5a14757b4f578ec40552308563dd}\label{class_file_browser_a43ef5a14757b4f578ec40552308563dd}} 
+\index{FileBrowser@{FileBrowser}!SetFlags@{SetFlags}}
+\index{SetFlags@{SetFlags}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{SetFlags()}{SetFlags()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_file_browser}{File\+Browser}} \& File\+Browser\+::\+Set\+Flags (\begin{DoxyParamCaption}\item[{DWORD}]{Flags }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em Flags} & sets the flags of the file browser. Check \href{https://docs.microsoft.com/en-us/windows/win32/api/commdlg/ns-commdlg-openfilenamea}{\texttt{ MSDN}} for more information.. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_a1cd62c24999d4fb8f8371c070631c504}\label{class_file_browser_a1cd62c24999d4fb8f8371c070631c504}} 
+\index{FileBrowser@{FileBrowser}!SetSelectedFilter@{SetSelectedFilter}}
+\index{SetSelectedFilter@{SetSelectedFilter}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{SetSelectedFilter()}{SetSelectedFilter()}}
+{\footnotesize\ttfamily void File\+Browser\+::\+Set\+Selected\+Filter (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the filter that should be used by default (When the browser is openned.). \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_a44a0824d854eb9384a9f5220b2283eb5}\label{class_file_browser_a44a0824d854eb9384a9f5220b2283eb5}} 
+\index{FileBrowser@{FileBrowser}!SetTitle@{SetTitle}}
+\index{SetTitle@{SetTitle}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{SetTitle()}{SetTitle()}}
+{\footnotesize\ttfamily void File\+Browser\+::\+Set\+Title (\begin{DoxyParamCaption}\item[{std\+::string}]{title }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em title} & the title the file browser should display when openned. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_file_browser_ab5653e7a8d70e7bbee97e47b28b79d0c}\label{class_file_browser_ab5653e7a8d70e7bbee97e47b28b79d0c}} 
+\index{FileBrowser@{FileBrowser}!ShowHiddenFiles@{ShowHiddenFiles}}
+\index{ShowHiddenFiles@{ShowHiddenFiles}!FileBrowser@{FileBrowser}}
+\doxysubsubsection{\texorpdfstring{ShowHiddenFiles()}{ShowHiddenFiles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_file_browser}{File\+Browser}} \& File\+Browser\+::\+Show\+Hidden\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Shows hidden files. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/File\+Browser.\+h\item 
+Graphics/File\+Browser.\+cpp\end{DoxyCompactItemize}

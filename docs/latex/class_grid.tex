@@ -1,0 +1,394 @@
+\hypertarget{class_grid}{}\doxysection{Grid Class Reference}
+\label{class_grid}\index{Grid@{Grid}}
+
+
+{\ttfamily \#include $<$Grid.\+h$>$}
+
+
+
+Inheritance diagram for Grid\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_grid__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_grid_a76329da0cca748bbaaf165f422193745}{Grid}} (int x, int y, int width, int height)
+\item 
+\mbox{\hyperlink{class_grid_ad84908d408a237742dc8a8b1c9df5128}{Grid}} (int x, int y, int width, int height, std\+::string name)
+\item 
+void \mbox{\hyperlink{class_grid_a934ed08d54ad0b22076bbb6112b8e2f3}{Set\+Row\+Gap}} (int row\+Gap)
+\item 
+void \mbox{\hyperlink{class_grid_aa37b05a899170e2b45ffb8b76972f397}{Set\+Column\+Gap}} (int column\+Gap)
+\item 
+int \mbox{\hyperlink{class_grid_ab3d29e8af2ec5b10b3498a25e7fd37bc}{Get\+Column\+Gap}} ()
+\item 
+int \mbox{\hyperlink{class_grid_af80ca309e3b280e358e0756cd018fd97}{Get\+Row\+Gap}} ()
+\item 
+bool \mbox{\hyperlink{class_grid_afd1d35f0d46138c7a3f5ce2cb0c06132}{Are\+Spans\+Colliding}} (\mbox{\hyperlink{class_grid_span}{Grid\+Span}} a, \mbox{\hyperlink{class_grid_span}{Grid\+Span}} b)
+\item 
+void \mbox{\hyperlink{class_grid_a34824b005e406c47510d1b47221354a0}{Add\+Column\+Span}} (int column\+Start, int column\+End)
+\item 
+void \mbox{\hyperlink{class_grid_a2ee69f0c8d99ab587767b254075b0555}{Add\+Row\+Span}} (int row\+Start, int row\+End)
+\item 
+void \mbox{\hyperlink{class_grid_a6f97c2a9473576bbd0b9b778e68a1689}{Add\+Span}} (int column\+Start, int column\+End, int row\+Start, int row\+End)
+\item 
+void \mbox{\hyperlink{class_grid_a620f00a7b453baaed2a966b7dc3dcf39}{Add\+Column\+Span}} (int column\+Start, int column\+End, int row)
+\item 
+void \mbox{\hyperlink{class_grid_a5ebb52ac293522978d53c686e4a80d80}{Add\+Row\+Span}} (int row\+Start, int row\+End, int column)
+\item 
+bool \mbox{\hyperlink{class_grid_a3964e88ca457319f3ed35308fc8af516}{Check\+Span\+Collision}} (\mbox{\hyperlink{class_grid_span}{Grid\+Span}} span)
+\item 
+int \mbox{\hyperlink{class_grid_aab0546ae89fa011f0aee8a97ea06b4bd}{Get\+Default\+Column\+Size}} ()
+\item 
+int \mbox{\hyperlink{class_grid_aaadd2e73cd7ae9197d1d6a553e07beb9}{Get\+Default\+Row\+Size}} ()
+\item 
+void \mbox{\hyperlink{class_grid_aac83c69ecef19e29f091067740879487}{Set\+Default\+Column\+Size}} (int default\+Column\+Size)
+\item 
+void \mbox{\hyperlink{class_grid_afed20fd17c5314766dff7e026ad148dc}{Set\+Default\+Row\+Size}} (int default\+Row\+Size)
+\item 
+\mbox{\hyperlink{class_grid_cell}{Grid\+Cell}} $\ast$ \mbox{\hyperlink{class_grid_ae062ed820161c9bb4b919502183f24c2}{Get\+Grid\+Cell}} (int x, int y)
+\item 
+void \mbox{\hyperlink{class_grid_ab4ed58ca8b4c9faf74550c98c08de719}{Set\+Grid\+Columns}} (std\+::initializer\+\_\+list$<$ int $>$ columns)
+\item 
+void \mbox{\hyperlink{class_grid_a4daf5b81ce656179d3b1a2d7ed9c3d61}{Set\+Grid\+Rows}} (std\+::initializer\+\_\+list$<$ int $>$ rows)
+\item 
+int \mbox{\hyperlink{class_grid_aed8349ae0b88bb33d202e8aa5177b8a6}{Get\+Grid\+Row\+Size}} (int index)
+\item 
+int \mbox{\hyperlink{class_grid_aa69175c6770543ea9a643b173a85e6da}{Get\+Grid\+Column\+Size}} (int index)
+\item 
+void \mbox{\hyperlink{class_grid_a7063cc7206eb5da13e63ea98a2cb1533}{Set\+Auto\+Extend}} (bool state)
+\item 
+bool \mbox{\hyperlink{class_grid_aafa55cdbfeb980ac44df60345f4a65b7}{Is\+Autoextending}} ()
+\item 
+void \mbox{\hyperlink{class_grid_a09799f3ac2b9440c2a150679f2ad6546}{Add}} (\mbox{\hyperlink{class_component}{Component}} \&component) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A layout manager which automatically controls the sizing and positioning of the components within its containment hierarchy. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_grid_a76329da0cca748bbaaf165f422193745}\label{class_grid_a76329da0cca748bbaaf165f422193745}} 
+\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Grid()}{Grid()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Grid\+::\+Grid (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the X position of the grid. \\
+\hline
+{\em y} & the Y position of the grid \\
+\hline
+{\em width} & the width of the grid \\
+\hline
+{\em height} & the height of the grid. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_ad84908d408a237742dc8a8b1c9df5128}\label{class_grid_ad84908d408a237742dc8a8b1c9df5128}} 
+\index{Grid@{Grid}!Grid@{Grid}}
+\index{Grid@{Grid}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Grid()}{Grid()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Grid\+::\+Grid (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the X position of the grid. \\
+\hline
+{\em y} & the Y position of the grid \\
+\hline
+{\em width} & the width of the grid \\
+\hline
+{\em height} & the height of the grid. \\
+\hline
+{\em name} & the identification name of the grid. This is not a display value. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_grid_a09799f3ac2b9440c2a150679f2ad6546}\label{class_grid_a09799f3ac2b9440c2a150679f2ad6546}} 
+\index{Grid@{Grid}!Add@{Add}}
+\index{Add@{Add}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily void Grid\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}} \&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window. 
+\begin{DoxyParams}{Parameters}
+{\em component} & the component to be added \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a1004baa17f2e5d6b9e808e908f2a3825}{Component}}.
+
+\mbox{\Hypertarget{class_grid_a34824b005e406c47510d1b47221354a0}\label{class_grid_a34824b005e406c47510d1b47221354a0}} 
+\index{Grid@{Grid}!AddColumnSpan@{AddColumnSpan}}
+\index{AddColumnSpan@{AddColumnSpan}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AddColumnSpan()}{AddColumnSpan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Grid\+::\+Add\+Column\+Span (\begin{DoxyParamCaption}\item[{int}]{column\+Start,  }\item[{int}]{column\+End }\end{DoxyParamCaption})}
+
+Adds span between specified columns on all rows. 
+\begin{DoxyParams}{Parameters}
+{\em column\+Start} & the start of the column \\
+\hline
+{\em column\+End} & the end of the column \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a620f00a7b453baaed2a966b7dc3dcf39}\label{class_grid_a620f00a7b453baaed2a966b7dc3dcf39}} 
+\index{Grid@{Grid}!AddColumnSpan@{AddColumnSpan}}
+\index{AddColumnSpan@{AddColumnSpan}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AddColumnSpan()}{AddColumnSpan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Grid\+::\+Add\+Column\+Span (\begin{DoxyParamCaption}\item[{int}]{column\+Start,  }\item[{int}]{column\+End,  }\item[{int}]{row }\end{DoxyParamCaption})}
+
+Adds span between specified columns on specified row 
+\begin{DoxyParams}{Parameters}
+{\em column\+Start} & the start of the span \\
+\hline
+{\em column\+End} & the end of the span \\
+\hline
+{\em row} & the row of the span \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a2ee69f0c8d99ab587767b254075b0555}\label{class_grid_a2ee69f0c8d99ab587767b254075b0555}} 
+\index{Grid@{Grid}!AddRowSpan@{AddRowSpan}}
+\index{AddRowSpan@{AddRowSpan}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AddRowSpan()}{AddRowSpan()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Grid\+::\+Add\+Row\+Span (\begin{DoxyParamCaption}\item[{int}]{row\+Start,  }\item[{int}]{row\+End }\end{DoxyParamCaption})}
+
+Adds spanning on all columns between the defined rows. 
+\begin{DoxyParams}{Parameters}
+{\em row\+Start} & The index of the start row \\
+\hline
+{\em row\+End} & The index of the end row. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a5ebb52ac293522978d53c686e4a80d80}\label{class_grid_a5ebb52ac293522978d53c686e4a80d80}} 
+\index{Grid@{Grid}!AddRowSpan@{AddRowSpan}}
+\index{AddRowSpan@{AddRowSpan}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AddRowSpan()}{AddRowSpan()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Grid\+::\+Add\+Row\+Span (\begin{DoxyParamCaption}\item[{int}]{row\+Start,  }\item[{int}]{row\+End,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+Adds span between specified rows on specified column 
+\begin{DoxyParams}{Parameters}
+{\em row\+Start} & the start of the span \\
+\hline
+{\em row\+End} & the end of the span \\
+\hline
+{\em column} & the column of the span \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a6f97c2a9473576bbd0b9b778e68a1689}\label{class_grid_a6f97c2a9473576bbd0b9b778e68a1689}} 
+\index{Grid@{Grid}!AddSpan@{AddSpan}}
+\index{AddSpan@{AddSpan}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AddSpan()}{AddSpan()}}
+{\footnotesize\ttfamily void Grid\+::\+Add\+Span (\begin{DoxyParamCaption}\item[{int}]{column\+Start,  }\item[{int}]{column\+End,  }\item[{int}]{row\+Start,  }\item[{int}]{row\+End }\end{DoxyParamCaption})}
+
+Adds spanning between specified columns and rows. The span is a rectangle. 
+\begin{DoxyParams}{Parameters}
+{\em row\+Start} & The index of the start row \\
+\hline
+{\em row\+End} & The index of the end row. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_afd1d35f0d46138c7a3f5ce2cb0c06132}\label{class_grid_afd1d35f0d46138c7a3f5ce2cb0c06132}} 
+\index{Grid@{Grid}!AreSpansColliding@{AreSpansColliding}}
+\index{AreSpansColliding@{AreSpansColliding}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{AreSpansColliding()}{AreSpansColliding()}}
+{\footnotesize\ttfamily bool Grid\+::\+Are\+Spans\+Colliding (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_grid_span}{Grid\+Span}}}]{a,  }\item[{\mbox{\hyperlink{class_grid_span}{Grid\+Span}}}]{b }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & The first span to compare. \\
+\hline
+{\em b} & the second span to compare \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns whether there is a collision between the inputs spans. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_a3964e88ca457319f3ed35308fc8af516}\label{class_grid_a3964e88ca457319f3ed35308fc8af516}} 
+\index{Grid@{Grid}!CheckSpanCollision@{CheckSpanCollision}}
+\index{CheckSpanCollision@{CheckSpanCollision}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{CheckSpanCollision()}{CheckSpanCollision()}}
+{\footnotesize\ttfamily bool Grid\+::\+Check\+Span\+Collision (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_grid_span}{Grid\+Span}}}]{span }\end{DoxyParamCaption})}
+
+Checks whether within the grid, there is a collision with the defined span. 
+\begin{DoxyParams}{Parameters}
+{\em span} & the span it should follow. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_ab3d29e8af2ec5b10b3498a25e7fd37bc}\label{class_grid_ab3d29e8af2ec5b10b3498a25e7fd37bc}} 
+\index{Grid@{Grid}!GetColumnGap@{GetColumnGap}}
+\index{GetColumnGap@{GetColumnGap}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetColumnGap()}{GetColumnGap()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Column\+Gap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the gaps between individual columns. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_aab0546ae89fa011f0aee8a97ea06b4bd}\label{class_grid_aab0546ae89fa011f0aee8a97ea06b4bd}} 
+\index{Grid@{Grid}!GetDefaultColumnSize@{GetDefaultColumnSize}}
+\index{GetDefaultColumnSize@{GetDefaultColumnSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetDefaultColumnSize()}{GetDefaultColumnSize()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Default\+Column\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the default column size. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_aaadd2e73cd7ae9197d1d6a553e07beb9}\label{class_grid_aaadd2e73cd7ae9197d1d6a553e07beb9}} 
+\index{Grid@{Grid}!GetDefaultRowSize@{GetDefaultRowSize}}
+\index{GetDefaultRowSize@{GetDefaultRowSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetDefaultRowSize()}{GetDefaultRowSize()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Default\+Row\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the default row size. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_ae062ed820161c9bb4b919502183f24c2}\label{class_grid_ae062ed820161c9bb4b919502183f24c2}} 
+\index{Grid@{Grid}!GetGridCell@{GetGridCell}}
+\index{GetGridCell@{GetGridCell}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetGridCell()}{GetGridCell()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_grid_cell}{Grid\+Cell}} $\ast$ Grid\+::\+Get\+Grid\+Cell (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+Gets the grid cell at the specified index 
+\begin{DoxyParams}{Parameters}
+{\em x} & the x index of the cell \\
+\hline
+{\em y} & the y index of the cell. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_aa69175c6770543ea9a643b173a85e6da}\label{class_grid_aa69175c6770543ea9a643b173a85e6da}} 
+\index{Grid@{Grid}!GetGridColumnSize@{GetGridColumnSize}}
+\index{GetGridColumnSize@{GetGridColumnSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetGridColumnSize()}{GetGridColumnSize()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Grid\+Column\+Size (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & the index at which to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the row height at the specified index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_aed8349ae0b88bb33d202e8aa5177b8a6}\label{class_grid_aed8349ae0b88bb33d202e8aa5177b8a6}} 
+\index{Grid@{Grid}!GetGridRowSize@{GetGridRowSize}}
+\index{GetGridRowSize@{GetGridRowSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetGridRowSize()}{GetGridRowSize()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Grid\+Row\+Size (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & the index at which to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the row height at the specified index. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_af80ca309e3b280e358e0756cd018fd97}\label{class_grid_af80ca309e3b280e358e0756cd018fd97}} 
+\index{Grid@{Grid}!GetRowGap@{GetRowGap}}
+\index{GetRowGap@{GetRowGap}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{GetRowGap()}{GetRowGap()}}
+{\footnotesize\ttfamily int Grid\+::\+Get\+Row\+Gap (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the rows between individual columns. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_aafa55cdbfeb980ac44df60345f4a65b7}\label{class_grid_aafa55cdbfeb980ac44df60345f4a65b7}} 
+\index{Grid@{Grid}!IsAutoextending@{IsAutoextending}}
+\index{IsAutoextending@{IsAutoextending}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{IsAutoextending()}{IsAutoextending()}}
+{\footnotesize\ttfamily bool Grid\+::\+Is\+Autoextending (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the auto extention state. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_grid_a7063cc7206eb5da13e63ea98a2cb1533}\label{class_grid_a7063cc7206eb5da13e63ea98a2cb1533}} 
+\index{Grid@{Grid}!SetAutoExtend@{SetAutoExtend}}
+\index{SetAutoExtend@{SetAutoExtend}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetAutoExtend()}{SetAutoExtend()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Auto\+Extend (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})}
+
+Automatically extends the size of the grid based on the number of rows and columns 
+\begin{DoxyParams}{Parameters}
+{\em state} & Auto extention state. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_aa37b05a899170e2b45ffb8b76972f397}\label{class_grid_aa37b05a899170e2b45ffb8b76972f397}} 
+\index{Grid@{Grid}!SetColumnGap@{SetColumnGap}}
+\index{SetColumnGap@{SetColumnGap}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetColumnGap()}{SetColumnGap()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Column\+Gap (\begin{DoxyParamCaption}\item[{int}]{column\+Gap }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em row\+Gap} & sets the gaps between individual columns. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_aac83c69ecef19e29f091067740879487}\label{class_grid_aac83c69ecef19e29f091067740879487}} 
+\index{Grid@{Grid}!SetDefaultColumnSize@{SetDefaultColumnSize}}
+\index{SetDefaultColumnSize@{SetDefaultColumnSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetDefaultColumnSize()}{SetDefaultColumnSize()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Default\+Column\+Size (\begin{DoxyParamCaption}\item[{int}]{default\+Column\+Size }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em default\+Column\+Size} & sets the default size for columns if they expand beyound the defined \mbox{\hyperlink{class_grid_ab4ed58ca8b4c9faf74550c98c08de719}{Grid\+::\+Set\+Grid\+Columns}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_afed20fd17c5314766dff7e026ad148dc}\label{class_grid_afed20fd17c5314766dff7e026ad148dc}} 
+\index{Grid@{Grid}!SetDefaultRowSize@{SetDefaultRowSize}}
+\index{SetDefaultRowSize@{SetDefaultRowSize}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetDefaultRowSize()}{SetDefaultRowSize()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Default\+Row\+Size (\begin{DoxyParamCaption}\item[{int}]{default\+Row\+Size }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em default\+Row\+Size} & sets the default size for row if they expand beyound the defined \mbox{\hyperlink{class_grid_afed20fd17c5314766dff7e026ad148dc}{Grid\+::\+Set\+Default\+Row\+Size}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_ab4ed58ca8b4c9faf74550c98c08de719}\label{class_grid_ab4ed58ca8b4c9faf74550c98c08de719}} 
+\index{Grid@{Grid}!SetGridColumns@{SetGridColumns}}
+\index{SetGridColumns@{SetGridColumns}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetGridColumns()}{SetGridColumns()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Grid\+Columns (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ int $>$}]{columns }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em columns} & a list of column sizes which are explicitely defined. If the columns expand beyound the defined size, the default column size is used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a4daf5b81ce656179d3b1a2d7ed9c3d61}\label{class_grid_a4daf5b81ce656179d3b1a2d7ed9c3d61}} 
+\index{Grid@{Grid}!SetGridRows@{SetGridRows}}
+\index{SetGridRows@{SetGridRows}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetGridRows()}{SetGridRows()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Grid\+Rows (\begin{DoxyParamCaption}\item[{std\+::initializer\+\_\+list$<$ int $>$}]{rows }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em columns} & a list of row sizes which are explicitely defined. If the columns expand beyound the defined size, the default row size is used. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_grid_a934ed08d54ad0b22076bbb6112b8e2f3}\label{class_grid_a934ed08d54ad0b22076bbb6112b8e2f3}} 
+\index{Grid@{Grid}!SetRowGap@{SetRowGap}}
+\index{SetRowGap@{SetRowGap}!Grid@{Grid}}
+\doxysubsubsection{\texorpdfstring{SetRowGap()}{SetRowGap()}}
+{\footnotesize\ttfamily void Grid\+::\+Set\+Row\+Gap (\begin{DoxyParamCaption}\item[{int}]{row\+Gap }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em row\+Gap} & sets the gaps between individual rows. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Grid.\+h\item 
+Graphics/Grid.\+cpp\end{DoxyCompactItemize}

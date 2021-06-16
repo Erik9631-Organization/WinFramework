@@ -1,0 +1,125 @@
+\hypertarget{class_trackbar_graphics}{}\doxysection{Trackbar\+Graphics Class Reference}
+\label{class_trackbar_graphics}\index{TrackbarGraphics@{TrackbarGraphics}}
+
+
+Inheritance diagram for Trackbar\+Graphics\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{class_trackbar_graphics__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_aed26c85a99d903ebff03a69e75a1dcc0}\label{class_trackbar_graphics_aed26c85a99d903ebff03a69e75a1dcc0}} 
+void {\bfseries Set\+Percentual\+Height} (float height)
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_ae11a32600bdf5d89aa7081b9f731599d}\label{class_trackbar_graphics_ae11a32600bdf5d89aa7081b9f731599d}} 
+float {\bfseries Get\+Percentual\+Height} ()
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_a2f51d3c1100d2936079163b3ffd13c6a}\label{class_trackbar_graphics_a2f51d3c1100d2936079163b3ffd13c6a}} 
+void {\bfseries Set\+Percentual\+Position} (float posY)
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_a97e1b1d6f68f7c0c59816f60fbfbd195}\label{class_trackbar_graphics_a97e1b1d6f68f7c0c59816f60fbfbd195}} 
+float {\bfseries Get\+Percentual\+Position} ()
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_a75513d06555e42851091b406754c5c41}\label{class_trackbar_graphics_a75513d06555e42851091b406754c5c41}} 
+void {\bfseries Set\+Tracker\+Color} (Gdiplus\+::\+Color color)
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_a4b3e9a54f58c2350c0f03e3ba4f45208}\label{class_trackbar_graphics_a4b3e9a54f58c2350c0f03e3ba4f45208}} 
+Gdiplus\+::\+Color {\bfseries Get\+Tracker\+Color} ()
+\item 
+virtual void \mbox{\hyperlink{class_trackbar_graphics_a7eceb560c6c1a2bc341d8a702595ea39}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_trackbar_graphics_a9dd0d346227358fe74a705428970514b}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_trackbar_graphics_aa493b5ad75c2cad6e3ca95faadc5c545}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_trackbar_graphics_a7c0eccc9fc24e215b405a8c8379ba305}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_trackbar_graphics_abc639ecf47e624ccd1904c9bf19b4f35}{Get\+Renderables}} () override
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_af78d1c91fc5e880cd7dcd089cd529335}\label{class_trackbar_graphics_af78d1c91fc5e880cd7dcd089cd529335}} 
+virtual bool {\bfseries Has\+Method} (std\+::string method) override
+\item 
+\mbox{\Hypertarget{class_trackbar_graphics_a0f6871d22182a22b2010e940e439d971}\label{class_trackbar_graphics_a0f6871d22182a22b2010e940e439d971}} 
+virtual \mbox{\hyperlink{class_reflection_container}{Reflection\+Container}}$<$ \mbox{\hyperlink{class_trackbar_graphics}{Trackbar\+Graphics}} $>$ \& {\bfseries Get\+Reflection\+Container} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_trackbar_graphics_aa493b5ad75c2cad6e3ca95faadc5c545}\label{class_trackbar_graphics_aa493b5ad75c2cad6e3ca95faadc5c545}} 
+\index{TrackbarGraphics@{TrackbarGraphics}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!TrackbarGraphics@{TrackbarGraphics}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Trackbar\+Graphics\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_trackbar_graphics_abc639ecf47e624ccd1904c9bf19b4f35}\label{class_trackbar_graphics_abc639ecf47e624ccd1904c9bf19b4f35}} 
+\index{TrackbarGraphics@{TrackbarGraphics}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!TrackbarGraphics@{TrackbarGraphics}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Trackbar\+Graphics\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_trackbar_graphics_a7eceb560c6c1a2bc341d8a702595ea39}\label{class_trackbar_graphics_a7eceb560c6c1a2bc341d8a702595ea39}} 
+\index{TrackbarGraphics@{TrackbarGraphics}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!TrackbarGraphics@{TrackbarGraphics}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Trackbar\+Graphics\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Method which recieves the render events 
+\begin{DoxyParams}{Parameters}
+{\em e} & the render event object which contains the graphics on which the rendering is to be done. Check \mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} class. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_trackbar_graphics_a7c0eccc9fc24e215b405a8c8379ba305}\label{class_trackbar_graphics_a7c0eccc9fc24e215b405a8c8379ba305}} 
+\index{TrackbarGraphics@{TrackbarGraphics}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!TrackbarGraphics@{TrackbarGraphics}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Trackbar\+Graphics\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_trackbar_graphics_a9dd0d346227358fe74a705428970514b}\label{class_trackbar_graphics_a9dd0d346227358fe74a705428970514b}} 
+\index{TrackbarGraphics@{TrackbarGraphics}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!TrackbarGraphics@{TrackbarGraphics}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Trackbar\+Graphics\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Trackbar\+Graphics.\+h\item 
+Graphics/Trackbar\+Graphics.\+cpp\end{DoxyCompactItemize}

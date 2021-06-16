@@ -1,0 +1,254 @@
+\hypertarget{class_core_window_frame}{}\doxysection{Core\+Window\+Frame Class Reference}
+\label{class_core_window_frame}\index{CoreWindowFrame@{CoreWindowFrame}}
+
+
+{\ttfamily \#include $<$Core\+Window\+Frame.\+h$>$}
+
+
+
+Inheritance diagram for Core\+Window\+Frame\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{class_core_window_frame__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_core_window_frame_af09a41fd883d815a57c7c4f166376936}{Update\+Scale}} ()
+\item 
+\mbox{\hyperlink{class_core_window_frame_a0179c1e87d809d833b79d7ca88d56882}{Core\+Window\+Frame}} (\mbox{\hyperlink{struct_application_controller_1_1_win_entry_args}{Application\+Controller\+::\+Win\+Entry\+Args}} \&args, \mbox{\hyperlink{class_window_frame}{Window\+Frame}} \&wrapper\+Frame, string window\+Name, LONG style)
+\item 
+void \mbox{\hyperlink{class_core_window_frame_a4b521203109e607fcd96aeba2cf625ce}{Message\+Loop}} ()
+\item 
+void \mbox{\hyperlink{class_core_window_frame_a11aa3be121c9eb86e5d9abe52f79e081}{Process\+Message}} (UINT msg, WPARAM w\+Param, LPARAM l\+Param)
+\item 
+void \mbox{\hyperlink{class_core_window_frame_ae214fcdc1bc47d30082b6391f9bd9f11}{Redraw\+Window}} ()
+\item 
+void \mbox{\hyperlink{class_core_window_frame_a7ff9b506b27a30c2ecaa18a144c5d321}{Close\+Window}} ()
+\item 
+\mbox{\hyperlink{class_window_frame}{Window\+Frame}} \& \mbox{\hyperlink{class_core_window_frame_a3e4d0e55885e0b9d769322c7a894b959}{Get\+Wrapper\+Frame}} ()
+\item 
+HDC $\ast$ \mbox{\hyperlink{class_core_window_frame_abd468febba0e3d8758d6e04e4792f9eb}{Get\+Hdc}} ()
+\item 
+HWND \mbox{\hyperlink{class_core_window_frame_a9d06a4b88e9baecb3e2e6ee513d051d6}{Get\+Window\+Handle}} ()
+\item 
+virtual void \mbox{\hyperlink{class_core_window_frame_a4f9a97dcb41d8b01342e27e361a4ec16}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_core_window_frame_ad44cbd27b5e8c5c47e12d9dfa7492525}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_core_window_frame_ab19338234e1d01256def433469efdfbc}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_core_window_frame_a3812e960b70a74a0d4493c8ee913cd67}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_core_window_frame_a41997e93ae05601d73610fc2e1d49992}{Get\+Renderables}} () override
+\item 
+LONG \mbox{\hyperlink{class_core_window_frame_a0dc0e1afc6a2b78dd39eb4199bf17f4f}{Set\+Window\+Attributes}} (int index, LONG parameter)
+\item 
+LONG \mbox{\hyperlink{class_core_window_frame_ae4a27dd38b9f4c70a7a289b3f40bcef7}{Remove\+Window\+Attributes}} (int index, LONG parameter)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{class_core_window_frame_a84691b60e7e8bbdca970cb6ff74e354b}{Console\+Write}} (string output)
+\item 
+static void \mbox{\hyperlink{class_core_window_frame_ab9b21f9efa05d424be8401d6cd65ecca}{Unicode\+Console\+Write}} (std\+::wstring output)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The core frame, the raw root of the entire system. The class is wrapped by \mbox{\hyperlink{class_window_frame}{Window\+Frame}} class. This class is responsible for handling the windows messaging, creating events and responsible for the rendering system. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_core_window_frame_a0179c1e87d809d833b79d7ca88d56882}\label{class_core_window_frame_a0179c1e87d809d833b79d7ca88d56882}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!CoreWindowFrame@{CoreWindowFrame}}
+\index{CoreWindowFrame@{CoreWindowFrame}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{CoreWindowFrame()}{CoreWindowFrame()}}
+{\footnotesize\ttfamily Core\+Window\+Frame\+::\+Core\+Window\+Frame (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_application_controller_1_1_win_entry_args}{Application\+Controller\+::\+Win\+Entry\+Args}} \&}]{args,  }\item[{\mbox{\hyperlink{class_window_frame}{Window\+Frame}} \&}]{wrapper\+Frame,  }\item[{string}]{window\+Name,  }\item[{LONG}]{style }\end{DoxyParamCaption})}
+
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em args} & reference to Lii\+Entry arguments \\
+\hline
+{\em wrapper\+Frame} & reference to the frame that wrapps the core frame \\
+\hline
+{\em window\+Name} & the name of the window which is being displayed \\
+\hline
+{\em style} & the style of the window that should be used. Please check MSDN for window styles. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_core_window_frame_ab19338234e1d01256def433469efdfbc}\label{class_core_window_frame_ab19338234e1d01256def433469efdfbc}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds new renderable to the system which will be painted on the canvas. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable object reference to pass \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_core_window_frame_a7ff9b506b27a30c2ecaa18a144c5d321}\label{class_core_window_frame_a7ff9b506b27a30c2ecaa18a144c5d321}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!CloseWindow@{CloseWindow}}
+\index{CloseWindow@{CloseWindow}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{CloseWindow()}{CloseWindow()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Close\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Closes the current window. \mbox{\Hypertarget{class_core_window_frame_a84691b60e7e8bbdca970cb6ff74e354b}\label{class_core_window_frame_a84691b60e7e8bbdca970cb6ff74e354b}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!ConsoleWrite@{ConsoleWrite}}
+\index{ConsoleWrite@{ConsoleWrite}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{ConsoleWrite()}{ConsoleWrite()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Console\+Write (\begin{DoxyParamCaption}\item[{string}]{output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Output to console /param output text to output. \mbox{\Hypertarget{class_core_window_frame_abd468febba0e3d8758d6e04e4792f9eb}\label{class_core_window_frame_abd468febba0e3d8758d6e04e4792f9eb}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!GetHdc@{GetHdc}}
+\index{GetHdc@{GetHdc}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{GetHdc()}{GetHdc()}}
+{\footnotesize\ttfamily HDC $\ast$ Core\+Window\+Frame\+::\+Get\+Hdc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the hardware context of the current window. \mbox{\Hypertarget{class_core_window_frame_a41997e93ae05601d73610fc2e1d49992}\label{class_core_window_frame_a41997e93ae05601d73610fc2e1d49992}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Core\+Window\+Frame\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the list of renderables. \begin{DoxyReturn}{Returns}
+a vector of references to the renderables in the current system, 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_core_window_frame_a9d06a4b88e9baecb3e2e6ee513d051d6}\label{class_core_window_frame_a9d06a4b88e9baecb3e2e6ee513d051d6}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!GetWindowHandle@{GetWindowHandle}}
+\index{GetWindowHandle@{GetWindowHandle}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{GetWindowHandle()}{GetWindowHandle()}}
+{\footnotesize\ttfamily HWND Core\+Window\+Frame\+::\+Get\+Window\+Handle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the handle to the current window \mbox{\Hypertarget{class_core_window_frame_a3e4d0e55885e0b9d769322c7a894b959}\label{class_core_window_frame_a3e4d0e55885e0b9d769322c7a894b959}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!GetWrapperFrame@{GetWrapperFrame}}
+\index{GetWrapperFrame@{GetWrapperFrame}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{GetWrapperFrame()}{GetWrapperFrame()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_window_frame}{Window\+Frame}} \& Core\+Window\+Frame\+::\+Get\+Wrapper\+Frame (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the wrapper frame of this class. \mbox{\Hypertarget{class_core_window_frame_a4b521203109e607fcd96aeba2cf625ce}\label{class_core_window_frame_a4b521203109e607fcd96aeba2cf625ce}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!MessageLoop@{MessageLoop}}
+\index{MessageLoop@{MessageLoop}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{MessageLoop()}{MessageLoop()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Message\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+The message loop of the window. This is where all the messages are processed. \mbox{\Hypertarget{class_core_window_frame_a4f9a97dcb41d8b01342e27e361a4ec16}\label{class_core_window_frame_a4f9a97dcb41d8b01342e27e361a4ec16}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+On\+Render event 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object to pass. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_core_window_frame_a11aa3be121c9eb86e5d9abe52f79e081}\label{class_core_window_frame_a11aa3be121c9eb86e5d9abe52f79e081}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!ProcessMessage@{ProcessMessage}}
+\index{ProcessMessage@{ProcessMessage}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{ProcessMessage()}{ProcessMessage()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Process\+Message (\begin{DoxyParamCaption}\item[{UINT}]{msg,  }\item[{WPARAM}]{w\+Param,  }\item[{LPARAM}]{l\+Param }\end{DoxyParamCaption})}
+
+Called by \mbox{\hyperlink{class_core_window_frame_a4b521203109e607fcd96aeba2cf625ce}{Core\+Window\+Frame\+::\+Message\+Loop}} to process a specific message. \mbox{\Hypertarget{class_core_window_frame_ae214fcdc1bc47d30082b6391f9bd9f11}\label{class_core_window_frame_ae214fcdc1bc47d30082b6391f9bd9f11}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!RedrawWindow@{RedrawWindow}}
+\index{RedrawWindow@{RedrawWindow}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{RedrawWindow()}{RedrawWindow()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Redraw\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Repaints the current window. \mbox{\Hypertarget{class_core_window_frame_a3812e960b70a74a0d4493c8ee913cd67}\label{class_core_window_frame_a3812e960b70a74a0d4493c8ee913cd67}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes an existing renderable by reference. 
+\begin{DoxyParams}{Parameters}
+{\em reference} & of the renderable to remove. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_core_window_frame_ae4a27dd38b9f4c70a7a289b3f40bcef7}\label{class_core_window_frame_ae4a27dd38b9f4c70a7a289b3f40bcef7}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!RemoveWindowAttributes@{RemoveWindowAttributes}}
+\index{RemoveWindowAttributes@{RemoveWindowAttributes}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{RemoveWindowAttributes()}{RemoveWindowAttributes()}}
+{\footnotesize\ttfamily LONG Core\+Window\+Frame\+::\+Remove\+Window\+Attributes (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{LONG}]{parameter }\end{DoxyParamCaption})}
+
+Removes attributes of the window. Some of these attributes are not changable at runtime. Refer to MSDN. 
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the attribute to change \\
+\hline
+{\em parameter} & the flag of the attribute to remove. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns non negative value on fail and 0 on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_core_window_frame_ad44cbd27b5e8c5c47e12d9dfa7492525}\label{class_core_window_frame_ad44cbd27b5e8c5c47e12d9dfa7492525}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Similar to Redraw\+Window, but also updates the position and scale. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object to pass. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+\mbox{\Hypertarget{class_core_window_frame_a0dc0e1afc6a2b78dd39eb4199bf17f4f}\label{class_core_window_frame_a0dc0e1afc6a2b78dd39eb4199bf17f4f}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!SetWindowAttributes@{SetWindowAttributes}}
+\index{SetWindowAttributes@{SetWindowAttributes}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{SetWindowAttributes()}{SetWindowAttributes()}}
+{\footnotesize\ttfamily LONG Core\+Window\+Frame\+::\+Set\+Window\+Attributes (\begin{DoxyParamCaption}\item[{int}]{index,  }\item[{LONG}]{parameter }\end{DoxyParamCaption})}
+
+Changes attributes of the window. Some of these attributes are not changable at runtime. Refer to MSDN. 
+\begin{DoxyParams}{Parameters}
+{\em index} & the index of the attribute to change \\
+\hline
+{\em parameter} & the flag of the attribute to set it to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns non negative value on fail and 0 on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_core_window_frame_ab9b21f9efa05d424be8401d6cd65ecca}\label{class_core_window_frame_ab9b21f9efa05d424be8401d6cd65ecca}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!UnicodeConsoleWrite@{UnicodeConsoleWrite}}
+\index{UnicodeConsoleWrite@{UnicodeConsoleWrite}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{UnicodeConsoleWrite()}{UnicodeConsoleWrite()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Unicode\+Console\+Write (\begin{DoxyParamCaption}\item[{std\+::wstring}]{output }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Output to console as unicode. /param output unicode text to output. \mbox{\Hypertarget{class_core_window_frame_af09a41fd883d815a57c7c4f166376936}\label{class_core_window_frame_af09a41fd883d815a57c7c4f166376936}} 
+\index{CoreWindowFrame@{CoreWindowFrame}!UpdateScale@{UpdateScale}}
+\index{UpdateScale@{UpdateScale}!CoreWindowFrame@{CoreWindowFrame}}
+\doxysubsubsection{\texorpdfstring{UpdateScale()}{UpdateScale()}}
+{\footnotesize\ttfamily void Core\+Window\+Frame\+::\+Update\+Scale (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Updates the scale of the window 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Core\+Window\+Frame.\+h\item 
+Graphics/Core\+Window\+Frame.\+cpp\end{DoxyCompactItemize}

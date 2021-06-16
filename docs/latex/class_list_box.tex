@@ -1,0 +1,238 @@
+\hypertarget{class_list_box}{}\doxysection{List\+Box Class Reference}
+\label{class_list_box}\index{ListBox@{ListBox}}
+
+
+Inheritance diagram for List\+Box\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_list_box__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_list_box_a429b4617a1333e7e6c5f82bd94386df5}{List\+Box}} (std\+::string name)
+\item 
+\mbox{\hyperlink{class_list_box_a2545d9377a6a24f9670fb1fa1652ed69}{List\+Box}} (int x, int y, int width, int height, std\+::string name)
+\item 
+std\+::vector$<$ \mbox{\hyperlink{class_table_element}{Table\+Element}} $\ast$ $>$ \mbox{\hyperlink{class_list_box_a0b4bd15c91eb454c348fe53aff1687f9}{Get\+Elements}} ()
+\item 
+void \mbox{\hyperlink{class_list_box_a3208e7046c8b7b1ab185583495248bc4}{Create\+List\+Element}} (std\+::wstring name, std\+::any value)
+\item 
+void \mbox{\hyperlink{class_list_box_a559e9bf6dc27e3e9b200b5ac67119a01}{Add}} (\mbox{\hyperlink{class_component}{Component}} \&component) override
+\item 
+virtual std\+::any \mbox{\hyperlink{class_list_box_a859f24b2959e2ecf4d8a3504dfc62999}{Get\+Drag\+Content}} () override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a68d91bfe7ab688537919a1e632318832}{Notify\+On\+Drag\+Start}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_aec6ff85a56dd54081fffbf8abdd782e6}{Notify\+On\+Drag\+End}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a63934069c8681d9695a0365c2945ae80}{Add\+On\+Drag\+Subscriber}} (\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a121ebb2d8422a37cd90e81f2c1f30a54}{Remove\+On\+Drag\+Subscriber}} (\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a5f934d3ff274b9421e28e7b6836cab77}{Notify\+On\+Drop}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a5b9714c2f5263eeca74ab89623bdca18}{Add\+On\+Drop\+Subscriber}} (\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_list_box_a73b7379205226e6d60754b1d9f5344e8}{Remove\+On\+Drop\+Subscriber}} (\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&subscriber) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_list_box_a429b4617a1333e7e6c5f82bd94386df5}\label{class_list_box_a429b4617a1333e7e6c5f82bd94386df5}} 
+\index{ListBox@{ListBox}!ListBox@{ListBox}}
+\index{ListBox@{ListBox}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{ListBox()}{ListBox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily List\+Box\+::\+List\+Box (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the identification name of the component. This value is not a display value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_list_box_a2545d9377a6a24f9670fb1fa1652ed69}\label{class_list_box_a2545d9377a6a24f9670fb1fa1652ed69}} 
+\index{ListBox@{ListBox}!ListBox@{ListBox}}
+\index{ListBox@{ListBox}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{ListBox()}{ListBox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily List\+Box\+::\+List\+Box (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the X position of the grid. \\
+\hline
+{\em y} & the Y position of the grid \\
+\hline
+{\em width} & the width of the grid \\
+\hline
+{\em height} & the height of the grid. \\
+\hline
+{\em name} & the identification name of the grid. This is not a display value. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_list_box_a559e9bf6dc27e3e9b200b5ac67119a01}\label{class_list_box_a559e9bf6dc27e3e9b200b5ac67119a01}} 
+\index{ListBox@{ListBox}!Add@{Add}}
+\index{Add@{Add}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}} \&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window. 
+\begin{DoxyParams}{Parameters}
+{\em component} & the component to be added \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a1004baa17f2e5d6b9e808e908f2a3825}{Component}}.
+
+\mbox{\Hypertarget{class_list_box_a63934069c8681d9695a0365c2945ae80}\label{class_list_box_a63934069c8681d9695a0365c2945ae80}} 
+\index{ListBox@{ListBox}!AddOnDragSubscriber@{AddOnDragSubscriber}}
+\index{AddOnDragSubscriber@{AddOnDragSubscriber}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{AddOnDragSubscriber()}{AddOnDragSubscriber()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Add\+On\+Drag\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Adds the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drag_subject_a52407f4cc10d53b1309d46f631dfc8c2}{Drag\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a5b9714c2f5263eeca74ab89623bdca18}\label{class_list_box_a5b9714c2f5263eeca74ab89623bdca18}} 
+\index{ListBox@{ListBox}!AddOnDropSubscriber@{AddOnDropSubscriber}}
+\index{AddOnDropSubscriber@{AddOnDropSubscriber}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{AddOnDropSubscriber()}{AddOnDropSubscriber()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Add\+On\+Drop\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Adds the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drop_subject_a5945fe02f3de0c0dff0ea5f656c1b893}{Drop\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a3208e7046c8b7b1ab185583495248bc4}\label{class_list_box_a3208e7046c8b7b1ab185583495248bc4}} 
+\index{ListBox@{ListBox}!CreateListElement@{CreateListElement}}
+\index{CreateListElement@{CreateListElement}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{CreateListElement()}{CreateListElement()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Create\+List\+Element (\begin{DoxyParamCaption}\item[{std\+::wstring}]{name,  }\item[{std\+::any}]{value }\end{DoxyParamCaption})}
+
+Creates a list box element with the specified name and value 
+\begin{DoxyParams}{Parameters}
+{\em name} & the display value of the element \\
+\hline
+{\em value} & the value the element contains. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_list_box_a859f24b2959e2ecf4d8a3504dfc62999}\label{class_list_box_a859f24b2959e2ecf4d8a3504dfc62999}} 
+\index{ListBox@{ListBox}!GetDragContent@{GetDragContent}}
+\index{GetDragContent@{GetDragContent}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{GetDragContent()}{GetDragContent()}}
+{\footnotesize\ttfamily std\+::any List\+Box\+::\+Get\+Drag\+Content (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+returns the object which was dragged. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_draggable_a3431f0f3441983056b190946aed31bdb}{Draggable}}.
+
+\mbox{\Hypertarget{class_list_box_a0b4bd15c91eb454c348fe53aff1687f9}\label{class_list_box_a0b4bd15c91eb454c348fe53aff1687f9}} 
+\index{ListBox@{ListBox}!GetElements@{GetElements}}
+\index{GetElements@{GetElements}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{GetElements()}{GetElements()}}
+{\footnotesize\ttfamily std\+::vector$<$ \mbox{\hyperlink{class_table_element}{Table\+Element}} $\ast$ $>$ List\+Box\+::\+Get\+Elements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns a list of listbox elements. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_list_box_aec6ff85a56dd54081fffbf8abdd782e6}\label{class_list_box_aec6ff85a56dd54081fffbf8abdd782e6}} 
+\index{ListBox@{ListBox}!NotifyOnDragEnd@{NotifyOnDragEnd}}
+\index{NotifyOnDragEnd@{NotifyOnDragEnd}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDragEnd()}{NotifyOnDragEnd()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Notify\+On\+Drag\+End (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls On\+Drag\+End on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drag_subject_a8028bd7fb32ca8320dc6d3ee652f451f}{Drag\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a68d91bfe7ab688537919a1e632318832}\label{class_list_box_a68d91bfe7ab688537919a1e632318832}} 
+\index{ListBox@{ListBox}!NotifyOnDragStart@{NotifyOnDragStart}}
+\index{NotifyOnDragStart@{NotifyOnDragStart}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDragStart()}{NotifyOnDragStart()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Notify\+On\+Drag\+Start (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls On\+Drag\+Start on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drag_subject_ace68335372966a633bb80ca44e2aaa51}{Drag\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a5f934d3ff274b9421e28e7b6836cab77}\label{class_list_box_a5f934d3ff274b9421e28e7b6836cab77}} 
+\index{ListBox@{ListBox}!NotifyOnDrop@{NotifyOnDrop}}
+\index{NotifyOnDrop@{NotifyOnDrop}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDrop()}{NotifyOnDrop()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Notify\+On\+Drop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls On\+Drop on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drop_subject_a5133363acf50d89e67f10ec352ea84cb}{Drop\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a121ebb2d8422a37cd90e81f2c1f30a54}\label{class_list_box_a121ebb2d8422a37cd90e81f2c1f30a54}} 
+\index{ListBox@{ListBox}!RemoveOnDragSubscriber@{RemoveOnDragSubscriber}}
+\index{RemoveOnDragSubscriber@{RemoveOnDragSubscriber}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{RemoveOnDragSubscriber()}{RemoveOnDragSubscriber()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Remove\+On\+Drag\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drag_subscriber}{Drag\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Removes the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drag_subject_aac8ea59ed561f6571c25ec977b4a34ec}{Drag\+Subject}}.
+
+\mbox{\Hypertarget{class_list_box_a73b7379205226e6d60754b1d9f5344e8}\label{class_list_box_a73b7379205226e6d60754b1d9f5344e8}} 
+\index{ListBox@{ListBox}!RemoveOnDropSubscriber@{RemoveOnDropSubscriber}}
+\index{RemoveOnDropSubscriber@{RemoveOnDropSubscriber}!ListBox@{ListBox}}
+\doxysubsubsection{\texorpdfstring{RemoveOnDropSubscriber()}{RemoveOnDropSubscriber()}}
+{\footnotesize\ttfamily void List\+Box\+::\+Remove\+On\+Drop\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Removes the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_drop_subject_a738d2d2a62ac9682d57d5b5201b9cb62}{Drop\+Subject}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/List\+Box.\+h\item 
+Graphics/List\+Box.\+cpp\end{DoxyCompactItemize}

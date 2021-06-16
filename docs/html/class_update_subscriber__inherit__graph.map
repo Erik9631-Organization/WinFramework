@@ -1,0 +1,20 @@
+<map id="UpdateSubscriber" name="UpdateSubscriber">
+<area shape="rect" id="node1" title=" " alt="" coords="445,5,570,32"/>
+<area shape="rect" id="node2" href="$class_adjustable.html" title=" " alt="" coords="466,80,549,107"/>
+<area shape="rect" id="node3" href="$class_component.html" title=" " alt="" coords="361,155,449,181"/>
+<area shape="rect" id="node17" href="$class_grid_cell.html" title=" " alt="" coords="473,155,541,181"/>
+<area shape="rect" id="node18" href="$class_viewport.html" title=" " alt="" coords="566,155,638,181"/>
+<area shape="rect" id="node4" href="$class_button.html" title=" " alt="" coords="5,229,65,256"/>
+<area shape="rect" id="node5" href="$class_checkbox.html" title=" " alt="" coords="90,229,170,256"/>
+<area shape="rect" id="node6" href="$class_label.html" title=" " alt="" coords="194,229,247,256"/>
+<area shape="rect" id="node8" href="$class_panel.html" title=" " alt="" coords="272,229,327,256"/>
+<area shape="rect" id="node12" href="$class_password_field.html" title=" " alt="" coords="351,229,458,256"/>
+<area shape="rect" id="node13" href="$class_radio_button.html" title=" " alt="" coords="482,229,575,256"/>
+<area shape="rect" id="node14" href="$class_text_input.html" title=" " alt="" coords="599,229,674,256"/>
+<area shape="rect" id="node15" href="$class_track_bar.html" title=" " alt="" coords="698,229,773,256"/>
+<area shape="rect" id="node16" href="$class_window_frame.html" title=" " alt="" coords="797,229,903,256"/>
+<area shape="rect" id="node7" href="$class_table_element.html" title=" " alt="" coords="85,304,186,331"/>
+<area shape="rect" id="node9" href="$class_combo_box.html" title=" " alt="" coords="211,304,297,331"/>
+<area shape="rect" id="node10" href="$class_grid.html" title=" " alt="" coords="321,304,368,331"/>
+<area shape="rect" id="node11" href="$class_list_box.html" title=" " alt="" coords="393,304,459,331"/>
+</map>

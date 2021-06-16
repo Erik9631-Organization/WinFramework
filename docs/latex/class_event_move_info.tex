@@ -1,0 +1,61 @@
+\hypertarget{class_event_move_info}{}\doxysection{Event\+Move\+Info Class Reference}
+\label{class_event_move_info}\index{EventMoveInfo@{EventMoveInfo}}
+
+
+{\ttfamily \#include $<$Event\+Move\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gdiplus\+::\+Point \mbox{\hyperlink{class_event_move_info_a385c8542c6cc16f7ffe67287c09c250d}{Get\+Position}} ()
+\item 
+\mbox{\hyperlink{class_movable}{Movable}} $\ast$ \mbox{\hyperlink{class_event_move_info_aaf1e0de2eafd14b758c5ba0e477703be}{Get\+Src}} ()
+\item 
+\mbox{\hyperlink{class_event_move_info_ad7dc7e0b8afd7802e0a055740ccb5364}{Event\+Move\+Info}} (Gdiplus\+::\+Point position, \mbox{\hyperlink{class_movable}{Movable}} $\ast$src)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for holding event data related to movement. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_move_info_ad7dc7e0b8afd7802e0a055740ccb5364}\label{class_event_move_info_ad7dc7e0b8afd7802e0a055740ccb5364}} 
+\index{EventMoveInfo@{EventMoveInfo}!EventMoveInfo@{EventMoveInfo}}
+\index{EventMoveInfo@{EventMoveInfo}!EventMoveInfo@{EventMoveInfo}}
+\doxysubsubsection{\texorpdfstring{EventMoveInfo()}{EventMoveInfo()}}
+{\footnotesize\ttfamily Event\+Move\+Info\+::\+Event\+Move\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position,  }\item[{\mbox{\hyperlink{class_movable}{Movable}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & the position of the source object. \\
+\hline
+{\em src} & the source object that called the event. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_move_info_a385c8542c6cc16f7ffe67287c09c250d}\label{class_event_move_info_a385c8542c6cc16f7ffe67287c09c250d}} 
+\index{EventMoveInfo@{EventMoveInfo}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!EventMoveInfo@{EventMoveInfo}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily Point Event\+Move\+Info\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Returns the position of the source object at the point this event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_move_info_aaf1e0de2eafd14b758c5ba0e477703be}\label{class_event_move_info_aaf1e0de2eafd14b758c5ba0e477703be}} 
+\index{EventMoveInfo@{EventMoveInfo}!GetSrc@{GetSrc}}
+\index{GetSrc@{GetSrc}!EventMoveInfo@{EventMoveInfo}}
+\doxysubsubsection{\texorpdfstring{GetSrc()}{GetSrc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_movable}{Movable}} $\ast$ Event\+Move\+Info\+::\+Get\+Src (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the source object that called the event. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Event\+Move\+Info.\+h\item 
+Graphics/Event\+Move\+Info.\+cpp\end{DoxyCompactItemize}

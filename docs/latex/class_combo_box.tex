@@ -1,0 +1,251 @@
+\hypertarget{class_combo_box}{}\doxysection{Combo\+Box Class Reference}
+\label{class_combo_box}\index{ComboBox@{ComboBox}}
+
+
+{\ttfamily \#include $<$Combo\+Box.\+h$>$}
+
+
+
+Inheritance diagram for Combo\+Box\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_combo_box__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{class_combo_box_aae998d4d7cab629f363c6bb8d9b2377a}{Is\+Packed}} ()
+\item 
+\mbox{\hyperlink{class_combo_box_a9fd9ca5f244406a67db09051c7d1edb0}{Combo\+Box}} (std\+::string component\+Name)
+\item 
+\mbox{\hyperlink{class_combo_box_a3a464103716328b623b534a3833fd827}{Combo\+Box}} (int x, int y, int width, int height, std\+::string component\+Name)
+\item 
+void \mbox{\hyperlink{class_combo_box_ab788465ae31c5f98627e571aeaeb6ad2}{Set\+Combo\+Button}} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
+\item 
+std\+::wstring \mbox{\hyperlink{class_combo_box_a64f8064475d8a04c57b0679b7ad78633}{Get\+Text}} ()
+\item 
+void \mbox{\hyperlink{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}{Set\+Text}} (std\+::wstring text)
+\item 
+\mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} \& \mbox{\hyperlink{class_combo_box_a9bff44458617b293dcd28ad61efb0b52}{Create\+Combo\+Element}} (std\+::wstring combo\+Element\+Text, std\+::any value)
+\item 
+void \mbox{\hyperlink{class_combo_box_a32a106eb9717ece404d713f2c03498fa}{Upack}} ()
+\item 
+void \mbox{\hyperlink{class_combo_box_a1a3bfe02ba5235cedfd10fb597caf3a2}{Pack}} ()
+\item 
+\mbox{\hyperlink{class_combo_element}{Combo\+Element}} \& \mbox{\hyperlink{class_combo_box_aae4c03e2655d9a3909ef89fa82446e83}{Get\+Selected\+Element}} ()
+\item 
+virtual void \mbox{\hyperlink{class_combo_box_a8b863c68372270fda78c37f06168a6da}{Notify\+On\+Combo\+Box\+Opened}} (\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_combo_box_a9809deb6cf41e4e8476b4306795cf2cf}{Notify\+On\+Combo\+Box\+Closed}} (\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_combo_box_aaa49d0fcf5981187feba031b1690944a}{Notify\+On\+Selection\+Changed}} (\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_combo_box_ae8a61435f2dd07c78728e14a5d633d8f}{Add\+Combo\+Box\+State\+Subscriber}} (\mbox{\hyperlink{class_combo_box_state_subscriber}{Combo\+Box\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_combo_box_aa5e3624659367e380bbc08e3566d6ae6}{Remove\+Combo\+Box\+State\+Subscriber}} (\mbox{\hyperlink{class_combo_box_state_subscriber}{Combo\+Box\+State\+Subscriber}} \&subscriber) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A combobox component. When clicked will show a list of options from which a selection can be made. Once selected, the displayed string within the checkbox will change to the selection string. In the combo menu, the selected item will also highlight. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_combo_box_a9fd9ca5f244406a67db09051c7d1edb0}\label{class_combo_box_a9fd9ca5f244406a67db09051c7d1edb0}} 
+\index{ComboBox@{ComboBox}!ComboBox@{ComboBox}}
+\index{ComboBox@{ComboBox}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{ComboBox()}{ComboBox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Combo\+Box\+::\+Combo\+Box (\begin{DoxyParamCaption}\item[{std\+::string}]{component\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em component\+Name} & name of the component. Used for identification and the value is not displayed anywhere. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_combo_box_a3a464103716328b623b534a3833fd827}\label{class_combo_box_a3a464103716328b623b534a3833fd827}} 
+\index{ComboBox@{ComboBox}!ComboBox@{ComboBox}}
+\index{ComboBox@{ComboBox}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{ComboBox()}{ComboBox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Combo\+Box\+::\+Combo\+Box (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{std\+::string}]{component\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & position where the component should appear \\
+\hline
+{\em y} & position where the component should appear \\
+\hline
+{\em width} & of the component \\
+\hline
+{\em height} & height of the component \\
+\hline
+{\em component\+Name} & the name of the component. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_combo_box_ae8a61435f2dd07c78728e14a5d633d8f}\label{class_combo_box_ae8a61435f2dd07c78728e14a5d633d8f}} 
+\index{ComboBox@{ComboBox}!AddComboBoxStateSubscriber@{AddComboBoxStateSubscriber}}
+\index{AddComboBoxStateSubscriber@{AddComboBoxStateSubscriber}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{AddComboBoxStateSubscriber()}{AddComboBoxStateSubscriber()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Add\+Combo\+Box\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_combo_box_state_subscriber}{Combo\+Box\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new subscriber to the combobox event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & subscriber which is to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_combo_box_a9bff44458617b293dcd28ad61efb0b52}\label{class_combo_box_a9bff44458617b293dcd28ad61efb0b52}} 
+\index{ComboBox@{ComboBox}!CreateComboElement@{CreateComboElement}}
+\index{CreateComboElement@{CreateComboElement}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{CreateComboElement()}{CreateComboElement()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} \& Combo\+Box\+::\+Create\+Combo\+Element (\begin{DoxyParamCaption}\item[{std\+::wstring}]{combo\+Element\+Text,  }\item[{std\+::any}]{value }\end{DoxyParamCaption})}
+
+Creates a new combo element which appears within the unpacked window 
+\begin{DoxyParams}{Parameters}
+{\em combo\+Element\+Text} & the text that the element should display \\
+\hline
+{\em value} & any object which the element should contain. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_combo_box_aae4c03e2655d9a3909ef89fa82446e83}\label{class_combo_box_aae4c03e2655d9a3909ef89fa82446e83}} 
+\index{ComboBox@{ComboBox}!GetSelectedElement@{GetSelectedElement}}
+\index{GetSelectedElement@{GetSelectedElement}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{GetSelectedElement()}{GetSelectedElement()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_combo_element}{Combo\+Element}} \& Combo\+Box\+::\+Get\+Selected\+Element (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns reference to the currently selected combo element 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_combo_box_a64f8064475d8a04c57b0679b7ad78633}\label{class_combo_box_a64f8064475d8a04c57b0679b7ad78633}} 
+\index{ComboBox@{ComboBox}!GetText@{GetText}}
+\index{GetText@{GetText}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily std\+::wstring Combo\+Box\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+returns the text which is displayed on the associated button 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Component}}.
+
+\mbox{\Hypertarget{class_combo_box_aae998d4d7cab629f363c6bb8d9b2377a}\label{class_combo_box_aae998d4d7cab629f363c6bb8d9b2377a}} 
+\index{ComboBox@{ComboBox}!IsPacked@{IsPacked}}
+\index{IsPacked@{IsPacked}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{IsPacked()}{IsPacked()}}
+{\footnotesize\ttfamily bool Combo\+Box\+::\+Is\+Packed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns whether the combobox is packed or unpacked. True if packed, false if unpacked 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_combo_box_a9809deb6cf41e4e8476b4306795cf2cf}\label{class_combo_box_a9809deb6cf41e4e8476b4306795cf2cf}} 
+\index{ComboBox@{ComboBox}!NotifyOnComboBoxClosed@{NotifyOnComboBoxClosed}}
+\index{NotifyOnComboBoxClosed@{NotifyOnComboBoxClosed}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnComboBoxClosed()}{NotifyOnComboBoxClosed()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Notify\+On\+Combo\+Box\+Closed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls an event on all subscribers when the combobox is packed / closed. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object containing information related to the combobox. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_combo_box_a8b863c68372270fda78c37f06168a6da}\label{class_combo_box_a8b863c68372270fda78c37f06168a6da}} 
+\index{ComboBox@{ComboBox}!NotifyOnComboBoxOpened@{NotifyOnComboBoxOpened}}
+\index{NotifyOnComboBoxOpened@{NotifyOnComboBoxOpened}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnComboBoxOpened()}{NotifyOnComboBoxOpened()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Notify\+On\+Combo\+Box\+Opened (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls an event on all subscribers when the combobox is unpacked / opened. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object containing information related to the combobox. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_combo_box_aaa49d0fcf5981187feba031b1690944a}\label{class_combo_box_aaa49d0fcf5981187feba031b1690944a}} 
+\index{ComboBox@{ComboBox}!NotifyOnSelectionChanged@{NotifyOnSelectionChanged}}
+\index{NotifyOnSelectionChanged@{NotifyOnSelectionChanged}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{NotifyOnSelectionChanged()}{NotifyOnSelectionChanged()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Notify\+On\+Selection\+Changed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_combo_box_state_info}{Event\+Combo\+Box\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Calls an event on all subscribers when the combobox selection is changed. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object containing information related to the combobox. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_combo_box_a1a3bfe02ba5235cedfd10fb597caf3a2}\label{class_combo_box_a1a3bfe02ba5235cedfd10fb597caf3a2}} 
+\index{ComboBox@{ComboBox}!Pack@{Pack}}
+\index{Pack@{Pack}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{Pack()}{Pack()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Pack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Packs the combobox \mbox{\Hypertarget{class_combo_box_aa5e3624659367e380bbc08e3566d6ae6}\label{class_combo_box_aa5e3624659367e380bbc08e3566d6ae6}} 
+\index{ComboBox@{ComboBox}!RemoveComboBoxStateSubscriber@{RemoveComboBoxStateSubscriber}}
+\index{RemoveComboBoxStateSubscriber@{RemoveComboBoxStateSubscriber}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{RemoveComboBoxStateSubscriber()}{RemoveComboBoxStateSubscriber()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Remove\+Combo\+Box\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_combo_box_state_subscriber}{Combo\+Box\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & subscriber which is to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_combo_box_ab788465ae31c5f98627e571aeaeb6ad2}\label{class_combo_box_ab788465ae31c5f98627e571aeaeb6ad2}} 
+\index{ComboBox@{ComboBox}!SetComboButton@{SetComboButton}}
+\index{SetComboButton@{SetComboButton}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{SetComboButton()}{SetComboButton()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Set\+Combo\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_button}{Button}} $\ast$}]{button }\end{DoxyParamCaption})}
+
+Changes the source button under which the elements should unpack. 
+\begin{DoxyParams}{Parameters}
+{\em button} & the source of the button. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}\label{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}} 
+\index{ComboBox@{ComboBox}!SetText@{SetText}}
+\index{SetText@{SetText}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{SetText()}{SetText()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Set\+Text (\begin{DoxyParamCaption}\item[{std\+::wstring}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & sets the text which is displayed on the associated button \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}{Component}}.
+
+\mbox{\Hypertarget{class_combo_box_a32a106eb9717ece404d713f2c03498fa}\label{class_combo_box_a32a106eb9717ece404d713f2c03498fa}} 
+\index{ComboBox@{ComboBox}!Upack@{Upack}}
+\index{Upack@{Upack}!ComboBox@{ComboBox}}
+\doxysubsubsection{\texorpdfstring{Upack()}{Upack()}}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Upack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Unpacks the combobox 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Combo\+Box.\+h\item 
+Graphics/Combo\+Box.\+cpp\end{DoxyCompactItemize}

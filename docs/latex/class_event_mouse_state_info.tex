@@ -1,0 +1,190 @@
+\hypertarget{class_event_mouse_state_info}{}\doxysection{Event\+Mouse\+State\+Info Class Reference}
+\label{class_event_mouse_state_info}\index{EventMouseStateInfo@{EventMouseStateInfo}}
+
+
+{\ttfamily \#include $<$Event\+Mouse\+State\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_event_mouse_state_info_a3904234815eb060c7d8ea881e73b1a4e}{Event\+Mouse\+State\+Info}} (Gdiplus\+::\+Point position, Gdiplus\+::\+Point relative\+Position, int key, \mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$src)
+\item 
+\mbox{\hyperlink{class_event_mouse_state_info_ae4bf2625e6245d84098085285e2ea38c}{Event\+Mouse\+State\+Info}} (Gdiplus\+::\+Point position, int key, \mbox{\hyperlink{class_component}{Component}} $\ast$src)
+\item 
+\mbox{\hyperlink{class_event_mouse_state_info_a936f72726e11edc766d6116875b731e7}{Event\+Mouse\+State\+Info}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e, \mbox{\hyperlink{class_component}{Component}} $\ast$src)
+\item 
+\mbox{\hyperlink{class_event_mouse_state_info_a2fca1a6fe8069e2b7c02266cf2ee37e2}{Event\+Mouse\+State\+Info}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e, Gdiplus\+::\+Point relative\+Position, \mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$src)
+\item 
+Gdiplus\+::\+Point \mbox{\hyperlink{class_event_mouse_state_info_a514ccba83f9a36236d60213dae4364fb}{Get\+Mouse\+Absolute\+Position}} ()
+\item 
+Gdiplus\+::\+Point \mbox{\hyperlink{class_event_mouse_state_info_a5f729351be9a268eccac92af0ef02862}{Get\+Mouse\+Position}} ()
+\item 
+int \mbox{\hyperlink{class_event_mouse_state_info_a46da63b68cfb9ee83a14f701555f9fb6}{Get\+Absolute\+MouseX}} ()
+\item 
+int \mbox{\hyperlink{class_event_mouse_state_info_a16bd50d2792fcd60cbc23fb263668d15}{Get\+Absolute\+MouseY}} ()
+\item 
+int \mbox{\hyperlink{class_event_mouse_state_info_ac60779931c6160a34bd67792d581b431}{Get\+MouseX}} ()
+\item 
+int \mbox{\hyperlink{class_event_mouse_state_info_aa63654bf34c95b5aa63d259d55efbfcd}{Get\+MouseY}} ()
+\item 
+int \mbox{\hyperlink{class_event_mouse_state_info_a901dff59696e4666a15cce259326c551}{Get\+Key}} ()
+\item 
+\mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$ \mbox{\hyperlink{class_event_mouse_state_info_a4b8b94aabbbc092b085260ce917a0056}{Get\+Src}} ()
+\item 
+\mbox{\Hypertarget{class_event_mouse_state_info_a39025020c7d5691bdf240a69765dd842}\label{class_event_mouse_state_info_a39025020c7d5691bdf240a69765dd842}} 
+void {\bfseries Set\+Recursive} (bool state)
+\item 
+bool \mbox{\hyperlink{class_event_mouse_state_info_ad3b3ebd92ee71e0295473c7b02185b82}{Is\+Recursive}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for containing mouse event information. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_mouse_state_info_a3904234815eb060c7d8ea881e73b1a4e}\label{class_event_mouse_state_info_a3904234815eb060c7d8ea881e73b1a4e}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventMouseStateInfo()}{EventMouseStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Event\+Mouse\+State\+Info\+::\+Event\+Mouse\+State\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position,  }\item[{Gdiplus\+::\+Point}]{relative\+Position,  }\item[{int}]{key,  }\item[{\mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em position} & the position of the mouse \\
+\hline
+{\em relative\+Position} & the position of the mouse within the boundaries of the component \\
+\hline
+{\em key} & the mouse key that was interacted with. \\
+\hline
+{\em src} & the source of the object that called the event. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_mouse_state_info_ae4bf2625e6245d84098085285e2ea38c}\label{class_event_mouse_state_info_ae4bf2625e6245d84098085285e2ea38c}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventMouseStateInfo()}{EventMouseStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Event\+Mouse\+State\+Info\+::\+Event\+Mouse\+State\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position,  }\item[{int}]{key,  }\item[{\mbox{\hyperlink{class_component}{Component}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+The relative position is automatically calculated from the src component 
+\begin{DoxyParams}{Parameters}
+{\em position} & the position of the mouse \\
+\hline
+{\em key} & the mouse key that was interacted with. \\
+\hline
+{\em src} & the source of the object that called the event. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_mouse_state_info_a936f72726e11edc766d6116875b731e7}\label{class_event_mouse_state_info_a936f72726e11edc766d6116875b731e7}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventMouseStateInfo()}{EventMouseStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Event\+Mouse\+State\+Info\+::\+Event\+Mouse\+State\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e,  }\item[{\mbox{\hyperlink{class_component}{Component}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+Copies an existing \mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} object but lets the user redefine the source. 
+\begin{DoxyParams}{Parameters}
+{\em src} & the new source object that called the event. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_mouse_state_info_a2fca1a6fe8069e2b7c02266cf2ee37e2}\label{class_event_mouse_state_info_a2fca1a6fe8069e2b7c02266cf2ee37e2}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\index{EventMouseStateInfo@{EventMouseStateInfo}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventMouseStateInfo()}{EventMouseStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Event\+Mouse\+State\+Info\+::\+Event\+Mouse\+State\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e,  }\item[{Gdiplus\+::\+Point}]{relative\+Position,  }\item[{\mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+Copies an existing \mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} object but lets the user redefine the source and the relative position. 
+\begin{DoxyParams}{Parameters}
+{\em relative\+Position} & the new relative position. \\
+\hline
+{\em src} & the new source object that called the event. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_mouse_state_info_a46da63b68cfb9ee83a14f701555f9fb6}\label{class_event_mouse_state_info_a46da63b68cfb9ee83a14f701555f9fb6}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetAbsoluteMouseX@{GetAbsoluteMouseX}}
+\index{GetAbsoluteMouseX@{GetAbsoluteMouseX}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteMouseX()}{GetAbsoluteMouseX()}}
+{\footnotesize\ttfamily int Event\+Mouse\+State\+Info\+::\+Get\+Absolute\+MouseX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the X position of the mouse within the window. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_a16bd50d2792fcd60cbc23fb263668d15}\label{class_event_mouse_state_info_a16bd50d2792fcd60cbc23fb263668d15}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetAbsoluteMouseY@{GetAbsoluteMouseY}}
+\index{GetAbsoluteMouseY@{GetAbsoluteMouseY}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteMouseY()}{GetAbsoluteMouseY()}}
+{\footnotesize\ttfamily int Event\+Mouse\+State\+Info\+::\+Get\+Absolute\+MouseY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the Y position of the mouse within the window. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_a901dff59696e4666a15cce259326c551}\label{class_event_mouse_state_info_a901dff59696e4666a15cce259326c551}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetKey@{GetKey}}
+\index{GetKey@{GetKey}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetKey()}{GetKey()}}
+{\footnotesize\ttfamily int Event\+Mouse\+State\+Info\+::\+Get\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the mouse button that was pressed at the time the event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_a514ccba83f9a36236d60213dae4364fb}\label{class_event_mouse_state_info_a514ccba83f9a36236d60213dae4364fb}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetMouseAbsolutePosition@{GetMouseAbsolutePosition}}
+\index{GetMouseAbsolutePosition@{GetMouseAbsolutePosition}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetMouseAbsolutePosition()}{GetMouseAbsolutePosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Event\+Mouse\+State\+Info\+::\+Get\+Mouse\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the mouse position within the window at the time the event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_a5f729351be9a268eccac92af0ef02862}\label{class_event_mouse_state_info_a5f729351be9a268eccac92af0ef02862}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetMousePosition@{GetMousePosition}}
+\index{GetMousePosition@{GetMousePosition}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetMousePosition()}{GetMousePosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Event\+Mouse\+State\+Info\+::\+Get\+Mouse\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the mouse position within the component at the time the event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_ac60779931c6160a34bd67792d581b431}\label{class_event_mouse_state_info_ac60779931c6160a34bd67792d581b431}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetMouseX@{GetMouseX}}
+\index{GetMouseX@{GetMouseX}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetMouseX()}{GetMouseX()}}
+{\footnotesize\ttfamily int Event\+Mouse\+State\+Info\+::\+Get\+MouseX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the X position of the mouse within the component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_aa63654bf34c95b5aa63d259d55efbfcd}\label{class_event_mouse_state_info_aa63654bf34c95b5aa63d259d55efbfcd}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetMouseY@{GetMouseY}}
+\index{GetMouseY@{GetMouseY}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetMouseY()}{GetMouseY()}}
+{\footnotesize\ttfamily int Event\+Mouse\+State\+Info\+::\+Get\+MouseY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the Y position of the mouse within the component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_a4b8b94aabbbc092b085260ce917a0056}\label{class_event_mouse_state_info_a4b8b94aabbbc092b085260ce917a0056}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!GetSrc@{GetSrc}}
+\index{GetSrc@{GetSrc}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetSrc()}{GetSrc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_mouse_state_subject}{Mouse\+State\+Subject}} $\ast$ Event\+Mouse\+State\+Info\+::\+Get\+Src (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the source object that called the event. It is encouraged to cast it to the object that is expected to be received via dynamic\+\_\+cast 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_mouse_state_info_ad3b3ebd92ee71e0295473c7b02185b82}\label{class_event_mouse_state_info_ad3b3ebd92ee71e0295473c7b02185b82}} 
+\index{EventMouseStateInfo@{EventMouseStateInfo}!IsRecursive@{IsRecursive}}
+\index{IsRecursive@{IsRecursive}!EventMouseStateInfo@{EventMouseStateInfo}}
+\doxysubsubsection{\texorpdfstring{IsRecursive()}{IsRecursive()}}
+{\footnotesize\ttfamily bool Event\+Mouse\+State\+Info\+::\+Is\+Recursive (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns whether the event is recursively propagating itself throughout the containment hierarchy. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Event\+Mouse\+State\+Info.\+h\item 
+Graphics/Event\+Mouse\+State\+Info.\+cpp\end{DoxyCompactItemize}

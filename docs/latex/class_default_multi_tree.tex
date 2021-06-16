@@ -1,0 +1,109 @@
+\hypertarget{class_default_multi_tree}{}\doxysection{Default\+Multi\+Tree$<$ T $>$ Class Template Reference}
+\label{class_default_multi_tree}\index{DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}}
+
+
+Inheritance diagram for Default\+Multi\+Tree$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_default_multi_tree__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_ae78e1c28d0453950312446bd90fe6ea0}\label{class_default_multi_tree_ae78e1c28d0453950312446bd90fe6ea0}} 
+{\bfseries Default\+Multi\+Tree} (T associated\+Obj)
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a08e4039b506254df3cd51d10140eb8f6}\label{class_default_multi_tree_a08e4039b506254df3cd51d10140eb8f6}} 
+virtual void {\bfseries Set\+Parent} (\mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ $\ast$parent) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a5106fc1ccc048441eb44b556b9d4cd92}\label{class_default_multi_tree_a5106fc1ccc048441eb44b556b9d4cd92}} 
+virtual void {\bfseries Add} (\mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ \&object) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a3c24b87f4be92acac5ef0aec6ac9f990}\label{class_default_multi_tree_a3c24b87f4be92acac5ef0aec6ac9f990}} 
+virtual void {\bfseries Remove} (\mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ \&object) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_aa1c456880441c56a2c6de3023f79bc04}\label{class_default_multi_tree_aa1c456880441c56a2c6de3023f79bc04}} 
+virtual void {\bfseries Remove} (int index) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a6f312bc969c5b773b73de066eaf9af6f}\label{class_default_multi_tree_a6f312bc969c5b773b73de066eaf9af6f}} 
+virtual \mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ \& {\bfseries Get\+Root} () override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_aaeda213e091fbb3b381d8f85bffff914}\label{class_default_multi_tree_aaeda213e091fbb3b381d8f85bffff914}} 
+virtual bool {\bfseries Is\+Root} () override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a9d999e0063bb39ad278d71806b8a3cb0}\label{class_default_multi_tree_a9d999e0063bb39ad278d71806b8a3cb0}} 
+virtual \mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ $\ast$ {\bfseries Get\+Parent} () override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_a1f33c3f43eb2e387537a6eb93a67385e}\label{class_default_multi_tree_a1f33c3f43eb2e387537a6eb93a67385e}} 
+virtual \mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ \& {\bfseries Get} (int index) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_ac73078c0ebe9c4254a23916f9b959aa1}\label{class_default_multi_tree_ac73078c0ebe9c4254a23916f9b959aa1}} 
+virtual int {\bfseries Get\+Node\+Count} () override
+\item 
+virtual void \mbox{\hyperlink{class_default_multi_tree_a34afae83a7e78808d7f3bbb1fc69cfcd}{Notify\+On\+Add\+Info}} (\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ T $>$ e) override
+\item 
+virtual void \mbox{\hyperlink{class_default_multi_tree_aa8ed09489539b2494638822105da2aa6}{Add\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ T $>$ \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_multi_tree_a8caaf6f1a79a889a6f82b383b40e54e0}{Remove\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ T $>$ \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_default_multi_tree_addd7132d1034972ac76c9b63717e0dbe}\label{class_default_multi_tree_addd7132d1034972ac76c9b63717e0dbe}} 
+virtual T {\bfseries Get\+Value} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_default_multi_tree_aa8ed09489539b2494638822105da2aa6}\label{class_default_multi_tree_aa8ed09489539b2494638822105da2aa6}} 
+\index{DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}!AddOnAddSubscriber@{AddOnAddSubscriber}}
+\index{AddOnAddSubscriber@{AddOnAddSubscriber}!DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AddOnAddSubscriber()}{AddOnAddSubscriber()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_multi_tree}{Default\+Multi\+Tree}}$<$ T $>$\+::Add\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ T $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_multi_tree_a4c20e3afd9278061f692cb56d8460e96}{Multi\+Tree$<$ T $>$}}.
+
+\mbox{\Hypertarget{class_default_multi_tree_a34afae83a7e78808d7f3bbb1fc69cfcd}\label{class_default_multi_tree_a34afae83a7e78808d7f3bbb1fc69cfcd}} 
+\index{DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}!NotifyOnAddInfo@{NotifyOnAddInfo}}
+\index{NotifyOnAddInfo@{NotifyOnAddInfo}!DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{NotifyOnAddInfo()}{NotifyOnAddInfo()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_multi_tree}{Default\+Multi\+Tree}}$<$ T $>$\+::Notify\+On\+Add\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ T $>$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event when a new object is added to the containment hierarchy. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_multi_tree_a68bdf76e5b010848fafca9e5ec2c7ed9}{Multi\+Tree$<$ T $>$}}.
+
+\mbox{\Hypertarget{class_default_multi_tree_a8caaf6f1a79a889a6f82b383b40e54e0}\label{class_default_multi_tree_a8caaf6f1a79a889a6f82b383b40e54e0}} 
+\index{DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}!RemoveOnAddSubscriber@{RemoveOnAddSubscriber}}
+\index{RemoveOnAddSubscriber@{RemoveOnAddSubscriber}!DefaultMultiTree$<$ T $>$@{DefaultMultiTree$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{RemoveOnAddSubscriber()}{RemoveOnAddSubscriber()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_multi_tree}{Default\+Multi\+Tree}}$<$ T $>$\+::Remove\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ T $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_multi_tree_ae10f81a85d2240fa747405a59eec1d01}{Multi\+Tree$<$ T $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Default\+Multi\+Tree.\+h\end{DoxyCompactItemize}

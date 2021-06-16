@@ -1,0 +1,111 @@
+\hypertarget{class_default_key_state_behavior}{}\doxysection{Default\+Key\+State\+Behavior Class Reference}
+\label{class_default_key_state_behavior}\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+
+
+Inheritance diagram for Default\+Key\+State\+Behavior\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{class_default_key_state_behavior__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_default_key_state_behavior_a24bd92b43220e9246b715ba118b5e272}\label{class_default_key_state_behavior_a24bd92b43220e9246b715ba118b5e272}} 
+{\bfseries Default\+Key\+State\+Behavior} (\mbox{\hyperlink{class_activatable}{Activatable}} \&activatable)
+\item 
+virtual void \mbox{\hyperlink{class_default_key_state_behavior_a8ca5c7959bd97e8dec7c15821fa5338c}{Notify\+On\+Key\+Down}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_default_key_state_behavior_a6d82ce2705ef2ab74b407b4d8237d680}{Notify\+On\+Key\+Up}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_default_key_state_behavior_a98f3022b06825b12fea980b0028d67e6}{Notify\+On\+Key\+Pressed}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_default_key_state_behavior_aca24978fd6d37538d83d5eda36fb6e03}{Add\+Key\+State\+Subscriber}} (\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_key_state_behavior_a8c93cd1ce8ebab4c3adbc3805e437d03}{Remove\+Key\+State\+Subscriber}} (\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&subscriber) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_default_key_state_behavior_aca24978fd6d37538d83d5eda36fb6e03}\label{class_default_key_state_behavior_aca24978fd6d37538d83d5eda36fb6e03}} 
+\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}!AddKeyStateSubscriber@{AddKeyStateSubscriber}}
+\index{AddKeyStateSubscriber@{AddKeyStateSubscriber}!DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+\doxysubsubsection{\texorpdfstring{AddKeyStateSubscriber()}{AddKeyStateSubscriber()}}
+{\footnotesize\ttfamily void Default\+Key\+State\+Behavior\+::\+Add\+Key\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_default_key_state_behavior_a8ca5c7959bd97e8dec7c15821fa5338c}\label{class_default_key_state_behavior_a8ca5c7959bd97e8dec7c15821fa5338c}} 
+\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}!NotifyOnKeyDown@{NotifyOnKeyDown}}
+\index{NotifyOnKeyDown@{NotifyOnKeyDown}!DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyDown()}{NotifyOnKeyDown()}}
+{\footnotesize\ttfamily void Default\+Key\+State\+Behavior\+::\+Notify\+On\+Key\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_default_key_state_behavior_a98f3022b06825b12fea980b0028d67e6}\label{class_default_key_state_behavior_a98f3022b06825b12fea980b0028d67e6}} 
+\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}!NotifyOnKeyPressed@{NotifyOnKeyPressed}}
+\index{NotifyOnKeyPressed@{NotifyOnKeyPressed}!DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyPressed()}{NotifyOnKeyPressed()}}
+{\footnotesize\ttfamily void Default\+Key\+State\+Behavior\+::\+Notify\+On\+Key\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers whenever the key is held down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_default_key_state_behavior_a6d82ce2705ef2ab74b407b4d8237d680}\label{class_default_key_state_behavior_a6d82ce2705ef2ab74b407b4d8237d680}} 
+\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}!NotifyOnKeyUp@{NotifyOnKeyUp}}
+\index{NotifyOnKeyUp@{NotifyOnKeyUp}!DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyUp()}{NotifyOnKeyUp()}}
+{\footnotesize\ttfamily void Default\+Key\+State\+Behavior\+::\+Notify\+On\+Key\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Up 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_default_key_state_behavior_a8c93cd1ce8ebab4c3adbc3805e437d03}\label{class_default_key_state_behavior_a8c93cd1ce8ebab4c3adbc3805e437d03}} 
+\index{DefaultKeyStateBehavior@{DefaultKeyStateBehavior}!RemoveKeyStateSubscriber@{RemoveKeyStateSubscriber}}
+\index{RemoveKeyStateSubscriber@{RemoveKeyStateSubscriber}!DefaultKeyStateBehavior@{DefaultKeyStateBehavior}}
+\doxysubsubsection{\texorpdfstring{RemoveKeyStateSubscriber()}{RemoveKeyStateSubscriber()}}
+{\footnotesize\ttfamily void Default\+Key\+State\+Behavior\+::\+Remove\+Key\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Default\+Key\+State\+Behavior.\+h\item 
+Graphics/Default\+Key\+State\+Behavior.\+cpp\end{DoxyCompactItemize}

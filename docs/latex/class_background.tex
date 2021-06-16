@@ -1,0 +1,144 @@
+\hypertarget{class_background}{}\doxysection{Background Class Reference}
+\label{class_background}\index{Background@{Background}}
+
+
+{\ttfamily \#include $<$Background.\+h$>$}
+
+
+
+Inheritance diagram for Background\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=321pt]{class_background__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_background_ae477d17015a7eacd8c67dbfe3b3a1364}\label{class_background_ae477d17015a7eacd8c67dbfe3b3a1364}} 
+void {\bfseries Set\+Color} (Gdiplus\+::\+Color color)
+\item 
+\mbox{\Hypertarget{class_background_ae379f50581727949520fe053fc0e93d2}\label{class_background_ae379f50581727949520fe053fc0e93d2}} 
+Gdiplus\+::\+Color {\bfseries Get\+Color} ()
+\item 
+\mbox{\Hypertarget{class_background_a8a06556680606e9056d6f676728a0014}\label{class_background_a8a06556680606e9056d6f676728a0014}} 
+void {\bfseries Set\+Width} (float width)
+\item 
+\mbox{\Hypertarget{class_background_a6122117a92d9a388565bcba2b84fdbcf}\label{class_background_a6122117a92d9a388565bcba2b84fdbcf}} 
+void {\bfseries Set\+Height} (float height)
+\item 
+\mbox{\Hypertarget{class_background_adbee385967e9cae2796c5424e3af45e5}\label{class_background_adbee385967e9cae2796c5424e3af45e5}} 
+void {\bfseries Set\+Percentual\+PosX} (float x)
+\item 
+\mbox{\Hypertarget{class_background_aa7497cc014165026a86b9064e7dfba5a}\label{class_background_aa7497cc014165026a86b9064e7dfba5a}} 
+void {\bfseries Set\+Percentual\+PosY} (float y)
+\item 
+\mbox{\Hypertarget{class_background_af15efc0d8b8504a888af043576196863}\label{class_background_af15efc0d8b8504a888af043576196863}} 
+float {\bfseries Get\+Width} ()
+\item 
+\mbox{\Hypertarget{class_background_ac1d7961aa0a8360ea21dd0bb61cd0eec}\label{class_background_ac1d7961aa0a8360ea21dd0bb61cd0eec}} 
+float {\bfseries Get\+Height} ()
+\item 
+\mbox{\Hypertarget{class_background_aa9deefd95c62f72d4037fca95b5dc189}\label{class_background_aa9deefd95c62f72d4037fca95b5dc189}} 
+float {\bfseries Get\+Percentual\+PosX} ()
+\item 
+\mbox{\Hypertarget{class_background_a7c8d8fa6919338ab71793e8f83d65ade}\label{class_background_a7c8d8fa6919338ab71793e8f83d65ade}} 
+float {\bfseries Get\+Percentual\+PosY} ()
+\item 
+virtual void \mbox{\hyperlink{class_background_abc8168933a107131313f88457570d7fa}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_background_a4a6441c7b66b1da1de1f24f82a717960}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_background_a1d38779184d30eaecbd0f07b7a3fa739}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_background_a955f3d8bed7fcde583f26317862a1179}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_background_a362b589c49c40e827035cd088a49c952}{Get\+Renderables}} () override
+\item 
+\mbox{\Hypertarget{class_background_a0daa745ddd883448951dc8dbdf6018f5}\label{class_background_a0daa745ddd883448951dc8dbdf6018f5}} 
+virtual bool {\bfseries Has\+Method} (std\+::string method) override
+\item 
+\mbox{\Hypertarget{class_background_aaa65813752af7a54a89eaf3397d2071a}\label{class_background_aaa65813752af7a54a89eaf3397d2071a}} 
+virtual \mbox{\hyperlink{class_reflection_container}{Reflection\+Container}}$<$ \mbox{\hyperlink{class_background}{Background}} $>$ \& {\bfseries Get\+Reflection\+Container} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A background renderable. Displays a backround with the defined color in the entire canvas of the component. Supported properties\+: background-\/color, args\+: Gdiplus\+::\+Color, return void get-\/background-\/color, return Gdiplus\+::\+Color 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_background_a1d38779184d30eaecbd0f07b7a3fa739}\label{class_background_a1d38779184d30eaecbd0f07b7a3fa739}} 
+\index{Background@{Background}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!Background@{Background}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Background\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_background_a362b589c49c40e827035cd088a49c952}\label{class_background_a362b589c49c40e827035cd088a49c952}} 
+\index{Background@{Background}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!Background@{Background}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Background\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_background_abc8168933a107131313f88457570d7fa}\label{class_background_abc8168933a107131313f88457570d7fa}} 
+\index{Background@{Background}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!Background@{Background}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Background\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Method which recieves the render events 
+\begin{DoxyParams}{Parameters}
+{\em e} & the render event object which contains the graphics on which the rendering is to be done. Check \mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} class. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_background_a955f3d8bed7fcde583f26317862a1179}\label{class_background_a955f3d8bed7fcde583f26317862a1179}} 
+\index{Background@{Background}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!Background@{Background}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Background\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_background_a4a6441c7b66b1da1de1f24f82a717960}\label{class_background_a4a6441c7b66b1da1de1f24f82a717960}} 
+\index{Background@{Background}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!Background@{Background}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Background\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Background.\+h\item 
+Graphics/Background.\+cpp\end{DoxyCompactItemize}

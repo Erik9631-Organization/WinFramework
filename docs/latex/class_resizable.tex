@@ -1,0 +1,144 @@
+\hypertarget{class_resizable}{}\doxysection{Resizable Class Reference}
+\label{class_resizable}\index{Resizable@{Resizable}}
+
+
+{\ttfamily \#include $<$Resizable.\+h$>$}
+
+
+
+Inheritance diagram for Resizable\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resizable__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Gdiplus\+::\+Size \mbox{\hyperlink{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}{Get\+Size}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}{Get\+Width}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{Get\+Height}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}{Set\+Size}} (Gdiplus\+::\+Size size)=0
+\item 
+virtual void \mbox{\hyperlink{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}{Set\+Size}} (int width, int height)=0
+\item 
+virtual void \mbox{\hyperlink{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}{Set\+Width}} (int width)=0
+\item 
+virtual void \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{Set\+Height}} (int height)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An interface for all the classes that can be resized. The interface also defines that every resizable has to support an event stream (Byt enforcing the \mbox{\hyperlink{class_resize_subject}{Resize\+Subject}} interface) 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}\label{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}} 
+\index{Resizable@{Resizable}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily virtual int Resizable\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the height of the object \begin{DoxyReturn}{Returns}
+returns the int value of the height 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a8fee8cf302fa00267f95d543fbc66a62}{Viewport}}, \mbox{\hyperlink{class_grid_cell_aa566aedf78d5f46eb7e2547f85826f0e}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_ae860b66033a49e31c891f1e14c29301c}{Default\+Resize}}, and \mbox{\hyperlink{class_component_aae34e11863bd136ecfea962058844740}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}\label{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}} 
+\index{Resizable@{Resizable}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily virtual Gdiplus\+::\+Size Resizable\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the size of the object. \begin{DoxyReturn}{Returns}
+returns a size object which specifies the width and height 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_ab778c5e11a7ee67ab8ea10281320f6e6}{Viewport}}, \mbox{\hyperlink{class_grid_cell_ab3e16eb42d7416e96c3ec3aa9ffeb339}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_ab9ccc0e894152c16b31eaff025588c0c}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a7eb61dec94856afd583414cf33fee59d}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}\label{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}} 
+\index{Resizable@{Resizable}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily virtual int Resizable\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns the width of the object \begin{DoxyReturn}{Returns}
+returns the int value of the width 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a70f100b7a88a8e08a9869c643875d5a4}{Viewport}}, \mbox{\hyperlink{class_grid_cell_aa10d53a867f3a6a1c187e8d3b6e22f57}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_ac16ee1e2648e8cd0fa729a4f573c4cc5}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a0931d378e28fea964451e9ee6ff0407c}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_a09283ee90e60c8863f45421726c27c95}\label{class_resizable_a09283ee90e60c8863f45421726c27c95}} 
+\index{Resizable@{Resizable}!SetHeight@{SetHeight}}
+\index{SetHeight@{SetHeight}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{SetHeight()}{SetHeight()}}
+{\footnotesize\ttfamily virtual void Resizable\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the Height of the object 
+\begin{DoxyParams}{Parameters}
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a91997d1f775594b8f621f459f6c354c9}{Viewport}}, \mbox{\hyperlink{class_grid_cell_af105cfec56c1515d410cdaef0eaa4bc9}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_aee3a1832f4728d4da8e97d30bc4f4504}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a7102f8c570a1fd778bedd62a50dc4734}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}\label{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}} 
+\index{Resizable@{Resizable}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void Resizable\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the size of the object 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size object which specifies the width and height of the target object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a5f9c890b00d1838ab7c534b0d35d1eeb}{Viewport}}, \mbox{\hyperlink{class_grid_cell_acf3d798b21a6c16d9819351a2a59c433}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_a73d5f44d3e4090eba94acb1384ec236f}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a1cebf6aefc39738b0a8492bcc8910760}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}\label{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}} 
+\index{Resizable@{Resizable}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void Resizable\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_window_frame_ad8b4d003ee5341e56ebf9daebd68f647}{Window\+Frame}}, \mbox{\hyperlink{class_viewport_a77641b09bfc1ec6534da1762cccd80af}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a69c1d64bc8b1ba6179be9ec384ef68af}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_a6ce7dd0966f67240b9a218bf421fe289}{Default\+Resize}}, and \mbox{\hyperlink{class_component_af149602c5eebe1f36d2ea43f876999ff}{Component}}.
+
+\mbox{\Hypertarget{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}\label{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}} 
+\index{Resizable@{Resizable}!SetWidth@{SetWidth}}
+\index{SetWidth@{SetWidth}!Resizable@{Resizable}}
+\doxysubsubsection{\texorpdfstring{SetWidth()}{SetWidth()}}
+{\footnotesize\ttfamily virtual void Resizable\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the Width of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a36f217a3de67ce1d8c8276dc038d6a60}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a6326f14ae3379d2ff738a10ab7fde3af}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_ab1671e2f1969fe4eaeeab8fba7c4c9b3}{Default\+Resize}}, and \mbox{\hyperlink{class_component_aa108cfea524685d5c9ff7a4f6dccf3dc}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Resizable.\+h\end{DoxyCompactItemize}

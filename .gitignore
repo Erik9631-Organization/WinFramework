@@ -9,7 +9,6 @@
 *.userosscache
 *.sln.docstates
 CodeGraphData/
-Documentation/
 Doxyfile
 
 

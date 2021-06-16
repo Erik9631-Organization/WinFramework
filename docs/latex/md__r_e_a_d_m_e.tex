@@ -1,0 +1,35 @@
+Lii framework is an open source framework which allows you to create interactive desktop applications on windows platform with ease.\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{Installation}\label{md__r_e_a_d_m_e_autotoc_md1}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md2}{}\doxysubsection{Make sure you have the latest Visual Studio version!}\label{md__r_e_a_d_m_e_autotoc_md2}
+
+\begin{DoxyEnumerate}
+\item Download the file from the release tab.
+\item Extract it somewhere to your disk.
+\item In visual studio, point the compiler to the include/header directory where you extracted your zip.
+\begin{DoxyItemize}
+\item This is found under C/\+C++ $>$ General $>$ Additional Include Directories.
+\end{DoxyItemize}
+\item Point the compiler to the .lib file located in the include directory.
+\begin{DoxyItemize}
+\item This is found under Linker $>$ General $>$ Additional Library Directories
+\end{DoxyItemize}
+\item Include the lib in the additional dependencies.
+\begin{DoxyItemize}
+\item This is located under Linker $>$ Input $>$ Additional Dependencies.
+\item Type in the name of the lib (Lii.\+lib for release and Lii\+Debug.\+lib for debug configuration)
+\end{DoxyItemize}
+\item Under Linker $>$ System change the subsystem type to Windows Application
+\item Under C/\+C++ $>$ General set the language version to C++17
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysection{Entry point}\label{md__r_e_a_d_m_e_autotoc_md3}
+Once everything is linked, you can create your first source file. include the \mbox{\hyperlink{_win_wrapper_8h_source}{Win\+Wrapper.\+h}} header and define the entry point. An example of a bare-\/bone entry point\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{ \{C++\}}
+\DoxyCodeLine{\#include <WinWrapper.h> // Needed}
+\DoxyCodeLine{\#include <ApplicationController.h>}
+\DoxyCodeLine{int WinEntry()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    ApplicationController::JoinThreads();}
+\DoxyCodeLine{    return 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 

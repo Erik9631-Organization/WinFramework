@@ -1,0 +1,142 @@
+\hypertarget{class_checkbox}{}\doxysection{Checkbox Class Reference}
+\label{class_checkbox}\index{Checkbox@{Checkbox}}
+
+
+Inheritance diagram for Checkbox\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_checkbox__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_checkbox_ac1cfbbe6f69dcf23afd3a55096768b3e}{Set\+Text}} (std\+::wstring text) override
+\item 
+void \mbox{\hyperlink{class_checkbox_a5e04e8a724c6cae40607e16b44522f21}{Check}} ()
+\item 
+std\+::wstring \mbox{\hyperlink{class_checkbox_aa02f0e9951604aa3f4f08889c4d061b4}{Get\+Text}} () override
+\item 
+void \mbox{\hyperlink{class_checkbox_a606cbc72ef7feb7d4a69df66b84afd52}{Set\+Checked}} (bool state)
+\item 
+bool \mbox{\hyperlink{class_checkbox_a14952b935a27d5a4ce8a40697a08ac90}{Is\+Checked}} ()
+\item 
+\mbox{\hyperlink{class_checkbox_aa4caea91de8ef9ace8e299dec3bd2c37}{Checkbox}} ()
+\item 
+\mbox{\hyperlink{class_checkbox_ac9cb55a1d96c19eea12aba8d94b92e5e}{Checkbox}} (string name)
+\item 
+\mbox{\hyperlink{class_checkbox_a8776b3195bdedb83ae99cb4262748418}{Checkbox}} (int x, int y, int width, int height, string name)
+\item 
+\mbox{\Hypertarget{class_checkbox_a01b62a6e68fb14496520a6f4f12150ae}\label{class_checkbox_a01b62a6e68fb14496520a6f4f12150ae}} 
+virtual void {\bfseries Add\+Checkbox\+State\+Subscriber} (\mbox{\hyperlink{class_checkbox_state_subscriber}{Checkbox\+State\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_checkbox_a927d7f04d9297365a4ea0eeb0620f664}\label{class_checkbox_a927d7f04d9297365a4ea0eeb0620f664}} 
+virtual void {\bfseries Remove\+Checkbox\+State\+Subscriber} (\mbox{\hyperlink{class_checkbox_state_subscriber}{Checkbox\+State\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_checkbox_aae6ca11b687932d7f82e63ab3dc1810f}\label{class_checkbox_aae6ca11b687932d7f82e63ab3dc1810f}} 
+virtual void {\bfseries Notify\+On\+Checked} (\mbox{\hyperlink{class_event_checkbox_state_info}{Event\+Checkbox\+State\+Info}} info) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_checkbox_aa4caea91de8ef9ace8e299dec3bd2c37}\label{class_checkbox_aa4caea91de8ef9ace8e299dec3bd2c37}} 
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{Checkbox()}{Checkbox()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Checkbox\+::\+Checkbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Creates a new checkbox with no name 0 width and height and 0 x position and y position. \mbox{\Hypertarget{class_checkbox_ac9cb55a1d96c19eea12aba8d94b92e5e}\label{class_checkbox_ac9cb55a1d96c19eea12aba8d94b92e5e}} 
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{Checkbox()}{Checkbox()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Checkbox\+::\+Checkbox (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+Creates a new checkbox with 0 width and height and 0 x position and y position. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the name used to identify the checkbox. This is not a display value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_checkbox_a8776b3195bdedb83ae99cb4262748418}\label{class_checkbox_a8776b3195bdedb83ae99cb4262748418}} 
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\index{Checkbox@{Checkbox}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{Checkbox()}{Checkbox()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Checkbox\+::\+Checkbox (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the x position where the checkbox should be located \\
+\hline
+{\em y} & the y position where the checkbox should be located \\
+\hline
+{\em width} & the width of the checkbox \\
+\hline
+{\em height} & the height of the checkbox \\
+\hline
+{\em name} & the name used to identify the checkbox. This is not a display value. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_checkbox_a5e04e8a724c6cae40607e16b44522f21}\label{class_checkbox_a5e04e8a724c6cae40607e16b44522f21}} 
+\index{Checkbox@{Checkbox}!Check@{Check}}
+\index{Check@{Check}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{Check()}{Check()}}
+{\footnotesize\ttfamily void Checkbox\+::\+Check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Invokes a check operation on the button. If checked the checkbox gets unchecked otherwise it gets checked. \mbox{\Hypertarget{class_checkbox_aa02f0e9951604aa3f4f08889c4d061b4}\label{class_checkbox_aa02f0e9951604aa3f4f08889c4d061b4}} 
+\index{Checkbox@{Checkbox}!GetText@{GetText}}
+\index{GetText@{GetText}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily std\+::wstring Checkbox\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+returns the identification text of the checkbox. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Component}}.
+
+\mbox{\Hypertarget{class_checkbox_a14952b935a27d5a4ce8a40697a08ac90}\label{class_checkbox_a14952b935a27d5a4ce8a40697a08ac90}} 
+\index{Checkbox@{Checkbox}!IsChecked@{IsChecked}}
+\index{IsChecked@{IsChecked}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{IsChecked()}{IsChecked()}}
+{\footnotesize\ttfamily bool Checkbox\+::\+Is\+Checked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns whether the checkbox is checked. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_checkbox_a606cbc72ef7feb7d4a69df66b84afd52}\label{class_checkbox_a606cbc72ef7feb7d4a69df66b84afd52}} 
+\index{Checkbox@{Checkbox}!SetChecked@{SetChecked}}
+\index{SetChecked@{SetChecked}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{SetChecked()}{SetChecked()}}
+{\footnotesize\ttfamily void Checkbox\+::\+Set\+Checked (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & sets the checked state of the checkbox. True for checked false for unchecked. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_checkbox_ac1cfbbe6f69dcf23afd3a55096768b3e}\label{class_checkbox_ac1cfbbe6f69dcf23afd3a55096768b3e}} 
+\index{Checkbox@{Checkbox}!SetText@{SetText}}
+\index{SetText@{SetText}!Checkbox@{Checkbox}}
+\doxysubsubsection{\texorpdfstring{SetText()}{SetText()}}
+{\footnotesize\ttfamily void Checkbox\+::\+Set\+Text (\begin{DoxyParamCaption}\item[{std\+::wstring}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & unicode text of the button which is to be displayed. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Checkbox.\+h\item 
+Graphics/Checkbox.\+cpp\end{DoxyCompactItemize}

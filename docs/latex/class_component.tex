@@ -1,0 +1,1398 @@
+\hypertarget{class_component}{}\doxysection{Component Class Reference}
+\label{class_component}\index{Component@{Component}}
+
+
+Inheritance diagram for Component\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_component__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_ada1ac6d0392f9f373f02d0048b6fe656}\label{class_component_ada1ac6d0392f9f373f02d0048b6fe656}} 
+{\bfseries Component} (string name)
+\item 
+\mbox{\Hypertarget{class_component_a82573330d035c1cb5f001b0610f3675c}\label{class_component_a82573330d035c1cb5f001b0610f3675c}} 
+{\bfseries Component} (int x, int y, int width, int height, string window\+Name)
+\item 
+virtual std\+::wstring \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Get\+Text}} ()
+\item 
+virtual void \mbox{\hyperlink{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}{Set\+Text}} (std\+::wstring text)
+\item 
+void \mbox{\hyperlink{class_component_a83d67821fb63751d1da9added12e9cd7}{Set\+Ignore\+Offset}} (bool ignore\+Offset)
+\item 
+bool \mbox{\hyperlink{class_component_afbdd18631df061a872eea3b79f2a951c}{Is\+Ignoring\+Offset}} ()
+\item 
+bool \mbox{\hyperlink{class_component_a269e9e31516d272c9de42a2c520bafdf}{Is\+Root}} ()
+\item 
+\mbox{\hyperlink{class_component}{Component}} \& \mbox{\hyperlink{class_component_a857832b64a5b7ba0dc9d9859e6998a34}{Get\+Root}} ()
+\item 
+Size \mbox{\hyperlink{class_component_a7eb61dec94856afd583414cf33fee59d}{Get\+Size}} () override
+\item 
+Point \mbox{\hyperlink{class_component_acb62eabad24e6a7f0db2ad4239bc2578}{Get\+Position}} () override
+\item 
+int \mbox{\hyperlink{class_component_a0931d378e28fea964451e9ee6ff0407c}{Get\+Width}} () override
+\item 
+int \mbox{\hyperlink{class_component_aae34e11863bd136ecfea962058844740}{Get\+Height}} () override
+\item 
+int \mbox{\hyperlink{class_component_a393bd000ce77141b5fda5058edeaff7f}{GetX}} () override
+\item 
+\mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \& \mbox{\hyperlink{class_component_a8a210e2320239e30b3170620c9d47226}{Get\+Component\+Node}} ()
+\item 
+int \mbox{\hyperlink{class_component_a08404345960e4ef8502850f40e192d39}{GetY}} () override
+\item 
+\mbox{\hyperlink{class_component}{Component}} $\ast$ \mbox{\hyperlink{class_component_a877ef6f7e49b6d38019988b07a7ceb20}{Get\+Parent}} ()
+\item 
+void \mbox{\hyperlink{class_component_af149602c5eebe1f36d2ea43f876999ff}{Set\+Size}} (int width, int height) override
+\item 
+void \mbox{\hyperlink{class_component_a1cebf6aefc39738b0a8492bcc8910760}{Set\+Size}} (Gdiplus\+::\+Size size) override
+\item 
+void \mbox{\hyperlink{class_component_ab959bff5415971893eca019e7b6891ff}{Add\+On\+Resize\+Listener}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&listener)
+\item 
+string \mbox{\hyperlink{class_component_a2137115386fcbfdb057d1ddbef0e183a}{Get\+Component\+Type}} ()
+\item 
+string \mbox{\hyperlink{class_component_accd66a9e99649593e33712d5bef9d5b3}{Get\+Component\+Name}} ()
+\item 
+void \mbox{\hyperlink{class_component_a0020f545fdcaefbaf75bbaaec3856af9}{Set\+Component\+Name}} (string name)
+\item 
+virtual void \mbox{\hyperlink{class_component_a4c5574ca572f499889aa246f48e38c75}{Set\+Position}} (int x, int y)
+\item 
+virtual void \mbox{\hyperlink{class_component_a57571f953e01c0e66fde0cb3b5eefdf3}{Set\+Position}} (Gdiplus\+::\+Point pos)
+\item 
+virtual void \mbox{\hyperlink{class_component_a1004baa17f2e5d6b9e808e908f2a3825}{Add}} (\mbox{\hyperlink{class_component}{Component}} \&component)
+\item 
+virtual void \mbox{\hyperlink{class_component_aed9d27bb97eae63e2c293388ea5d0703}{Add\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a545ec334ac806f6dbe32d093ffa4a7cd}{Remove\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a7f2f9fec8002d57fd4bc035b8d51121c}{Notify\+On\+Move\+Subscribers}} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} event) override
+\item 
+virtual void \mbox{\hyperlink{class_component_af78b986eafe68e4b83ed161a6cdf3a07}{SetX}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a408d81faaba9b6ba20c555a8d6565a1e}{SetY}} (int y) override
+\item 
+virtual int \mbox{\hyperlink{class_component_a68acdc02ff598ed707b92783a5f1e0ee}{Get\+AbsoluteX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_component_ae83d59f7c51b96a29d9c2049c46732fd}{Get\+AbsoluteY}} () override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_component_af68b16b2a09d67b67972fd083c4f95f5}{Get\+Absolute\+Position}} () override
+\item 
+virtual void \mbox{\hyperlink{class_component_a1ecad53db43ae607c6ed747f8b51e5f8}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ab5d97caac7b73fc4b3c140670f726c15}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_component_a9cd0c2cc33b3d4bd5cfb547c0f812d33}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a69637a7fe0f2a7956aef624082febfbe}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ab068c9c4c50e2a969742ea3923cbcc8a}{Notify\+On\+Resize\+Subscribers}} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a55f10747e52742f357ce46d2f7fa7abb}{Add\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a1a75e4558ae04df5803f2425ef9b1655}{Remove\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_aa108cfea524685d5c9ff7a4f6dccf3dc}{Set\+Width}} (int width) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a7102f8c570a1fd778bedd62a50dc4734}{Set\+Height}} (int height) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_component_aac6da949cab24c2fc63b4c145ca7a2cb}{Get\+Renderables}} () override
+\item 
+\mbox{\Hypertarget{class_component_a42683edbcddca8b649aee6e6eb7deaea}\label{class_component_a42683edbcddca8b649aee6e6eb7deaea}} 
+virtual void {\bfseries Add\+On\+Viewport\+Move\+Subscriber} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_component_a8c6a98a1c56a8058d134a6d7e3bc9841}\label{class_component_a8c6a98a1c56a8058d134a6d7e3bc9841}} 
+virtual void {\bfseries Remove\+On\+Viewport\+Move\+Subscriber} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_component_a6d2494f02750aedd47d5aa33648b5151}\label{class_component_a6d2494f02750aedd47d5aa33648b5151}} 
+virtual void {\bfseries Notify\+On\+Viewport\+Move\+Subscribers} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} event) override
+\item 
+\mbox{\Hypertarget{class_component_a470e69c10f3ebeba3199498a42e4e429}\label{class_component_a470e69c10f3ebeba3199498a42e4e429}} 
+virtual void {\bfseries Set\+Viewport\+XMultiplier} (float x) override
+\item 
+\mbox{\Hypertarget{class_component_a57ce6a06c22095b65ac21a48cbd1d7b4}\label{class_component_a57ce6a06c22095b65ac21a48cbd1d7b4}} 
+virtual void {\bfseries Set\+Viewport\+YMultiplier} (float y) override
+\item 
+\mbox{\Hypertarget{class_component_acd524df5e1800c2d182370099a8798f0}\label{class_component_acd524df5e1800c2d182370099a8798f0}} 
+virtual void {\bfseries Set\+Viewport\+Width\+Multiplier} (float width) override
+\item 
+\mbox{\Hypertarget{class_component_ac66aaad8f65e2a63bd6ee295aaa70a83}\label{class_component_ac66aaad8f65e2a63bd6ee295aaa70a83}} 
+virtual void {\bfseries Set\+Viewport\+Height\+Multiplier} (float height) override
+\item 
+\mbox{\Hypertarget{class_component_a8c77de5bb13bbe619a15ce3ef44b3ba9}\label{class_component_a8c77de5bb13bbe619a15ce3ef44b3ba9}} 
+virtual float {\bfseries Get\+Viewport\+XMultiplier} () override
+\item 
+\mbox{\Hypertarget{class_component_a7ba424a63420f970803a93814564bf79}\label{class_component_a7ba424a63420f970803a93814564bf79}} 
+virtual float {\bfseries Get\+Viewport\+YMultiplier} () override
+\item 
+\mbox{\Hypertarget{class_component_ac777f8eb6354d70cfea36ac62303e604}\label{class_component_ac777f8eb6354d70cfea36ac62303e604}} 
+virtual float {\bfseries Get\+Viewport\+Width\+Multiplier} () override
+\item 
+\mbox{\Hypertarget{class_component_a829a3a348fef54575e812a5277fd731d}\label{class_component_a829a3a348fef54575e812a5277fd731d}} 
+virtual float {\bfseries Get\+Viewport\+Height\+Multiplier} () override
+\item 
+\mbox{\Hypertarget{class_component_a4d7191ece7491ef97c28ffa81b68b1be}\label{class_component_a4d7191ece7491ef97c28ffa81b68b1be}} 
+virtual void {\bfseries Set\+Viewport\+XOffset} (int x) override
+\item 
+\mbox{\Hypertarget{class_component_a0d1f7cfa9678ee4b06256bf3c3c77819}\label{class_component_a0d1f7cfa9678ee4b06256bf3c3c77819}} 
+virtual void {\bfseries Set\+Viewport\+YOffset} (int y) override
+\item 
+\mbox{\Hypertarget{class_component_abdae1f69f07114e47a3907422ed6a71e}\label{class_component_abdae1f69f07114e47a3907422ed6a71e}} 
+virtual void {\bfseries Set\+Viewport\+Offset} (Gdiplus\+::\+Point offset) override
+\item 
+\mbox{\Hypertarget{class_component_aa5be7a10f97435393f43b814d5932600}\label{class_component_aa5be7a10f97435393f43b814d5932600}} 
+virtual int {\bfseries Get\+Viewport\+AbsoluteX} () override
+\item 
+\mbox{\Hypertarget{class_component_a3cf99f9c0da0ac641f20608ee148001d}\label{class_component_a3cf99f9c0da0ac641f20608ee148001d}} 
+virtual int {\bfseries Get\+Viewport\+AbsoluteY} () override
+\item 
+\mbox{\Hypertarget{class_component_a276ed19f70ab65a93165ae9cdc1aa7d3}\label{class_component_a276ed19f70ab65a93165ae9cdc1aa7d3}} 
+virtual Gdiplus\+::\+Point {\bfseries Get\+Viewport\+Absolute\+Position} () override
+\item 
+\mbox{\Hypertarget{class_component_ac73974c4abbd8dc51b9bc2cd3581cc2d}\label{class_component_ac73974c4abbd8dc51b9bc2cd3581cc2d}} 
+virtual int {\bfseries Get\+ViewportX} () override
+\item 
+\mbox{\Hypertarget{class_component_a4512b3cfb2fa9efbf25d8a39c1fc8653}\label{class_component_a4512b3cfb2fa9efbf25d8a39c1fc8653}} 
+virtual int {\bfseries Get\+ViewportY} () override
+\item 
+\mbox{\Hypertarget{class_component_a45d9e982b485819217ac57b82218a1de}\label{class_component_a45d9e982b485819217ac57b82218a1de}} 
+virtual Gdiplus\+::\+Point {\bfseries Get\+Viewport\+Position} () override
+\item 
+\mbox{\Hypertarget{class_component_a96ff606f274d869f7ab3564a9fc9e1f2}\label{class_component_a96ff606f274d869f7ab3564a9fc9e1f2}} 
+virtual void {\bfseries Notify\+On\+Viewport\+Resize\+Subscribers} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event) override
+\item 
+\mbox{\Hypertarget{class_component_a32ebba1d82538b82c2a92622934fa7f4}\label{class_component_a32ebba1d82538b82c2a92622934fa7f4}} 
+virtual void {\bfseries Add\+On\+Viewport\+Resize\+Subscriber} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_component_a98938b9ca5a1feb70357cb3b3b4c64aa}\label{class_component_a98938b9ca5a1feb70357cb3b3b4c64aa}} 
+virtual void {\bfseries Remove\+On\+Viewport\+Resize\+Subscriber} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+\mbox{\Hypertarget{class_component_acbec83981629dabd680cb06df5163de1}\label{class_component_acbec83981629dabd680cb06df5163de1}} 
+virtual int {\bfseries Get\+Viewport\+Width} () override
+\item 
+\mbox{\Hypertarget{class_component_a19e72502509eae3702124b835ec28ec3}\label{class_component_a19e72502509eae3702124b835ec28ec3}} 
+virtual int {\bfseries Get\+Viewport\+Height} () override
+\item 
+\mbox{\Hypertarget{class_component_a6421e6cf00737276b5b1ff4ae1bb0e51}\label{class_component_a6421e6cf00737276b5b1ff4ae1bb0e51}} 
+virtual void {\bfseries Set\+Viewport\+Size} (Gdiplus\+::\+Size size) override
+\item 
+\mbox{\Hypertarget{class_component_a3ffdac4b14e3df7ee3c439f22bfdab07}\label{class_component_a3ffdac4b14e3df7ee3c439f22bfdab07}} 
+virtual void {\bfseries Set\+Viewport\+Size} (int width, int height) override
+\item 
+\mbox{\Hypertarget{class_component_ae2fe7147f37238328d49aac22c5917ab}\label{class_component_ae2fe7147f37238328d49aac22c5917ab}} 
+virtual void {\bfseries Set\+Viewport\+Width} (int width) override
+\item 
+\mbox{\Hypertarget{class_component_a2cf31781f02f393c8da30509065475d5}\label{class_component_a2cf31781f02f393c8da30509065475d5}} 
+virtual void {\bfseries Set\+Viewport\+Height} (int height) override
+\item 
+\mbox{\Hypertarget{class_component_ab762e20fda309fe21523ad404b142e1b}\label{class_component_ab762e20fda309fe21523ad404b142e1b}} 
+virtual Gdiplus\+::\+Size {\bfseries Get\+Viewport\+Size} () override
+\item 
+\mbox{\Hypertarget{class_component_a8389bd2653cceb5aa77a95f7368dfcc8}\label{class_component_a8389bd2653cceb5aa77a95f7368dfcc8}} 
+virtual int {\bfseries Get\+Viewport\+Absolute\+Width} () override
+\item 
+\mbox{\Hypertarget{class_component_a97df40a5204d01774206cd6325201346}\label{class_component_a97df40a5204d01774206cd6325201346}} 
+virtual int {\bfseries Get\+Viewport\+Absolute\+Height} () override
+\item 
+\mbox{\Hypertarget{class_component_a7dbbed1f1ab509475b5dbb1a3c5f9848}\label{class_component_a7dbbed1f1ab509475b5dbb1a3c5f9848}} 
+virtual Gdiplus\+::\+Size {\bfseries Get\+Viewport\+Absolute\+Size} () override
+\item 
+virtual void \mbox{\hyperlink{class_component_aa8e3d37cfd234133549640976f0f44aa}{On\+Update}} (\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ac4c989798e867b7230aa614dd6831eb4}{Add\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a3bb385f8c3d03b0bca3b1675b9d73248}{Remove\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a030a1e13ff92ee3887f5319d5bea8e73}{Notify\+On\+Activate\+State\+Changed}} (\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&activate\+Info) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a81158fc64fc4c9df4f70c954fbbff21a}{Set\+Active}} (bool state) override
+\item 
+virtual bool \mbox{\hyperlink{class_component_a106fb6dddbb002ff020dfddd8ebf821a}{Is\+Active}} () override
+\item 
+virtual void \mbox{\hyperlink{class_component_a4a5600dfca3d0a8548916d6d943b541b}{Notify\+On\+Mouse\+Down}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a7b1439c1704842c1126ea2c6d7eb4ae4}{Notify\+On\+Mouse\+Up}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a33e2540c029caae819356eee27446ef5}{Notify\+On\+Mouse\+Pressed}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_adef21fb00940f47d78a43c5f4c82e19f}{Notify\+On\+Mouse\+Hover}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_acb7e911d98992ebc50353152a2839850}{Add\+Mouse\+State\+Subscriber}} (\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a8ab56a99416bf5241a5e6aa2b8d9e5e9}{Remove\+Mouse\+State\+Subscriber}} (\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual bool \mbox{\hyperlink{class_component_a779445666eb200e27b9982585318a84f}{Colides\+With\+Point}} (Gdiplus\+::\+Point) override
+\item 
+virtual void \mbox{\hyperlink{class_component_abdc413313d15dddd3c0098a466470add}{Notify\+On\+Mouse\+Enter}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a82ef5b1d835db7d031ab93ccadd220e1}{Notify\+On\+Mouse\+Leave}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+virtual bool \mbox{\hyperlink{class_component_ae97da27c861e74e4e28cc7cc72bb752e}{Has\+Mouse\+Entered}} () override
+\item 
+{\footnotesize template$<$typename ... Args$>$ }\\void \mbox{\hyperlink{class_component_aacfc3af6e709064b8c218cb4f46245d1}{Set\+Property}} (std\+::string name, Args ... args)
+\item 
+{\footnotesize template$<$typename return\+Type , typename ... Args$>$ }\\return\+Type \mbox{\hyperlink{class_component_a33e57570cac8c3f0544de0bea4cc00c1}{Get\+Propery}} (std\+::string name, Args ... args)
+\item 
+virtual std\+::any \mbox{\hyperlink{class_component_a87fec26375397cb4be4517cc9cff0697}{Colides\+With\+Upmost}} (Gdiplus\+::\+Point) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ae9c046e03060636bf68434c21c9a1d10}{Notify\+On\+Key\+Down}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ae293bc38cfcfaebac953a745f7d9dcfa}{Notify\+On\+Key\+Up}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_aa913abb9d13cecf34a7c45e79f778824}{Notify\+On\+Key\+Pressed}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a3520585294d051ce69e23b5850a0573e}{Add\+Key\+State\+Subscriber}} (\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a960bd906bab22122c59b5b7fa0e3f2ce}{Remove\+Key\+State\+Subscriber}} (\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_ae0d5d3fb4f4308d55217e882c2b49800}{Notify\+On\+Add\+Info}} (\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ e) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a19c70aea915f6be8a5c2e9afbcb70d98}{Add\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a76a2d415986ea0da0986b5f83a25bb3f}{Remove\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a6ad81d69708f8bea4a29a55111c59394}{Set\+Element\+XOffset}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_component_a326bd66ec7e1472b850156aca167abe4}{Set\+Element\+YOffset}} (int Y) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_component_ab5a38299621c8c78cc047c2e2b31b62d}{Get\+Element\+Offset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_component_a8b97492ad02c4959fa9581aafde75690}{Get\+Element\+XOffset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_component_a302c2f98709d1b75ee3ab03670ec965d}{Get\+Element\+YOffset}} () override
+\item 
+Gdiplus\+::\+Point \mbox{\hyperlink{class_component_a90b349523c89805b653a949f3cc62cfc}{Get\+Internal\+Offset}} ()
+\item 
+void \mbox{\hyperlink{class_component_a39360888219426b8bfb204f65a95ce56}{Set\+Internal\+Offset}} (Gdiplus\+::\+Point internal\+Offset)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_component_a900f88b0ba117db4e6ecd2ce22abedcb}\label{class_component_a900f88b0ba117db4e6ecd2ce22abedcb}} 
+string {\bfseries component\+Type}
+\item 
+\mbox{\Hypertarget{class_component_a3f51bb245c415a384cd29c60f7b25ba2}\label{class_component_a3f51bb245c415a384cd29c60f7b25ba2}} 
+string {\bfseries name}
+\item 
+\mbox{\Hypertarget{class_component_a50ed8261be075ff4dab556d71a5b24d3}\label{class_component_a50ed8261be075ff4dab556d71a5b24d3}} 
+\mbox{\hyperlink{class_default_multi_tree}{Default\+Multi\+Tree}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ {\bfseries component\+Node}
+\item 
+\mbox{\Hypertarget{class_component_abf8cbc943a21dab6b7573e0df33859a0}\label{class_component_abf8cbc943a21dab6b7573e0df33859a0}} 
+\mbox{\hyperlink{class_default_render}{Default\+Render}} {\bfseries render\+Behavior}
+\item 
+\mbox{\Hypertarget{class_component_a5e1cd7bc008693c1f2faa37d35c7737d}\label{class_component_a5e1cd7bc008693c1f2faa37d35c7737d}} 
+\mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ {\bfseries move\+Behavior}
+\item 
+\mbox{\Hypertarget{class_component_a1b12076e074779db284697e15f6057bf}\label{class_component_a1b12076e074779db284697e15f6057bf}} 
+\mbox{\hyperlink{class_default_mouse_behavior}{Default\+Mouse\+Behavior}}$<$ \mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \& $>$ {\bfseries mouse\+Handler}
+\item 
+\mbox{\Hypertarget{class_component_a6a23ceea38b9a7971fab020ba66d2b7f}\label{class_component_a6a23ceea38b9a7971fab020ba66d2b7f}} 
+\mbox{\hyperlink{class_default_key_state_behavior}{Default\+Key\+State\+Behavior}} {\bfseries key\+State\+Behavior}
+\item 
+\mbox{\Hypertarget{class_component_aede2b3197f1d251ef45d92b09ac63186}\label{class_component_aede2b3197f1d251ef45d92b09ac63186}} 
+\mbox{\hyperlink{class_default_resize}{Default\+Resize}} {\bfseries resize\+Behavior}
+\item 
+\mbox{\Hypertarget{class_component_a582e717b4886b2d64468b38a4dac191f}\label{class_component_a582e717b4886b2d64468b38a4dac191f}} 
+\mbox{\hyperlink{class_default_activate}{Default\+Activate}} {\bfseries activate\+Behavior}
+\item 
+\mbox{\Hypertarget{class_component_a5d50510f94b4ba014b729ce57a6d51b6}\label{class_component_a5d50510f94b4ba014b729ce57a6d51b6}} 
+\mbox{\hyperlink{class_viewport}{Viewport}} {\bfseries viewport}
+\item 
+\mbox{\Hypertarget{class_component_afd877a3e1a343eaf8563b4b96c76da0d}\label{class_component_afd877a3e1a343eaf8563b4b96c76da0d}} 
+std\+::wstring {\bfseries text}
+\item 
+\mbox{\Hypertarget{class_component_ae815a1da54cf1d316fddc72178f67c63}\label{class_component_ae815a1da54cf1d316fddc72178f67c63}} 
+bool {\bfseries ignore\+Offset} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_component_a1004baa17f2e5d6b9e808e908f2a3825}\label{class_component_a1004baa17f2e5d6b9e808e908f2a3825}} 
+\index{Component@{Component}!Add@{Add}}
+\index{Add@{Add}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily void Component\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}} \&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window. 
+\begin{DoxyParams}{Parameters}
+{\em component} & the component to be added \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_a929685e4b7d92bc12982d9a8f063e689}{Window\+Frame}}, \mbox{\hyperlink{class_list_box_a559e9bf6dc27e3e9b200b5ac67119a01}{List\+Box}}, and \mbox{\hyperlink{class_grid_a09799f3ac2b9440c2a150679f2ad6546}{Grid}}.
+
+\mbox{\Hypertarget{class_component_a3520585294d051ce69e23b5850a0573e}\label{class_component_a3520585294d051ce69e23b5850a0573e}} 
+\index{Component@{Component}!AddKeyStateSubscriber@{AddKeyStateSubscriber}}
+\index{AddKeyStateSubscriber@{AddKeyStateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddKeyStateSubscriber()}{AddKeyStateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+Key\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_acb7e911d98992ebc50353152a2839850}\label{class_component_acb7e911d98992ebc50353152a2839850}} 
+\index{Component@{Component}!AddMouseStateSubscriber@{AddMouseStateSubscriber}}
+\index{AddMouseStateSubscriber@{AddMouseStateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddMouseStateSubscriber()}{AddMouseStateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+Mouse\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber which can listen to mouse events. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber which should be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a990c2bdb7b8ae4db22146681a5bf5564}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_ac4c989798e867b7230aa614dd6831eb4}\label{class_component_ac4c989798e867b7230aa614dd6831eb4}} 
+\index{Component@{Component}!AddOnActivateSubscriber@{AddOnActivateSubscriber}}
+\index{AddOnActivateSubscriber@{AddOnActivateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddOnActivateSubscriber()}{AddOnActivateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be added \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_aee48e351365defb3778e27489d11211c}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a19c70aea915f6be8a5c2e9afbcb70d98}\label{class_component_a19c70aea915f6be8a5c2e9afbcb70d98}} 
+\index{Component@{Component}!AddOnAddSubscriber@{AddOnAddSubscriber}}
+\index{AddOnAddSubscriber@{AddOnAddSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddOnAddSubscriber()}{AddOnAddSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ Component \& $>$}}.
+
+\mbox{\Hypertarget{class_component_aed9d27bb97eae63e2c293388ea5d0703}\label{class_component_aed9d27bb97eae63e2c293388ea5d0703}} 
+\index{Component@{Component}!AddOnMoveSubscriber@{AddOnMoveSubscriber}}
+\index{AddOnMoveSubscriber@{AddOnMoveSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddOnMoveSubscriber()}{AddOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a044a8a15a422bd15b21c43924297e983}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_component_ab959bff5415971893eca019e7b6891ff}\label{class_component_ab959bff5415971893eca019e7b6891ff}} 
+\index{Component@{Component}!AddOnResizeListener@{AddOnResizeListener}}
+\index{AddOnResizeListener@{AddOnResizeListener}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeListener()}{AddOnResizeListener()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+On\+Resize\+Listener (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{listener }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Deprecated}
+\item[\mbox{\hyperlink{deprecated__deprecated000001}{Deprecated}}]use Add\+On\+Resize\+Subscriber instead \end{DoxyRefDesc}
+\mbox{\Hypertarget{class_component_a55f10747e52742f357ce46d2f7fa7abb}\label{class_component_a55f10747e52742f357ce46d2f7fa7abb}} 
+\index{Component@{Component}!AddOnResizeSubscriber@{AddOnResizeSubscriber}}
+\index{AddOnResizeSubscriber@{AddOnResizeSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeSubscriber()}{AddOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to add a new subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a9cd0c2cc33b3d4bd5cfb547c0f812d33}\label{class_component_a9cd0c2cc33b3d4bd5cfb547c0f812d33}} 
+\index{Component@{Component}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Component\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_component_a779445666eb200e27b9982585318a84f}\label{class_component_a779445666eb200e27b9982585318a84f}} 
+\index{Component@{Component}!ColidesWithPoint@{ColidesWithPoint}}
+\index{ColidesWithPoint@{ColidesWithPoint}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{ColidesWithPoint()}{ColidesWithPoint()}}
+{\footnotesize\ttfamily bool Component\+::\+Colides\+With\+Point (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns whether a component within the window collides with the specified point 
+\begin{DoxyParams}{Parameters}
+{\em point} & the point to check the collision with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if there is a collision, false if there is no collision 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collidable_a1228895a80eaca1faaa6346c9d742d86}{Collidable}}.
+
+\mbox{\Hypertarget{class_component_a87fec26375397cb4be4517cc9cff0697}\label{class_component_a87fec26375397cb4be4517cc9cff0697}} 
+\index{Component@{Component}!ColidesWithUpmost@{ColidesWithUpmost}}
+\index{ColidesWithUpmost@{ColidesWithUpmost}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{ColidesWithUpmost()}{ColidesWithUpmost()}}
+{\footnotesize\ttfamily std\+::any Component\+::\+Colides\+With\+Upmost (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a component within the window that collides with the specified point 
+\begin{DoxyParams}{Parameters}
+{\em point} & the point to check the collision with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The return value is implementation specific and therefore returns generic std\+::any. In case of the standard components, it is always a pointer to component (Component$\ast$) Use std\+::any\+\_\+cast$<$\+Component$\ast$$>$ if casting in the standard implementation. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_collidable_a6d1ed1c22b7e3145cc1ad3a5ae212ff1}{Collidable}}.
+
+\mbox{\Hypertarget{class_component_af68b16b2a09d67b67972fd083c4f95f5}\label{class_component_af68b16b2a09d67b67972fd083c4f95f5}} 
+\index{Component@{Component}!GetAbsolutePosition@{GetAbsolutePosition}}
+\index{GetAbsolutePosition@{GetAbsolutePosition}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetAbsolutePosition()}{GetAbsolutePosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Component\+::\+Get\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns absolute position as a point which specifies the X and Y position. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_af82ec8b243e854b8eb72bea1a827f66a}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a68acdc02ff598ed707b92783a5f1e0ee}\label{class_component_a68acdc02ff598ed707b92783a5f1e0ee}} 
+\index{Component@{Component}!GetAbsoluteX@{GetAbsoluteX}}
+\index{GetAbsoluteX@{GetAbsoluteX}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteX()}{GetAbsoluteX()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+AbsoluteX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns X absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a0345848260532e193fe8ec241a0a5061}{Movable}}.
+
+\mbox{\Hypertarget{class_component_ae83d59f7c51b96a29d9c2049c46732fd}\label{class_component_ae83d59f7c51b96a29d9c2049c46732fd}} 
+\index{Component@{Component}!GetAbsoluteY@{GetAbsoluteY}}
+\index{GetAbsoluteY@{GetAbsoluteY}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteY()}{GetAbsoluteY()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+AbsoluteY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns Y absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Movable}}.
+
+\mbox{\Hypertarget{class_component_accd66a9e99649593e33712d5bef9d5b3}\label{class_component_accd66a9e99649593e33712d5bef9d5b3}} 
+\index{Component@{Component}!GetComponentName@{GetComponentName}}
+\index{GetComponentName@{GetComponentName}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetComponentName()}{GetComponentName()}}
+{\footnotesize\ttfamily string Component\+::\+Get\+Component\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the name of the component. \begin{DoxyReturn}{Returns}
+returns string containing the name of the component 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_a8a210e2320239e30b3170620c9d47226}\label{class_component_a8a210e2320239e30b3170620c9d47226}} 
+\index{Component@{Component}!GetComponentNode@{GetComponentNode}}
+\index{GetComponentNode@{GetComponentNode}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetComponentNode()}{GetComponentNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \& Component\+::\+Get\+Component\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the current node within the containment hierarchy \begin{DoxyReturn}{Returns}
+returns a node within the Tree of the containment hierarchy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_a2137115386fcbfdb057d1ddbef0e183a}\label{class_component_a2137115386fcbfdb057d1ddbef0e183a}} 
+\index{Component@{Component}!GetComponentType@{GetComponentType}}
+\index{GetComponentType@{GetComponentType}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetComponentType()}{GetComponentType()}}
+{\footnotesize\ttfamily string Component\+::\+Get\+Component\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns meta information about the component type \begin{DoxyReturn}{Returns}
+returns string containing the information about the type of the component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_ab5a38299621c8c78cc047c2e2b31b62d}\label{class_component_ab5a38299621c8c78cc047c2e2b31b62d}} 
+\index{Component@{Component}!GetElementOffset@{GetElementOffset}}
+\index{GetElementOffset@{GetElementOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Component\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a8b97492ad02c4959fa9581aafde75690}\label{class_component_a8b97492ad02c4959fa9581aafde75690}} 
+\index{Component@{Component}!GetElementXOffset@{GetElementXOffset}}
+\index{GetElementXOffset@{GetElementXOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a302c2f98709d1b75ee3ab03670ec965d}\label{class_component_a302c2f98709d1b75ee3ab03670ec965d}} 
+\index{Component@{Component}!GetElementYOffset@{GetElementYOffset}}
+\index{GetElementYOffset@{GetElementYOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Movable}}.
+
+\mbox{\Hypertarget{class_component_aae34e11863bd136ecfea962058844740}\label{class_component_aae34e11863bd136ecfea962058844740}} 
+\index{Component@{Component}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the height of the object \begin{DoxyReturn}{Returns}
+returns the int value of the height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_a90b349523c89805b653a949f3cc62cfc}\label{class_component_a90b349523c89805b653a949f3cc62cfc}} 
+\index{Component@{Component}!GetInternalOffset@{GetInternalOffset}}
+\index{GetInternalOffset@{GetInternalOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetInternalOffset()}{GetInternalOffset()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Component\+::\+Get\+Internal\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the internal offset of the child components \begin{DoxyReturn}{Returns}
+returns the point that contains X and Y of the internal offset. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_a877ef6f7e49b6d38019988b07a7ceb20}\label{class_component_a877ef6f7e49b6d38019988b07a7ceb20}} 
+\index{Component@{Component}!GetParent@{GetParent}}
+\index{GetParent@{GetParent}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetParent()}{GetParent()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component}{Component}} $\ast$ Component\+::\+Get\+Parent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets the pointer to the parent of this component \begin{DoxyReturn}{Returns}
+returns pointer of the parent component. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_acb62eabad24e6a7f0db2ad4239bc2578}\label{class_component_acb62eabad24e6a7f0db2ad4239bc2578}} 
+\index{Component@{Component}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily Point Component\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns position \begin{DoxyReturn}{Returns}
+returns Point object that specifies the X position and the Y position 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a23c5be86c27c555fb5931df1b80c53be}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a33e57570cac8c3f0544de0bea4cc00c1}\label{class_component_a33e57570cac8c3f0544de0bea4cc00c1}} 
+\index{Component@{Component}!GetPropery@{GetPropery}}
+\index{GetPropery@{GetPropery}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetPropery()}{GetPropery()}}
+{\footnotesize\ttfamily template$<$typename return\+Type , typename ... Args$>$ \\
+return\+Type Component\+::\+Get\+Propery (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{Args ...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Get the property via the meta object protocol. List of available properties can be found in all classes the implement the \mbox{\hyperlink{class_renderable}{Renderable}} interface. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the property name the value of which you want returned. \\
+\hline
+{\em args} & the arguments of the property. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & the type of arguments that the property receives (Should be auto resolved by the compiler). \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{class_component_aac6da949cab24c2fc63b4c145ca7a2cb}\label{class_component_aac6da949cab24c2fc63b4c145ca7a2cb}} 
+\index{Component@{Component}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Component\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_component_a857832b64a5b7ba0dc9d9859e6998a34}\label{class_component_a857832b64a5b7ba0dc9d9859e6998a34}} 
+\index{Component@{Component}!GetRoot@{GetRoot}}
+\index{GetRoot@{GetRoot}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetRoot()}{GetRoot()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_component}{Component}} \& Component\+::\+Get\+Root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns the component at the top of the containment hierarchy \begin{DoxyReturn}{Returns}
+returns reference to the component at the top of the containment hierarchy. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_a7eb61dec94856afd583414cf33fee59d}\label{class_component_a7eb61dec94856afd583414cf33fee59d}} 
+\index{Component@{Component}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily Size Component\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the size of the object. \begin{DoxyReturn}{Returns}
+returns a size object which specifies the width and height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_a90d5248ffc3b28ef01a7828e434b8acb}\label{class_component_a90d5248ffc3b28ef01a7828e434b8acb}} 
+\index{Component@{Component}!GetText@{GetText}}
+\index{GetText@{GetText}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily std\+::wstring Component\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Returns the text value of the component. (Usually used for name or description) \begin{DoxyReturn}{Returns}
+returns unicode string value 
+\end{DoxyReturn}
+
+
+Reimplemented in \mbox{\hyperlink{class_text_input_af9b313043c676bb3b41f3f191ab6315d}{Text\+Input}}, \mbox{\hyperlink{class_radio_button_ab6513eab96f5fee23f51868a65fcfaa6}{Radio\+Button}}, \mbox{\hyperlink{class_password_field_acdd7c2a792d408069f9f897ea9ccdbf6}{Password\+Field}}, \mbox{\hyperlink{class_label_ae3bf96785ba046b4a29c2638f44e9d3e}{Label}}, \mbox{\hyperlink{class_checkbox_aa02f0e9951604aa3f4f08889c4d061b4}{Checkbox}}, \mbox{\hyperlink{class_button_a15914d89218cd501e4528c4dff6842a6}{Button}}, and \mbox{\hyperlink{class_combo_box_a64f8064475d8a04c57b0679b7ad78633}{Combo\+Box}}.
+
+\mbox{\Hypertarget{class_component_a0931d378e28fea964451e9ee6ff0407c}\label{class_component_a0931d378e28fea964451e9ee6ff0407c}} 
+\index{Component@{Component}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int Component\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the width of the object \begin{DoxyReturn}{Returns}
+returns the int value of the width 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_a393bd000ce77141b5fda5058edeaff7f}\label{class_component_a393bd000ce77141b5fda5058edeaff7f}} 
+\index{Component@{Component}!GetX@{GetX}}
+\index{GetX@{GetX}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetX()}{GetX()}}
+{\footnotesize\ttfamily int Component\+::\+GetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the X position of the object \begin{DoxyReturn}{Returns}
+returns X position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a08404345960e4ef8502850f40e192d39}\label{class_component_a08404345960e4ef8502850f40e192d39}} 
+\index{Component@{Component}!GetY@{GetY}}
+\index{GetY@{GetY}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{GetY()}{GetY()}}
+{\footnotesize\ttfamily int Component\+::\+GetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the Y position of the object \begin{DoxyReturn}{Returns}
+returns Y position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a8110a2232926728f82310d288ffad05b}{Movable}}.
+
+\mbox{\Hypertarget{class_component_ae97da27c861e74e4e28cc7cc72bb752e}\label{class_component_ae97da27c861e74e4e28cc7cc72bb752e}} 
+\index{Component@{Component}!HasMouseEntered@{HasMouseEntered}}
+\index{HasMouseEntered@{HasMouseEntered}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{HasMouseEntered()}{HasMouseEntered()}}
+{\footnotesize\ttfamily bool Component\+::\+Has\+Mouse\+Entered (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns whether the mouse is within the boundaries of the component. \begin{DoxyReturn}{Returns}
+returns true if within the boundaries false if outside. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a6da942984515e044dfa5b8b2355dacb6}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a106fb6dddbb002ff020dfddd8ebf821a}\label{class_component_a106fb6dddbb002ff020dfddd8ebf821a}} 
+\index{Component@{Component}!IsActive@{IsActive}}
+\index{IsActive@{IsActive}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{IsActive()}{IsActive()}}
+{\footnotesize\ttfamily bool Component\+::\+Is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns whether the component has a focus \begin{DoxyReturn}{Returns}
+returns whether the component is active. True for active false for inactive. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_activatable_ab44dc7a1886005ee1690fd7d14ee33ca}{Activatable}}.
+
+\mbox{\Hypertarget{class_component_afbdd18631df061a872eea3b79f2a951c}\label{class_component_afbdd18631df061a872eea3b79f2a951c}} 
+\index{Component@{Component}!IsIgnoringOffset@{IsIgnoringOffset}}
+\index{IsIgnoringOffset@{IsIgnoringOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{IsIgnoringOffset()}{IsIgnoringOffset()}}
+{\footnotesize\ttfamily bool Component\+::\+Is\+Ignoring\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Sets whether the component should ignore values set by Set\+Element\+Offset, Set\+Element\+XOffset, Set\+Element\+YOffset 
+\begin{DoxyParams}{Parameters}
+{\em ignore\+Offset} & true for ignoring the offset, false for not ignoring the offset \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_component_a269e9e31516d272c9de42a2c520bafdf}\label{class_component_a269e9e31516d272c9de42a2c520bafdf}} 
+\index{Component@{Component}!IsRoot@{IsRoot}}
+\index{IsRoot@{IsRoot}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{IsRoot()}{IsRoot()}}
+{\footnotesize\ttfamily bool Component\+::\+Is\+Root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Returns whether the component is at the top of the containment hierarchy \begin{DoxyReturn}{Returns}
+returns true if it is at the top of the containment hierarchy, otherwise returns false. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_component_a030a1e13ff92ee3887f5319d5bea8e73}\label{class_component_a030a1e13ff92ee3887f5319d5bea8e73}} 
+\index{Component@{Component}!NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}}
+\index{NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnActivateStateChanged()}{NotifyOnActivateStateChanged()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Activate\+State\+Changed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends a focus which is propagated to all the subscribers. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_a4897f3bc76f85aaa326c4854916aabd2}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_component_ae0d5d3fb4f4308d55217e882c2b49800}\label{class_component_ae0d5d3fb4f4308d55217e882c2b49800}} 
+\index{Component@{Component}!NotifyOnAddInfo@{NotifyOnAddInfo}}
+\index{NotifyOnAddInfo@{NotifyOnAddInfo}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnAddInfo()}{NotifyOnAddInfo()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Add\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event when a new object is added to the containment hierarchy. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ Component \& $>$}}.
+
+\mbox{\Hypertarget{class_component_ae9c046e03060636bf68434c21c9a1d10}\label{class_component_ae9c046e03060636bf68434c21c9a1d10}} 
+\index{Component@{Component}!NotifyOnKeyDown@{NotifyOnKeyDown}}
+\index{NotifyOnKeyDown@{NotifyOnKeyDown}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyDown()}{NotifyOnKeyDown()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Key\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_a486350b49ae876fdb9590b9c5b232f89}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_aa913abb9d13cecf34a7c45e79f778824}\label{class_component_aa913abb9d13cecf34a7c45e79f778824}} 
+\index{Component@{Component}!NotifyOnKeyPressed@{NotifyOnKeyPressed}}
+\index{NotifyOnKeyPressed@{NotifyOnKeyPressed}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyPressed()}{NotifyOnKeyPressed()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Key\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers whenever the key is held down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_ae2bb490b5ffa56910f7b5adf88f6b284}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_ae293bc38cfcfaebac953a745f7d9dcfa}\label{class_component_ae293bc38cfcfaebac953a745f7d9dcfa}} 
+\index{Component@{Component}!NotifyOnKeyUp@{NotifyOnKeyUp}}
+\index{NotifyOnKeyUp@{NotifyOnKeyUp}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyUp()}{NotifyOnKeyUp()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Key\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Up 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_ab4d3032f13a6350538de88f49a99aeb0}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_a4a5600dfca3d0a8548916d6d943b541b}\label{class_component_a4a5600dfca3d0a8548916d6d943b541b}} 
+\index{Component@{Component}!NotifyOnMouseDown@{NotifyOnMouseDown}}
+\index{NotifyOnMouseDown@{NotifyOnMouseDown}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseDown()}{NotifyOnMouseDown()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the left mouse button is down 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a66d1e64a2be0f618f4b94e3424ab310b}{Mouse\+State\+Subject}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_ae43e561da745e2b5620ae8dfb604342c}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_abdc413313d15dddd3c0098a466470add}\label{class_component_abdc413313d15dddd3c0098a466470add}} 
+\index{Component@{Component}!NotifyOnMouseEnter@{NotifyOnMouseEnter}}
+\index{NotifyOnMouseEnter@{NotifyOnMouseEnter}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseEnter()}{NotifyOnMouseEnter()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Enter (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the mouse enters the component 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_adcbf378e2aca6a5f5e3ec3e0d4f0dd25}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_adef21fb00940f47d78a43c5f4c82e19f}\label{class_component_adef21fb00940f47d78a43c5f4c82e19f}} 
+\index{Component@{Component}!NotifyOnMouseHover@{NotifyOnMouseHover}}
+\index{NotifyOnMouseHover@{NotifyOnMouseHover}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseHover()}{NotifyOnMouseHover()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Hover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the mouse hovers over the object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a7cb72b3851c48e2e65be5d31519b5d80}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a82ef5b1d835db7d031ab93ccadd220e1}\label{class_component_a82ef5b1d835db7d031ab93ccadd220e1}} 
+\index{Component@{Component}!NotifyOnMouseLeave@{NotifyOnMouseLeave}}
+\index{NotifyOnMouseLeave@{NotifyOnMouseLeave}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseLeave()}{NotifyOnMouseLeave()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Leave (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the mouse leaves the component. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_abf97158ea2ffa6ae78cd36721d9073dd}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a33e2540c029caae819356eee27446ef5}\label{class_component_a33e2540c029caae819356eee27446ef5}} 
+\index{Component@{Component}!NotifyOnMousePressed@{NotifyOnMousePressed}}
+\index{NotifyOnMousePressed@{NotifyOnMousePressed}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMousePressed()}{NotifyOnMousePressed()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the left mouse button is pressed 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a596368e18900147db5667733af63f621}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a7b1439c1704842c1126ea2c6d7eb4ae4}\label{class_component_a7b1439c1704842c1126ea2c6d7eb4ae4}} 
+\index{Component@{Component}!NotifyOnMouseUp@{NotifyOnMouseUp}}
+\index{NotifyOnMouseUp@{NotifyOnMouseUp}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseUp()}{NotifyOnMouseUp()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the left mouse button is up 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_acf27d4a5745534a514f8523751de13bd}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a7f2f9fec8002d57fd4bc035b8d51121c}\label{class_component_a7f2f9fec8002d57fd4bc035b8d51121c}} 
+\index{Component@{Component}!NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}}
+\index{NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMoveSubscribers()}{NotifyOnMoveSubscribers()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Move\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all the subscribers of this object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that should be sent to the subscribers. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_component_ab068c9c4c50e2a969742ea3923cbcc8a}\label{class_component_ab068c9c4c50e2a969742ea3923cbcc8a}} 
+\index{Component@{Component}!NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}}
+\index{NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{NotifyOnResizeSubscribers()}{NotifyOnResizeSubscribers()}}
+{\footnotesize\ttfamily void Component\+::\+Notify\+On\+Resize\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Called if an event is passed to all the subscribers/observers. 
+\begin{DoxyParams}{Parameters}
+{\em event} & the object containing event specific information \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a1ecad53db43ae607c6ed747f8b51e5f8}\label{class_component_a1ecad53db43ae607c6ed747f8b51e5f8}} 
+\index{Component@{Component}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Component\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Method which recieves the render events 
+\begin{DoxyParams}{Parameters}
+{\em e} & the render event object which contains the graphics on which the rendering is to be done. Check \mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} class. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_component_aa8e3d37cfd234133549640976f0f44aa}\label{class_component_aa8e3d37cfd234133549640976f0f44aa}} 
+\index{Component@{Component}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily void Component\+::\+On\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves an update event and executes the update action. The flags are defined in \mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} class. 
+
+Implements \mbox{\hyperlink{class_update_subscriber_a011a28a98c9079a14505cf37be37eb80}{Update\+Subscriber}}.
+
+\mbox{\Hypertarget{class_component_a960bd906bab22122c59b5b7fa0e3f2ce}\label{class_component_a960bd906bab22122c59b5b7fa0e3f2ce}} 
+\index{Component@{Component}!RemoveKeyStateSubscriber@{RemoveKeyStateSubscriber}}
+\index{RemoveKeyStateSubscriber@{RemoveKeyStateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveKeyStateSubscriber()}{RemoveKeyStateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+Key\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subscriber}{Key\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a8ab56a99416bf5241a5e6aa2b8d9e5e9}\label{class_component_a8ab56a99416bf5241a5e6aa2b8d9e5e9}} 
+\index{Component@{Component}!RemoveMouseStateSubscriber@{RemoveMouseStateSubscriber}}
+\index{RemoveMouseStateSubscriber@{RemoveMouseStateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveMouseStateSubscriber()}{RemoveMouseStateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+Mouse\+State\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_mouse_state_subscriber}{Mouse\+State\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber which can listen to mouse events. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber which should be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_mouse_state_subject_a79177e10983ae8b95703dbd49e2e34aa}{Mouse\+State\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a3bb385f8c3d03b0bca3b1675b9d73248}\label{class_component_a3bb385f8c3d03b0bca3b1675b9d73248}} 
+\index{Component@{Component}!RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}}
+\index{RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveOnActivateSubscriber()}{RemoveOnActivateSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_aaea6c2da9efb470def3ae30e050cb5a8}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a76a2d415986ea0da0986b5f83a25bb3f}\label{class_component_a76a2d415986ea0da0986b5f83a25bb3f}} 
+\index{Component@{Component}!RemoveOnAddSubscriber@{RemoveOnAddSubscriber}}
+\index{RemoveOnAddSubscriber@{RemoveOnAddSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveOnAddSubscriber()}{RemoveOnAddSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ \mbox{\hyperlink{class_component}{Component}} \& $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ Component \& $>$}}.
+
+\mbox{\Hypertarget{class_component_a545ec334ac806f6dbe32d093ffa4a7cd}\label{class_component_a545ec334ac806f6dbe32d093ffa4a7cd}} 
+\index{Component@{Component}!RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}}
+\index{RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveOnMoveSubscriber()}{RemoveOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em the} & subscriber to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a1a75e4558ae04df5803f2425ef9b1655}\label{class_component_a1a75e4558ae04df5803f2425ef9b1655}} 
+\index{Component@{Component}!RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}}
+\index{RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveOnResizeSubscriber()}{RemoveOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to remove a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_component_a69637a7fe0f2a7956aef624082febfbe}\label{class_component_a69637a7fe0f2a7956aef624082febfbe}} 
+\index{Component@{Component}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Component\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_component_ab5d97caac7b73fc4b3c140670f726c15}\label{class_component_ab5d97caac7b73fc4b3c140670f726c15}} 
+\index{Component@{Component}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Component\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_a25347c33646be87dc103406fabf163ee}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_a81158fc64fc4c9df4f70c954fbbff21a}\label{class_component_a81158fc64fc4c9df4f70c954fbbff21a}} 
+\index{Component@{Component}!SetActive@{SetActive}}
+\index{SetActive@{SetActive}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetActive()}{SetActive()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Active (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets whether the current component should have focus. 
+\begin{DoxyParams}{Parameters}
+{\em state} & true if it should have focus, false if it should not. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activatable_a5ff9145e9b50e74a95f7f666b57f205c}{Activatable}}.
+
+\mbox{\Hypertarget{class_component_a0020f545fdcaefbaf75bbaaec3856af9}\label{class_component_a0020f545fdcaefbaf75bbaaec3856af9}} 
+\index{Component@{Component}!SetComponentName@{SetComponentName}}
+\index{SetComponentName@{SetComponentName}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetComponentName()}{SetComponentName()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Component\+Name (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+Sets the name of the component 
+\begin{DoxyParams}{Parameters}
+{\em name} & string containing the name of the component \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}\label{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}} 
+\index{Component@{Component}!SetElementOffset@{SetElementOffset}}
+\index{SetElementOffset@{SetElementOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a6ad81d69708f8bea4a29a55111c59394}\label{class_component_a6ad81d69708f8bea4a29a55111c59394}} 
+\index{Component@{Component}!SetElementXOffset@{SetElementXOffset}}
+\index{SetElementXOffset@{SetElementXOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em x} & specifies the X offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a326bd66ec7e1472b850156aca167abe4}\label{class_component_a326bd66ec7e1472b850156aca167abe4}} 
+\index{Component@{Component}!SetElementYOffset@{SetElementYOffset}}
+\index{SetElementYOffset@{SetElementYOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em y} & specifies the Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a4dd7b50408811b9652aab8ecc4470c97}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a7102f8c570a1fd778bedd62a50dc4734}\label{class_component_a7102f8c570a1fd778bedd62a50dc4734}} 
+\index{Component@{Component}!SetHeight@{SetHeight}}
+\index{SetHeight@{SetHeight}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetHeight()}{SetHeight()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Height of the object 
+\begin{DoxyParams}{Parameters}
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_a83d67821fb63751d1da9added12e9cd7}\label{class_component_a83d67821fb63751d1da9added12e9cd7}} 
+\index{Component@{Component}!SetIgnoreOffset@{SetIgnoreOffset}}
+\index{SetIgnoreOffset@{SetIgnoreOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetIgnoreOffset()}{SetIgnoreOffset()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Ignore\+Offset (\begin{DoxyParamCaption}\item[{bool}]{ignore\+Offset }\end{DoxyParamCaption})}
+
+Sets whether the component should ignore values set by Set\+Element\+Offset, Set\+Element\+XOffset, Set\+Element\+YOffset 
+\begin{DoxyParams}{Parameters}
+{\em ignore\+Offset} & true for ignoring the offset, false for not ignoring the offset \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_component_a39360888219426b8bfb204f65a95ce56}\label{class_component_a39360888219426b8bfb204f65a95ce56}} 
+\index{Component@{Component}!SetInternalOffset@{SetInternalOffset}}
+\index{SetInternalOffset@{SetInternalOffset}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetInternalOffset()}{SetInternalOffset()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Internal\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{internal\+Offset }\end{DoxyParamCaption})}
+
+Sets the offset of all the subcomponents that are owned by this component at once 
+\begin{DoxyParams}{Parameters}
+{\em internal\+Offset} & the offset \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_component_a57571f953e01c0e66fde0cb3b5eefdf3}\label{class_component_a57571f953e01c0e66fde0cb3b5eefdf3}} 
+\index{Component@{Component}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void Component\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em position} & Sets the position as a point which specifies the X and Y position. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a500f5953329dff434370bd7c8f3c8a81}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a4c5574ca572f499889aa246f48e38c75}\label{class_component_a4c5574ca572f499889aa246f48e38c75}} 
+\index{Component@{Component}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a3f69b6dcb03beb0d5050b64be9591111}{Movable}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_a5aefd805bfb8b786c261adc2c578626c}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_aacfc3af6e709064b8c218cb4f46245d1}\label{class_component_aacfc3af6e709064b8c218cb4f46245d1}} 
+\index{Component@{Component}!SetProperty@{SetProperty}}
+\index{SetProperty@{SetProperty}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetProperty()}{SetProperty()}}
+{\footnotesize\ttfamily template$<$typename ... Args$>$ \\
+void Component\+::\+Set\+Property (\begin{DoxyParamCaption}\item[{std\+::string}]{name,  }\item[{Args ...}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sets the property via the meta object protocol. List of available properties can be found in all classes that implement the \mbox{\hyperlink{class_renderable}{Renderable}} interface. 
+\begin{DoxyParams}{Parameters}
+{\em name} & the property name that should be changed \\
+\hline
+{\em args} & the arguments of the property that should be changed. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em Args} & the type of arguments that the property receives (Should be auto resolved by the compiler). \\
+\hline
+\end{DoxyTemplParams}
+\mbox{\Hypertarget{class_component_a1cebf6aefc39738b0a8492bcc8910760}\label{class_component_a1cebf6aefc39738b0a8492bcc8910760}} 
+\index{Component@{Component}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the size of the object 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size object which specifies the width and height of the target object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_af149602c5eebe1f36d2ea43f876999ff}\label{class_component_af149602c5eebe1f36d2ea43f876999ff}} 
+\index{Component@{Component}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}{Resizable}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{class_window_frame_ad8b4d003ee5341e56ebf9daebd68f647}{Window\+Frame}}.
+
+\mbox{\Hypertarget{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}\label{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}} 
+\index{Component@{Component}!SetText@{SetText}}
+\index{SetText@{SetText}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetText()}{SetText()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Text (\begin{DoxyParamCaption}\item[{std\+::wstring}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+Sets the text value of the component. (Usually used for name or description) 
+\begin{DoxyParams}{Parameters}
+{\em text} & sets the unicode text value of the component. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented in \mbox{\hyperlink{class_radio_button_af1ad3e004dac3e63da06c234ab1e80f5}{Radio\+Button}}, \mbox{\hyperlink{class_checkbox_ac1cfbbe6f69dcf23afd3a55096768b3e}{Checkbox}}, \mbox{\hyperlink{class_button_a5bf10fbba103d2c5d439b10475f76f25}{Button}}, \mbox{\hyperlink{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}{Combo\+Box}}, and \mbox{\hyperlink{class_label_a9fd9edb2adc8c974287f1e0d5bfa5f3e}{Label}}.
+
+\mbox{\Hypertarget{class_component_aa108cfea524685d5c9ff7a4f6dccf3dc}\label{class_component_aa108cfea524685d5c9ff7a4f6dccf3dc}} 
+\index{Component@{Component}!SetWidth@{SetWidth}}
+\index{SetWidth@{SetWidth}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetWidth()}{SetWidth()}}
+{\footnotesize\ttfamily void Component\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Width of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}{Resizable}}.
+
+\mbox{\Hypertarget{class_component_af78b986eafe68e4b83ed161a6cdf3a07}\label{class_component_af78b986eafe68e4b83ed161a6cdf3a07}} 
+\index{Component@{Component}!SetX@{SetX}}
+\index{SetX@{SetX}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetX()}{SetX()}}
+{\footnotesize\ttfamily void Component\+::\+SetX (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{Movable}}.
+
+\mbox{\Hypertarget{class_component_a408d81faaba9b6ba20c555a8d6565a1e}\label{class_component_a408d81faaba9b6ba20c555a8d6565a1e}} 
+\index{Component@{Component}!SetY@{SetY}}
+\index{SetY@{SetY}!Component@{Component}}
+\doxysubsubsection{\texorpdfstring{SetY()}{SetY()}}
+{\footnotesize\ttfamily void Component\+::\+SetY (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{Movable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Component.\+h\item 
+Graphics/Component.\+cpp\end{DoxyCompactItemize}

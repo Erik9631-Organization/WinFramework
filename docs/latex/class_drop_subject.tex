@@ -1,0 +1,80 @@
+\hypertarget{class_drop_subject}{}\doxysection{Drop\+Subject Class Reference}
+\label{class_drop_subject}\index{DropSubject@{DropSubject}}
+
+
+{\ttfamily \#include $<$Drop\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Drop\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_drop_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_drop_subject_a5133363acf50d89e67f10ec352ea84cb}{Notify\+On\+Drop}} (\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}} e)=0
+\item 
+virtual void \mbox{\hyperlink{class_drop_subject_a5945fe02f3de0c0dff0ea5f656c1b893}{Add\+On\+Drop\+Subscriber}} (\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_drop_subject_a738d2d2a62ac9682d57d5b5201b9cb62}{Remove\+On\+Drop\+Subscriber}} (\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&subscriber)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface implemented by all classes that can send drop events 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_drop_subject_a5945fe02f3de0c0dff0ea5f656c1b893}\label{class_drop_subject_a5945fe02f3de0c0dff0ea5f656c1b893}} 
+\index{DropSubject@{DropSubject}!AddOnDropSubscriber@{AddOnDropSubscriber}}
+\index{AddOnDropSubscriber@{AddOnDropSubscriber}!DropSubject@{DropSubject}}
+\doxysubsubsection{\texorpdfstring{AddOnDropSubscriber()}{AddOnDropSubscriber()}}
+{\footnotesize\ttfamily virtual void Drop\+Subject\+::\+Add\+On\+Drop\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Adds the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a5b9714c2f5263eeca74ab89623bdca18}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_aefccad5ae4a3203a16353f276b688365}{Drag\+Manager}}.
+
+\mbox{\Hypertarget{class_drop_subject_a5133363acf50d89e67f10ec352ea84cb}\label{class_drop_subject_a5133363acf50d89e67f10ec352ea84cb}} 
+\index{DropSubject@{DropSubject}!NotifyOnDrop@{NotifyOnDrop}}
+\index{NotifyOnDrop@{NotifyOnDrop}!DropSubject@{DropSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnDrop()}{NotifyOnDrop()}}
+{\footnotesize\ttfamily virtual void Drop\+Subject\+::\+Notify\+On\+Drop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_drag_info}{Event\+On\+Drag\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Calls On\+Drop on all subscribers 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that contains all the drag data. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a5f934d3ff274b9421e28e7b6836cab77}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_af4ed4fd520a3a64c36c5922fd9f9aec3}{Drag\+Manager}}.
+
+\mbox{\Hypertarget{class_drop_subject_a738d2d2a62ac9682d57d5b5201b9cb62}\label{class_drop_subject_a738d2d2a62ac9682d57d5b5201b9cb62}} 
+\index{DropSubject@{DropSubject}!RemoveOnDropSubscriber@{RemoveOnDropSubscriber}}
+\index{RemoveOnDropSubscriber@{RemoveOnDropSubscriber}!DropSubject@{DropSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveOnDropSubscriber()}{RemoveOnDropSubscriber()}}
+{\footnotesize\ttfamily virtual void Drop\+Subject\+::\+Remove\+On\+Drop\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_drop_subscriber}{Drop\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & Removes the subcriber to the drag even stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_list_box_a73b7379205226e6d60754b1d9f5344e8}{List\+Box}}, and \mbox{\hyperlink{class_drag_manager_a563cad286f46a4bec3bccbc09ef8c91c}{Drag\+Manager}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Drop\+Subject.\+h\end{DoxyCompactItemize}

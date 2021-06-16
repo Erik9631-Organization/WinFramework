@@ -1,0 +1,76 @@
+\hypertarget{class_on_add_handler}{}\doxysection{On\+Add\+Handler$<$ type $>$ Class Template Reference}
+\label{class_on_add_handler}\index{OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}}
+
+
+Inheritance diagram for On\+Add\+Handler$<$ type $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{class_on_add_handler__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_on_add_handler_a03af932ca3462b8d72757edc6c435446}{Notify\+On\+Add\+Info}} (\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ type $>$ e) override
+\item 
+virtual void \mbox{\hyperlink{class_on_add_handler_ad4833aa98fac00ecf8cad014f06fd3e6}{Add\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ type $>$ \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_on_add_handler_afdf54a6b89690b65d1bda59701637436}{Remove\+On\+Add\+Subscriber}} (\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ type $>$ \&subscriber) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_on_add_handler_ad4833aa98fac00ecf8cad014f06fd3e6}\label{class_on_add_handler_ad4833aa98fac00ecf8cad014f06fd3e6}} 
+\index{OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}!AddOnAddSubscriber@{AddOnAddSubscriber}}
+\index{AddOnAddSubscriber@{AddOnAddSubscriber}!OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{AddOnAddSubscriber()}{AddOnAddSubscriber()}}
+{\footnotesize\ttfamily template$<$class type $>$ \\
+virtual void \mbox{\hyperlink{class_on_add_handler}{On\+Add\+Handler}}$<$ type $>$\+::Add\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ type $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ type $>$}}.
+
+\mbox{\Hypertarget{class_on_add_handler_a03af932ca3462b8d72757edc6c435446}\label{class_on_add_handler_a03af932ca3462b8d72757edc6c435446}} 
+\index{OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}!NotifyOnAddInfo@{NotifyOnAddInfo}}
+\index{NotifyOnAddInfo@{NotifyOnAddInfo}!OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{NotifyOnAddInfo()}{NotifyOnAddInfo()}}
+{\footnotesize\ttfamily template$<$class type $>$ \\
+virtual void \mbox{\hyperlink{class_on_add_handler}{On\+Add\+Handler}}$<$ type $>$\+::Notify\+On\+Add\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_add_info}{Event\+On\+Add\+Info}}$<$ type $>$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event when a new object is added to the containment hierarchy. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ type $>$}}.
+
+\mbox{\Hypertarget{class_on_add_handler_afdf54a6b89690b65d1bda59701637436}\label{class_on_add_handler_afdf54a6b89690b65d1bda59701637436}} 
+\index{OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}!RemoveOnAddSubscriber@{RemoveOnAddSubscriber}}
+\index{RemoveOnAddSubscriber@{RemoveOnAddSubscriber}!OnAddHandler$<$ type $>$@{OnAddHandler$<$ type $>$}}
+\doxysubsubsection{\texorpdfstring{RemoveOnAddSubscriber()}{RemoveOnAddSubscriber()}}
+{\footnotesize\ttfamily template$<$class type $>$ \\
+virtual void \mbox{\hyperlink{class_on_add_handler}{On\+Add\+Handler}}$<$ type $>$\+::Remove\+On\+Add\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_on_add_subscriber}{On\+Add\+Subscriber}}$<$ type $>$ \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber to to event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_add_subject}{Add\+Subject$<$ type $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/On\+Add\+Handler.\+h\end{DoxyCompactItemize}

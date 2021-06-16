@@ -1,0 +1,360 @@
+\hypertarget{class_default_move}{}\doxysection{Default\+Move$<$ T $>$ Class Template Reference}
+\label{class_default_move}\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+
+
+Inheritance diagram for Default\+Move$<$ T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{class_default_move__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_default_move_a6869b78c1efc12047f9783057fa232a0}\label{class_default_move_a6869b78c1efc12047f9783057fa232a0}} 
+{\bfseries Default\+Move} (\mbox{\hyperlink{class_multi_tree}{Multi\+Tree}}$<$ T $>$ \&component)
+\item 
+\mbox{\Hypertarget{class_default_move_aa09beed52ad602c0a9b23512478b235e}\label{class_default_move_aa09beed52ad602c0a9b23512478b235e}} 
+void {\bfseries Calculate\+Absolute\+Position} ()
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}{Add\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}{Remove\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}{Notify\+On\+Move\+Subscribers}} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} event) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}{Get\+Position}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_a411e947295aa8310873a6501c1b44b07}{GetX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}{GetY}} () override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}{Set\+Position}} (Gdiplus\+::\+Point position) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_ae6562d02e055d7e89ab669776d7f766f}{Set\+Position}} (int x, int y) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a9102d0acd2ae79637551cd309258d778}{SetX}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a239c581f2df74a17d711180b03f55026}{SetY}} (int y) override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_aae16856a96abf7126de7222dddf92182}{Get\+AbsoluteX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}{Get\+AbsoluteY}} () override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move_a6364c7fada142ac0dc20bae53446d144}{Get\+Absolute\+Position}} () override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}{Set\+Element\+XOffset}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}{Set\+Element\+YOffset}} (int Y) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}{Get\+Element\+Offset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_abb94771cdbdd4e9a920e395279a7375e}{Get\+Element\+XOffset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}{Get\+Element\+YOffset}} () override
+\item 
+\mbox{\Hypertarget{class_default_move_abe697b10797f4510ee5039b1790b1f03}\label{class_default_move_abe697b10797f4510ee5039b1790b1f03}} 
+Gdiplus\+::\+Point {\bfseries Get\+Internal\+Offset} ()
+\item 
+\mbox{\Hypertarget{class_default_move_a14dff99af19e710951fcf1fa24cc8cc5}\label{class_default_move_a14dff99af19e710951fcf1fa24cc8cc5}} 
+void {\bfseries Set\+Internal\+Offset} (Gdiplus\+::\+Point internal\+Offset)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}\label{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!AddOnMoveSubscriber@{AddOnMoveSubscriber}}
+\index{AddOnMoveSubscriber@{AddOnMoveSubscriber}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{AddOnMoveSubscriber()}{AddOnMoveSubscriber()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Add\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a044a8a15a422bd15b21c43924297e983}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_default_move_a6364c7fada142ac0dc20bae53446d144}\label{class_default_move_a6364c7fada142ac0dc20bae53446d144}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetAbsolutePosition@{GetAbsolutePosition}}
+\index{GetAbsolutePosition@{GetAbsolutePosition}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetAbsolutePosition()}{GetAbsolutePosition()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns absolute position as a point which specifies the X and Y position. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_af82ec8b243e854b8eb72bea1a827f66a}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_aae16856a96abf7126de7222dddf92182}\label{class_default_move_aae16856a96abf7126de7222dddf92182}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetAbsoluteX@{GetAbsoluteX}}
+\index{GetAbsoluteX@{GetAbsoluteX}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteX()}{GetAbsoluteX()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+AbsoluteX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns X absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a0345848260532e193fe8ec241a0a5061}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}\label{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetAbsoluteY@{GetAbsoluteY}}
+\index{GetAbsoluteY@{GetAbsoluteY}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteY()}{GetAbsoluteY()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+AbsoluteY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns Y absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}\label{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetElementOffset@{GetElementOffset}}
+\index{GetElementOffset@{GetElementOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_abb94771cdbdd4e9a920e395279a7375e}\label{class_default_move_abb94771cdbdd4e9a920e395279a7375e}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetElementXOffset@{GetElementXOffset}}
+\index{GetElementXOffset@{GetElementXOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}\label{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetElementYOffset@{GetElementYOffset}}
+\index{GetElementYOffset@{GetElementYOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}\label{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns position \begin{DoxyReturn}{Returns}
+returns Point object that specifies the X position and the Y position 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a23c5be86c27c555fb5931df1b80c53be}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a411e947295aa8310873a6501c1b44b07}\label{class_default_move_a411e947295aa8310873a6501c1b44b07}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetX@{GetX}}
+\index{GetX@{GetX}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetX()}{GetX()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::GetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the X position of the object \begin{DoxyReturn}{Returns}
+returns X position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}\label{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetY@{GetY}}
+\index{GetY@{GetY}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{GetY()}{GetY()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::GetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the Y position of the object \begin{DoxyReturn}{Returns}
+returns Y position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a8110a2232926728f82310d288ffad05b}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}\label{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}}
+\index{NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMoveSubscribers()}{NotifyOnMoveSubscribers()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Notify\+On\+Move\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all the subscribers of this object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that should be sent to the subscribers. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}\label{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}}
+\index{RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{RemoveOnMoveSubscriber()}{RemoveOnMoveSubscriber()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Remove\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em the} & subscriber to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}\label{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetElementOffset@{SetElementOffset}}
+\index{SetElementOffset@{SetElementOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}\label{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetElementXOffset@{SetElementXOffset}}
+\index{SetElementXOffset@{SetElementXOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em x} & specifies the X offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}\label{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetElementYOffset@{SetElementYOffset}}
+\index{SetElementYOffset@{SetElementYOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em y} & specifies the Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a4dd7b50408811b9652aab8ecc4470c97}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}\label{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Position (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em position} & Sets the position as a point which specifies the X and Y position. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a500f5953329dff434370bd7c8f3c8a81}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_ae6562d02e055d7e89ab669776d7f766f}\label{class_default_move_ae6562d02e055d7e89ab669776d7f766f}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a3f69b6dcb03beb0d5050b64be9591111}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a9102d0acd2ae79637551cd309258d778}\label{class_default_move_a9102d0acd2ae79637551cd309258d778}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetX@{SetX}}
+\index{SetX@{SetX}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetX()}{SetX()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::SetX (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{Movable}}.
+
+\mbox{\Hypertarget{class_default_move_a239c581f2df74a17d711180b03f55026}\label{class_default_move_a239c581f2df74a17d711180b03f55026}} 
+\index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!SetY@{SetY}}
+\index{SetY@{SetY}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{SetY()}{SetY()}}
+{\footnotesize\ttfamily template$<$class T $>$ \\
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::SetY (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{Movable}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Default\+Move.\+h\end{DoxyCompactItemize}

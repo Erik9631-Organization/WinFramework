@@ -1,0 +1,544 @@
+\hypertarget{class_viewport}{}\doxysection{Viewport Class Reference}
+\label{class_viewport}\index{Viewport@{Viewport}}
+
+
+Inheritance diagram for Viewport\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{class_viewport__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_viewport_abe372bfaca88b8b83edef2f7c5311078}\label{class_viewport_abe372bfaca88b8b83edef2f7c5311078}} 
+{\bfseries Viewport} (\mbox{\hyperlink{class_adjustable}{Adjustable}} \&adjustable)
+\item 
+\mbox{\Hypertarget{class_viewport_a45bcbd99ecb21062b5c171c91d3c32c2}\label{class_viewport_a45bcbd99ecb21062b5c171c91d3c32c2}} 
+void {\bfseries Set\+XMultiplier} (float x)
+\item 
+\mbox{\Hypertarget{class_viewport_aabea54520f612a31e59f44f7e9659952}\label{class_viewport_aabea54520f612a31e59f44f7e9659952}} 
+void {\bfseries Set\+YMultiplier} (float y)
+\item 
+\mbox{\Hypertarget{class_viewport_a86a01bb308fa3aca9604ca08e5201f9b}\label{class_viewport_a86a01bb308fa3aca9604ca08e5201f9b}} 
+void {\bfseries Set\+Width\+Multiplier} (float width)
+\item 
+\mbox{\Hypertarget{class_viewport_a23d4aecb5e61dc2274b72e9a685205ae}\label{class_viewport_a23d4aecb5e61dc2274b72e9a685205ae}} 
+void {\bfseries Set\+Height\+Multiplier} (float height)
+\item 
+\mbox{\Hypertarget{class_viewport_a2e55225dbaaa601bf8027229ceeaebba}\label{class_viewport_a2e55225dbaaa601bf8027229ceeaebba}} 
+virtual float {\bfseries Get\+Viewport\+XMultiplier} ()
+\item 
+\mbox{\Hypertarget{class_viewport_a390bf92a76404a776368a814fdb13057}\label{class_viewport_a390bf92a76404a776368a814fdb13057}} 
+virtual float {\bfseries Get\+Viewport\+YMultiplier} ()
+\item 
+\mbox{\Hypertarget{class_viewport_a4b8d2809969309565bed98692ef64458}\label{class_viewport_a4b8d2809969309565bed98692ef64458}} 
+virtual float {\bfseries Get\+Viewport\+Width\+Multiplier} ()
+\item 
+\mbox{\Hypertarget{class_viewport_ae6660822bebd49a6917cb8ab41ce0a21}\label{class_viewport_ae6660822bebd49a6917cb8ab41ce0a21}} 
+virtual float {\bfseries Get\+Viewport\+Height\+Multiplier} ()
+\item 
+\mbox{\Hypertarget{class_viewport_a83a343d20ee302916b95467adc550b95}\label{class_viewport_a83a343d20ee302916b95467adc550b95}} 
+virtual int {\bfseries Get\+Viewport\+Absolute\+Width} ()
+\item 
+\mbox{\Hypertarget{class_viewport_a60c14f12e608ed861de3218f788084bf}\label{class_viewport_a60c14f12e608ed861de3218f788084bf}} 
+virtual int {\bfseries Get\+Viewport\+Absolute\+Height} ()
+\item 
+\mbox{\Hypertarget{class_viewport_afe2e6ca27d6719d2efbfc52c9fe15ea1}\label{class_viewport_afe2e6ca27d6719d2efbfc52c9fe15ea1}} 
+virtual Gdiplus\+::\+Size {\bfseries Get\+Viewport\+Absolute\+Size} ()
+\item 
+virtual void \mbox{\hyperlink{class_viewport_ae0b01bf0be96876dc45ac92e8979e03c}{Add\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_aa634df5b6c0febb2327c6b96093e9624}{Remove\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a30456a041595eda6b758a6202b596a90}{Notify\+On\+Move\+Subscribers}} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} event) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_viewport_a9729ffaf1a8464103c9fdcac3defdfef}{Get\+Position}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_a50043d1a3b927688fcd6c323f500bb96}{GetX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_a2e74b0d568ba19eadb8f062443bbc0a1}{GetY}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_aade5963f641c7c91444a718f1565c945}{Get\+AbsoluteX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_aad5a4f42c8248f9b997c90ea155e0cad}{Get\+AbsoluteY}} () override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_viewport_a5156711914102d933d2548c8750cba32}{Get\+Absolute\+Position}} () override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_aa124467eb4873a4c578875be05c49191}{Set\+Position}} (Gdiplus\+::\+Point position) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a26501d9f007cbc9e832e45da907c5afe}{Set\+Position}} (int x, int y) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a153bc4a99af23e2b02ea031afe90ed74}{SetX}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a517c5de70b5924274437cce886ac3694}{SetY}} (int y) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a35e3101d622ff18649e559d2894e65cd}{Notify\+On\+Resize\+Subscribers}} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a3955bf7ead969433aaa9cac9bda29521}{Add\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_af859f68bef4a2c189182ddb863521f15}{Remove\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual Gdiplus\+::\+Size \mbox{\hyperlink{class_viewport_ab778c5e11a7ee67ab8ea10281320f6e6}{Get\+Size}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_a70f100b7a88a8e08a9869c643875d5a4}{Get\+Width}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_a8fee8cf302fa00267f95d543fbc66a62}{Get\+Height}} () override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a5f9c890b00d1838ab7c534b0d35d1eeb}{Set\+Size}} (Gdiplus\+::\+Size size) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a77641b09bfc1ec6534da1762cccd80af}{Set\+Size}} (int width, int height) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a36f217a3de67ce1d8c8276dc038d6a60}{Set\+Width}} (int width) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a91997d1f775594b8f621f459f6c354c9}{Set\+Height}} (int height) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_aef40b1e51ddce211e70e76bd746ac20f}{On\+Update}} (\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_acb0b2d4bd79cc8891445d96c3341d803}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_ac86c42395436f630ddfeea8c49c73824}{Set\+Element\+XOffset}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_viewport_a3a821ab1682c84f66d3beb6f8379250c}{Set\+Element\+YOffset}} (int y) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_viewport_a82b5fbe79219257a390c727ec20fb63a}{Get\+Element\+Offset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_a309d46df7e4339aab0a8f9d9f2a8c3dd}{Get\+Element\+XOffset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_viewport_ae0e88aeb1306316af3cfd93eb580c989}{Get\+Element\+YOffset}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_viewport_ae0b01bf0be96876dc45ac92e8979e03c}\label{class_viewport_ae0b01bf0be96876dc45ac92e8979e03c}} 
+\index{Viewport@{Viewport}!AddOnMoveSubscriber@{AddOnMoveSubscriber}}
+\index{AddOnMoveSubscriber@{AddOnMoveSubscriber}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{AddOnMoveSubscriber()}{AddOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Viewport\+::\+Add\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a044a8a15a422bd15b21c43924297e983}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_a3955bf7ead969433aaa9cac9bda29521}\label{class_viewport_a3955bf7ead969433aaa9cac9bda29521}} 
+\index{Viewport@{Viewport}!AddOnResizeSubscriber@{AddOnResizeSubscriber}}
+\index{AddOnResizeSubscriber@{AddOnResizeSubscriber}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeSubscriber()}{AddOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Viewport\+::\+Add\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to add a new subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_a5156711914102d933d2548c8750cba32}\label{class_viewport_a5156711914102d933d2548c8750cba32}} 
+\index{Viewport@{Viewport}!GetAbsolutePosition@{GetAbsolutePosition}}
+\index{GetAbsolutePosition@{GetAbsolutePosition}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetAbsolutePosition()}{GetAbsolutePosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Viewport\+::\+Get\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns absolute position as a point which specifies the X and Y position. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_af82ec8b243e854b8eb72bea1a827f66a}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_aade5963f641c7c91444a718f1565c945}\label{class_viewport_aade5963f641c7c91444a718f1565c945}} 
+\index{Viewport@{Viewport}!GetAbsoluteX@{GetAbsoluteX}}
+\index{GetAbsoluteX@{GetAbsoluteX}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteX()}{GetAbsoluteX()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+AbsoluteX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns X absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a0345848260532e193fe8ec241a0a5061}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_aad5a4f42c8248f9b997c90ea155e0cad}\label{class_viewport_aad5a4f42c8248f9b997c90ea155e0cad}} 
+\index{Viewport@{Viewport}!GetAbsoluteY@{GetAbsoluteY}}
+\index{GetAbsoluteY@{GetAbsoluteY}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteY()}{GetAbsoluteY()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+AbsoluteY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns Y absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a82b5fbe79219257a390c727ec20fb63a}\label{class_viewport_a82b5fbe79219257a390c727ec20fb63a}} 
+\index{Viewport@{Viewport}!GetElementOffset@{GetElementOffset}}
+\index{GetElementOffset@{GetElementOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Viewport\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a309d46df7e4339aab0a8f9d9f2a8c3dd}\label{class_viewport_a309d46df7e4339aab0a8f9d9f2a8c3dd}} 
+\index{Viewport@{Viewport}!GetElementXOffset@{GetElementXOffset}}
+\index{GetElementXOffset@{GetElementXOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_ae0e88aeb1306316af3cfd93eb580c989}\label{class_viewport_ae0e88aeb1306316af3cfd93eb580c989}} 
+\index{Viewport@{Viewport}!GetElementYOffset@{GetElementYOffset}}
+\index{GetElementYOffset@{GetElementYOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a8fee8cf302fa00267f95d543fbc66a62}\label{class_viewport_a8fee8cf302fa00267f95d543fbc66a62}} 
+\index{Viewport@{Viewport}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the height of the object \begin{DoxyReturn}{Returns}
+returns the int value of the height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a9729ffaf1a8464103c9fdcac3defdfef}\label{class_viewport_a9729ffaf1a8464103c9fdcac3defdfef}} 
+\index{Viewport@{Viewport}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Viewport\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns position \begin{DoxyReturn}{Returns}
+returns Point object that specifies the X position and the Y position 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a23c5be86c27c555fb5931df1b80c53be}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_ab778c5e11a7ee67ab8ea10281320f6e6}\label{class_viewport_ab778c5e11a7ee67ab8ea10281320f6e6}} 
+\index{Viewport@{Viewport}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Size Viewport\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the size of the object. \begin{DoxyReturn}{Returns}
+returns a size object which specifies the width and height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a70f100b7a88a8e08a9869c643875d5a4}\label{class_viewport_a70f100b7a88a8e08a9869c643875d5a4}} 
+\index{Viewport@{Viewport}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int Viewport\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the width of the object \begin{DoxyReturn}{Returns}
+returns the int value of the width 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a50043d1a3b927688fcd6c323f500bb96}\label{class_viewport_a50043d1a3b927688fcd6c323f500bb96}} 
+\index{Viewport@{Viewport}!GetX@{GetX}}
+\index{GetX@{GetX}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetX()}{GetX()}}
+{\footnotesize\ttfamily int Viewport\+::\+GetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the X position of the object \begin{DoxyReturn}{Returns}
+returns X position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a2e74b0d568ba19eadb8f062443bbc0a1}\label{class_viewport_a2e74b0d568ba19eadb8f062443bbc0a1}} 
+\index{Viewport@{Viewport}!GetY@{GetY}}
+\index{GetY@{GetY}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{GetY()}{GetY()}}
+{\footnotesize\ttfamily int Viewport\+::\+GetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the Y position of the object \begin{DoxyReturn}{Returns}
+returns Y position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a8110a2232926728f82310d288ffad05b}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a30456a041595eda6b758a6202b596a90}\label{class_viewport_a30456a041595eda6b758a6202b596a90}} 
+\index{Viewport@{Viewport}!NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}}
+\index{NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMoveSubscribers()}{NotifyOnMoveSubscribers()}}
+{\footnotesize\ttfamily void Viewport\+::\+Notify\+On\+Move\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all the subscribers of this object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that should be sent to the subscribers. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_a35e3101d622ff18649e559d2894e65cd}\label{class_viewport_a35e3101d622ff18649e559d2894e65cd}} 
+\index{Viewport@{Viewport}!NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}}
+\index{NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{NotifyOnResizeSubscribers()}{NotifyOnResizeSubscribers()}}
+{\footnotesize\ttfamily void Viewport\+::\+Notify\+On\+Resize\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Called if an event is passed to all the subscribers/observers. 
+\begin{DoxyParams}{Parameters}
+{\em event} & the object containing event specific information \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_aef40b1e51ddce211e70e76bd746ac20f}\label{class_viewport_aef40b1e51ddce211e70e76bd746ac20f}} 
+\index{Viewport@{Viewport}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily void Viewport\+::\+On\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves an update event and executes the update action. The flags are defined in \mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} class. 
+
+Implements \mbox{\hyperlink{class_update_subscriber_a011a28a98c9079a14505cf37be37eb80}{Update\+Subscriber}}.
+
+\mbox{\Hypertarget{class_viewport_aa634df5b6c0febb2327c6b96093e9624}\label{class_viewport_aa634df5b6c0febb2327c6b96093e9624}} 
+\index{Viewport@{Viewport}!RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}}
+\index{RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{RemoveOnMoveSubscriber()}{RemoveOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Viewport\+::\+Remove\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em the} & subscriber to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_af859f68bef4a2c189182ddb863521f15}\label{class_viewport_af859f68bef4a2c189182ddb863521f15}} 
+\index{Viewport@{Viewport}!RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}}
+\index{RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{RemoveOnResizeSubscriber()}{RemoveOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Viewport\+::\+Remove\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to remove a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_viewport_acb0b2d4bd79cc8891445d96c3341d803}\label{class_viewport_acb0b2d4bd79cc8891445d96c3341d803}} 
+\index{Viewport@{Viewport}!SetElementOffset@{SetElementOffset}}
+\index{SetElementOffset@{SetElementOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_ac86c42395436f630ddfeea8c49c73824}\label{class_viewport_ac86c42395436f630ddfeea8c49c73824}} 
+\index{Viewport@{Viewport}!SetElementXOffset@{SetElementXOffset}}
+\index{SetElementXOffset@{SetElementXOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em x} & specifies the X offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a3a821ab1682c84f66d3beb6f8379250c}\label{class_viewport_a3a821ab1682c84f66d3beb6f8379250c}} 
+\index{Viewport@{Viewport}!SetElementYOffset@{SetElementYOffset}}
+\index{SetElementYOffset@{SetElementYOffset}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em y} & specifies the Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a4dd7b50408811b9652aab8ecc4470c97}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a91997d1f775594b8f621f459f6c354c9}\label{class_viewport_a91997d1f775594b8f621f459f6c354c9}} 
+\index{Viewport@{Viewport}!SetHeight@{SetHeight}}
+\index{SetHeight@{SetHeight}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetHeight()}{SetHeight()}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Height of the object 
+\begin{DoxyParams}{Parameters}
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_aa124467eb4873a4c578875be05c49191}\label{class_viewport_aa124467eb4873a4c578875be05c49191}} 
+\index{Viewport@{Viewport}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em position} & Sets the position as a point which specifies the X and Y position. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a500f5953329dff434370bd7c8f3c8a81}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a26501d9f007cbc9e832e45da907c5afe}\label{class_viewport_a26501d9f007cbc9e832e45da907c5afe}} 
+\index{Viewport@{Viewport}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a3f69b6dcb03beb0d5050b64be9591111}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a5f9c890b00d1838ab7c534b0d35d1eeb}\label{class_viewport_a5f9c890b00d1838ab7c534b0d35d1eeb}} 
+\index{Viewport@{Viewport}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the size of the object 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size object which specifies the width and height of the target object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a77641b09bfc1ec6534da1762cccd80af}\label{class_viewport_a77641b09bfc1ec6534da1762cccd80af}} 
+\index{Viewport@{Viewport}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a36f217a3de67ce1d8c8276dc038d6a60}\label{class_viewport_a36f217a3de67ce1d8c8276dc038d6a60}} 
+\index{Viewport@{Viewport}!SetWidth@{SetWidth}}
+\index{SetWidth@{SetWidth}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetWidth()}{SetWidth()}}
+{\footnotesize\ttfamily void Viewport\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Width of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}{Resizable}}.
+
+\mbox{\Hypertarget{class_viewport_a153bc4a99af23e2b02ea031afe90ed74}\label{class_viewport_a153bc4a99af23e2b02ea031afe90ed74}} 
+\index{Viewport@{Viewport}!SetX@{SetX}}
+\index{SetX@{SetX}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetX()}{SetX()}}
+{\footnotesize\ttfamily void Viewport\+::\+SetX (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{Movable}}.
+
+\mbox{\Hypertarget{class_viewport_a517c5de70b5924274437cce886ac3694}\label{class_viewport_a517c5de70b5924274437cce886ac3694}} 
+\index{Viewport@{Viewport}!SetY@{SetY}}
+\index{SetY@{SetY}!Viewport@{Viewport}}
+\doxysubsubsection{\texorpdfstring{SetY()}{SetY()}}
+{\footnotesize\ttfamily void Viewport\+::\+SetY (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{Movable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Viewport.\+h\item 
+Graphics/Viewport.\+cpp\end{DoxyCompactItemize}

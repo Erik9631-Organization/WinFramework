@@ -1,0 +1,127 @@
+\hypertarget{class_text_input}{}\doxysection{Text\+Input Class Reference}
+\label{class_text_input}\index{TextInput@{TextInput}}
+
+
+Inheritance diagram for Text\+Input\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_text_input__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_text_input_a139f76d86eca1cdd006e2526547fade9}{Text\+Input}} (int x, int y, int width, int height, string window\+Name)
+\item 
+\mbox{\hyperlink{class_text_input_a7a586e6b3a1381b88997d7c98fcd66c6}{Text\+Input}} (string name)
+\item 
+\mbox{\Hypertarget{class_text_input_a8e886e9817bc8bb73f8a4d9ef0f6701e}\label{class_text_input_a8e886e9817bc8bb73f8a4d9ef0f6701e}} 
+void {\bfseries Set\+Text} (wstring text) override
+\item 
+wstring \mbox{\hyperlink{class_text_input_af9b313043c676bb3b41f3f191ab6315d}{Get\+Text}} () override
+\item 
+Color \mbox{\hyperlink{class_text_input_a7389a92de229e889caa3c33b6fab569c}{Get\+Background\+Color}} ()
+\item 
+void \mbox{\hyperlink{class_text_input_af0586b1488ca123b16f2afce8ad0b1cf}{Set\+Multiline}} (bool state)
+\item 
+bool \mbox{\hyperlink{class_text_input_a4f2892313347a85ad193fdf15861d7e4}{Is\+Multi\+Line}} ()
+\item 
+void \mbox{\hyperlink{class_text_input_a29db87ea4308518fcd478b4a52ef312e}{Set\+Background\+Color}} (Color color)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_text_input_a139f76d86eca1cdd006e2526547fade9}\label{class_text_input_a139f76d86eca1cdd006e2526547fade9}} 
+\index{TextInput@{TextInput}!TextInput@{TextInput}}
+\index{TextInput@{TextInput}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{TextInput()}{TextInput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Text\+Input\+::\+Text\+Input (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{string}]{window\+Name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the X position of the grid. \\
+\hline
+{\em y} & the Y position of the grid \\
+\hline
+{\em width} & the width of the grid \\
+\hline
+{\em height} & the height of the grid. \\
+\hline
+{\em name} & the identification name of the grid. This is not a display value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_input_a7a586e6b3a1381b88997d7c98fcd66c6}\label{class_text_input_a7a586e6b3a1381b88997d7c98fcd66c6}} 
+\index{TextInput@{TextInput}!TextInput@{TextInput}}
+\index{TextInput@{TextInput}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{TextInput()}{TextInput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Text\+Input\+::\+Text\+Input (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the identification name of the grid. This is not a display value. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_text_input_a7389a92de229e889caa3c33b6fab569c}\label{class_text_input_a7389a92de229e889caa3c33b6fab569c}} 
+\index{TextInput@{TextInput}!GetBackgroundColor@{GetBackgroundColor}}
+\index{GetBackgroundColor@{GetBackgroundColor}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{GetBackgroundColor()}{GetBackgroundColor()}}
+{\footnotesize\ttfamily Color Text\+Input\+::\+Get\+Background\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the background color. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_input_af9b313043c676bb3b41f3f191ab6315d}\label{class_text_input_af9b313043c676bb3b41f3f191ab6315d}} 
+\index{TextInput@{TextInput}!GetText@{GetText}}
+\index{GetText@{GetText}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily wstring Text\+Input\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the text value of the component. (Usually used for name or description) \begin{DoxyReturn}{Returns}
+returns unicode string value 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Component}}.
+
+\mbox{\Hypertarget{class_text_input_a4f2892313347a85ad193fdf15861d7e4}\label{class_text_input_a4f2892313347a85ad193fdf15861d7e4}} 
+\index{TextInput@{TextInput}!IsMultiLine@{IsMultiLine}}
+\index{IsMultiLine@{IsMultiLine}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{IsMultiLine()}{IsMultiLine()}}
+{\footnotesize\ttfamily bool Text\+Input\+::\+Is\+Multi\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns whether the textfield is multiline. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_text_input_a29db87ea4308518fcd478b4a52ef312e}\label{class_text_input_a29db87ea4308518fcd478b4a52ef312e}} 
+\index{TextInput@{TextInput}!SetBackgroundColor@{SetBackgroundColor}}
+\index{SetBackgroundColor@{SetBackgroundColor}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{SetBackgroundColor()}{SetBackgroundColor()}}
+{\footnotesize\ttfamily void Text\+Input\+::\+Set\+Background\+Color (\begin{DoxyParamCaption}\item[{Color}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the background color. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_text_input_af0586b1488ca123b16f2afce8ad0b1cf}\label{class_text_input_af0586b1488ca123b16f2afce8ad0b1cf}} 
+\index{TextInput@{TextInput}!SetMultiline@{SetMultiline}}
+\index{SetMultiline@{SetMultiline}!TextInput@{TextInput}}
+\doxysubsubsection{\texorpdfstring{SetMultiline()}{SetMultiline()}}
+{\footnotesize\ttfamily void Text\+Input\+::\+Set\+Multiline (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em state} & sets whether the text field is multiline. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Text\+Input.\+h\item 
+Graphics/Text\+Input.\+cpp\end{DoxyCompactItemize}

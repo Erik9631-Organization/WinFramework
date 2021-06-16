@@ -1,0 +1,20 @@
+<map id="Activatable" name="Activatable">
+<area shape="rect" id="node1" title=" " alt="" coords="290,80,375,107"/>
+<area shape="rect" id="node3" href="$class_default_activate.html" title=" " alt="" coords="208,155,316,181"/>
+<area shape="rect" id="node4" href="$class_mouse_interactable.html" title=" " alt="" coords="341,155,469,181"/>
+<area shape="rect" id="node2" href="$class_activate_subject.html" title=" " alt="" coords="277,5,389,32"/>
+<area shape="rect" id="node5" href="$class_component.html" title=" " alt="" coords="361,229,449,256"/>
+<area shape="rect" id="node6" href="$class_button.html" title=" " alt="" coords="5,304,65,331"/>
+<area shape="rect" id="node7" href="$class_checkbox.html" title=" " alt="" coords="90,304,170,331"/>
+<area shape="rect" id="node8" href="$class_label.html" title=" " alt="" coords="194,304,247,331"/>
+<area shape="rect" id="node10" href="$class_panel.html" title=" " alt="" coords="272,304,327,331"/>
+<area shape="rect" id="node14" href="$class_password_field.html" title=" " alt="" coords="351,304,458,331"/>
+<area shape="rect" id="node15" href="$class_radio_button.html" title=" " alt="" coords="482,304,575,331"/>
+<area shape="rect" id="node16" href="$class_text_input.html" title=" " alt="" coords="599,304,674,331"/>
+<area shape="rect" id="node17" href="$class_track_bar.html" title=" " alt="" coords="698,304,773,331"/>
+<area shape="rect" id="node18" href="$class_window_frame.html" title=" " alt="" coords="797,304,903,331"/>
+<area shape="rect" id="node9" href="$class_table_element.html" title=" " alt="" coords="85,379,186,405"/>
+<area shape="rect" id="node11" href="$class_combo_box.html" title=" " alt="" coords="211,379,297,405"/>
+<area shape="rect" id="node12" href="$class_grid.html" title=" " alt="" coords="321,379,368,405"/>
+<area shape="rect" id="node13" href="$class_list_box.html" title=" " alt="" coords="393,379,459,405"/>
+</map>

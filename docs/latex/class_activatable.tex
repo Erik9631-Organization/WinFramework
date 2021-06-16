@@ -1,0 +1,61 @@
+\hypertarget{class_activatable}{}\doxysection{Activatable Class Reference}
+\label{class_activatable}\index{Activatable@{Activatable}}
+
+
+{\ttfamily \#include $<$Activatable.\+h$>$}
+
+
+
+Inheritance diagram for Activatable\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_activatable__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_activatable_a5ff9145e9b50e74a95f7f666b57f205c}{Set\+Active}} (bool state)=0
+\item 
+virtual bool \mbox{\hyperlink{class_activatable_ab44dc7a1886005ee1690fd7d14ee33ca}{Is\+Active}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by objects which support focus. By definition, only one component at the same time can have focus And the component that has focus receives input events. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_activatable_ab44dc7a1886005ee1690fd7d14ee33ca}\label{class_activatable_ab44dc7a1886005ee1690fd7d14ee33ca}} 
+\index{Activatable@{Activatable}!IsActive@{IsActive}}
+\index{IsActive@{IsActive}!Activatable@{Activatable}}
+\doxysubsubsection{\texorpdfstring{IsActive()}{IsActive()}}
+{\footnotesize\ttfamily virtual bool Activatable\+::\+Is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns whether the component has a focus \begin{DoxyReturn}{Returns}
+returns whether the component is active. True for active false for inactive. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_default_activate_a98c10a75034d5c65cbcae6f8e1aa7b23}{Default\+Activate}}, and \mbox{\hyperlink{class_component_a106fb6dddbb002ff020dfddd8ebf821a}{Component}}.
+
+\mbox{\Hypertarget{class_activatable_a5ff9145e9b50e74a95f7f666b57f205c}\label{class_activatable_a5ff9145e9b50e74a95f7f666b57f205c}} 
+\index{Activatable@{Activatable}!SetActive@{SetActive}}
+\index{SetActive@{SetActive}!Activatable@{Activatable}}
+\doxysubsubsection{\texorpdfstring{SetActive()}{SetActive()}}
+{\footnotesize\ttfamily virtual void Activatable\+::\+Set\+Active (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets whether the current component should have focus. 
+\begin{DoxyParams}{Parameters}
+{\em state} & true if it should have focus, false if it should not. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_default_activate_ac1af3eb9ee94d1a34d43af577fe106aa}{Default\+Activate}}, and \mbox{\hyperlink{class_component_a81158fc64fc4c9df4f70c954fbbff21a}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Activatable.\+h\end{DoxyCompactItemize}

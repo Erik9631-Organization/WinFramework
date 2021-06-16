@@ -1,0 +1,150 @@
+\hypertarget{class_simple_border}{}\doxysection{Simple\+Border Class Reference}
+\label{class_simple_border}\index{SimpleBorder@{SimpleBorder}}
+
+
+{\ttfamily \#include $<$Simple\+Border.\+h$>$}
+
+
+
+Inheritance diagram for Simple\+Border\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{class_simple_border__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simple_border_ab8421767379d5cd2a037ce68523c8ca7}\label{class_simple_border_ab8421767379d5cd2a037ce68523c8ca7}} 
+void {\bfseries Set\+Color} (Gdiplus\+::\+Color color)
+\item 
+\mbox{\Hypertarget{class_simple_border_a2cde228213a18a7baadd0db77b09b516}\label{class_simple_border_a2cde228213a18a7baadd0db77b09b516}} 
+Gdiplus\+::\+Color {\bfseries Get\+Color} ()
+\item 
+\mbox{\Hypertarget{class_simple_border_abf598a172cb204630defee115fcebf22}\label{class_simple_border_abf598a172cb204630defee115fcebf22}} 
+void {\bfseries Set\+Border\+Style} (Gdiplus\+::\+Dash\+Style style)
+\item 
+\mbox{\Hypertarget{class_simple_border_a50d7a8cdd5a4f13888b88d8fabbf099d}\label{class_simple_border_a50d7a8cdd5a4f13888b88d8fabbf099d}} 
+void {\bfseries Set\+Thickness} (float thickness)
+\item 
+\mbox{\Hypertarget{class_simple_border_a8504eb0c0215909486cd108ebdf246a9}\label{class_simple_border_a8504eb0c0215909486cd108ebdf246a9}} 
+void {\bfseries Set\+Scaling\+Type} (int type)
+\item 
+\mbox{\Hypertarget{class_simple_border_a5f072dd56083766ac0120255be1a15c5}\label{class_simple_border_a5f072dd56083766ac0120255be1a15c5}} 
+void {\bfseries Set\+Vertical\+Centering} (bool state)
+\item 
+\mbox{\Hypertarget{class_simple_border_a1f88e0388151ed406c8beacfd9f09d24}\label{class_simple_border_a1f88e0388151ed406c8beacfd9f09d24}} 
+void {\bfseries Horizontal\+Centering} (bool state)
+\item 
+virtual void \mbox{\hyperlink{class_simple_border_a8452516558fe1451ea3a518a8f4a253a}{On\+Render}} (\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_simple_border_a7339e49d62e79707fcd9e8e3ba1df9e1}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_simple_border_aa766b1d1c322466c2b12c66dfcbb17f2}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual void \mbox{\hyperlink{class_simple_border_ac60f850268eb152f557cc958ef554787}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable) override
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_simple_border_ace767a0b24924dd394bb65f74a8c53e5}{Get\+Renderables}} () override
+\item 
+\mbox{\Hypertarget{class_simple_border_a840a9a32f81225a19adeb62259c60baa}\label{class_simple_border_a840a9a32f81225a19adeb62259c60baa}} 
+Gdiplus\+::\+SizeF \& {\bfseries Get\+Size} ()
+\item 
+\mbox{\Hypertarget{class_simple_border_abbbefdc906b7b62d3c31e5b415ca2eb2}\label{class_simple_border_abbbefdc906b7b62d3c31e5b415ca2eb2}} 
+Gdiplus\+::\+PointF \& {\bfseries Get\+Percentual\+Position} ()
+\item 
+\mbox{\Hypertarget{class_simple_border_a809d6a3cccbc444fa68c3ff2bd07f6cc}\label{class_simple_border_a809d6a3cccbc444fa68c3ff2bd07f6cc}} 
+virtual bool {\bfseries Has\+Method} (std\+::string method) override
+\item 
+\mbox{\Hypertarget{class_simple_border_a5143b32fa78061ff28a247e045433896}\label{class_simple_border_a5143b32fa78061ff28a247e045433896}} 
+virtual \mbox{\hyperlink{class_reflection_container}{Reflection\+Container}}$<$ \mbox{\hyperlink{class_simple_border}{Simple\+Border}} $>$ \& {\bfseries Get\+Reflection\+Container} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_simple_border_a770d34b15c653a96503d0b60fa8b4dc0}\label{class_simple_border_a770d34b15c653a96503d0b60fa8b4dc0}} 
+\mbox{\hyperlink{class_reflection_container}{Reflection\+Container}}$<$ \mbox{\hyperlink{class_simple_border}{Simple\+Border}} $>$ {\bfseries reflection\+Container}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A border renderable. Draws a border around the edges of the target object. Supported properties\+:~\newline
+ border-\/color, args\+: Gdiplus\+::\+Color, return void~\newline
+ border-\/style, args\+: Gdiplus\+::\+Dash\+Style~\newline
+ border-\/thickness, args\+: float 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_simple_border_aa766b1d1c322466c2b12c66dfcbb17f2}\label{class_simple_border_aa766b1d1c322466c2b12c66dfcbb17f2}} 
+\index{SimpleBorder@{SimpleBorder}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!SimpleBorder@{SimpleBorder}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily void Simple\+Border\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Renderable}}.
+
+\mbox{\Hypertarget{class_simple_border_ace767a0b24924dd394bb65f74a8c53e5}\label{class_simple_border_ace767a0b24924dd394bb65f74a8c53e5}} 
+\index{SimpleBorder@{SimpleBorder}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!SimpleBorder@{SimpleBorder}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ Simple\+Border\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Renderable}}.
+
+\mbox{\Hypertarget{class_simple_border_a8452516558fe1451ea3a518a8f4a253a}\label{class_simple_border_a8452516558fe1451ea3a518a8f4a253a}} 
+\index{SimpleBorder@{SimpleBorder}!OnRender@{OnRender}}
+\index{OnRender@{OnRender}!SimpleBorder@{SimpleBorder}}
+\doxysubsubsection{\texorpdfstring{OnRender()}{OnRender()}}
+{\footnotesize\ttfamily void Simple\+Border\+::\+On\+Render (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Method which recieves the render events 
+\begin{DoxyParams}{Parameters}
+{\em e} & the render event object which contains the graphics on which the rendering is to be done. Check \mbox{\hyperlink{class_render_event_info}{Render\+Event\+Info}} class. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_subscriber_abaefbe701c5026be0122888fa6fd8ea7}{Renderable\+Subscriber}}.
+
+\mbox{\Hypertarget{class_simple_border_ac60f850268eb152f557cc958ef554787}\label{class_simple_border_ac60f850268eb152f557cc958ef554787}} 
+\index{SimpleBorder@{SimpleBorder}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!SimpleBorder@{SimpleBorder}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily void Simple\+Border\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Renderable}}.
+
+\mbox{\Hypertarget{class_simple_border_a7339e49d62e79707fcd9e8e3ba1df9e1}\label{class_simple_border_a7339e49d62e79707fcd9e8e3ba1df9e1}} 
+\index{SimpleBorder@{SimpleBorder}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!SimpleBorder@{SimpleBorder}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Simple\+Border\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Implements \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Renderable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Simple\+Border.\+h\item 
+Graphics/Simple\+Border.\+cpp\end{DoxyCompactItemize}

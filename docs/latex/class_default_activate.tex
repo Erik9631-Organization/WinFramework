@@ -1,0 +1,112 @@
+\hypertarget{class_default_activate}{}\doxysection{Default\+Activate Class Reference}
+\label{class_default_activate}\index{DefaultActivate@{DefaultActivate}}
+
+
+Inheritance diagram for Default\+Activate\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=164pt]{class_default_activate__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_default_activate_a276f4076cce2ad528c1d89e9c715b578}\label{class_default_activate_a276f4076cce2ad528c1d89e9c715b578}} 
+void {\bfseries Set\+Activatable} (bool state)
+\item 
+\mbox{\Hypertarget{class_default_activate_a1357bb6dcc06c23216b486f14e101121}\label{class_default_activate_a1357bb6dcc06c23216b486f14e101121}} 
+bool {\bfseries Is\+Activatable} ()
+\item 
+virtual void \mbox{\hyperlink{class_default_activate_a4c9486305d1d0c02c2e9b0c0e883cd24}{Add\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_activate_a8f63853e5964ef896c3879f6a4eb9ae0}{Remove\+On\+Activate\+Subscriber}} (\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_activate_ac1af3eb9ee94d1a34d43af577fe106aa}{Set\+Active}} (bool state) override
+\item 
+virtual bool \mbox{\hyperlink{class_default_activate_a98c10a75034d5c65cbcae6f8e1aa7b23}{Is\+Active}} () override
+\item 
+virtual void \mbox{\hyperlink{class_default_activate_add07385f6a8c215e138363c93e194569}{Notify\+On\+Activate\+State\+Changed}} (\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&activate\+Info) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_default_activate_a4c9486305d1d0c02c2e9b0c0e883cd24}\label{class_default_activate_a4c9486305d1d0c02c2e9b0c0e883cd24}} 
+\index{DefaultActivate@{DefaultActivate}!AddOnActivateSubscriber@{AddOnActivateSubscriber}}
+\index{AddOnActivateSubscriber@{AddOnActivateSubscriber}!DefaultActivate@{DefaultActivate}}
+\doxysubsubsection{\texorpdfstring{AddOnActivateSubscriber()}{AddOnActivateSubscriber()}}
+{\footnotesize\ttfamily void Default\+Activate\+::\+Add\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & the subscriber to be added \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_aee48e351365defb3778e27489d11211c}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_default_activate_a98c10a75034d5c65cbcae6f8e1aa7b23}\label{class_default_activate_a98c10a75034d5c65cbcae6f8e1aa7b23}} 
+\index{DefaultActivate@{DefaultActivate}!IsActive@{IsActive}}
+\index{IsActive@{IsActive}!DefaultActivate@{DefaultActivate}}
+\doxysubsubsection{\texorpdfstring{IsActive()}{IsActive()}}
+{\footnotesize\ttfamily bool Default\+Activate\+::\+Is\+Active (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns whether the component has a focus \begin{DoxyReturn}{Returns}
+returns whether the component is active. True for active false for inactive. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_activatable_ab44dc7a1886005ee1690fd7d14ee33ca}{Activatable}}.
+
+\mbox{\Hypertarget{class_default_activate_add07385f6a8c215e138363c93e194569}\label{class_default_activate_add07385f6a8c215e138363c93e194569}} 
+\index{DefaultActivate@{DefaultActivate}!NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}}
+\index{NotifyOnActivateStateChanged@{NotifyOnActivateStateChanged}!DefaultActivate@{DefaultActivate}}
+\doxysubsubsection{\texorpdfstring{NotifyOnActivateStateChanged()}{NotifyOnActivateStateChanged()}}
+{\footnotesize\ttfamily void Default\+Activate\+::\+Notify\+On\+Activate\+State\+Changed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_on_activate_info}{Event\+On\+Activate\+Info}} \&}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends a focus which is propagated to all the subscribers. 
+\begin{DoxyParams}{Parameters}
+{\em e} & event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_a4897f3bc76f85aaa326c4854916aabd2}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_default_activate_a8f63853e5964ef896c3879f6a4eb9ae0}\label{class_default_activate_a8f63853e5964ef896c3879f6a4eb9ae0}} 
+\index{DefaultActivate@{DefaultActivate}!RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}}
+\index{RemoveOnActivateSubscriber@{RemoveOnActivateSubscriber}!DefaultActivate@{DefaultActivate}}
+\doxysubsubsection{\texorpdfstring{RemoveOnActivateSubscriber()}{RemoveOnActivateSubscriber()}}
+{\footnotesize\ttfamily void Default\+Activate\+::\+Remove\+On\+Activate\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_activate_subscriber}{Activate\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activate_subject_aaea6c2da9efb470def3ae30e050cb5a8}{Activate\+Subject}}.
+
+\mbox{\Hypertarget{class_default_activate_ac1af3eb9ee94d1a34d43af577fe106aa}\label{class_default_activate_ac1af3eb9ee94d1a34d43af577fe106aa}} 
+\index{DefaultActivate@{DefaultActivate}!SetActive@{SetActive}}
+\index{SetActive@{SetActive}!DefaultActivate@{DefaultActivate}}
+\doxysubsubsection{\texorpdfstring{SetActive()}{SetActive()}}
+{\footnotesize\ttfamily void Default\+Activate\+::\+Set\+Active (\begin{DoxyParamCaption}\item[{bool}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets whether the current component should have focus. 
+\begin{DoxyParams}{Parameters}
+{\em state} & true if it should have focus, false if it should not. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_activatable_a5ff9145e9b50e74a95f7f666b57f205c}{Activatable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Default\+Activate.\+h\item 
+Graphics/Default\+Activate.\+cpp\end{DoxyCompactItemize}

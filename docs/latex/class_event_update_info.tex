@@ -1,0 +1,79 @@
+\hypertarget{class_event_update_info}{}\doxysection{Event\+Update\+Info Class Reference}
+\label{class_event_update_info}\index{EventUpdateInfo@{EventUpdateInfo}}
+
+
+{\ttfamily \#include $<$Event\+Update\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_event_update_info_ad82e681d7617cad3a3545798e1918d8f}{Event\+Update\+Info}} (Event\+Update\+Flags flags)
+\item 
+void \mbox{\hyperlink{class_event_update_info_abefc349962d4c2ec5fc6e9a29a0ed23b}{Set\+Flags}} (Event\+Update\+Flags flags)
+\item 
+void \mbox{\hyperlink{class_event_update_info_a537456214e6dd492c23ab91e9ef47ae5}{Disable\+Flag}} (Event\+Update\+Flags flags)
+\item 
+bool \mbox{\hyperlink{class_event_update_info_ae86f15d556600c0e31487ed6fa12d110}{Has\+Flag}} (Event\+Update\+Flags flag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for holding event data related to updates. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_update_info_ad82e681d7617cad3a3545798e1918d8f}\label{class_event_update_info_ad82e681d7617cad3a3545798e1918d8f}} 
+\index{EventUpdateInfo@{EventUpdateInfo}!EventUpdateInfo@{EventUpdateInfo}}
+\index{EventUpdateInfo@{EventUpdateInfo}!EventUpdateInfo@{EventUpdateInfo}}
+\doxysubsubsection{\texorpdfstring{EventUpdateInfo()}{EventUpdateInfo()}}
+{\footnotesize\ttfamily Event\+Update\+Info\+::\+Event\+Update\+Info (\begin{DoxyParamCaption}\item[{Event\+Update\+Flags}]{flags }\end{DoxyParamCaption})}
+
+NOTE\+: The flags are implementation specific. The framework generally understands these flags and will perform the updates based on the information provided in the Event\+Update\+Flags enum. 
+\begin{DoxyParams}{Parameters}
+{\em flags} & the update flags according to which the update should proceed. Check Event\+Update\+Flags enum for more info. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_update_info_a537456214e6dd492c23ab91e9ef47ae5}\label{class_event_update_info_a537456214e6dd492c23ab91e9ef47ae5}} 
+\index{EventUpdateInfo@{EventUpdateInfo}!DisableFlag@{DisableFlag}}
+\index{DisableFlag@{DisableFlag}!EventUpdateInfo@{EventUpdateInfo}}
+\doxysubsubsection{\texorpdfstring{DisableFlag()}{DisableFlag()}}
+{\footnotesize\ttfamily void Event\+Update\+Info\+::\+Disable\+Flag (\begin{DoxyParamCaption}\item[{Event\+Update\+Flags}]{flags }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em flags} & disables the flag specified in this parameter \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_update_info_ae86f15d556600c0e31487ed6fa12d110}\label{class_event_update_info_ae86f15d556600c0e31487ed6fa12d110}} 
+\index{EventUpdateInfo@{EventUpdateInfo}!HasFlag@{HasFlag}}
+\index{HasFlag@{HasFlag}!EventUpdateInfo@{EventUpdateInfo}}
+\doxysubsubsection{\texorpdfstring{HasFlag()}{HasFlag()}}
+{\footnotesize\ttfamily bool Event\+Update\+Info\+::\+Has\+Flag (\begin{DoxyParamCaption}\item[{Event\+Update\+Flags}]{flag }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em flag} & performs a check on the flag specified in this parameter \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if the flag is set, returns false otherwise. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_update_info_abefc349962d4c2ec5fc6e9a29a0ed23b}\label{class_event_update_info_abefc349962d4c2ec5fc6e9a29a0ed23b}} 
+\index{EventUpdateInfo@{EventUpdateInfo}!SetFlags@{SetFlags}}
+\index{SetFlags@{SetFlags}!EventUpdateInfo@{EventUpdateInfo}}
+\doxysubsubsection{\texorpdfstring{SetFlags()}{SetFlags()}}
+{\footnotesize\ttfamily void Event\+Update\+Info\+::\+Set\+Flags (\begin{DoxyParamCaption}\item[{Event\+Update\+Flags}]{flags }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em flags} & overrides the old flags with the flags specified in this parameter \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Event\+Update\+Info.\+h\item 
+Graphics/Event\+Update\+Info.\+cpp\end{DoxyCompactItemize}

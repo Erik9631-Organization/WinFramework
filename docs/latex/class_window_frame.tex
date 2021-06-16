@@ -1,0 +1,245 @@
+\hypertarget{class_window_frame}{}\doxysection{Window\+Frame Class Reference}
+\label{class_window_frame}\index{WindowFrame@{WindowFrame}}
+
+
+{\ttfamily \#include $<$Window\+Frame.\+h$>$}
+
+
+
+Inheritance diagram for Window\+Frame\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_window_frame__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_window_frame_abb4f05b61f0b3534d64644a578476cc8}{Add\+Window\+Style}} (LONG style\+Flags)
+\item 
+void \mbox{\hyperlink{class_window_frame_a5ea859d578ddd8c7c83cffedd87975af}{Remove\+Window\+Style}} (LONG style\+Flags)
+\item 
+void \mbox{\hyperlink{class_window_frame_a3b5cec226d78e6336bec999a33ab7dea}{Add\+Window\+Extended\+Style}} (LONG style\+Flags)
+\item 
+void \mbox{\hyperlink{class_window_frame_ac119ecf04546f380ae3b4bbc86f70ba8}{Remove\+Window\+Extended\+Style}} (LONG style\+Flags)
+\item 
+void \mbox{\hyperlink{class_window_frame_ad8b4d003ee5341e56ebf9daebd68f647}{Set\+Size}} (int width, int height) override
+\item 
+\mbox{\Hypertarget{class_window_frame_a263333641c4f757d20ee4918c0fdb890}\label{class_window_frame_a263333641c4f757d20ee4918c0fdb890}} 
+void {\bfseries Set\+Size} (Size size) override
+\item 
+void \mbox{\hyperlink{class_window_frame_a25347c33646be87dc103406fabf163ee}{Repaint}} () override
+\item 
+virtual void \mbox{\hyperlink{class_window_frame_ae43e561da745e2b5620ae8dfb604342c}{Notify\+On\+Mouse\+Down}} (\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}} e) override
+\item 
+void \mbox{\hyperlink{class_window_frame_a5aefd805bfb8b786c261adc2c578626c}{Set\+Position}} (int x, int y) override
+\item 
+\mbox{\Hypertarget{class_window_frame_abec27f8610ff28c77a6ea68969d9ddeb}\label{class_window_frame_abec27f8610ff28c77a6ea68969d9ddeb}} 
+void {\bfseries Set\+Position} (Point point) override
+\item 
+virtual void \mbox{\hyperlink{class_window_frame_a486350b49ae876fdb9590b9c5b232f89}{Notify\+On\+Key\+Down}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_window_frame_ab4d3032f13a6350538de88f49a99aeb0}{Notify\+On\+Key\+Up}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+virtual void \mbox{\hyperlink{class_window_frame_ae2bb490b5ffa56910f7b5adf88f6b284}{Notify\+On\+Key\+Pressed}} (\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} e) override
+\item 
+\mbox{\Hypertarget{class_window_frame_ae1f221ab720fe0d2543a44290309b174}\label{class_window_frame_ae1f221ab720fe0d2543a44290309b174}} 
+void {\bfseries Close\+Window} ()
+\item 
+\mbox{\Hypertarget{class_window_frame_abbdc91c934c2f42e63ad2b5c8e2bc91d}\label{class_window_frame_abbdc91c934c2f42e63ad2b5c8e2bc91d}} 
+void {\bfseries Update\+Window} ()
+\item 
+\mbox{\Hypertarget{class_window_frame_ad67ea33fc1542e5ae743f6e5c5728425}\label{class_window_frame_ad67ea33fc1542e5ae743f6e5c5728425}} 
+{\bfseries Window\+Frame} (std\+::string window\+Name)
+\item 
+\mbox{\Hypertarget{class_window_frame_acce7f05e5edb0bf7149a84f5ee0ea3f9}\label{class_window_frame_acce7f05e5edb0bf7149a84f5ee0ea3f9}} 
+{\bfseries Window\+Frame} (int x, int y, int width, int height, std\+::string window\+Name)
+\item 
+\mbox{\Hypertarget{class_window_frame_a40b54a34d646ac6903db50628cd4a312}\label{class_window_frame_a40b54a34d646ac6903db50628cd4a312}} 
+{\bfseries Window\+Frame} (int x, int y, int width, int height, std\+::string window\+Name, LONG style)
+\item 
+virtual void \mbox{\hyperlink{class_window_frame_a929685e4b7d92bc12982d9a8f063e689}{Add}} (\mbox{\hyperlink{class_component}{Component}} \&component) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_window_frame_adfb77ef2627bff0fdb5aacd5f0b8a7ff}\label{class_window_frame_adfb77ef2627bff0fdb5aacd5f0b8a7ff}} 
+bool {\bfseries init\+Done} = false
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+This class wraps the \mbox{\hyperlink{class_core_window_frame}{Core\+Window\+Frame}} class and is responsible for delegating most of the method calls to that class. It is also the top root of the containment hierarchy and is the first component that should be created in your application. All the components that are to be displayed within the window should be added via the \mbox{\hyperlink{class_component_a1004baa17f2e5d6b9e808e908f2a3825}{Component\+::\+Add}} function which this class inherits. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_window_frame_a929685e4b7d92bc12982d9a8f063e689}\label{class_window_frame_a929685e4b7d92bc12982d9a8f063e689}} 
+\index{WindowFrame@{WindowFrame}!Add@{Add}}
+\index{Add@{Add}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{Add()}{Add()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_component}{Component}} \&}]{component }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window. 
+\begin{DoxyParams}{Parameters}
+{\em component} & the component to be added \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a1004baa17f2e5d6b9e808e908f2a3825}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_a3b5cec226d78e6336bec999a33ab7dea}\label{class_window_frame_a3b5cec226d78e6336bec999a33ab7dea}} 
+\index{WindowFrame@{WindowFrame}!AddWindowExtendedStyle@{AddWindowExtendedStyle}}
+\index{AddWindowExtendedStyle@{AddWindowExtendedStyle}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{AddWindowExtendedStyle()}{AddWindowExtendedStyle()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Add\+Window\+Extended\+Style (\begin{DoxyParamCaption}\item[{LONG}]{style\+Flags }\end{DoxyParamCaption})}
+
+Adds a new flag to the window style. 
+\begin{DoxyParams}{Parameters}
+{\em style\+Flags} & the flag of the style you would like to add. List of flags are available here\+: \href{https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles}{\texttt{ MSDN}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_frame_abb4f05b61f0b3534d64644a578476cc8}\label{class_window_frame_abb4f05b61f0b3534d64644a578476cc8}} 
+\index{WindowFrame@{WindowFrame}!AddWindowStyle@{AddWindowStyle}}
+\index{AddWindowStyle@{AddWindowStyle}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{AddWindowStyle()}{AddWindowStyle()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Add\+Window\+Style (\begin{DoxyParamCaption}\item[{LONG}]{style\+Flags }\end{DoxyParamCaption})}
+
+Adds a new flag to the window style. Some of these styles can not be changed at runtime. Please refer to \href{https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga}{\texttt{ MSDN}} 
+\begin{DoxyParams}{Parameters}
+{\em style\+Flags} & the flag of the style you would like to add. List of flags are available here\+: \href{https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles}{\texttt{ MSDN}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_frame_a486350b49ae876fdb9590b9c5b232f89}\label{class_window_frame_a486350b49ae876fdb9590b9c5b232f89}} 
+\index{WindowFrame@{WindowFrame}!NotifyOnKeyDown@{NotifyOnKeyDown}}
+\index{NotifyOnKeyDown@{NotifyOnKeyDown}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyDown()}{NotifyOnKeyDown()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Notify\+On\+Key\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_ae9c046e03060636bf68434c21c9a1d10}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_ae2bb490b5ffa56910f7b5adf88f6b284}\label{class_window_frame_ae2bb490b5ffa56910f7b5adf88f6b284}} 
+\index{WindowFrame@{WindowFrame}!NotifyOnKeyPressed@{NotifyOnKeyPressed}}
+\index{NotifyOnKeyPressed@{NotifyOnKeyPressed}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyPressed()}{NotifyOnKeyPressed()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Notify\+On\+Key\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers whenever the key is held down. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_aa913abb9d13cecf34a7c45e79f778824}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_ab4d3032f13a6350538de88f49a99aeb0}\label{class_window_frame_ab4d3032f13a6350538de88f49a99aeb0}} 
+\index{WindowFrame@{WindowFrame}!NotifyOnKeyUp@{NotifyOnKeyUp}}
+\index{NotifyOnKeyUp@{NotifyOnKeyUp}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{NotifyOnKeyUp()}{NotifyOnKeyUp()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Notify\+On\+Key\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all subscribers on Key\+Up 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be sent. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_ae293bc38cfcfaebac953a745f7d9dcfa}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_ae43e561da745e2b5620ae8dfb604342c}\label{class_window_frame_ae43e561da745e2b5620ae8dfb604342c}} 
+\index{WindowFrame@{WindowFrame}!NotifyOnMouseDown@{NotifyOnMouseDown}}
+\index{NotifyOnMouseDown@{NotifyOnMouseDown}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMouseDown()}{NotifyOnMouseDown()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Notify\+On\+Mouse\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves event whenever the left mouse button is down 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object to be received. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4a5600dfca3d0a8548916d6d943b541b}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_ac119ecf04546f380ae3b4bbc86f70ba8}\label{class_window_frame_ac119ecf04546f380ae3b4bbc86f70ba8}} 
+\index{WindowFrame@{WindowFrame}!RemoveWindowExtendedStyle@{RemoveWindowExtendedStyle}}
+\index{RemoveWindowExtendedStyle@{RemoveWindowExtendedStyle}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{RemoveWindowExtendedStyle()}{RemoveWindowExtendedStyle()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Remove\+Window\+Extended\+Style (\begin{DoxyParamCaption}\item[{LONG}]{style\+Flags }\end{DoxyParamCaption})}
+
+Removes a flag to the window style. 
+\begin{DoxyParams}{Parameters}
+{\em style\+Flags} & the flag of the style you would like to remove. List of flags are available here\+: \href{https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles}{\texttt{ MSDN}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_frame_a5ea859d578ddd8c7c83cffedd87975af}\label{class_window_frame_a5ea859d578ddd8c7c83cffedd87975af}} 
+\index{WindowFrame@{WindowFrame}!RemoveWindowStyle@{RemoveWindowStyle}}
+\index{RemoveWindowStyle@{RemoveWindowStyle}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{RemoveWindowStyle()}{RemoveWindowStyle()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Remove\+Window\+Style (\begin{DoxyParamCaption}\item[{LONG}]{style\+Flags }\end{DoxyParamCaption})}
+
+Removes a flag to the window style. Some of these styles can not be changed at runtime. Please refer to \href{https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga}{\texttt{ MSDN}} 
+\begin{DoxyParams}{Parameters}
+{\em style\+Flags} & the flag of the style you would like to remove. List of flags are available here\+: \href{https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles}{\texttt{ MSDN}} \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_window_frame_a25347c33646be87dc103406fabf163ee}\label{class_window_frame_a25347c33646be87dc103406fabf163ee}} 
+\index{WindowFrame@{WindowFrame}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Forces a repaint of the current component 
+
+Reimplemented from \mbox{\hyperlink{class_component_ab5d97caac7b73fc4b3c140670f726c15}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_a5aefd805bfb8b786c261adc2c578626c}\label{class_window_frame_a5aefd805bfb8b786c261adc2c578626c}} 
+\index{WindowFrame@{WindowFrame}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4c5574ca572f499889aa246f48e38c75}{Component}}.
+
+\mbox{\Hypertarget{class_window_frame_ad8b4d003ee5341e56ebf9daebd68f647}\label{class_window_frame_ad8b4d003ee5341e56ebf9daebd68f647}} 
+\index{WindowFrame@{WindowFrame}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!WindowFrame@{WindowFrame}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}}
+{\footnotesize\ttfamily void Window\+Frame\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_af149602c5eebe1f36d2ea43f876999ff}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Window\+Frame.\+h\item 
+Graphics/Window\+Frame.\+cpp\end{DoxyCompactItemize}

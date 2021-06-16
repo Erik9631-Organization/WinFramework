@@ -1,0 +1,124 @@
+\hypertarget{class_label}{}\doxysection{Label Class Reference}
+\label{class_label}\index{Label@{Label}}
+
+
+{\ttfamily \#include $<$Label.\+h$>$}
+
+
+
+Inheritance diagram for Label\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_label__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_label_a180990410b79b70beee7707f4360a901}{Label}} (std\+::string name)
+\item 
+\mbox{\hyperlink{class_label_ab1897b9da5baa2f89ea09cba5dddd126}{Label}} (int x, int y, int width, int height, std\+::string name)
+\item 
+void \mbox{\hyperlink{class_label_a4da77e4853d3a5067d0efd75dcfe3da0}{Set\+Background}} (Gdiplus\+::\+Color color)
+\item 
+Gdiplus\+::\+Color \mbox{\hyperlink{class_label_a5614b15dee859328a8ee7a715f97dbac}{Get\+Background}} ()
+\item 
+void \mbox{\hyperlink{class_label_a9fd9edb2adc8c974287f1e0d5bfa5f3e}{Set\+Text}} (std\+::wstring str) override
+\item 
+std\+::wstring \mbox{\hyperlink{class_label_ae3bf96785ba046b4a29c2638f44e9d3e}{Get\+Text}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+A component made for descriptive purposes. It displays text with a background. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_label_a180990410b79b70beee7707f4360a901}\label{class_label_a180990410b79b70beee7707f4360a901}} 
+\index{Label@{Label}!Label@{Label}}
+\index{Label@{Label}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{Label()}{Label()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Label\+::\+Label (\begin{DoxyParamCaption}\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & the identification name of the component. This value is not a display value. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_label_ab1897b9da5baa2f89ea09cba5dddd126}\label{class_label_ab1897b9da5baa2f89ea09cba5dddd126}} 
+\index{Label@{Label}!Label@{Label}}
+\index{Label@{Label}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{Label()}{Label()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Label\+::\+Label (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{std\+::string}]{name }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the X position of the grid. \\
+\hline
+{\em y} & the Y position of the grid \\
+\hline
+{\em width} & the width of the grid \\
+\hline
+{\em height} & the height of the grid. \\
+\hline
+{\em name} & the identification name of the grid. This is not a display value. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_label_a5614b15dee859328a8ee7a715f97dbac}\label{class_label_a5614b15dee859328a8ee7a715f97dbac}} 
+\index{Label@{Label}!GetBackground@{GetBackground}}
+\index{GetBackground@{GetBackground}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{GetBackground()}{GetBackground()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Color Label\+::\+Get\+Background (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+gets the color of the background. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_label_ae3bf96785ba046b4a29c2638f44e9d3e}\label{class_label_ae3bf96785ba046b4a29c2638f44e9d3e}} 
+\index{Label@{Label}!GetText@{GetText}}
+\index{GetText@{GetText}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily std\+::wstring Label\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+gets the display value of the label. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Component}}.
+
+\mbox{\Hypertarget{class_label_a4da77e4853d3a5067d0efd75dcfe3da0}\label{class_label_a4da77e4853d3a5067d0efd75dcfe3da0}} 
+\index{Label@{Label}!SetBackground@{SetBackground}}
+\index{SetBackground@{SetBackground}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{SetBackground()}{SetBackground()}}
+{\footnotesize\ttfamily void Label\+::\+Set\+Background (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Color}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the color of the background. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_label_a9fd9edb2adc8c974287f1e0d5bfa5f3e}\label{class_label_a9fd9edb2adc8c974287f1e0d5bfa5f3e}} 
+\index{Label@{Label}!SetText@{SetText}}
+\index{SetText@{SetText}!Label@{Label}}
+\doxysubsubsection{\texorpdfstring{SetText()}{SetText()}}
+{\footnotesize\ttfamily void Label\+::\+Set\+Text (\begin{DoxyParamCaption}\item[{std\+::wstring}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & sets the display value of the label. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Label.\+h\item 
+Graphics/Label.\+cpp\end{DoxyCompactItemize}

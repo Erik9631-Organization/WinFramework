@@ -1,0 +1,80 @@
+\hypertarget{class_resize_subject}{}\doxysection{Resize\+Subject Class Reference}
+\label{class_resize_subject}\index{ResizeSubject@{ResizeSubject}}
+
+
+{\ttfamily \#include $<$Resize\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Resize\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_resize_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Notify\+On\+Resize\+Subscribers}} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event)=0
+\item 
+virtual void \mbox{\hyperlink{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}{Add\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}{Remove\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+An interface for all classes which are resizable. If the interface is implemented, it will automatically become an observable subject. The class implementing this interface should also implement an array where it can contain and notify its subscribers when \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Resize\+Subject\+::\+Notify\+On\+Resize\+Subscribers}} is called. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}\label{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}} 
+\index{ResizeSubject@{ResizeSubject}!AddOnResizeSubscriber@{AddOnResizeSubscriber}}
+\index{AddOnResizeSubscriber@{AddOnResizeSubscriber}!ResizeSubject@{ResizeSubject}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeSubscriber()}{AddOnResizeSubscriber()}}
+{\footnotesize\ttfamily virtual void Resize\+Subject\+::\+Add\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Used to add a new subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a3955bf7ead969433aaa9cac9bda29521}{Viewport}}, \mbox{\hyperlink{class_grid_cell_ac24571dcef843fb9acb13641af81a4c4}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_af5ca00078572cc3e5444cae74d52e73e}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a55f10747e52742f357ce46d2f7fa7abb}{Component}}.
+
+\mbox{\Hypertarget{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}\label{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}} 
+\index{ResizeSubject@{ResizeSubject}!NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}}
+\index{NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}!ResizeSubject@{ResizeSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnResizeSubscribers()}{NotifyOnResizeSubscribers()}}
+{\footnotesize\ttfamily virtual void Resize\+Subject\+::\+Notify\+On\+Resize\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Called if an event is passed to all the subscribers/observers. 
+\begin{DoxyParams}{Parameters}
+{\em event} & the object containing event specific information \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a35e3101d622ff18649e559d2894e65cd}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a53c91823a45a87fc32db9e387a9fd615}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_a9f2b4923a828a6b5db3608daf06e50c1}{Default\+Resize}}, and \mbox{\hyperlink{class_component_ab068c9c4c50e2a969742ea3923cbcc8a}{Component}}.
+
+\mbox{\Hypertarget{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}\label{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}} 
+\index{ResizeSubject@{ResizeSubject}!RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}}
+\index{RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}!ResizeSubject@{ResizeSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveOnResizeSubscriber()}{RemoveOnResizeSubscriber()}}
+{\footnotesize\ttfamily virtual void Resize\+Subject\+::\+Remove\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Used to remove a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_af859f68bef4a2c189182ddb863521f15}{Viewport}}, \mbox{\hyperlink{class_grid_cell_ae9ee8c92e165c741e033beaa09485e89}{Grid\+Cell}}, \mbox{\hyperlink{class_default_resize_a5e23dcfbe4f67e62d17e955d5f15ef5a}{Default\+Resize}}, and \mbox{\hyperlink{class_component_a1a75e4558ae04df5803f2425ef9b1655}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Resize\+Subject.\+h\end{DoxyCompactItemize}

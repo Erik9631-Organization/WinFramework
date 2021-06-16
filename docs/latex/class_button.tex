@@ -1,0 +1,138 @@
+\hypertarget{class_button}{}\doxysection{Button Class Reference}
+\label{class_button}\index{Button@{Button}}
+
+
+Inheritance diagram for Button\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_button__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_button_a459ca5754a16702952d713f7d938a146}\label{class_button_a459ca5754a16702952d713f7d938a146}} 
+{\bfseries Button} (int x, int y, int width, int height)
+\item 
+void \mbox{\hyperlink{class_button_a5bf10fbba103d2c5d439b10475f76f25}{Set\+Text}} (std\+::wstring text) override
+\item 
+std\+::wstring \mbox{\hyperlink{class_button_a15914d89218cd501e4528c4dff6842a6}{Get\+Text}} () override
+\item 
+void \mbox{\hyperlink{class_button_abec95a21326d926955aba4825b93be80}{Set\+Border\+Color}} (COLORREF color)
+\item 
+void \mbox{\hyperlink{class_button_a0f03d90f00f31b4b54312cd59eaa9199}{Set\+Background\+Color}} (COLORREF color)
+\item 
+void \mbox{\hyperlink{class_button_a3a55bf5b182ee865754d0690f0b323d0}{Set\+Border\+Color}} (Color color)
+\item 
+Gdiplus\+::\+Color \mbox{\hyperlink{class_button_af92dc07bb52ee0325041062e08fa5788}{Get\+Background\+Color}} ()
+\item 
+\mbox{\Hypertarget{class_button_a40f95b0988f3797e60e7e4e9993eaafc}\label{class_button_a40f95b0988f3797e60e7e4e9993eaafc}} 
+Gdiplus\+::\+Color {\bfseries Get\+Border\+Color} ()
+\item 
+void \mbox{\hyperlink{class_button_a88e8db9d079571a9f533baf387ae7eec}{Set\+Background\+Color}} (Color color)
+\item 
+void \mbox{\hyperlink{class_button_afbbe07cfe39b3de0ec5563faf1a20abe}{Set\+Border\+Thickness}} (float thickness)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_button_af92dc07bb52ee0325041062e08fa5788}\label{class_button_af92dc07bb52ee0325041062e08fa5788}} 
+\index{Button@{Button}!GetBackgroundColor@{GetBackgroundColor}}
+\index{GetBackgroundColor@{GetBackgroundColor}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{GetBackgroundColor()}{GetBackgroundColor()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Color Button\+::\+Get\+Background\+Color (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the background color of the button. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_button_a15914d89218cd501e4528c4dff6842a6}\label{class_button_a15914d89218cd501e4528c4dff6842a6}} 
+\index{Button@{Button}!GetText@{GetText}}
+\index{GetText@{GetText}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{GetText()}{GetText()}}
+{\footnotesize\ttfamily std\+::wstring Button\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+\begin{DoxyReturn}{Returns}
+returns the unicode text of the button which is displayed. 
+\end{DoxyReturn}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a90d5248ffc3b28ef01a7828e434b8acb}{Component}}.
+
+\mbox{\Hypertarget{class_button_a88e8db9d079571a9f533baf387ae7eec}\label{class_button_a88e8db9d079571a9f533baf387ae7eec}} 
+\index{Button@{Button}!SetBackgroundColor@{SetBackgroundColor}}
+\index{SetBackgroundColor@{SetBackgroundColor}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetBackgroundColor()}{SetBackgroundColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Background\+Color (\begin{DoxyParamCaption}\item[{Color}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the color of the border. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_a0f03d90f00f31b4b54312cd59eaa9199}\label{class_button_a0f03d90f00f31b4b54312cd59eaa9199}} 
+\index{Button@{Button}!SetBackgroundColor@{SetBackgroundColor}}
+\index{SetBackgroundColor@{SetBackgroundColor}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetBackgroundColor()}{SetBackgroundColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Background\+Color (\begin{DoxyParamCaption}\item[{COLORREF}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the color of the background. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_a3a55bf5b182ee865754d0690f0b323d0}\label{class_button_a3a55bf5b182ee865754d0690f0b323d0}} 
+\index{Button@{Button}!SetBorderColor@{SetBorderColor}}
+\index{SetBorderColor@{SetBorderColor}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetBorderColor()}{SetBorderColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Border\+Color (\begin{DoxyParamCaption}\item[{Color}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the color of the border. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_abec95a21326d926955aba4825b93be80}\label{class_button_abec95a21326d926955aba4825b93be80}} 
+\index{Button@{Button}!SetBorderColor@{SetBorderColor}}
+\index{SetBorderColor@{SetBorderColor}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetBorderColor()}{SetBorderColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Border\+Color (\begin{DoxyParamCaption}\item[{COLORREF}]{color }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & sets the color of the border. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_afbbe07cfe39b3de0ec5563faf1a20abe}\label{class_button_afbbe07cfe39b3de0ec5563faf1a20abe}} 
+\index{Button@{Button}!SetBorderThickness@{SetBorderThickness}}
+\index{SetBorderThickness@{SetBorderThickness}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetBorderThickness()}{SetBorderThickness()}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Border\+Thickness (\begin{DoxyParamCaption}\item[{float}]{thickness }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em thickness} & sets the border thickness of the button. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_button_a5bf10fbba103d2c5d439b10475f76f25}\label{class_button_a5bf10fbba103d2c5d439b10475f76f25}} 
+\index{Button@{Button}!SetText@{SetText}}
+\index{SetText@{SetText}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{SetText()}{SetText()}}
+{\footnotesize\ttfamily void Button\+::\+Set\+Text (\begin{DoxyParamCaption}\item[{std\+::wstring}]{text }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em text} & unicode text of the button which is to be displayed. \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \mbox{\hyperlink{class_component_a4350e338a22f0cd87c6b2acf0eb8d9a5}{Component}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Button.\+h\item 
+Graphics/Button.\+cpp\end{DoxyCompactItemize}

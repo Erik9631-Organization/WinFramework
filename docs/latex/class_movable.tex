@@ -1,0 +1,285 @@
+\hypertarget{class_movable}{}\doxysection{Movable Class Reference}
+\label{class_movable}\index{Movable@{Movable}}
+
+
+{\ttfamily \#include $<$Movable.\+h$>$}
+
+
+
+Inheritance diagram for Movable\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_movable__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_movable_a23c5be86c27c555fb5931df1b80c53be}{Get\+Position}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}{GetX}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_a8110a2232926728f82310d288ffad05b}{GetY}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_a0345848260532e193fe8ec241a0a5061}{Get\+AbsoluteX}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Get\+AbsoluteY}} ()=0
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_movable_af82ec8b243e854b8eb72bea1a827f66a}{Get\+Absolute\+Position}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_a500f5953329dff434370bd7c8f3c8a81}{Set\+Position}} (Gdiplus\+::\+Point position)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_a3f69b6dcb03beb0d5050b64be9591111}{Set\+Position}} (int x, int y)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{SetX}} (int x)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{SetY}} (int y)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Set\+Element\+XOffset}} (int x)=0
+\item 
+virtual void \mbox{\hyperlink{class_movable_a4dd7b50408811b9652aab8ecc4470c97}{Set\+Element\+YOffset}} (int y)=0
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Get\+Element\+Offset}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Get\+Element\+XOffset}} ()=0
+\item 
+virtual int \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Get\+Element\+YOffset}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The interface should be implemented by all classes which should be able to move 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_movable_af82ec8b243e854b8eb72bea1a827f66a}\label{class_movable_af82ec8b243e854b8eb72bea1a827f66a}} 
+\index{Movable@{Movable}!GetAbsolutePosition@{GetAbsolutePosition}}
+\index{GetAbsolutePosition@{GetAbsolutePosition}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetAbsolutePosition()}{GetAbsolutePosition()}}
+{\footnotesize\ttfamily virtual Gdiplus\+::\+Point Movable\+::\+Get\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns absolute position as a point which specifies the X and Y position. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a5156711914102d933d2548c8750cba32}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a277afa36c4d7d4b58b8fc507a28a83e8}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a6364c7fada142ac0dc20bae53446d144}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a6364c7fada142ac0dc20bae53446d144}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a6364c7fada142ac0dc20bae53446d144}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_af68b16b2a09d67b67972fd083c4f95f5}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a0345848260532e193fe8ec241a0a5061}\label{class_movable_a0345848260532e193fe8ec241a0a5061}} 
+\index{Movable@{Movable}!GetAbsoluteX@{GetAbsoluteX}}
+\index{GetAbsoluteX@{GetAbsoluteX}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteX()}{GetAbsoluteX()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+Get\+AbsoluteX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns X absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_aade5963f641c7c91444a718f1565c945}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a2714e082345a3eb8f6acd0d7f2ac16d3}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_aae16856a96abf7126de7222dddf92182}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_aae16856a96abf7126de7222dddf92182}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_aae16856a96abf7126de7222dddf92182}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a68acdc02ff598ed707b92783a5f1e0ee}{Component}}.
+
+\mbox{\Hypertarget{class_movable_ad41e66aeae5759af6e89ba132d950e01}\label{class_movable_ad41e66aeae5759af6e89ba132d950e01}} 
+\index{Movable@{Movable}!GetAbsoluteY@{GetAbsoluteY}}
+\index{GetAbsoluteY@{GetAbsoluteY}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteY()}{GetAbsoluteY()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+Get\+AbsoluteY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns Y absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_aad5a4f42c8248f9b997c90ea155e0cad}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a8721f015a9d08bff74cf3c06a171f31f}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a0997c6ba1b93c64e9437947a8c94faa1}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_ae83d59f7c51b96a29d9c2049c46732fd}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a697366deed4e9776bbd3ade51c72dd97}\label{class_movable_a697366deed4e9776bbd3ade51c72dd97}} 
+\index{Movable@{Movable}!GetElementOffset@{GetElementOffset}}
+\index{GetElementOffset@{GetElementOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+{\footnotesize\ttfamily virtual Gdiplus\+::\+Point Movable\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y offset. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a82b5fbe79219257a390c727ec20fb63a}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a67307633836b386b71fccd73895209f6}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a1411b3711a3d0582a3a0a83bc66c907f}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_ab5a38299621c8c78cc047c2e2b31b62d}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a85afb7863751046fecc2382d10a1a2b8}\label{class_movable_a85afb7863751046fecc2382d10a1a2b8}} 
+\index{Movable@{Movable}!GetElementXOffset@{GetElementXOffset}}
+\index{GetElementXOffset@{GetElementXOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X offset. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a309d46df7e4339aab0a8f9d9f2a8c3dd}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a3413f7cb7c8b7d838664bd17b9434c9c}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_abb94771cdbdd4e9a920e395279a7375e}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_abb94771cdbdd4e9a920e395279a7375e}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_abb94771cdbdd4e9a920e395279a7375e}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a8b97492ad02c4959fa9581aafde75690}{Component}}.
+
+\mbox{\Hypertarget{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}\label{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}} 
+\index{Movable@{Movable}!GetElementYOffset@{GetElementYOffset}}
+\index{GetElementYOffset@{GetElementYOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y offset. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_ae0e88aeb1306316af3cfd93eb580c989}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a69976c8cfe094a7f14d5931c275219e2}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a5cf7c8a44915d589a7e875a2458d717a}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a302c2f98709d1b75ee3ab03670ec965d}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a23c5be86c27c555fb5931df1b80c53be}\label{class_movable_a23c5be86c27c555fb5931df1b80c53be}} 
+\index{Movable@{Movable}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily virtual Gdiplus\+::\+Point Movable\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns position \begin{DoxyReturn}{Returns}
+returns Point object that specifies the X position and the Y position 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a9729ffaf1a8464103c9fdcac3defdfef}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_acb62eabad24e6a7f0db2ad4239bc2578}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}\label{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}} 
+\index{Movable@{Movable}!GetX@{GetX}}
+\index{GetX@{GetX}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetX()}{GetX()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+GetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets the X position of the object \begin{DoxyReturn}{Returns}
+returns X position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a50043d1a3b927688fcd6c323f500bb96}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a4e7faaebde6a6677049466970c2ba3bd}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a411e947295aa8310873a6501c1b44b07}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a411e947295aa8310873a6501c1b44b07}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a411e947295aa8310873a6501c1b44b07}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a393bd000ce77141b5fda5058edeaff7f}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a8110a2232926728f82310d288ffad05b}\label{class_movable_a8110a2232926728f82310d288ffad05b}} 
+\index{Movable@{Movable}!GetY@{GetY}}
+\index{GetY@{GetY}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{GetY()}{GetY()}}
+{\footnotesize\ttfamily virtual int Movable\+::\+GetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Gets the Y position of the object \begin{DoxyReturn}{Returns}
+returns Y position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a2e74b0d568ba19eadb8f062443bbc0a1}{Viewport}}, \mbox{\hyperlink{class_grid_cell_ae43f1be91d10ab21cea3c025b15b3d08}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a6124d214f6d9ea5361c02abeefd666a7}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a08404345960e4ef8502850f40e192d39}{Component}}.
+
+\mbox{\Hypertarget{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}\label{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}} 
+\index{Movable@{Movable}!SetElementOffset@{SetElementOffset}}
+\index{SetElementOffset@{SetElementOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_acb0b2d4bd79cc8891445d96c3341d803}{Viewport}}, \mbox{\hyperlink{class_grid_cell_aef686fa375e35042bf87217648367582}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}{Component}}.
+
+\mbox{\Hypertarget{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}\label{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}} 
+\index{Movable@{Movable}!SetElementXOffset@{SetElementXOffset}}
+\index{SetElementXOffset@{SetElementXOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em x} & specifies the X offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_ac86c42395436f630ddfeea8c49c73824}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a794559ad7dd8ab23ffe48c09f276bb6d}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a6ad81d69708f8bea4a29a55111c59394}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a4dd7b50408811b9652aab8ecc4470c97}\label{class_movable_a4dd7b50408811b9652aab8ecc4470c97}} 
+\index{Movable@{Movable}!SetElementYOffset@{SetElementYOffset}}
+\index{SetElementYOffset@{SetElementYOffset}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em y} & specifies the Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a3a821ab1682c84f66d3beb6f8379250c}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a0d9da2a167a131dfc2cd36545153ec35}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a06d4ec17789daf2cc7eb178de01abf86}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a326bd66ec7e1472b850156aca167abe4}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a500f5953329dff434370bd7c8f3c8a81}\label{class_movable_a500f5953329dff434370bd7c8f3c8a81}} 
+\index{Movable@{Movable}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em position} & Sets the position as a point which specifies the X and Y position. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_aa124467eb4873a4c578875be05c49191}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a1505d7597c494e886edb94460209753a}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_aaf5d047b405e5ab3a63eb4daac7f3e87}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a57571f953e01c0e66fde0cb3b5eefdf3}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a3f69b6dcb03beb0d5050b64be9591111}\label{class_movable_a3f69b6dcb03beb0d5050b64be9591111}} 
+\index{Movable@{Movable}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_window_frame_a5aefd805bfb8b786c261adc2c578626c}{Window\+Frame}}, \mbox{\hyperlink{class_viewport_a26501d9f007cbc9e832e45da907c5afe}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a1d3db3f3cd618854e2bb7d36ff985d51}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_ae6562d02e055d7e89ab669776d7f766f}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_ae6562d02e055d7e89ab669776d7f766f}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_ae6562d02e055d7e89ab669776d7f766f}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a4c5574ca572f499889aa246f48e38c75}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a9d6af112d0a823945878eb846e795a2e}\label{class_movable_a9d6af112d0a823945878eb846e795a2e}} 
+\index{Movable@{Movable}!SetX@{SetX}}
+\index{SetX@{SetX}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetX()}{SetX()}}
+{\footnotesize\ttfamily virtual void Movable\+::\+SetX (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a153bc4a99af23e2b02ea031afe90ed74}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a730da27eb3ab3b8141500c2889b332c1}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a9102d0acd2ae79637551cd309258d778}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a9102d0acd2ae79637551cd309258d778}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a9102d0acd2ae79637551cd309258d778}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_af78b986eafe68e4b83ed161a6cdf3a07}{Component}}.
+
+\mbox{\Hypertarget{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}\label{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}} 
+\index{Movable@{Movable}!SetY@{SetY}}
+\index{SetY@{SetY}!Movable@{Movable}}
+\doxysubsubsection{\texorpdfstring{SetY()}{SetY()}}
+{\footnotesize\ttfamily virtual void Movable\+::\+SetY (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a517c5de70b5924274437cce886ac3694}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a315e05e899c9527552186f14e7848a58}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a239c581f2df74a17d711180b03f55026}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a239c581f2df74a17d711180b03f55026}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a239c581f2df74a17d711180b03f55026}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a408d81faaba9b6ba20c555a8d6565a1e}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Movable.\+h\end{DoxyCompactItemize}

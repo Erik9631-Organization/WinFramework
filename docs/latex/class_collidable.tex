@@ -1,0 +1,69 @@
+\hypertarget{class_collidable}{}\doxysection{Collidable Class Reference}
+\label{class_collidable}\index{Collidable@{Collidable}}
+
+
+{\ttfamily \#include $<$Collidable.\+h$>$}
+
+
+
+Inheritance diagram for Collidable\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_collidable__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual bool \mbox{\hyperlink{class_collidable_a1228895a80eaca1faaa6346c9d742d86}{Colides\+With\+Point}} (Gdiplus\+::\+Point point)=0
+\item 
+virtual std\+::any \mbox{\hyperlink{class_collidable_a6d1ed1c22b7e3145cc1ad3a5ae212ff1}{Colides\+With\+Upmost}} (Gdiplus\+::\+Point point)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by all the classes which support collision check. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_collidable_a1228895a80eaca1faaa6346c9d742d86}\label{class_collidable_a1228895a80eaca1faaa6346c9d742d86}} 
+\index{Collidable@{Collidable}!ColidesWithPoint@{ColidesWithPoint}}
+\index{ColidesWithPoint@{ColidesWithPoint}!Collidable@{Collidable}}
+\doxysubsubsection{\texorpdfstring{ColidesWithPoint()}{ColidesWithPoint()}}
+{\footnotesize\ttfamily virtual bool Collidable\+::\+Colides\+With\+Point (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns whether a component within the window collides with the specified point 
+\begin{DoxyParams}{Parameters}
+{\em point} & the point to check the collision with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true if there is a collision, false if there is no collision 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_component_a779445666eb200e27b9982585318a84f}{Component}}.
+
+\mbox{\Hypertarget{class_collidable_a6d1ed1c22b7e3145cc1ad3a5ae212ff1}\label{class_collidable_a6d1ed1c22b7e3145cc1ad3a5ae212ff1}} 
+\index{Collidable@{Collidable}!ColidesWithUpmost@{ColidesWithUpmost}}
+\index{ColidesWithUpmost@{ColidesWithUpmost}!Collidable@{Collidable}}
+\doxysubsubsection{\texorpdfstring{ColidesWithUpmost()}{ColidesWithUpmost()}}
+{\footnotesize\ttfamily virtual std\+::any Collidable\+::\+Colides\+With\+Upmost (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{point }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns a component within the window that collides with the specified point 
+\begin{DoxyParams}{Parameters}
+{\em point} & the point to check the collision with \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The return value is implementation specific and therefore returns generic std\+::any. In case of the standard components, it is always a pointer to component (Component$\ast$) Use std\+::any\+\_\+cast$<$\+Component$\ast$$>$ if casting in the standard implementation. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_component_a87fec26375397cb4be4517cc9cff0697}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Collidable.\+h\end{DoxyCompactItemize}

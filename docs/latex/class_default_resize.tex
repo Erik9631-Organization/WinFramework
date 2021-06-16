@@ -1,0 +1,192 @@
+\hypertarget{class_default_resize}{}\doxysection{Default\+Resize Class Reference}
+\label{class_default_resize}\index{DefaultResize@{DefaultResize}}
+
+
+Inheritance diagram for Default\+Resize\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{class_default_resize__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_default_resize_a40589e688a37a785941c545cfd49d0dc}\label{class_default_resize_a40589e688a37a785941c545cfd49d0dc}} 
+{\bfseries Default\+Resize} (\mbox{\hyperlink{class_resizable}{Resizable}} \&resize\+Component)
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_a9f2b4923a828a6b5db3608daf06e50c1}{Notify\+On\+Resize\+Subscribers}} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event) override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_af5ca00078572cc3e5444cae74d52e73e}{Add\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_a5e23dcfbe4f67e62d17e955d5f15ef5a}{Remove\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual Gdiplus\+::\+Size \mbox{\hyperlink{class_default_resize_ab9ccc0e894152c16b31eaff025588c0c}{Get\+Size}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_resize_ac16ee1e2648e8cd0fa729a4f573c4cc5}{Get\+Width}} () override
+\item 
+virtual int \mbox{\hyperlink{class_default_resize_ae860b66033a49e31c891f1e14c29301c}{Get\+Height}} () override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_a73d5f44d3e4090eba94acb1384ec236f}{Set\+Size}} (Gdiplus\+::\+Size size) override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_a6ce7dd0966f67240b9a218bf421fe289}{Set\+Size}} (int width, int height) override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_ab1671e2f1969fe4eaeeab8fba7c4c9b3}{Set\+Width}} (int width) override
+\item 
+virtual void \mbox{\hyperlink{class_default_resize_aee3a1832f4728d4da8e97d30bc4f4504}{Set\+Height}} (int height) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_default_resize_af5ca00078572cc3e5444cae74d52e73e}\label{class_default_resize_af5ca00078572cc3e5444cae74d52e73e}} 
+\index{DefaultResize@{DefaultResize}!AddOnResizeSubscriber@{AddOnResizeSubscriber}}
+\index{AddOnResizeSubscriber@{AddOnResizeSubscriber}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeSubscriber()}{AddOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Add\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to add a new subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_default_resize_ae860b66033a49e31c891f1e14c29301c}\label{class_default_resize_ae860b66033a49e31c891f1e14c29301c}} 
+\index{DefaultResize@{DefaultResize}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int Default\+Resize\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the height of the object \begin{DoxyReturn}{Returns}
+returns the int value of the height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_ab9ccc0e894152c16b31eaff025588c0c}\label{class_default_resize_ab9ccc0e894152c16b31eaff025588c0c}} 
+\index{DefaultResize@{DefaultResize}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Size Default\+Resize\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the size of the object. \begin{DoxyReturn}{Returns}
+returns a size object which specifies the width and height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_ac16ee1e2648e8cd0fa729a4f573c4cc5}\label{class_default_resize_ac16ee1e2648e8cd0fa729a4f573c4cc5}} 
+\index{DefaultResize@{DefaultResize}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int Default\+Resize\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the width of the object \begin{DoxyReturn}{Returns}
+returns the int value of the width 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_a9f2b4923a828a6b5db3608daf06e50c1}\label{class_default_resize_a9f2b4923a828a6b5db3608daf06e50c1}} 
+\index{DefaultResize@{DefaultResize}!NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}}
+\index{NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{NotifyOnResizeSubscribers()}{NotifyOnResizeSubscribers()}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Notify\+On\+Resize\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Called if an event is passed to all the subscribers/observers. 
+\begin{DoxyParams}{Parameters}
+{\em event} & the object containing event specific information \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_default_resize_a5e23dcfbe4f67e62d17e955d5f15ef5a}\label{class_default_resize_a5e23dcfbe4f67e62d17e955d5f15ef5a}} 
+\index{DefaultResize@{DefaultResize}!RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}}
+\index{RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{RemoveOnResizeSubscriber()}{RemoveOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Remove\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to remove a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_default_resize_aee3a1832f4728d4da8e97d30bc4f4504}\label{class_default_resize_aee3a1832f4728d4da8e97d30bc4f4504}} 
+\index{DefaultResize@{DefaultResize}!SetHeight@{SetHeight}}
+\index{SetHeight@{SetHeight}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{SetHeight()}{SetHeight()}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Height of the object 
+\begin{DoxyParams}{Parameters}
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_a73d5f44d3e4090eba94acb1384ec236f}\label{class_default_resize_a73d5f44d3e4090eba94acb1384ec236f}} 
+\index{DefaultResize@{DefaultResize}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the size of the object 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size object which specifies the width and height of the target object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_a6ce7dd0966f67240b9a218bf421fe289}\label{class_default_resize_a6ce7dd0966f67240b9a218bf421fe289}} 
+\index{DefaultResize@{DefaultResize}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}{Resizable}}.
+
+\mbox{\Hypertarget{class_default_resize_ab1671e2f1969fe4eaeeab8fba7c4c9b3}\label{class_default_resize_ab1671e2f1969fe4eaeeab8fba7c4c9b3}} 
+\index{DefaultResize@{DefaultResize}!SetWidth@{SetWidth}}
+\index{SetWidth@{SetWidth}!DefaultResize@{DefaultResize}}
+\doxysubsubsection{\texorpdfstring{SetWidth()}{SetWidth()}}
+{\footnotesize\ttfamily void Default\+Resize\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Width of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}{Resizable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Default\+Resize.\+h\item 
+Graphics/Default\+Resize.\+cpp\end{DoxyCompactItemize}

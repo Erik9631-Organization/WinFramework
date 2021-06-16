@@ -1,0 +1,541 @@
+\hypertarget{class_grid_cell}{}\doxysection{Grid\+Cell Class Reference}
+\label{class_grid_cell}\index{GridCell@{GridCell}}
+
+
+Inheritance diagram for Grid\+Cell\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{class_grid_cell__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_grid_cell_a46fec5f992c1b258aee220e650ec1d6f}\label{class_grid_cell_a46fec5f992c1b258aee220e650ec1d6f}} 
+void {\bfseries Control\+Adjustable} (\mbox{\hyperlink{class_adjustable}{Adjustable}} $\ast$associated\+Adjustable)
+\item 
+\mbox{\Hypertarget{class_grid_cell_a49a3cf135db537b78d836686888a7062}\label{class_grid_cell_a49a3cf135db537b78d836686888a7062}} 
+\mbox{\hyperlink{class_adjustable}{Adjustable}} $\ast$ {\bfseries Get\+Controlled\+Adjustable} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_ab0f3fe413b7e175550998fdfde5c1afe}\label{class_grid_cell_ab0f3fe413b7e175550998fdfde5c1afe}} 
+{\bfseries Grid\+Cell} (\mbox{\hyperlink{class_grid}{Grid}} \&parent\+Grid)
+\item 
+\mbox{\Hypertarget{class_grid_cell_a11bd3bffb687dd52111ec657bd7660dc}\label{class_grid_cell_a11bd3bffb687dd52111ec657bd7660dc}} 
+\mbox{\hyperlink{class_grid_cell}{Grid\+Cell}} $\ast$ {\bfseries Get\+Span\+Parent} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_af9ea64c073aea076981fb9087bf6aef5}\label{class_grid_cell_af9ea64c073aea076981fb9087bf6aef5}} 
+\mbox{\hyperlink{class_grid_cell}{Grid\+Cell}} $\ast$ {\bfseries Get\+Span\+Corner} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_a953706e6c196e4379e26b3069cf79810}\label{class_grid_cell_a953706e6c196e4379e26b3069cf79810}} 
+void {\bfseries Set\+Span} (\mbox{\hyperlink{class_grid_span}{Grid\+Span}} span)
+\item 
+\mbox{\Hypertarget{class_grid_cell_a6f3ea46f5d510470ae62e1b3214854f1}\label{class_grid_cell_a6f3ea46f5d510470ae62e1b3214854f1}} 
+\mbox{\hyperlink{class_grid_span}{Grid\+Span}} {\bfseries Get\+Span} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_acd8dd73aeea64083986344acdb24153a}\label{class_grid_cell_acd8dd73aeea64083986344acdb24153a}} 
+bool {\bfseries Is\+Span\+Parent} ()
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a53c91823a45a87fc32db9e387a9fd615}{Notify\+On\+Resize\+Subscribers}} (\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}} event) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_ac24571dcef843fb9acb13641af81a4c4}{Add\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_ae9ee8c92e165c741e033beaa09485e89}{Remove\+On\+Resize\+Subscriber}} (\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&subscriber) override
+\item 
+virtual Gdiplus\+::\+Size \mbox{\hyperlink{class_grid_cell_ab3e16eb42d7416e96c3ec3aa9ffeb339}{Get\+Size}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_aa10d53a867f3a6a1c187e8d3b6e22f57}{Get\+Width}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_aa566aedf78d5f46eb7e2547f85826f0e}{Get\+Height}} () override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_acf3d798b21a6c16d9819351a2a59c433}{Set\+Size}} (Gdiplus\+::\+Size size) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a69c1d64bc8b1ba6179be9ec384ef68af}{Set\+Size}} (int width, int height) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a6326f14ae3379d2ff738a10ab7fde3af}{Set\+Width}} (int width) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_af105cfec56c1515d410cdaef0eaa4bc9}{Set\+Height}} (int height) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_adc05d3c695f9cfce577193868397f840}{Add\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a36e4dcc54bcfa62f2e7d14eae10a8492}{Remove\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_abbc6bf336f048c3e2e579cd144f9f421}{Notify\+On\+Move\+Subscribers}} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} event) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}{Get\+Position}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_a4e7faaebde6a6677049466970c2ba3bd}{GetX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_ae43f1be91d10ab21cea3c025b15b3d08}{GetY}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_a2714e082345a3eb8f6acd0d7f2ac16d3}{Get\+AbsoluteX}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_a8721f015a9d08bff74cf3c06a171f31f}{Get\+AbsoluteY}} () override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_grid_cell_a277afa36c4d7d4b58b8fc507a28a83e8}{Get\+Absolute\+Position}} () override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a1505d7597c494e886edb94460209753a}{Set\+Position}} (Gdiplus\+::\+Point position) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a1d3db3f3cd618854e2bb7d36ff985d51}{Set\+Position}} (int x, int y) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a730da27eb3ab3b8141500c2889b332c1}{SetX}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a315e05e899c9527552186f14e7848a58}{SetY}} (int y) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_aef686fa375e35042bf87217648367582}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a794559ad7dd8ab23ffe48c09f276bb6d}{Set\+Element\+XOffset}} (int x) override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a0d9da2a167a131dfc2cd36545153ec35}{Set\+Element\+YOffset}} (int y) override
+\item 
+virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_grid_cell_a67307633836b386b71fccd73895209f6}{Get\+Element\+Offset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_a3413f7cb7c8b7d838664bd17b9434c9c}{Get\+Element\+XOffset}} () override
+\item 
+virtual int \mbox{\hyperlink{class_grid_cell_a69976c8cfe094a7f14d5931c275219e2}{Get\+Element\+YOffset}} () override
+\item 
+virtual void \mbox{\hyperlink{class_grid_cell_a4a09f20ac06c7a1f4c676e528b47e1fb}{On\+Update}} (\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} e) override
+\item 
+\mbox{\Hypertarget{class_grid_cell_a92184cef2946d7749d00a5daebbd88fc}\label{class_grid_cell_a92184cef2946d7749d00a5daebbd88fc}} 
+int {\bfseries Get\+PixelX} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_a719cdde1413f98b585855885482cf306}\label{class_grid_cell_a719cdde1413f98b585855885482cf306}} 
+int {\bfseries Get\+PixelY} ()
+\item 
+\mbox{\Hypertarget{class_grid_cell_a912c2250c16af40e170577c6f8400974}\label{class_grid_cell_a912c2250c16af40e170577c6f8400974}} 
+Gdiplus\+::\+Point {\bfseries Get\+Pixel\+Position} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_grid_cell_adc05d3c695f9cfce577193868397f840}\label{class_grid_cell_adc05d3c695f9cfce577193868397f840}} 
+\index{GridCell@{GridCell}!AddOnMoveSubscriber@{AddOnMoveSubscriber}}
+\index{AddOnMoveSubscriber@{AddOnMoveSubscriber}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{AddOnMoveSubscriber()}{AddOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Add\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Adds a new subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a044a8a15a422bd15b21c43924297e983}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_ac24571dcef843fb9acb13641af81a4c4}\label{class_grid_cell_ac24571dcef843fb9acb13641af81a4c4}} 
+\index{GridCell@{GridCell}!AddOnResizeSubscriber@{AddOnResizeSubscriber}}
+\index{AddOnResizeSubscriber@{AddOnResizeSubscriber}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{AddOnResizeSubscriber()}{AddOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Add\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to add a new subscriber to the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a08d3f6857763c0d5c703601df71f447f}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_a277afa36c4d7d4b58b8fc507a28a83e8}\label{class_grid_cell_a277afa36c4d7d4b58b8fc507a28a83e8}} 
+\index{GridCell@{GridCell}!GetAbsolutePosition@{GetAbsolutePosition}}
+\index{GetAbsolutePosition@{GetAbsolutePosition}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetAbsolutePosition()}{GetAbsolutePosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Grid\+Cell\+::\+Get\+Absolute\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns absolute position as a point which specifies the X and Y position. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_af82ec8b243e854b8eb72bea1a827f66a}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a2714e082345a3eb8f6acd0d7f2ac16d3}\label{class_grid_cell_a2714e082345a3eb8f6acd0d7f2ac16d3}} 
+\index{GridCell@{GridCell}!GetAbsoluteX@{GetAbsoluteX}}
+\index{GetAbsoluteX@{GetAbsoluteX}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteX()}{GetAbsoluteX()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+AbsoluteX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns X absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a0345848260532e193fe8ec241a0a5061}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a8721f015a9d08bff74cf3c06a171f31f}\label{class_grid_cell_a8721f015a9d08bff74cf3c06a171f31f}} 
+\index{GridCell@{GridCell}!GetAbsoluteY@{GetAbsoluteY}}
+\index{GetAbsoluteY@{GetAbsoluteY}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetAbsoluteY()}{GetAbsoluteY()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+AbsoluteY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent. \begin{DoxyReturn}{Returns}
+returns Y absolute position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a67307633836b386b71fccd73895209f6}\label{class_grid_cell_a67307633836b386b71fccd73895209f6}} 
+\index{GridCell@{GridCell}!GetElementOffset@{GetElementOffset}}
+\index{GetElementOffset@{GetElementOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Grid\+Cell\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a3413f7cb7c8b7d838664bd17b9434c9c}\label{class_grid_cell_a3413f7cb7c8b7d838664bd17b9434c9c}} 
+\index{GridCell@{GridCell}!GetElementXOffset@{GetElementXOffset}}
+\index{GetElementXOffset@{GetElementXOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a69976c8cfe094a7f14d5931c275219e2}\label{class_grid_cell_a69976c8cfe094a7f14d5931c275219e2}} 
+\index{GridCell@{GridCell}!GetElementYOffset@{GetElementYOffset}}
+\index{GetElementYOffset@{GetElementYOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y offset. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_aa566aedf78d5f46eb7e2547f85826f0e}\label{class_grid_cell_aa566aedf78d5f46eb7e2547f85826f0e}} 
+\index{GridCell@{GridCell}!GetHeight@{GetHeight}}
+\index{GetHeight@{GetHeight}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetHeight()}{GetHeight()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the height of the object \begin{DoxyReturn}{Returns}
+returns the int value of the height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}\label{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}} 
+\index{GridCell@{GridCell}!GetPosition@{GetPosition}}
+\index{GetPosition@{GetPosition}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Point Grid\+Cell\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns position \begin{DoxyReturn}{Returns}
+returns Point object that specifies the X position and the Y position 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a23c5be86c27c555fb5931df1b80c53be}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_ab3e16eb42d7416e96c3ec3aa9ffeb339}\label{class_grid_cell_ab3e16eb42d7416e96c3ec3aa9ffeb339}} 
+\index{GridCell@{GridCell}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Size Grid\+Cell\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the size of the object. \begin{DoxyReturn}{Returns}
+returns a size object which specifies the width and height 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_a866c23f49fbae4a8ba40bb6332a54557}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_aa10d53a867f3a6a1c187e8d3b6e22f57}\label{class_grid_cell_aa10d53a867f3a6a1c187e8d3b6e22f57}} 
+\index{GridCell@{GridCell}!GetWidth@{GetWidth}}
+\index{GetWidth@{GetWidth}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetWidth()}{GetWidth()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Returns the width of the object \begin{DoxyReturn}{Returns}
+returns the int value of the width 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_resizable_ad8829be59ee9c8171eae3bdb692373cd}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a4e7faaebde6a6677049466970c2ba3bd}\label{class_grid_cell_a4e7faaebde6a6677049466970c2ba3bd}} 
+\index{GridCell@{GridCell}!GetX@{GetX}}
+\index{GetX@{GetX}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetX()}{GetX()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+GetX (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the X position of the object \begin{DoxyReturn}{Returns}
+returns X position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a4911ecdff3edaf6bb4f378ef7bd99b71}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_ae43f1be91d10ab21cea3c025b15b3d08}\label{class_grid_cell_ae43f1be91d10ab21cea3c025b15b3d08}} 
+\index{GridCell@{GridCell}!GetY@{GetY}}
+\index{GetY@{GetY}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{GetY()}{GetY()}}
+{\footnotesize\ttfamily int Grid\+Cell\+::\+GetY (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Gets the Y position of the object \begin{DoxyReturn}{Returns}
+returns Y position of the object as an integer. 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{class_movable_a8110a2232926728f82310d288ffad05b}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_abbc6bf336f048c3e2e579cd144f9f421}\label{class_grid_cell_abbc6bf336f048c3e2e579cd144f9f421}} 
+\index{GridCell@{GridCell}!NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}}
+\index{NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMoveSubscribers()}{NotifyOnMoveSubscribers()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Notify\+On\+Move\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sends an event to all the subscribers of this object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that should be sent to the subscribers. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_a53c91823a45a87fc32db9e387a9fd615}\label{class_grid_cell_a53c91823a45a87fc32db9e387a9fd615}} 
+\index{GridCell@{GridCell}!NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}}
+\index{NotifyOnResizeSubscribers@{NotifyOnResizeSubscribers}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{NotifyOnResizeSubscribers()}{NotifyOnResizeSubscribers()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Notify\+On\+Resize\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_resize_info}{Event\+Resize\+Info}}}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Called if an event is passed to all the subscribers/observers. 
+\begin{DoxyParams}{Parameters}
+{\em event} & the object containing event specific information \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a06299d18effa9cebd3d50fc960b9a03b}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_a4a09f20ac06c7a1f4c676e528b47e1fb}\label{class_grid_cell_a4a09f20ac06c7a1f4c676e528b47e1fb}} 
+\index{GridCell@{GridCell}!OnUpdate@{OnUpdate}}
+\index{OnUpdate@{OnUpdate}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{OnUpdate()}{OnUpdate()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+On\+Update (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Recieves an update event and executes the update action. The flags are defined in \mbox{\hyperlink{class_event_update_info}{Event\+Update\+Info}} class. 
+
+Implements \mbox{\hyperlink{class_update_subscriber_a011a28a98c9079a14505cf37be37eb80}{Update\+Subscriber}}.
+
+\mbox{\Hypertarget{class_grid_cell_a36e4dcc54bcfa62f2e7d14eae10a8492}\label{class_grid_cell_a36e4dcc54bcfa62f2e7d14eae10a8492}} 
+\index{GridCell@{GridCell}!RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}}
+\index{RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{RemoveOnMoveSubscriber()}{RemoveOnMoveSubscriber()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Remove\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Removes a subscriber from the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em the} & subscriber to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}{Move\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_ae9ee8c92e165c741e033beaa09485e89}\label{class_grid_cell_ae9ee8c92e165c741e033beaa09485e89}} 
+\index{GridCell@{GridCell}!RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}}
+\index{RemoveOnResizeSubscriber@{RemoveOnResizeSubscriber}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{RemoveOnResizeSubscriber()}{RemoveOnResizeSubscriber()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Remove\+On\+Resize\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_resize_subscriber}{Resize\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Used to remove a subscriber from the event stream 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & a reference to the subscriber that wants to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc58a}{Resize\+Subject}}.
+
+\mbox{\Hypertarget{class_grid_cell_aef686fa375e35042bf87217648367582}\label{class_grid_cell_aef686fa375e35042bf87217648367582}} 
+\index{GridCell@{GridCell}!SetElementOffset@{SetElementOffset}}
+\index{SetElementOffset@{SetElementOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a794559ad7dd8ab23ffe48c09f276bb6d}\label{class_grid_cell_a794559ad7dd8ab23ffe48c09f276bb6d}} 
+\index{GridCell@{GridCell}!SetElementXOffset@{SetElementXOffset}}
+\index{SetElementXOffset@{SetElementXOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em x} & specifies the X offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a0d9da2a167a131dfc2cd36545153ec35}\label{class_grid_cell_a0d9da2a167a131dfc2cd36545153ec35}} 
+\index{GridCell@{GridCell}!SetElementYOffset@{SetElementYOffset}}
+\index{SetElementYOffset@{SetElementYOffset}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets offset from the current position 
+\begin{DoxyParams}{Parameters}
+{\em y} & specifies the Y offset. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a4dd7b50408811b9652aab8ecc4470c97}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_af105cfec56c1515d410cdaef0eaa4bc9}\label{class_grid_cell_af105cfec56c1515d410cdaef0eaa4bc9}} 
+\index{GridCell@{GridCell}!SetHeight@{SetHeight}}
+\index{SetHeight@{SetHeight}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetHeight()}{SetHeight()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Height (\begin{DoxyParamCaption}\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Height of the object 
+\begin{DoxyParams}{Parameters}
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a1505d7597c494e886edb94460209753a}\label{class_grid_cell_a1505d7597c494e886edb94460209753a}} 
+\index{GridCell@{GridCell}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em position} & Sets the position as a point which specifies the X and Y position. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a500f5953329dff434370bd7c8f3c8a81}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a1d3db3f3cd618854e2bb7d36ff985d51}\label{class_grid_cell_a1d3db3f3cd618854e2bb7d36ff985d51}} 
+\index{GridCell@{GridCell}!SetPosition@{SetPosition}}
+\index{SetPosition@{SetPosition}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetPosition()}{SetPosition()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Position (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a3f69b6dcb03beb0d5050b64be9591111}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_acf3d798b21a6c16d9819351a2a59c433}\label{class_grid_cell_acf3d798b21a6c16d9819351a2a59c433}} 
+\index{GridCell@{GridCell}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the size of the object 
+\begin{DoxyParams}{Parameters}
+{\em size} & the size object which specifies the width and height of the target object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a7ec0874091e5426b4940495e1dcf7da6}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a69c1d64bc8b1ba6179be9ec384ef68af}\label{class_grid_cell_a69c1d64bc8b1ba6179be9ec384ef68af}} 
+\index{GridCell@{GridCell}!SetSize@{SetSize}}
+\index{SetSize@{SetSize}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetSize()}{SetSize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Size (\begin{DoxyParamCaption}\item[{int}]{width,  }\item[{int}]{height }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Size of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+{\em height} & parameter which should specify the height of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_ab47cbbdf06eb564eed1ff98be302002d}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a6326f14ae3379d2ff738a10ab7fde3af}\label{class_grid_cell_a6326f14ae3379d2ff738a10ab7fde3af}} 
+\index{GridCell@{GridCell}!SetWidth@{SetWidth}}
+\index{SetWidth@{SetWidth}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetWidth()}{SetWidth()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Width (\begin{DoxyParamCaption}\item[{int}]{width }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the Width of the object 
+\begin{DoxyParams}{Parameters}
+{\em width} & parameter which should specify the width of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_resizable_a5e97d3cc79ae9f6dde05f9531f5f3d50}{Resizable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a730da27eb3ab3b8141500c2889b332c1}\label{class_grid_cell_a730da27eb3ab3b8141500c2889b332c1}} 
+\index{GridCell@{GridCell}!SetX@{SetX}}
+\index{SetX@{SetX}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetX()}{SetX()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+SetX (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em x} & sets the X position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{Movable}}.
+
+\mbox{\Hypertarget{class_grid_cell_a315e05e899c9527552186f14e7848a58}\label{class_grid_cell_a315e05e899c9527552186f14e7848a58}} 
+\index{GridCell@{GridCell}!SetY@{SetY}}
+\index{SetY@{SetY}!GridCell@{GridCell}}
+\doxysubsubsection{\texorpdfstring{SetY()}{SetY()}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+SetY (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Sets the position of the object. 
+\begin{DoxyParams}{Parameters}
+{\em y} & sets the Y position of the object. \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{Movable}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Grid\+Cell.\+h\item 
+Graphics/Grid\+Cell.\+cpp\end{DoxyCompactItemize}

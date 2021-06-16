@@ -1,0 +1,90 @@
+\hypertarget{class_renderable}{}\doxysection{Renderable Class Reference}
+\label{class_renderable}\index{Renderable@{Renderable}}
+
+
+{\ttfamily \#include $<$Renderable.\+h$>$}
+
+
+
+Inheritance diagram for Renderable\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_renderable__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}{Repaint}} ()=0
+\item 
+virtual void \mbox{\hyperlink{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}{Add\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable)=0
+\item 
+virtual void \mbox{\hyperlink{class_renderable_a31997de1313793e989bc214314315ef2}{Remove\+Renderable}} (\mbox{\hyperlink{class_renderable}{Renderable}} \&renderable)=0
+\item 
+virtual std\+::vector$<$ std\+::reference\+\_\+wrapper$<$ \mbox{\hyperlink{class_renderable}{Renderable}} $>$ $>$ \mbox{\hyperlink{class_renderable_a7ca19bd616601359db9cfaf84e145a58}{Get\+Renderables}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by all the classes that are capable of rendering 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}\label{class_renderable_a1ee791e39748d4ca005aa3baed6c3a18}} 
+\index{Renderable@{Renderable}!AddRenderable@{AddRenderable}}
+\index{AddRenderable@{AddRenderable}!Renderable@{Renderable}}
+\doxysubsubsection{\texorpdfstring{AddRenderable()}{AddRenderable()}}
+{\footnotesize\ttfamily virtual void Renderable\+::\+Add\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Adds a new renderable to the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be added. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_trackbar_graphics_aa493b5ad75c2cad6e3ca95faadc5c545}{Trackbar\+Graphics}}, \mbox{\hyperlink{class_text_a53705895335451aa1fd622c9c350689c}{Text}}, \mbox{\hyperlink{class_simple_border_aa766b1d1c322466c2b12c66dfcbb17f2}{Simple\+Border}}, \mbox{\hyperlink{class_radio_button_graphics_af6ecf025e30cdb15300aff4094f0b848}{Radio\+Button\+Graphics}}, \mbox{\hyperlink{class_default_render_aa35484e271e26c746bf794b5d7fe6785}{Default\+Render}}, \mbox{\hyperlink{class_core_window_frame_ab19338234e1d01256def433469efdfbc}{Core\+Window\+Frame}}, \mbox{\hyperlink{class_component_a9cd0c2cc33b3d4bd5cfb547c0f812d33}{Component}}, \mbox{\hyperlink{class_circle_border_ad18d4c01e07cf5514ec85956a55cbe45}{Circle\+Border}}, and \mbox{\hyperlink{class_background_a1d38779184d30eaecbd0f07b7a3fa739}{Background}}.
+
+\mbox{\Hypertarget{class_renderable_a7ca19bd616601359db9cfaf84e145a58}\label{class_renderable_a7ca19bd616601359db9cfaf84e145a58}} 
+\index{Renderable@{Renderable}!GetRenderables@{GetRenderables}}
+\index{GetRenderables@{GetRenderables}!Renderable@{Renderable}}
+\doxysubsubsection{\texorpdfstring{GetRenderables()}{GetRenderables()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::reference\+\_\+wrapper$<$\mbox{\hyperlink{class_renderable}{Renderable}}$>$ $>$ Renderable\+::\+Get\+Renderables (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Returns a vector of all the renderables contained within the component. \begin{DoxyReturn}{Returns}
+returns a vector containing the renderables. 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{class_trackbar_graphics_abc639ecf47e624ccd1904c9bf19b4f35}{Trackbar\+Graphics}}, \mbox{\hyperlink{class_text_aba457e5b72efb75ce5ac6eb4b8439fa0}{Text}}, \mbox{\hyperlink{class_simple_border_ace767a0b24924dd394bb65f74a8c53e5}{Simple\+Border}}, \mbox{\hyperlink{class_radio_button_graphics_ae7a1fe42947109cb0c67eeeef0ea252d}{Radio\+Button\+Graphics}}, \mbox{\hyperlink{class_default_render_a65c6fc0fd25b4b5c412976b859470fa6}{Default\+Render}}, \mbox{\hyperlink{class_core_window_frame_a41997e93ae05601d73610fc2e1d49992}{Core\+Window\+Frame}}, \mbox{\hyperlink{class_component_aac6da949cab24c2fc63b4c145ca7a2cb}{Component}}, \mbox{\hyperlink{class_circle_border_ae9a3ea5c93725865d6a66f742cef72f3}{Circle\+Border}}, and \mbox{\hyperlink{class_background_a362b589c49c40e827035cd088a49c952}{Background}}.
+
+\mbox{\Hypertarget{class_renderable_a31997de1313793e989bc214314315ef2}\label{class_renderable_a31997de1313793e989bc214314315ef2}} 
+\index{Renderable@{Renderable}!RemoveRenderable@{RemoveRenderable}}
+\index{RemoveRenderable@{RemoveRenderable}!Renderable@{Renderable}}
+\doxysubsubsection{\texorpdfstring{RemoveRenderable()}{RemoveRenderable()}}
+{\footnotesize\ttfamily virtual void Renderable\+::\+Remove\+Renderable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_renderable}{Renderable}} \&}]{renderable }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Removes a renderable from the rendering context. Renderables are graphical objects that are drawn within the component. 
+\begin{DoxyParams}{Parameters}
+{\em renderable} & the renderable to be removed. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_trackbar_graphics_a7c0eccc9fc24e215b405a8c8379ba305}{Trackbar\+Graphics}}, \mbox{\hyperlink{class_text_a87f911d0c96b62ec4c23dba39f61e91c}{Text}}, \mbox{\hyperlink{class_simple_border_ac60f850268eb152f557cc958ef554787}{Simple\+Border}}, \mbox{\hyperlink{class_radio_button_graphics_a001efecbbd29921f65b88bb6fca900f4}{Radio\+Button\+Graphics}}, \mbox{\hyperlink{class_default_render_a7e82a145296ee740fd170025cae25a20}{Default\+Render}}, \mbox{\hyperlink{class_core_window_frame_a3812e960b70a74a0d4493c8ee913cd67}{Core\+Window\+Frame}}, \mbox{\hyperlink{class_component_a69637a7fe0f2a7956aef624082febfbe}{Component}}, \mbox{\hyperlink{class_circle_border_a4a43d36375b15c3ff69c03d9e7793c88}{Circle\+Border}}, and \mbox{\hyperlink{class_background_a955f3d8bed7fcde583f26317862a1179}{Background}}.
+
+\mbox{\Hypertarget{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}\label{class_renderable_a8aee31852c580a42c8b643fd0a6b5c10}} 
+\index{Renderable@{Renderable}!Repaint@{Repaint}}
+\index{Repaint@{Repaint}!Renderable@{Renderable}}
+\doxysubsubsection{\texorpdfstring{Repaint()}{Repaint()}}
+{\footnotesize\ttfamily virtual void Renderable\+::\+Repaint (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Forces a repaint of the current component 
+
+Implemented in \mbox{\hyperlink{class_window_frame_a25347c33646be87dc103406fabf163ee}{Window\+Frame}}, \mbox{\hyperlink{class_trackbar_graphics_a9dd0d346227358fe74a705428970514b}{Trackbar\+Graphics}}, \mbox{\hyperlink{class_text_a8a49776ad81abc46192eac44522d52ed}{Text}}, \mbox{\hyperlink{class_simple_border_a7339e49d62e79707fcd9e8e3ba1df9e1}{Simple\+Border}}, \mbox{\hyperlink{class_radio_button_graphics_a7be9b8fbb4217486fb4f192bacbdc314}{Radio\+Button\+Graphics}}, \mbox{\hyperlink{class_default_render_a3155328571d12cb91f31629f1e3adec9}{Default\+Render}}, \mbox{\hyperlink{class_core_window_frame_ad44cbd27b5e8c5c47e12d9dfa7492525}{Core\+Window\+Frame}}, \mbox{\hyperlink{class_component_ab5d97caac7b73fc4b3c140670f726c15}{Component}}, \mbox{\hyperlink{class_circle_border_a54d27a7726fc10cb2132d2a19bc9c747}{Circle\+Border}}, and \mbox{\hyperlink{class_background_a4a6441c7b66b1da1de1f24f82a717960}{Background}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Renderable.\+h\end{DoxyCompactItemize}

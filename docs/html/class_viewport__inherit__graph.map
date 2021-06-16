@@ -1,0 +1,9 @@
+<map id="Viewport" name="Viewport">
+<area shape="rect" id="node1" title=" " alt="" coords="141,229,213,256"/>
+<area shape="rect" id="node2" href="$class_adjustable.html" title=" " alt="" coords="136,155,219,181"/>
+<area shape="rect" id="node3" href="$class_resizable.html" title=" " alt="" coords="33,80,111,107"/>
+<area shape="rect" id="node4" href="$class_resize_subject.html" title=" " alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node5" href="$class_movable.html" title=" " alt="" coords="143,80,212,107"/>
+<area shape="rect" id="node6" href="$class_move_subject.html" title=" " alt="" coords="136,5,232,32"/>
+<area shape="rect" id="node7" href="$class_update_subscriber.html" title=" " alt="" coords="236,80,361,107"/>
+</map>

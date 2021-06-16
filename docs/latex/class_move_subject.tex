@@ -1,0 +1,80 @@
+\hypertarget{class_move_subject}{}\doxysection{Move\+Subject Class Reference}
+\label{class_move_subject}\index{MoveSubject@{MoveSubject}}
+
+
+{\ttfamily \#include $<$Move\+Subject.\+h$>$}
+
+
+
+Inheritance diagram for Move\+Subject\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_move_subject__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_move_subject_a044a8a15a422bd15b21c43924297e983}{Add\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}{Remove\+On\+Move\+Subscriber}} (\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&subscriber)=0
+\item 
+virtual void \mbox{\hyperlink{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}{Notify\+On\+Move\+Subscribers}} (\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}} e)=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This interface is implemented by all classes which are capable of sending On\+Move events 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_move_subject_a044a8a15a422bd15b21c43924297e983}\label{class_move_subject_a044a8a15a422bd15b21c43924297e983}} 
+\index{MoveSubject@{MoveSubject}!AddOnMoveSubscriber@{AddOnMoveSubscriber}}
+\index{AddOnMoveSubscriber@{AddOnMoveSubscriber}!MoveSubject@{MoveSubject}}
+\doxysubsubsection{\texorpdfstring{AddOnMoveSubscriber()}{AddOnMoveSubscriber()}}
+{\footnotesize\ttfamily virtual void Move\+Subject\+::\+Add\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Adds a new subscriber to the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em subscriber} & to be added to the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_ae0b01bf0be96876dc45ac92e8979e03c}{Viewport}}, \mbox{\hyperlink{class_grid_cell_adc05d3c695f9cfce577193868397f840}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_a8db07d34dcf23b67d33e9342b5862bd5}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_aed9d27bb97eae63e2c293388ea5d0703}{Component}}.
+
+\mbox{\Hypertarget{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}\label{class_move_subject_a3bcee1fefee92db28ce7f13cc931b9d9}} 
+\index{MoveSubject@{MoveSubject}!NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}}
+\index{NotifyOnMoveSubscribers@{NotifyOnMoveSubscribers}!MoveSubject@{MoveSubject}}
+\doxysubsubsection{\texorpdfstring{NotifyOnMoveSubscribers()}{NotifyOnMoveSubscribers()}}
+{\footnotesize\ttfamily virtual void Move\+Subject\+::\+Notify\+On\+Move\+Subscribers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_move_info}{Event\+Move\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Sends an event to all the subscribers of this object. 
+\begin{DoxyParams}{Parameters}
+{\em e} & the event object that should be sent to the subscribers. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_a30456a041595eda6b758a6202b596a90}{Viewport}}, \mbox{\hyperlink{class_grid_cell_abbc6bf336f048c3e2e579cd144f9f421}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_aa6c2cd35ec12e79627144ceefe658a02}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a7f2f9fec8002d57fd4bc035b8d51121c}{Component}}.
+
+\mbox{\Hypertarget{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}\label{class_move_subject_ac2a00d5737d229c03a569c2d93133d82}} 
+\index{MoveSubject@{MoveSubject}!RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}}
+\index{RemoveOnMoveSubscriber@{RemoveOnMoveSubscriber}!MoveSubject@{MoveSubject}}
+\doxysubsubsection{\texorpdfstring{RemoveOnMoveSubscriber()}{RemoveOnMoveSubscriber()}}
+{\footnotesize\ttfamily virtual void Move\+Subject\+::\+Remove\+On\+Move\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_move_subscriber}{Move\+Subscriber}} \&}]{subscriber }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Removes a subscriber from the event stream. 
+\begin{DoxyParams}{Parameters}
+{\em the} & subscriber to be removed from the event stream. \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{class_viewport_aa634df5b6c0febb2327c6b96093e9624}{Viewport}}, \mbox{\hyperlink{class_grid_cell_a36e4dcc54bcfa62f2e7d14eae10a8492}{Grid\+Cell}}, \mbox{\hyperlink{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}{Default\+Move$<$ T $>$}}, \mbox{\hyperlink{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}{Default\+Move$<$ Adjustable \& $>$}}, \mbox{\hyperlink{class_default_move_af5e7c0a0d79e05393df9a692d70d8872}{Default\+Move$<$ Component \& $>$}}, and \mbox{\hyperlink{class_component_a545ec334ac806f6dbe32d093ffa4a7cd}{Component}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Move\+Subject.\+h\end{DoxyCompactItemize}

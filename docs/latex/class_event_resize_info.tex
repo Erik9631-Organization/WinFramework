@@ -1,0 +1,61 @@
+\hypertarget{class_event_resize_info}{}\doxysection{Event\+Resize\+Info Class Reference}
+\label{class_event_resize_info}\index{EventResizeInfo@{EventResizeInfo}}
+
+
+{\ttfamily \#include $<$Event\+Resize\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Gdiplus\+::\+Size \mbox{\hyperlink{class_event_resize_info_a431261c33c961631373fdba445e90f94}{Get\+Size}} ()
+\item 
+\mbox{\hyperlink{class_resizable}{Resizable}} $\ast$ \mbox{\hyperlink{class_event_resize_info_acedf0e465d7e13c3c0cec67a12b124d4}{Get\+Src}} ()
+\item 
+\mbox{\hyperlink{class_event_resize_info_ae667a219ebccbaff15940081340d5ac5}{Event\+Resize\+Info}} (Gdiplus\+::\+Size size, \mbox{\hyperlink{class_resizable}{Resizable}} $\ast$src)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for holding all the event information related to resizing 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_resize_info_ae667a219ebccbaff15940081340d5ac5}\label{class_event_resize_info_ae667a219ebccbaff15940081340d5ac5}} 
+\index{EventResizeInfo@{EventResizeInfo}!EventResizeInfo@{EventResizeInfo}}
+\index{EventResizeInfo@{EventResizeInfo}!EventResizeInfo@{EventResizeInfo}}
+\doxysubsubsection{\texorpdfstring{EventResizeInfo()}{EventResizeInfo()}}
+{\footnotesize\ttfamily Event\+Resize\+Info\+::\+Event\+Resize\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{size,  }\item[{\mbox{\hyperlink{class_resizable}{Resizable}} $\ast$}]{src }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & the size of the source object \\
+\hline
+{\em src} & the source object that that called the event. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_resize_info_a431261c33c961631373fdba445e90f94}\label{class_event_resize_info_a431261c33c961631373fdba445e90f94}} 
+\index{EventResizeInfo@{EventResizeInfo}!GetSize@{GetSize}}
+\index{GetSize@{GetSize}!EventResizeInfo@{EventResizeInfo}}
+\doxysubsubsection{\texorpdfstring{GetSize()}{GetSize()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Size Event\+Resize\+Info\+::\+Get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the size of the source at the point the event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_resize_info_acedf0e465d7e13c3c0cec67a12b124d4}\label{class_event_resize_info_acedf0e465d7e13c3c0cec67a12b124d4}} 
+\index{EventResizeInfo@{EventResizeInfo}!GetSrc@{GetSrc}}
+\index{GetSrc@{GetSrc}!EventResizeInfo@{EventResizeInfo}}
+\doxysubsubsection{\texorpdfstring{GetSrc()}{GetSrc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_resizable}{Resizable}} $\ast$ Event\+Resize\+Info\+::\+Get\+Src (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns source object that performed the call. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Event\+Resize\+Info.\+h\item 
+Graphics/Event\+Resize\+Info.\+cpp\end{DoxyCompactItemize}

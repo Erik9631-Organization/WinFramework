@@ -1,0 +1,107 @@
+\hypertarget{class_event_key_state_info}{}\doxysection{Event\+Key\+State\+Info Class Reference}
+\label{class_event_key_state_info}\index{EventKeyStateInfo@{EventKeyStateInfo}}
+
+
+{\ttfamily \#include $<$Event\+Key\+State\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_event_key_state_info_aec92183996db02b12e7ac27b3777293a}{Event\+Key\+State\+Info}} (\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$source, int virtual\+Key, wchar\+\_\+t unicode\+Key)
+\item 
+\mbox{\hyperlink{class_event_key_state_info_a13be42cb26b3f5bda080961f56f4f30d}{Event\+Key\+State\+Info}} (\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$source, int virtual\+Key, wchar\+\_\+t unicode\+Key, BYTE $\ast$keyboard\+State)
+\item 
+\mbox{\Hypertarget{class_event_key_state_info_ad419df3f577b2561aef1dda5e3a178b3}\label{class_event_key_state_info_ad419df3f577b2561aef1dda5e3a178b3}} 
+{\bfseries Event\+Key\+State\+Info} (\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$source, \mbox{\hyperlink{class_event_key_state_info}{Event\+Key\+State\+Info}} info)
+\item 
+\mbox{\hyperlink{class_input_manager}{Input\+Manager}} \& \mbox{\hyperlink{class_event_key_state_info_a6235979775c326329c236d30491a9b77}{Get\+Input\+Manager}} ()
+\item 
+\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$ \mbox{\hyperlink{class_event_key_state_info_ad63564774aafe0acfe8d42f07e388a75}{Get\+Source}} ()
+\item 
+int \mbox{\hyperlink{class_event_key_state_info_a624f70e70c160818a30a721f996314ce}{Get\+Virtual\+Key}} ()
+\item 
+wchar\+\_\+t \mbox{\hyperlink{class_event_key_state_info_a755dfb854f49011dbad865b48a6fe7c2}{Get\+Unicode\+Key}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is responsible for holding event information related to keyboard inputs. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_event_key_state_info_aec92183996db02b12e7ac27b3777293a}\label{class_event_key_state_info_aec92183996db02b12e7ac27b3777293a}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!EventKeyStateInfo@{EventKeyStateInfo}}
+\index{EventKeyStateInfo@{EventKeyStateInfo}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventKeyStateInfo()}{EventKeyStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Event\+Key\+State\+Info\+::\+Event\+Key\+State\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$}]{source,  }\item[{int}]{virtual\+Key,  }\item[{wchar\+\_\+t}]{unicode\+Key }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & the source object that calls the event \\
+\hline
+{\em virtual\+Key} & the virtual key that was interacted with when the event was sent. \\
+\hline
+{\em unicode\+Key} & the unicode key of the button that was interacted with when the event was sent. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_event_key_state_info_a13be42cb26b3f5bda080961f56f4f30d}\label{class_event_key_state_info_a13be42cb26b3f5bda080961f56f4f30d}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!EventKeyStateInfo@{EventKeyStateInfo}}
+\index{EventKeyStateInfo@{EventKeyStateInfo}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{EventKeyStateInfo()}{EventKeyStateInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Event\+Key\+State\+Info\+::\+Event\+Key\+State\+Info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$}]{source,  }\item[{int}]{virtual\+Key,  }\item[{wchar\+\_\+t}]{unicode\+Key,  }\item[{BYTE $\ast$}]{keyboard\+State }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & the source object that calls the event \\
+\hline
+{\em virtual\+Key} & the virtual key that was interacted with when the event was sent. \\
+\hline
+{\em unicode\+Key} & the unicode key of the button that was interacted with when the event was sent. \\
+\hline
+{\em keyboard\+State} & a pointer to an array containing a snapshot of the current state of the keyboard. Check \href{https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeyboardstate}{\texttt{ MSDN}} for more info \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_event_key_state_info_a6235979775c326329c236d30491a9b77}\label{class_event_key_state_info_a6235979775c326329c236d30491a9b77}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!GetInputManager@{GetInputManager}}
+\index{GetInputManager@{GetInputManager}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetInputManager()}{GetInputManager()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_input_manager}{Input\+Manager}} \& Event\+Key\+State\+Info\+::\+Get\+Input\+Manager (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns a reference to the input manager which contains a snapshot of the keyboard state when the event was sent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_key_state_info_ad63564774aafe0acfe8d42f07e388a75}\label{class_event_key_state_info_ad63564774aafe0acfe8d42f07e388a75}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!GetSource@{GetSource}}
+\index{GetSource@{GetSource}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetSource()}{GetSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{class_key_state_subject}{Key\+State\+Subject}} $\ast$ Event\+Key\+State\+Info\+::\+Get\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the source object that called the event. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_key_state_info_a755dfb854f49011dbad865b48a6fe7c2}\label{class_event_key_state_info_a755dfb854f49011dbad865b48a6fe7c2}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!GetUnicodeKey@{GetUnicodeKey}}
+\index{GetUnicodeKey@{GetUnicodeKey}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetUnicodeKey()}{GetUnicodeKey()}}
+{\footnotesize\ttfamily wchar\+\_\+t Event\+Key\+State\+Info\+::\+Get\+Unicode\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the unicode character of the key that was interacted with at the point the event was called. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_event_key_state_info_a624f70e70c160818a30a721f996314ce}\label{class_event_key_state_info_a624f70e70c160818a30a721f996314ce}} 
+\index{EventKeyStateInfo@{EventKeyStateInfo}!GetVirtualKey@{GetVirtualKey}}
+\index{GetVirtualKey@{GetVirtualKey}!EventKeyStateInfo@{EventKeyStateInfo}}
+\doxysubsubsection{\texorpdfstring{GetVirtualKey()}{GetVirtualKey()}}
+{\footnotesize\ttfamily int Event\+Key\+State\+Info\+::\+Get\+Virtual\+Key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the virtual key that was interacted with at the point the event was called. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Event\+Key\+State\+Info.\+h\item 
+Graphics/Event\+Key\+State\+Info.\+cpp\end{DoxyCompactItemize}

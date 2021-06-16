@@ -1,0 +1,87 @@
+\hypertarget{class_render_event_info}{}\doxysection{Render\+Event\+Info Class Reference}
+\label{class_render_event_info}\index{RenderEventInfo@{RenderEventInfo}}
+
+
+{\ttfamily \#include $<$Render\+Event\+Info.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_render_event_info_a59a7daf9437fef42e72de04f387072c4}{Render\+Event\+Info}} (Gdiplus\+::\+Graphics $\ast$g, Gdiplus\+::\+Size parent\+Size)
+\item 
+\mbox{\hyperlink{class_render_event_info_a7fa6d26c93e3de654060ecbfc5757eb2}{Render\+Event\+Info}} (Gdiplus\+::\+Graphics $\ast$g)
+\item 
+Gdiplus\+::\+Graphics $\ast$ \mbox{\hyperlink{class_render_event_info_a8e6b0c26fdbb88460adf0504cb3c3067}{Get\+Graphics}} ()
+\item 
+Gdiplus\+::\+Size \mbox{\hyperlink{class_render_event_info_a15052711f77071cce89d68fd2e76f54d}{Get\+Parent\+Size}} ()
+\item 
+void \mbox{\hyperlink{class_render_event_info_a53cf8652db1295067492f1a7480c2256}{Set\+Parent\+Size}} (Gdiplus\+::\+Size parent\+Size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class contains all the information related to render events 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_render_event_info_a59a7daf9437fef42e72de04f387072c4}\label{class_render_event_info_a59a7daf9437fef42e72de04f387072c4}} 
+\index{RenderEventInfo@{RenderEventInfo}!RenderEventInfo@{RenderEventInfo}}
+\index{RenderEventInfo@{RenderEventInfo}!RenderEventInfo@{RenderEventInfo}}
+\doxysubsubsection{\texorpdfstring{RenderEventInfo()}{RenderEventInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Render\+Event\+Info\+::\+Render\+Event\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Graphics $\ast$}]{g,  }\item[{Gdiplus\+::\+Size}]{parent\+Size }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. \\
+\hline
+{\em parent\+Size} & additional information specifying the size of the parent. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_render_event_info_a7fa6d26c93e3de654060ecbfc5757eb2}\label{class_render_event_info_a7fa6d26c93e3de654060ecbfc5757eb2}} 
+\index{RenderEventInfo@{RenderEventInfo}!RenderEventInfo@{RenderEventInfo}}
+\index{RenderEventInfo@{RenderEventInfo}!RenderEventInfo@{RenderEventInfo}}
+\doxysubsubsection{\texorpdfstring{RenderEventInfo()}{RenderEventInfo()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Render\+Event\+Info\+::\+Render\+Event\+Info (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Graphics $\ast$}]{g }\end{DoxyParamCaption})}
+
+The parent size is set ti 0,0 by default. 
+\begin{DoxyParams}{Parameters}
+{\em g} & pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_render_event_info_a8e6b0c26fdbb88460adf0504cb3c3067}\label{class_render_event_info_a8e6b0c26fdbb88460adf0504cb3c3067}} 
+\index{RenderEventInfo@{RenderEventInfo}!GetGraphics@{GetGraphics}}
+\index{GetGraphics@{GetGraphics}!RenderEventInfo@{RenderEventInfo}}
+\doxysubsubsection{\texorpdfstring{GetGraphics()}{GetGraphics()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Graphics $\ast$ Render\+Event\+Info\+::\+Get\+Graphics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+Returns a pointer to graphics object to which it is possible to perform a drawing operation. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_event_info_a15052711f77071cce89d68fd2e76f54d}\label{class_render_event_info_a15052711f77071cce89d68fd2e76f54d}} 
+\index{RenderEventInfo@{RenderEventInfo}!GetParentSize@{GetParentSize}}
+\index{GetParentSize@{GetParentSize}!RenderEventInfo@{RenderEventInfo}}
+\doxysubsubsection{\texorpdfstring{GetParentSize()}{GetParentSize()}}
+{\footnotesize\ttfamily Gdiplus\+::\+Size Render\+Event\+Info\+::\+Get\+Parent\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyReturn}{Returns}
+returns the size of the parent. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_render_event_info_a53cf8652db1295067492f1a7480c2256}\label{class_render_event_info_a53cf8652db1295067492f1a7480c2256}} 
+\index{RenderEventInfo@{RenderEventInfo}!SetParentSize@{SetParentSize}}
+\index{SetParentSize@{SetParentSize}!RenderEventInfo@{RenderEventInfo}}
+\doxysubsubsection{\texorpdfstring{SetParentSize()}{SetParentSize()}}
+{\footnotesize\ttfamily void Render\+Event\+Info\+::\+Set\+Parent\+Size (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Size}]{parent\+Size }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em parent\+Size} & sets the information about the size of the parent. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Graphics/Render\+Event\+Info.\+h\item 
+Graphics/Render\+Event\+Info.\+cpp\end{DoxyCompactItemize}

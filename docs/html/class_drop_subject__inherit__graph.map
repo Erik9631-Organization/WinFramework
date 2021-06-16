@@ -1,0 +1,5 @@
+<map id="DropSubject" name="DropSubject">
+<area shape="rect" id="node1" title=" " alt="" coords="61,5,155,32"/>
+<area shape="rect" id="node2" href="$class_drag_manager.html" title=" " alt="" coords="5,80,104,107"/>
+<area shape="rect" id="node3" href="$class_list_box.html" title=" " alt="" coords="128,80,195,107"/>
+</map>
