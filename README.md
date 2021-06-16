@@ -22,7 +22,7 @@ An example of a bare-bone entry point:
 ```C++
 #include <WinWrapper.h> // Needed
 #include <ApplicationController.h>
-int WinEntry()
+int LiiEntry()
 {
 	ApplicationController::JoinThreads();
 	return 0;
