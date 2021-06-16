@@ -1,13 +1,14 @@
 #pragma once
 #include <any>
 #include "InputManager.h"
+class KeyStateSubject;
 /**
  * This class is responsible for holding event information related to keyboard inputs.
  */
 class EventKeyStateInfo
 {
 private:
-	std::any source;
+	KeyStateSubject* source;
 	int virtualKey;
 	wchar_t unicodeKey;
 	InputManager manager;
@@ -17,7 +18,7 @@ public:
 	 * \param virtualKey the virtual key that was interacted with when the event was sent.
 	 * \param unicodeKey the unicode key of the button that was interacted with when the event was sent.
 	 */
-	EventKeyStateInfo(std::any source, int virtualKey, wchar_t unicodeKey);
+	EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey);
 
 	/**
 	 * \param source the source object that calls the event
@@ -25,7 +26,9 @@ public:
 	 * \param unicodeKey the unicode key of the button that was interacted with when the event was sent.
 	 * \param keyboardState a pointer to an array containing a snapshot of the current state of the keyboard. Check <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeyboardstate">MSDN</a> for more info 
 	 */
-	EventKeyStateInfo(std::any source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState);
+	EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState);
+
+	EventKeyStateInfo(KeyStateSubject* source, EventKeyStateInfo info);
 
 	/**
 	 * \return returns a reference to the input manager which contains a snapshot of the keyboard state when the event was sent.
@@ -35,7 +38,7 @@ public:
 	/**
 	 * \return returns the source object that called the event.
 	 */
-	std::any GetSource();
+	KeyStateSubject* GetSource();
 
 	/**
 	 * \return returns the virtual key that was interacted with at the point the event was called.

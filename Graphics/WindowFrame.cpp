@@ -103,23 +103,23 @@ void WindowFrame::SetPosition(Point point)
 
 void WindowFrame::NotifyOnKeyDown(EventKeyStateInfo e)
 {
-	Component::NotifyOnKeyDown(e);
+	Component::NotifyOnKeyDown(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
-		currentFocus->NotifyOnKeyDown(e);
+		currentFocus->NotifyOnKeyDown(EventKeyStateInfo(currentFocus, e));
 }
 
 void WindowFrame::NotifyOnKeyUp(EventKeyStateInfo e)
 {
-	Component::NotifyOnKeyUp(e);
+	Component::NotifyOnKeyUp(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
-		currentFocus->NotifyOnKeyUp(e);
+		currentFocus->NotifyOnKeyUp(EventKeyStateInfo(currentFocus, e));
 }
 
 void WindowFrame::NotifyOnKeyPressed(EventKeyStateInfo e)
 {
-	Component::NotifyOnKeyPressed(e);
+	Component::NotifyOnKeyPressed(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
-		currentFocus->NotifyOnKeyPressed(e);
+		currentFocus->NotifyOnKeyPressed(EventKeyStateInfo(currentFocus, e));
 }
 
 void WindowFrame::CloseWindow()

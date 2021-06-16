@@ -105,23 +105,29 @@ public:
 	}
 };
 
-class TestClass : public KeyStateSubscriber
+class InputTester : public KeyStateSubscriber
 {
 	// Inherited via KeyStateSubscriber
 	virtual void OnKeyDown(EventKeyStateInfo e) override
 	{
+		Component* src = dynamic_cast<Component*>(e.GetSource());
 
 		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
-			CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyDown: F + E ");
+			CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
+		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
 
 	}
 	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
+		Component* src = dynamic_cast<Component*>(e.GetSource());
 		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
+		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
 	}
 	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
+		Component* src = dynamic_cast<Component*>(e.GetSource());
 		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
+		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
 	}
 };
 
@@ -130,7 +136,7 @@ class CheckboxTester : public CheckboxStateSubscriber
 	// Inherited via CheckboxStateSubscriber
 	virtual void OnChecked(EventCheckboxStateInfo e) override
 	{
-		Checkbox* src = std::any_cast<Checkbox*>(e.GetSrc());
+		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
 		if (e.GetState())
 			CoreWindowFrame::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
 		else
@@ -143,7 +149,7 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	// Inherited via RadioButtonStateSubscriber
 	virtual void OnRadioButtonSelected(EventRadioButtonStateInfo e) override
 	{
-		RadioButton* src = std::any_cast<RadioButton*>(e.GetSrc());
+		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
 		if (e.IsSelected())
 			CoreWindowFrame::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
 		else
@@ -362,7 +368,7 @@ void DemoApplication::LaunchDemoApp()
 	int gap = 1;
 
 	
-	TestClass inputTest = TestClass();
+	InputTester inputTest = InputTester();
 	CheckboxTester checkboxTester = CheckboxTester();
 	RadioButtonTester radioButtonTester = RadioButtonTester();
 
@@ -583,20 +589,14 @@ void DemoApplication::LaunchDemoApp()
 	calculatorGrid.AddColumnSpan(0, 3);
 	calculatorGrid.SetColumnGap(2);
 	calculatorGrid.SetRowGap(2);
+	calculatorGrid.AddKeyStateSubscriber(inputTest);
+	calculatorGrid.SetComponentName("CalculatorGrid");
 	frame.Add(calculatorGrid);
 
 	Label outputLabel = Label(offset, offset - height - gap, width * 3 + gap * 3, height, "outputLabel");
-	Button addButton = Button(width * 3 + offset + gap * 3, offset, width + gap * 3, (height * 3 + gap * 3) / 2);
-	Button multButton = Button(width * 3 + offset + gap * 3, addButton.GetY() + addButton.GetHeight(), width + gap * 3, (height * 3 + gap * 3) / 2);
 	calculatorGrid.Add(outputLabel);
-
-	multButton.SetText(L"Multiply");
-	multButton.AddKeyStateSubscriber(inputTest);
-
-	addButton.SetText(L"Add");
 	SimpleCalculator calculator = SimpleCalculator(outputLabel);
-	addButton.AddMouseStateSubscriber(calculator);
-	multButton.AddMouseStateSubscriber(calculator);
+
 
 	for (int i = 0; i < 11; i++)
 	{

@@ -25,13 +25,13 @@ void Checkbox::SetChecked(bool state)
 	if (state == true)
 	{
 		checkBoxChar.SetText(L"✓");
-		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(std::make_any<Checkbox*>(this), true));
+		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, true));
 	}
 
 	else
 	{
 		checkBoxChar.SetText(L"");
-		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(std::make_any<Checkbox*>(this), false));
+		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, false));
 	}
 
 	checked = state;

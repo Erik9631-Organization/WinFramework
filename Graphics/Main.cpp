@@ -11,7 +11,7 @@ using namespace std;
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	ApplicationController controller(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
-	int returnVal = WinEntry();
+	int returnVal = LiiEntry();
 
 	//Thread cleanup
 	ApplicationController::JoinThreads();
@@ -63,9 +63,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 *	2) If component is added to the controlled trackbar before the trackbar is added as a control, the size doesn't update
 */
 	
-int WinEntry()
+/*int LiiEntry()
 {
 	DemoApplication::LaunchDemoApp();
 	ApplicationController::JoinThreads();
 	return 0;
-}
+}*/

@@ -1,12 +1,12 @@
 #include "EventRadioButtonStateInfo.h"
 
-EventRadioButtonStateInfo::EventRadioButtonStateInfo(bool selected, std::any src)
+EventRadioButtonStateInfo::EventRadioButtonStateInfo(bool selected, RadioButtonStateSubject* src)
 {
 	this->isSelected = selected;
 	this->src = src;
 }
 
-std::any EventRadioButtonStateInfo::GetSrc()
+RadioButtonStateSubject* EventRadioButtonStateInfo::GetSrc()
 {
 	return src;
 }

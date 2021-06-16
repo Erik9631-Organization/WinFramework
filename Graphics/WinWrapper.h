@@ -1,2 +1,2 @@
 #pragma once
-extern int WinEntry();
+extern int LiiEntry();

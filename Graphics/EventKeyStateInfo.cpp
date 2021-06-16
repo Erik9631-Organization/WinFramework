@@ -1,12 +1,12 @@
 #include "EventKeyStateInfo.h"
 #include <Windows.h>
 
-EventKeyStateInfo::EventKeyStateInfo(std::any source, int virtualKey, wchar_t unicodeKey) : EventKeyStateInfo(source, virtualKey, unicodeKey, nullptr)
+EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey) : EventKeyStateInfo(source, virtualKey, unicodeKey, nullptr)
 {
 
 }
 
-EventKeyStateInfo::EventKeyStateInfo(std::any source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState)
+EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState)
 {
 	this->source = source;
 	this->virtualKey = virtualKey;
@@ -15,12 +15,20 @@ EventKeyStateInfo::EventKeyStateInfo(std::any source, int virtualKey, wchar_t un
 		manager.SetKeyboardState(keyboardState);
 }
 
+EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, EventKeyStateInfo info)
+{
+	manager = info.GetInputManager();
+	unicodeKey = info.GetUnicodeKey();
+	virtualKey = info.GetVirtualKey();
+	this->source = source;
+}
+
 InputManager& EventKeyStateInfo::GetInputManager()
 {
 	return manager;
 }
 
-std::any EventKeyStateInfo::GetSource()
+KeyStateSubject* EventKeyStateInfo::GetSource()
 {
 	return source;
 }

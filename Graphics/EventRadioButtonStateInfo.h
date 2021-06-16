@@ -1,5 +1,6 @@
 #pragma once
 #include <any>
+class RadioButtonStateSubject;
 
 /**
  * This class is responsible for holding all the information related to radio button events.
@@ -8,18 +9,18 @@ class EventRadioButtonStateInfo
 {
 private:
 	bool isSelected;
-	std::any src;
+	RadioButtonStateSubject* src;
 public:
 	/**
 	 * \param selected whether the src object is selected. True for selected, false for unselected
 	 * \param src the source object that called the event.
 	 */
-	EventRadioButtonStateInfo(bool selected, std::any src);
+	EventRadioButtonStateInfo(bool selected, RadioButtonStateSubject* src);
 
 	/**
 	 * \return returns the source object that called the event.
 	 */
-	std::any GetSrc();
+	RadioButtonStateSubject* GetSrc();
 	
 	/**
 	 * \returns whether the src object was selected.

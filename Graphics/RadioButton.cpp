@@ -19,7 +19,7 @@ void RadioButton::SetChecked(bool checked)
 	if (this->checked == checked)
 		return;
 	this->checked = checked;
-	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, std::make_any<RadioButton*>(this)));
+	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, this));
 
 	radioButtonGraphics.SetFillEnabled(checked);
 	Repaint();

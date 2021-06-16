@@ -10,6 +10,7 @@
 *.sln.docstates
 CodeGraphData/
 Documentation/
+Doxyfile
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)

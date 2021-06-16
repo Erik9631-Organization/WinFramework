@@ -90,6 +90,12 @@ void DefaultListBoxBehavior::OnKeyPressed(EventKeyStateInfo e)
 
 void DefaultListBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 {
+	e.SetRecursive(false);
+	associatedListBox.NotifyOnMouseDown(e);
+}
+
+void DefaultListBoxBehavior::OnMouseUp(EventMouseStateInfo e)
+{
 	TableElement* element = dynamic_cast<TableElement*>(e.GetSrc());
 	if (element == nullptr)
 		return;
@@ -99,12 +105,6 @@ void DefaultListBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 		SelectShiftClickAction(element);
 	else
 		SelectClickAction(element);
-	e.SetRecursive(false);
-	associatedListBox.NotifyOnMouseDown(e);
-}
-
-void DefaultListBoxBehavior::OnMouseUp(EventMouseStateInfo e)
-{
 	e.SetRecursive(false);
 	associatedListBox.NotifyOnMouseUp(e);
 }

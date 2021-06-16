@@ -44,7 +44,7 @@ public:
 	void UpdateScale();
 	/**
 	 * Constructor
-	 * \param args reference to WinEntry arguments
+	 * \param args reference to LiiEntry arguments
 	 * \param wrapperFrame reference to the frame that wrapps the core frame
 	 * \param windowName the name of the window which is being displayed
 	 * \param style the style of the window that should be used. Please check MSDN for window styles.
