@@ -44,7 +44,7 @@ virtual int \mbox{\hyperlink{class_default_move_a0997c6ba1b93c64e9437947a8c94faa
 \item 
 virtual Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move_a6364c7fada142ac0dc20bae53446d144}{Get\+Absolute\+Position}} () override
 \item 
-virtual void \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+virtual void \mbox{\hyperlink{class_default_move_a7bffb1d0e7dc9eac6ec16035a5049146}{Set\+Element\+Offset}} (Gdiplus\+::\+Point position) override
 \item 
 virtual void \mbox{\hyperlink{class_default_move_a120f38d2f9ffde113116fbd06e6c4613}{Set\+Element\+XOffset}} (int x) override
 \item 
@@ -130,8 +130,8 @@ Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Mov
 {\footnotesize\ttfamily template$<$class T $>$ \\
 Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
-returns the point which specifies the X and Y offset. 
+Gets the element position dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y position.
 \end{DoxyReturn}
 
 
@@ -144,8 +144,8 @@ Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Mov
 {\footnotesize\ttfamily template$<$class T $>$ \\
 int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the X offset. 
+Gets the element X position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X position.
 \end{DoxyReturn}
 
 
@@ -158,8 +158,8 @@ Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Mov
 {\footnotesize\ttfamily template$<$class T $>$ \\
 int \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the Y offset. 
+Gets the element Y position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y position.
 \end{DoxyReturn}
 
 
@@ -168,7 +168,7 @@ Implements \mbox{\hyperlink{class_movable_accd1a9f87ac25a981287b14a9e7e4d38}{Mov
 \mbox{\Hypertarget{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}\label{class_default_move_af10a6e0f3d538b0c6b42cf87ed5b1471}} 
 \index{DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}!GetPosition@{GetPosition}}
 \index{GetPosition@{GetPosition}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetX()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
 Gdiplus\+::\+Point \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
@@ -244,11 +244,11 @@ Implements \mbox{\hyperlink{class_move_subject_ac2a00d5737d229c03a569c2d93133d82
 \index{SetElementOffset@{SetElementOffset}!DefaultMove$<$ T $>$@{DefaultMove$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
 {\footnotesize\ttfamily template$<$class T $>$ \\
-void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+{\em position} & sets the position via a point object which specifies the X and Y position. \\
 \hline
 \end{DoxyParams}
 
@@ -262,9 +262,9 @@ Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Mov
 {\footnotesize\ttfamily template$<$class T $>$ \\
 void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em x} & specifies the X offset. \\
+{\em x} & specifies the X position. \\
 \hline
 \end{DoxyParams}
 
@@ -278,9 +278,9 @@ Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Mov
 {\footnotesize\ttfamily template$<$class T $>$ \\
 void \mbox{\hyperlink{class_default_move}{Default\+Move}}$<$ T $>$\+::Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em y} & specifies the Y offset. \\
+{\em y} & specifies the Y position. \\
 \hline
 \end{DoxyParams}
 

@@ -155,7 +155,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSpanParent</b> ()</
 <tr class="separator:a36e4dcc54bcfa62f2e7d14eae10a8492"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abbc6bf336f048c3e2e579cd144f9f421"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#abbc6bf336f048c3e2e579cd144f9f421">NotifyOnMoveSubscribers</a> (<a class="el" href="class_event_move_info.html">EventMoveInfo</a> event) override</td></tr>
 <tr class="separator:abbc6bf336f048c3e2e579cd144f9f421"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7293a097fe1f74f9bf4fe7244e1b359a"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#a7293a097fe1f74f9bf4fe7244e1b359a">GetPosition</a> () override</td></tr>
+<tr class="memitem:a7293a097fe1f74f9bf4fe7244e1b359a"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#a7293a097fe1f74f9bf4fe7244e1b359a">GetX</a> () override</td></tr>
 <tr class="separator:a7293a097fe1f74f9bf4fe7244e1b359a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e7faaebde6a6677049466970c2ba3bd"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#a4e7faaebde6a6677049466970c2ba3bd">GetX</a> () override</td></tr>
 <tr class="separator:a4e7faaebde6a6677049466970c2ba3bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,7 +175,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsSpanParent</b> ()</
 <tr class="separator:a730da27eb3ab3b8141500c2889b332c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a315e05e899c9527552186f14e7848a58"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#a315e05e899c9527552186f14e7848a58">SetY</a> (int y) override</td></tr>
 <tr class="separator:a315e05e899c9527552186f14e7848a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef686fa375e35042bf87217648367582"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#aef686fa375e35042bf87217648367582">SetElementOffset</a> (Gdiplus::Point offset) override</td></tr>
+<tr class="memitem:aef686fa375e35042bf87217648367582"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#aef686fa375e35042bf87217648367582">SetElementOffset</a> (Gdiplus::Point position) override</td></tr>
 <tr class="separator:aef686fa375e35042bf87217648367582"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a794559ad7dd8ab23ffe48c09f276bb6d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_grid_cell.html#a794559ad7dd8ab23ffe48c09f276bb6d">SetElementXOffset</a> (int x) override</td></tr>
 <tr class="separator:a794559ad7dd8ab23ffe48c09f276bb6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -374,7 +374,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y offset. </dd></dl>
+<p>Gets the element position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a697366deed4e9776bbd3ade51c72dd97">Movable</a>.</p>
 
@@ -402,7 +402,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element X offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X offset. </dd></dl>
+<p>Gets the element X position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a85afb7863751046fecc2382d10a1a2b8">Movable</a>.</p>
 
@@ -430,7 +430,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element Y offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y offset. </dd></dl>
+<p>Gets the element Y position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#accd1a9f87ac25a981287b14a9e7e4d38">Movable</a>.</p>
 
@@ -465,7 +465,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
 </div>
 </div>
 <a id="a7293a097fe1f74f9bf4fe7244e1b359a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7293a097fe1f74f9bf4fe7244e1b359a">&#9670;&nbsp;</a></span>GetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7293a097fe1f74f9bf4fe7244e1b359a">&#9670;&nbsp;</a></span>GetX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -474,7 +474,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Gdiplus::Point GridCell::GetPosition </td>
+          <td class="memname">Gdiplus::Point GridCell::GetX </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -782,7 +782,7 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
           <td class="memname">void GridCell::SetElementOffset </td>
           <td>(</td>
           <td class="paramtype">Gdiplus::Point&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -792,9 +792,9 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>sets the offset via a point object which specifies the X and Y offset. </td></tr>
+    <tr><td class="paramname">position</td><td>sets the position via a point object which specifies the X and Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -826,9 +826,9 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>specifies the X offset. </td></tr>
+    <tr><td class="paramname">x</td><td>specifies the X position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -860,9 +860,9 @@ Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><b>GetPixelPos
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">y</td><td>specifies the Y offset. </td></tr>
+    <tr><td class="paramname">y</td><td>specifies the Y position. </td></tr>
   </table>
   </dd>
 </dl>

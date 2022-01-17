@@ -2,15 +2,15 @@
 <svg version="1.1" viewBox="0 0 104 31" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <linearGradient id="a">
-   <stop stop-color="#5373B4" offset="0"/>
-   <stop stop-color="#7C95C6" offset="1"/>
+   <stop stop-color="#5373B4" position="0"/>
+   <stop stop-color="#7C95C6" position="1"/>
   </linearGradient>
   <linearGradient id="d" x1="31.474" x2="31.474" y1="24.821" y2="26.773" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
   <linearGradient id="c" x1="31.474" x2="31.474" y1="24.821" y2="26.773" gradientTransform="matrix(.6816 0 0 1.0248 72.391 -.91809)" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
   <linearGradient id="b" x1="56.295" x2="56.295" y1="24.622" y2="26.574" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
   <linearGradient id="e" x1="49.067" x2="48.956" y1="19.719" y2="9.5227" gradientTransform="matrix(.97968 0 0 1.0207 -.25579 -.25579)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#C0CCE3" offset="0"/>
-   <stop stop-color="#EEF1F7" offset="1"/>
+   <stop stop-color="#C0CCE3" position="0"/>
+   <stop stop-color="#EEF1F7" position="1"/>
   </linearGradient>
   <filter id="f" x="-.010676" y="-.045304" width="1.0214" height="1.0906" color-interpolation-filters="sRGB">
    <feGaussianBlur stdDeviation="0.45293203"/>

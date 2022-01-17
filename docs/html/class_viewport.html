@@ -147,7 +147,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
 <tr class="separator:aa634df5b6c0febb2327c6b96093e9624"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a30456a041595eda6b758a6202b596a90"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#a30456a041595eda6b758a6202b596a90">NotifyOnMoveSubscribers</a> (<a class="el" href="class_event_move_info.html">EventMoveInfo</a> event) override</td></tr>
 <tr class="separator:a30456a041595eda6b758a6202b596a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9729ffaf1a8464103c9fdcac3defdfef"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#a9729ffaf1a8464103c9fdcac3defdfef">GetPosition</a> () override</td></tr>
+<tr class="memitem:a9729ffaf1a8464103c9fdcac3defdfef"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#a9729ffaf1a8464103c9fdcac3defdfef">GetX</a> () override</td></tr>
 <tr class="separator:a9729ffaf1a8464103c9fdcac3defdfef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50043d1a3b927688fcd6c323f500bb96"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#a50043d1a3b927688fcd6c323f500bb96">GetX</a> () override</td></tr>
 <tr class="separator:a50043d1a3b927688fcd6c323f500bb96"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,7 +189,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
 <tr class="separator:a91997d1f775594b8f621f459f6c354c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef40b1e51ddce211e70e76bd746ac20f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#aef40b1e51ddce211e70e76bd746ac20f">OnUpdate</a> (<a class="el" href="class_event_update_info.html">EventUpdateInfo</a> e) override</td></tr>
 <tr class="separator:aef40b1e51ddce211e70e76bd746ac20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb0b2d4bd79cc8891445d96c3341d803"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#acb0b2d4bd79cc8891445d96c3341d803">SetElementOffset</a> (Gdiplus::Point offset) override</td></tr>
+<tr class="memitem:acb0b2d4bd79cc8891445d96c3341d803"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#acb0b2d4bd79cc8891445d96c3341d803">SetElementOffset</a> (Gdiplus::Point position) override</td></tr>
 <tr class="separator:acb0b2d4bd79cc8891445d96c3341d803"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac86c42395436f630ddfeea8c49c73824"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_viewport.html#ac86c42395436f630ddfeea8c49c73824">SetElementXOffset</a> (int x) override</td></tr>
 <tr class="separator:ac86c42395436f630ddfeea8c49c73824"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -377,7 +377,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y offset. </dd></dl>
+<p>Gets the element position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a697366deed4e9776bbd3ade51c72dd97">Movable</a>.</p>
 
@@ -405,7 +405,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element X offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X offset. </dd></dl>
+<p>Gets the element X position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a85afb7863751046fecc2382d10a1a2b8">Movable</a>.</p>
 
@@ -433,7 +433,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element Y offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y offset. </dd></dl>
+<p>Gets the element Y position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#accd1a9f87ac25a981287b14a9e7e4d38">Movable</a>.</p>
 
@@ -468,7 +468,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
 </div>
 </div>
 <a id="a9729ffaf1a8464103c9fdcac3defdfef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9729ffaf1a8464103c9fdcac3defdfef">&#9670;&nbsp;</a></span>GetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9729ffaf1a8464103c9fdcac3defdfef">&#9670;&nbsp;</a></span>GetX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,7 +477,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Gdiplus::Point Viewport::GetPosition </td>
+          <td class="memname">Gdiplus::Point Viewport::GetX </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -785,7 +785,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
           <td class="memname">void Viewport::SetElementOffset </td>
           <td>(</td>
           <td class="paramtype">Gdiplus::Point&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -795,9 +795,9 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>sets the offset via a point object which specifies the X and Y offset. </td></tr>
+    <tr><td class="paramname">position</td><td>sets the position via a point object which specifies the X and Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -829,9 +829,9 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>specifies the X offset. </td></tr>
+    <tr><td class="paramname">x</td><td>specifies the X position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -863,9 +863,9 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">y</td><td>specifies the Y offset. </td></tr>
+    <tr><td class="paramname">y</td><td>specifies the Y position. </td></tr>
   </table>
   </dd>
 </dl>

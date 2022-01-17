@@ -122,7 +122,7 @@ Inheritance diagram for Movable:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a23c5be86c27c555fb5931df1b80c53be"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#a23c5be86c27c555fb5931df1b80c53be">GetPosition</a> ()=0</td></tr>
+<tr class="memitem:a23c5be86c27c555fb5931df1b80c53be"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#a23c5be86c27c555fb5931df1b80c53be">GetX</a> ()=0</td></tr>
 <tr class="separator:a23c5be86c27c555fb5931df1b80c53be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4911ecdff3edaf6bb4f378ef7bd99b71"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#a4911ecdff3edaf6bb4f378ef7bd99b71">GetX</a> ()=0</td></tr>
 <tr class="separator:a4911ecdff3edaf6bb4f378ef7bd99b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -142,7 +142,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9d6af112d0a823945878eb846e795a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79bf1c601ec24ad106d0bbdb429c7f3d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#a79bf1c601ec24ad106d0bbdb429c7f3d">SetY</a> (int y)=0</td></tr>
 <tr class="separator:a79bf1c601ec24ad106d0bbdb429c7f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeec2f90545cd7f4b71095fdbe7d547ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#aeec2f90545cd7f4b71095fdbe7d547ea">SetElementOffset</a> (Gdiplus::Point offset)=0</td></tr>
+<tr class="memitem:aeec2f90545cd7f4b71095fdbe7d547ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#aeec2f90545cd7f4b71095fdbe7d547ea">SetElementOffset</a> (Gdiplus::Point position)=0</td></tr>
 <tr class="separator:aeec2f90545cd7f4b71095fdbe7d547ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac0f30a6e114bf4d6d71eb74f8d56bad7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_movable.html#ac0f30a6e114bf4d6d71eb74f8d56bad7">SetElementXOffset</a> (int x)=0</td></tr>
 <tr class="separator:ac0f30a6e114bf4d6d71eb74f8d56bad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -271,7 +271,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y offset. </dd></dl>
+<p>Gets the element position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y position. </dd></dl>
 
 <p>Implemented in <a class="el" href="class_viewport.html#a82b5fbe79219257a390c727ec20fb63a">Viewport</a>, <a class="el" href="class_grid_cell.html#a67307633836b386b71fccd73895209f6">GridCell</a>, <a class="el" href="class_default_move.html#a1411b3711a3d0582a3a0a83bc66c907f">DefaultMove&lt; T &gt;</a>, <a class="el" href="class_default_move.html#a1411b3711a3d0582a3a0a83bc66c907f">DefaultMove&lt; Adjustable &amp; &gt;</a>, <a class="el" href="class_default_move.html#a1411b3711a3d0582a3a0a83bc66c907f">DefaultMove&lt; Component &amp; &gt;</a>, and <a class="el" href="class_component.html#ab5a38299621c8c78cc047c2e2b31b62d">Component</a>.</p>
 
@@ -299,7 +299,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element X offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X offset. </dd></dl>
+<p>Gets the element X position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X position. </dd></dl>
 
 <p>Implemented in <a class="el" href="class_viewport.html#a309d46df7e4339aab0a8f9d9f2a8c3dd">Viewport</a>, <a class="el" href="class_grid_cell.html#a3413f7cb7c8b7d838664bd17b9434c9c">GridCell</a>, <a class="el" href="class_default_move.html#abb94771cdbdd4e9a920e395279a7375e">DefaultMove&lt; T &gt;</a>, <a class="el" href="class_default_move.html#abb94771cdbdd4e9a920e395279a7375e">DefaultMove&lt; Adjustable &amp; &gt;</a>, <a class="el" href="class_default_move.html#abb94771cdbdd4e9a920e395279a7375e">DefaultMove&lt; Component &amp; &gt;</a>, and <a class="el" href="class_component.html#a8b97492ad02c4959fa9581aafde75690">Component</a>.</p>
 
@@ -327,14 +327,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element Y offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y offset. </dd></dl>
+<p>Gets the element Y position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y position. </dd></dl>
 
 <p>Implemented in <a class="el" href="class_viewport.html#ae0e88aeb1306316af3cfd93eb580c989">Viewport</a>, <a class="el" href="class_grid_cell.html#a69976c8cfe094a7f14d5931c275219e2">GridCell</a>, <a class="el" href="class_default_move.html#a5cf7c8a44915d589a7e875a2458d717a">DefaultMove&lt; T &gt;</a>, <a class="el" href="class_default_move.html#a5cf7c8a44915d589a7e875a2458d717a">DefaultMove&lt; Adjustable &amp; &gt;</a>, <a class="el" href="class_default_move.html#a5cf7c8a44915d589a7e875a2458d717a">DefaultMove&lt; Component &amp; &gt;</a>, and <a class="el" href="class_component.html#a302c2f98709d1b75ee3ab03670ec965d">Component</a>.</p>
 
 </div>
 </div>
 <a id="a23c5be86c27c555fb5931df1b80c53be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23c5be86c27c555fb5931df1b80c53be">&#9670;&nbsp;</a></span>GetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c5be86c27c555fb5931df1b80c53be">&#9670;&nbsp;</a></span>GetX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -343,7 +343,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual Gdiplus::Point Movable::GetPosition </td>
+          <td class="memname">virtual Gdiplus::Point Movable::GetX </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -430,7 +430,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">virtual void Movable::SetElementOffset </td>
           <td>(</td>
           <td class="paramtype">Gdiplus::Point&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -440,9 +440,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>sets the offset via a point object which specifies the X and Y offset. </td></tr>
+    <tr><td class="paramname">position</td><td>sets the position via a point object which specifies the X and Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -474,9 +474,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>specifies the X offset. </td></tr>
+    <tr><td class="paramname">x</td><td>specifies the X position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -508,9 +508,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">y</td><td>specifies the Y offset. </td></tr>
+    <tr><td class="paramname">y</td><td>specifies the Y position. </td></tr>
   </table>
   </dd>
 </dl>

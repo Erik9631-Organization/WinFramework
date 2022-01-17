@@ -82,7 +82,7 @@ virtual void \mbox{\hyperlink{class_grid_cell_a730da27eb3ab3b8141500c2889b332c1}
 \item 
 virtual void \mbox{\hyperlink{class_grid_cell_a315e05e899c9527552186f14e7848a58}{SetY}} (int y) override
 \item 
-virtual void \mbox{\hyperlink{class_grid_cell_aef686fa375e35042bf87217648367582}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset) override
+virtual void \mbox{\hyperlink{class_grid_cell_aef686fa375e35042bf87217648367582}{Set\+Element\+Offset}} (Gdiplus\+::\+Point position) override
 \item 
 virtual void \mbox{\hyperlink{class_grid_cell_a794559ad7dd8ab23ffe48c09f276bb6d}{Set\+Element\+XOffset}} (int x) override
 \item 
@@ -183,8 +183,8 @@ Implements \mbox{\hyperlink{class_movable_ad41e66aeae5759af6e89ba132d950e01}{Mov
 \doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
 {\footnotesize\ttfamily Gdiplus\+::\+Point Grid\+Cell\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
-returns the point which specifies the X and Y offset. 
+Gets the element position dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y position.
 \end{DoxyReturn}
 
 
@@ -196,8 +196,8 @@ Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Mov
 \doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
 {\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the X offset. 
+Gets the element X position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X position.
 \end{DoxyReturn}
 
 
@@ -209,8 +209,8 @@ Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Mov
 \doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
 {\footnotesize\ttfamily int Grid\+Cell\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the Y offset. 
+Gets the element Y position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y position.
 \end{DoxyReturn}
 
 
@@ -232,7 +232,7 @@ Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{R
 \mbox{\Hypertarget{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}\label{class_grid_cell_a7293a097fe1f74f9bf4fe7244e1b359a}} 
 \index{GridCell@{GridCell}!GetPosition@{GetPosition}}
 \index{GetPosition@{GetPosition}!GridCell@{GridCell}}
-\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetX()}}
 {\footnotesize\ttfamily Gdiplus\+::\+Point Grid\+Cell\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Returns position \begin{DoxyReturn}{Returns}
@@ -368,11 +368,11 @@ Implements \mbox{\hyperlink{class_resize_subject_a6b27cad0e436ca32b5582c3e614cc5
 \index{GridCell@{GridCell}!SetElementOffset@{SetElementOffset}}
 \index{SetElementOffset@{SetElementOffset}!GridCell@{GridCell}}
 \doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
-{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+{\em position} & sets the position via a point object which specifies the X and Y position. \\
 \hline
 \end{DoxyParams}
 
@@ -385,9 +385,9 @@ Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Mov
 \doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
 {\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em x} & specifies the X offset. \\
+{\em x} & specifies the X position. \\
 \hline
 \end{DoxyParams}
 
@@ -400,9 +400,9 @@ Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Mov
 \doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
 {\footnotesize\ttfamily void Grid\+Cell\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em y} & specifies the Y offset. \\
+{\em y} & specifies the Y position. \\
 \hline
 \end{DoxyParams}
 

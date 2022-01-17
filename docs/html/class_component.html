@@ -149,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a857832b64a5b7ba0dc9d9859e6998a34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb61dec94856afd583414cf33fee59d"><td class="memItemLeft" align="right" valign="top">Size&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a7eb61dec94856afd583414cf33fee59d">GetSize</a> () override</td></tr>
 <tr class="separator:a7eb61dec94856afd583414cf33fee59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb62eabad24e6a7f0db2ad4239bc2578"><td class="memItemLeft" align="right" valign="top">Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#acb62eabad24e6a7f0db2ad4239bc2578">GetPosition</a> () override</td></tr>
+<tr class="memitem:acb62eabad24e6a7f0db2ad4239bc2578"><td class="memItemLeft" align="right" valign="top">Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#acb62eabad24e6a7f0db2ad4239bc2578">GetX</a> () override</td></tr>
 <tr class="separator:acb62eabad24e6a7f0db2ad4239bc2578"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0931d378e28fea964451e9ee6ff0407c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a0931d378e28fea964451e9ee6ff0407c">GetWidth</a> () override</td></tr>
 <tr class="separator:a0931d378e28fea964451e9ee6ff0407c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -257,7 +257,7 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewportXO
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewportYOffset</b> (int y) override</td></tr>
 <tr class="separator:a0d1f7cfa9678ee4b06256bf3c3c77819"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdae1f69f07114e47a3907422ed6a71e"><td class="memItemLeft" align="right" valign="top"><a id="abdae1f69f07114e47a3907422ed6a71e"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewportOffset</b> (Gdiplus::Point offset) override</td></tr>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>SetViewportOffset</b> (Gdiplus::Point position) override</td></tr>
 <tr class="separator:abdae1f69f07114e47a3907422ed6a71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5be7a10f97435393f43b814d5932600"><td class="memItemLeft" align="right" valign="top"><a id="aa5be7a10f97435393f43b814d5932600"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetViewportAbsoluteX</b> () override</td></tr>
@@ -372,7 +372,7 @@ virtual Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><b>GetV
 <tr class="separator:a19c70aea915f6be8a5c2e9afbcb70d98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a76a2d415986ea0da0986b5f83a25bb3f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a76a2d415986ea0da0986b5f83a25bb3f">RemoveOnAddSubscriber</a> (<a class="el" href="class_on_add_subscriber.html">OnAddSubscriber</a>&lt; <a class="el" href="class_component.html">Component</a> &amp; &gt; &amp;subscriber) override</td></tr>
 <tr class="separator:a76a2d415986ea0da0986b5f83a25bb3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9dba1f67681dd2dee59cfa06ff0e22ff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a9dba1f67681dd2dee59cfa06ff0e22ff">SetElementOffset</a> (Gdiplus::Point offset) override</td></tr>
+<tr class="memitem:a9dba1f67681dd2dee59cfa06ff0e22ff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a9dba1f67681dd2dee59cfa06ff0e22ff">SetElementOffset</a> (Gdiplus::Point position) override</td></tr>
 <tr class="separator:a9dba1f67681dd2dee59cfa06ff0e22ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ad81d69708f8bea4a29a55111c59394"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a6ad81d69708f8bea4a29a55111c59394">SetElementXOffset</a> (int x) override</td></tr>
 <tr class="separator:a6ad81d69708f8bea4a29a55111c59394"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -950,7 +950,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y offset. </dd></dl>
+<p>Gets the element position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a697366deed4e9776bbd3ade51c72dd97">Movable</a>.</p>
 
@@ -978,7 +978,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element X offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X offset. </dd></dl>
+<p>Gets the element X position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a85afb7863751046fecc2382d10a1a2b8">Movable</a>.</p>
 
@@ -1006,7 +1006,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element Y offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y offset. </dd></dl>
+<p>Gets the element Y position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#accd1a9f87ac25a981287b14a9e7e4d38">Movable</a>.</p>
 
@@ -1054,7 +1054,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gets the internal offset of the child components </p><dl class="section return"><dt>Returns</dt><dd>returns the point that contains X and Y of the internal offset. </dd></dl>
+<p>Gets the internal position of the child components </p><dl class="section return"><dt>Returns</dt><dd>returns the point that contains X and Y of the internal position. </dd></dl>
 
 </div>
 </div>
@@ -1077,7 +1077,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
 </div>
 </div>
 <a id="acb62eabad24e6a7f0db2ad4239bc2578"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb62eabad24e6a7f0db2ad4239bc2578">&#9670;&nbsp;</a></span>GetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acb62eabad24e6a7f0db2ad4239bc2578">&#9670;&nbsp;</a></span>GetX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1086,7 +1086,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreOffset</b> = fa
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Point Component::GetPosition </td>
+          <td class="memname">Point Component::GetX </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -1413,7 +1413,7 @@ template&lt;typename returnType , typename ... Args&gt; </div>
 </div><div class="memdoc">
 <p>Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ignoreOffset</td><td>true for ignoring the offset, false for not ignoring the offset </td></tr>
+    <tr><td class="paramname">ignoreOffset</td><td>true for ignoring the position, false for not ignoring the position </td></tr>
   </table>
   </dd>
 </dl>
@@ -2290,7 +2290,7 @@ template&lt;typename returnType , typename ... Args&gt; </div>
           <td class="memname">void Component::SetElementOffset </td>
           <td>(</td>
           <td class="paramtype">Gdiplus::Point&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -2300,9 +2300,9 @@ template&lt;typename returnType , typename ... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>sets the offset via a point object which specifies the X and Y offset. </td></tr>
+    <tr><td class="paramname">position</td><td>sets the position via a point object which specifies the X and Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2334,9 +2334,9 @@ template&lt;typename returnType , typename ... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>specifies the X offset. </td></tr>
+    <tr><td class="paramname">x</td><td>specifies the X position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2368,9 +2368,9 @@ template&lt;typename returnType , typename ... Args&gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">y</td><td>specifies the Y offset. </td></tr>
+    <tr><td class="paramname">y</td><td>specifies the Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2430,7 +2430,7 @@ template&lt;typename returnType , typename ... Args&gt; </div>
 </div><div class="memdoc">
 <p>Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ignoreOffset</td><td>true for ignoring the offset, false for not ignoring the offset </td></tr>
+    <tr><td class="paramname">ignoreOffset</td><td>true for ignoring the position, false for not ignoring the position </td></tr>
   </table>
   </dd>
 </dl>
@@ -2452,9 +2452,9 @@ template&lt;typename returnType , typename ... Args&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Sets the offset of all the subcomponents that are owned by this component at once </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets the position of all the subcomponents that are owned by this component at once </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">internalOffset</td><td>the offset </td></tr>
+    <tr><td class="paramname">internalOffset</td><td>the position </td></tr>
   </table>
   </dd>
 </dl>

@@ -36,7 +36,7 @@ virtual void \mbox{\hyperlink{class_movable_a9d6af112d0a823945878eb846e795a2e}{S
 \item 
 virtual void \mbox{\hyperlink{class_movable_a79bf1c601ec24ad106d0bbdb429c7f3d}{SetY}} (int y)=0
 \item 
-virtual void \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Set\+Element\+Offset}} (Gdiplus\+::\+Point offset)=0
+virtual void \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Set\+Element\+Offset}} (Gdiplus\+::\+Point position)=0
 \item 
 virtual void \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Set\+Element\+XOffset}} (int x)=0
 \item 
@@ -99,8 +99,8 @@ Implemented in \mbox{\hyperlink{class_viewport_aad5a4f42c8248f9b997c90ea155e0cad
 \doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
 {\footnotesize\ttfamily virtual Gdiplus\+::\+Point Movable\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Gets the element offset dependent on the current position. \begin{DoxyReturn}{Returns}
-returns the point which specifies the X and Y offset. 
+Gets the element position dependent on the current position. \begin{DoxyReturn}{Returns}
+returns the point which specifies the X and Y position.
 \end{DoxyReturn}
 
 
@@ -112,8 +112,8 @@ Implemented in \mbox{\hyperlink{class_viewport_a82b5fbe79219257a390c727ec20fb63a
 \doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
 {\footnotesize\ttfamily virtual int Movable\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Gets the element X offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the X offset. 
+Gets the element X position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the X position.
 \end{DoxyReturn}
 
 
@@ -125,8 +125,8 @@ Implemented in \mbox{\hyperlink{class_viewport_a309d46df7e4339aab0a8f9d9f2a8c3dd
 \doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
 {\footnotesize\ttfamily virtual int Movable\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Gets the element Y offset dependent on the current position. \begin{DoxyReturn}{Returns}
-return the Y offset. 
+Gets the element Y position dependent on the current position. \begin{DoxyReturn}{Returns}
+return the Y position.
 \end{DoxyReturn}
 
 
@@ -135,7 +135,7 @@ Implemented in \mbox{\hyperlink{class_viewport_ae0e88aeb1306316af3cfd93eb580c989
 \mbox{\Hypertarget{class_movable_a23c5be86c27c555fb5931df1b80c53be}\label{class_movable_a23c5be86c27c555fb5931df1b80c53be}} 
 \index{Movable@{Movable}!GetPosition@{GetPosition}}
 \index{GetPosition@{GetPosition}!Movable@{Movable}}
-\doxysubsubsection{\texorpdfstring{GetPosition()}{GetPosition()}}
+\doxysubsubsection{\texorpdfstring{GetPosition()}{GetX()}}
 {\footnotesize\ttfamily virtual Gdiplus\+::\+Point Movable\+::\+Get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
 Returns position \begin{DoxyReturn}{Returns}
@@ -175,11 +175,11 @@ Implemented in \mbox{\hyperlink{class_viewport_a2e74b0d568ba19eadb8f062443bbc0a1
 \index{Movable@{Movable}!SetElementOffset@{SetElementOffset}}
 \index{SetElementOffset@{SetElementOffset}!Movable@{Movable}}
 \doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
-{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+{\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em offset} & sets the offset via a point object which specifies the X and Y offset. \\
+{\em position} & sets the position via a point object which specifies the X and Y position. \\
 \hline
 \end{DoxyParams}
 
@@ -192,9 +192,9 @@ Implemented in \mbox{\hyperlink{class_viewport_acb0b2d4bd79cc8891445d96c3341d803
 \doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
 {\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em x} & specifies the X offset. \\
+{\em x} & specifies the X position. \\
 \hline
 \end{DoxyParams}
 
@@ -207,9 +207,9 @@ Implemented in \mbox{\hyperlink{class_viewport_ac86c42395436f630ddfeea8c49c73824
 \doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
 {\footnotesize\ttfamily virtual void Movable\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
 
-Sets offset from the current position 
+Sets position from the current position
 \begin{DoxyParams}{Parameters}
-{\em y} & specifies the Y offset. \\
+{\em y} & specifies the Y position. \\
 \hline
 \end{DoxyParams}
 

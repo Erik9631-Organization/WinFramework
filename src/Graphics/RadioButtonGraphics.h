@@ -1,0 +1,61 @@
+#pragma once
+#include <Windows.h>
+#include <gdiplus.h>
+#include "Components/Renderable.h"
+#include "DefaultRender.h"
+#include "CircleBackground.h"
+#include "CircleBorder.h"
+
+class RadioButtonGraphics : public Renderable
+{
+private:
+	DefaultRender renderBehavior;
+	CircleBackground fill;
+	CircleBorder border;
+	bool fillEnabled = false;
+	Gdiplus::Color fillBackground;
+	float fillPadding = 0;
+	void UpdateFill();
+
+public:
+	RadioButtonGraphics();
+	void SetFillEnabled(bool state);
+	void SetThickness(float thickness);
+	void SetBorderColor(Gdiplus::Color borderColor);
+	void SetFillColor(Gdiplus::Color color);
+
+	void SetDiameter(float Diameter);
+	float GetFillPadding();
+	void SetFillPadding(float padding);
+
+	void SetPosition(Gdiplus::PointF position);
+	Gdiplus::PointF GetPosition();
+	void SetX(float x);
+	void SetY(float y);
+	float GetX();
+	float GetY();
+
+	float GetDiameter();
+
+	GraphicsScaling GetScalingTypeX() const;
+	void SetScalingTypeX(GraphicsScaling scalingTypeX);
+	GraphicsScaling GetScalingTypeY() const;
+	void SetScalingTypeY(GraphicsScaling scalingTypeY);
+	GraphicsScaling GetScalingTypeWidth() const;
+	void SetScalingTypeWidth(GraphicsScaling scalingTypeWidth);
+	GraphicsScaling GetScalingTypeHeight() const;
+	void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
+
+	bool IsDrawFromCenterY() const;
+	void SetDrawFromCenterY(bool drawFromCenterY);
+	bool IsDrawFromCenterX() const;
+	void SetDrawFromCenterX(bool drawFromCenterX);
+
+	// Inherited via Renderable
+	void OnRender(RenderEventInfo e) override;
+	void Repaint() override;
+	void AddRenderable(Renderable& renderable) override;
+	void RemoveRenderable(Renderable& renderable) override;
+	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+};
+

@@ -113,7 +113,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalculateAbsolutePosi
 <tr class="separator:af5e7c0a0d79e05393df9a692d70d8872"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6c2cd35ec12e79627144ceefe658a02"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#aa6c2cd35ec12e79627144ceefe658a02">NotifyOnMoveSubscribers</a> (<a class="el" href="class_event_move_info.html">EventMoveInfo</a> event) override</td></tr>
 <tr class="separator:aa6c2cd35ec12e79627144ceefe658a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10a6e0f3d538b0c6b42cf87ed5b1471"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#af10a6e0f3d538b0c6b42cf87ed5b1471">GetPosition</a> () override</td></tr>
+<tr class="memitem:af10a6e0f3d538b0c6b42cf87ed5b1471"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#af10a6e0f3d538b0c6b42cf87ed5b1471">GetX</a> () override</td></tr>
 <tr class="separator:af10a6e0f3d538b0c6b42cf87ed5b1471"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a411e947295aa8310873a6501c1b44b07"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#a411e947295aa8310873a6501c1b44b07">GetX</a> () override</td></tr>
 <tr class="separator:a411e947295aa8310873a6501c1b44b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,7 +133,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CalculateAbsolutePosi
 <tr class="separator:a0997c6ba1b93c64e9437947a8c94faa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6364c7fada142ac0dc20bae53446d144"><td class="memItemLeft" align="right" valign="top">virtual Gdiplus::Point&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#a6364c7fada142ac0dc20bae53446d144">GetAbsolutePosition</a> () override</td></tr>
 <tr class="separator:a6364c7fada142ac0dc20bae53446d144"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bffb1d0e7dc9eac6ec16035a5049146"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#a7bffb1d0e7dc9eac6ec16035a5049146">SetElementOffset</a> (Gdiplus::Point offset) override</td></tr>
+<tr class="memitem:a7bffb1d0e7dc9eac6ec16035a5049146"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#a7bffb1d0e7dc9eac6ec16035a5049146">SetElementOffset</a> (Gdiplus::Point position) override</td></tr>
 <tr class="separator:a7bffb1d0e7dc9eac6ec16035a5049146"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a120f38d2f9ffde113116fbd06e6c4613"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_default_move.html#a120f38d2f9ffde113116fbd06e6c4613">SetElementXOffset</a> (int x) override</td></tr>
 <tr class="separator:a120f38d2f9ffde113116fbd06e6c4613"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -303,7 +303,7 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y offset. </dd></dl>
+<p>Gets the element position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>returns the point which specifies the X and Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a697366deed4e9776bbd3ade51c72dd97">Movable</a>.</p>
 
@@ -333,7 +333,7 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element X offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X offset. </dd></dl>
+<p>Gets the element X position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the X position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#a85afb7863751046fecc2382d10a1a2b8">Movable</a>.</p>
 
@@ -363,14 +363,14 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Gets the element Y offset dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y offset. </dd></dl>
+<p>Gets the element Y position dependent on the current position. </p><dl class="section return"><dt>Returns</dt><dd>return the Y position. </dd></dl>
 
 <p>Implements <a class="el" href="class_movable.html#accd1a9f87ac25a981287b14a9e7e4d38">Movable</a>.</p>
 
 </div>
 </div>
 <a id="af10a6e0f3d538b0c6b42cf87ed5b1471"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af10a6e0f3d538b0c6b42cf87ed5b1471">&#9670;&nbsp;</a></span>GetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af10a6e0f3d538b0c6b42cf87ed5b1471">&#9670;&nbsp;</a></span>GetX()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -381,7 +381,7 @@ template&lt;class T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Gdiplus::Point <a class="el" href="class_default_move.html">DefaultMove</a>&lt; T &gt;::GetPosition </td>
+          <td class="memname">Gdiplus::Point <a class="el" href="class_default_move.html">DefaultMove</a>&lt; T &gt;::GetX </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -546,7 +546,7 @@ template&lt;class T &gt; </div>
           <td class="memname">void <a class="el" href="class_default_move.html">DefaultMove</a>&lt; T &gt;::SetElementOffset </td>
           <td>(</td>
           <td class="paramtype">Gdiplus::Point&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -556,9 +556,9 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>sets the offset via a point object which specifies the X and Y offset. </td></tr>
+    <tr><td class="paramname">position</td><td>sets the position via a point object which specifies the X and Y position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -592,9 +592,9 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">x</td><td>specifies the X offset. </td></tr>
+    <tr><td class="paramname">x</td><td>specifies the X position. </td></tr>
   </table>
   </dd>
 </dl>
@@ -628,9 +628,9 @@ template&lt;class T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Sets offset from the current position </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Sets position from the current position </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">y</td><td>specifies the Y offset. </td></tr>
+    <tr><td class="paramname">y</td><td>specifies the Y position. </td></tr>
   </table>
   </dd>
 </dl>

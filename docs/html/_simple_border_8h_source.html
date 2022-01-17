@@ -104,11 +104,11 @@ $(document).ready(function(){initNavTree('_simple_border_8h_source.html',''); in
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_default_render.html">DefaultRender</a> renderBehavior;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    Gdiplus::Color color;</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Gdiplus::PointF offset;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Gdiplus::PointF position;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    Gdiplus::SizeF size;</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">int</span> scalingType = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">bool</span> verticalCentering = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> horizontalCentering = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">bool</span> drawFromCenterY = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">bool</span> drawFromCenterX = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">bool</span> textCentering = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
@@ -120,8 +120,8 @@ $(document).ready(function(){initNavTree('_simple_border_8h_source.html',''); in
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">void</span> SetBorderStyle(Gdiplus::DashStyle style);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> SetThickness(<span class="keywordtype">float</span> thickness);</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> SetScalingType(<span class="keywordtype">int</span> type);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> SetVerticalCentering(<span class="keywordtype">bool</span> state);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> HorizontalCentering(<span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> DrawFromCenterY(<span class="keywordtype">bool</span> state);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">void</span> DrawFromCenterX(<span class="keywordtype">bool</span> state);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// Inherited via Renderable</span></div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_border.html#a8452516558fe1451ea3a518a8f4a253a">OnRender</a>(<a class="code" href="class_render_event_info.html">RenderEventInfo</a> e) <span class="keyword">override</span>;</div>
@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('_simple_border_8h_source.html',''); in
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="class_simple_border.html#ac60f850268eb152f557cc958ef554787">RemoveRenderable</a>(<a class="code" href="class_renderable.html">Renderable</a>&amp; renderable) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> std::vector&lt;std::reference_wrapper&lt;Renderable&gt;&gt; <a class="code" href="class_simple_border.html#ace767a0b24924dd394bb65f74a8c53e5">GetRenderables</a>() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    Gdiplus::SizeF&amp; GetSize();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Gdiplus::PointF&amp; GetPercentualPosition();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Gdiplus::PointF&amp; GetX();</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="comment">// Inherited via Reflectable</span></div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> HasMethod(std::string method) <span class="keyword">override</span>;</div>
