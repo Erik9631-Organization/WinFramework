@@ -310,4 +310,6 @@ public:
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 
     bool IsMouseCaptured() override;
+
+    void SetMouseCaptured(bool state) override;
 };

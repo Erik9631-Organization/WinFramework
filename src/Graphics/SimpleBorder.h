@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include "Reflectable.h"
 #include "ReflectionContainer.h"
-#include "Graphics2dUtil.h"
+#include "ScalingUtil.h"
 
 
 /**
@@ -27,7 +27,7 @@ private:
 	DefaultRender renderBehavior;
 	Gdiplus::Color color;
 
-	Graphics2dUtil graphicsUtil;
+	ScalingUtil graphicsUtil;
 
 
 	Gdiplus::PointF position;

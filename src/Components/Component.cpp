@@ -637,3 +637,8 @@ bool Component::IsMouseCaptured()
 {
     return mouseHandler.IsMouseCaptured();
 }
+
+void Component::SetMouseCaptured(bool state)
+{
+    mouseHandler.SetMouseCaptured(state);
+}

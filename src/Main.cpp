@@ -5,8 +5,7 @@
 #include "TestGraphics.h"
 #include "WindowFrame.h"
 #include "Panel.h"
-#include "Button.h"
-#include "RadioButton.h"
+#include "TrackBar.h"
 
 using namespace std;
 
@@ -34,7 +33,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 * 11) Make graphical element properties consistent
 * 12) Renderables lack visibility option.
 * 13) Renderables should have rendering order
-* 14) Checkbox should be a graphical component on its own, similar to radio button
+* 14) Checkbox should be a graphical component on its own, similar to radio thumbTrack
 * 15) Matrix transformation reset applies to renderables on the same layer. src is a POINTER!!!!! -- I think I fixed this??? lol
 * 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
 * 18) Specialize the trackbar behavior to either vertical or horizontal
@@ -68,8 +67,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 /** TODO Refactor
- * Change movable and resizable interfaces to use floats.
- * Graphical objects should implement these interfaces
+ * The new scrollbar needs to be able to move. Maybe consider adding delta mouse movement to the mouse event info.
  */
 
 int LiiEntry()
@@ -77,8 +75,8 @@ int LiiEntry()
 
     DemoApplication::LaunchDemoApp();
     //WindowFrame frame = WindowFrame(0, 0, 800, 600, "testWindow");
-    //Button button = Button(10, 50, 100, 100);
-    //frame.Add(button);
+
+    //frame.Add();
 
 
 	ApplicationController::JoinThreads();

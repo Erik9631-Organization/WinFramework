@@ -8,19 +8,19 @@ class MouseStateSubject
 {
 public:
 	/**
-	 * Recieves event whenever the left mouse button is down
+	 * Recieves event whenever the left mouse thumbTrack is down
 	 * \param e the event object to be received.
 	 */
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) = 0;
 
 	/**
-	 * Recieves event whenever the left mouse button is up
+	 * Recieves event whenever the left mouse thumbTrack is up
 	 * \param e the event object to be received.
 	 */
 	virtual void NotifyOnMouseUp(EventMouseStateInfo e) = 0;
 
 	/**
-	 * Recieves event whenever the left mouse button is pressed
+	 * Recieves event whenever the left mouse thumbTrack is pressed
 	 * \param e the event object to be received.
 	 */
 	virtual void NotifyOnMousePressed(EventMouseStateInfo e) = 0;
@@ -64,5 +64,7 @@ public:
 	virtual bool HasMouseEntered() = 0;
 
 	virtual bool IsMouseCaptured() = 0;
+
+	virtual void SetMouseCaptured(bool state) = 0;
 };
 

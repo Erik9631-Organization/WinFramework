@@ -23,12 +23,12 @@ public:
 	Button(int x, int y, int width, int height);
 	
 	/**
-	 * \param text unicode text of the button which is to be displayed.
+	 * \param text unicode text of the thumbTrack which is to be displayed.
 	 */
 	void SetText(std::wstring text) override;
 
 	/**
-	 * \return returns the unicode text of the button which is displayed.
+	 * \return returns the unicode text of the thumbTrack which is displayed.
 	 */
 	std::wstring GetText() override;
 
@@ -49,12 +49,12 @@ public:
 
 
 	/**
-	 * \return returns the background color of the button.
+	 * \return returns the background color of the thumbTrack.
 	 */
 	Gdiplus::Color GetBackgroundColor();
 
 	/*
-	 * \return returns the border color of the button.
+	 * \return returns the border color of the thumbTrack.
 	 */
 	Gdiplus::Color GetBorderColor();
 
@@ -65,7 +65,7 @@ public:
 	void SetBackgroundColor(Color color);
 
 	/**
-	 * \param thickness sets the border thickness of the button.
+	 * \param thickness sets the border thickness of the thumbTrack.
 	 */
 	void SetBorderThickness(float thickness);
 	void SetOnHoverColor(Gdiplus::Color color);

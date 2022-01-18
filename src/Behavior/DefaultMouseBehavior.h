@@ -27,6 +27,7 @@ public:
 	virtual bool HasMouseEntered() override;
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
     bool IsMouseCaptured() override;
+    void SetMouseCaptured(bool state) override;
 };
 
 template<class TreeNode>
@@ -65,9 +66,6 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseDown(EventMouseStateInfo e)
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::NotifyOnMouseUp(EventMouseStateInfo e)
 {
-    //Every component gets captured on MouseDown. If the component isn't captured and MouseUp is received, that means it was already notified
-    //This is an edge case if the same component ends the capture that started it. It would receive notify from the MouseUp event and then again after the capture ends.
-    //This condition ensures that doesn't happen.
     mouseCaptured = false;
 	if (!e.IsRecursive())
 	{
@@ -220,4 +218,10 @@ template<class TreeNode>
 bool DefaultMouseBehavior<TreeNode>::IsMouseCaptured()
 {
     return mouseCaptured;
+}
+
+template<class TreeNode>
+void DefaultMouseBehavior<TreeNode>::SetMouseCaptured(bool state)
+{
+    mouseCaptured = state;
 }

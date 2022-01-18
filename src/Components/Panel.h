@@ -6,7 +6,7 @@
 
 class Panel :public Component
 {
-private:
+protected:
 	SimpleBorder border;
 public:
 	Panel();

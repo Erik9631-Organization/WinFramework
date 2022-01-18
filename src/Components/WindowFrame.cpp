@@ -184,11 +184,8 @@ void WindowFrame::NotifyOnMouseHover(EventMouseStateInfo e)
 void WindowFrame::NotifyOnMouseUp(EventMouseStateInfo e)
 {
     Component::NotifyOnMouseUp(e);
+    currentCapture->IsMouseCaptured();
+    currentCapture->SetMouseCaptured(false);
     currentCapture = nullptr;
-   /* if(currentCapture != nullptr && currentCapture != this) // Shouldn't notify itself
-    {
-        currentCapture->NotifyOnMouseUp(e);
-        currentCapture = nullptr;
-    }*/
 
 }

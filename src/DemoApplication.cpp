@@ -38,6 +38,7 @@
 #include "Components/ComboBox/ComboBox.h"
 #include "Components/ComboBox/ComboElement.h"
 #include "Components/ListBox.h"
+#include "ScrollBar.h"
 
 class SimpleCalculator : public MouseStateSubscriber
 {
@@ -332,7 +333,7 @@ public:
 * 11) Make graphical element properties consistent
 * 12) Renderables lack visibility option.
 * 13) Renderables should have rendering order
-* 14) Checkbox should be a graphical component on its own, similar to radio button
+* 14) Checkbox should be a graphical component on its own, similar to radio thumbTrack
 * 15) Matrix transformation reset applies to renderables on the same layer. src is a POINTER!!!!! -- I think I fixed this??? lol
 * 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
 * 18) Specialize the trackbar behavior to either vertical or horizontal
@@ -388,9 +389,12 @@ void DemoApplication::LaunchDemoApp()
 	RadioButtonTester radioButtonTester = RadioButtonTester();
 
 	TrackBar trackbar = TrackBar(0, 10, 10, 0, "trackbar");
+	ScrollBar scrollbar = ScrollBar(0, 0, 10, 0, "ScrollBar");
+
 	Panel panel = Panel(50, 300, 300, 250, "panel");
-	panel.Add(trackbar);
-	trackbar.Control(panel);
+	//panel.Add(trackbar);
+	//trackbar.Control(panel);
+	scrollbar.Control(&panel);
 
 
 	/*

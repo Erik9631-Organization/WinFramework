@@ -117,22 +117,22 @@ void CircleBorder::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
 
 bool CircleBorder::IsDrawFromCenterY() const
 {
-    return graphicsUtil.IsDrawFromCenterY();
+    return graphicsUtil.IsCalculateFromCenterY();
 }
 
 void CircleBorder::SetDrawFromCenterY(bool drawFromCenterY)
 {
-    graphicsUtil.SetDrawFromCenterY(drawFromCenterY);
+    graphicsUtil.SetCalculateFromCenterY(drawFromCenterY);
 }
 
 bool CircleBorder::IsDrawFromCenterX() const
 {
-    return graphicsUtil.IsDrawFromCenterX();
+    return graphicsUtil.IsCalculatingFromCenterX();
 }
 
 void CircleBorder::SetDrawFromCenterX(bool drawFromCenterX)
 {
-    graphicsUtil.SetDrawFromCenterX(drawFromCenterX);
+    graphicsUtil.SetCalculateFromCenterX(drawFromCenterX);
 }
 
 Gdiplus::PointF CircleBorder::GetPosition()

@@ -79,7 +79,7 @@ public:
 	int GetMouseY();
 
 	/**
-	 * \return returns the mouse button that was pressed at the time the event was called.
+	 * \return returns the mouse thumbTrack that was pressed at the time the event was called.
 	 */
 	int GetKey();
 

@@ -18,12 +18,12 @@ private:
 	Text text;
 public:
 	/**
-	 * \param text unicode text of the button which is to be displayed.
+	 * \param text unicode text of the thumbTrack which is to be displayed.
 	 */
 	void SetText(std::wstring text) override;
 
 	/**
-	 * Invokes a check operation on the button. If checked the checkbox gets unchecked otherwise it gets checked.
+	 * Invokes a check operation on the thumbTrack. If checked the checkbox gets unchecked otherwise it gets checked.
 	 */
 	void Check();
 

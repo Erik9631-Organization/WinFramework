@@ -7,7 +7,7 @@
 #include "Reflectable.h"
 #include <unordered_map>
 #include "ReflectionContainer.h"
-#include "Graphics2dUtil.h"
+#include "ScalingUtil.h"
 
 /**
  * A text renderable. Draws text within the canvas of the defined object.
@@ -23,7 +23,7 @@ private:
 	Gdiplus::Font* font;
 	Gdiplus::PointF position;
 
-	Graphics2dUtil graphicsUtil;
+	ScalingUtil graphicsUtil;
 
 
 	Gdiplus::SolidBrush* brush;

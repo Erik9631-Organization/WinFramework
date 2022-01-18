@@ -4,14 +4,14 @@
 #include "Components/Renderable.h"
 #include "DefaultRender.h"
 #include "GraphicsScaling.h"
-#include "Graphics2dUtil.h"
+#include "ScalingUtil.h"
 class CircleBorder : public Renderable
 {
 protected:
 	float diameter = 1;
 	float thickness = 12;
 
-    Graphics2dUtil graphicsUtil;
+    ScalingUtil graphicsUtil;
 
     Gdiplus::Pen* pen;
 	Gdiplus::SolidBrush* brush;

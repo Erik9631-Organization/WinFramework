@@ -44,18 +44,18 @@ public:
 	ComboBox(int x, int y, int width, int height, std::string componentName);
 
 	/**
-	 * Changes the source button under which the elements should unpack.
-	 * \param button the source of the button.
+	 * Changes the source thumbTrack under which the elements should unpack.
+	 * \param button the source of the thumbTrack.
 	 */
 	void SetComboButton(Button* button);
 
 	/**
-	 * \return returns the text which is displayed on the associated button
+	 * \return returns the text which is displayed on the associated thumbTrack
 	 */
 	std::wstring GetText();
 
 	/**
-	 * \param text sets the text which is displayed on the associated button
+	 * \param text sets the text which is displayed on the associated thumbTrack
 	 */
 	void SetText(std::wstring text);
 

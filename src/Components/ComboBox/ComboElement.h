@@ -76,5 +76,7 @@ public:
 
     void OnMouseCaptured(EventMouseStateInfo e) override;
 
+    void SetMouseCaptured(bool state) override;
+
 };
 

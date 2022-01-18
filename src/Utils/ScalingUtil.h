@@ -9,16 +9,16 @@
 #include "GraphicsScaling.h"
 #include "Renderable.h"
 
-class Graphics2dUtil
+class ScalingUtil
 {
 public:
-    Graphics2dUtil(Gdiplus::PointF& associatedPosition);
-    Graphics2dUtil(Gdiplus::PointF& associatedPosition, Gdiplus::SizeF& associatedSize);
+    ScalingUtil(Gdiplus::PointF& associatedPosition);
+    ScalingUtil(Gdiplus::PointF& associatedPosition, Gdiplus::SizeF& associatedSize);
 
-    bool IsDrawFromCenterX() const;
-    void SetDrawFromCenterX(bool drawFromCenterX);
-    bool IsDrawFromCenterY() const;
-    void SetDrawFromCenterY(bool drawFromCenterY);
+    bool IsCalculatingFromCenterX() const;
+    void SetCalculateFromCenterX(bool calculateFromCenterX);
+    bool IsCalculateFromCenterY() const;
+    void SetCalculateFromCenterY(bool calculateFromCenterY);
 
     GraphicsScaling GetScalingTypeX() const;
     void SetScalingTypeX(GraphicsScaling scalingTypeX);
@@ -39,8 +39,8 @@ public:
     float GetHeight();
 
 private:
-    bool drawFromCenterX = false;
-    bool drawFromCenterY = false;
+    bool calculateFromCenterX = false;
+    bool calculateFromCenterY = false;
 
     GraphicsScaling scalingTypeX = Percentual;
     GraphicsScaling scalingTypeY = Percentual;

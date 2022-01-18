@@ -4,7 +4,7 @@
 #include <gdiplus.h>
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
-#include "Graphics2dUtil.h"
+#include "ScalingUtil.h"
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
  * Supported properties:
@@ -21,7 +21,7 @@ private:
 	ReflectionContainer<Background> reflectionContainer;
 	Gdiplus::PointF position;
 	Gdiplus::PointF posOffset;
-	Graphics2dUtil graphicsUtil;
+	ScalingUtil graphicsUtil;
 
 	Gdiplus::SizeF size;
 

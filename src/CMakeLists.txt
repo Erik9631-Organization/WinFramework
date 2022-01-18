@@ -31,7 +31,7 @@ set(Lii
     "Events/OnAddSubscriber.h"
     "TableElement.h"
     "TrackBarBehavior.h"
-    "TrackbarGraphics.h"
+    "Graphics/TrackbarGraphics.h"
     "VerticalTrackbarBehavior.h"
     "AddSubject.cpp"
     "Events/ComboBoxStateSubject.cpp"
@@ -55,7 +55,7 @@ set(Lii
     "Events/OnAddSubscriber.cpp"
     "TableElement.cpp"
     "TrackBarBehavior.cpp"
-    "TrackbarGraphics.cpp"
+    "Graphics/TrackbarGraphics.cpp"
     "VerticalTrackbarBehavior.cpp"
 )
 source_group("Lii" FILES ${Lii})
@@ -88,7 +88,7 @@ set(Lii_Behavior
     "Behavior/RadioButtonBehavior.cpp"
     "Behavior/TextInputBehavior.cpp"
     "Behavior/Viewport.cpp"
-)
+        Behavior/VerticalScrollbarBehavior.cpp Behavior/VerticalScrollbarBehavior.h)
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
@@ -138,7 +138,7 @@ set(Lii_Components
     "Components/TrackBar.cpp"
     "Components/Viewable.cpp"
     "Components/WindowFrame.cpp"
-)
+        Components/ScrollBar/ScrollBar.cpp Components/ScrollBar/ScrollBar.h)
 source_group("Lii\\Components" FILES ${Lii_Components})
 
 
@@ -279,7 +279,7 @@ set(Lii_Utils
     "Utils/AccessTools.cpp"
     "Utils/ApplicationController.cpp"
     "Utils/InputManager.cpp"
-        Utils/Vector2DScaler.cpp Utils/Vector2DScaler.h Utils/Vector2d.cpp Utils/Vector2d.h Utils/Graphics2dUtil.cpp Utils/Graphics2dUtil.h)
+        Utils/Vector2DScaler.cpp Utils/Vector2DScaler.h Utils/Vector2d.cpp Utils/Vector2d.h Utils/ScalingUtil.cpp Utils/ScalingUtil.h Utils/ValueConverter.cpp Utils/ValueConverter.h)
 
 source_group("Header Files\\Utils" FILES ${Lii_Utils})
 
@@ -297,7 +297,7 @@ set(ALL_FILES
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
-)
+        Utils/ValueConverter.cpp)
 
 ################################################################################
 # Target
@@ -316,4 +316,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "MetaObjects/"
         "Utils/"
         "Enums/"
+        "Components/ScrollBar"
         )

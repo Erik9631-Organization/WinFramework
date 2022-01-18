@@ -56,12 +56,12 @@ void SimpleBorder::SetThickness(float thickness)
 
 void SimpleBorder::DrawFromCenterX(bool state)
 {
-    graphicsUtil.SetDrawFromCenterX(state);
+    graphicsUtil.SetCalculateFromCenterX(state);
 }
 
 void SimpleBorder::DrawFromCenterY(bool state)
 {
-    graphicsUtil.SetDrawFromCenterY(state);
+    graphicsUtil.SetCalculateFromCenterY(state);
 }
 
 void SimpleBorder::OnRender(RenderEventInfo e)

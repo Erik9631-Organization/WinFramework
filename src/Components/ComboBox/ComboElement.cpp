@@ -186,3 +186,8 @@ void ComboElement::OnMouseCaptured(EventMouseStateInfo e)
 {
 
 }
+
+void ComboElement::SetMouseCaptured(bool state)
+{
+
+}

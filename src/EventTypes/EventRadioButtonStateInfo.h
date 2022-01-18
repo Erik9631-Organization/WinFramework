@@ -3,7 +3,7 @@
 class RadioButtonStateSubject;
 
 /**
- * This class is responsible for holding all the information related to radio button events.
+ * This class is responsible for holding all the information related to radio thumbTrack events.
  */
 class EventRadioButtonStateInfo
 {
