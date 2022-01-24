@@ -11,6 +11,7 @@
 #include "OnAddSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "EventResizeInfo.h"
+#include "MoveSubscriber.h"
 
 class ScrollBar;
 class Button;
@@ -43,7 +44,7 @@ class Adjustable;
 
 
 
-class VerticalScrollbarBehavior : public MouseStateSubscriber, public OnAddSubscriber<Component&>, public ResizeSubscriber
+class VerticalScrollbarBehavior : public MouseStateSubscriber, public OnAddSubscriber<Component&>, public ResizeSubscriber, public MoveSubscriber
 {
 public:
     VerticalScrollbarBehavior(ScrollBar& scrollbar, Button& trackBar);
@@ -61,11 +62,15 @@ public:
 
     void OnResize(EventResizeInfo e) override;
 
+    void OnMove(EventMoveInfo e) override;
+
 private:
     int padding = 0;
     ScrollBar& associatedScrollbar;
     Button& associatedTrackBar;
-    Adjustable* GetLastComponent();
+    Adjustable* GetBottomComponentFromParent();
+    Adjustable* GetBottomComponent(Adjustable* adjustable);
+    Adjustable *bottomComponent = nullptr;
     int GetPageHeight();
     float GetScrollbarPercentualPos();
     float GetScrollbarPercentualHeight();

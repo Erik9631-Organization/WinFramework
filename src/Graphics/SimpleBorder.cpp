@@ -1,6 +1,7 @@
 #include "SimpleBorder.h"
 #include "RenderEventInfo.h"
 #include "GraphicsScaling.h"
+#include "CoreWindowFrame.h"
 
 
 SimpleBorder::SimpleBorder() :
@@ -69,7 +70,6 @@ void SimpleBorder::OnRender(RenderEventInfo e)
 
     Gdiplus::PointF parentPosition = Gdiplus::PointF((float)e.GetParentPosition().X, (float)e.GetParentPosition().Y);
     Gdiplus::SizeF parentSize = Gdiplus::SizeF((float)e.GetParentSize().Width, (float)e.GetParentSize().Height);
-
     graphicsUtil.UpdateAssociatedParameters(parentPosition, parentSize);
 
 	e.GetGraphics()->DrawRectangle(pen, graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());

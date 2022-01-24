@@ -544,7 +544,7 @@ returns string containing the information about the type of the component.
 \mbox{\Hypertarget{class_component_ab5a38299621c8c78cc047c2e2b31b62d}\label{class_component_ab5a38299621c8c78cc047c2e2b31b62d}} 
 \index{Component@{Component}!GetElementOffset@{GetElementOffset}}
 \index{GetElementOffset@{GetElementOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetElementOffset()}}
+\doxysubsubsection{\texorpdfstring{GetElementOffset()}{GetTranslate()}}
 {\footnotesize\ttfamily Gdiplus\+::\+Point Component\+::\+Get\+Element\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Gets the element position dependent on the current position. \begin{DoxyReturn}{Returns}
@@ -557,7 +557,7 @@ Implements \mbox{\hyperlink{class_movable_a697366deed4e9776bbd3ade51c72dd97}{Mov
 \mbox{\Hypertarget{class_component_a8b97492ad02c4959fa9581aafde75690}\label{class_component_a8b97492ad02c4959fa9581aafde75690}} 
 \index{Component@{Component}!GetElementXOffset@{GetElementXOffset}}
 \index{GetElementXOffset@{GetElementXOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetElementXOffset()}}
+\doxysubsubsection{\texorpdfstring{GetElementXOffset()}{GetTranslateX()}}
 {\footnotesize\ttfamily int Component\+::\+Get\+Element\+XOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Gets the element X position dependent on the current position. \begin{DoxyReturn}{Returns}
@@ -570,7 +570,7 @@ Implements \mbox{\hyperlink{class_movable_a85afb7863751046fecc2382d10a1a2b8}{Mov
 \mbox{\Hypertarget{class_component_a302c2f98709d1b75ee3ab03670ec965d}\label{class_component_a302c2f98709d1b75ee3ab03670ec965d}} 
 \index{Component@{Component}!GetElementYOffset@{GetElementYOffset}}
 \index{GetElementYOffset@{GetElementYOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetElementYOffset()}}
+\doxysubsubsection{\texorpdfstring{GetElementYOffset()}{GetTranslateY()}}
 {\footnotesize\ttfamily int Component\+::\+Get\+Element\+YOffset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Gets the element Y position dependent on the current position. \begin{DoxyReturn}{Returns}
@@ -596,7 +596,7 @@ Implements \mbox{\hyperlink{class_resizable_ace7e6fc0a32c0d779c2efbac5a579d89}{R
 \mbox{\Hypertarget{class_component_a90b349523c89805b653a949f3cc62cfc}\label{class_component_a90b349523c89805b653a949f3cc62cfc}} 
 \index{Component@{Component}!GetInternalOffset@{GetInternalOffset}}
 \index{GetInternalOffset@{GetInternalOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{GetInternalOffset()}{GetInternalOffset()}}
+\doxysubsubsection{\texorpdfstring{GetChildrenTranslate()}{GetChildrenTranslate()}}
 {\footnotesize\ttfamily Gdiplus\+::\+Point Component\+::\+Get\+Internal\+Offset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 Gets the internal position of the child components \begin{DoxyReturn}{Returns}
@@ -869,7 +869,7 @@ Reimplemented in \mbox{\hyperlink{class_window_frame_ab4d3032f13a6350538de88f49a
 \doxysubsubsection{\texorpdfstring{NotifyOnMouseDown()}{NotifyOnMouseDown()}}
 {\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Down (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Recieves event whenever the left mouse button is down 
+Recieves event whenever the left mouse thumbTrack is down
 \begin{DoxyParams}{Parameters}
 {\em e} & the event object to be received. \\
 \hline
@@ -933,7 +933,7 @@ Implements \mbox{\hyperlink{class_mouse_state_subject_abf97158ea2ffa6ae78cd36721
 \doxysubsubsection{\texorpdfstring{NotifyOnMousePressed()}{NotifyOnMousePressed()}}
 {\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Pressed (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Recieves event whenever the left mouse button is pressed 
+Recieves event whenever the left mouse thumbTrack is pressed
 \begin{DoxyParams}{Parameters}
 {\em e} & the event object to be received. \\
 \hline
@@ -948,7 +948,7 @@ Implements \mbox{\hyperlink{class_mouse_state_subject_a596368e18900147db5667733a
 \doxysubsubsection{\texorpdfstring{NotifyOnMouseUp()}{NotifyOnMouseUp()}}
 {\footnotesize\ttfamily void Component\+::\+Notify\+On\+Mouse\+Up (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_event_mouse_state_info}{Event\+Mouse\+State\+Info}}}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
-Recieves event whenever the left mouse button is up 
+Recieves event whenever the left mouse thumbTrack is up
 \begin{DoxyParams}{Parameters}
 {\em e} & the event object to be received. \\
 \hline
@@ -1160,7 +1160,7 @@ Sets the name of the component
 \mbox{\Hypertarget{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}\label{class_component_a9dba1f67681dd2dee59cfa06ff0e22ff}} 
 \index{Component@{Component}!SetElementOffset@{SetElementOffset}}
 \index{SetElementOffset@{SetElementOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetElementOffset()}}
+\doxysubsubsection{\texorpdfstring{SetElementOffset()}{SetTranslate()}}
 {\footnotesize\ttfamily void Component\+::\+Set\+Element\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Sets position from the current position
@@ -1175,7 +1175,7 @@ Implements \mbox{\hyperlink{class_movable_aeec2f90545cd7f4b71095fdbe7d547ea}{Mov
 \mbox{\Hypertarget{class_component_a6ad81d69708f8bea4a29a55111c59394}\label{class_component_a6ad81d69708f8bea4a29a55111c59394}} 
 \index{Component@{Component}!SetElementXOffset@{SetElementXOffset}}
 \index{SetElementXOffset@{SetElementXOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetElementXOffset()}}
+\doxysubsubsection{\texorpdfstring{SetElementXOffset()}{SetTranslateX()}}
 {\footnotesize\ttfamily void Component\+::\+Set\+Element\+XOffset (\begin{DoxyParamCaption}\item[{int}]{x }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Sets position from the current position
@@ -1190,7 +1190,7 @@ Implements \mbox{\hyperlink{class_movable_ac0f30a6e114bf4d6d71eb74f8d56bad7}{Mov
 \mbox{\Hypertarget{class_component_a326bd66ec7e1472b850156aca167abe4}\label{class_component_a326bd66ec7e1472b850156aca167abe4}} 
 \index{Component@{Component}!SetElementYOffset@{SetElementYOffset}}
 \index{SetElementYOffset@{SetElementYOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetElementYOffset()}}
+\doxysubsubsection{\texorpdfstring{SetElementYOffset()}{SetTranslateY()}}
 {\footnotesize\ttfamily void Component\+::\+Set\+Element\+YOffset (\begin{DoxyParamCaption}\item[{int}]{y }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 Sets position from the current position
@@ -1220,7 +1220,7 @@ Implements \mbox{\hyperlink{class_resizable_a09283ee90e60c8863f45421726c27c95}{R
 \mbox{\Hypertarget{class_component_a83d67821fb63751d1da9added12e9cd7}\label{class_component_a83d67821fb63751d1da9added12e9cd7}} 
 \index{Component@{Component}!SetIgnoreOffset@{SetIgnoreOffset}}
 \index{SetIgnoreOffset@{SetIgnoreOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{SetIgnoreOffset()}{SetIgnoreOffset()}}
+\doxysubsubsection{\texorpdfstring{SetIgnoreOffset()}{SetIgnoreTranslate()}}
 {\footnotesize\ttfamily void Component\+::\+Set\+Ignore\+Offset (\begin{DoxyParamCaption}\item[{bool}]{ignore\+Offset }\end{DoxyParamCaption})}
 
 Sets whether the component should ignore values set by Set\+Element\+Offset, Set\+Element\+XOffset, Set\+Element\+YOffset 
@@ -1231,7 +1231,7 @@ Sets whether the component should ignore values set by Set\+Element\+Offset, Set
 \mbox{\Hypertarget{class_component_a39360888219426b8bfb204f65a95ce56}\label{class_component_a39360888219426b8bfb204f65a95ce56}} 
 \index{Component@{Component}!SetInternalOffset@{SetInternalOffset}}
 \index{SetInternalOffset@{SetInternalOffset}!Component@{Component}}
-\doxysubsubsection{\texorpdfstring{SetInternalOffset()}{SetInternalOffset()}}
+\doxysubsubsection{\texorpdfstring{SetChildrenTranslate()}{TranslateChildren()}}
 {\footnotesize\ttfamily void Component\+::\+Set\+Internal\+Offset (\begin{DoxyParamCaption}\item[{Gdiplus\+::\+Point}]{internal\+Offset }\end{DoxyParamCaption})}
 
 Sets the position of all the subcomponents that are owned by this component at once

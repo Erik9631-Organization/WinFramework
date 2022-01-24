@@ -14,7 +14,6 @@
 #define USER_DATA (GWL_USERDATA)
 #endif
 
-
 HDC windowHdc;
 using namespace std;
 
@@ -28,27 +27,25 @@ void CoreWindowFrame::MessageLoop()
 	}
 }
 
-HDC CoreWindowFrame::CreateGraphicsBuffer()
+HDC CoreWindowFrame::GetSecondaryDC()
 {
 	windowHdc = GetDC(windowHandle);
-	secondaryBuffer = CreateCompatibleDC(windowHdc);
-	currentBitmap = CreateCompatibleBitmap(windowHdc, wrapperFrame.GetWidth(), wrapperFrame.GetHeight());
-	SelectObject(secondaryBuffer, currentBitmap);
-	return secondaryBuffer;
+    secondaryDc = CreateCompatibleDC(windowHdc);
+	SelectObject(secondaryDc, secondaryBitmap);
+	return secondaryDc;
 }
 
 void CoreWindowFrame::CleanGraphicsBuffer()
 {
-	ReleaseDC(windowHandle, secondaryBuffer);
+	ReleaseDC(windowHandle, secondaryDc);
 	ReleaseDC(windowHandle, windowHdc);
-	DeleteDC(secondaryBuffer);
+	DeleteDC(secondaryDc);
 	DeleteDC(windowHdc);
-	DeleteObject(currentBitmap);
 }
 
 void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
 {
-	BitBlt(windowHdc, 0, 0, wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), secondaryBuffer, 0, 0, MERGECOPY);
+    BitBlt(windowHdc, 0, 0, wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), graphicsBuffer, 0, 0, MERGECOPY);
 }
 /**
 * Components should be gettable from the WindowFrame
@@ -66,7 +63,7 @@ void CoreWindowFrame::AssignGraphicsToComponents()
 
 void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region& clippingRegion)
 {
-	Graphics graphics(secondaryBuffer);
+	Graphics graphics(secondaryDc);
 	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
 	if(!node.IsRoot())
@@ -75,6 +72,11 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region&
 		graphics.SetClip(viewport);
 		clippingRegion.Intersect(viewport);
 		graphics.IntersectClip(&clippingRegion);
+
+		//translate
+		Matrix transformMatrix;
+		transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
+		graphics.SetTransform(&transformMatrix);
 	}
 
 	RenderEventInfo renderEvent = RenderEventInfo(&graphics);
@@ -86,8 +88,6 @@ void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region&
 		assignGraphicsToNodes(node.Get(i), *newRegion);
 		delete newRegion;
 	}
-
-	return;
 }
 
 void CoreWindowFrame::NotifyMouseState(Gdiplus::Point point)
@@ -156,24 +156,31 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		wrapperFrame.::Component::SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_SIZE:
-		wrapperFrame.::Component::SetSize(Gdiplus::Size(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
-		break;
-	case WM_PAINT: // Put into function, DrawWindow since it handles WindowDrawing explicitely, from any call not just WM_PAINT
-		OnRender(RenderEventInfo(nullptr));
-		break;
+	{
+	    unsigned short width = ((unsigned short*)&lParam)[0];
+	    unsigned short height = ((unsigned short*)&lParam)[1];
+
+	    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), width, height);
+	    wrapperFrame.::Component::SetSize(Gdiplus::Size(width, height));
+	    break;
+	}
 	case WM_MOUSEMOVE:
-		lastMouseX = ((unsigned short*)&lParam)[0];
-		lastMouseY = ((unsigned short*)&lParam)[1];
-		wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), 0, &wrapperFrame));
+	    prevMousePos = mousePos;
+        mousePos.X = ((unsigned short*)&lParam)[0];
+        mousePos.Y = ((unsigned short*)&lParam)[1];
+        mouseDelta = mousePos - prevMousePos;
+        relativePos = mousePos - wrapperFrame.GetPosition();
+
+		wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(mousePos, relativePos, mouseDelta, 0, &wrapperFrame));
 		break;
 	case WM_LBUTTONDOWN:
-		wrapperFrame.NotifyOnMouseDown(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
+	    wrapperFrame.NotifyOnMouseDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
 		break;
 	case WM_LBUTTONUP:
-		wrapperFrame.NotifyOnMouseUp(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
+	    wrapperFrame.NotifyOnMouseUp(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
 		break;
 	case WM_LBUTTONDBLCLK:
-		wrapperFrame.NotifyOnMousePressed(EventMouseStateInfo(Gdiplus::Point(lastMouseX, lastMouseY), wParam, &wrapperFrame));
+	    wrapperFrame.NotifyOnMousePressed(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
 		break;
 	case WM_KEYDOWN:
 		ProcessKeyState(msg, wParam, lParam);
@@ -181,13 +188,17 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_KEYUP:
 		ProcessKeyState(msg, wParam, lParam);
 		break;
+    case WM_PRINT:
+        DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
+        break;
 
 	}
 }
 
 void CoreWindowFrame::RedrawWindow()
 {
-	InvalidateRgn(GetWindowHandle(), NULL, true);
+	//InvalidateRgn(GetWindowHandle(), NULL, true);
+    OnRender(nullptr);
 	UpdateWindow(windowHandle);
 }
 
@@ -203,7 +214,7 @@ WindowFrame& CoreWindowFrame::GetWrapperFrame()
 
 HDC * CoreWindowFrame::GetHdc()
 {
-	return &secondaryBuffer;
+	return &secondaryDc;
 }
 
 void CoreWindowFrame::CreateConsole()
@@ -272,7 +283,9 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 
 	ShowWindow(windowHandle, SW_SHOW);
 	UpdateWindow(windowHandle);
-	//Critical Section
+	secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), wrapperFrame.GetWidth(), wrapperFrame.GetHeight());
+
+	//Critical Section end
 }
 
 
@@ -309,9 +322,9 @@ std::vector<std::reference_wrapper<Renderable>> CoreWindowFrame::GetRenderables(
 
 void CoreWindowFrame::OnRender(RenderEventInfo e)
 {
-	HDC graphicsBuffer = CreateGraphicsBuffer();
-	AssignGraphicsToComponents();
-	RenderGraphics(graphicsBuffer); //Performs block transfer of the secondary buffer to the primary buffer
+	HDC seconaryDc = GetSecondaryDC();
+	AssignGraphicsToComponents(); //This is where components draw on the buffer
+	RenderGraphics(seconaryDc); //Performs block transfer of the secondary buffer to the primary buffer
 	CleanGraphicsBuffer();
 	ValidateRgn(GetWindowHandle(), NULL);
 	renderBehavior.OnRender(e);

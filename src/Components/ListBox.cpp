@@ -15,7 +15,7 @@ ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(
 {
 	this->Panel::Add(trackbar);
 	trackbar.SetWidth(10);
-	trackbar.Control(*this);
+	trackbar.Control(this);
 	this->Panel::Add(layout);
 	layout.SetAutoExtend(true);
 	layout.SetGridColumns({ width - trackbar.GetWidth() });

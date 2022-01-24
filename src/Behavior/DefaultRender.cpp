@@ -1,5 +1,5 @@
 #include "DefaultRender.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 
 DefaultRender::DefaultRender(Renderable& renderable) : assosiactedRenderable(renderable)
 {

@@ -1,7 +1,7 @@
 #pragma once
 #include "Panel.h"
 #include "Components/Grid/Grid.h"
-#include "TrackBar.h"
+#include "ScrollBar.h"
 #include "Behavior/DefaultListBoxBehavior.h"
 #include <any>
 #include "Draggable.h"
@@ -11,7 +11,7 @@ class ListBox : public Panel, public Draggable, public DragSubject, public DropS
 {
 private:
 	Grid layout;
-	TrackBar trackbar;
+	ScrollBar trackbar;
 	DragManager dragManager;
 	DefaultListBoxBehavior behavior;
 

@@ -9,6 +9,8 @@
 #include "Movable.h"
 #include "Resizable.h"
 #include "EventTypes/EventMoveInfo.h"
+#include "TimerSubscriber.h"
+#include "Timer.h"
 
 
 using namespace std;
@@ -20,14 +22,13 @@ using namespace Gdiplus;
 class CoreWindowFrame : Renderable
 {
 private:
-	int lastMouseX;
-	int lastMouseY;
+
 	HWND windowHandle;
 	void CreateConsole();
-	HDC secondaryBuffer;
+	HDC secondaryDc;
 	WindowFrame& wrapperFrame;
-	HBITMAP currentBitmap;
-	HDC CreateGraphicsBuffer();
+	HBITMAP secondaryBitmap;
+	HDC GetSecondaryDC();
 	void CleanGraphicsBuffer();
 	void RenderGraphics(HDC GraphicsBuffer);
 	void AssignGraphicsToComponents();
@@ -37,6 +38,10 @@ private:
 	DefaultRender renderBehavior;
 	HINSTANCE hInstance;
 
+	Gdiplus::Point mousePos;
+	Gdiplus::Point prevMousePos;
+	Gdiplus::Point mouseDelta;
+	Gdiplus::Point relativePos;
 public:
 	/**
 	 * Updates the scale of the window

@@ -2,13 +2,6 @@
 #include "Events/MouseStateSubject.h"
 #include "Components/Component.h"
 
-EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, int key, MouseStateSubject* src) : mouseSrc(src)
-{
-	this->relativePosition = relativePosition;
-	this->position = position;
-	this->key = key;
-}
-
 EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, Component* source) : src(source)
 {
 	this->position = position;
@@ -22,6 +15,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Component* sourc
 	relativePosition = position - source->GetAbsolutePosition();
 	recursive = e.recursive;
 	key = e.GetKey();
+	this->mouseDelta = e.GetMouseDelta();
 }
 
 EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point relativePosition, MouseStateSubject* src) : mouseSrc(src)
@@ -30,6 +24,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point r
 	this->relativePosition = relativePosition;
 	this->key = e.GetKey();
 	this->recursive = e.recursive;
+	this->mouseDelta = e.GetMouseDelta();
 }
 
 Gdiplus::Point EventMouseStateInfo::GetMouseAbsolutePosition()
@@ -93,4 +88,19 @@ void EventMouseStateInfo::SetRecursive(bool state)
 bool EventMouseStateInfo::IsRecursive()
 {
 	return recursive;
+}
+
+EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, Gdiplus::Point delta,
+                                         int key, MouseStateSubject *src)
+{
+    this->position = position;
+    this->relativePosition = relativePosition;
+    this->mouseDelta = delta;
+    this->mouseSrc = src;
+    this->key = key;
+}
+
+Gdiplus::Point EventMouseStateInfo::GetMouseDelta()
+{
+    return mouseDelta;
 }

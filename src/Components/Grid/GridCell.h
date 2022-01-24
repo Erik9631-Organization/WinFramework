@@ -68,12 +68,12 @@ public:
 	virtual void SetPosition(int x, int y) override;
 	virtual void SetX(int x) override;
 	virtual void SetY(int y) override;
-	virtual void SetElementOffset(Gdiplus::Point offset) override;
-	virtual void SetElementXOffset(int x) override;
-	virtual void SetElementYOffset(int y) override;
-	virtual Gdiplus::Point GetElementOffset() override;
-	virtual int GetElementXOffset() override;
-	virtual int GetElementYOffset() override;
+	virtual void SetTranslate(Gdiplus::Point offset) override;
+	virtual void SetTranslateX(int x) override;
+	virtual void SetTranslateY(int y) override;
+	virtual Gdiplus::Point GetTranslate() override;
+	virtual int GetTranslateX() override;
+	virtual int GetTranslateY() override;
 	virtual void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();

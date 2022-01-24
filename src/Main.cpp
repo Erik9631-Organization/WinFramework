@@ -1,11 +1,11 @@
-﻿#include "Utils/ApplicationController.h"
-#include "Utils/WinWrapper.h" // Needed
+﻿#include "ApplicationController.h"
+#include "WinWrapper.h" // Needed
 #include <Windows.h>
-#include "DemoApplication.h"
-#include "TestGraphics.h"
 #include "WindowFrame.h"
+#include "DemoApplication.h"
+#include "Button.h"
 #include "Panel.h"
-#include "TrackBar.h"
+#include "ListBox.h"
 
 using namespace std;
 
@@ -67,17 +67,19 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 /** TODO Refactor
- * The new scrollbar needs to be able to move. Maybe consider adding delta mouse movement to the mouse event info.
+ * Modify transform of the components based on scrollbar position
  */
 
 int LiiEntry()
 {
-
     DemoApplication::LaunchDemoApp();
-    //WindowFrame frame = WindowFrame(0, 0, 800, 600, "testWindow");
 
-    //frame.Add();
 
+//    WindowFrame frame = WindowFrame(0, 0, 800, 600, "TestFrame");
+//    ListBox listBox{50, 50, 100, 200, "testBox"};
+//    frame.Add(listBox);
+//    for(int i = 0; i < 9; i++)
+//        listBox.CreateListElement(L"test" + to_wstring(i), L"test" + to_wstring(i));
 
 	ApplicationController::JoinThreads();
 	return 0;

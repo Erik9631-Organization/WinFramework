@@ -48,9 +48,9 @@ protected:
 	DefaultActivate activateBehavior;
 	Viewport viewport;
 	std::wstring text;
-	bool ignoreOffset = false;
-
+	bool ignoreTranslate = false;
 public:
+
 	Component();
 	Component(string name);
 	Component(int x, int y, int width, int height, string windowName);
@@ -67,16 +67,16 @@ public:
 	virtual void SetText(std::wstring text);
 
 	/**
-	 * Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset
-	 * \param ignoreOffset true for ignoring the position, false for not ignoring the position
+	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
+	 * \param ignoreTranslate true for ignoring the position, false for not ignoring the position
 	 */
-	void SetIgnoreOffset(bool ignoreOffset);
+	void SetIgnoreTranslate(bool ignoreTranslate);
 	
 	/**
-	 * Sets whether the component should ignore values set by SetElementOffset, SetElementXOffset, SetElementYOffset
+	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
 	 * \param ignoreOffset true for ignoring the position, false for not ignoring the position
 	 */
-	bool IsIgnoringOffset();
+	bool IsIgnoringTranslate();
 
 	/**
 	 * Returns whether the component is at the top of the containment hierarchy
@@ -89,7 +89,6 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	Component& GetRoot();
-
 	Size GetSize() override;
 	Point GetPosition() override;
 	int GetWidth() override;
@@ -286,26 +285,26 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetElementOffset(Gdiplus::Point offset) override;
-	virtual void SetElementXOffset(int x) override;
-	virtual void SetElementYOffset(int Y) override;
+	virtual void SetTranslate(Gdiplus::Point offset) override;
+	virtual void SetTranslateX(int x) override;
+	virtual void SetTranslateY(int Y) override;
 
 	// Inherited via Adjustable
-	virtual Gdiplus::Point GetElementOffset() override;
-	virtual int GetElementXOffset() override;
-	virtual int GetElementYOffset() override;
+	virtual Gdiplus::Point GetTranslate() override;
+	virtual int GetTranslateX() override;
+	virtual int GetTranslateY() override;
 	
 	/**
 	 * Gets the internal position of the child components
 	 * \return returns the point that contains X and Y of the internal position.
 	 */
-	Gdiplus::Point GetInternalOffset();
+	Gdiplus::Point GetChildrenTranslate();
 	
 	/**
 	 * Sets the position of all the subcomponents that are owned by this component at once
 	 * \param internalOffset the position
 	 */
-	void SetInternalOffset(Gdiplus::Point internalOffset);
+	void SetChildrenTranslate(Gdiplus::Point internalOffset);
 
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 

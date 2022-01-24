@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('_component_8h_source.html',''); initRe
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="class_default_activate.html">DefaultActivate</a> activateBehavior;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="class_viewport.html">Viewport</a> viewport;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::wstring text;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> ignoreOffset = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">bool</span> ignoreTranslate = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">public</span>:</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="class_component.html">Component</a>();</div>
@@ -142,7 +142,7 @@ $(document).ready(function(){initNavTree('_component_8h_source.html',''); initRe
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetText(std::wstring text);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> SetIgnoreOffset(<span class="keywordtype">bool</span> ignoreOffset);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> SetIgnoreTranslate(<span class="keywordtype">bool</span> ignoreTranslate);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">bool</span> IsIgnoringOffset();</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
@@ -307,18 +307,18 @@ $(document).ready(function(){initNavTree('_component_8h_source.html',''); initRe
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> RemoveOnAddSubscriber(<a class="code" href="class_on_add_subscriber.html">OnAddSubscriber&lt;Component&amp;&gt;</a>&amp; subscriber) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <span class="comment">// Inherited via Viewable</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetElementOffset(Gdiplus::Point position) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetElementXOffset(<span class="keywordtype">int</span> x) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetElementYOffset(<span class="keywordtype">int</span> Y) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetTranslate(Gdiplus::Point position) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetTranslateX(<span class="keywordtype">int</span> x) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> SetTranslateY(<span class="keywordtype">int</span> Y) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="comment">// Inherited via Adjustable</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keyword">virtual</span> Gdiplus::Point GetElementOffset() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> GetElementXOffset() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> GetElementYOffset() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keyword">virtual</span> Gdiplus::Point GetTranslate() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> GetTranslateX() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">int</span> GetTranslateY() <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    Gdiplus::Point GetInternalOffset();</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    Gdiplus::Point GetChildrenTranslate();</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">void</span> SetInternalOffset(Gdiplus::Point internalOffset);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">void</span> TranslateChildren(Gdiplus::Point childrenTranslate);</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;};</div>
 <div class="ttc" id="aclass_activate_subscriber_html"><div class="ttname"><a href="class_activate_subscriber.html">ActivateSubscriber</a></div><div class="ttdef"><b>Definition:</b> ActivateSubscriber.h:5</div></div>
 <div class="ttc" id="aclass_add_subject_html"><div class="ttname"><a href="class_add_subject.html">AddSubject</a></div><div class="ttdef"><b>Definition:</b> AddSubject.h:15</div></div>

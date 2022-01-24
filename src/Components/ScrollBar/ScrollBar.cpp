@@ -30,6 +30,14 @@ void ScrollBar::Control(Component* component)
     if(controlledComponent != nullptr)
         ClearControl();
 
+    //For every child in the component
+    //Remove it from the parent
+    //Add it to the scrollPane
+
+
+    //If control is lost
+    //Reassign the components to the parent
+
     controlledComponent = component;
     controlledComponent->Add(*this);
 
@@ -46,4 +54,9 @@ void ScrollBar::ClearControl()
     controlledComponent->RemoveOnResizeSubscriber(scrollbarBehavior);
     controlledComponent->RemoveOnAddSubscriber(scrollbarBehavior);
     controlledComponent = nullptr;
+}
+
+Component *ScrollBar::GetControlledComponent()
+{
+    return controlledComponent;
 }

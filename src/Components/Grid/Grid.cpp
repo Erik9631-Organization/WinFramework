@@ -37,7 +37,7 @@ void Grid::AddRow()
 	int lastY = gridArray.at(gridArray.size()-1)->at(0)->GetPixelY();
 	int lastHeight = gridArray.at(gridArray.size() - 1)->at(0)->GetHeight();
 
-	if (lastY > GetHeight())
+	if (lastY + lastHeight > GetHeight())
 		SetHeight(lastY + lastHeight);
 
 }
@@ -240,6 +240,7 @@ void Grid::Add(Component& component)
 	AddRow();
 	if (gridArray.size() > 1)
 		currentRowIndex++;
-
+	if(gridArray.at(currentRowIndex)->size() == 0)
+	    return;
 	gridArray.at(currentRowIndex)->at(0)->ControlAdjustable(&static_cast<Adjustable&>(component));
 }

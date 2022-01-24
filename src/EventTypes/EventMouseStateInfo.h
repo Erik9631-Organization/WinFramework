@@ -15,17 +15,14 @@ private:
 	Gdiplus::Point relativePosition;
 	Component* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
+	Gdiplus::Point mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
 	int key;
 public:
-	/**
-	 * \param position the position of the mouse
-	 * \param relativePosition the position of the mouse within the boundaries of the component
-	 * \param key the mouse key that was interacted with.
-	 * \param src the source of the object that called the event.
-	 */
-	
-	EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, int key, MouseStateSubject* src);
+
+    Gdiplus::Point GetMouseDelta();
+
+    EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, Gdiplus::Point delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative position is automatically calculated from the src component
@@ -33,6 +30,7 @@ public:
 	 * \param key the mouse key that was interacted with.
 	 * \param src the source of the object that called the event.
 	 */
+
 	EventMouseStateInfo(Gdiplus::Point position, int key, Component* src);
 
 	/**
@@ -89,10 +87,10 @@ public:
 	MouseStateSubject* GetSrc();
 
 
-	/*
+	/**
 	* Sets whether the event is supposed to be recursively propagated throughout the containment hierarchy. 
 	* Set to false if you only want to send the event to the target object.
-	* NOTE: This is implementation specific. Event only carries the information, by default the framework understands this parameter.
+	* \remark This is implementation specific. Event only carries the information, by default the framework understands this parameter.
 	* \param state setting the recursive options. False for only sending it to the target, true for recursive propagation.
 	*/
 	void SetRecursive(bool state);

@@ -17,6 +17,7 @@ public:
     ScrollBar(const string &name);
     ScrollBar();
     void Control(Component* component);
+    Component* GetControlledComponent();
     void ClearControl();
 private:
     Button thumbTrack;

@@ -29,7 +29,6 @@
 #include "Events/RadioButtonStateSubscriber.h"
 #include "EventTypes/EventRadioButtonStateInfo.h"
 #include "Components/PasswordField.h"
-#include "Components/TrackBar.h"
 #include "Events/OnAddSubscriber.h"
 #include "Components/Panel.h"
 #include "Components/Grid/Grid.h"
@@ -388,7 +387,7 @@ void DemoApplication::LaunchDemoApp()
 	CheckboxTester checkboxTester = CheckboxTester();
 	RadioButtonTester radioButtonTester = RadioButtonTester();
 
-	TrackBar trackbar = TrackBar(0, 10, 10, 0, "trackbar");
+	ScrollBar trackbar = ScrollBar(0, 10, 10, 0, "trackbar");
 	ScrollBar scrollbar = ScrollBar(0, 0, 10, 0, "ScrollBar");
 
 	Panel panel = Panel(50, 300, 300, 250, "panel");

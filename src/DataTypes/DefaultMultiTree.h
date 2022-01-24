@@ -2,8 +2,8 @@
 #include "MultiTree.h"
 #include <vector>
 #include <stack>
-#include <memory>
 #include "OnAddHandler.h"
+#include <memory>
 class Component;
 
 template <class T>
@@ -12,8 +12,8 @@ class DefaultMultiTree : public MultiTree<T>
 private:
 	std::vector<std::reference_wrapper<MultiTree<T>>> elementList;
 	MultiTree<T>* parent;
+	OnAddHandler<T> onAddHandler;
 	T nodeObject;
-    OnAddHandler<T> onAddHandler;
 public:
 	DefaultMultiTree(T associatedObj);
 	// Inherited via Container
@@ -51,8 +51,8 @@ void DefaultMultiTree<T>::SetParent(MultiTree<T>* obj)
 template <class T> void DefaultMultiTree<T>::Add(MultiTree<T>& object)
 {
     elementList.push_back(object);
-    onAddHandler.NotifyOnAddInfo(EventOnAddInfo<T>(object.GetValue()));
     object.SetParent((MultiTree<T>*)this);
+    onAddHandler.NotifyOnAddInfo(EventOnAddInfo<T>(object.GetValue()));
 }
 
 

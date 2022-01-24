@@ -16,8 +16,8 @@ private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
 	Gdiplus::Point absolutePosition;
 	Gdiplus::Point relativePosition;
-	Gdiplus::Point offset; // Defines the position within the viewport
-	Gdiplus::Point internalOffset;
+	Gdiplus::Point translate; // Defines the position within the viewport
+	Gdiplus::Point childrenTranslate;
 	MultiTree<T>& associatedAdjustableNode;
 
 public:
@@ -37,74 +37,74 @@ public:
 	virtual int GetAbsoluteY() override;
 	virtual Gdiplus::Point GetAbsolutePosition() override;
 
-	virtual void SetElementOffset(Gdiplus::Point offset) override;
-	virtual void SetElementXOffset(int x) override;
-	virtual void SetElementYOffset(int Y) override;
+	virtual void SetTranslate(Gdiplus::Point offset) override;
+	virtual void SetTranslateX(int x) override;
+	virtual void SetTranslateY(int Y) override;
 
-	virtual Gdiplus::Point GetElementOffset() override;
-	virtual int GetElementXOffset() override;
-	virtual int GetElementYOffset() override;
+	virtual Gdiplus::Point GetTranslate() override;
+	virtual int GetTranslateX() override;
+	virtual int GetTranslateY() override;
 
-	Gdiplus::Point GetInternalOffset();
-	void SetInternalOffset(Gdiplus::Point internalOffset);
+	Gdiplus::Point GetChildrenTranslate();
+	void TranslateChildren(Gdiplus::Point translate);
 };
 
 
 template<class T>
-Gdiplus::Point DefaultMove<T>::GetInternalOffset()
+Gdiplus::Point DefaultMove<T>::GetChildrenTranslate()
 {
-	return internalOffset;
+	return childrenTranslate;
 }
 
 template<class T>
-void DefaultMove<T>::SetInternalOffset(Gdiplus::Point internalOffset)
+void DefaultMove<T>::TranslateChildren(Gdiplus::Point translate)
 {
-	this->internalOffset = internalOffset;
+	this->childrenTranslate = translate;
 	for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
-		associatedAdjustableNode.Get(i).GetValue().SetElementOffset(internalOffset);
+        associatedAdjustableNode.Get(i).GetValue().SetTranslate(translate);
 }
 
 
 template<class T>
-void DefaultMove<T>::SetElementOffset(Gdiplus::Point offset)
+void DefaultMove<T>::SetTranslate(Gdiplus::Point offset)
 {
-	this->offset = offset;
+	this->translate = offset;
 }
 template<class T>
-void DefaultMove<T>::SetElementXOffset(int x)
+void DefaultMove<T>::SetTranslateX(int x)
 {
-	this->offset.X = x;
+	this->translate.X = x;
 }
 template<class T>
-void DefaultMove<T>::SetElementYOffset(int y)
+void DefaultMove<T>::SetTranslateY(int y)
 {
-	this->offset.Y = y;
-}
-
-template<class T>
-Gdiplus::Point DefaultMove<T>::GetElementOffset()
-{
-	return offset;
+	this->translate.Y = y;
 }
 
 template<class T>
-int DefaultMove<T>::GetElementXOffset()
+Gdiplus::Point DefaultMove<T>::GetTranslate()
 {
-	return offset.X;
+	return translate;
 }
 
 template<class T>
-int DefaultMove<T>::GetElementYOffset()
+int DefaultMove<T>::GetTranslateX()
 {
-	return offset.Y;
+	return translate.X;
+}
+
+template<class T>
+int DefaultMove<T>::GetTranslateY()
+{
+	return translate.Y;
 }
 
 template<class T>
 DefaultMove<T>::DefaultMove(MultiTree<T>& adjustable) : associatedAdjustableNode(adjustable)
 {
 	absolutePosition = Gdiplus::Point(0, 0);
-	offset = Gdiplus::Point(0, 0);
-	internalOffset = Gdiplus::Point(0, 0);
+    translate = Gdiplus::Point(0, 0);
+    childrenTranslate = Gdiplus::Point(0, 0);
 }
 
 template<class T>
@@ -112,12 +112,12 @@ void DefaultMove<T>::CalculateAbsolutePosition()
 {
 	if (associatedAdjustableNode.IsRoot() || associatedAdjustableNode.GetParent()->IsRoot()) //If the parent is root, we are in the global windowSpace and relative is same as absolute
 	{
-		absolutePosition = relativePosition + offset;
+		absolutePosition = relativePosition + translate;
 	}
 	else
 	{
-		absolutePosition.X = relativePosition.X + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteX() + offset.X;
-		absolutePosition.Y = relativePosition.Y + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteY() + offset.Y;
+		absolutePosition.X = relativePosition.X + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteX() + translate.X;
+		absolutePosition.Y = relativePosition.Y + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteY() + translate.Y;
 	}
 }
 

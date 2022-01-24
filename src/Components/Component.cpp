@@ -48,14 +48,14 @@ void Component::SetText(std::wstring text)
 	Repaint();
 }
 
-void Component::SetIgnoreOffset(bool ignoreOffset)
+void Component::SetIgnoreTranslate(bool ignoreTranslate)
 {
-	this->ignoreOffset = ignoreOffset;
+	this->ignoreTranslate = ignoreTranslate;
 }
 
-bool Component::IsIgnoringOffset()
+bool Component::IsIgnoringTranslate()
 {
-	return ignoreOffset;
+	return ignoreTranslate;
 }
 
 void Component::AddOnMoveSubscriber(MoveSubscriber& subscriber)
@@ -87,16 +87,12 @@ void Component::SetY(int y)
 
 void Component::OnRender(RenderEventInfo e)
 {
-	Gdiplus::Matrix matrix{};
 	Gdiplus::Point parentPos = Gdiplus::Point(0, 0);
-	if( !IsRoot() ) //Root should always translate from 0, 0
+	if( !IsRoot())
     {
-        parentPos.X = GetAbsoluteX();
-        parentPos.Y = GetAbsoluteY();
+        parentPos.X = GetX();
+        parentPos.Y = GetY();
     }
-	matrix.Translate(parentPos.X, parentPos.Y);
-	e.GetGraphics()->SetTransform(matrix.Clone());
-
 	RenderEventInfo parentInfo = RenderEventInfo(e.GetGraphics(), GetSize(), parentPos);
 	renderBehavior.OnRender(parentInfo);
 }
@@ -453,54 +449,54 @@ void Component::RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber)
 	componentNode.RemoveOnAddSubscriber(subscriber);
 }
 
-void Component::SetElementOffset(Gdiplus::Point offset)
+void Component::SetTranslate(Gdiplus::Point offset)
 {
-	if (ignoreOffset)
+	if (ignoreTranslate)
 		return;
 
-	moveBehavior.SetElementOffset(offset);
+    moveBehavior.SetTranslate(offset);
 }
 
-void Component::SetElementXOffset(int x)
+void Component::SetTranslateX(int x)
 {
-	if (ignoreOffset)
+	if (ignoreTranslate)
 		return;
-	moveBehavior.SetElementXOffset(x);
+    moveBehavior.SetTranslateX(x);
 }
 
-void Component::SetElementYOffset(int y)
+void Component::SetTranslateY(int y)
 {
-	if (ignoreOffset)
+	if (ignoreTranslate)
 		return;
 
-	moveBehavior.SetElementYOffset(y);
+    moveBehavior.SetTranslateY(y);
 }
 
-Gdiplus::Point Component::GetElementOffset()
+Gdiplus::Point Component::GetTranslate()
 {
-	return moveBehavior.GetElementOffset();
+	return moveBehavior.GetTranslate();
 }
 
-int Component::GetElementXOffset()
+int Component::GetTranslateX()
 {
-	return moveBehavior.GetElementXOffset();
+	return moveBehavior.GetTranslateX();
 }
 
-int Component::GetElementYOffset()
+int Component::GetTranslateY()
 {
-	return moveBehavior.GetElementYOffset();
+	return moveBehavior.GetTranslateY();
 }
 
-Gdiplus::Point Component::GetInternalOffset()
+Gdiplus::Point Component::GetChildrenTranslate()
 {
-	return moveBehavior.GetInternalOffset();
+	return moveBehavior.GetChildrenTranslate();
 }
 
-void Component::SetInternalOffset(Gdiplus::Point internalOffset)
+void Component::SetChildrenTranslate(Gdiplus::Point internalOffset)
 {
-	if (ignoreOffset)
+	if (ignoreTranslate)
 		return;
-	moveBehavior.SetInternalOffset(internalOffset);
+    moveBehavior.TranslateChildren(internalOffset);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 

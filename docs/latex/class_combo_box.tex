@@ -22,7 +22,7 @@ bool \mbox{\hyperlink{class_combo_box_aae998d4d7cab629f363c6bb8d9b2377a}{Is\+Pac
 \item 
 \mbox{\hyperlink{class_combo_box_a3a464103716328b623b534a3833fd827}{Combo\+Box}} (int x, int y, int width, int height, std\+::string component\+Name)
 \item 
-void \mbox{\hyperlink{class_combo_box_ab788465ae31c5f98627e571aeaeb6ad2}{Set\+Combo\+Button}} (\mbox{\hyperlink{class_button}{Button}} $\ast$button)
+void \mbox{\hyperlink{class_combo_box_ab788465ae31c5f98627e571aeaeb6ad2}{Set\+Combo\+Button}} (\mbox{\hyperlink{class_button}{Button}} $\ast$thumbTrack)
 \item 
 std\+::wstring \mbox{\hyperlink{class_combo_box_a64f8064475d8a04c57b0679b7ad78633}{Get\+Text}} ()
 \item 
@@ -130,7 +130,7 @@ returns reference to the currently selected combo element
 {\footnotesize\ttfamily std\+::wstring Combo\+Box\+::\+Get\+Text (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
 
 \begin{DoxyReturn}{Returns}
-returns the text which is displayed on the associated button 
+returns the text which is displayed on the associated thumbTrack
 \end{DoxyReturn}
 
 
@@ -215,11 +215,11 @@ Implements \mbox{\hyperlink{class_combo_box_state_subject}{Combo\+Box\+State\+Su
 \index{ComboBox@{ComboBox}!SetComboButton@{SetComboButton}}
 \index{SetComboButton@{SetComboButton}!ComboBox@{ComboBox}}
 \doxysubsubsection{\texorpdfstring{SetComboButton()}{SetComboButton()}}
-{\footnotesize\ttfamily void Combo\+Box\+::\+Set\+Combo\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_button}{Button}} $\ast$}]{button }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Combo\+Box\+::\+Set\+Combo\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_button}{Button}} $\ast$}]{thumbTrack }\end{DoxyParamCaption})}
 
-Changes the source button under which the elements should unpack. 
+Changes the source thumbTrack under which the elements should unpack.
 \begin{DoxyParams}{Parameters}
-{\em button} & the source of the button. \\
+{\em thumbTrack} & the source of the thumbTrack. \\
 \hline
 \end{DoxyParams}
 \mbox{\Hypertarget{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}\label{class_combo_box_a4484a54ab713aa15a0aa4df3b8fb6beb}} 
@@ -230,7 +230,7 @@ Changes the source button under which the elements should unpack.
 
 
 \begin{DoxyParams}{Parameters}
-{\em text} & sets the text which is displayed on the associated button \\
+{\em text} & sets the text which is displayed on the associated thumbTrack \\
 \hline
 \end{DoxyParams}
 

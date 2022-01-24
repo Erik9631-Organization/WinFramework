@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "Events/MouseStateSubject.h"
-#include "../MouseInteractable.h"
+#include "Components/MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
 #include "EventTypes/EventMouseStateInfo.h"
 #include "Events/MouseStateSubscriber.h"

@@ -201,32 +201,32 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetElementOffset(Gdiplus::Point offset)
+void Viewport::SetTranslate(Gdiplus::Point offset)
 {
-    moveBehavior.SetElementOffset(offset);
+    moveBehavior.SetTranslate(offset);
 }
 
-void Viewport::SetElementXOffset(int x)
+void Viewport::SetTranslateX(int x)
 {
-    moveBehavior.SetElementXOffset(x);
+    moveBehavior.SetTranslateX(x);
 }
 
-void Viewport::SetElementYOffset(int y)
+void Viewport::SetTranslateY(int y)
 {
-    moveBehavior.SetElementYOffset(y);
+    moveBehavior.SetTranslateY(y);
 }
 
-Gdiplus::Point Viewport::GetElementOffset()
+Gdiplus::Point Viewport::GetTranslate()
 {
-    return moveBehavior.GetElementOffset();
+    return moveBehavior.GetTranslate();
 }
 
-int Viewport::GetElementXOffset()
+int Viewport::GetTranslateX()
 {
-    return moveBehavior.GetElementXOffset();
+    return moveBehavior.GetTranslateX();
 }
 
-int Viewport::GetElementYOffset()
+int Viewport::GetTranslateY()
 {
-    return moveBehavior.GetElementYOffset();
+    return moveBehavior.GetTranslateY();
 }

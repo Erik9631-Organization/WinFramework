@@ -26,14 +26,10 @@ set(Lii
     "GenericObj.h"
     "Components/Grid/GridCell.h"
     "Components/Grid/GridSpan.h"
-    "Mouse.h"
-    "OnAddHandler.h"
-    "Events/OnAddSubscriber.h"
+        "Events/OnAddSubscriber.h"
     "TableElement.h"
-    "TrackBarBehavior.h"
-    "Graphics/TrackbarGraphics.h"
-    "VerticalTrackbarBehavior.h"
-    "AddSubject.cpp"
+        "Graphics/TrackbarGraphics.h"
+        "AddSubject.cpp"
     "Events/ComboBoxStateSubject.cpp"
     "Behavior/DefaultListBoxBehavior.cpp"
     "DemoApplication.cpp"
@@ -50,14 +46,10 @@ set(Lii
     "Components/Grid/GridCell.cpp"
     "Components/Grid/GridSpan.cpp"
     "Main.cpp"
-    "Mouse.cpp"
-    "OnAddHandler.cpp"
-    "Events/OnAddSubscriber.cpp"
+        "Events/OnAddSubscriber.cpp"
     "TableElement.cpp"
-    "TrackBarBehavior.cpp"
-    "Graphics/TrackbarGraphics.cpp"
-    "VerticalTrackbarBehavior.cpp"
-)
+        "Graphics/TrackbarGraphics.cpp"
+        )
 source_group("Lii" FILES ${Lii})
 
 
@@ -105,7 +97,7 @@ set(Lii_Components
     "Components/Grid/Grid.h"
     "Components/Label.h"
     "Components/ListBox.h"
-    "MouseInteractable.h"
+    "Components/MouseInteractable.h"
     "Components/Movable.h"
     "Components/Panel.h"
     "Components/PasswordField.h"
@@ -115,8 +107,7 @@ set(Lii_Components
     "Components/Renderable.h"
     "Components/Resizable.h"
     "Components/TextInput.h"
-    "Components/TrackBar.h"
-    "Components/Viewable.h"
+        "Components/Viewable.h"
     "Components/WindowFrame.h"
     "Components/Activatable.cpp"
     "Components/Adjustable.cpp"
@@ -126,7 +117,7 @@ set(Lii_Components
     "Components/Component.cpp"
     "Components/CoreWindowFrame.cpp"
     "Components/Label.cpp"
-    "MouseInteractable.cpp"
+    "Components/MouseInteractable.cpp"
     "Components/Movable.cpp"
     "Components/PasswordField.cpp"
     "Components/RadioButton.cpp"
@@ -135,10 +126,9 @@ set(Lii_Components
     "Components/Renderable.cpp"
     "Components/Resizable.cpp"
     "Components/TextInput.cpp"
-    "Components/TrackBar.cpp"
-    "Components/Viewable.cpp"
+        "Components/Viewable.cpp"
     "Components/WindowFrame.cpp"
-        Components/ScrollBar/ScrollBar.cpp Components/ScrollBar/ScrollBar.h)
+        Components/ScrollBar/ScrollBar.cpp Components/ScrollBar/ScrollBar.h OnAddHandler.h)
 source_group("Lii\\Components" FILES ${Lii_Components})
 
 
@@ -198,6 +188,8 @@ set(Lii_Events
     "Events/ResizeSubject.cpp"
     "Events/ResizeSubscriber.cpp"
     "Events/UpdateSubject.cpp"
+    Events/TimerSubject.cpp
+    Events/TimerSubject.h
 )
 
 source_group("Header Files\\Events" FILES ${Lii_Events})
@@ -226,7 +218,8 @@ set(Lii_EventTypes
     "EventTypes/EventResizeInfo.cpp"
     "EventTypes/EventUpdateInfo.cpp"
     "EventTypes/RenderEventInfo.cpp"
-)
+    EventTypes/EventOnTimerElapsed.cpp
+    EventTypes/EventOnTimerElapsed.h)
 source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
 
 
@@ -279,7 +272,16 @@ set(Lii_Utils
     "Utils/AccessTools.cpp"
     "Utils/ApplicationController.cpp"
     "Utils/InputManager.cpp"
-        Utils/Vector2DScaler.cpp Utils/Vector2DScaler.h Utils/Vector2d.cpp Utils/Vector2d.h Utils/ScalingUtil.cpp Utils/ScalingUtil.h Utils/ValueConverter.cpp Utils/ValueConverter.h)
+    Utils/Vector2DScaler.cpp
+    Utils/Vector2DScaler.h
+    Utils/Vector2d.cpp Utils/Vector2d.h
+    Utils/ScalingUtil.cpp
+    Utils/ScalingUtil.h
+    Utils/ValueConverter.cpp
+    Utils/ValueConverter.h
+    Utils/Timer.cpp
+    Utils/Timer.h
+    )
 
 source_group("Header Files\\Utils" FILES ${Lii_Utils})
 
@@ -297,7 +299,7 @@ set(ALL_FILES
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
-        Utils/ValueConverter.cpp)
+        Utils/ValueConverter.cpp Events/TimerSubscriber.cpp Events/TimerSubscriber.h)
 
 ################################################################################
 # Target

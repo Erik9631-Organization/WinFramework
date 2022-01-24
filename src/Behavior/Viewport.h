@@ -78,17 +78,17 @@ public:
 
 
 	// Inherited via Adjustable
-	virtual void SetElementOffset(Gdiplus::Point offset) override;
+	virtual void SetTranslate(Gdiplus::Point offset) override;
 
-	virtual void SetElementXOffset(int x) override;
+	virtual void SetTranslateX(int x) override;
 
-	virtual void SetElementYOffset(int y) override;
+	virtual void SetTranslateY(int y) override;
 
-	virtual Gdiplus::Point GetElementOffset() override;
+	virtual Gdiplus::Point GetTranslate() override;
 
-	virtual int GetElementXOffset() override;
+	virtual int GetTranslateX() override;
 
-	virtual int GetElementYOffset() override;
+	virtual int GetTranslateY() override;
 
 };
 

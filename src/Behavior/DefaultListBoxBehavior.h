@@ -24,7 +24,6 @@ private:
 	void SelectCtrlClickAction(TableElement* element);
 	void SelectShiftClickAction(TableElement* element);
 	int lastSelectedIndex = -1;
-
 	int FindIndexByElement(TableElement* element);
 public:
 	DefaultListBoxBehavior(ListBox& associatedListBox);

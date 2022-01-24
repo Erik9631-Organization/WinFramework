@@ -75,36 +75,36 @@ public:
 	 * Sets position from the current position
 	 * \param offset sets the position via a point object which specifies the X and Y position.
 	 */
-	virtual void SetElementOffset(Gdiplus::Point offset) = 0;
+	virtual void SetTranslate(Gdiplus::Point offset) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param x specifies the X position.
 	 */
-	virtual void SetElementXOffset(int x) = 0;
+	virtual void SetTranslateX(int x) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param y specifies the Y position.
 	 */
-	virtual void SetElementYOffset(int y) = 0;
+	virtual void SetTranslateY(int y) = 0;
 
 	/**
 	 * Gets the element position dependent on the current position.
 	 * \return returns the point which specifies the X and Y position.
 	 */
-	virtual Gdiplus::Point GetElementOffset() = 0;
+	virtual Gdiplus::Point GetTranslate() = 0;
 
 	/**
 	 * Gets the element X position dependent on the current position.
 	 * \return return the X position.
 	 */
-	virtual int GetElementXOffset() = 0;
+	virtual int GetTranslateX() = 0;
 
 	/**
 	 * Gets the element Y position dependent on the current position.
 	 * \return return the Y position.
 	 */
-	virtual int GetElementYOffset() = 0;
+	virtual int GetTranslateY() = 0;
 };
 

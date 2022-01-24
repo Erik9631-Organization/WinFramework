@@ -247,47 +247,47 @@ void GridCell::SetY(int y)
     SetPosition(indexPos.X, y);
 }
 
-void GridCell::SetElementOffset(Gdiplus::Point offset)
+void GridCell::SetTranslate(Gdiplus::Point offset)
 {
     if (associatedAdjustable == nullptr)
         return;
-    associatedAdjustable->SetElementOffset(offset);
+    associatedAdjustable->SetTranslate(offset);
 }
 
-void GridCell::SetElementXOffset(int x)
+void GridCell::SetTranslateX(int x)
 {
     if (associatedAdjustable == nullptr)
         return;
-    associatedAdjustable->SetElementXOffset(x);
+    associatedAdjustable->SetTranslateX(x);
 }
 
-void GridCell::SetElementYOffset(int y)
+void GridCell::SetTranslateY(int y)
 {
     if (associatedAdjustable == nullptr)
         return;
-    associatedAdjustable->SetElementYOffset(y);
+    associatedAdjustable->SetTranslateY(y);
 }
 
-Gdiplus::Point GridCell::GetElementOffset()
+Gdiplus::Point GridCell::GetTranslate()
 {
     if (associatedAdjustable == nullptr)
         return Gdiplus::Point(0, 0);
 
-    return associatedAdjustable->GetElementOffset();
+    return associatedAdjustable->GetTranslate();
 }
 
-int GridCell::GetElementXOffset()
+int GridCell::GetTranslateX()
 {
     if (associatedAdjustable == nullptr)
         return 0;
-    return associatedAdjustable->GetElementXOffset();
+    return associatedAdjustable->GetTranslateX();
 }
 
-int GridCell::GetElementYOffset()
+int GridCell::GetTranslateY()
 {
     if (associatedAdjustable == nullptr)
         return 0;
-    return associatedAdjustable->GetElementYOffset();
+    return associatedAdjustable->GetTranslateY();
 }
 
 void GridCell::OnUpdate(EventUpdateInfo e)
