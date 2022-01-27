@@ -1,5 +1,5 @@
 #pragma once
-class Component;
+class UiElement;
 
 /**
  * \deprecated Deprecated. Subject for removal.
@@ -7,10 +7,10 @@ class Component;
 class EventInfo
 {
 protected:
-	Component & component;
+	UiElement & component;
 public:
-	Component & GetComponent();
-	EventInfo(Component & component);
+	UiElement & GetComponent();
+	EventInfo(UiElement & component);
 	~EventInfo();
 };
 

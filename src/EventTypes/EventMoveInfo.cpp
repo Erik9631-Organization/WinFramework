@@ -1,5 +1,5 @@
 #include "EventMoveInfo.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "Components/Movable.h"
 
 

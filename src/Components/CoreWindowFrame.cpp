@@ -3,11 +3,13 @@
 #include <iostream>
 #include <functional>
 #include "Resizable.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "EventResizeInfo.h"
+#include "RenderEventInfo.h"
 #include <stack>
-#include "EventTypes/EventMouseStateInfo.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventMouseStateInfo.h"
+#include "EventKeyStateInfo.h"
+#include "RenderingProvider.h"
+
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
 #else
@@ -26,80 +28,6 @@ void CoreWindowFrame::MessageLoop()
 		DispatchMessage(&currentMsg);
 	}
 }
-
-HDC CoreWindowFrame::GetSecondaryDC()
-{
-	windowHdc = GetDC(windowHandle);
-    secondaryDc = CreateCompatibleDC(windowHdc);
-	SelectObject(secondaryDc, secondaryBitmap);
-	return secondaryDc;
-}
-
-void CoreWindowFrame::CleanGraphicsBuffer()
-{
-	ReleaseDC(windowHandle, secondaryDc);
-	ReleaseDC(windowHandle, windowHdc);
-	DeleteDC(secondaryDc);
-	DeleteDC(windowHdc);
-}
-
-void CoreWindowFrame::RenderGraphics(HDC graphicsBuffer) // BackBuffer
-{
-    BitBlt(windowHdc, 0, 0, wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), graphicsBuffer, 0, 0, MERGECOPY);
-}
-/**
-* Components should be gettable from the WindowFrame
-* Should iterate through components as a tree. First you set the clipping region with the parents graphics and his graphics, then you pass render event and let it draw
-*/
-
-
-
-void CoreWindowFrame::AssignGraphicsToComponents()
-{
-	Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
-	Region clippingRegion = Region(rootViewport);
-	assignGraphicsToNodes(wrapperFrame.GetComponentNode(), clippingRegion);
-}
-
-void CoreWindowFrame::assignGraphicsToNodes(MultiTree<Component&>& node, Region& clippingRegion)
-{
-	Graphics graphics(secondaryDc);
-	graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
-
-	if(!node.IsRoot())
-	{
-		Rect viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
-		graphics.SetClip(viewport);
-		clippingRegion.Intersect(viewport);
-		graphics.IntersectClip(&clippingRegion);
-
-		//translate
-		Matrix transformMatrix;
-		transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
-		graphics.SetTransform(&transformMatrix);
-	}
-
-	RenderEventInfo renderEvent = RenderEventInfo(&graphics);
-	node.GetValue().OnRender(renderEvent);
-
-	for (int i = 0; i < node.GetNodeCount(); i++)
-	{
-		Region* newRegion = clippingRegion.Clone();
-		assignGraphicsToNodes(node.Get(i), *newRegion);
-		delete newRegion;
-	}
-}
-
-void CoreWindowFrame::NotifyMouseState(Gdiplus::Point point)
-{
-	/*for (int i = 0; i < wrapperFrame.GetComponentNode().GetNodeCount(); i++)
-	{
-		if (wrapperFrame.GetComponentNode().Get(i).GetValue().ColidesWithPoint(point));
-			wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(point, 0));
-	}*/
-
-}
-
 void CoreWindowFrame::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	HKL currentLayout = GetKeyboardLayout(0); // For the current thread
@@ -153,15 +81,14 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_MOVE:
-		wrapperFrame.::Component::SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
+		wrapperFrame.::UiElement::SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
 		break;
 	case WM_SIZE:
 	{
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
-
-	    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), width, height);
-	    wrapperFrame.::Component::SetSize(Gdiplus::Size(width, height));
+	    preProcessSubject.NotifyOnResizeSubscribers(EventResizeInfo({width, height}, nullptr));
+	    wrapperFrame.::UiElement::SetSize(Gdiplus::Size(width, height));
 	    break;
 	}
 	case WM_MOUSEMOVE:
@@ -197,7 +124,6 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 void CoreWindowFrame::RedrawWindow()
 {
-	//InvalidateRgn(GetWindowHandle(), NULL, true);
     OnRender(nullptr);
 	UpdateWindow(windowHandle);
 }
@@ -296,7 +222,7 @@ HWND CoreWindowFrame::GetWindowHandle()
 
 CoreWindowFrame::~CoreWindowFrame()
 {
-	CleanGraphicsBuffer();
+
 }
 
 void CoreWindowFrame::Repaint()
@@ -322,10 +248,45 @@ std::vector<std::reference_wrapper<Renderable>> CoreWindowFrame::GetRenderables(
 
 void CoreWindowFrame::OnRender(RenderEventInfo e)
 {
-	HDC seconaryDc = GetSecondaryDC();
-	AssignGraphicsToComponents(); //This is where components draw on the buffer
-	RenderGraphics(seconaryDc); //Performs block transfer of the secondary buffer to the primary buffer
-	CleanGraphicsBuffer();
-	ValidateRgn(GetWindowHandle(), NULL);
-	renderBehavior.OnRender(e);
+    if(renderingProvider != nullptr)
+        renderingProvider->AssignRenderer();
+}
+
+void CoreWindowFrame::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
+{
+    preProcessSubject.AddOnResizeSubscriber(subscriber);
+}
+
+RenderingProvider *CoreWindowFrame::GetRenderingProvider()
+{
+    return renderingProvider;
+}
+
+void CoreWindowFrame::SetRenderingProvider(RenderingProvider& provider)
+{
+    this->renderingProvider = &provider;
+}
+
+void CoreWindowFrame::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
+{
+    for(ResizeSubscriber& subscriber : resizeSubscribers)
+        subscriber.OnResize(event);
+
+}
+
+void CoreWindowFrame::MsgSubject::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
+{
+    resizeSubscribers.emplace_back(subscriber);
+}
+
+void CoreWindowFrame::MsgSubject::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
+{
+    for(auto iterator = resizeSubscribers.begin(); iterator != resizeSubscribers.end(); iterator++)
+    {
+        if(&iterator->get() == &subscriber)
+        {
+            resizeSubscribers.erase(iterator);
+            return;
+        }
+    }
 }

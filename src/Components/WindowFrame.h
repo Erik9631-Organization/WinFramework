@@ -2,33 +2,34 @@
 #include <Windows.h>
 #include <condition_variable>
 #include <string>
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include <vector>
 #include "Events/MoveSubscriber.h"
 #include "Events/ResizeSubscriber.h"
 #include "Graphics/Background.h"
+#include "GdiRenderingProvider.h"
 
 using namespace std;
 class CoreWindowFrame;
-
+class RenderingProvider;
 /**
  * This class wraps the CoreWindowFrame class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
- * All the components that are to be displayed within the window should be added via the Component::Add function which this class inherits.
+ * All the components that are to be displayed within the window should be added via the UiElement::Add function which this class inherits.
  */
-class WindowFrame : public Component
+class WindowFrame : public UiElement
 {
 private:
-	Component* currentFocus = nullptr;
-	Component* currentCapture = nullptr;
+	UiElement* currentFocus = nullptr;
+	UiElement* currentCapture = nullptr;
 
 	CoreWindowFrame* coreFrame = nullptr;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;
 	Background background;
-
 	void CreateCoreWindow(LONG style);
+	std::shared_ptr<RenderingProvider> renderingProvider;
 
 public:
 	/**
@@ -74,11 +75,16 @@ public:
 	WindowFrame(std::string windowName);
 	WindowFrame(int x, int y, int width, int height, std::string windowName);
 	WindowFrame(int x, int y, int width, int height, std::string windowName, LONG style);
-	virtual void Add(Component& component) override;
+	virtual void Add(UiElement& component) override;
 	~WindowFrame();
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
+
+    void SetRenderingProvider(RenderingProvider& provider);
+
+    RenderingProvider* GetRenderingProvider();
+    void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
 };
 

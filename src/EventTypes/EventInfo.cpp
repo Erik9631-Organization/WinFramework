@@ -2,12 +2,12 @@
 
 
 
-Component & EventInfo::GetComponent()
+UiElement & EventInfo::GetComponent()
 {
 	return component;
 }
 
-EventInfo::EventInfo(Component & component) : component(component)
+EventInfo::EventInfo(UiElement & component) : component(component)
 {
 }
 

@@ -1,7 +1,7 @@
 #include "Viewport.h"
 #include "EventTypes/EventMoveInfo.h"
 #include "EventTypes/EventResizeInfo.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "EventTypes/EventUpdateInfo.h"
 
 void Viewport::CalculateAbsolutePosition(Gdiplus::Point relative)

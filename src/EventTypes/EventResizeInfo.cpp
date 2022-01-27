@@ -1,5 +1,5 @@
 #include "EventResizeInfo.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 
 
 Gdiplus::Size EventResizeInfo::GetSize()

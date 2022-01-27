@@ -4,18 +4,18 @@
 
 #ifndef GRAPHICS_VECTOR2DSCALER_H
 #define GRAPHICS_VECTOR2DSCALER_H
-#include "Vector2d.h"
+#include "Vector2.h"
 #include "GraphicsScaling.h"
 
 class Vector2DScaler
 {
 private:
-    Vector2d parentVector;
+    Vector2 parentVector;
     GraphicsScaling scalingTypeX;
     GraphicsScaling scalingTypeY;
 public:
-    Vector2DScaler(Vector2d parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
-    Vector2DScaler(Vector2d parentVector);
+    Vector2DScaler(Vector2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
+    Vector2DScaler(Vector2 parentVector);
 
     GraphicsScaling GetScalingTypeX() const;
 
@@ -24,7 +24,7 @@ public:
     GraphicsScaling GetScalingTypeY() const;
 
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    Vector2d GetScaledValues(Vector2d input);
+    Vector2 GetScaledValues(Vector2 input);
 
 
 };

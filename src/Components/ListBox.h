@@ -44,7 +44,7 @@ public:
 	*/
 	void CreateListElement(std::wstring name, std::any value);
 
-	void Add(Component& component) override;
+	void Add(UiElement& component) override;
 
 	// Inherited via Draggable
 	virtual std::any GetDragContent() override;

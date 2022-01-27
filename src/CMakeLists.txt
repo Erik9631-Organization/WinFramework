@@ -53,6 +53,8 @@ set(Lii
 source_group("Lii" FILES ${Lii})
 
 
+
+
 set(Lii_Behavior
     "Behavior/DefaultActivate.h"
     "Behavior/DefaultComboBoxBehavior.h"
@@ -84,6 +86,19 @@ set(Lii_Behavior
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
+set(Lii_Renderer
+        Renderer/RenderingProvider.cpp
+        Renderer/RenderingProvider.h
+        Renderer/GdiRenderingProvider.cpp
+        Renderer/Renderer.cpp
+        Renderer/Renderer.h
+        Renderer/GdiRenderingProvider.h
+        Renderer/FontFormat.cpp
+        Renderer/FontFormat.h
+        Renderer/GdiRenderer.cpp
+        Renderer/GdiRenderer.h
+        )
+source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Components
     "Components/Activatable.h"
@@ -91,7 +106,7 @@ set(Lii_Components
     "Components/Button.h"
     "Components/Checkbox.h"
     "Components/Collidable.h"
-    "Components/Component.h"
+    "Components/UiElement.h"
     "Components/CoreWindowFrame.h"
     "Components/FileBrowser.h"
     "Components/Grid/Grid.h"
@@ -107,14 +122,14 @@ set(Lii_Components
     "Components/Renderable.h"
     "Components/Resizable.h"
     "Components/TextInput.h"
-        "Components/Viewable.h"
+    "Components/Viewable.h"
     "Components/WindowFrame.h"
     "Components/Activatable.cpp"
     "Components/Adjustable.cpp"
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
     "Components/Collidable.cpp"
-    "Components/Component.cpp"
+    "Components/UiElement.cpp"
     "Components/CoreWindowFrame.cpp"
     "Components/Label.cpp"
     "Components/MouseInteractable.cpp"
@@ -227,14 +242,14 @@ set(Lii_Graphics
     "Graphics/Background.h"
     "Graphics/CircleBackground.h"
     "Graphics/CircleBorder.h"
-        "Graphics/RadioButtonGraphics.h"
+    "Graphics/RadioButtonGraphics.h"
     "Graphics/SimpleBorder.h"
     "Graphics/Text.h"
     "Graphics/TestGraphics.h"
     "Graphics/Background.cpp"
     "Graphics/CircleBackground.cpp"
     "Graphics/CircleBorder.cpp"
-        "Graphics/RadioButtonGraphics.cpp"
+    "Graphics/RadioButtonGraphics.cpp"
     "Graphics/SimpleBorder.cpp"
     "Graphics/Text.cpp"
     "Graphics/TestGraphics.cpp"
@@ -274,13 +289,16 @@ set(Lii_Utils
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
-    Utils/Vector2d.cpp Utils/Vector2d.h
+    DataTypes/Vector2.cpp DataTypes/Vector2.h
     Utils/ScalingUtil.cpp
     Utils/ScalingUtil.h
     Utils/ValueConverter.cpp
     Utils/ValueConverter.h
     Utils/Timer.cpp
     Utils/Timer.h
+    Utils/ValueConverter.cpp
+    Events/TimerSubscriber.cpp
+    Events/TimerSubscriber.h
     )
 
 source_group("Header Files\\Utils" FILES ${Lii_Utils})
@@ -289,6 +307,7 @@ source_group("Header Files\\Utils" FILES ${Lii_Utils})
 set(ALL_FILES
     ${Enums}
     ${Lii}
+    ${Lii_Renderer}
     ${Lii_Behavior}
     ${Lii_Components}
     ${Lii_Components_ComboBox}
@@ -299,7 +318,7 @@ set(ALL_FILES
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
-        Utils/ValueConverter.cpp Events/TimerSubscriber.cpp Events/TimerSubscriber.h)
+    )
 
 ################################################################################
 # Target
@@ -319,4 +338,5 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "Utils/"
         "Enums/"
         "Components/ScrollBar"
+        "Renderer"
         )

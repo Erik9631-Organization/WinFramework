@@ -15,25 +15,32 @@
 
 using namespace std;
 using namespace Gdiplus;
+class RenderingProvider;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by WindowFrame class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
 class CoreWindowFrame : Renderable
 {
+
+
 private:
+    class MsgSubject : ResizeSubject
+    {
+    public:
+        void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+        void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+        void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+    private:
+        vector<reference_wrapper<ResizeSubscriber>> resizeSubscribers;
+    };
+    MsgSubject preProcessSubject;
 
 	HWND windowHandle;
 	void CreateConsole();
 	HDC secondaryDc;
 	WindowFrame& wrapperFrame;
 	HBITMAP secondaryBitmap;
-	HDC GetSecondaryDC();
-	void CleanGraphicsBuffer();
-	void RenderGraphics(HDC GraphicsBuffer);
-	void AssignGraphicsToComponents();
-	void assignGraphicsToNodes(MultiTree<Component&>& node, Region& clippingRegion);
-	void NotifyMouseState(Gdiplus::Point point);
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
 	DefaultRender renderBehavior;
 	HINSTANCE hInstance;
@@ -42,6 +49,7 @@ private:
 	Gdiplus::Point prevMousePos;
 	Gdiplus::Point mouseDelta;
 	Gdiplus::Point relativePos;
+	RenderingProvider* renderingProvider;
 public:
 	/**
 	 * Updates the scale of the window
@@ -137,5 +145,10 @@ public:
 	 * \return returns non negative value on fail and 0 on success.
 	 */
 	LONG RemoveWindowAttributes(int index, LONG parameter);
+
+
+	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
+	void SetRenderingProvider(RenderingProvider& provider);
+	RenderingProvider* GetRenderingProvider();
 };
 

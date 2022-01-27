@@ -1,6 +1,6 @@
 #include "Label.h"
 
-Label::Label(std::string name) : Component(name), text("Arial")
+Label::Label(std::string name) : UiElement(name), text("Arial")
 {
 }
 
@@ -8,7 +8,7 @@ Label::Label() : text("Arial")
 {
 }
 
-Label::Label(int x, int y, int width, int height, std::string name) : Component(x, y, width, height, name), text("Arial")
+Label::Label(int x, int y, int width, int height, std::string name) : UiElement(x, y, width, height, name), text("Arial")
 {
 	background.SetColor(Color::MakeARGB(255, 30, 30, 30));
 	AddRenderable(background);

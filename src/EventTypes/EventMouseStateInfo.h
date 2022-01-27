@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <gdiplus.h>
 
-class Component;
+class UiElement;
 class MouseStateSubject;
 
 /**
@@ -13,7 +13,7 @@ class EventMouseStateInfo
 private:
 	Gdiplus::Point position;
 	Gdiplus::Point relativePosition;
-	Component* src = nullptr; // Kept here for compatibility reasons
+	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
 	Gdiplus::Point mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
@@ -31,13 +31,13 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(Gdiplus::Point position, int key, Component* src);
+	EventMouseStateInfo(Gdiplus::Point position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, Component* src);
+	EventMouseStateInfo(EventMouseStateInfo e, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source and the relative position.

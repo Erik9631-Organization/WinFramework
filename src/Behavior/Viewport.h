@@ -6,7 +6,7 @@
 #include "Behavior/DefaultResize.h"
 #include "DataTypes/DefaultMultiTree.h"
 
-class Component;
+class UiElement;
 
 class Viewport : public Adjustable
 {

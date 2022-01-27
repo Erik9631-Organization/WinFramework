@@ -6,7 +6,7 @@ PasswordField::PasswordField() : PasswordField("")
 
 }
 
-PasswordField::PasswordField(int x, int y, int width, int height, string windowName) : Component(x, y, width, height, windowName), text("Arial"), behavior(*this)
+PasswordField::PasswordField(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName), text("Arial"), behavior(*this)
 {
 	text.SetFontSize(16.0);
 	text.SetColor(Color::Black);

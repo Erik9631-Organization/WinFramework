@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "UiElement.h"
 #include "Graphics/Background.h"
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Text.h"
@@ -10,7 +10,7 @@ class Animation;
 /**
  * 
  */
-class Button : public Component
+class Button : public UiElement
 {
 
 private:

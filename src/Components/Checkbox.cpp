@@ -50,7 +50,7 @@ Checkbox::Checkbox(string name) : Checkbox(0, 0, 0, 0, name)
 {
 }
 
-Checkbox::Checkbox(int x, int y, int width, int height, string name) : Component(x, y, width, height, name), checkBoxChar("Arial"), text("Arial"), checkboxBehavior(*this)
+Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement(x, y, width, height, name), checkBoxChar("Arial"), text("Arial"), checkboxBehavior(*this)
 {
 	border.SetColor(Color::Black);
 	border.SetThickness(1.0f);

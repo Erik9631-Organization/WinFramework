@@ -2,7 +2,7 @@
 #include "ComboElement.h"
 #include "Components/WindowFrame.h"
 #include "Components/Grid/Grid.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "Components/CoreWindowFrame.h"
 #include "Events/ComboBoxStateSubscriber.h"
 
@@ -133,7 +133,7 @@ ComboSelection::ComboSelection()
 
 void ComboSelection::AddComboElementGui(Button& button)
 {
-	comboGrid->Add((Component&)button);
+	comboGrid->Add((UiElement&)button);
 }
 
 MouseStateSubject& ComboSelection::CreateComboElement(std::wstring comboElementText, std::any value)

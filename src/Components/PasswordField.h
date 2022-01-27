@@ -1,9 +1,9 @@
 #pragma once
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "Graphics/Text.h"
 #include "TextInputBehavior.h"
 
-class PasswordField : public Component
+class PasswordField : public UiElement
 {
 private:
 	Text text;

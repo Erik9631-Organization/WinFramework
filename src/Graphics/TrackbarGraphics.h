@@ -6,7 +6,7 @@
 #include "Components/Reflectable.h"
 #include "Components/ReflectionContainer.h"
 
-class Component;
+class UiElement;
 
 class TrackbarGraphics : public Renderable, public Reflectable<TrackbarGraphics>
 {

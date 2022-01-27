@@ -33,7 +33,7 @@ void ListBox::CreateListElement(std::wstring name, std::any value)
 	behavior.CreateListElement(name, value);
 }
 
-void ListBox::Add(Component& component)
+void ListBox::Add(UiElement& component)
 {
 	layout.Add(component);
 }

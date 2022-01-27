@@ -1,10 +1,10 @@
 #pragma once
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "Graphics/SimpleBorder.h"
 #include <string>
 
 
-class Panel :public Component
+class Panel :public UiElement
 {
 protected:
 	SimpleBorder border;

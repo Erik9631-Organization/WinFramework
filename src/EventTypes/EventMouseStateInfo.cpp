@@ -1,15 +1,15 @@
 #include "EventMouseStateInfo.h"
 #include "Events/MouseStateSubject.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 
-EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, Component* source) : src(source)
+EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, UiElement* source) : src(source)
 {
 	this->position = position;
 	this->relativePosition = position - source->GetAbsolutePosition();
 	this->key = key;
 }
 
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Component* source) : src(source)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* source) : src(source)
 {
 	position = e.GetMouseAbsolutePosition();
 	relativePosition = position - source->GetAbsolutePosition();

@@ -8,6 +8,7 @@ DefaultRender::DefaultRender(Renderable& renderable) : assosiactedRenderable(ren
 
 void DefaultRender::OnRender(RenderEventInfo e)
 {
+
 	if (e.GetGraphics() == nullptr)
 		return;
 

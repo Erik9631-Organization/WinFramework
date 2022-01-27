@@ -1,11 +1,11 @@
 #pragma once
-#include "Component.h"
+#include "UiElement.h"
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Text.h"
 #include "Graphics/Background.h"
 #include "GraphicalStates/CheckboxBehavior.h"
 
-class Checkbox : public Component, public CheckboxStateSubject
+class Checkbox : public UiElement, public CheckboxStateSubject
 {
 private:
 	SimpleBorder border;

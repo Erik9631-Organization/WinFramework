@@ -4,7 +4,7 @@
 #include "EventInfo.h"
 #include "GenericObj.h"
 
-class Component;
+class UiElement;
 class Movable;
 /**
  * This class is responsible for holding event data related to movement.

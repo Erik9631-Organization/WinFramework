@@ -84,8 +84,8 @@ void ScalingUtil::UpdateAssociatedParameters(Gdiplus::PointF parentPosition, Gdi
     Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
     Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
 
-    Vector2d scaledPosition = positionScaler.GetScaledValues(associatedPosition);
-    Vector2d scaledSize = sizeScaler.GetScaledValues(associatedSize);
+    Vector2 scaledPosition = positionScaler.GetScaledValues(associatedPosition);
+    Vector2 scaledSize = sizeScaler.GetScaledValues(associatedSize);
 
 
     if (calculateFromCenterX)

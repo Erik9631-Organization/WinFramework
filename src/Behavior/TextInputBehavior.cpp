@@ -2,7 +2,7 @@
 #include "EventTypes/EventKeyStateInfo.h"
 #include "Components/TextInput.h"
 #include "EventTypes/EventOnActivateInfo.h"
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 
 
 void TextInputBehavior::InsertCharacter(EventKeyStateInfo e)
@@ -52,7 +52,7 @@ void TextInputBehavior::RemoveLastChar()
 }
 
 
-TextInputBehavior::TextInputBehavior(Component& textInput) : associatedTextInput(textInput)
+TextInputBehavior::TextInputBehavior(UiElement& textInput) : associatedTextInput(textInput)
 {
 	activeColor = Color(255, 255, 255);
 	textInput.AddOnActivateSubscriber(*this);

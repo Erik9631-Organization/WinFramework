@@ -16,12 +16,12 @@ public:
     ScrollBar(int x, int y, int width, int height, const string &name);
     ScrollBar(const string &name);
     ScrollBar();
-    void Control(Component* component);
-    Component* GetControlledComponent();
+    void Control(UiElement* component);
+    UiElement* GetControlledComponent();
     void ClearControl();
 private:
     Button thumbTrack;
-    Component* controlledComponent = nullptr;
+    UiElement* controlledComponent = nullptr;
     VerticalScrollbarBehavior scrollbarBehavior;
 
 };

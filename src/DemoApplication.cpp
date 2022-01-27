@@ -115,7 +115,7 @@ class InputTester : public KeyStateSubscriber
 	// Inherited via KeyStateSubscriber
 	virtual void OnKeyDown(EventKeyStateInfo e) override
 	{
-		Component* src = dynamic_cast<Component*>(e.GetSource());
+		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 
 		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
 			CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
@@ -124,13 +124,13 @@ class InputTester : public KeyStateSubscriber
 	}
 	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
-		Component* src = dynamic_cast<Component*>(e.GetSource());
+		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
 		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
 	}
 	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
-		Component* src = dynamic_cast<Component*>(e.GetSource());
+		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
 		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
 	}

@@ -1,10 +1,10 @@
 #pragma once
-#include "Components/Component.h"
+#include "Components/UiElement.h"
 #include "Graphics/Text.h"
 #include "Graphics/Background.h"
 #include "TextInputBehavior.h"
 #include "Graphics/SimpleBorder.h"
-class TextInput : public Component
+class TextInput : public UiElement
 {
 private:
 	Background background;

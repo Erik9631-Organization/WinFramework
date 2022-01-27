@@ -32,17 +32,19 @@ class EventHoverInfo;
 
 using namespace std;
 using namespace Gdiplus;
-class Component : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<Component&>
+
+
+class UiElement : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<UiElement&>
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
 protected:
 	string componentType;
 	string name;
-	DefaultMultiTree <Component&> componentNode;
+	DefaultMultiTree <UiElement&> uiElementNode;
 	DefaultRender renderBehavior;
-	DefaultMove<Component&> moveBehavior;
-	DefaultMouseBehavior<MultiTree<Component&>&> mouseHandler;
+	DefaultMove<UiElement&> moveBehavior;
+	DefaultMouseBehavior<MultiTree<UiElement&>&> mouseHandler;
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
@@ -51,9 +53,9 @@ protected:
 	bool ignoreTranslate = false;
 public:
 
-	Component();
-	Component(string name);
-	Component(int x, int y, int width, int height, string windowName);
+	UiElement();
+	UiElement(string name);
+	UiElement(int x, int y, int width, int height, string windowName);
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
@@ -88,7 +90,7 @@ public:
 	 * Returns the component at the top of the containment hierarchy
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
-	Component& GetRoot();
+	UiElement& GetRoot();
 	Size GetSize() override;
 	Point GetPosition() override;
 	int GetWidth() override;
@@ -99,14 +101,14 @@ public:
 	 * Gets the current node within the containment hierarchy
 	 * \return returns a node within the Tree of the containment hierarchy.
 	 */
-	MultiTree<Component&>& GetComponentNode();
+	MultiTree<UiElement&>& GetUiElementNode();
 	int GetY() override;
 
 	/**
 	 * Gets the pointer to the parent of this component
 	 * \return returns pointer of the parent component.
 	 */
-	Component * GetParent();
+	UiElement * GetParent();
 	void SetSize(int width, int height) override;
 	void SetSize(Gdiplus::Size size) override;
 	
@@ -137,11 +139,11 @@ public:
 	virtual void SetPosition(Gdiplus::Point pos);
 
 	/**
-	 * Adds a new component to the containment hierarchy. A component that wants to be displayed has to be within a hierarchy that contains a window.
-	 * \param component the component to be added 
+	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
+	 * \param uiElement the uiElement to be added
 	 */
-	virtual void Add(Component& component);
-	virtual ~Component(){};
+	virtual void Add(UiElement& uiElement);
+	virtual ~UiElement(){};
 	
 
 
@@ -280,9 +282,9 @@ public:
 
 
 	// Inherited via AddSubject
-	virtual void NotifyOnAddInfo(EventOnAddInfo<Component&> e) override;
-	virtual void AddOnAddSubscriber(OnAddSubscriber<Component&>& subscriber) override;
-	virtual void RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber) override;
+	virtual void NotifyOnAddInfo(EventOnAddInfo<UiElement&> e) override;
+	virtual void AddOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber) override;
+	virtual void RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber) override;
 
 	// Inherited via Viewable
 	virtual void SetTranslate(Gdiplus::Point offset) override;

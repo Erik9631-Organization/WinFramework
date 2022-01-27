@@ -61,7 +61,7 @@ RadioButton::RadioButton(std::string name) : RadioButton(0, 0, 0, 0, name)
 
 }
 
-RadioButton::RadioButton(int x, int y, int width, int height, string componentName) : Component(x, y, width, height, componentName), text("Arial"), behavior(*this)
+RadioButton::RadioButton(int x, int y, int width, int height, string componentName) : UiElement(x, y, width, height, componentName), text("Arial"), behavior(*this)
 {
 	border.SetColor(Color::Black);
 	border.SetThickness(1.0f);

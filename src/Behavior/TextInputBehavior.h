@@ -3,7 +3,7 @@
 #include "Events/KeyStateSubscriber.h"
 #include <Windows.h>
 #include <gdiplus.h>
-class Component;
+class UiElement;
 
 class TextInput;
 
@@ -11,7 +11,7 @@ class TextInputBehavior : public KeyStateSubscriber, public ActivateSubscriber
 {
 private:
 	bool multiLineEnabled = false;
-	Component& associatedTextInput;
+	UiElement& associatedTextInput;
 	Gdiplus::Color originalColor;
 	Gdiplus::Color activeColor;
 	void InsertCharacter(EventKeyStateInfo e);
@@ -19,7 +19,7 @@ private:
 	void SetInactiveBackground();
 	void RemoveLastChar();
 public:
-	TextInputBehavior(Component& textInput);
+	TextInputBehavior(UiElement& textInput);
 
 	void SetMultiline(bool state);
 	bool IsMultiLine();

@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "UiElement.h"
 #include "Graphics/CircleBorder.h"
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/RadioButtonGraphics.h"
@@ -9,7 +9,7 @@
 #include <memory>
 #include "Events/RadioButtonStateSubject.h"
 
-class RadioButton : public Component, public RadioButtonStateSubject
+class RadioButton : public UiElement, public RadioButtonStateSubject
 {
 private:
 	SimpleBorder border;

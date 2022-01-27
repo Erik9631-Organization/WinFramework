@@ -7,15 +7,15 @@
 #include <Windows.h>
 #include <gdiplus.h>
 
-class Vector2d
+class Vector2
 {
 public:
-    Vector2d(Gdiplus::Size size);
-    Vector2d(Gdiplus::SizeF size);
-    Vector2d(Gdiplus::Point point);
-    Vector2d(Gdiplus::PointF point);
-    Vector2d(float x, float y);
-    Vector2d();
+    Vector2(Gdiplus::Size size);
+    Vector2(Gdiplus::SizeF size);
+    Vector2(Gdiplus::Point point);
+    Vector2(Gdiplus::PointF point);
+    Vector2(float x, float y);
+    Vector2();
 
     float GetX() const;
     void SetX(float x);

@@ -1,4 +1,4 @@
-#include "Component.h"
+#include "UiElement.h"
 #include "WindowFrame.h"
 #include "CoreWindowFrame.h"
 #include "EventTypes/EventMoveInfo.h"
@@ -8,25 +8,25 @@
 #include "EventTypes/EventMouseStateInfo.h"
 #include "EventTypes/EventKeyStateInfo.h"
 
-void Component::Add(Component& component)
+void UiElement::Add(UiElement& uiElement)
 {
-	componentNode.Add(component.GetComponentNode());
+	uiElementNode.Add(uiElement.GetUiElementNode());
+	//RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
 }
 
-Component::Component() : Component(0, 0, 0, 0, "")
+UiElement::UiElement() : UiElement(0, 0, 0, 0, "")
 {
 
 }
-\
-Component::Component(string name) : Component(0, 0, 0, 0, name)
+UiElement::UiElement(string name) : UiElement(0, 0, 0, 0, name)
 {
 }
 
-Component::Component(int x, int y, int width, int height, string name) :
-	componentNode(*this),
-	moveBehavior(componentNode),
-	mouseHandler(componentNode),
+UiElement::UiElement(int x, int y, int width, int height, string name) :
+        uiElementNode(*this),
+	moveBehavior(uiElementNode),
+	mouseHandler(uiElementNode),
 	renderBehavior(*this),
 	viewport(*this),
 	keyStateBehavior(*this),
@@ -37,56 +37,57 @@ Component::Component(int x, int y, int width, int height, string name) :
 	this->name = name;
 }
 
-std::wstring Component::GetText()
+std::wstring UiElement::GetText()
 {
 	return text;
 }
 
-void Component::SetText(std::wstring text)
+void UiElement::SetText(std::wstring text)
 {
 	this->text = text;
 	Repaint();
 }
 
-void Component::SetIgnoreTranslate(bool ignoreTranslate)
+void UiElement::SetIgnoreTranslate(bool ignoreTranslate)
 {
 	this->ignoreTranslate = ignoreTranslate;
 }
 
-bool Component::IsIgnoringTranslate()
+bool UiElement::IsIgnoringTranslate()
 {
 	return ignoreTranslate;
 }
 
-void Component::AddOnMoveSubscriber(MoveSubscriber& subscriber)
+void UiElement::AddOnMoveSubscriber(MoveSubscriber& subscriber)
 {
 	moveBehavior.AddOnMoveSubscriber(subscriber);
 }
 
-void Component::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
+void UiElement::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 {
 	moveBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void Component::NotifyOnMoveSubscribers(EventMoveInfo event)
+void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
 {
 	moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-void Component::SetX(int x)
+void UiElement::SetX(int x)
 {
 	moveBehavior.SetX(x);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::SetY(int y)
+void UiElement::SetY(int y)
 {
 	moveBehavior.SetY(y);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::OnRender(RenderEventInfo e)
+void UiElement::OnRender(RenderEventInfo e)
 {
+
 	Gdiplus::Point parentPos = Gdiplus::Point(0, 0);
 	if( !IsRoot())
     {
@@ -97,220 +98,220 @@ void Component::OnRender(RenderEventInfo e)
 	renderBehavior.OnRender(parentInfo);
 }
 
-void Component::Repaint()
+void UiElement::Repaint()
 {
 	if (IsRoot())
 		return;
 	GetRoot().Repaint();
 }
 
-void Component::AddRenderable(Renderable& renderable)
+void UiElement::AddRenderable(Renderable& renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void Component::RemoveRenderable(Renderable& renderable)
+void UiElement::RemoveRenderable(Renderable& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
 
-void Component::NotifyOnResizeSubscribers(EventResizeInfo event)
+void UiElement::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
 	resizeBehavior.NotifyOnResizeSubscribers(event);
 }
 
-void Component::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
+void UiElement::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void Component::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
+void UiElement::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
 	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void Component::SetWidth(int width)
+void UiElement::SetWidth(int width)
 {
 	resizeBehavior.SetWidth(width);
 }
 
-void Component::SetHeight(int height)
+void UiElement::SetHeight(int height)
 {
 	resizeBehavior.SetHeight(height);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-std::vector<std::reference_wrapper<Renderable>> Component::GetRenderables()
+std::vector<std::reference_wrapper<Renderable>> UiElement::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
 
-void Component::AddOnViewportMoveSubscriber(MoveSubscriber& subscriber)
+void UiElement::AddOnViewportMoveSubscriber(MoveSubscriber& subscriber)
 {
 	viewport.AddOnMoveSubscriber(subscriber);
 }
 
-void Component::RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber)
+void UiElement::RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber)
 {
 	viewport.RemoveOnMoveSubscriber(subscriber);
 }
 
-void Component::NotifyOnViewportMoveSubscribers(EventMoveInfo event)
+void UiElement::NotifyOnViewportMoveSubscribers(EventMoveInfo event)
 {
 	viewport.NotifyOnMoveSubscribers(event);
 }
 
-void Component::SetViewportXMultiplier(float x)
+void UiElement::SetViewportXMultiplier(float x)
 {
 	viewport.SetXMultiplier(x);
 }
 
-void Component::SetViewportYMultiplier(float y)
+void UiElement::SetViewportYMultiplier(float y)
 {
 	viewport.SetYMultiplier(y);
 }
 
-void Component::SetViewportWidthMultiplier(float width)
+void UiElement::SetViewportWidthMultiplier(float width)
 {
 	viewport.SetWidthMultiplier(width);
 }
 
-void Component::SetViewportHeightMultiplier(float height)
+void UiElement::SetViewportHeightMultiplier(float height)
 {
 	viewport.SetHeightMultiplier(height);
 }
 
-float Component::GetViewportXMultiplier()
+float UiElement::GetViewportXMultiplier()
 {
 	return viewport.GetViewportXMultiplier();
 }
 
-float Component::GetViewportYMultiplier()
+float UiElement::GetViewportYMultiplier()
 {
 	return viewport.GetViewportYMultiplier();
 }
 
-float Component::GetViewportWidthMultiplier()
+float UiElement::GetViewportWidthMultiplier()
 {
 	return viewport.GetViewportWidthMultiplier();
 }
 
-float Component::GetViewportHeightMultiplier()
+float UiElement::GetViewportHeightMultiplier()
 {
 	return viewport.GetViewportHeightMultiplier();
 }
 
-void Component::SetViewportXOffset(int x)
+void UiElement::SetViewportXOffset(int x)
 {
 	viewport.SetX(x);
 }
 
-void Component::SetViewportYOffset(int y)
+void UiElement::SetViewportYOffset(int y)
 {
 	viewport.SetY(y);
 }
 
-void Component::SetViewportOffset(Gdiplus::Point offset)
+void UiElement::SetViewportOffset(Gdiplus::Point offset)
 {
 	viewport.SetPosition(offset);
 }
 
-int Component::GetViewportAbsoluteX()
+int UiElement::GetViewportAbsoluteX()
 {
 	return viewport.GetAbsoluteX();
 }
 
-int Component::GetViewportAbsoluteY()
+int UiElement::GetViewportAbsoluteY()
 {
 	return viewport.GetAbsoluteY();
 }
 
-Gdiplus::Point Component::GetViewportAbsolutePosition()
+Gdiplus::Point UiElement::GetViewportAbsolutePosition()
 {
 	return viewport.GetAbsolutePosition();
 }
 
-int Component::GetViewportX()
+int UiElement::GetViewportX()
 {
 	return viewport.GetX();
 }
 
-int Component::GetViewportY()
+int UiElement::GetViewportY()
 {
 	return viewport.GetY();
 }
 
-Gdiplus::Point Component::GetViewportPosition()
+Gdiplus::Point UiElement::GetViewportPosition()
 {
 	return viewport.GetPosition();
 }
 
-void Component::NotifyOnViewportResizeSubscribers(EventResizeInfo event)
+void UiElement::NotifyOnViewportResizeSubscribers(EventResizeInfo event)
 {
 	viewport.NotifyOnResizeSubscribers(event);
 }
 
-void Component::AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
+void UiElement::AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
 {
 	viewport.AddOnResizeSubscriber(subscriber);
 }
 
-void Component::RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
+void UiElement::RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
 {
 	viewport.RemoveOnResizeSubscriber(subscriber);
 }
 
-int Component::GetViewportWidth()
+int UiElement::GetViewportWidth()
 {
 	return viewport.GetWidth();
 }
 
-int Component::GetViewportHeight()
+int UiElement::GetViewportHeight()
 {
 	return viewport.GetHeight();
 }
 
-void Component::SetViewportSize(Gdiplus::Size size)
+void UiElement::SetViewportSize(Gdiplus::Size size)
 {
 	viewport.SetSize(size);
 }
 
-void Component::SetViewportSize(int width, int height)
+void UiElement::SetViewportSize(int width, int height)
 {
 	viewport.SetSize(width, height);
 }
 
-void Component::SetViewportWidth(int width)
+void UiElement::SetViewportWidth(int width)
 {
 	viewport.SetWidth(width);
 }
 
-void Component::SetViewportHeight(int height)
+void UiElement::SetViewportHeight(int height)
 {
 	viewport.SetHeight(height);
 }
 
-Gdiplus::Size Component::GetViewportSize()
+Gdiplus::Size UiElement::GetViewportSize()
 {
 	return viewport.GetSize();
 }
 
-int Component::GetViewportAbsoluteWidth()
+int UiElement::GetViewportAbsoluteWidth()
 {
 	return viewport.GetViewportAbsoluteWidth();
 }
 
-int Component::GetViewportAbsoluteHeight()
+int UiElement::GetViewportAbsoluteHeight()
 {
 	return viewport.GetViewportAbsoluteHeight();
 }
 
-Gdiplus::Size Component::GetViewportAbsoluteSize()
+Gdiplus::Size UiElement::GetViewportAbsoluteSize()
 {
 	return viewport.GetViewportAbsoluteSize();
 }
 
-void Component::OnUpdate(EventUpdateInfo e)
+void UiElement::OnUpdate(EventUpdateInfo e)
 {
 	moveBehavior.CalculateAbsolutePosition(); 
 	viewport.OnUpdate(e);
@@ -320,62 +321,62 @@ void Component::OnUpdate(EventUpdateInfo e)
 	Repaint();
 }
 
-void Component::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
+void UiElement::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
 {
 	activateBehavior.AddOnActivateSubscriber(subscriber);
 }
 
-void Component::RemoveOnActivateSubscriber(ActivateSubscriber& subscriber)
+void UiElement::RemoveOnActivateSubscriber(ActivateSubscriber& subscriber)
 {
 	activateBehavior.RemoveOnActivateSubscriber(subscriber);
 }
 
-void Component::NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo)
+void UiElement::NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo)
 {
 	activateBehavior.NotifyOnActivateStateChanged(activateInfo);
 }
 
-void Component::SetActive(bool state)
+void UiElement::SetActive(bool state)
 {
 	activateBehavior.SetActive(state);
 }
 
-bool Component::IsActive()
+bool UiElement::IsActive()
 {
 	return activateBehavior.IsActive();
 }
 
-void Component::NotifyOnMouseDown(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseDown(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, this));
 }
 
-void Component::NotifyOnMouseUp(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseUp(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, this));
 }
 
-void Component::NotifyOnMousePressed(EventMouseStateInfo e)
+void UiElement::NotifyOnMousePressed(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, this));
 }
 
-void Component::NotifyOnMouseHover(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseHover(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMouseHover(EventMouseStateInfo(e, this));
 }
 
-void Component::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
+void UiElement::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
 	mouseHandler.AddMouseStateSubscriber(subscriber);
 }
 
-void Component::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
+void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
 	mouseHandler.RemoveMouseStateSubscriber(subscriber);
 }
 
-bool Component::ColidesWithPoint(Gdiplus::Point point)
+bool UiElement::ColidesWithPoint(Gdiplus::Point point)
 {
 	if ( !(point.X >= GetAbsoluteX() && point.X <= GetAbsoluteX() + GetWidth()) )
 		return false;
@@ -384,72 +385,72 @@ bool Component::ColidesWithPoint(Gdiplus::Point point)
 	return true;
 }
 
-void Component::NotifyOnMouseEnter(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseEnter(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMouseEnter(e);
 }
 
-void Component::NotifyOnMouseLeave(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseLeave(EventMouseStateInfo e)
 {
 	mouseHandler.NotifyOnMouseLeave(e);
 }
 
-bool Component::HasMouseEntered()
+bool UiElement::HasMouseEntered()
 {
 	return mouseHandler.HasMouseEntered();
 }
 
-std::any Component::ColidesWithUpmost(Gdiplus::Point point)
+std::any UiElement::ColidesWithUpmost(Gdiplus::Point point)
 {
-	for (int i = 0; i < componentNode.GetNodeCount(); i++)
+	for (int i = 0; i < uiElementNode.GetNodeCount(); i++)
 	{
-		if (componentNode.Get(i).GetValue().ColidesWithPoint(point))
-			return std::any_cast<Component*>(componentNode.Get(i).GetValue().ColidesWithUpmost(point));
+		if (uiElementNode.Get(i).GetValue().ColidesWithPoint(point))
+			return std::any_cast<UiElement*>(uiElementNode.Get(i).GetValue().ColidesWithUpmost(point));
 	}
-	return std::make_any<Component*>(this);
+	return std::make_any<UiElement*>(this);
 }
 
-void Component::NotifyOnKeyDown(EventKeyStateInfo e)
+void UiElement::NotifyOnKeyDown(EventKeyStateInfo e)
 {
 	keyStateBehavior.NotifyOnKeyDown(e);
 }
 
-void Component::NotifyOnKeyUp(EventKeyStateInfo e)
+void UiElement::NotifyOnKeyUp(EventKeyStateInfo e)
 {
 	keyStateBehavior.NotifyOnKeyUp(e);
 }
 
-void Component::NotifyOnKeyPressed(EventKeyStateInfo e)
+void UiElement::NotifyOnKeyPressed(EventKeyStateInfo e)
 {
 	keyStateBehavior.NotifyOnKeyPressed(e);
 }
 
-void Component::AddKeyStateSubscriber(KeyStateSubscriber& subscriber)
+void UiElement::AddKeyStateSubscriber(KeyStateSubscriber& subscriber)
 {
 	keyStateBehavior.AddKeyStateSubscriber(subscriber);
 }
 
-void Component::RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber)
+void UiElement::RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber)
 {
 	keyStateBehavior.RemoveKeyStateSubscriber(subscriber);
 }
 
-void Component::NotifyOnAddInfo(EventOnAddInfo<Component&> e)
+void UiElement::NotifyOnAddInfo(EventOnAddInfo<UiElement&> e)
 {
-	componentNode.NotifyOnAddInfo(e);
+	uiElementNode.NotifyOnAddInfo(e);
 }
 
-void Component::AddOnAddSubscriber(OnAddSubscriber<Component&>& subscriber)
+void UiElement::AddOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber)
 {
-	componentNode.AddOnAddSubscriber(subscriber);
+	uiElementNode.AddOnAddSubscriber(subscriber);
 }
 
-void Component::RemoveOnAddSubscriber(OnAddSubscriber<Component&>& subscriber)
+void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber)
 {
-	componentNode.RemoveOnAddSubscriber(subscriber);
+	uiElementNode.RemoveOnAddSubscriber(subscriber);
 }
 
-void Component::SetTranslate(Gdiplus::Point offset)
+void UiElement::SetTranslate(Gdiplus::Point offset)
 {
 	if (ignoreTranslate)
 		return;
@@ -457,14 +458,14 @@ void Component::SetTranslate(Gdiplus::Point offset)
     moveBehavior.SetTranslate(offset);
 }
 
-void Component::SetTranslateX(int x)
+void UiElement::SetTranslateX(int x)
 {
 	if (ignoreTranslate)
 		return;
     moveBehavior.SetTranslateX(x);
 }
 
-void Component::SetTranslateY(int y)
+void UiElement::SetTranslateY(int y)
 {
 	if (ignoreTranslate)
 		return;
@@ -472,27 +473,27 @@ void Component::SetTranslateY(int y)
     moveBehavior.SetTranslateY(y);
 }
 
-Gdiplus::Point Component::GetTranslate()
+Gdiplus::Point UiElement::GetTranslate()
 {
 	return moveBehavior.GetTranslate();
 }
 
-int Component::GetTranslateX()
+int UiElement::GetTranslateX()
 {
 	return moveBehavior.GetTranslateX();
 }
 
-int Component::GetTranslateY()
+int UiElement::GetTranslateY()
 {
 	return moveBehavior.GetTranslateY();
 }
 
-Gdiplus::Point Component::GetChildrenTranslate()
+Gdiplus::Point UiElement::GetChildrenTranslate()
 {
 	return moveBehavior.GetChildrenTranslate();
 }
 
-void Component::SetChildrenTranslate(Gdiplus::Point internalOffset)
+void UiElement::SetChildrenTranslate(Gdiplus::Point internalOffset)
 {
 	if (ignoreTranslate)
 		return;
@@ -501,140 +502,140 @@ void Component::SetChildrenTranslate(Gdiplus::Point internalOffset)
 }
 
 
-void Component::UpdateSubNodes(EventUpdateInfo e)
+void UiElement::UpdateSubNodes(EventUpdateInfo e)
 {
 	e.DisableFlag(EventUpdateFlags::Redraw); //Only the top of the subTree should do redraw
-	for (int i = 0; i < componentNode.GetNodeCount(); i++)
+	for (int i = 0; i < uiElementNode.GetNodeCount(); i++)
 	{
-		MultiTree<Component&>& node = (MultiTree<Component&>&) componentNode.Get(i);
+		MultiTree<UiElement&>& node = (MultiTree<UiElement&>&) uiElementNode.Get(i);
 		node.GetValue().OnUpdate(EventUpdateInfo(e));
 	}
 }
 
 
-int Component::GetAbsoluteX()
+int UiElement::GetAbsoluteX()
 {
 	return moveBehavior.GetAbsoluteX();
 }
 
-int Component::GetAbsoluteY()
+int UiElement::GetAbsoluteY()
 {
 	return moveBehavior.GetAbsoluteY();
 }
 
-Gdiplus::Point Component::GetAbsolutePosition()
+Gdiplus::Point UiElement::GetAbsolutePosition()
 {
 	return moveBehavior.GetAbsolutePosition();
 }
 
-bool Component::IsRoot()
+bool UiElement::IsRoot()
 {
-	return componentNode.IsRoot();
+	return uiElementNode.IsRoot();
 }
 
-Component& Component::GetRoot()
+UiElement& UiElement::GetRoot()
 {
-	return componentNode.GetRoot().GetValue();
+	return uiElementNode.GetRoot().GetValue();
 }
 
-string Component::GetComponentType()
+string UiElement::GetComponentType()
 {
 	return componentType;
 }
 
-string Component::GetComponentName()
+string UiElement::GetComponentName()
 {
 	return name;
 }
 
-void Component::SetComponentName(string name)
+void UiElement::SetComponentName(string name)
 {
 	this->name = name;
 }
 
-Size Component::GetSize()
+Size UiElement::GetSize()
 {
 	return resizeBehavior.GetSize();
 }
 
-Point Component::GetPosition()
+Point UiElement::GetPosition()
 {
 	return moveBehavior.GetPosition();
 }
 
-int Component::GetWidth()
+int UiElement::GetWidth()
 {
 	return resizeBehavior.GetWidth();
 }
 
-int Component::GetHeight()
+int UiElement::GetHeight()
 {
 	return resizeBehavior.GetHeight();
 }
 
-int Component::GetX()
+int UiElement::GetX()
 {
 	return moveBehavior.GetX();
 }
 
-MultiTree<Component&>& Component::GetComponentNode()
+MultiTree<UiElement&>& UiElement::GetUiElementNode()
 {
-	return componentNode;
+	return uiElementNode;
 }
 
 
-int Component::GetY()
+int UiElement::GetY()
 {
 	return moveBehavior.GetY();
 }
 
-Component * Component::GetParent()
+UiElement * UiElement::GetParent()
 {
-	if (componentNode.GetParent() == nullptr)
+	if (uiElementNode.GetParent() == nullptr)
 		return nullptr;
-	return (Component*)&componentNode.GetParent()->GetValue();
+	return (UiElement*)&uiElementNode.GetParent()->GetValue();
 }
 
-void Component::SetSize(int width, int height)
+void UiElement::SetSize(int width, int height)
 {
 	resizeBehavior.SetSize(width, height);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::SetSize(Size size)
+void UiElement::SetSize(Size size)
 {
 	resizeBehavior.SetSize(size);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::AddOnResizeListener(ResizeSubscriber& subscriber)
+void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 {
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void Component::SetPosition(int x, int y)
+void UiElement::SetPosition(int x, int y)
 {
 	moveBehavior.SetPosition(x, y);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::SetPosition(Point pos)
+void UiElement::SetPosition(Point pos)
 {
 	moveBehavior.SetPosition(pos);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void Component::NotifyOnMouseCapture(EventMouseStateInfo e)
+void UiElement::NotifyOnMouseCapture(EventMouseStateInfo e)
 {
     mouseHandler.NotifyOnMouseCapture(EventMouseStateInfo(e, this));
 }
 
-bool Component::IsMouseCaptured()
+bool UiElement::IsMouseCaptured()
 {
     return mouseHandler.IsMouseCaptured();
 }
 
-void Component::SetMouseCaptured(bool state)
+void UiElement::SetMouseCaptured(bool state)
 {
     mouseHandler.SetMouseCaptured(state);
 }

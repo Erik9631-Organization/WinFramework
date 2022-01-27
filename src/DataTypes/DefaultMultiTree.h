@@ -4,7 +4,7 @@
 #include <stack>
 #include "OnAddHandler.h"
 #include <memory>
-class Component;
+class UiElement;
 
 template <class T>
 class DefaultMultiTree : public MultiTree<T>

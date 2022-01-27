@@ -1,11 +1,11 @@
 #pragma once
-#include "Component.h"
+#include "UiElement.h"
 #include "Graphics/Background.h"
 #include "Graphics/Text.h"
 /**
  * A component made for descriptive purposes. It displays text with a background.
  */
-class Label : public Component
+class Label : public UiElement
 {
 private:
 	Background background;

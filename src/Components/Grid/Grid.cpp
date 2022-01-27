@@ -215,7 +215,7 @@ void Grid::SetGridRows(std::initializer_list<int> rows)
 	rowHeights.assign(rows);
 }
 
-void Grid::Add(Component& component)
+void Grid::Add(UiElement& component)
 {
 	Panel::Add(component); //Super
 	//First check if there is a row that can contain a component

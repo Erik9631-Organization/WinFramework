@@ -74,7 +74,6 @@ int LiiEntry()
 {
     DemoApplication::LaunchDemoApp();
 
-
 //    WindowFrame frame = WindowFrame(0, 0, 800, 600, "TestFrame");
 //    ListBox listBox{50, 50, 100, 200, "testBox"};
 //    frame.Add(listBox);

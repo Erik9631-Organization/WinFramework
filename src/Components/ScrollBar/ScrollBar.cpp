@@ -25,7 +25,7 @@ ScrollBar::ScrollBar() :
 
 }
 
-void ScrollBar::Control(Component* component)
+void ScrollBar::Control(UiElement* component)
 {
     if(controlledComponent != nullptr)
         ClearControl();
@@ -56,7 +56,7 @@ void ScrollBar::ClearControl()
     controlledComponent = nullptr;
 }
 
-Component *ScrollBar::GetControlledComponent()
+UiElement *ScrollBar::GetControlledComponent()
 {
     return controlledComponent;
 }
