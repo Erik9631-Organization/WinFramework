@@ -97,6 +97,8 @@ set(Lii_Renderer
         Renderer/FontFormat.h
         Renderer/GdiRenderer.cpp
         Renderer/GdiRenderer.h
+        Renderer/GdiFontFormat.cpp
+        Renderer/GdiFontFormat.h
         )
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
@@ -163,7 +165,7 @@ set(Lii_DataTypes
     "DataTypes/CastableTree.cpp"
     "DataTypes/DefaultMultiTree.cpp"
     "DataTypes/MultiTree.cpp"
-)
+        DataTypes/Vector3.cpp DataTypes/Vector3.h DataTypes/Vector4.cpp DataTypes/Vector4.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
@@ -318,7 +320,7 @@ set(ALL_FILES
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
-    )
+)
 
 ################################################################################
 # Target

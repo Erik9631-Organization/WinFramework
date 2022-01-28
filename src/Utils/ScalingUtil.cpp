@@ -81,11 +81,11 @@ void ScalingUtil::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
 
 void ScalingUtil::UpdateAssociatedParameters(Gdiplus::PointF parentPosition, Gdiplus::SizeF parentSize)
 {
-    Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
-    Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
+    Vector2DScaler positionScaler = Vector2DScaler({parentSize.Width, parentSize.Height}, scalingTypeX, scalingTypeY);
+    Vector2DScaler sizeScaler = Vector2DScaler({parentSize.Width, parentSize.Height}, scalingTypeWidth, scalingTypeHeight);
 
-    Vector2 scaledPosition = positionScaler.GetScaledValues(associatedPosition);
-    Vector2 scaledSize = sizeScaler.GetScaledValues(associatedSize);
+    Vector2 scaledPosition = positionScaler.GetScaledValues({associatedPosition.X, associatedPosition.Y});
+    Vector2 scaledSize = sizeScaler.GetScaledValues({associatedSize.Width, associatedSize.Height});
 
 
     if (calculateFromCenterX)
