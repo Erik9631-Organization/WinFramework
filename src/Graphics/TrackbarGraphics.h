@@ -24,12 +24,12 @@ public:
 	float GetPercentualHeight();
 	void SetPercentualPosition(float posY);
 	float GetPercentualPosition();
-	void SetTrackerColor(Gdiplus::Color color);
-	Gdiplus::Color GetTrackerColor();
+	void SetTrackerColor(Vector3 color);
+	Vector3 GetTrackerColor();
 
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable& renderable) override;
+	virtual void AddRenderable(Renderable &renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
 

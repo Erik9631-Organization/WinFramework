@@ -6,13 +6,13 @@
 #include "Vector2DScaler.h"
 
 
-ScalingUtil::ScalingUtil(Gdiplus::PointF &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
+ScalingUtil::ScalingUtil(Vector2 &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
 {
 
 }
 
 
-ScalingUtil::ScalingUtil(Gdiplus::PointF& associatedPosition, Gdiplus::SizeF& associatedSize) :
+ScalingUtil::ScalingUtil(Vector2 &associatedPosition, Vector2 &associatedSize) :
     associatedPosition(associatedPosition),
     associatedSize(associatedSize)
 {
@@ -79,13 +79,13 @@ void ScalingUtil::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil::UpdateAssociatedParameters(Gdiplus::PointF parentPosition, Gdiplus::SizeF parentSize)
+void ScalingUtil::CreateRatio(Vector2 parentPosition, Vector2 parentSize)
 {
-    Vector2DScaler positionScaler = Vector2DScaler({parentSize.Width, parentSize.Height}, scalingTypeX, scalingTypeY);
-    Vector2DScaler sizeScaler = Vector2DScaler({parentSize.Width, parentSize.Height}, scalingTypeWidth, scalingTypeHeight);
+    Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
+    Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
 
-    Vector2 scaledPosition = positionScaler.GetScaledValues({associatedPosition.X, associatedPosition.Y});
-    Vector2 scaledSize = sizeScaler.GetScaledValues({associatedSize.Width, associatedSize.Height});
+    Vector2 scaledPosition = positionScaler.GetScaledValues(associatedPosition);
+    Vector2 scaledSize = sizeScaler.GetScaledValues(associatedSize);
 
 
     if (calculateFromCenterX)
@@ -93,39 +93,39 @@ void ScalingUtil::UpdateAssociatedParameters(Gdiplus::PointF parentPosition, Gdi
     if(calculateFromCenterY)
         scaledPosition.SetY(scaledPosition.GetY() - (scaledSize.GetY() / 2.0f));
 
-    calculatedSize.Width = scaledSize.GetX();
-    calculatedSize.Height = scaledSize.GetY();
+    calculatedSize.SetX(scaledSize.GetX());
+    calculatedSize.SetY(scaledSize.GetY());
 
-    calculatedPosition.X = scaledPosition.GetX();
-    calculatedPosition.Y = scaledPosition.GetY();
+    calculatedPosition.SetX(scaledPosition.GetX());
+    calculatedPosition.SetY(scaledPosition.GetY());
 }
 
-Gdiplus::SizeF &ScalingUtil::GetSize()
+Vector2 ScalingUtil::GetSize()
 {
     return calculatedSize;
 }
 
-Gdiplus::PointF &ScalingUtil::GetPosition()
+Vector2 ScalingUtil::GetPosition()
 {
     return calculatedPosition;
 }
 
 float ScalingUtil::GetX()
 {
-    return calculatedPosition.X;
+    return calculatedPosition.GetX();
 }
 
 float ScalingUtil::GetY()
 {
-    return calculatedPosition.Y;
+    return calculatedPosition.GetY();
 }
 
 float ScalingUtil::GetWidth()
 {
-    return calculatedSize.Width;
+    return calculatedSize.GetX();
 }
 
 float ScalingUtil::GetHeight()
 {
-    return calculatedSize.Height;
+    return calculatedSize.GetY();
 }

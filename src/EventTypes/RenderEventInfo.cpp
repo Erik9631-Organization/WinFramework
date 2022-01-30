@@ -1,33 +1,33 @@
 #include "RenderEventInfo.h"
 
-RenderEventInfo::RenderEventInfo(Gdiplus::Graphics* g, Gdiplus::Size parentSize, Gdiplus::Point parentPosition)
+RenderEventInfo::RenderEventInfo(Renderer *renderer, Vector2 parentSize, Vector2 parentPosition)
 {
 	this->parentSize = parentSize;
 	this->parentPosition = parentPosition;
-	graphics = g;
+    this->renderer = renderer;
 }
 
-RenderEventInfo::RenderEventInfo(Gdiplus::Graphics* g) : RenderEventInfo(g, Gdiplus::Size(0, 0), Gdiplus::Point(0,0))
+RenderEventInfo::RenderEventInfo(Renderer *g) : RenderEventInfo(g, {0,0}, {0,0})
 {
 }
 
-Gdiplus::Graphics* RenderEventInfo::GetGraphics()
+Renderer * RenderEventInfo::GetRenderer() const
 {
-	return graphics;
+	return renderer;
 }
 
-Gdiplus::Size RenderEventInfo::GetParentSize()
+Vector2 RenderEventInfo::GetParentSize() const
 {
 	return parentSize;
 }
 
-void RenderEventInfo::SetParentSize(Gdiplus::Size parentSize)
+void RenderEventInfo::SetParentSize(Vector2 parentSize)
 {
 	this->parentSize = parentSize;
 }
 
 
-Gdiplus::Point RenderEventInfo::GetParentPosition()
+Vector2 RenderEventInfo::GetParentPosition() const
 {
     return parentPosition;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 #include <gdiplus.h>
+#include "Renderable.h"
+#include "Vector2.h"
 
 /**
  * This class contains all the information related to render events
@@ -9,36 +11,36 @@
 class RenderEventInfo
 {
 private:
-	Gdiplus::Graphics* graphics;
-	Gdiplus::Size parentSize;
-	Gdiplus::Point parentPosition;
+	Renderer* renderer;
+	Vector2 parentSize;
+	Vector2 parentPosition;
 public:
 	/**
-	 * \param g pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation.
+	 * \param renderer pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation.
 	 * \param parentSize additional information specifying the size of the parent.
 	 */
-	RenderEventInfo(Gdiplus::Graphics* g, Gdiplus::Size parentSize, Gdiplus::Point parentPosition);
+	RenderEventInfo(Renderer *renderer, Vector2 parentSize, Vector2 parentPosition);
 
 	/**
 	 * The parent size is set ti 0,0 by default.
-	 * \param g pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation.
+	 * \param g pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation.
 	 */
-	RenderEventInfo(Gdiplus::Graphics* g);
+	RenderEventInfo(Renderer *g);
 
 	/**
-	 * \return Returns a pointer to graphics object to which it is possible to perform a drawing operation.
+	 * \return Returns a pointer to renderer object to which it is possible to perform a drawing operation.
 	 */
-	Gdiplus::Graphics* GetGraphics();
+    Renderer * GetRenderer() const;
 
 	/**
 	 * \return returns the size of the parent.
 	 */
-	Gdiplus::Size GetParentSize();
+    Vector2 GetParentSize() const;
 
 	/**
 	 * \param parentSize sets the information about the size of the parent.
 	 */
-	void SetParentSize(Gdiplus::Size parentSize);
+	void SetParentSize(Vector2 parentSize);
 
-	Gdiplus::Point GetParentPosition();
+	Vector2 GetParentPosition() const;
 };

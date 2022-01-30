@@ -27,38 +27,38 @@ void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     }
 }
 
-Gdiplus::Size DefaultResize::GetSize()
+Vector2 DefaultResize::GetSize()
 {
     return size;
 }
 
-int DefaultResize::GetWidth()
+float DefaultResize::GetWidth()
 {
-    return size.Width;
+    return size.GetX();
 }
 
-int DefaultResize::GetHeight()
+float DefaultResize::GetHeight()
 {
-    return size.Height;
+    return size.GetY();
 }
 
-void DefaultResize::SetSize(Gdiplus::Size size)
+void DefaultResize::SetSize(Vector2 size)
 {
     this->size = size;
     NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
 }
 
-void DefaultResize::SetSize(int width, int height)
+void DefaultResize::SetSize(float width, float height)
 {
-    SetSize(Gdiplus::Size(width, height));
+    SetSize({width, height});
 }
 
-void DefaultResize::SetWidth(int width)
+void DefaultResize::SetWidth(float width)
 {
-    SetSize(width, size.Height);
+    SetSize(width, size.GetY());
 }
 
-void DefaultResize::SetHeight(int height)
+void DefaultResize::SetHeight(float height)
 {
-    SetSize(size.Width, height);
+    SetSize(size.GetX(), height);
 }

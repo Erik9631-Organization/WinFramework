@@ -5,6 +5,10 @@
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
 #include "ScalingUtil.h"
+#include "Vector3.h"
+#include "Vector2.h"
+#include "Vector4.h"
+
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
  * Supported properties:
@@ -16,25 +20,24 @@ class Background : public Renderable, public Reflectable<Background>
 private:
 
 	DefaultRender renderBehavior;
-	Gdiplus::SolidBrush* brush;
-	Gdiplus::Color currentColor;
+	Vector4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;
-	Gdiplus::PointF position;
-	Gdiplus::PointF posOffset;
+	Vector2 position;
 	ScalingUtil graphicsUtil;
-
-	Gdiplus::SizeF size;
+	Vector2 size;
 
 public:
 	Background();
 	~Background();
 
-	void SetColor(Gdiplus::Color color);
-	Gdiplus::Color GetColor();
+	void SetColor(Vector3 color);
+	void SetColor(Vector4 color);
+	Vector3 GetColor();
+	Vector4 GetColorRGBA();
 	void SetWidth(float width);
 	void SetHeight(float height);
-	void SetPosition(Gdiplus::PointF position);
-	void SetSize(Gdiplus::SizeF size);
+	void SetPosition(Vector2 position);
+	void SetSize(Vector2 size);
 
 	GraphicsScaling GetScalingTypeX() const;
 	void SetScalingTypeX(GraphicsScaling scalingTypeX);
@@ -53,13 +56,13 @@ public:
 	float GetX();
 	float GetY();
 
-	Gdiplus::SizeF GetSize();
-	Gdiplus::PointF GetPosition();
+	Vector2 GetSize();
+	Vector2 GetPosition();
 
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable& renderable) override;
+	virtual void AddRenderable(Renderable &renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
 

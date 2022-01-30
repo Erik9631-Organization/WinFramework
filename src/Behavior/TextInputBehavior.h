@@ -3,6 +3,8 @@
 #include "Events/KeyStateSubscriber.h"
 #include <Windows.h>
 #include <gdiplus.h>
+#include "Vector4.h"
+
 class UiElement;
 
 class TextInput;
@@ -12,8 +14,8 @@ class TextInputBehavior : public KeyStateSubscriber, public ActivateSubscriber
 private:
 	bool multiLineEnabled = false;
 	UiElement& associatedTextInput;
-	Gdiplus::Color originalColor;
-	Gdiplus::Color activeColor;
+	Vector4 originalColor;
+	Vector4 activeColor;
 	void InsertCharacter(EventKeyStateInfo e);
 	void SetActiveBackground();
 	void SetInactiveBackground();

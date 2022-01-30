@@ -3,16 +3,16 @@
 DefaultButtonBehavior::DefaultButtonBehavior(Button& button) : associatedButton(button)
 {
 	associatedButton.AddMouseStateSubscriber(*this);
-	onHoverColor = Color::MakeARGB(255, 100, 100, 100);
-	onClickColor = Color::MakeARGB(255, 60, 60, 60);
+	onHoverColor = {100, 100, 100};
+	onClickColor = {60, 60, 60};
 }
 
-void DefaultButtonBehavior::SetOnHoverColor(Gdiplus::Color color)
+void DefaultButtonBehavior::SetOnHoverColor(Vector3 color)
 {
 	onHoverColor = color;
 }
 
-void DefaultButtonBehavior::SetOnClickColor(Gdiplus::Color color)
+void DefaultButtonBehavior::SetOnClickColor(Vector3 color)
 {
 	onClickColor = color;
 }
@@ -58,22 +58,22 @@ void DefaultButtonBehavior::OnMouseCaptured(EventMouseStateInfo e)
 
 }
 
-Color DefaultButtonBehavior::GetStandardColor()
+Vector3 DefaultButtonBehavior::GetStandardColor()
 {
     return standardColor;
 }
 
-void DefaultButtonBehavior::SetStatelessColor(Color statelessColor)
+void DefaultButtonBehavior::SetStatelessColor(Vector3 statelessColor)
 {
     DefaultButtonBehavior::standardColor = statelessColor;
 }
 
-Color DefaultButtonBehavior::GetOnClickColor()
+Vector3 DefaultButtonBehavior::GetOnClickColor()
 {
     return onClickColor;
 }
 
-Color DefaultButtonBehavior::GetOnHoverColor()
+Vector3 DefaultButtonBehavior::GetOnHoverColor()
 {
     return onHoverColor;
 }

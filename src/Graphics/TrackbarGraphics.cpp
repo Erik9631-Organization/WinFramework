@@ -12,8 +12,8 @@ TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContaine
 
     reflectionContainer.RegisterMethod("get-tracker-color", "GetTrackerColor", &TrackbarGraphics::GetTrackerColor);
 
-    border.SetColor(Gdiplus::Color::Black);
-    tracker.SetColor(Gdiplus::Color::Black);
+    border.SetColor({0, 0, 0});
+    tracker.SetColor({0, 0, 0});
 
     AddRenderable(tracker);
     AddRenderable(border);
@@ -41,12 +41,12 @@ float TrackbarGraphics::GetPercentualPosition()
     return tracker.GetY();
 }
 
-void TrackbarGraphics::SetTrackerColor(Gdiplus::Color color)
+void TrackbarGraphics::SetTrackerColor(Vector3 color)
 {
     tracker.SetColor(color);
 }
 
-Gdiplus::Color TrackbarGraphics::GetTrackerColor()
+Vector3 TrackbarGraphics::GetTrackerColor()
 {
     return tracker.GetColor();
 }
@@ -60,7 +60,7 @@ void TrackbarGraphics::Repaint()
 {
 }
 
-void TrackbarGraphics::AddRenderable(Renderable& renderable)
+void TrackbarGraphics::AddRenderable(Renderable &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }

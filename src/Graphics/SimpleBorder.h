@@ -8,6 +8,7 @@
 #include "Reflectable.h"
 #include "ReflectionContainer.h"
 #include "ScalingUtil.h"
+#include "Vector4.h"
 
 
 /**
@@ -22,16 +23,15 @@ class SimpleBorder : public Renderable, public Reflectable<SimpleBorder>
 {
 private:
 	//Field map
-	Gdiplus::SolidBrush* brush = nullptr;
-	Gdiplus::Pen* pen = nullptr;
 	DefaultRender renderBehavior;
-	Gdiplus::Color color;
+	Vector4 color;
 
 	ScalingUtil graphicsUtil;
+	float thickness;
 
 
-	Gdiplus::PointF position;
-	Gdiplus::SizeF size;
+	Vector2 position;
+	Vector2 size;
 	GraphicsScaling scalingType = Percentual;
 
 	GraphicsScaling scalingTypeX = Percentual;
@@ -50,9 +50,10 @@ public:
 	ReflectionContainer<SimpleBorder> reflectionContainer;
 	SimpleBorder(); 
 	~SimpleBorder();
-	void SetColor(Gdiplus::Color color);
-	Gdiplus::Color GetColor();
-	void SetBorderStyle(Gdiplus::DashStyle style);
+	void SetColor(Vector3 color);
+	void SetColor(Vector4 color);
+	Vector3 GetColor();
+	Vector4 GetColorRGBA();
 	void SetThickness(float thickness);
 	void DrawFromCenterY(bool state);
 	void DrawFromCenterX(bool state);
@@ -60,13 +61,13 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable& renderable) override;
+	void AddRenderable(Renderable &renderable) override;
 	void RemoveRenderable(Renderable& renderable) override;
 	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
-	Gdiplus::SizeF GetSize();
-	Gdiplus::PointF GetPosition();
-	void SetSize(Gdiplus::SizeF size);
-	void SetPosition(Gdiplus::PointF point);
+	Vector2 GetSize();
+	Vector2 GetPosition();
+	void SetSize(Vector2 size);
+	void SetPosition(Vector2 point);
 	void SetX(float x);
 	void SetY(float y);
 	void SetWidth(float width);

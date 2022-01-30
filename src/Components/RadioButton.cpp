@@ -63,7 +63,7 @@ RadioButton::RadioButton(std::string name) : RadioButton(0, 0, 0, 0, name)
 
 RadioButton::RadioButton(int x, int y, int width, int height, string componentName) : UiElement(x, y, width, height, componentName), text("Arial"), behavior(*this)
 {
-	border.SetColor(Color::Black);
+	border.SetColor({0, 0, 0});
 	border.SetThickness(1.0f);
 	radioButtonGraphics.SetFillEnabled(false);
     radioButtonGraphics.SetDiameter(15.0f);
@@ -75,12 +75,12 @@ RadioButton::RadioButton(int x, int y, int width, int height, string componentNa
 	radioButtonGraphics.SetY(0.5f);
 	radioButtonGraphics.SetX(0.1f);
 
-	text.SetColor(Gdiplus::Color::Black);
+	text.SetColor({0, 0, 0});
 	text.SetFontSize(12.0f);
 	text.SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
 	text.SetScalingTypeX(Percentual);
 	text.SetScalingTypeY(Percentual);
-	text.SetPosition(PointF(0.23f, 0.52f));
+	text.SetPosition({0.23f, 0.52f});
 	text.SetText(L"Radio");
 	SetChecked(false);
 

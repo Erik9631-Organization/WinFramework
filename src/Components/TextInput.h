@@ -34,7 +34,7 @@ public:
 	/**
 	 * \return returns the background color.
 	 */
-	Color GetBackgroundColor();
+    Vector3 GetBackgroundColor();
 
 	/**
 	 * \param state sets whether the text field is multiline.
@@ -49,6 +49,6 @@ public:
 	/**
 	 * \param color sets the background color.
 	 */
-	void SetBackgroundColor(Color color);
+	void SetBackgroundColor(Vector3 color);
 };
 

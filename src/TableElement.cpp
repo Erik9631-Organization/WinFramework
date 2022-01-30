@@ -11,7 +11,7 @@ TableElement::TableElement(std::string name)
 
 TableElement::TableElement(int x, int y, int width, int height, std::string name) : Label(x, y, width, height, name)
 {
-	highlightColor = Color(100, 100, 100);
+	highlightColor = {100, 100, 100};
 	originalcolor = GetBackground();
 }
 

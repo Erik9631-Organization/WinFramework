@@ -8,7 +8,10 @@ namespace Gdiplus
 {
     class Graphics;
     class Pen;
-    class Brush;
+    class SolidBrush;
+    class Font;
+    class FontFamily;
+    class Color;
 }
 class Vector3;
 class Vector4;
@@ -21,9 +24,9 @@ class GdiRenderer : public Renderer
 public:
     Gdiplus::Graphics& graphics;
     GdiRenderer(Gdiplus::Graphics& graphics);
-    void SetColor(const Vector4& color);
-    void SetColor(const Vector3& color);
-    void SetThickness(float thickness);
+    void SetColor(const Vector4& color) override;
+    void SetColor(const Vector3& color) override;
+    void SetThickness(float thickness) override;
     void DrawEllipse(float x, float y, float width, float height) override;
     void DrawEllipse(float x, float y, Vector2 vector2) override;
     void DrawLine(float x1, float y1, float x2, float y2) override;
@@ -35,10 +38,15 @@ public:
     void FillEllipse(Vector2 pos, Vector2 size) override;
     void FillRectangle(float x, float y, float width, float height) override;
     void FillRectangle(Vector2 pos, Vector2 size) override;
+    void SetFontFamily(std::wstring fontFamily) override;
+    void SetFontSize(float fontSize) override;
+    std::unique_ptr<FontFormat> CreateFontFormat() override;
 private:
-    Gdiplus::Pen* pen;
-    Gdiplus::SolidBrush* brush;
-    Gdiplus::Font* font;
+    Gdiplus::Pen* pen = nullptr;
+    Gdiplus::SolidBrush* brush = nullptr;
+    Gdiplus::Font* font = nullptr;
+    Gdiplus::FontFamily* fontFamily = nullptr;
+    float fontSize = 12.0f;
 };
 
 

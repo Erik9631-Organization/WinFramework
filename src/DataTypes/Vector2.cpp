@@ -3,6 +3,8 @@
 //
 
 #include "Vector2.h"
+#include "Vector2Int.h"
+#include "CoreWindowFrame.h"
 
 float Vector2::GetX() const
 {
@@ -41,7 +43,7 @@ void Vector2::SetValue(float x, float y)
     this->y = y;
 }
 
-Vector2::Vector2(Vector2 &vector)
+Vector2::Vector2(const Vector2 &vector)
 {
     this->x = vector.GetX();
     this->y = vector.GetY();
@@ -56,4 +58,21 @@ void Vector2::SetValue(Vector2 &vector)
 Vector2 Vector2::Copy()
 {
     return {this->GetX(), this->GetY()};
+}
+
+Vector2 Vector2::operator+(const Vector2 &ref)
+{
+    return {this->x + ref.GetX(), this->y + ref.GetY()};
+}
+
+Vector2::Vector2(const Vector2Int &vector)
+{
+    this->x = vector.GetX();
+    this->y = vector.GetY();
+}
+
+Vector2 Vector2::operator-(const Vector2 &ref)
+{
+   // CoreWindowFrame::ConsoleWrite(to_string(ref.GetX()) + " " + to_string(ref.GetY()) + " - " + to_string(this->x) + " " + to_string(this->y));
+    return {this->x - ref.GetX(), this->y - ref.GetY()};
 }

@@ -2,10 +2,10 @@
 #include "Events/MouseStateSubject.h"
 #include "Components/UiElement.h"
 
-EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, int key, UiElement* source) : src(source)
+EventMouseStateInfo::EventMouseStateInfo(Vector2 position, int key, UiElement* src) : src(src)
 {
 	this->position = position;
-	this->relativePosition = position - source->GetAbsolutePosition();
+	this->relativePosition = position - src->GetAbsolutePosition();
 	this->key = key;
 }
 
@@ -18,7 +18,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* sourc
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point relativePosition, MouseStateSubject* src) : mouseSrc(src)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Vector2 relativePosition, MouseStateSubject* src) : mouseSrc(src)
 {
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
@@ -27,40 +27,40 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point r
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-Gdiplus::Point EventMouseStateInfo::GetMouseAbsolutePosition()
+Vector2 EventMouseStateInfo::GetMouseAbsolutePosition()
 {
 	return position;
 }
 
-Gdiplus::Point EventMouseStateInfo::GetMousePosition()
+Vector2 EventMouseStateInfo::GetMousePosition()
 {
 	if (src == nullptr)
 		return GetMouseAbsolutePosition();
-	return Point(GetMouseX(), GetMouseY());
+	return {GetMouseX(), GetMouseY()};
 }
 
-int EventMouseStateInfo::GetAbsoluteMouseX()
+float EventMouseStateInfo::GetAbsoluteMouseX()
 {
-	return position.X;
+	return position.GetX();
 }
 
-int EventMouseStateInfo::GetAbsoluteMouseY()
+float EventMouseStateInfo::GetAbsoluteMouseY()
 {
-	return position.Y;
+	return position.GetY();
 }
 
-int EventMouseStateInfo::GetMouseX()
+float EventMouseStateInfo::GetMouseX()
 {
 	if (src == nullptr && mouseSrc == nullptr)
 		return GetAbsoluteMouseX();
-	return relativePosition.X;
+	return relativePosition.GetX();
 }
 
-int EventMouseStateInfo::GetMouseY()
+float EventMouseStateInfo::GetMouseY()
 {
 	if (src == nullptr && mouseSrc == nullptr)
 		return GetAbsoluteMouseY();
-	return relativePosition.Y;
+	return relativePosition.GetY();
 }
 
 int EventMouseStateInfo::GetKey()
@@ -90,7 +90,7 @@ bool EventMouseStateInfo::IsRecursive()
 	return recursive;
 }
 
-EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, Gdiplus::Point delta,
+EventMouseStateInfo::EventMouseStateInfo(Vector2 position, Vector2 relativePosition, Vector2 delta,
                                          int key, MouseStateSubject *src)
 {
     this->position = position;
@@ -100,7 +100,7 @@ EventMouseStateInfo::EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point
     this->key = key;
 }
 
-Gdiplus::Point EventMouseStateInfo::GetMouseDelta()
+Vector2 EventMouseStateInfo::GetMouseDelta()
 {
     return mouseDelta;
 }

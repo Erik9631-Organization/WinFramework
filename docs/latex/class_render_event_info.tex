@@ -31,7 +31,7 @@ This class contains all the information related to render events
 
 
 \begin{DoxyParams}{Parameters}
-{\em g} & pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. \\
+{\em g} & pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation. \\
 \hline
 {\em parent\+Size} & additional information specifying the size of the parent. \\
 \hline
@@ -44,7 +44,7 @@ This class contains all the information related to render events
 
 The parent size is set ti 0,0 by default. 
 \begin{DoxyParams}{Parameters}
-{\em g} & pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. \\
+{\em g} & pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation. \\
 \hline
 \end{DoxyParams}
 
@@ -53,11 +53,11 @@ The parent size is set ti 0,0 by default.
 \mbox{\Hypertarget{class_render_event_info_a8e6b0c26fdbb88460adf0504cb3c3067}\label{class_render_event_info_a8e6b0c26fdbb88460adf0504cb3c3067}} 
 \index{RenderEventInfo@{RenderEventInfo}!GetGraphics@{GetGraphics}}
 \index{GetGraphics@{GetGraphics}!RenderEventInfo@{RenderEventInfo}}
-\doxysubsubsection{\texorpdfstring{GetGraphics()}{GetGraphics()}}
+\doxysubsubsection{\texorpdfstring{GetGraphics()}{GetRenderer()}}
 {\footnotesize\ttfamily Gdiplus\+::\+Graphics $\ast$ Render\+Event\+Info\+::\+Get\+Graphics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 \begin{DoxyReturn}{Returns}
-Returns a pointer to graphics object to which it is possible to perform a drawing operation. 
+Returns a pointer to renderer object to which it is possible to perform a drawing operation.
 \end{DoxyReturn}
 \mbox{\Hypertarget{class_render_event_info_a15052711f77071cce89d68fd2e76f54d}\label{class_render_event_info_a15052711f77071cce89d68fd2e76f54d}} 
 \index{RenderEventInfo@{RenderEventInfo}!GetParentSize@{GetParentSize}}

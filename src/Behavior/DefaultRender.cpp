@@ -9,7 +9,7 @@ DefaultRender::DefaultRender(Renderable& renderable) : assosiactedRenderable(ren
 void DefaultRender::OnRender(RenderEventInfo e)
 {
 
-	if (e.GetGraphics() == nullptr)
+	if (e.GetRenderer() == nullptr)
 		return;
 
 	for (Renderable& renderable : renderables)
@@ -21,7 +21,7 @@ void DefaultRender::Repaint()
 	assosiactedRenderable.Repaint();
 }
 
-void DefaultRender::AddRenderable(Renderable& renderable)
+void DefaultRender::AddRenderable(Renderable &renderable)
 {
 	renderables.push_back(renderable);
 	Repaint();

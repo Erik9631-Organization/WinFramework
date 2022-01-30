@@ -151,7 +151,6 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseHover(EventMouseStateInfo e)
 	}
 	if (subComponentCollision) // Notify only if there isn't another child at the point
 		return;
-
 	for (MouseStateSubscriber& subscriber : subscribers)
 		subscriber.OnMouseMove(e);
 }
@@ -166,7 +165,7 @@ void DefaultMouseBehavior<TreeNode>::AddMouseStateSubscriber(MouseStateSubscribe
 template<class TreeNode>
 void DefaultMouseBehavior<TreeNode>::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 {
-	for (std::vector<std::reference_wrapper<MouseStateSubscriber>>::iterator i = subscribers.begin(); i != subscribers.end(); i++)
+	for (auto i = subscribers.begin(); i != subscribers.end(); i++)
 	{
 		if (&i->get() == &subscriber)
 		{

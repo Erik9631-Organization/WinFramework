@@ -3,8 +3,8 @@
 //
 
 #include "VerticalScrollbarBehavior.h"
-#include "ScrollBar.h";
-#include "Button.h";
+#include "ScrollBar.h"
+#include "Button.h"
 #include "Adjustable.h"
 
 VerticalScrollbarBehavior::VerticalScrollbarBehavior(ScrollBar &scrollbar, Button& button) :
@@ -48,13 +48,13 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
 {
     //Set position
     //Check if scrollbar can be moved
-    if(e.GetMouseDelta().Y + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
+    if(e.GetMouseDelta().GetY() + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
         return;
 
-    if(e.GetMouseDelta().Y + associatedTrackBar.GetY() < 0)
+    if(e.GetMouseDelta().GetY() + associatedTrackBar.GetY() < 0)
         return;
     //Set the trackbar
-    associatedTrackBar.SetY(e.GetMouseDelta().Y + associatedTrackBar.GetY());
+    associatedTrackBar.SetY(e.GetMouseDelta().GetY() + associatedTrackBar.GetY());
 
     //Set the components
     UiElement& parent = associatedScrollbar.GetParent()->GetUiElementNode().GetValue();
@@ -63,7 +63,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     //We only want the offset of the not visible part, not the complete page offset
     //pageHeight includes the offset and the window size itself. If we move the scrollbar, we want to apply only the offset
     //That is why we need to subtract
-    int offset = (percentualPos * (pageHeight - associatedScrollbar.GetControlledComponent()->GetHeight()));
+    float offset = (percentualPos * (pageHeight - associatedScrollbar.GetControlledComponent()->GetHeight()));
 
     parent.SetChildrenTranslate({0, -offset});
 }
@@ -145,7 +145,7 @@ void VerticalScrollbarBehavior::UpdateThumbTrackSize()
     //Set width and height
     if(scrollbarPercentualHeight >= 1.0f)
     {
-        associatedTrackBar.SetColor(Color::Transparent);
+        associatedTrackBar.SetColor({255, 255, 255});
         associatedTrackBar.SetActive(false);
         return;
     }
@@ -167,9 +167,9 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
-        Gdiplus::Size size = e.GetSize();
-        associatedScrollbar.SetPosition(size.Width - associatedScrollbar.GetWidth(), 0);
-        associatedScrollbar.SetHeight(size.Height);
+        Vector2 size = e.GetSize();
+        associatedScrollbar.SetPosition(size.GetX() - associatedScrollbar.GetWidth(), 0);
+        associatedScrollbar.SetHeight(size.GetY());
     }
     else
     {

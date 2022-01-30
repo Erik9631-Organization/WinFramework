@@ -2,18 +2,18 @@
 #include "Components/UiElement.h"
 
 
-Gdiplus::Size EventResizeInfo::GetSize()
+Vector2 EventResizeInfo::GetSize() const
 {
 	return this->size;
 }
 
-Resizable* EventResizeInfo::GetSrc()
+Resizable* EventResizeInfo::GetSrc() const
 {
 	return src;
 }
 
 
-EventResizeInfo::EventResizeInfo(Gdiplus::Size size, Resizable* obj) : src(obj)
+EventResizeInfo::EventResizeInfo(Vector2 size, Resizable* src) : src(src)
 {
 	this->size = size;
 	this->src = src;

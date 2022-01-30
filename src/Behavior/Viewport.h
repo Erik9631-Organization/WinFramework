@@ -17,9 +17,9 @@ private:
 	DefaultMove<Adjustable&> moveBehavior;
 	DefaultResize resizeBehavior;
 
-	Gdiplus::Size absoluteSize;
-	Gdiplus::Point absolutePosition;
-	Gdiplus::Point internalOffset;
+	Vector2 absoluteSize;
+	Vector2 absolutePosition;
+	Vector2 internalOffset;
 
 	float xMultiplier = 1;
 	float yMultiplier = 1;
@@ -27,8 +27,8 @@ private:
 	float heightMultiplier = 1;
 
 private:
-	void CalculateAbsolutePosition(Gdiplus::Point relative);
-	void CalculateAbsoluteSize(Gdiplus::Size size);
+	void CalculateAbsolutePosition(Vector2 relative);
+	void CalculateAbsoluteSize(Vector2 size);
 
 public:
 	Viewport(Adjustable& adjustable);
@@ -44,51 +44,51 @@ public:
 
 	virtual int GetViewportAbsoluteWidth();
 	virtual int GetViewportAbsoluteHeight();
-	virtual Gdiplus::Size GetViewportAbsoluteSize();
+	virtual Vector2 GetViewportAbsoluteSize();
 
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual Gdiplus::Point GetPosition() override;
-	virtual int GetX() override;
-	virtual int GetY() override;
-	virtual int GetAbsoluteX() override;
-	virtual int GetAbsoluteY() override;
-	virtual Gdiplus::Point GetAbsolutePosition() override;
-	virtual void SetPosition(Gdiplus::Point position) override;
-	virtual void SetPosition(int x, int y) override;
-	virtual void SetX(int x) override;
-	virtual void SetY(int y) override;
+	virtual Vector2 GetPosition() override;
+	virtual float GetX() override;
+	virtual float GetY() override;
+	virtual float GetAbsoluteX() override;
+	virtual float GetAbsoluteY() override;
+	virtual Vector2 GetAbsolutePosition() override;
+	virtual void SetPosition(Vector2 position) override;
+	virtual void SetPosition(float x, float y) override;
+	virtual void SetX(float x) override;
+	virtual void SetY(float y) override;
 
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual Gdiplus::Size GetSize() override;
-	virtual int GetWidth() override;
-	virtual int GetHeight() override;
-	virtual void SetSize(Gdiplus::Size size) override;
-	virtual void SetSize(int width, int height) override;
-	virtual void SetWidth(int width) override;
-	virtual void SetHeight(int height) override;
+	virtual Vector2 GetSize() override;
+	virtual float GetWidth() override;
+	virtual float GetHeight() override;
+	virtual void SetSize(Vector2 size) override;
+	virtual void SetSize(float width, float height) override;
+	virtual void SetWidth(float width) override;
+	virtual void SetHeight(float height) override;
 
 	// Inherited via Adjustable
 	virtual void OnUpdate(EventUpdateInfo e) override;
 
 
 	// Inherited via Adjustable
-	virtual void SetTranslate(Gdiplus::Point offset) override;
+	virtual void SetTranslate(Vector2 offset) override;
 
-	virtual void SetTranslateX(int x) override;
+	virtual void SetTranslateX(float x) override;
 
-	virtual void SetTranslateY(int y) override;
+	virtual void SetTranslateY(float y) override;
 
-	virtual Gdiplus::Point GetTranslate() override;
+	virtual Vector2 GetTranslate() override;
 
-	virtual int GetTranslateX() override;
+	virtual float GetTranslateX() override;
 
-	virtual int GetTranslateY() override;
+	virtual float GetTranslateY() override;
 
 };
 

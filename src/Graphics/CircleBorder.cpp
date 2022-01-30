@@ -3,29 +3,24 @@
 
 CircleBorder::CircleBorder() : renderBehavior(*this), graphicsUtil(position, size)
 {
-    brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
-    pen = new Gdiplus::Pen(brush);
     thickness = 1.0f / 100.0f;
-    pen->SetWidth(thickness);
-    pen->SetColor(Gdiplus::Color::Black);
+    color = {0, 0, 0, 255};
 }
 
 CircleBorder::~CircleBorder()
 {
-    delete pen;
-    delete brush;
+
 }
 
 void CircleBorder::OnRender(RenderEventInfo e)
 {
-    Gdiplus::Graphics* graphics = e.GetGraphics();
+    Renderer* renderer = e.GetRenderer();
 
-    Gdiplus::PointF parentPosition = Gdiplus::PointF(e.GetParentPosition().X, e.GetParentPosition().Y);
-    Gdiplus::SizeF parentSize = Gdiplus::SizeF(e.GetParentSize().Width, e.GetParentSize().Height);
+    graphicsUtil.CreateRatio(e.GetParentPosition(), e.GetParentSize());
 
-    graphicsUtil.UpdateAssociatedParameters(parentPosition, parentSize);
-
-    graphics->DrawEllipse(pen, graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer->SetThickness(thickness);
+    renderer->SetColor(color);
+    renderer->DrawEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
     renderBehavior.OnRender(e);
 }
 
@@ -33,7 +28,7 @@ void CircleBorder::Repaint()
 {
 }
 
-void CircleBorder::AddRenderable(Renderable& renderable)
+void CircleBorder::AddRenderable(Renderable &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
@@ -57,7 +52,6 @@ std::vector<std::reference_wrapper<Renderable>> CircleBorder::GetRenderables()
 void CircleBorder::SetThickness(float thickness)
 {
     this->thickness = thickness / 100;
-    pen->SetWidth(this->thickness);
 }
 
 float CircleBorder::GetDiameter()
@@ -69,10 +63,9 @@ float CircleBorder::GetThickness()
     return thickness;
 }
 
-void CircleBorder::SetColor(Gdiplus::Color color)
+void CircleBorder::SetColor(Vector3 color)
 {
-    pen->SetColor(color);
-    brush->SetColor(color);
+    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeX() const
@@ -135,32 +128,37 @@ void CircleBorder::SetDrawFromCenterX(bool drawFromCenterX)
     graphicsUtil.SetCalculateFromCenterX(drawFromCenterX);
 }
 
-Gdiplus::PointF CircleBorder::GetPosition()
+Vector2 CircleBorder::GetPosition()
 {
     return position;
 }
 
-void CircleBorder::SetPosition(Gdiplus::PointF point)
+void CircleBorder::SetPosition(Vector2 point)
 {
     this->position = point;
 }
 
 void CircleBorder::SetX(float x)
 {
-    position.X = x;
+    position.SetX(x);
 }
 
 void CircleBorder::SetY(float y)
 {
-    position.Y = y;
+    position.SetY(y);
 }
 
 float CircleBorder::GetX()
 {
-    return position.X;
+    return position.GetX();
 }
 
 float CircleBorder::GetY()
 {
-    return position.Y;
+    return position.GetY();
+}
+
+void CircleBorder::SetColor(Vector4 color)
+{
+    this->color = color;
 }

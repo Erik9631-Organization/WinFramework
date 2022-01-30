@@ -5,77 +5,77 @@
 
 Background::Background() : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, size)
 {
-    position = Gdiplus::PointF(0.0f, 0.0f);
-    size = Gdiplus::SizeF(1.0f, 1.0f);
+    position = {0.0f, 0.0f};
+    size = {1.0f, 1.0f};
 
-    reflectionContainer.RegisterMethod("background-color", "SetColor", &Background::SetColor);
+    reflectionContainer.RegisterMethod<Vector3>("background-color", "SetColor", &Background::SetColor);
+    reflectionContainer.RegisterMethod<Vector4>("background-colorRGBA", "SetColor", &Background::SetColor);
     reflectionContainer.RegisterMethod("get-background-color", "SetColor", &Background::GetColor);
-    brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
 }
 
 Background::~Background()
 {
-    delete brush;
 }
 
-void Background::SetColor(Gdiplus::Color color)
+void Background::SetColor(Vector3 color)
 {
-    currentColor = color;
-    brush->SetColor(color);
+    currentColor = {color.GetX(), color.GetY(), color.GetZ(), 255};
 }
 
-Gdiplus::Color Background::GetColor()
+Vector3 Background::GetColor()
 {
-    return currentColor;
+    return {currentColor.GetX(), currentColor.GetY(), currentColor.GetZ()};
 }
 
 void Background::SetWidth(float width)
 {
-    size.Width = width;
+    size.SetX(width);
 }
 
 void Background::SetHeight(float height)
 {
-    size.Height = height;
+    size.SetY(height);
 }
 
 void Background::SetX (float x)
 {
-    position.X = x;
+    position.SetX(x);
 }
 
 void Background::SetY(float y)
 {
-    position.Y = y;
+    position.SetY(y);
 }
 
 float Background::GetWidth()
 {
-    return size.Width;
+    return size.GetX();
 }
 
 float Background::GetHeight()
 {
-    return size.Height;
+    return size.GetY();
 }
 
 float Background::GetX()
 {
-    return position.X;
+    return position.GetX();
 }
 
 float Background::GetY()
 {
-    return position.Y;
+    return position.GetY();
 }
 
 void Background::OnRender(RenderEventInfo e)
 {
-    Gdiplus::SizeF parentSize = Gdiplus::SizeF(e.GetParentSize().Width, e.GetParentSize().Height);
-    Gdiplus::PointF parentPos = Gdiplus::PointF(e.GetParentPosition().X, e.GetParentPosition().Y);
+    Renderer& renderer = *e.GetRenderer();
+    Vector2 parentSize {e.GetParentSize().GetX(), e.GetParentSize().GetY()};
+    Vector2 parentPos = {e.GetParentPosition().GetX(), e.GetParentPosition().GetY()};
 
-    graphicsUtil.UpdateAssociatedParameters(parentPos, parentSize);
-    e.GetGraphics()->FillRectangle(brush, graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    graphicsUtil.CreateRatio(parentPos, parentSize);
+    renderer.SetColor(currentColor);
+    e.GetRenderer()->FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
 }
 
 void Background::Repaint()
@@ -83,7 +83,7 @@ void Background::Repaint()
 
 }
 
-void Background::AddRenderable(Renderable& renderable)
+void Background::AddRenderable(Renderable &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
@@ -148,22 +148,32 @@ void Background::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-Gdiplus::SizeF Background::GetSize()
+Vector2 Background::GetSize()
 {
     return size;
 }
 
-Gdiplus::PointF Background::GetPosition()
+Vector2 Background::GetPosition()
 {
     return position;
 }
 
-void Background::SetPosition(Gdiplus::PointF position)
+void Background::SetPosition(Vector2 position)
 {
     this->position = position;
 }
 
-void Background::SetSize(Gdiplus::SizeF size)
+void Background::SetSize(Vector2 size)
 {
     this->size = size;
+}
+
+void Background::SetColor(Vector4 color)
+{
+    this->currentColor = color;
+}
+
+Vector4 Background::GetColorRGBA()
+{
+    return currentColor;
 }

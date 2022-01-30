@@ -54,14 +54,14 @@ void WindowFrame::RemoveWindowExtendedStyle(LONG styleFlags)
 	coreFrame->RemoveWindowAttributes(GWL_EXSTYLE, styleFlags);
 }
 
-void WindowFrame::SetSize(int width, int height)
+void WindowFrame::SetSize(float width, float height)
 {
 	UiElement::SetSize(width, height);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::SetSize(Size size)
+void WindowFrame::SetSize(Vector2 size)
 {
 	UiElement::SetSize(size);
 	if (coreFrame != nullptr)
@@ -96,14 +96,14 @@ void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void WindowFrame::SetPosition(int x, int y)
+void WindowFrame::SetPosition(float x, float y)
 {
 	UiElement::SetPosition(x, y);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::SetPosition(Point point)
+void WindowFrame::SetPosition(Vector2 point)
 {
 	UiElement::SetPosition(point);
 	if (coreFrame != nullptr)
@@ -160,7 +160,7 @@ WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName,
 	componentType = "Window";
 	CreateCoreWindow(style);
 	coreFrame->RedrawWindow();
-	background.SetColor(Color::White);
+	background.SetColor({255, 255, 255});
 	AddRenderable(background);
 }
 

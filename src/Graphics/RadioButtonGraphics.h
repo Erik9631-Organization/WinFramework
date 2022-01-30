@@ -13,7 +13,7 @@ private:
 	CircleBackground fill;
 	CircleBorder border;
 	bool fillEnabled = false;
-	Gdiplus::Color fillBackground;
+	Vector4 fillBackground;
 	float fillPadding = 0;
 	void UpdateFill();
 
@@ -21,15 +21,18 @@ public:
 	RadioButtonGraphics();
 	void SetFillEnabled(bool state);
 	void SetThickness(float thickness);
-	void SetBorderColor(Gdiplus::Color borderColor);
-	void SetFillColor(Gdiplus::Color color);
+	void SetBorderColor(Vector3 borderColor);
+	void SetFillColor(Vector3 color);
+
+	void SetBorderColor(Vector4 borderColor);
+	void SetFillColor(Vector4 color);
 
 	void SetDiameter(float Diameter);
 	float GetFillPadding();
 	void SetFillPadding(float padding);
 
-	void SetPosition(Gdiplus::PointF position);
-	Gdiplus::PointF GetPosition();
+	void SetPosition(Vector2 position);
+	Vector2 GetPosition();
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();
@@ -54,7 +57,7 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable& renderable) override;
+	void AddRenderable(Renderable &renderable) override;
 	void RemoveRenderable(Renderable& renderable) override;
 	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
 };

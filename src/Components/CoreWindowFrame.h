@@ -45,10 +45,10 @@ private:
 	DefaultRender renderBehavior;
 	HINSTANCE hInstance;
 
-	Gdiplus::Point mousePos;
-	Gdiplus::Point prevMousePos;
-	Gdiplus::Point mouseDelta;
-	Gdiplus::Point relativePos;
+	Vector2 mousePos;
+	Vector2 prevMousePos;
+	Vector2 mouseDelta;
+	Vector2 relativePos;
 	RenderingProvider* renderingProvider;
 public:
 	/**
@@ -119,7 +119,7 @@ public:
 	 * Adds new renderable to the system which will be painted on the canvas.
 	 * \param renderable the renderable object reference to pass
 	 */
-	virtual void AddRenderable(Renderable& renderable) override;
+	virtual void AddRenderable(Renderable &renderable) override;
 	/**
 	 * Removes an existing renderable by reference.
 	 * \param reference of the renderable to remove.

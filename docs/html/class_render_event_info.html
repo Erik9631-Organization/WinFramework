@@ -97,7 +97,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a59a7daf9437fef42e72de04f387072c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fa6d26c93e3de654060ecbfc5757eb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_render_event_info.html#a7fa6d26c93e3de654060ecbfc5757eb2">RenderEventInfo</a> (Gdiplus::Graphics *g)</td></tr>
 <tr class="separator:a7fa6d26c93e3de654060ecbfc5757eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6b0c26fdbb88460adf0504cb3c3067"><td class="memItemLeft" align="right" valign="top">Gdiplus::Graphics *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_render_event_info.html#a8e6b0c26fdbb88460adf0504cb3c3067">GetGraphics</a> ()</td></tr>
+<tr class="memitem:a8e6b0c26fdbb88460adf0504cb3c3067"><td class="memItemLeft" align="right" valign="top">Gdiplus::Graphics *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_render_event_info.html#a8e6b0c26fdbb88460adf0504cb3c3067">GetRenderer</a> ()</td></tr>
 <tr class="separator:a8e6b0c26fdbb88460adf0504cb3c3067"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15052711f77071cce89d68fd2e76f54d"><td class="memItemLeft" align="right" valign="top">Gdiplus::Size&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_render_event_info.html#a15052711f77071cce89d68fd2e76f54d">GetParentSize</a> ()</td></tr>
 <tr class="separator:a15052711f77071cce89d68fd2e76f54d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,7 +134,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">g</td><td>pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. </td></tr>
+    <tr><td class="paramname">g</td><td>pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation. </td></tr>
     <tr><td class="paramname">parentSize</td><td>additional information specifying the size of the parent. </td></tr>
   </table>
   </dd>
@@ -159,7 +159,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>The parent size is set ti 0,0 by default. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">g</td><td>pointer to a graphics object associated with a HDC on which it is possible to perform a drawing operation. </td></tr>
+    <tr><td class="paramname">g</td><td>pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation. </td></tr>
   </table>
   </dd>
 </dl>
@@ -168,20 +168,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8e6b0c26fdbb88460adf0504cb3c3067"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6b0c26fdbb88460adf0504cb3c3067">&#9670;&nbsp;</a></span>GetGraphics()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e6b0c26fdbb88460adf0504cb3c3067">&#9670;&nbsp;</a></span>GetRenderer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Gdiplus::Graphics * RenderEventInfo::GetGraphics </td>
+          <td class="memname">Gdiplus::Graphics * RenderEventInfo::GetRenderer </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Returns a pointer to graphics object to which it is possible to perform a drawing operation. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns a pointer to renderer object to which it is possible to perform a drawing operation. </dd></dl>
 
 </div>
 </div>

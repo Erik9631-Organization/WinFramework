@@ -6,7 +6,7 @@ set(PROJECT_NAME Graphics)
 set(Enums
     "Enums/EventUpdateFlags.h"
     "Enums/GraphicsScaling.h"
-    )
+        Enums/FontAlignment.h)
 source_group("Enums" FILES ${Enums})
 
 set(Lii
@@ -165,7 +165,7 @@ set(Lii_DataTypes
     "DataTypes/CastableTree.cpp"
     "DataTypes/DefaultMultiTree.cpp"
     "DataTypes/MultiTree.cpp"
-        DataTypes/Vector3.cpp DataTypes/Vector3.h DataTypes/Vector4.cpp DataTypes/Vector4.h)
+        DataTypes/Vector3.cpp DataTypes/Vector3.h DataTypes/Vector4.cpp DataTypes/Vector4.h DataTypes/Vector2Int.cpp DataTypes/Vector2Int.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 

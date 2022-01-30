@@ -8,6 +8,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include "FontFormat.h"
+#include "GdiFontFormat.h"
 
 using namespace Gdiplus;
 
@@ -46,7 +47,10 @@ void GdiRenderer::DrawString(const std::wstring &string, Vector2 position, const
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
     stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
-    graphics.DrawString(string.c_str(), len, font, {position.GetX(), position.GetY()}, &stringFormat, brush);
+
+    font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
+    graphics.DrawString(string.c_str(), -1, font, {position.GetX(), position.GetY()}, &stringFormat, brush);
+    delete font;
 }
 
 void GdiRenderer::FillEllipse(float x, float y, float width, float height)
@@ -77,7 +81,11 @@ GdiRenderer::GdiRenderer(Gdiplus::Graphics &graphics) : graphics(graphics)
 
 void GdiRenderer::SetColor(const Vector4 &color)
 {
-    Color inputColor{(BYTE)color.GetX(), (BYTE)color.GetY(), (BYTE)color.GetZ(), (BYTE)color.GetW()};
+    BYTE a = (BYTE)color.GetW();
+    BYTE r = (BYTE)color.GetX();
+    BYTE g = (BYTE)color.GetY();
+    BYTE b = (BYTE)color.GetZ();
+    Color inputColor{a, r, g, b};
     brush->SetColor(inputColor);
     pen->SetColor(inputColor);
 }
@@ -92,4 +100,19 @@ void GdiRenderer::SetColor(const Vector3 &color)
 void GdiRenderer::SetThickness(float thickness)
 {
     pen->SetWidth(thickness);
+}
+
+void GdiRenderer::SetFontFamily(std::wstring fontFamily)
+{
+    this->fontFamily = new Gdiplus::FontFamily(fontFamily.c_str());
+}
+
+void GdiRenderer::SetFontSize(float fontSize)
+{
+    this->fontSize = fontSize;
+}
+
+std::unique_ptr<FontFormat> GdiRenderer::CreateFontFormat()
+{
+    return std::make_unique<GdiFontFormat>();
 }

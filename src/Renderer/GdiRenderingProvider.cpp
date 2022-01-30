@@ -8,6 +8,7 @@
 #include "WindowFrame.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
+#include "GdiRenderer.h"
 
 using namespace Gdiplus;
 void GdiRenderingProvider::AssignRenderer()
@@ -29,11 +30,14 @@ void GdiRenderingProvider::CleanGraphicsBuffer()
 void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion)
 {
     Graphics graphics(secondaryDc);
+    GdiRenderer renderer{graphics};
     graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
     if(!node.IsRoot())
     {
-        Rect viewport = Rect(node.GetValue().GetViewportAbsolutePosition(), node.GetValue().GetViewportAbsoluteSize());
+        Vector2 viewPortAbsPos = node.GetValue().GetViewportAbsolutePosition();
+        Vector2 viewPortAbsSize = node.GetValue().GetViewportAbsoluteSize();
+        RectF viewport = RectF(viewPortAbsPos.GetX(), viewPortAbsPos.GetY(), viewPortAbsSize.GetX(), viewPortAbsSize.GetY());
         graphics.SetClip(viewport);
         clippingRegion.Intersect(viewport);
         graphics.IntersectClip(&clippingRegion);
@@ -44,7 +48,8 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
         graphics.SetTransform(&transformMatrix);
     }
 
-    RenderEventInfo renderEvent = RenderEventInfo(&graphics);
+    RenderEventInfo renderEvent{RenderEventInfo{&renderer}};
+
     node.GetValue().OnRender(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
@@ -73,7 +78,7 @@ HDC GdiRenderingProvider::GetSecondaryDC()
 
 void GdiRenderingProvider::OnResize(EventResizeInfo e)
 {
-    Size size = e.GetSize();
+    Size size = {(int)e.GetSize().GetX(), (int)e.GetSize().GetY()};
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 

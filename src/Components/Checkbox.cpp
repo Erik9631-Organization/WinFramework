@@ -52,11 +52,11 @@ Checkbox::Checkbox(string name) : Checkbox(0, 0, 0, 0, name)
 
 Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement(x, y, width, height, name), checkBoxChar("Arial"), text("Arial"), checkboxBehavior(*this)
 {
-	border.SetColor(Color::Black);
+	border.SetColor({0, 0, 0});
 	border.SetThickness(1.0f);
-	background.SetColor(Color::Transparent);
+	background.SetColor({0, 0, 0, 0});
 
-	checkboxBorder.SetColor(Color::Black);
+	checkboxBorder.SetColor({0, 0, 0});
 	checkboxBorder.SetScalingTypeWidth(Decimal);
 	checkboxBorder.SetScalingTypeHeight(Decimal);
 
@@ -74,14 +74,14 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 	checkBoxChar.SetScalingTypeX(Decimal);
 	checkBoxChar.SetPosition({10.0f, 0.51f});
 	checkBoxChar.SetText(L"");
-	checkBoxChar.SetColor(Color::Black);
+	checkBoxChar.SetColor({0, 0, 0});
 
 	text.SetLineAlignment(StringAlignment::StringAlignmentCenter);
-	text.SetColor(Color::Black);
+	text.SetColor({0, 0, 0});
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeX(Decimal);
 
-	text.SetPosition(PointF(20.0f, 0.51f));
+	text.SetPosition({20.0f, 0.51f});
 
 	AddRenderable(background);
 	AddRenderable(border);

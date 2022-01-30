@@ -10,49 +10,35 @@ SimpleBorder::SimpleBorder() :
     graphicsUtil(position, size)
 {
 	//Set up meta data
-	reflectionContainer.RegisterMethod("border-color", "SetColor", &SimpleBorder::SetColor);
-	reflectionContainer.RegisterMethod("border-style", "SetBorderStyle", &SimpleBorder::SetBorderStyle);
+	reflectionContainer.RegisterMethod<Vector3>("border-color", "SetColor", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<Vector4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
 
 
-    position.X = 0.0f;
-    position.Y = 0.0f;
-
-	size.Width = 1.0f;
-	size.Height = 1.0f;
-
-
-	brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
-	pen = new Gdiplus::Pen(brush);
-	pen->SetWidth(0.01f);
+    position = {0, 0};
+    size = {1, 1};
 }
 
 
 SimpleBorder::~SimpleBorder()
 {
-	delete pen;
-	delete brush;
+
 }
 
-void SimpleBorder::SetColor(Gdiplus::Color color)
+void SimpleBorder::SetColor(Vector3 color)
 {
-	this->color = color;
-	pen->SetColor(color);
+	this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
 }
 
-Gdiplus::Color SimpleBorder::GetColor()
+Vector3 SimpleBorder::GetColor()
 {
-	return color;
+	return {color.GetX(), color.GetY(), color.GetZ()};
 }
 
-void SimpleBorder::SetBorderStyle(Gdiplus::DashStyle style)
-{
-	pen->SetDashStyle(style);
-}
 
 void SimpleBorder::SetThickness(float thickness)
 {
-	pen->SetWidth(thickness / 100);
+	thickness = thickness / 100;
 }
 
 void SimpleBorder::DrawFromCenterX(bool state)
@@ -67,12 +53,12 @@ void SimpleBorder::DrawFromCenterY(bool state)
 
 void SimpleBorder::OnRender(RenderEventInfo e)
 {
+    Renderer* renderer = e.GetRenderer();
+    graphicsUtil.CreateRatio(e.GetParentPosition(), e.GetParentSize());
 
-    Gdiplus::PointF parentPosition = Gdiplus::PointF((float)e.GetParentPosition().X, (float)e.GetParentPosition().Y);
-    Gdiplus::SizeF parentSize = Gdiplus::SizeF((float)e.GetParentSize().Width, (float)e.GetParentSize().Height);
-    graphicsUtil.UpdateAssociatedParameters(parentPosition, parentSize);
-
-	e.GetGraphics()->DrawRectangle(pen, graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer->SetThickness(thickness);
+    renderer->SetColor(color);
+    renderer->DrawRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
 	renderBehavior.OnRender(e);
 }
 
@@ -81,7 +67,7 @@ void SimpleBorder::Repaint()
 
 }
 
-void SimpleBorder::AddRenderable(Renderable& renderable)
+void SimpleBorder::AddRenderable(Renderable &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
@@ -106,12 +92,12 @@ ReflectionContainer<SimpleBorder>& SimpleBorder::GetReflectionContainer()
 	return reflectionContainer;
 }
 
-Gdiplus::SizeF SimpleBorder::GetSize()
+Vector2 SimpleBorder::GetSize()
 {
 	return this->size;
 }
 
-Gdiplus::PointF SimpleBorder::GetPosition()
+Vector2 SimpleBorder::GetPosition()
 {
 	return this->position;
 }
@@ -156,52 +142,62 @@ void SimpleBorder::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-void SimpleBorder::SetSize(Gdiplus::SizeF size)
+void SimpleBorder::SetSize(Vector2 size)
 {
     this->size = size;
 }
 
-void SimpleBorder::SetPosition(Gdiplus::PointF point)
+void SimpleBorder::SetPosition(Vector2 point)
 {
     this->position = point;
 }
 
 void SimpleBorder::SetX(float x)
 {
-    this->position.X = x;
+    this->position.SetX(x);
 }
 
 void SimpleBorder::SetY(float y)
 {
-    this->position.Y = y;
+    this->position.SetY(y);
 }
 
 void SimpleBorder::SetWidth(float width)
 {
-    this->size.Width = width;
+    this->size.SetX(width);
 }
 
 void SimpleBorder::SetHeight(float height)
 {
-    this->size.Height = height;
+    this->size.SetY(height);
 }
 
 float SimpleBorder::GetX()
 {
-    return position.X;
+    return position.GetX();
 }
 
 float SimpleBorder::GetY()
 {
-    return position.Y;
+    return position.GetY();
 }
 
 float SimpleBorder::GetWidth()
 {
-    return size.Width;
+    return size.GetX();
 }
 
 float SimpleBorder::GetHeight()
 {
-    return size.Height;
+    return size.GetY();
+}
+
+void SimpleBorder::SetColor(Vector4 color)
+{
+    this->color = color;
+}
+
+Vector4 SimpleBorder::GetColorRGBA()
+{
+    return color;
 }

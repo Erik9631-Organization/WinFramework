@@ -6,10 +6,14 @@
 #define LII_RENDERER_H
 class Vector2;
 #include <string>
+#include <memory>
 class FontFormat;
+class Vector4;
+class Vector3;
 
 class Renderer
 {
+public:
     virtual void DrawEllipse(float x,float y, float width, float height) = 0;
     virtual void DrawEllipse(float x,float y, Vector2) = 0;
     //virtual void DrawImage(const Image& imageData, float x, float y);
@@ -23,6 +27,12 @@ class Renderer
     virtual void FillEllipse(Vector2 pos, Vector2 size) = 0;
     virtual void FillRectangle(float x, float y, float width, float height) = 0;
     virtual void FillRectangle(Vector2 pos, Vector2 size) = 0;
+    virtual void SetColor(const Vector4 &color) = 0;
+    virtual void SetColor(const Vector3 &color) = 0;
+    virtual void SetThickness(float thickness) = 0;
+    virtual void SetFontFamily(std::wstring fontFamily) = 0;
+    virtual void SetFontSize(float fontSize) = 0;
+    virtual std::unique_ptr<FontFormat> CreateFontFormat() = 0;
 };
 
 

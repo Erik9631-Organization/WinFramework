@@ -31,7 +31,7 @@ void TextInputBehavior::SetActiveBackground()
 {
 	//originalColor = associatedTextInput.GetBackgroundColor();
 
-	originalColor = associatedTextInput.GetPropery<Gdiplus::Color>("get-background-color");
+	originalColor = associatedTextInput.GetPropery<Vector4>("get-background-color");
 	associatedTextInput.SetProperty("background-color", activeColor);
 	//associatedTextInput.SetBackgroundColor(activeColor);
 }
@@ -54,7 +54,7 @@ void TextInputBehavior::RemoveLastChar()
 
 TextInputBehavior::TextInputBehavior(UiElement& textInput) : associatedTextInput(textInput)
 {
-	activeColor = Color(255, 255, 255);
+	activeColor = {255, 255, 255, 0};
 	textInput.AddOnActivateSubscriber(*this);
 	textInput.AddKeyStateSubscriber(*this);
 

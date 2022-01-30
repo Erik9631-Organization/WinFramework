@@ -4,6 +4,7 @@
 #include <vector>
 #include <gdiplus.h>
 #include "Events/CheckboxStateSubject.h"
+#include "Vector4.h"
 
 class Checkbox;
 
@@ -11,7 +12,7 @@ class CheckBoxBehavior : public MouseStateSubscriber, public CheckboxStateSubjec
 {
 private:
 	Checkbox& associatedCheckbox;
-	Gdiplus::Color onClickColor;
+	Vector4 onClickColor;
 	std::vector<std::reference_wrapper<CheckboxStateSubscriber>> subscribers;
 
 public:

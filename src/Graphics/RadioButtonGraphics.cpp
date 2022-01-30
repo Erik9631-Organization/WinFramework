@@ -6,14 +6,14 @@ void RadioButtonGraphics::UpdateFill()
 	if (fillEnabled)
 		fill.SetColor(fillBackground);
 	else
-		fill.SetColor(Gdiplus::Color::Transparent);
+		fill.SetColor({0, 0, 0, 0});
 }
 
 RadioButtonGraphics::RadioButtonGraphics() : renderBehavior(*this)
 {
-	AddRenderable(fill);
+    AddRenderable(fill);
 	AddRenderable(border);
-	fillBackground = Gdiplus::Color::Black;
+	fillBackground = {0, 0, 0, 255};
 }
 
 void RadioButtonGraphics::SetFillEnabled(bool state)
@@ -36,21 +36,21 @@ void RadioButtonGraphics::SetDiameter(float Diameter)
 }
 
 
-void RadioButtonGraphics::SetPosition(Gdiplus::PointF position)
+void RadioButtonGraphics::SetPosition(Vector2 position)
 {
 	border.position = position;
 	fill.position = position;
 }
 
 
-void RadioButtonGraphics::SetBorderColor(Gdiplus::Color borderColor)
+void RadioButtonGraphics::SetBorderColor(Vector3 borderColor)
 {
 	border.SetColor(borderColor);
 }
 
-void RadioButtonGraphics::SetFillColor(Gdiplus::Color color)
+void RadioButtonGraphics::SetFillColor(Vector3 color)
 {
-	fillBackground = color;
+	fillBackground = {color.GetX(), color.GetY(), color.GetZ(), 0};
 	fill.SetColor(color);
 }
 
@@ -80,7 +80,7 @@ void RadioButtonGraphics::Repaint()
 
 }
 
-void RadioButtonGraphics::AddRenderable(Renderable& renderable)
+void RadioButtonGraphics::AddRenderable(Renderable &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
@@ -95,7 +95,7 @@ std::vector<std::reference_wrapper<Renderable>> RadioButtonGraphics::GetRenderab
 	return renderBehavior.GetRenderables();
 }
 
-Gdiplus::PointF RadioButtonGraphics::GetPosition()
+Vector2 RadioButtonGraphics::GetPosition()
 {
     return border.GetPosition();
 }
@@ -114,12 +114,12 @@ void RadioButtonGraphics::SetY(float y)
 
 float RadioButtonGraphics::GetX()
 {
-    return border.position.X;
+    return border.position.GetX();
 }
 
 float RadioButtonGraphics::GetY()
 {
-    return border.position.Y;
+    return border.position.GetY();
 }
 
 GraphicsScaling RadioButtonGraphics::GetScalingTypeX() const
@@ -181,4 +181,14 @@ void RadioButtonGraphics::SetDrawFromCenterX(bool drawFromCenterX)
 {
     border.SetDrawFromCenterX(drawFromCenterX);
     fill.SetDrawFromCenterX(drawFromCenterX);
+}
+
+void RadioButtonGraphics::SetBorderColor(Vector4 borderColor)
+{
+    border.SetColor(borderColor);
+}
+
+void RadioButtonGraphics::SetFillColor(Vector4 color)
+{
+    fill.SetColor(color);
 }

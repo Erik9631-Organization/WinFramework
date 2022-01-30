@@ -7,14 +7,13 @@
 #include "Renderable.h"
 #include <Windows.h>
 #include <gdiplus.h>
+#include <Renderer.h>
 
 
 class TestGraphics : public Renderable
 {
 private:
     std::vector<std::reference_wrapper<Renderable>> renderables;
-    Gdiplus::SolidBrush* brush;
-    Gdiplus::Pen* pen;
 public:
     TestGraphics();
     void Repaint() override;

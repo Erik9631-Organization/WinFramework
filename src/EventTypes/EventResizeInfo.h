@@ -3,6 +3,7 @@
 #include <gdiplus.h>
 #include "EventInfo.h"
 #include <any>
+#include <Vector2.h>
 #include "GenericObj.h"
 class Resizable;
 /**
@@ -11,25 +12,25 @@ class Resizable;
 class EventResizeInfo
 {
 private:
-	Gdiplus::Size size;
+	Vector2 size;
 	Resizable* src;
 
 public:
 	/**
 	 * \return returns the size of the source at the point the event was called.
 	 */
-	Gdiplus::Size GetSize();
+    Vector2 GetSize() const;
 
 	/**
 	 * \return returns source object that performed the call.
 	 */
-	Resizable* GetSrc();
+	Resizable* GetSrc() const;
 
 	/**
 	 * \param size the size of the source object
 	 * \param src the source object that that called the event.
 	 */
-	EventResizeInfo(Gdiplus::Size size, Resizable* src);
+	EventResizeInfo(Vector2 size, Resizable* src);
 	~EventResizeInfo();
 };
 

@@ -58,13 +58,13 @@ public:
 	
 	bool initDone = false;
 
-	void SetSize(int width, int height) override;
-	void SetSize(Size size) override;
+	void SetSize(float width, float height) override;
+	void SetSize(Vector2 size) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
-	void SetPosition(int x, int y) override;
-	void SetPosition(Point point) override;
+	void SetPosition(float x, float y) override;
+	void SetPosition(Vector2 point) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

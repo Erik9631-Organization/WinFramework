@@ -8,14 +8,14 @@ class DefaultButtonBehavior : public MouseStateSubscriber
 {
 private:
 	Button& associatedButton;
-	Gdiplus::Color standardColor;
-	Gdiplus::Color onClickColor;
-	Gdiplus::Color onHoverColor;
+	Vector3 standardColor;
+	Vector3  onClickColor;
+	Vector3  onHoverColor;
 public:
 	DefaultButtonBehavior(Button& button);
-	void SetOnHoverColor(Gdiplus::Color color);
-	void SetOnClickColor(Gdiplus::Color color);
-	void SetStatelessColor(Color statelessColor);
+	void SetOnHoverColor(Vector3 color);
+	void SetOnClickColor(Vector3 color);
+	void SetStatelessColor(Vector3 statelessColor);
 
 	// Inherited via MouseStateSubscriber
 	virtual void OnMouseDown(EventMouseStateInfo e) override;
@@ -26,9 +26,9 @@ public:
 	virtual void OnMouseLeft(EventMouseStateInfo e) override;
     void OnMouseCaptured(EventMouseStateInfo e) override;
 
-    Color GetStandardColor();
-    Color GetOnClickColor();
-    Color GetOnHoverColor();
+    Vector3 GetStandardColor();
+    Vector3 GetOnClickColor();
+    Vector3 GetOnHoverColor();
 
 };
 

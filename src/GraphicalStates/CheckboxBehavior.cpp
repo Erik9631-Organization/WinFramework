@@ -3,11 +3,12 @@
 #include "Components/Checkbox.h"
 #include "EventTypes/EventCheckboxStateInfo.h"
 #include "Events/CheckboxStateSubscriber.h"
+#include "Vector3.h"
 
 CheckBoxBehavior::CheckBoxBehavior(Checkbox& checkbox) : associatedCheckbox(checkbox)
 {
 	checkbox.AddMouseStateSubscriber(*this);
-	onClickColor = Color::MakeARGB(255, 100, 100, 100);
+	onClickColor = {150, 150, 150, 255};
 }
 
 void CheckBoxBehavior::OnMouseDown(EventMouseStateInfo e)
@@ -18,7 +19,7 @@ void CheckBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 
 void CheckBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty("background-color", Color::DarkGray);
+	associatedCheckbox.SetProperty<Vector3>("background-color", {100, 100, 100});
 }
 
 void CheckBoxBehavior::OnMousePressed(EventMouseStateInfo e)
@@ -31,12 +32,12 @@ void CheckBoxBehavior::OnMouseMove(EventMouseStateInfo e)
 
 void CheckBoxBehavior::OnMouseEntered(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty("background-color", Color::DarkGray);
+	associatedCheckbox.SetProperty<Vector3>("background-color", {100, 100, 100});
 }
 
 void CheckBoxBehavior::OnMouseLeft(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty("background-color", Color::Transparent);
+	associatedCheckbox.SetProperty<Vector4>("background-colorRGBA", {0, 0, 0, 0});
 }
 
 void CheckBoxBehavior::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)

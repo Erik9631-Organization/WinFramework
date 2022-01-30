@@ -36,11 +36,11 @@ public:
 	/**
 	 * \return returns the background color.
 	 */
-	Color GetBackgroundColor();
+    Vector3 GetBackgroundColor();
 
 	/**
 	 * \param color sets the background color.
 	 */
-	void SetBackgroundColor(Color color);
+	void SetBackgroundColor(Vector3 color);
 };
 

@@ -2,30 +2,32 @@
 #include "Grid.h"
 #include "EventTypes/EventUpdateInfo.h"
 
-Gdiplus::Point GridCell::CalculatePixelPosition()
+Vector2Int GridCell::CalculatePixelPosition()
 {
     int posX = 0;
     int posY = 0;
 
-    if(parentGrid.GetGridCell(indexPos.X - 1, indexPos.Y) != nullptr)
-        posX = parentGrid.GetGridCell(indexPos.X - 1, indexPos.Y)->GetPixelX() + parentGrid.GetGridCell(indexPos.X - 1, indexPos.Y)->GetWidth() + parentGrid.GetColumnGap();
+    if(parentGrid.GetGridCell(indexPos.GetX() - 1, indexPos.GetY()) != nullptr)
+        posX = parentGrid.GetGridCell(indexPos.GetX() - 1, indexPos.GetY())->GetPixelX() +
+                parentGrid.GetGridCell(indexPos.GetX() - 1, indexPos.GetY())->GetWidth() + parentGrid.GetColumnGap();
 
-    if (parentGrid.GetGridCell(indexPos.X, indexPos.Y - 1) != nullptr)
-        posY = parentGrid.GetGridCell(indexPos.X, indexPos.Y - 1)->GetPixelY() + parentGrid.GetGridCell(indexPos.X, indexPos.Y - 1)->GetHeight() + parentGrid.GetRowGap();
-    return Gdiplus::Point(posX, posY);
+    if (parentGrid.GetGridCell(indexPos.GetX(), indexPos.GetY() - 1) != nullptr)
+        posY = parentGrid.GetGridCell(indexPos.GetX(), indexPos.GetY() - 1)->GetPixelY() +
+                parentGrid.GetGridCell(indexPos.GetX(), indexPos.GetY() - 1)->GetHeight() + parentGrid.GetRowGap();
+    return {posX, posY};
 }
 
-Gdiplus::Size GridCell::GetSpanSize()
+Vector2Int GridCell::GetSpanSize()
 {
-    Gdiplus::Size spanSize;
+    Vector2Int spanSize;
 
     if (GetSpanParent() == nullptr)
         return spanSize;
     if (GetSpanCorner() == nullptr)
         return spanSize;
 
-    int spanX = GetSpanCorner()->GetPixelPosition().X;
-    int spanParentX = GetSpanParent()->GetPixelPosition().X;
+    int spanX = GetSpanCorner()->GetPixelPosition().GetX();
+    int spanParentX = GetSpanParent()->GetPixelPosition().GetY();
 
     GridCell* cornerCell = GetSpanCorner();
     GridCell* parentCell = GetSpanParent();
@@ -33,8 +35,8 @@ Gdiplus::Size GridCell::GetSpanSize()
     int columnGapSum = (span.GetGridColumnEnd() - span.GetGridColumnStart()) * parentGrid.GetColumnGap();
     int rowGapSum = (span.GetGridRowEnd() - span.GetGridRowStart()) * parentGrid.GetRowGap();
 
-    spanSize.Width = cornerCell->GetPixelPosition().X - parentCell->GetPixelPosition().X + cornerCell->GetSize().Width + columnGapSum;
-    spanSize.Height = cornerCell->GetPixelPosition().Y - parentCell->GetPixelPosition().Y + cornerCell->GetSize().Height + rowGapSum;
+    spanSize.SetX(cornerCell->GetPixelPosition().GetX() - parentCell->GetPixelPosition().GetY() + cornerCell->GetSize().GetX() + columnGapSum);
+    spanSize.SetY(cornerCell->GetPixelPosition().GetY() - parentCell->GetPixelPosition().GetY() + cornerCell->GetSize().GetY() + rowGapSum);
     return spanSize;
 }
 
@@ -104,7 +106,7 @@ bool GridCell::IsSpanParent()
     if (!span.isSet())
         return false;
 
-    if (position.X == span.GetGridColumnStart() && position.Y == span.GetGridRowStart())
+    if (position.GetX() == span.GetGridColumnStart() && position.GetY() == span.GetGridRowStart())
         return true;
 
 }
@@ -130,22 +132,22 @@ void GridCell::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     associatedAdjustable->RemoveOnResizeSubscriber(subscriber);
 }
 
-Gdiplus::Size GridCell::GetSize()
+Vector2 GridCell::GetSize()
 {
     return cellSize;
 }
 
-int GridCell::GetWidth()
+float GridCell::GetWidth()
 {
-    return cellSize.Width;
+    return cellSize.GetX();
 }
 
-int GridCell::GetHeight()
+float GridCell::GetHeight()
 {
-    return cellSize.Height;
+    return cellSize.GetY();
 }
 
-void GridCell::SetSize(Gdiplus::Size size)
+void GridCell::SetSize(Vector2 size)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)
@@ -157,19 +159,19 @@ void GridCell::SetSize(Gdiplus::Size size)
         GetControlledAdjustable()->SetSize(size);
 }
 
-void GridCell::SetSize(int width, int height)
+void GridCell::SetSize(float width, float height)
 {
-    SetSize(Gdiplus::Size(width, height));
+    SetSize({width, height});
 }
 
-void GridCell::SetWidth(int width)
+void GridCell::SetWidth(float width)
 {
-    SetSize(cellSize.Height, width);
+    SetSize(width, cellSize.GetY());
 }
 
-void GridCell::SetHeight(int height)
+void GridCell::SetHeight(float height)
 {
-    SetSize(height, cellSize.Width);
+    SetSize(cellSize.GetX(), height);
 }
 
 void GridCell::AddOnMoveSubscriber(MoveSubscriber& subscriber)
@@ -193,37 +195,37 @@ void GridCell::NotifyOnMoveSubscribers(EventMoveInfo event)
     associatedAdjustable->NotifyOnMoveSubscribers(event);
 }
 
-Gdiplus::Point GridCell::GetPosition()
+Vector2 GridCell::GetPosition()
 {
     return indexPos;
 }
 
-int GridCell::GetX()
+float GridCell::GetX()
 {
-    return indexPos.X;
+    return indexPos.GetX();
 }
 
-int GridCell::GetY()
+float GridCell::GetY()
 {
-    return indexPos.Y;
+    return indexPos.GetY();
 }
 
-int GridCell::GetAbsoluteX()
+float GridCell::GetAbsoluteX()
 {
-    return indexPos.X + parentGrid.GetAbsoluteX();
+    return indexPos.GetX() + parentGrid.GetAbsoluteX();
 }
 
-int GridCell::GetAbsoluteY()
+float GridCell::GetAbsoluteY()
 {
-    return indexPos.Y + parentGrid.GetAbsoluteY();
+    return indexPos.GetY() + parentGrid.GetAbsoluteY();
 }
 
-Gdiplus::Point GridCell::GetAbsolutePosition()
+Vector2 GridCell::GetAbsolutePosition()
 {
-    return Gdiplus::Point(indexPos.X + parentGrid.GetAbsoluteX(), indexPos.Y + parentGrid.GetAbsoluteY());
+    return {indexPos.GetX() + parentGrid.GetAbsoluteX(), indexPos.GetY() + parentGrid.GetAbsoluteY()};
 }
 
-void GridCell::SetPosition(Gdiplus::Point position)
+void GridCell::SetPosition(Vector2 position)
 {
     this->indexPos = position;
     this->position = CalculatePixelPosition();
@@ -232,58 +234,58 @@ void GridCell::SetPosition(Gdiplus::Point position)
     associatedAdjustable->SetPosition(this->position);
 }
 
-void GridCell::SetPosition(int x, int y)
+void GridCell::SetPosition(float x, float y)
 {
-    SetPosition(Gdiplus::Point(x, y));
+    SetPosition({x, y});
 }
 
-void GridCell::SetX(int x)
+void GridCell::SetX(float x)
 {
-    SetPosition(x, indexPos.Y);
+    SetPosition(x, indexPos.GetY());
 }
 
-void GridCell::SetY(int y)
+void GridCell::SetY(float y)
 {
-    SetPosition(indexPos.X, y);
+    SetPosition(indexPos.GetX(), y);
 }
 
-void GridCell::SetTranslate(Gdiplus::Point offset)
+void GridCell::SetTranslate(Vector2 offset)
 {
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetTranslate(offset);
 }
 
-void GridCell::SetTranslateX(int x)
+void GridCell::SetTranslateX(float x)
 {
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetTranslateX(x);
 }
 
-void GridCell::SetTranslateY(int y)
+void GridCell::SetTranslateY(float y)
 {
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetTranslateY(y);
 }
 
-Gdiplus::Point GridCell::GetTranslate()
+Vector2 GridCell::GetTranslate()
 {
     if (associatedAdjustable == nullptr)
-        return Gdiplus::Point(0, 0);
+        return {0, 0};
 
     return associatedAdjustable->GetTranslate();
 }
 
-int GridCell::GetTranslateX()
+float GridCell::GetTranslateX()
 {
     if (associatedAdjustable == nullptr)
         return 0;
     return associatedAdjustable->GetTranslateX();
 }
 
-int GridCell::GetTranslateY()
+float GridCell::GetTranslateY()
 {
     if (associatedAdjustable == nullptr)
         return 0;
@@ -294,7 +296,7 @@ void GridCell::OnUpdate(EventUpdateInfo e)
 {
     if (e.HasFlag(EventUpdateFlags::Move))
     {
-        Gdiplus::Point pixelPos = CalculatePixelPosition(); //Update
+        Vector2Int pixelPos = CalculatePixelPosition(); //Update
         if(associatedAdjustable != nullptr)
             associatedAdjustable->SetPosition(CalculatePixelPosition());
         this->position = pixelPos;
@@ -313,15 +315,15 @@ void GridCell::OnUpdate(EventUpdateInfo e)
 
 int GridCell::GetPixelX()
 {
-    return position.X;
+    return position.GetX();
 }
 
 int GridCell::GetPixelY()
 {
-    return position.Y;
+    return position.GetY();
 }
 
-Gdiplus::Point GridCell::GetPixelPosition()
+Vector2 GridCell::GetPixelPosition()
 {
     return position;
 }

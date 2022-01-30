@@ -1,23 +1,24 @@
 #include "Text.h"
 #include "EventTypes/RenderEventInfo.h"
 #include "MetaObjects/ClassMethod.h"
+#include "FontFormat.h"
 
-void Text::SetLineAlignment(Gdiplus::StringAlignment alignment)
+void Text::SetLineAlignment(int alignment)
 {
     this->lineAlignment = alignment;
 }
 
-void Text::SetAlignment(Gdiplus::StringAlignment alignment)
+void Text::SetAlignment(int alignment)
 {
     this->alignment = alignment;
 }
 
-Gdiplus::StringAlignment Text::GetLineAlignment()
+int Text::GetLineAlignment()
 {
     return lineAlignment;
 }
 
-Gdiplus::StringAlignment Text::GetAlignment()
+int Text::GetAlignment()
 {
     return alignment;
 }
@@ -29,10 +30,9 @@ Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(
     reflectionContainer.RegisterMethod("font-size", "SetFontSize", &Text::SetFontSize);
 
     std::wstring family = std::wstring(fontFamily.begin(), fontFamily.end());
-    this->fontFamily = new Gdiplus::FontFamily(family.c_str());
-    font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    brush = new Gdiplus::SolidBrush(Gdiplus::Color::White);
-    position = Gdiplus::PointF(0, 0);
+    this->fontFamily = family;
+    this->color = {255, 255, 255, 255};
+    position = {0, 0};
 }
 
 void Text::SetText(std::wstring text)
@@ -45,41 +45,35 @@ std::wstring Text::GetText()
     return this->text;
 }
 
-void Text::SetPosition(Gdiplus::PointF position)
+void Text::SetPosition(Vector2 position)
 {
     this->position = position;
 }
 
-Gdiplus::PointF Text::GetPosition()
+Vector2 Text::GetPosition()
 {
     return position;
 }
 
-void Text::SetColor(Gdiplus::Color color)
+void Text::SetColor(Vector3 color)
 {
-    brush->SetColor(color);
+    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
 }
 
-void Text::SetFontSize(double fontSize)
+void Text::SetFontSize(float fontSize)
 {
     this->fontSize = fontSize;
-    delete font;
-    font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
 }
 
 void Text::OnRender(RenderEventInfo e)
 {
-
-    Gdiplus::PointF parentPosition = Gdiplus::PointF(e.GetParentPosition().X, e.GetParentPosition().Y);
-    Gdiplus::SizeF parentSize = Gdiplus::SizeF(e.GetParentSize().Width, e.GetParentSize().Height);
-
-    graphicsUtil.UpdateAssociatedParameters(parentPosition, parentSize);
-
-    Gdiplus::StringFormat format;
-    format.SetAlignment(alignment);
-    format.SetLineAlignment(lineAlignment);
-    e.GetGraphics()->DrawString(text.c_str(), -1, font, graphicsUtil.GetPosition(), &format, brush);
-
+    graphicsUtil.CreateRatio(e.GetParentPosition(), e.GetParentSize());
+    std::unique_ptr<FontFormat> format = e.GetRenderer()->CreateFontFormat();
+    format->SetAlignment(alignment);
+    format->SetLineAlignment(lineAlignment);
+    e.GetRenderer()->SetColor(color);
+    e.GetRenderer()->SetFontFamily(fontFamily);
+    e.GetRenderer()->DrawString(text, graphicsUtil.GetPosition(), *format, text.size());
 }
 
 void Text::Repaint()
@@ -87,7 +81,7 @@ void Text::Repaint()
 
 }
 
-void Text::AddRenderable(Renderable& renderable)
+void Text::AddRenderable(Renderable &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
@@ -134,20 +128,20 @@ void Text::SetScalingTypeY(GraphicsScaling scalingTypeY)
 
 void Text::SetX(float x)
 {
-    position.X = x;
+    position.SetX(x);
 }
 
 void Text::SetY(float y)
 {
-    position.Y = y;
+    position.SetY(y);
 }
 
 float Text::GetX()
 {
-    return position.X;
+    return position.GetX();
 }
 
 float Text::GetY()
 {
-    return position.Y;
+    return position.GetY();
 }

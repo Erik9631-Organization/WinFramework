@@ -1,6 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
+#include <Vector2.h>
 
 class UiElement;
 class MouseStateSubject;
@@ -11,18 +10,18 @@ class MouseStateSubject;
 class EventMouseStateInfo
 {
 private:
-	Gdiplus::Point position;
-	Gdiplus::Point relativePosition;
+	Vector2 position;
+	Vector2 relativePosition;
 	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
-	Gdiplus::Point mouseDelta;
+	Vector2 mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
 	int key;
 public:
 
-    Gdiplus::Point GetMouseDelta();
+    Vector2 GetMouseDelta();
 
-    EventMouseStateInfo(Gdiplus::Point position, Gdiplus::Point relativePosition, Gdiplus::Point delta, int key, MouseStateSubject* src);
+    EventMouseStateInfo(Vector2 position, Vector2 relativePosition, Vector2 delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative position is automatically calculated from the src component
@@ -31,7 +30,7 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(Gdiplus::Point position, int key, UiElement* src);
+	EventMouseStateInfo(Vector2 position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
@@ -44,37 +43,37 @@ public:
 	 * \param relativePosition the new relative position.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, Gdiplus::Point relativePosition, MouseStateSubject* src);
+	EventMouseStateInfo(EventMouseStateInfo e, Vector2 relativePosition, MouseStateSubject* src);
 
 	/**
 	 * \return returns the mouse position within the window at the time the event was called.
 	 */
-	Gdiplus::Point GetMouseAbsolutePosition();
+	Vector2 GetMouseAbsolutePosition();
 
 	/**
 	 * \return returns the mouse position within the component at the time the event was called.
 	 */
-	Gdiplus::Point GetMousePosition();
+	Vector2 GetMousePosition();
 
 	/**
 	 * \return returns the X position of the mouse within the window.
 	 */
-	int GetAbsoluteMouseX();
+	float GetAbsoluteMouseX();
 
 	/**
 	 * \return returns the Y position of the mouse within the window.
 	 */
-	int GetAbsoluteMouseY();
+	float GetAbsoluteMouseY();
 
 	/**
 	 * \return returns the X position of the mouse within the component.
 	 */
-	int GetMouseX();
+	float GetMouseX();
 
 	/**
 	 * \return returns the Y position of the mouse within the component.
 	 */
-	int GetMouseY();
+	float GetMouseY();
 
 	/**
 	 * \return returns the mouse thumbTrack that was pressed at the time the event was called.

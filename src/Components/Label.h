@@ -29,12 +29,12 @@ public:
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackground(Gdiplus::Color color);
+	void SetBackground(Vector3 color);
 
 	/**
 	 * \return gets the color of the background.
 	 */
-	Gdiplus::Color GetBackground();
+    Vector3 GetBackground();
 
 	/**
 	 * \param str sets the display value of the label.

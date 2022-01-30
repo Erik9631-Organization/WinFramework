@@ -74,12 +74,11 @@ int LiiEntry()
 {
     DemoApplication::LaunchDemoApp();
 
-//    WindowFrame frame = WindowFrame(0, 0, 800, 600, "TestFrame");
-//    ListBox listBox{50, 50, 100, 200, "testBox"};
-//    frame.Add(listBox);
-//    for(int i = 0; i < 9; i++)
-//        listBox.CreateListElement(L"test" + to_wstring(i), L"test" + to_wstring(i));
-
+    /*WindowFrame frame = WindowFrame(0, 0, 800, 600, "TestFrame");
+    Button listBox{50, 50, 50, 50};
+    listBox.SetComponentName("Button");
+    listBox.SetText(L"Test");
+    frame.Add(listBox);*/
 	ApplicationController::JoinThreads();
 	return 0;
 }

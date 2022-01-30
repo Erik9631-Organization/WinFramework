@@ -4,7 +4,7 @@
 class DefaultResize : public Resizable
 {
 private:
-	Gdiplus::Size size;
+	Vector2 size;
 	std::vector<std::reference_wrapper<ResizeSubscriber>> subscribers;
 	Resizable& associatedResizable;
 public:
@@ -13,12 +13,12 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual Gdiplus::Size GetSize() override;
-	virtual int GetWidth() override;
-	virtual int GetHeight() override;
-	virtual void SetSize(Gdiplus::Size size) override;
-	virtual void SetSize(int width, int height) override;
-	virtual void SetWidth(int width) override;
-	virtual void SetHeight(int height) override;
+	virtual Vector2 GetSize() override;
+	virtual float GetWidth() override;
+	virtual float GetHeight() override;
+	virtual void SetSize(Vector2 size) override;
+	virtual void SetSize(float width, float height) override;
+	virtual void SetWidth(float width) override;
+	virtual void SetHeight(float height) override;
 };
 

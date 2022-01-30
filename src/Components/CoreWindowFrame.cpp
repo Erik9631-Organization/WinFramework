@@ -81,24 +81,24 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		PostQuitMessage(0);
 		break;
 	case WM_MOVE:
-		wrapperFrame.::UiElement::SetPosition(Gdiplus::Point(*((unsigned short*)&lParam), ((unsigned short*)&lParam)[1]));
+		wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
 		break;
 	case WM_SIZE:
 	{
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
-	    preProcessSubject.NotifyOnResizeSubscribers(EventResizeInfo({width, height}, nullptr));
-	    wrapperFrame.::UiElement::SetSize(Gdiplus::Size(width, height));
+	    preProcessSubject.NotifyOnResizeSubscribers(EventResizeInfo({(float)width, (float)height}, nullptr));
+	    wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
 	    break;
 	}
 	case WM_MOUSEMOVE:
 	    prevMousePos = mousePos;
-        mousePos.X = ((unsigned short*)&lParam)[0];
-        mousePos.Y = ((unsigned short*)&lParam)[1];
-        mouseDelta = mousePos - prevMousePos;
-        relativePos = mousePos - wrapperFrame.GetPosition();
+        mousePos.SetX(((unsigned short*)&lParam)[0]);
+        mousePos.SetY(((unsigned short*)&lParam)[1]);
 
-		wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(mousePos, relativePos, mouseDelta, 0, &wrapperFrame));
+        mouseDelta = mousePos - prevMousePos;
+        //relativePos = mousePos - wrapperFrame.GetPosition();
+        wrapperFrame.NotifyOnMouseHover(EventMouseStateInfo(mousePos, mousePos, mouseDelta, 0, &wrapperFrame));
 		break;
 	case WM_LBUTTONDOWN:
 	    wrapperFrame.NotifyOnMouseDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
@@ -230,7 +230,7 @@ void CoreWindowFrame::Repaint()
 	RedrawWindow();
 }
 
-void CoreWindowFrame::AddRenderable(Renderable& renderable)
+void CoreWindowFrame::AddRenderable(Renderable &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }

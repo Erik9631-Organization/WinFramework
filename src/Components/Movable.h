@@ -2,6 +2,7 @@
 #include "Events/MoveSubject.h"
 #include <Windows.h>
 #include <gdiplus.h>
+#include "Vector2.h"
 
 /**
  * The interface should be implemented by all classes which should be able to move
@@ -13,98 +14,98 @@ public:
 	 * Returns position
 	 * \return returns Point object that specifies the X position and the Y position
 	 */
-	virtual Gdiplus::Point GetPosition() = 0;
+	virtual Vector2 GetPosition() = 0;
 
 	/**
 	 * Gets the X position of the object
 	 * \return returns X position of the object as an integer.
 	 */
-	virtual int GetX() = 0;
+	virtual float GetX() = 0;
 
 	/**
 	 * Gets the Y position of the object
 	 * \return returns Y position of the object as an integer.
 	 */
-	virtual int GetY() = 0;
+	virtual float GetY() = 0;
 
 	/**
 	 * Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent.
 	 * \return returns X absolute position of the object as an integer.
 	 */
-	virtual int GetAbsoluteX() = 0;
+	virtual float GetAbsoluteX() = 0;
 	
 	/**
 	 * Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent.
 	 * \return returns Y absolute position of the object as an integer.
 	 */
-	virtual int GetAbsoluteY() = 0;
+	virtual float GetAbsoluteY() = 0;
 
 	/**
 	 * Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent.
 	 * \return returns absolute position as a point which specifies the X and Y position.
 	 */
-	virtual Gdiplus::Point GetAbsolutePosition() = 0;
+	virtual Vector2 GetAbsolutePosition() = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param position Sets the position as a point which specifies the X and Y position.
 	 */
-	virtual void SetPosition(Gdiplus::Point position) = 0;
+	virtual void SetPosition(Vector2 position) = 0;
 
 	/**
 	 * Sets the position of the object. 
 	 * \param x sets the X position of the object.
 	 * \param y sets the Y position of the object.
 	 */
-	virtual void SetPosition(int x, int y) = 0;
+	virtual void SetPosition(float x, float y) = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param x sets the X position of the object.
 	 */
-	virtual void SetX(int x) = 0;
+	virtual void SetX(float x) = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param y sets the Y position of the object.
 	 */
-	virtual void SetY(int y) = 0;
+	virtual void SetY(float y) = 0;
 
 
 	/**
 	 * Sets position from the current position
 	 * \param offset sets the position via a point object which specifies the X and Y position.
 	 */
-	virtual void SetTranslate(Gdiplus::Point offset) = 0;
+	virtual void SetTranslate(Vector2 offset) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param x specifies the X position.
 	 */
-	virtual void SetTranslateX(int x) = 0;
+	virtual void SetTranslateX(float x) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param y specifies the Y position.
 	 */
-	virtual void SetTranslateY(int y) = 0;
+	virtual void SetTranslateY(float y) = 0;
 
 	/**
 	 * Gets the element position dependent on the current position.
 	 * \return returns the point which specifies the X and Y position.
 	 */
-	virtual Gdiplus::Point GetTranslate() = 0;
+	virtual Vector2 GetTranslate() = 0;
 
 	/**
 	 * Gets the element X position dependent on the current position.
 	 * \return return the X position.
 	 */
-	virtual int GetTranslateX() = 0;
+	virtual float GetTranslateX() = 0;
 
 	/**
 	 * Gets the element Y position dependent on the current position.
 	 * \return return the Y position.
 	 */
-	virtual int GetTranslateY() = 0;
+	virtual float GetTranslateY() = 0;
 };
 

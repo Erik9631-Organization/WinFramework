@@ -10,18 +10,18 @@ Label::Label() : text("Arial")
 
 Label::Label(int x, int y, int width, int height, std::string name) : UiElement(x, y, width, height, name), text("Arial")
 {
-	background.SetColor(Color::MakeARGB(255, 30, 30, 30));
+	background.SetColor({30, 30, 30});
 	AddRenderable(background);
 	AddRenderable(text);
 }
 
-void Label::SetBackground(Gdiplus::Color color)
+void Label::SetBackground(Vector3 color)
 {
 	background.SetColor(color);
 	Repaint();
 }
 
-Gdiplus::Color Label::GetBackground()
+Vector3 Label::GetBackground()
 {
 	return background.GetColor();
 }

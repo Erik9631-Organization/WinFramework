@@ -5,6 +5,8 @@
 #include "DefaultRender.h"
 #include "GraphicsScaling.h"
 #include "ScalingUtil.h"
+#include "Vector3.h"
+#include "Vector4.h"
 class CircleBorder : public Renderable
 {
 protected:
@@ -12,23 +14,22 @@ protected:
 	float thickness = 12;
 
     ScalingUtil graphicsUtil;
-
-    Gdiplus::Pen* pen;
-	Gdiplus::SolidBrush* brush;
 	DefaultRender renderBehavior;
+	Vector4 color;
 
 public:
-	Gdiplus::PointF position;
-	Gdiplus::SizeF size;
+	Vector2 position;
+	Vector2 size;
 
 	CircleBorder();
 	~CircleBorder();
 	void SetDiameter(float diameter);
 	void SetThickness(float thickness);
-	void SetColor(Gdiplus::Color color);
+	void SetColor(Vector3 color);
+	void SetColor(Vector4 color);
 
-	Gdiplus::PointF GetPosition();
-	void SetPosition(Gdiplus::PointF point);
+	Vector2 GetPosition();
+	void SetPosition(Vector2 point);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();
@@ -40,7 +41,7 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable& renderable) override;
+	void AddRenderable(Renderable &renderable) override;
 	void RemoveRenderable(Renderable& renderable) override;
 	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
 

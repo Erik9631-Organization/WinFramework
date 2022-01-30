@@ -9,10 +9,10 @@ PasswordField::PasswordField() : PasswordField("")
 PasswordField::PasswordField(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName), text("Arial"), behavior(*this)
 {
 	text.SetFontSize(16.0);
-	text.SetColor(Color::Black);
-	border.SetColor(Color::MakeARGB(255, 100, 100, 100));
+	text.SetColor({0, 0, 0});
+	border.SetColor({100, 100, 100});
 	border.SetThickness(1.0f);
-	background.SetColor(Color(200, 200, 200));
+	background.SetColor({200, 200, 200});
 
 	renderBehavior.AddRenderable(background);
 	renderBehavior.AddRenderable(border);
@@ -39,12 +39,12 @@ wstring PasswordField::GetText()
 }
 
 
-Color PasswordField::GetBackgroundColor()
+Vector3 PasswordField::GetBackgroundColor()
 {
 	return background.GetColor();
 }
 
-void PasswordField::SetBackgroundColor(Color color)
+void PasswordField::SetBackgroundColor(Vector3 color)
 {
 	background.SetColor(color);
 	Repaint();

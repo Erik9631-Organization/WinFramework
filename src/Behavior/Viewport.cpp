@@ -4,24 +4,24 @@
 #include "Components/UiElement.h"
 #include "EventTypes/EventUpdateInfo.h"
 
-void Viewport::CalculateAbsolutePosition(Gdiplus::Point relative)
+void Viewport::CalculateAbsolutePosition(Vector2 relative)
 {
-    absolutePosition.X = (relative.X + associatedAdjustable.GetAbsoluteX()) * xMultiplier;
-    absolutePosition.Y = (relative.Y + associatedAdjustable.GetAbsoluteY()) * yMultiplier;
+    absolutePosition.SetX((relative.GetX() + associatedAdjustable.GetAbsoluteX()) * xMultiplier);
+    absolutePosition.SetY((relative.GetY() + associatedAdjustable.GetAbsoluteY()) * yMultiplier);
 }
 
-void Viewport::CalculateAbsoluteSize(Gdiplus::Size size)
+void Viewport::CalculateAbsoluteSize(Vector2 size)
 {
-    absoluteSize.Width = (size.Width + associatedAdjustable.GetWidth() + 1) * widthMultiplier;
-    absoluteSize.Height = (size.Height + associatedAdjustable.GetHeight() + 1) * heightMultiplier;
+    absoluteSize.SetX((size.GetX() + associatedAdjustable.GetWidth() + 1) * widthMultiplier);
+    absoluteSize.SetY((size.GetY() + associatedAdjustable.GetHeight() + 1) * heightMultiplier);
 }
 
 Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable&)*this), moveBehavior(viewportNode), resizeBehavior(*this)
 {
 
-    CalculateAbsoluteSize(Gdiplus::Size(0, 0));
-    CalculateAbsolutePosition(Gdiplus::Point(0, 0));
-    internalOffset = Gdiplus::Point(0, 0);
+    CalculateAbsoluteSize({0, 0});
+    CalculateAbsolutePosition({0, 0});
+    internalOffset = {0, 0};
 }
 
 
@@ -67,15 +67,15 @@ float Viewport::GetViewportHeightMultiplier()
 
 int Viewport::GetViewportAbsoluteWidth()
 {
-    return absoluteSize.Width;
+    return absoluteSize.GetX();
 }
 
 int Viewport::GetViewportAbsoluteHeight()
 {
-    return absoluteSize.Height;
+    return absoluteSize.GetY();
 }
 
-Gdiplus::Size Viewport::GetViewportAbsoluteSize()
+Vector2 Viewport::GetViewportAbsoluteSize()
 {
     return absoluteSize;
 }
@@ -95,52 +95,52 @@ void Viewport::NotifyOnMoveSubscribers(EventMoveInfo event)
     moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-Gdiplus::Point Viewport::GetPosition()
+Vector2 Viewport::GetPosition()
 {
     return moveBehavior.GetPosition();
 }
 
-int Viewport::GetX()
+float Viewport::GetX()
 {
     return moveBehavior.GetX();
 }
 
-int Viewport::GetY()
+float Viewport::GetY()
 {
     return moveBehavior.GetY();
 }
 
-int Viewport::GetAbsoluteX()
+float Viewport::GetAbsoluteX()
 {
-    return absolutePosition.X;
+    return absolutePosition.GetX();
 }
 
-int Viewport::GetAbsoluteY()
+float Viewport::GetAbsoluteY()
 {
-    return absolutePosition.Y;
+    return absolutePosition.GetY();
 }
 
-Gdiplus::Point Viewport::GetAbsolutePosition()
+Vector2 Viewport::GetAbsolutePosition()
 {
     return absolutePosition;
 }
 
-void Viewport::SetPosition(Gdiplus::Point position)
+void Viewport::SetPosition(Vector2 position)
 {
     moveBehavior.SetPosition(position);
 }
 
-void Viewport::SetPosition(int x, int y)
+void Viewport::SetPosition(float x, float y)
 {
     moveBehavior.SetPosition(x, y);
 }
 
-void Viewport::SetX(int x)
+void Viewport::SetX(float x)
 {
     moveBehavior.SetX(x);
 }
 
-void Viewport::SetY(int y)
+void Viewport::SetY(float y)
 {
     moveBehavior.SetY(y);
 }
@@ -160,37 +160,37 @@ void Viewport::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-Gdiplus::Size Viewport::GetSize()
+Vector2 Viewport::GetSize()
 {
     return resizeBehavior.GetSize();
 }
 
-int Viewport::GetWidth()
+float Viewport::GetWidth()
 {
     return resizeBehavior.GetWidth();
 }
 
-int Viewport::GetHeight()
+float Viewport::GetHeight()
 {
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(Gdiplus::Size size)
+void Viewport::SetSize(Vector2 size)
 {
     resizeBehavior.SetSize(size);
 }
 
-void Viewport::SetSize(int width, int height)
+void Viewport::SetSize(float width, float height)
 {
     resizeBehavior.SetSize(width, height);
 }
 
-void Viewport::SetWidth(int width)
+void Viewport::SetWidth(float width)
 {
     resizeBehavior.SetWidth(width);
 }
 
-void Viewport::SetHeight(int height)
+void Viewport::SetHeight(float height)
 {
     resizeBehavior.SetHeight(height);
 }
@@ -201,32 +201,32 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetTranslate(Gdiplus::Point offset)
+void Viewport::SetTranslate(Vector2 offset)
 {
     moveBehavior.SetTranslate(offset);
 }
 
-void Viewport::SetTranslateX(int x)
+void Viewport::SetTranslateX(float x)
 {
     moveBehavior.SetTranslateX(x);
 }
 
-void Viewport::SetTranslateY(int y)
+void Viewport::SetTranslateY(float y)
 {
     moveBehavior.SetTranslateY(y);
 }
 
-Gdiplus::Point Viewport::GetTranslate()
+Vector2 Viewport::GetTranslate()
 {
     return moveBehavior.GetTranslate();
 }
 
-int Viewport::GetTranslateX()
+float Viewport::GetTranslateX()
 {
     return moveBehavior.GetTranslateX();
 }
 
-int Viewport::GetTranslateY()
+float Viewport::GetTranslateY()
 {
     return moveBehavior.GetTranslateY();
 }

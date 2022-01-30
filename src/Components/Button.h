@@ -35,46 +35,36 @@ public:
 	/**
 	 * \param color sets the color of the border.
 	 */
-	void SetBorderColor(COLORREF color);
+	void SetBorderColor(Vector3 color);
 
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackgroundColor(COLORREF color);
-
-	/**
-	 * \param color sets the color of the border.
-	 */
-	void SetBorderColor(Color color);
+	void SetBackgroundColor(Vector3 color);
 
 
 	/**
 	 * \return returns the background color of the thumbTrack.
 	 */
-	Gdiplus::Color GetBackgroundColor();
+    Vector3 GetBackgroundColor();
 
 	/*
 	 * \return returns the border color of the thumbTrack.
 	 */
-	Gdiplus::Color GetBorderColor();
+    Vector3 GetBorderColor();
 
-
-	/**
-	 * \param color sets the color of the border.
-	 */
-	void SetBackgroundColor(Color color);
 
 	/**
 	 * \param thickness sets the border thickness of the thumbTrack.
 	 */
 	void SetBorderThickness(float thickness);
-	void SetOnHoverColor(Gdiplus::Color color);
-	void SetOnClickColor(Gdiplus::Color color);
-	void SetColor(Gdiplus::Color color);
-	Gdiplus::Color GetColor();
+	void SetOnHoverColor(Vector3 color);
+	void SetOnClickColor(Vector3 color);
+	void SetColor(Vector3 color);
+	Vector3 GetColor();
 
-	Color GetOnClickColor();
-	Color GetOnHoverColor();
+	Vector3 GetOnClickColor();
+	Vector3 GetOnHoverColor();
 	~Button();
 };
 

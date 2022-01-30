@@ -1,19 +1,19 @@
 #include "EventMoveInfo.h"
-#include "Components/UiElement.h"
+#include "UiElement.h"
 #include "Components/Movable.h"
 
 
-Point EventMoveInfo::GetPosition()
+Vector2 EventMoveInfo::GetPosition() const
 {
 	return position;
 }
 
-Movable* EventMoveInfo::GetSrc()
+Movable* EventMoveInfo::GetSrc() const
 {
 	return src;
 }
 
-EventMoveInfo::EventMoveInfo(Point position, Movable* src) : src(src)
+EventMoveInfo::EventMoveInfo(Vector2 position, Movable* src) : src(src)
 {
 	this->position = position;
 	this->src = src;

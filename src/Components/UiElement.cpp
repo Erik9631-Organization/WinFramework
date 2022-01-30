@@ -23,7 +23,7 @@ UiElement::UiElement(string name) : UiElement(0, 0, 0, 0, name)
 {
 }
 
-UiElement::UiElement(int x, int y, int width, int height, string name) :
+UiElement::UiElement(float x, float y, float width, float height, string name) :
         uiElementNode(*this),
 	moveBehavior(uiElementNode),
 	mouseHandler(uiElementNode),
@@ -73,13 +73,13 @@ void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
 	moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-void UiElement::SetX(int x)
+void UiElement::SetX(float x)
 {
 	moveBehavior.SetX(x);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetY(int y)
+void UiElement::SetY(float y)
 {
 	moveBehavior.SetY(y);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -88,13 +88,13 @@ void UiElement::SetY(int y)
 void UiElement::OnRender(RenderEventInfo e)
 {
 
-	Gdiplus::Point parentPos = Gdiplus::Point(0, 0);
+	Vector2 parentPos = {0, 0};
 	if( !IsRoot())
     {
-        parentPos.X = GetX();
-        parentPos.Y = GetY();
+        parentPos.SetX(GetX());
+        parentPos.SetY(GetY());
     }
-	RenderEventInfo parentInfo = RenderEventInfo(e.GetGraphics(), GetSize(), parentPos);
+	RenderEventInfo parentInfo = RenderEventInfo(e.GetRenderer(), GetSize(), parentPos);
 	renderBehavior.OnRender(parentInfo);
 }
 
@@ -105,7 +105,7 @@ void UiElement::Repaint()
 	GetRoot().Repaint();
 }
 
-void UiElement::AddRenderable(Renderable& renderable)
+void UiElement::AddRenderable(Renderable &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
@@ -130,12 +130,12 @@ void UiElement::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetWidth(int width)
+void UiElement::SetWidth(float width)
 {
 	resizeBehavior.SetWidth(width);
 }
 
-void UiElement::SetHeight(int height)
+void UiElement::SetHeight(float height)
 {
 	resizeBehavior.SetHeight(height);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -211,7 +211,7 @@ void UiElement::SetViewportYOffset(int y)
 	viewport.SetY(y);
 }
 
-void UiElement::SetViewportOffset(Gdiplus::Point offset)
+void UiElement::SetViewportOffset(Vector2 offset)
 {
 	viewport.SetPosition(offset);
 }
@@ -226,7 +226,7 @@ int UiElement::GetViewportAbsoluteY()
 	return viewport.GetAbsoluteY();
 }
 
-Gdiplus::Point UiElement::GetViewportAbsolutePosition()
+Vector2 UiElement::GetViewportAbsolutePosition()
 {
 	return viewport.GetAbsolutePosition();
 }
@@ -241,7 +241,7 @@ int UiElement::GetViewportY()
 	return viewport.GetY();
 }
 
-Gdiplus::Point UiElement::GetViewportPosition()
+Vector2 UiElement::GetViewportPosition()
 {
 	return viewport.GetPosition();
 }
@@ -271,7 +271,7 @@ int UiElement::GetViewportHeight()
 	return viewport.GetHeight();
 }
 
-void UiElement::SetViewportSize(Gdiplus::Size size)
+void UiElement::SetViewportSize(Vector2 size)
 {
 	viewport.SetSize(size);
 }
@@ -291,7 +291,7 @@ void UiElement::SetViewportHeight(int height)
 	viewport.SetHeight(height);
 }
 
-Gdiplus::Size UiElement::GetViewportSize()
+Vector2 UiElement::GetViewportSize()
 {
 	return viewport.GetSize();
 }
@@ -306,7 +306,7 @@ int UiElement::GetViewportAbsoluteHeight()
 	return viewport.GetViewportAbsoluteHeight();
 }
 
-Gdiplus::Size UiElement::GetViewportAbsoluteSize()
+Vector2 UiElement::GetViewportAbsoluteSize()
 {
 	return viewport.GetViewportAbsoluteSize();
 }
@@ -376,11 +376,11 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 	mouseHandler.RemoveMouseStateSubscriber(subscriber);
 }
 
-bool UiElement::ColidesWithPoint(Gdiplus::Point point)
+bool UiElement::ColidesWithPoint(Vector2 point)
 {
-	if ( !(point.X >= GetAbsoluteX() && point.X <= GetAbsoluteX() + GetWidth()) )
+	if ( !(point.GetX() >= GetAbsoluteX() && point.GetX() <= GetAbsoluteX() + GetWidth()) )
 		return false;
-	if ( !(point.Y >= GetAbsoluteY() && point.Y <= GetAbsoluteY() + GetHeight()) )
+	if ( !(point.GetY() >= GetAbsoluteY() && point.GetY() <= GetAbsoluteY() + GetHeight()) )
 		return false;
 	return true;
 }
@@ -400,7 +400,7 @@ bool UiElement::HasMouseEntered()
 	return mouseHandler.HasMouseEntered();
 }
 
-std::any UiElement::ColidesWithUpmost(Gdiplus::Point point)
+std::any UiElement::ColidesWithUpmost(Vector2 point)
 {
 	for (int i = 0; i < uiElementNode.GetNodeCount(); i++)
 	{
@@ -450,7 +450,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber)
 	uiElementNode.RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(Gdiplus::Point offset)
+void UiElement::SetTranslate(Vector2 offset)
 {
 	if (ignoreTranslate)
 		return;
@@ -458,14 +458,14 @@ void UiElement::SetTranslate(Gdiplus::Point offset)
     moveBehavior.SetTranslate(offset);
 }
 
-void UiElement::SetTranslateX(int x)
+void UiElement::SetTranslateX(float x)
 {
 	if (ignoreTranslate)
 		return;
     moveBehavior.SetTranslateX(x);
 }
 
-void UiElement::SetTranslateY(int y)
+void UiElement::SetTranslateY(float y)
 {
 	if (ignoreTranslate)
 		return;
@@ -473,27 +473,27 @@ void UiElement::SetTranslateY(int y)
     moveBehavior.SetTranslateY(y);
 }
 
-Gdiplus::Point UiElement::GetTranslate()
+Vector2 UiElement::GetTranslate()
 {
 	return moveBehavior.GetTranslate();
 }
 
-int UiElement::GetTranslateX()
+float UiElement::GetTranslateX()
 {
 	return moveBehavior.GetTranslateX();
 }
 
-int UiElement::GetTranslateY()
+float UiElement::GetTranslateY()
 {
 	return moveBehavior.GetTranslateY();
 }
 
-Gdiplus::Point UiElement::GetChildrenTranslate()
+Vector2 UiElement::GetChildrenTranslate()
 {
 	return moveBehavior.GetChildrenTranslate();
 }
 
-void UiElement::SetChildrenTranslate(Gdiplus::Point internalOffset)
+void UiElement::SetChildrenTranslate(Vector2 internalOffset)
 {
 	if (ignoreTranslate)
 		return;
@@ -513,17 +513,17 @@ void UiElement::UpdateSubNodes(EventUpdateInfo e)
 }
 
 
-int UiElement::GetAbsoluteX()
+float UiElement::GetAbsoluteX()
 {
 	return moveBehavior.GetAbsoluteX();
 }
 
-int UiElement::GetAbsoluteY()
+float UiElement::GetAbsoluteY()
 {
 	return moveBehavior.GetAbsoluteY();
 }
 
-Gdiplus::Point UiElement::GetAbsolutePosition()
+Vector2 UiElement::GetAbsolutePosition()
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -553,27 +553,27 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-Size UiElement::GetSize()
+Vector2 UiElement::GetSize()
 {
 	return resizeBehavior.GetSize();
 }
 
-Point UiElement::GetPosition()
+Vector2 UiElement::GetPosition()
 {
 	return moveBehavior.GetPosition();
 }
 
-int UiElement::GetWidth()
+float UiElement::GetWidth()
 {
 	return resizeBehavior.GetWidth();
 }
 
-int UiElement::GetHeight()
+float UiElement::GetHeight()
 {
 	return resizeBehavior.GetHeight();
 }
 
-int UiElement::GetX()
+float UiElement::GetX()
 {
 	return moveBehavior.GetX();
 }
@@ -584,7 +584,7 @@ MultiTree<UiElement&>& UiElement::GetUiElementNode()
 }
 
 
-int UiElement::GetY()
+float UiElement::GetY()
 {
 	return moveBehavior.GetY();
 }
@@ -596,13 +596,13 @@ UiElement * UiElement::GetParent()
 	return (UiElement*)&uiElementNode.GetParent()->GetValue();
 }
 
-void UiElement::SetSize(int width, int height)
+void UiElement::SetSize(float width, float height)
 {
 	resizeBehavior.SetSize(width, height);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(Size size)
+void UiElement::SetSize(Vector2 size)
 {
 	resizeBehavior.SetSize(size);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -613,13 +613,13 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetPosition(int x, int y)
+void UiElement::SetPosition(float x, float y)
 {
 	moveBehavior.SetPosition(x, y);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(Point pos)
+void UiElement::SetPosition(Vector2 pos)
 {
 	moveBehavior.SetPosition(pos);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));

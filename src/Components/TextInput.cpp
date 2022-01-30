@@ -11,10 +11,10 @@ TextInput::TextInput(int x, int y, int width, int height, string windowName) : t
 	SetSize(width, height);
 
 	text.SetFontSize(12.0);
-	text.SetColor(Color::Black);
-	border.SetColor(Color::MakeARGB(255, 100, 100, 100));
+	text.SetColor({0, 0, 0});
+	border.SetColor({100, 100, 100});
 	border.SetThickness(1.0f);
-	background.SetColor(Color(200, 200, 200));
+	background.SetColor({200, 200, 200});
 
 	renderBehavior.AddRenderable(background);
 	renderBehavior.AddRenderable(border);
@@ -36,7 +36,7 @@ wstring TextInput::GetText()
 	return text.GetText();
 }
 
-Color TextInput::GetBackgroundColor()
+Vector3 TextInput::GetBackgroundColor()
 {
 	return background.GetColor();
 }
@@ -51,7 +51,7 @@ bool TextInput::IsMultiLine()
 	return inputBehavior.IsMultiLine();
 }
 
-void TextInput::SetBackgroundColor(Color color)
+void TextInput::SetBackgroundColor(Vector3 color)
 {
 	background.SetColor(color);
 	Repaint();

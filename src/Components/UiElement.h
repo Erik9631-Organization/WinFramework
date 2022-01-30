@@ -55,7 +55,7 @@ public:
 
 	UiElement();
 	UiElement(string name);
-	UiElement(int x, int y, int width, int height, string windowName);
+	UiElement(float x, float y, float width, float height, string name);
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
@@ -91,26 +91,26 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	Size GetSize() override;
-	Point GetPosition() override;
-	int GetWidth() override;
-	int GetHeight() override;
-	int GetX() override;
+	Vector2 GetSize() override;
+	Vector2 GetPosition() override;
+	float GetWidth() override;
+	float GetHeight() override;
+	float GetX() override;
 	
 	/**
 	 * Gets the current node within the containment hierarchy
 	 * \return returns a node within the Tree of the containment hierarchy.
 	 */
 	MultiTree<UiElement&>& GetUiElementNode();
-	int GetY() override;
+	float GetY() override;
 
 	/**
 	 * Gets the pointer to the parent of this component
 	 * \return returns pointer of the parent component.
 	 */
 	UiElement * GetParent();
-	void SetSize(int width, int height) override;
-	void SetSize(Gdiplus::Size size) override;
+	void SetSize(float width, float height) override;
+	void SetSize(Vector2 size) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -135,8 +135,8 @@ public:
 	 */
 	void SetComponentName(string name);
 
-	virtual void SetPosition(int x, int y);
-	virtual void SetPosition(Gdiplus::Point pos);
+	virtual void SetPosition(float x, float y);
+	virtual void SetPosition(Vector2 pos);
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -151,24 +151,24 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual void SetX(int x) override;
-	virtual void SetY(int y) override;
-	virtual int GetAbsoluteX() override;
-	virtual int GetAbsoluteY() override;
-	virtual Gdiplus::Point GetAbsolutePosition() override;
+	virtual void SetX(float x) override;
+	virtual void SetY(float y) override;
+	virtual float GetAbsoluteX() override;
+	virtual float GetAbsoluteY() override;
+	virtual Vector2 GetAbsolutePosition() override;
 
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable& renderable) override;
+	virtual void AddRenderable(Renderable &renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void SetWidth(int width) override;
-	virtual void SetHeight(int height) override;
+	virtual void SetWidth(float width) override;
+	virtual void SetHeight(float height) override;
 
 	// Inherited via Renderable
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
@@ -187,28 +187,28 @@ public:
 	virtual float GetViewportHeightMultiplier() override;
 	virtual void SetViewportXOffset(int x) override;
 	virtual void SetViewportYOffset(int y) override;
-	virtual void SetViewportOffset(Gdiplus::Point offset) override;
+	virtual void SetViewportOffset(Vector2 offset) override;
 	virtual int GetViewportAbsoluteX() override;
 	virtual int GetViewportAbsoluteY() override;
-	virtual Gdiplus::Point GetViewportAbsolutePosition() override;
+	virtual Vector2 GetViewportAbsolutePosition() override;
 	virtual int GetViewportX() override;
 	virtual int GetViewportY() override;
-	virtual Gdiplus::Point GetViewportPosition() override;
+	virtual Vector2 GetViewportPosition() override;
 	virtual void NotifyOnViewportResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual int GetViewportWidth() override;
 	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(Gdiplus::Size size) override;
+	virtual void SetViewportSize(Vector2 size) override;
 	virtual void SetViewportSize(int width, int height) override;
 	virtual void SetViewportWidth(int width) override;
 	virtual void SetViewportHeight(int height) override;
-	virtual Gdiplus::Size GetViewportSize() override;
+	virtual Vector2 GetViewportSize() override;
 
 	// Inherited via Viewable
 	virtual int GetViewportAbsoluteWidth() override;
 	virtual int GetViewportAbsoluteHeight() override;
-	virtual Gdiplus::Size GetViewportAbsoluteSize() override;
+	virtual Vector2 GetViewportAbsoluteSize() override;
 
 	// Inherited via UpdateSubscriber
 	virtual void OnUpdate(EventUpdateInfo e) override;
@@ -229,7 +229,7 @@ public:
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(Gdiplus::Point) override;
+	virtual bool ColidesWithPoint(Vector2 point) override;
 
 	// Inherited via MouseStateSubject
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
@@ -271,7 +271,7 @@ public:
 	}
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(Gdiplus::Point) override;
+	virtual std::any ColidesWithUpmost(Vector2 point) override;
 
 	// Inherited via KeyStateSubject
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
@@ -287,26 +287,26 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(Gdiplus::Point offset) override;
-	virtual void SetTranslateX(int x) override;
-	virtual void SetTranslateY(int Y) override;
+	virtual void SetTranslate(Vector2 offset) override;
+	virtual void SetTranslateX(float x) override;
+	virtual void SetTranslateY(float Y) override;
 
 	// Inherited via Adjustable
-	virtual Gdiplus::Point GetTranslate() override;
-	virtual int GetTranslateX() override;
-	virtual int GetTranslateY() override;
+	virtual Vector2 GetTranslate() override;
+	virtual float GetTranslateX() override;
+	virtual float GetTranslateY() override;
 	
 	/**
 	 * Gets the internal position of the child components
 	 * \return returns the point that contains X and Y of the internal position.
 	 */
-	Gdiplus::Point GetChildrenTranslate();
+    Vector2 GetChildrenTranslate();
 	
 	/**
 	 * Sets the position of all the subcomponents that are owned by this component at once
 	 * \param internalOffset the position
 	 */
-	void SetChildrenTranslate(Gdiplus::Point internalOffset);
+	void SetChildrenTranslate(Vector2 internalOffset);
 
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 

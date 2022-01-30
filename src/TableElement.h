@@ -9,8 +9,8 @@ class TableElement : public Label
 private:
 	bool selected = false;
 	std::any value;
-	Gdiplus::Color highlightColor;
-	Gdiplus::Color originalcolor;
+	Vector3 highlightColor;
+	Vector3 originalcolor;
 public:
 	TableElement();
 	TableElement(std::string name);

@@ -14,10 +14,10 @@ class DefaultMove : public Movable
 {
 private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
-	Gdiplus::Point absolutePosition;
-	Gdiplus::Point relativePosition;
-	Gdiplus::Point translate; // Defines the position within the viewport
-	Gdiplus::Point childrenTranslate;
+	Vector2 absolutePosition;
+	Vector2 relativePosition;
+	Vector2 translate; // Defines the position within the viewport
+	Vector2 childrenTranslate;
 	MultiTree<T>& associatedAdjustableNode;
 
 public:
@@ -26,38 +26,38 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual Gdiplus::Point GetPosition() override;
-	virtual int GetX() override;
-	virtual int GetY() override;
-	virtual void SetPosition(Gdiplus::Point position) override;
-	virtual void SetPosition(int x, int y) override;
-	virtual void SetX(int x) override;
-	virtual void SetY(int y) override;
-	virtual int GetAbsoluteX() override;
-	virtual int GetAbsoluteY() override;
-	virtual Gdiplus::Point GetAbsolutePosition() override;
+	virtual Vector2 GetPosition() override;
+	virtual float GetX() override;
+	virtual float GetY() override;
+	virtual void SetPosition(Vector2 position) override;
+	virtual void SetPosition(float x, float y) override;
+	virtual void SetX(float x) override;
+	virtual void SetY(float y) override;
+	virtual float GetAbsoluteX() override;
+	virtual float GetAbsoluteY() override;
+	virtual Vector2 GetAbsolutePosition() override;
 
-	virtual void SetTranslate(Gdiplus::Point offset) override;
-	virtual void SetTranslateX(int x) override;
-	virtual void SetTranslateY(int Y) override;
+	virtual void SetTranslate(Vector2 offset) override;
+	virtual void SetTranslateX(float x) override;
+	virtual void SetTranslateY(float Y) override;
 
-	virtual Gdiplus::Point GetTranslate() override;
-	virtual int GetTranslateX() override;
-	virtual int GetTranslateY() override;
+	virtual Vector2 GetTranslate() override;
+	virtual float GetTranslateX() override;
+	virtual float GetTranslateY() override;
 
-	Gdiplus::Point GetChildrenTranslate();
-	void TranslateChildren(Gdiplus::Point translate);
+	Vector2 GetChildrenTranslate() const;
+	void TranslateChildren(Vector2 translate);
 };
 
 
 template<class T>
-Gdiplus::Point DefaultMove<T>::GetChildrenTranslate()
+Vector2 DefaultMove<T>::GetChildrenTranslate() const
 {
 	return childrenTranslate;
 }
 
 template<class T>
-void DefaultMove<T>::TranslateChildren(Gdiplus::Point translate)
+void DefaultMove<T>::TranslateChildren(Vector2 translate)
 {
 	this->childrenTranslate = translate;
 	for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
@@ -66,45 +66,45 @@ void DefaultMove<T>::TranslateChildren(Gdiplus::Point translate)
 
 
 template<class T>
-void DefaultMove<T>::SetTranslate(Gdiplus::Point offset)
+void DefaultMove<T>::SetTranslate(Vector2 offset)
 {
 	this->translate = offset;
 }
 template<class T>
-void DefaultMove<T>::SetTranslateX(int x)
+void DefaultMove<T>::SetTranslateX(float x)
 {
-	this->translate.X = x;
+	this->translate.SetX(x);
 }
 template<class T>
-void DefaultMove<T>::SetTranslateY(int y)
+void DefaultMove<T>::SetTranslateY(float y)
 {
-	this->translate.Y = y;
+	this->translate.SetY(y);
 }
 
 template<class T>
-Gdiplus::Point DefaultMove<T>::GetTranslate()
+Vector2 DefaultMove<T>::GetTranslate()
 {
 	return translate;
 }
 
 template<class T>
-int DefaultMove<T>::GetTranslateX()
+float DefaultMove<T>::GetTranslateX()
 {
-	return translate.X;
+	return translate.GetX();
 }
 
 template<class T>
-int DefaultMove<T>::GetTranslateY()
+float DefaultMove<T>::GetTranslateY()
 {
-	return translate.Y;
+	return translate.GetY();
 }
 
 template<class T>
 DefaultMove<T>::DefaultMove(MultiTree<T>& adjustable) : associatedAdjustableNode(adjustable)
 {
-	absolutePosition = Gdiplus::Point(0, 0);
-    translate = Gdiplus::Point(0, 0);
-    childrenTranslate = Gdiplus::Point(0, 0);
+	absolutePosition = {0, 0};
+	translate = {0, 0};
+	childrenTranslate = {0, 0};
 }
 
 template<class T>
@@ -116,8 +116,8 @@ void DefaultMove<T>::CalculateAbsolutePosition()
 	}
 	else
 	{
-		absolutePosition.X = relativePosition.X + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteX() + translate.X;
-		absolutePosition.Y = relativePosition.Y + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteY() + translate.Y;
+	    absolutePosition.SetX(relativePosition.GetX() + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteX() + translate.GetX());
+	    absolutePosition.SetY(relativePosition.GetY() + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteY() + translate.GetY());
 	}
 }
 
@@ -148,25 +148,25 @@ void DefaultMove<T>::NotifyOnMoveSubscribers(EventMoveInfo event)
 }
 
 template<class T>
-Gdiplus::Point DefaultMove<T>::GetPosition()
+Vector2 DefaultMove<T>::GetPosition()
 {
 	return relativePosition;
 }
 
 template<class T>
-int DefaultMove<T>::GetX()
+float DefaultMove<T>::GetX()
 {
-	return relativePosition.X;
+	return relativePosition.GetX();
 }
 
 template<class T>
-int DefaultMove<T>::GetY()
+float DefaultMove<T>::GetY()
 {
-	return relativePosition.Y;
+	return relativePosition.GetY();
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(Gdiplus::Point position)
+void DefaultMove<T>::SetPosition(Vector2 position)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();
@@ -174,43 +174,43 @@ void DefaultMove<T>::SetPosition(Gdiplus::Point position)
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(int x, int y)
+void DefaultMove<T>::SetPosition(float x, float y)
 {
-	Gdiplus::Point newPoint = Gdiplus::Point(x, y);
+	Vector2 newPoint = {x, y};
 	SetPosition(newPoint);
 }
 
 template<class T>
-void DefaultMove<T>::SetX(int x)
+void DefaultMove<T>::SetX(float x)
 {
-	relativePosition.X = x;
+	relativePosition.SetX(x);
 	CalculateAbsolutePosition();
 	NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
 }
 
 template<class T>
-void DefaultMove<T>::SetY(int y)
+void DefaultMove<T>::SetY(float y)
 {
-	relativePosition.Y = y;
+	relativePosition.SetY(y);
 	CalculateAbsolutePosition();
 
 	NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
 }
 
 template<class T>
-int DefaultMove<T>::GetAbsoluteX()
+float DefaultMove<T>::GetAbsoluteX()
 {
-	return absolutePosition.X;
+	return absolutePosition.GetX();
 }
 
 template<class T>
-int DefaultMove<T>::GetAbsoluteY()
+float DefaultMove<T>::GetAbsoluteY()
 {
-	return absolutePosition.Y;
+	return absolutePosition.GetY();
 }
 
 template<class T>
-Gdiplus::Point DefaultMove<T>::GetAbsolutePosition()
+Vector2 DefaultMove<T>::GetAbsolutePosition()
 {
 	return absolutePosition;
 }

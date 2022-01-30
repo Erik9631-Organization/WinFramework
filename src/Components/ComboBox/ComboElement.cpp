@@ -10,7 +10,7 @@
 ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText, std::any value) : comboSelection(comboSelection), text(displayText)
 {
 	this->value = value;
-	elementGui == nullptr;
+	elementGui = nullptr;
 	deleteSyncMutex = new std::mutex();
 	deleteSync = new std::condition_variable();
 }
