@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LiiFramework: Graphics/WindowFrame.h Source File</title>
+<title>LiiFramework: Graphics/Window.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -82,7 +82,7 @@ $(document).ready(function(){initNavTree('_window_frame_8h_source.html',''); ini
 
 <div class="header">
   <div class="headertitle">
-<div class="title">WindowFrame.h</div>  </div>
+<div class="title">Window.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
@@ -96,13 +96,13 @@ $(document).ready(function(){initNavTree('_window_frame_8h_source.html',''); ini
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;Background.h&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using namespace </span>std;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="class_core_window_frame.html">CoreWindowFrame</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span><a class="code" href="class_core_window_frame.html">CoreWindow</a>;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_window_frame.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_window_frame.html">WindowFrame</a> : <span class="keyword">public</span> <a class="code" href="class_component.html">Component</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_window_frame.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_window_frame.html">Window</a> : <span class="keyword">public</span> <a class="code" href="class_component.html">Component</a></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_component.html">Component</a>* currentFocus = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_core_window_frame.html">CoreWindowFrame</a>* coreFrame;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_core_window_frame.html">CoreWindow</a>* coreFrame;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    thread* windowThread;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    condition_variable* initWait;</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> initNotified = <span class="keyword">false</span>;</div>
@@ -135,25 +135,25 @@ $(document).ready(function(){initNavTree('_window_frame_8h_source.html',''); ini
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> CloseWindow();</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> UpdateWindow();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_window_frame.html">WindowFrame</a>(std::string windowName);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_window_frame.html">WindowFrame</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, std::string windowName);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_window_frame.html">WindowFrame</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, std::string windowName, LONG style);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="class_window_frame.html">Window</a>(std::string windowName);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="class_window_frame.html">Window</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, std::string windowName);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="class_window_frame.html">Window</a>(<span class="keywordtype">int</span> x, <span class="keywordtype">int</span> y, <span class="keywordtype">int</span> width, <span class="keywordtype">int</span> height, std::string windowName, LONG style);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> Add(<a class="code" href="class_component.html">Component</a>&amp; component) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    ~<a class="code" href="class_window_frame.html">WindowFrame</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    ~<a class="code" href="class_window_frame.html">Window</a>();</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="ttc" id="aclass_background_html"><div class="ttname"><a href="class_background.html">Background</a></div><div class="ttdef"><b>Definition:</b> Background.h:14</div></div>
 <div class="ttc" id="aclass_component_html"><div class="ttname"><a href="class_component.html">Component</a></div><div class="ttdef"><b>Definition:</b> Component.h:36</div></div>
-<div class="ttc" id="aclass_core_window_frame_html"><div class="ttname"><a href="class_core_window_frame.html">CoreWindowFrame</a></div><div class="ttdef"><b>Definition:</b> CoreWindowFrame.h:21</div></div>
+<div class="ttc" id="aclass_core_window_frame_html"><div class="ttname"><a href="class_core_window_frame.html">CoreWindow</a></div><div class="ttdef"><b>Definition:</b> CoreWindow.h:21</div></div>
 <div class="ttc" id="aclass_event_key_state_info_html"><div class="ttname"><a href="class_event_key_state_info.html">EventKeyStateInfo</a></div><div class="ttdef"><b>Definition:</b> EventKeyStateInfo.h:9</div></div>
 <div class="ttc" id="aclass_event_mouse_state_info_html"><div class="ttname"><a href="class_event_mouse_state_info.html">EventMouseStateInfo</a></div><div class="ttdef"><b>Definition:</b> EventMouseStateInfo.h:12</div></div>
-<div class="ttc" id="aclass_window_frame_html"><div class="ttname"><a href="class_window_frame.html">WindowFrame</a></div><div class="ttdef"><b>Definition:</b> WindowFrame.h:20</div></div>
+<div class="ttc" id="aclass_window_frame_html"><div class="ttname"><a href="class_window_frame.html">Window</a></div><div class="ttdef"><b>Definition:</b> Window.h:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_64f7452aef2cdad98d34a70f5ea329e2.html">Graphics</a></li><li class="navelem"><b>WindowFrame.h</b></li>
+    <li class="navelem"><a class="el" href="dir_64f7452aef2cdad98d34a70f5ea329e2.html">Graphics</a></li><li class="navelem"><b>Window.h</b></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

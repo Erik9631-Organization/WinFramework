@@ -3,8 +3,6 @@
   The class acts as an observer and is a composite for the class Shape and class Vgraphics
 */
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
 #include <vector>
 #include <string>
 #include "DefaultMultiTree.h"

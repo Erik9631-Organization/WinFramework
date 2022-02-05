@@ -1,5 +1,5 @@
 #pragma once
-#include "WindowFrame.h"
+#include "Window.h"
 #include <Windows.h>
 #include <string>
 #include <gdiplus.h>
@@ -17,10 +17,10 @@ using namespace std;
 using namespace Gdiplus;
 class RenderingProvider;
 /**
- * The core frame, the raw root of the entire system. The class is wrapped by WindowFrame class.
+ * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindowFrame : Renderable
+class CoreWindow : Renderable
 {
 
 
@@ -39,7 +39,7 @@ private:
 	HWND windowHandle;
 	void CreateConsole();
 	HDC secondaryDc;
-	WindowFrame& wrapperFrame;
+	Window& wrapperFrame;
 	HBITMAP secondaryBitmap;
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
 	DefaultRender renderBehavior;
@@ -49,7 +49,7 @@ private:
 	Vector2 prevMousePos;
 	Vector2 mouseDelta;
 	Vector2 relativePos;
-	RenderingProvider* renderingProvider;
+	RenderingProvider* renderingProvider = nullptr;
 public:
 	/**
 	 * Updates the scale of the window
@@ -62,13 +62,13 @@ public:
 	 * \param windowName the name of the window which is being displayed
 	 * \param style the style of the window that should be used. Please check MSDN for window styles.
 	 */
-	CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame,string windowName, LONG style);
+	CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrapperFrame,string windowName, LONG style);
 	/**
 	 * The message loop of the window. This is where all the messages are processed.
 	 */
 	void MessageLoop();
 	/**
-	 * Called by CoreWindowFrame::MessageLoop to process a specific message.
+	 * Called by CoreWindow::MessageLoop to process a specific message.
 	 */
 	void ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 	/**
@@ -82,7 +82,7 @@ public:
 	/**
 	 * Gets the wrapper frame of this class.
 	 */
-	WindowFrame& GetWrapperFrame();
+	Window& GetWrapperFrame();
 	/**
 	 * Gets the hardware context of the current window.
 	 */
@@ -101,7 +101,7 @@ public:
 	 * /param output unicode text to output.
 	 */
 	static void UnicodeConsoleWrite(std::wstring output);
-	~CoreWindowFrame();
+	~CoreWindow();
 
 	// Inherited via Renderable
 	/**
@@ -148,6 +148,7 @@ public:
 
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
+	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void SetRenderingProvider(RenderingProvider& provider);
 	RenderingProvider* GetRenderingProvider();
 };

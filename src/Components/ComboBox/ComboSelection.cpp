@@ -1,9 +1,9 @@
 #include "ComboSelection.h"
 #include "ComboElement.h"
-#include "Components/WindowFrame.h"
+#include "Components/Window.h"
 #include "Components/Grid/Grid.h"
 #include "Components/UiElement.h"
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 #include "Events/ComboBoxStateSubscriber.h"
 
 int ComboSelection::numberOfBoxes = 0;
@@ -14,7 +14,7 @@ void ComboSelection::CreateGui(int x, int y, int width, int height)
 		return;
 
 	int totalHeight = elementHeight * comboElements.size();
-	comboSelectionFrame = new WindowFrame(x, y, width, totalHeight, "ComboSelection" + to_string(numberOfBoxes), WS_VISIBLE | WS_POPUP);
+	comboSelectionFrame = new Window(x, y, width, totalHeight, "ComboSelection" + to_string(numberOfBoxes), WS_VISIBLE | WS_POPUP);
 
 	comboSelectionFrame->AddWindowExtendedStyle(WS_EX_TOOLWINDOW);
 	comboSelectionFrame->SetSize(width, totalHeight);

@@ -1,4 +1,4 @@
-set(PROJECT_NAME Graphics)
+set(PROJECT_NAME Lii)
 
 ################################################################################
 # Source groups
@@ -99,7 +99,7 @@ set(Lii_Renderer
         Renderer/GdiRenderer.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
-        )
+        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Components
@@ -109,7 +109,7 @@ set(Lii_Components
     "Components/Checkbox.h"
     "Components/Collidable.h"
     "Components/UiElement.h"
-    "Components/CoreWindowFrame.h"
+    "Components/CoreWindow.h"
     "Components/FileBrowser.h"
     "Components/Grid/Grid.h"
     "Components/Label.h"
@@ -125,14 +125,14 @@ set(Lii_Components
     "Components/Resizable.h"
     "Components/TextInput.h"
     "Components/Viewable.h"
-    "Components/WindowFrame.h"
+    "Components/Window.h"
     "Components/Activatable.cpp"
     "Components/Adjustable.cpp"
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
     "Components/Collidable.cpp"
     "Components/UiElement.cpp"
-    "Components/CoreWindowFrame.cpp"
+    "Components/CoreWindow.cpp"
     "Components/Label.cpp"
     "Components/MouseInteractable.cpp"
     "Components/Movable.cpp"
@@ -144,7 +144,7 @@ set(Lii_Components
     "Components/Resizable.cpp"
     "Components/TextInput.cpp"
         "Components/Viewable.cpp"
-    "Components/WindowFrame.cpp"
+    "Components/Window.cpp"
         Components/ScrollBar/ScrollBar.cpp Components/ScrollBar/ScrollBar.h OnAddHandler.h)
 source_group("Lii\\Components" FILES ${Lii_Components})
 
@@ -305,6 +305,12 @@ set(Lii_Utils
 
 source_group("Header Files\\Utils" FILES ${Lii_Utils})
 
+set(Lii_OpenGL
+        OpenGL/wglext.h
+        )
+
+source_group("Header Files\\OpenGL" FILES ${Lii_OpenGL})
+
 
 set(ALL_FILES
     ${Enums}
@@ -320,6 +326,7 @@ set(ALL_FILES
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
+    ${Lii_OpenGL}
 )
 
 ################################################################################
@@ -341,4 +348,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "Enums/"
         "Components/ScrollBar"
         "Renderer"
+        "OpenGL/"
         )
+
+target_link_libraries(Lii opengl32)

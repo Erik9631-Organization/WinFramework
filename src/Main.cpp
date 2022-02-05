@@ -1,11 +1,12 @@
 ﻿#include "ApplicationController.h"
 #include "WinWrapper.h" // Needed
 #include <Windows.h>
-#include "WindowFrame.h"
+#include "Window.h"
 #include "DemoApplication.h"
 #include "Button.h"
 #include "Panel.h"
 #include "ListBox.h"
+#include "OpenGLRenderingProvider.h"
 
 using namespace std;
 
@@ -74,11 +75,9 @@ int LiiEntry()
 {
     DemoApplication::LaunchDemoApp();
 
-    /*WindowFrame frame = WindowFrame(0, 0, 800, 600, "TestFrame");
-    Button listBox{50, 50, 50, 50};
-    listBox.SetComponentName("Button");
-    listBox.SetText(L"Test");
-    frame.Add(listBox);*/
+    //Window frame = Window(0, 0, 800, 600, "TestFrame");
+    /*shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
+    frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));*/
 	ApplicationController::JoinThreads();
 	return 0;
 }

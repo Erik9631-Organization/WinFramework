@@ -1,7 +1,7 @@
 #include "SimpleBorder.h"
 #include "RenderEventInfo.h"
 #include "GraphicsScaling.h"
-#include "CoreWindowFrame.h"
+#include "CoreWindow.h"
 
 
 SimpleBorder::SimpleBorder() :

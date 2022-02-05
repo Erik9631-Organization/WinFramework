@@ -4,7 +4,7 @@
 #include "Events/MouseStateSubject.h"
 #include "Events/DragSubscriber.h"
 #include "Events/DropSubscriber.h"
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 
 bool DragManager::isDragging = false;
 Draggable* DragManager::currentDragObj = nullptr;
@@ -13,7 +13,7 @@ DragManager* DragManager::srcManager = nullptr;
 
 void DragManager::OnDragStart()
 {
-	CoreWindowFrame::ConsoleWrite("Drag started!");
+	CoreWindow::ConsoleWrite("Drag started!");
 	isDragging = true;
 	currentDragObj = associatedDraggable;
 	srcManager = this;
@@ -22,7 +22,7 @@ void DragManager::OnDragStart()
 
 void DragManager::OnDragEnd()
 {
-	CoreWindowFrame::ConsoleWrite("Drag ended!");
+	CoreWindow::ConsoleWrite("Drag ended!");
 	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
 		// Reset states

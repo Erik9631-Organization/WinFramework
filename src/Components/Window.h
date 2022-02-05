@@ -10,20 +10,19 @@
 #include "GdiRenderingProvider.h"
 
 using namespace std;
-class CoreWindowFrame;
+class CoreWindow;
 class RenderingProvider;
 /**
- * This class wraps the CoreWindowFrame class and is responsible for delegating most of the method calls to that class.
+ * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
  * All the components that are to be displayed within the window should be added via the UiElement::Add function which this class inherits.
  */
-class WindowFrame : public UiElement
+class Window : public UiElement
 {
 private:
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-
-	CoreWindowFrame* coreFrame = nullptr;
+	CoreWindow* coreFrame = nullptr;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;
@@ -72,11 +71,11 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-	WindowFrame(std::string windowName);
-	WindowFrame(int x, int y, int width, int height, std::string windowName);
-	WindowFrame(int x, int y, int width, int height, std::string windowName, LONG style);
+	Window(std::string windowName);
+	Window(int x, int y, int width, int height, std::string windowName);
+	Window(int x, int y, int width, int height, std::string windowName, LONG style);
 	virtual void Add(UiElement& component) override;
-	~WindowFrame();
+	~Window();
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 

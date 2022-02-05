@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include <mutex>
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 
 ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText, std::any value) : comboSelection(comboSelection), text(displayText)
 {
@@ -39,7 +39,7 @@ void ComboElement::DisplayElementGui()
 	elementGui = new Button(0, 0, 0, 0);
 
 	if(isSelected == true)
-		elementGui->SetProperty("background-color", Gdiplus::Color(75, 75, 75));
+		elementGui->SetProperty<Vector3>("background-color", {75, 75, 75});
 
 	elementGui->SetText(text);
 	elementGui->AddMouseStateSubscriber(*this);
@@ -136,7 +136,7 @@ void ComboElement::OnMouseUp(EventMouseStateInfo e)
 	Button* button = dynamic_cast<Button*>(e.GetSrc());
 	comboSelection.UnselectOptions();
 	isSelected = true;
-	button->SetProperty("background-color", Gdiplus::Color(150, 150, 150));
+	button->SetProperty<Vector3>("background-color", {150, 150, 150});
 	for (MouseStateSubscriber& subscriber : comboBoxStateSubscribers)
 	{
 		if (elementGui != nullptr)

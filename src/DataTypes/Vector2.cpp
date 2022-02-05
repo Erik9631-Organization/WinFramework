@@ -4,7 +4,7 @@
 
 #include "Vector2.h"
 #include "Vector2Int.h"
-#include "CoreWindowFrame.h"
+#include "CoreWindow.h"
 
 float Vector2::GetX() const
 {
@@ -73,6 +73,6 @@ Vector2::Vector2(const Vector2Int &vector)
 
 Vector2 Vector2::operator-(const Vector2 &ref)
 {
-   // CoreWindowFrame::ConsoleWrite(to_string(ref.GetX()) + " " + to_string(ref.GetY()) + " - " + to_string(this->x) + " " + to_string(this->y));
+   // CoreWindow::ConsoleWrite(to_string(ref.GetX()) + " " + to_string(ref.GetY()) + " - " + to_string(this->x) + " " + to_string(this->y));
     return {this->x - ref.GetX(), this->y - ref.GetY()};
 }

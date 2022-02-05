@@ -1,4 +1,4 @@
-#include "CoreWindowFrame.h"
+#include "CoreWindow.h"
 #include <Windows.h>
 #include <iostream>
 #include <functional>
@@ -19,7 +19,7 @@
 HDC windowHdc;
 using namespace std;
 
-void CoreWindowFrame::MessageLoop()
+void CoreWindow::MessageLoop()
 {
 	MSG currentMsg;
 	while (GetMessage(&currentMsg, NULL, NULL, NULL))
@@ -28,7 +28,7 @@ void CoreWindowFrame::MessageLoop()
 		DispatchMessage(&currentMsg);
 	}
 }
-void CoreWindowFrame::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
+void CoreWindow::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	HKL currentLayout = GetKeyboardLayout(0); // For the current thread
 
@@ -49,7 +49,7 @@ void CoreWindowFrame::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 		wrapperFrame.NotifyOnKeyUp(EventKeyStateInfo(nullptr, wParam, unicodeKey, keyboardState));
 }
 
-LONG CoreWindowFrame::SetWindowAttributes(int index, LONG parameter)
+LONG CoreWindow::SetWindowAttributes(int index, LONG parameter)
 {
 	LONG currentAttributes = GetWindowLong(windowHandle, index);
 	LONG newAttributes = currentAttributes | parameter;
@@ -58,7 +58,7 @@ LONG CoreWindowFrame::SetWindowAttributes(int index, LONG parameter)
 	return returnVal;
 }
 
-LONG CoreWindowFrame::RemoveWindowAttributes(int index, LONG parameter)
+LONG CoreWindow::RemoveWindowAttributes(int index, LONG parameter)
 {
 	LONG currentAttributes = GetWindowLong(windowHandle, index);
 	LONG newAttributes = currentAttributes & (~parameter);
@@ -67,7 +67,7 @@ LONG CoreWindowFrame::RemoveWindowAttributes(int index, LONG parameter)
 	return returnVal;
 }
 
-void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
+void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT paintInfo;
 	switch (msg)
@@ -122,52 +122,47 @@ void CoreWindowFrame::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 }
 
-void CoreWindowFrame::RedrawWindow()
+void CoreWindow::RedrawWindow()
 {
     OnRender(nullptr);
 	UpdateWindow(windowHandle);
 }
 
-void CoreWindowFrame::CloseWindow()
+void CoreWindow::CloseWindow()
 {
 	PostMessage(windowHandle, WM_CLOSE, NULL, NULL);
 }
 
-WindowFrame& CoreWindowFrame::GetWrapperFrame()
+Window& CoreWindow::GetWrapperFrame()
 {
 	return wrapperFrame;
 }
 
-HDC * CoreWindowFrame::GetHdc()
-{
-	return &secondaryDc;
-}
-
-void CoreWindowFrame::CreateConsole()
+void CoreWindow::CreateConsole()
 {
 	AllocConsole();
 }
 
-void CoreWindowFrame::ConsoleWrite(string output)
+void CoreWindow::ConsoleWrite(string output)
 {
 	DWORD succWritten;
 	output.append("\n");
 	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
-void CoreWindowFrame::UnicodeConsoleWrite(std::wstring output)
+void CoreWindow::UnicodeConsoleWrite(std::wstring output)
 {
 	DWORD succWritten;
 	output.append(L"\n");
 	WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
 }
 
-void CoreWindowFrame::UpdateScale()
+void CoreWindow::UpdateScale()
 {
 	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, WindowFrame& wrapperFrame, string windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+CoreWindow::CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrapperFrame, string windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
 	//Arguments
 	hInstance = args.hInstance;
@@ -178,14 +173,14 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 	CreateConsole();
 	WNDCLASS* windowInfo = new WNDCLASS;
 	memset(windowInfo, 0, sizeof(WNDCLASS));
-	windowInfo->style = CS_HREDRAW | CS_VREDRAW;
+	windowInfo->style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	windowInfo->lpfnWndProc = (WNDPROC)ApplicationController::WindowProc;
 	windowInfo->cbClsExtra = NULL;
 	windowInfo->cbWndExtra = NULL;
 	windowInfo->hInstance = hInstance;
 	windowInfo->hIcon = NULL;
 	windowInfo->hCursor = LoadCursor(NULL, IDC_ARROW);
-	windowInfo->hbrBackground = (HBRUSH)COLOR_WINDOW;
+	windowInfo->hbrBackground = NULL;
 	windowInfo->lpszMenuName = NULL;
 	windowInfo->lpszClassName = windowName.c_str();
 
@@ -209,77 +204,82 @@ CoreWindowFrame::CoreWindowFrame(ApplicationController::WinEntryArgs &args, Wind
 
 	ShowWindow(windowHandle, SW_SHOW);
 	UpdateWindow(windowHandle);
-	secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), wrapperFrame.GetWidth(), wrapperFrame.GetHeight());
 
 	//Critical Section end
 }
 
 
-HWND CoreWindowFrame::GetWindowHandle()
+HWND CoreWindow::GetWindowHandle()
 {
 	return windowHandle;
 }
 
-CoreWindowFrame::~CoreWindowFrame()
+CoreWindow::~CoreWindow()
 {
 
 }
 
-void CoreWindowFrame::Repaint()
+void CoreWindow::Repaint()
 {
 	RedrawWindow();
 }
 
-void CoreWindowFrame::AddRenderable(Renderable &renderable)
+void CoreWindow::AddRenderable(Renderable &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void CoreWindowFrame::RemoveRenderable(Renderable& renderable)
+void CoreWindow::RemoveRenderable(Renderable& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> CoreWindowFrame::GetRenderables()
+std::vector<std::reference_wrapper<Renderable>> CoreWindow::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
 
 
-void CoreWindowFrame::OnRender(RenderEventInfo e)
+void CoreWindow::OnRender(RenderEventInfo e)
 {
+    CoreWindow::ConsoleWrite("Repaint called!");
     if(renderingProvider != nullptr)
         renderingProvider->AssignRenderer();
 }
 
-void CoreWindowFrame::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
+void CoreWindow::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
 {
     preProcessSubject.AddOnResizeSubscriber(subscriber);
 }
 
-RenderingProvider *CoreWindowFrame::GetRenderingProvider()
+RenderingProvider *CoreWindow::GetRenderingProvider()
 {
     return renderingProvider;
 }
 
-void CoreWindowFrame::SetRenderingProvider(RenderingProvider& provider)
+void CoreWindow::SetRenderingProvider(RenderingProvider& provider)
 {
     this->renderingProvider = &provider;
 }
 
-void CoreWindowFrame::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
+void CoreWindow::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
+{
+    preProcessSubject.RemoveOnResizeSubscriber(subscriber);
+}
+
+void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
     for(ResizeSubscriber& subscriber : resizeSubscribers)
         subscriber.OnResize(event);
 
 }
 
-void CoreWindowFrame::MsgSubject::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
+void CoreWindow::MsgSubject::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     resizeSubscribers.emplace_back(subscriber);
 }
 
-void CoreWindowFrame::MsgSubject::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
+void CoreWindow::MsgSubject::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     for(auto iterator = resizeSubscribers.begin(); iterator != resizeSubscribers.end(); iterator++)
     {

@@ -4,8 +4,8 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include "GdiRenderingProvider.h"
-#include "CoreWindowFrame.h"
-#include "WindowFrame.h"
+#include "CoreWindow.h"
+#include "Window.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
 #include "GdiRenderer.h"
@@ -16,15 +16,13 @@ void GdiRenderingProvider::AssignRenderer()
     GetSecondaryDC();
     AssignGraphicsToNodes(); //This is where components draw on the buffer
     BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
-    CleanGraphicsBuffer();
+    CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
 }
 
-void GdiRenderingProvider::CleanGraphicsBuffer()
+void GdiRenderingProvider::CleanBackBuffer()
 {
     ReleaseDC(windowHandle, secondaryDc);
-    ReleaseDC(windowHandle, windowHdc);
     DeleteDC(secondaryDc);
-    DeleteDC(windowHdc);
 }
 
 void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion)
@@ -62,7 +60,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
 {
-    WindowFrame& wrapperFrame = coreWindowframe->GetWrapperFrame();
+    Window& wrapperFrame = coreWindowframe->GetWrapperFrame();
     Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
     Gdiplus::Region clippingRegion = Gdiplus::Region(rootViewport);
     AssignGraphicsToNodes(wrapperFrame.GetUiElementNode(), clippingRegion);
@@ -70,7 +68,6 @@ void GdiRenderingProvider::AssignGraphicsToNodes()
 
 HDC GdiRenderingProvider::GetSecondaryDC()
 {
-    windowHdc = GetDC(windowHandle);
     secondaryDc = CreateCompatibleDC(windowHdc);
     SelectObject(secondaryDc, secondaryBitmap);
     return secondaryDc;
@@ -82,12 +79,23 @@ void GdiRenderingProvider::OnResize(EventResizeInfo e)
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
-void GdiRenderingProvider::OnInit(CoreWindowFrame &coreWindowFrame)
+void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
 {
     this->coreWindowframe = &coreWindowFrame;
     windowHandle = coreWindowframe->GetWindowHandle();
+    windowHdc = GetDC(windowHandle);
     coreWindowframe->SetRenderingProvider(*this);
     coreWindowframe->AddOnResizePreProcessSubsriber(*this);
-    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), coreWindowframe->GetWrapperFrame().GetWidth(),
+    secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame().GetWidth(),
                                              coreWindowframe->GetWrapperFrame().GetHeight());
+}
+
+void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
+{
+    CleanBackBuffer();
+}
+
+void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
+{
+    coreWindow.RemoveOnResizePreProcessSubsriber(*this);
 }

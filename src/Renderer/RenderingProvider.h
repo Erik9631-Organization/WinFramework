@@ -4,13 +4,15 @@
 
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
-class CoreWindowFrame;
+class CoreWindow;
 
 class RenderingProvider
 {
 public:
     virtual void AssignRenderer() = 0;
-    virtual void OnInit(CoreWindowFrame& coreWindowFrame) = 0;
+    virtual void OnInit(CoreWindow& coreWindow) = 0;
+    virtual void OnDestroy(CoreWindow& coreWindow) = 0;
+    virtual void OnRemove(CoreWindow& coreWindow) = 0;
 };
 
 

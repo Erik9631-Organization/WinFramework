@@ -1,4 +1,4 @@
-<map id="CoreWindowFrame" name="CoreWindowFrame">
+<map id="CoreWindow" name="CoreWindow">
 <area shape="rect" id="node1" title=" " alt="" coords="14,155,146,181"/>
 <area shape="rect" id="node2" href="$class_renderable.html" title=" " alt="" coords="37,80,123,107"/>
 <area shape="rect" id="node3" href="$class_renderable_subscriber.html" title=" " alt="" coords="5,5,155,32"/>

@@ -1,5 +1,5 @@
-#include "WindowFrame.h"
-#include "CoreWindowFrame.h"
+#include "Window.h"
+#include "CoreWindow.h"
 #include <thread>
 #include <mutex>
 #include <condition_variable>
@@ -12,14 +12,14 @@
 
 using namespace std;
 
-void WindowFrame::CreateCoreWindow(LONG style)
+void Window::CreateCoreWindow(LONG style)
 {
 	mutex windowInit;
 	windowThread = new thread([=]
 	{
 		ApplicationController::WinEntryArgs args = ApplicationController::GetWinEntryArgs();
-		coreFrame = new CoreWindowFrame(args , *this, name, style);
-		CoreWindowFrame::ConsoleWrite("Construction complete");
+		coreFrame = new CoreWindow(args , *this, name, style);
+		CoreWindow::ConsoleWrite("Construction complete");
 		initNotified = true;
 		initWait->notify_one();
 		ApplicationController::SubscribeToWinProc(*coreFrame); //Not subscription. This is only the callback where all the messages from the windows are processed.
@@ -29,52 +29,52 @@ void WindowFrame::CreateCoreWindow(LONG style)
 	unique_lock<mutex>lock(windowInit);
 	initWait->wait(lock, [=] {return initNotified; });
 	SetRenderingProvider(make_shared<GdiRenderingProvider>());
-	CoreWindowFrame::ConsoleWrite("Init done");
+	CoreWindow::ConsoleWrite("Init done");
 	initDone = true;
 }
 
 
-void WindowFrame::AddWindowStyle(LONG styleFlags)
+void Window::AddWindowStyle(LONG styleFlags)
 {
 	coreFrame->SetWindowAttributes(GWL_STYLE, styleFlags);
 }
 
-void WindowFrame::RemoveWindowStyle(LONG styleFlags)
+void Window::RemoveWindowStyle(LONG styleFlags)
 {
 	coreFrame->RemoveWindowAttributes(GWL_STYLE, styleFlags);
 }
 
-void WindowFrame::AddWindowExtendedStyle(LONG styleFlags)
+void Window::AddWindowExtendedStyle(LONG styleFlags)
 {
 	coreFrame->SetWindowAttributes(GWL_EXSTYLE, styleFlags);
 }
 
-void WindowFrame::RemoveWindowExtendedStyle(LONG styleFlags)
+void Window::RemoveWindowExtendedStyle(LONG styleFlags)
 {
 	coreFrame->RemoveWindowAttributes(GWL_EXSTYLE, styleFlags);
 }
 
-void WindowFrame::SetSize(float width, float height)
+void Window::SetSize(float width, float height)
 {
 	UiElement::SetSize(width, height);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::SetSize(Vector2 size)
+void Window::SetSize(Vector2 size)
 {
 	UiElement::SetSize(size);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::Repaint()
+void Window::Repaint()
 {
 	if(coreFrame != nullptr)
 		coreFrame->RedrawWindow();
 }
 
-void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
+void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 {
 	UiElement::NotifyOnMouseDown(e);
 	UiElement* result = std::any_cast<UiElement*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
@@ -96,65 +96,65 @@ void WindowFrame::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void WindowFrame::SetPosition(float x, float y)
+void Window::SetPosition(float x, float y)
 {
 	UiElement::SetPosition(x, y);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::SetPosition(Vector2 point)
+void Window::SetPosition(Vector2 point)
 {
 	UiElement::SetPosition(point);
 	if (coreFrame != nullptr)
 		coreFrame->UpdateScale();
 }
 
-void WindowFrame::NotifyOnKeyDown(EventKeyStateInfo e)
+void Window::NotifyOnKeyDown(EventKeyStateInfo e)
 {
 	UiElement::NotifyOnKeyDown(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
 		currentFocus->NotifyOnKeyDown(EventKeyStateInfo(currentFocus, e));
 }
 
-void WindowFrame::NotifyOnKeyUp(EventKeyStateInfo e)
+void Window::NotifyOnKeyUp(EventKeyStateInfo e)
 {
 	UiElement::NotifyOnKeyUp(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
 		currentFocus->NotifyOnKeyUp(EventKeyStateInfo(currentFocus, e));
 }
 
-void WindowFrame::NotifyOnKeyPressed(EventKeyStateInfo e)
+void Window::NotifyOnKeyPressed(EventKeyStateInfo e)
 {
 	UiElement::NotifyOnKeyPressed(EventKeyStateInfo(this, e));
 	if (currentFocus != nullptr && currentFocus != this)
 		currentFocus->NotifyOnKeyPressed(EventKeyStateInfo(currentFocus, e));
 }
 
-void WindowFrame::CloseWindow()
+void Window::CloseWindow()
 {
 	if (coreFrame != nullptr)
 		coreFrame->CloseWindow();
 }
 
-void WindowFrame::UpdateWindow()
+void Window::UpdateWindow()
 {
 	if(coreFrame != nullptr)
 		coreFrame->RedrawWindow();
 }
 
-WindowFrame::WindowFrame(string windowName) : WindowFrame(800, 600, 800, 600, windowName)
+Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
 {
 
 }
 
-WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName) : WindowFrame(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW)
+Window::Window(int x, int y, int width, int height, string windowName) : Window(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW)
 {
 
 }
 
 
-WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
+Window::Window(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
 {
 	initWait = new condition_variable();
 	componentType = "Window";
@@ -164,48 +164,57 @@ WindowFrame::WindowFrame(int x, int y, int width, int height, string windowName,
 	AddRenderable(background);
 }
 
-void WindowFrame::Add(UiElement & component)
+void Window::Add(UiElement & component)
 {
 	UiElement::Add(component);
 }
 
-WindowFrame::~WindowFrame()
+Window::~Window()
 {
+    renderingProvider->OnDestroy(*coreFrame);
 	delete coreFrame;
 	delete initWait;
 }
 
-void WindowFrame::NotifyOnMouseHover(EventMouseStateInfo e)
+void Window::NotifyOnMouseHover(EventMouseStateInfo e)
 {
     UiElement::NotifyOnMouseHover(e);
     if(currentCapture != nullptr)
         currentCapture->NotifyOnMouseCapture(e);
 }
 
-void WindowFrame::NotifyOnMouseUp(EventMouseStateInfo e)
+void Window::NotifyOnMouseUp(EventMouseStateInfo e)
 {
     UiElement::NotifyOnMouseUp(e);
-    currentCapture->IsMouseCaptured();
+    if(currentCapture == nullptr)
+        return;
     currentCapture->SetMouseCaptured(false);
     currentCapture = nullptr;
 
 }
 
-void WindowFrame::SetRenderingProvider(RenderingProvider &provider)
+void Window::SetRenderingProvider(RenderingProvider &provider)
 {
-    if(coreFrame != nullptr)
-        coreFrame->SetRenderingProvider(provider);
+    if(coreFrame == nullptr)
+        return;
+    renderingProvider->OnRemove(*coreFrame);
+    coreFrame->SetRenderingProvider(provider);
 }
 
-RenderingProvider *WindowFrame::GetRenderingProvider()
+RenderingProvider *Window::GetRenderingProvider()
 {
     if(coreFrame != nullptr)
         return coreFrame->GetRenderingProvider();
     return nullptr;
 }
 
-void WindowFrame::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider)
+void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider)
 {
+    if(coreFrame == nullptr)
+        return;
+    if(this->renderingProvider != nullptr)
+        this->renderingProvider->OnRemove(*coreFrame);
+
     this->renderingProvider = renderingProvider;
     renderingProvider->OnInit(*coreFrame);
 }

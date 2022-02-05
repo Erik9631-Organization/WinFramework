@@ -8,7 +8,7 @@
 
 class Button;
 class ComboElement;
-class WindowFrame;
+class Window;
 class Grid;
 
 class ComboSelection : public MouseStateSubscriber, public ComboBoxStateSubject
@@ -16,7 +16,7 @@ class ComboSelection : public MouseStateSubscriber, public ComboBoxStateSubject
 private:
 	std::vector<std::reference_wrapper<ComboBoxStateSubscriber>> comboBoxStateSubscribers;
 	std::vector<ComboElement*>comboElements;
-	WindowFrame* comboSelectionFrame;
+	Window* comboSelectionFrame;
 	Grid* comboGrid;
 	int elementHeight = 30;
 	int selectedIndex = 0;

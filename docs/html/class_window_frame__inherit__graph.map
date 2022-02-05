@@ -1,4 +1,4 @@
-<map id="WindowFrame" name="WindowFrame">
+<map id="Window" name="Window">
 <area shape="rect" id="node1" title=" " alt="" coords="739,233,844,260"/>
 <area shape="rect" id="node2" href="$class_component.html" title=" " alt="" coords="603,233,691,260"/>
 <area shape="rect" id="node3" href="$class_adjustable.html" title=" " alt="" coords="417,81,500,108"/>

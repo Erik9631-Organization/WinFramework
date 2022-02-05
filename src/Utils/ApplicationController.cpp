@@ -1,5 +1,5 @@
 #include "ApplicationController.h"
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 #include <thread>
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -10,7 +10,7 @@
 
 
 ApplicationController::WinEntryArgs ApplicationController::args;
-vector<reference_wrapper<CoreWindowFrame>> ApplicationController::windows = vector<reference_wrapper<CoreWindowFrame>>();
+vector<reference_wrapper<CoreWindow>> ApplicationController::windows = vector<reference_wrapper<CoreWindow>>();
 ULONG ApplicationController::token = 0;
 GdiplusStartupOutput ApplicationController::output;
 vector<thread*> ApplicationController::threads;
@@ -35,7 +35,7 @@ ApplicationController::WinEntryArgs ApplicationController::GetWinEntryArgs()
 	return args;
 }
 
-void ApplicationController::SubscribeToWinProc(CoreWindowFrame& frame)
+void ApplicationController::SubscribeToWinProc(CoreWindow& frame)
 {
 	windows.push_back(frame);
 }
@@ -61,7 +61,7 @@ void ApplicationController::AddThread(thread* joinableThread)
 
 LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    CoreWindowFrame* frame = reinterpret_cast<CoreWindowFrame*>(GetWindowLongPtr(hwnd, USER_DATA));
+    CoreWindow* frame = reinterpret_cast<CoreWindow*>(GetWindowLongPtr(hwnd, USER_DATA));
 	if (frame != nullptr)
 		frame->ProcessMessage(uMsg, wParam, lParam);
 

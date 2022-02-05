@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LiiFramework: WindowFrame Class Reference</title>
+<title>LiiFramework: Window Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,13 +86,13 @@ $(document).ready(function(){initNavTree('class_window_frame.html',''); initResi
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="class_window_frame-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">WindowFrame Class Reference</div>  </div>
+<div class="title">Window Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_window_frame_8h_source.html">WindowFrame.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="_window_frame_8h_source.html">Window.h</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for WindowFrame:</div>
+Inheritance diagram for Window:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_window_frame__inherit__graph.png" border="0" usemap="#a_window_frame_inherit__map" alt="Inheritance graph"/></div>
 <map name="a_window_frame_inherit__map" id="a_window_frame_inherit__map">
@@ -154,13 +154,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>CloseWindow</b> ()</t
 void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateWindow</b> ()</td></tr>
 <tr class="separator:abbdc91c934c2f42e63ad2b5c8e2bc91d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad67ea33fc1542e5ae743f6e5c5728425"><td class="memItemLeft" align="right" valign="top"><a id="ad67ea33fc1542e5ae743f6e5c5728425"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WindowFrame</b> (std::string windowName)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (std::string windowName)</td></tr>
 <tr class="separator:ad67ea33fc1542e5ae743f6e5c5728425"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acce7f05e5edb0bf7149a84f5ee0ea3f9"><td class="memItemLeft" align="right" valign="top"><a id="acce7f05e5edb0bf7149a84f5ee0ea3f9"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WindowFrame</b> (int x, int y, int width, int height, std::string windowName)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (int x, int y, int width, int height, std::string windowName)</td></tr>
 <tr class="separator:acce7f05e5edb0bf7149a84f5ee0ea3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a40b54a34d646ac6903db50628cd4a312"><td class="memItemLeft" align="right" valign="top"><a id="a40b54a34d646ac6903db50628cd4a312"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WindowFrame</b> (int x, int y, int width, int height, std::string windowName, LONG style)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Window</b> (int x, int y, int width, int height, std::string windowName, LONG style)</td></tr>
 <tr class="separator:a40b54a34d646ac6903db50628cd4a312"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a929685e4b7d92bc12982d9a8f063e689"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window_frame.html#a929685e4b7d92bc12982d9a8f063e689">Add</a> (<a class="el" href="class_component.html">Component</a> &amp;component) override</td></tr>
 <tr class="separator:a929685e4b7d92bc12982d9a8f063e689"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -456,7 +456,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 <tr class="separator:ae815a1da54cf1d316fddc72178f67c63 inherit pro_attribs_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class wraps the <a class="el" href="class_core_window_frame.html">CoreWindowFrame</a> class and is responsible for delegating most of the method calls to that class. It is also the top root of the containment hierarchy and is the first component that should be created in your application. All the components that are to be displayed within the window should be added via the <a class="el" href="class_component.html#a1004baa17f2e5d6b9e808e908f2a3825">Component::Add</a> function which this class inherits. </p>
+<div class="textblock"><p>This class wraps the <a class="el" href="class_core_window_frame.html">CoreWindow</a> class and is responsible for delegating most of the method calls to that class. It is also the top root of the containment hierarchy and is the first component that should be created in your application. All the components that are to be displayed within the window should be added via the <a class="el" href="class_component.html#a1004baa17f2e5d6b9e808e908f2a3825">Component::Add</a> function which this class inherits. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a929685e4b7d92bc12982d9a8f063e689"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a929685e4b7d92bc12982d9a8f063e689">&#9670;&nbsp;</a></span>Add()</h2>
@@ -468,7 +468,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::Add </td>
+          <td class="memname">void Window::Add </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_component.html">Component</a> &amp;&#160;</td>
           <td class="paramname"><em>component</em></td><td>)</td>
@@ -499,7 +499,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::AddWindowExtendedStyle </td>
+          <td class="memname">void Window::AddWindowExtendedStyle </td>
           <td>(</td>
           <td class="paramtype">LONG&#160;</td>
           <td class="paramname"><em>styleFlags</em></td><td>)</td>
@@ -523,7 +523,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::AddWindowStyle </td>
+          <td class="memname">void Window::AddWindowStyle </td>
           <td>(</td>
           <td class="paramtype">LONG&#160;</td>
           <td class="paramname"><em>styleFlags</em></td><td>)</td>
@@ -550,7 +550,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::NotifyOnKeyDown </td>
+          <td class="memname">void Window::NotifyOnKeyDown </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_event_key_state_info.html">EventKeyStateInfo</a>&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
@@ -584,7 +584,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::NotifyOnKeyPressed </td>
+          <td class="memname">void Window::NotifyOnKeyPressed </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_event_key_state_info.html">EventKeyStateInfo</a>&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
@@ -618,7 +618,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::NotifyOnKeyUp </td>
+          <td class="memname">void Window::NotifyOnKeyUp </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_event_key_state_info.html">EventKeyStateInfo</a>&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
@@ -652,7 +652,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::NotifyOnMouseDown </td>
+          <td class="memname">void Window::NotifyOnMouseDown </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_event_mouse_state_info.html">EventMouseStateInfo</a>&#160;</td>
           <td class="paramname"><em>e</em></td><td>)</td>
@@ -683,7 +683,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::RemoveWindowExtendedStyle </td>
+          <td class="memname">void Window::RemoveWindowExtendedStyle </td>
           <td>(</td>
           <td class="paramtype">LONG&#160;</td>
           <td class="paramname"><em>styleFlags</em></td><td>)</td>
@@ -707,7 +707,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::RemoveWindowStyle </td>
+          <td class="memname">void Window::RemoveWindowStyle </td>
           <td>(</td>
           <td class="paramtype">LONG&#160;</td>
           <td class="paramname"><em>styleFlags</em></td><td>)</td>
@@ -734,7 +734,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::Repaint </td>
+          <td class="memname">void Window::Repaint </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -762,7 +762,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::SetPosition </td>
+          <td class="memname">void Window::SetPosition </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>
@@ -807,7 +807,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void WindowFrame::SetSize </td>
+          <td class="memname">void Window::SetSize </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>width</em>, </td>
@@ -843,15 +843,15 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>Graphics/<a class="el" href="_window_frame_8h_source.html">WindowFrame.h</a></li>
-<li>Graphics/WindowFrame.cpp</li>
+<li>Graphics/<a class="el" href="_window_frame_8h_source.html">Window.h</a></li>
+<li>Graphics/Window.cpp</li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="class_window_frame.html">WindowFrame</a></li>
+    <li class="navelem"><a class="el" href="class_window_frame.html">Window</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
   </ul>
 </div>

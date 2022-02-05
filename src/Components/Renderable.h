@@ -6,7 +6,7 @@
 /**
  * This interface is implemented by all the classes that are capable of rendering
  */
-class Renderable : public RenderableSubscriber
+class   Renderable : public RenderableSubscriber
 {
 public:
 	/**

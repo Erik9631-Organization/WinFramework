@@ -6,7 +6,7 @@
 #include <thread>
 using namespace Gdiplus;
 using namespace std;
-class CoreWindowFrame;
+class CoreWindow;
 class ApplicationController
 {
 public:
@@ -18,10 +18,10 @@ public:
 		int nCmdShow;
 	};
 	ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
-	static vector<reference_wrapper<CoreWindowFrame>> windows;
+	static vector<reference_wrapper<CoreWindow>> windows;
 	static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 	static WinEntryArgs GetWinEntryArgs();
-	static void SubscribeToWinProc(CoreWindowFrame& frame);
+	static void SubscribeToWinProc(CoreWindow& frame);
 	static GdiplusStartupOutput getGdiOutput();
 	static void JoinThreads();
 	static void AddThread(thread* joinableThread);

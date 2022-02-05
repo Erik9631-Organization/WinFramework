@@ -1,7 +1,7 @@
 #include "ComboBox.h"
 #include "Components/Button.h"
 #include "Behavior/DefaultComboBoxBehavior.h"
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 #include "ComboElement.h"
 
 bool ComboBox::IsPacked()

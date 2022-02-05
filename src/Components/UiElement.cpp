@@ -1,6 +1,6 @@
 #include "UiElement.h"
-#include "WindowFrame.h"
-#include "CoreWindowFrame.h"
+#include "Window.h"
+#include "CoreWindow.h"
 #include "EventTypes/EventMoveInfo.h"
 #include "EventTypes/EventResizeInfo.h"
 #include "EventTypes/RenderEventInfo.h"

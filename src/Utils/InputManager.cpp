@@ -1,5 +1,5 @@
 #include "InputManager.h"
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 
 InputManager::InputManager(BYTE* keyboardState)
 {

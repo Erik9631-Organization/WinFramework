@@ -6,7 +6,7 @@
 #define LII_GDIRENDERINGPROVIDER_H
 #include "RenderingProvider.h"
 #include "ResizeSubscriber.h"
-class CoreWindowFrame;
+class CoreWindow;
 class UiElement;
 namespace Gdiplus
 {
@@ -21,11 +21,13 @@ class GdiRenderingProvider : public RenderingProvider, public ResizeSubscriber
 public:
     void AssignRenderer() override;
     void OnResize(EventResizeInfo e) override;
-    void OnInit(CoreWindowFrame &coreWindowFrame) override;
+    void OnInit(CoreWindow &coreWindowFrame) override;
+    void OnDestroy(CoreWindow &coreWindow) override;
+    void OnRemove(CoreWindow &coreWindow) override;
 private:
-    CoreWindowFrame* coreWindowframe;
+    CoreWindow* coreWindowframe;
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion);
-    void CleanGraphicsBuffer();
+    void CleanBackBuffer();
     void AssignGraphicsToNodes();
     HDC GetSecondaryDC();
     HWND windowHandle;

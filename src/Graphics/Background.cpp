@@ -1,6 +1,6 @@
 #include "Background.h"
 #include "RenderEventInfo.h"
-#include "CoreWindowFrame.h"
+#include "CoreWindow.h"
 
 
 Background::Background() : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, size)

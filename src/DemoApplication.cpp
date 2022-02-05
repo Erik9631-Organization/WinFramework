@@ -1,14 +1,14 @@
 ﻿#include "DemoApplication.h"
 #include <codecvt>
 
-#include "Components/WindowFrame.h" // Needed
+#include "Components/Window.h" // Needed
 #include "Utils/ApplicationController.h"
 #include "Utils/WinWrapper.h" // Needed
 #include "Components/Button.h"
 #include <Windows.h>
 
 #include <string>
-#include "Components/CoreWindowFrame.h"
+#include "Components/CoreWindow.h"
 #include <gdiplus.h>
 #include "DataTypes/DefaultMultiTree.h"
 #include "Events/MoveSubscriber.h"
@@ -118,21 +118,21 @@ class InputTester : public KeyStateSubscriber
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 
 		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
-			CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
-		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
+			CoreWindow::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
+		CoreWindow::ConsoleWrite(src->GetComponentName());
 
 	}
 	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
-		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
+		CoreWindow::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
+		CoreWindow::ConsoleWrite(src->GetComponentName());
 	}
 	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		CoreWindowFrame::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
-		CoreWindowFrame::ConsoleWrite(src->GetComponentName());
+		CoreWindow::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
+		CoreWindow::ConsoleWrite(src->GetComponentName());
 	}
 };
 
@@ -143,9 +143,9 @@ class CheckboxTester : public CheckboxStateSubscriber
 	{
 		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
 		if (e.GetState())
-			CoreWindowFrame::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
+			CoreWindow::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
 		else
-			CoreWindowFrame::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
+			CoreWindow::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
 	}
 };
 
@@ -156,9 +156,9 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	{
 		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
 		if (e.IsSelected())
-			CoreWindowFrame::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
+			CoreWindow::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
 		else
-			CoreWindowFrame::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
+			CoreWindow::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
 	}
 };
 
@@ -299,13 +299,13 @@ public:
 	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		CoreWindowFrame::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
+		CoreWindow::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
 	}
 
 	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		CoreWindowFrame::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
+		CoreWindow::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
 	}
 
 	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
@@ -314,8 +314,8 @@ public:
 		if (e.GetElement() == nullptr)
 			return;
 		ComboElement& element = *e.GetElement();
-		CoreWindowFrame::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
-		CoreWindowFrame::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
+		CoreWindow::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
+		CoreWindow::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
 	}
 
 };
@@ -573,7 +573,7 @@ void DemoApplication::LaunchDemoApp()
 
 	input.SetMultiline(true);
 
-	WindowFrame frame = WindowFrame(800, 600, 800, 600, "testFrame");
+	Window frame = Window(800, 600, 800, 600, "testFrame");
 	frame.Add(input);
 	frame.Add(checkbox);
 

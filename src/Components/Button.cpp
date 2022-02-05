@@ -1,5 +1,5 @@
 #include "Button.h"
-#include "CoreWindowFrame.h"
+#include "CoreWindow.h"
 #include "EventTypes/RenderEventInfo.h"
 #include "FontAlignment.h"
 void Button::SetBorderColor(Vector3 color)
