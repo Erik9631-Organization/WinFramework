@@ -1,5 +1,9 @@
 #include "DefaultRender.h"
 #include "RenderEventInfo.h"
+#include "Vector2.h"
+#include "DrawData2D.h"
+#include <execution>
+#include <algorithm>
 
 DefaultRender::DefaultRender(Renderable& renderable) : assosiactedRenderable(renderable)
 {
@@ -42,5 +46,14 @@ void DefaultRender::RemoveRenderable(Renderable& renderable)
 std::vector<std::reference_wrapper<Renderable>> DefaultRender::GetRenderables()
 {
 	return renderables;
+}
+
+void DefaultRender::OnSync(const DrawData& data)
+{
+    //Perform parallel for loop here
+    std::for_each(std::execution::par, renderables.begin(), renderables.end(), [&](Renderable& renderable)
+    {
+        renderable.OnSync(data);
+    });
 }
 

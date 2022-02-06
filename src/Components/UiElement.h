@@ -311,4 +311,5 @@ public:
     bool IsMouseCaptured() override;
 
     void SetMouseCaptured(bool state) override;
+    void OnSync(const DrawData &data) override;
 };

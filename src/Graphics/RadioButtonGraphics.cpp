@@ -1,5 +1,7 @@
 #include "RadioButtonGraphics.h"
 #include "EventTypes/RenderEventInfo.h"
+#include <algorithm>
+#include <execution>
 
 void RadioButtonGraphics::UpdateFill()
 {
@@ -191,4 +193,9 @@ void RadioButtonGraphics::SetBorderColor(Vector4 borderColor)
 void RadioButtonGraphics::SetFillColor(Vector4 color)
 {
     fill.SetColor(color);
+}
+
+void RadioButtonGraphics::OnSync(const DrawData &data)
+{
+    renderBehavior.OnSync(data);
 }

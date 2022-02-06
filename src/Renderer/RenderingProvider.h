@@ -5,8 +5,9 @@
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
 class CoreWindow;
+#include "OnSyncCompleteSubject.h"
 
-class RenderingProvider
+class RenderingProvider : public OnSyncCompleteSubject
 {
 public:
     virtual void AssignRenderer() = 0;

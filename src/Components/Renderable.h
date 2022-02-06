@@ -6,11 +6,11 @@
 /**
  * This interface is implemented by all the classes that are capable of rendering
  */
-class   Renderable : public RenderableSubscriber
+class  Renderable : public RenderableSubscriber
 {
 public:
 	/**
-	 * Forces a repaint of the current component
+	 * Requests a repaint of the current component
 	 */
 	virtual void Repaint() = 0;
 	

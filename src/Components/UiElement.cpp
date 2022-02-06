@@ -1,12 +1,11 @@
 #include "UiElement.h"
 #include "Window.h"
-#include "CoreWindow.h"
-#include "EventTypes/EventMoveInfo.h"
 #include "EventTypes/EventResizeInfo.h"
 #include "EventTypes/RenderEventInfo.h"
 #include "EventTypes/EventUpdateInfo.h"
-#include "EventTypes/EventMouseStateInfo.h"
 #include "EventTypes/EventKeyStateInfo.h"
+#include "DrawData2D.h"
+#include <future>
 
 void UiElement::Add(UiElement& uiElement)
 {
@@ -87,16 +86,21 @@ void UiElement::SetY(float y)
 
 void UiElement::OnRender(RenderEventInfo e)
 {
+	renderBehavior.OnRender(e);
+}
 
-	Vector2 parentPos = {0, 0};
-	if( !IsRoot())
+void UiElement::OnSync(const DrawData &data)
+{
+    Vector2 parentPos = {0, 0};
+    if( !IsRoot())
     {
         parentPos.SetX(GetX());
         parentPos.SetY(GetY());
     }
-	RenderEventInfo parentInfo = RenderEventInfo(e.GetRenderer(), GetSize(), parentPos);
-	renderBehavior.OnRender(parentInfo);
+    DrawData2D drawData{parentPos, GetSize()};
+    renderBehavior.OnSync(drawData);
 }
+
 
 void UiElement::Repaint()
 {
@@ -499,6 +503,7 @@ void UiElement::SetChildrenTranslate(Vector2 internalOffset)
 		return;
     moveBehavior.TranslateChildren(internalOffset);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+	//Notify the root about sync
 }
 
 

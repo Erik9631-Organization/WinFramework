@@ -16,11 +16,12 @@
 using namespace std;
 using namespace Gdiplus;
 class RenderingProvider;
+#include "OnSyncCompleteSubscriber.h"
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : Renderable
+class CoreWindow : public Renderable, public OnSyncCompleteSubscriber
 {
 
 
@@ -42,7 +43,7 @@ private:
 	Window& wrapperFrame;
 	HBITMAP secondaryBitmap;
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
-	DefaultRender renderBehavior;
+    DefaultRender renderBehavior;
 	HINSTANCE hInstance;
 
 	Vector2 mousePos;
@@ -50,7 +51,10 @@ private:
 	Vector2 mouseDelta;
 	Vector2 relativePos;
 	RenderingProvider* renderingProvider = nullptr;
+	bool updateDone;
 public:
+    void OnSyncComplete(OnSyncCompleteSubject &src) override;
+    const bool& IsUpdateDone() const;
 	/**
 	 * Updates the scale of the window
 	 */
@@ -151,5 +155,6 @@ public:
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void SetRenderingProvider(RenderingProvider& provider);
 	RenderingProvider* GetRenderingProvider();
+    void OnSync(const DrawData &data) override;
 };
 

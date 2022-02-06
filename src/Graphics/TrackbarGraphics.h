@@ -5,6 +5,7 @@
 #include "Graphics/Background.h"
 #include "Components/Reflectable.h"
 #include "Components/ReflectionContainer.h"
+#include "DrawData2D.h"
 
 class UiElement;
 
@@ -15,6 +16,7 @@ private:
 	SimpleBorder border;
 	Background tracker;
 	ReflectionContainer<TrackbarGraphics> reflectionContainer;
+
 
 public:
 	// Inherited via Renderable
@@ -36,5 +38,6 @@ public:
 	// Inherited via Reflectable
 	virtual bool HasMethod(std::string method) override;
 	virtual ReflectionContainer<TrackbarGraphics>& GetReflectionContainer();
+    void OnSync(const DrawData &data) override;
 };
 

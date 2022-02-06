@@ -32,6 +32,7 @@ public:
 
 	// Inherited via Container
 	virtual T GetValue() override;
+    std::vector<std::reference_wrapper<MultiTree<T>>> &GetNodes() override;
 };
 
 
@@ -129,4 +130,10 @@ inline void DefaultMultiTree<T>::RemoveOnAddSubscriber(OnAddSubscriber<T>& subsc
 template <class T> T DefaultMultiTree<T>::GetValue()
 {
     return nodeObject;
+}
+
+template<class T>
+std::vector<std::reference_wrapper<MultiTree<T>>> &DefaultMultiTree<T>::GetNodes()
+{
+    return elementList;
 }

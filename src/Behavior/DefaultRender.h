@@ -17,5 +17,6 @@ public:
 	virtual void AddRenderable(Renderable &renderable) override;
 	virtual void RemoveRenderable(Renderable& renderable) override;
 	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+    void OnSync(const DrawData& data) override;
 };
 

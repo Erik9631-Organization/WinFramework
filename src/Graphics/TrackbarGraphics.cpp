@@ -84,3 +84,8 @@ ReflectionContainer<TrackbarGraphics>& TrackbarGraphics::GetReflectionContainer(
 {
     return reflectionContainer;
 }
+
+void TrackbarGraphics::OnSync(const DrawData &data)
+{
+    renderBehavior.OnSync(data);
+}

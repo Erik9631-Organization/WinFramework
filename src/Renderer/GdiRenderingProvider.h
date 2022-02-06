@@ -6,6 +6,8 @@
 #define LII_GDIRENDERINGPROVIDER_H
 #include "RenderingProvider.h"
 #include "ResizeSubscriber.h"
+#include "DrawData2D.h"
+#include <functional>
 class CoreWindow;
 class UiElement;
 namespace Gdiplus
@@ -29,11 +31,18 @@ private:
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();
+    void Render();
+    void SyncData(MultiTree<UiElement&>& node);
     HDC GetSecondaryDC();
+    void NotifyOnSyncComplete(OnSyncCompleteSubject &src) override;
+    void AddOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber) override;
+    void RemoveOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber) override;
     HWND windowHandle;
     HDC windowHdc;
     HDC secondaryDc;
     HBITMAP secondaryBitmap;
+    DrawData2D defaultDrawData;
+    OnSyncCompleteSubscriber* onSyncCompleteSubscriber = nullptr;
 
 };
 

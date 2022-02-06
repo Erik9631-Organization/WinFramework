@@ -99,7 +99,7 @@ set(Lii_Renderer
         Renderer/GdiRenderer.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
-        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h)
+        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h Renderer/DrawData.cpp Renderer/DrawData.h Renderer/DrawData2D.cpp Renderer/DrawData2D.h Renderer/OnSyncCompleteSubscriber.cpp Renderer/OnSyncCompleteSubscriber.h Renderer/OnSyncCompleteSubject.cpp Renderer/OnSyncCompleteSubject.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Components

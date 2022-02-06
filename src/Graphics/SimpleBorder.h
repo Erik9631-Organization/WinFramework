@@ -9,6 +9,7 @@
 #include "ReflectionContainer.h"
 #include "ScalingUtil.h"
 #include "Vector4.h"
+#include "DrawData2D.h"
 
 
 /**
@@ -28,25 +29,11 @@ private:
 
 	ScalingUtil graphicsUtil;
 	float thickness;
-
-
 	Vector2 position;
 	Vector2 size;
-	GraphicsScaling scalingType = Percentual;
-
-	GraphicsScaling scalingTypeX = Percentual;
-	GraphicsScaling scalingTypeY = Percentual;
-	GraphicsScaling scalingTypeWidth = Percentual;
-	GraphicsScaling scalingTypeHeight = Percentual;
-
-	bool drawFromCenterY = false;
-	bool drawFromCenterX = false;
-	bool textCentering = false;
+	DrawData2D drawData;
 
 public:
-
-
-
 	ReflectionContainer<SimpleBorder> reflectionContainer;
 	SimpleBorder(); 
 	~SimpleBorder();
@@ -93,5 +80,6 @@ public:
 
 	// Inherited via Reflectable
 	ReflectionContainer<SimpleBorder>& GetReflectionContainer() override;
+    void OnSync(const DrawData &data) override;
 };
 

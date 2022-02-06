@@ -9,14 +9,15 @@
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
 #include "GdiRenderer.h"
+#include <algorithm>
+#include <execution>
+#include <future>
+#include "OnSyncCompleteSubscriber.h"
 
 using namespace Gdiplus;
 void GdiRenderingProvider::AssignRenderer()
 {
-    GetSecondaryDC();
-    AssignGraphicsToNodes(); //This is where components draw on the buffer
-    BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
-    CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
+    Render();
 }
 
 void GdiRenderingProvider::CleanBackBuffer()
@@ -45,7 +46,6 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
         transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
         graphics.SetTransform(&transformMatrix);
     }
-
     RenderEventInfo renderEvent{RenderEventInfo{&renderer}};
 
     node.GetValue().OnRender(renderEvent);
@@ -84,7 +84,6 @@ void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     this->coreWindowframe = &coreWindowFrame;
     windowHandle = coreWindowframe->GetWindowHandle();
     windowHdc = GetDC(windowHandle);
-    coreWindowframe->SetRenderingProvider(*this);
     coreWindowframe->AddOnResizePreProcessSubsriber(*this);
     secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame().GetWidth(),
                                              coreWindowframe->GetWrapperFrame().GetHeight());
@@ -98,4 +97,48 @@ void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
 void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
 {
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
+}
+
+void GdiRenderingProvider::Render()
+{
+    //OnSync
+    SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
+    //Wait for sync to finish
+    NotifyOnSyncComplete(*this);
+    //Notify the core that onSync was finished.
+
+
+    GetSecondaryDC();
+    AssignGraphicsToNodes(); //This is where components draw on the buffer
+    BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+    CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
+}
+
+void GdiRenderingProvider::SyncData(MultiTree<UiElement &> &node)
+{
+    //Notify current node, then go to the next one.
+    std::future<void> syncResult = std::async(std::launch::async, [&]{node.GetValue().OnSync(defaultDrawData);});
+    std::for_each(std::execution::par, node.GetNodes().begin(), node.GetNodes().end(), [&](MultiTree<UiElement &>& i)
+    {
+        SyncData(i);
+    });
+    syncResult.wait();
+}
+
+void GdiRenderingProvider::NotifyOnSyncComplete(OnSyncCompleteSubject &src)
+{
+    if(onSyncCompleteSubscriber != nullptr)
+        onSyncCompleteSubscriber->OnSyncComplete(src);
+
+}
+
+void GdiRenderingProvider::AddOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber)
+{
+    onSyncCompleteSubscriber = &subscriber;
+}
+
+void GdiRenderingProvider::RemoveOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber)
+{
+    if(onSyncCompleteSubscriber == &subscriber)
+        onSyncCompleteSubscriber = nullptr;
 }

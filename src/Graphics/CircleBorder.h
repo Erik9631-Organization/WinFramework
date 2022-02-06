@@ -7,6 +7,8 @@
 #include "ScalingUtil.h"
 #include "Vector3.h"
 #include "Vector4.h"
+#include "DrawData2D.h"
+
 class CircleBorder : public Renderable
 {
 protected:
@@ -16,6 +18,7 @@ protected:
     ScalingUtil graphicsUtil;
 	DefaultRender renderBehavior;
 	Vector4 color;
+	DrawData2D drawData;
 
 public:
 	Vector2 position;
@@ -60,5 +63,6 @@ public:
 	void SetDrawFromCenterY(bool drawFromCenterY);
 	bool IsDrawFromCenterX() const;
 	void SetDrawFromCenterX(bool drawFromCenterX);
+    void OnSync(const DrawData &data) override;
 };
 

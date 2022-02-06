@@ -54,7 +54,7 @@ void SimpleBorder::DrawFromCenterY(bool state)
 void SimpleBorder::OnRender(RenderEventInfo e)
 {
     Renderer* renderer = e.GetRenderer();
-    graphicsUtil.CreateRatio(e.GetParentPosition(), e.GetParentSize());
+    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
 
     renderer->SetThickness(thickness);
     renderer->SetColor(color);
@@ -200,4 +200,9 @@ void SimpleBorder::SetColor(Vector4 color)
 Vector4 SimpleBorder::GetColorRGBA()
 {
     return color;
+}
+
+void SimpleBorder::OnSync(const DrawData &data)
+{
+    drawData = DrawData2D(static_cast<const DrawData2D&>(data));
 }

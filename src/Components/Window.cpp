@@ -213,8 +213,12 @@ void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingPr
     if(coreFrame == nullptr)
         return;
     if(this->renderingProvider != nullptr)
+    {
         this->renderingProvider->OnRemove(*coreFrame);
+        this->renderingProvider->RemoveOnSyncSubscriber(*coreFrame);
+    }
 
+    coreFrame->SetRenderingProvider(*renderingProvider);
     this->renderingProvider = renderingProvider;
     renderingProvider->OnInit(*coreFrame);
 }

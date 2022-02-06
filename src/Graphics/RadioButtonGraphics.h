@@ -60,5 +60,6 @@ public:
 	void AddRenderable(Renderable &renderable) override;
 	void RemoveRenderable(Renderable& renderable) override;
 	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+    void OnSync(const DrawData &data) override;
 };
 

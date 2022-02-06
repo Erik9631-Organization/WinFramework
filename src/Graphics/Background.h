@@ -8,6 +8,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
 #include "Vector4.h"
+#include "DrawData2D.h"
 
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
@@ -25,6 +26,7 @@ private:
 	Vector2 position;
 	ScalingUtil graphicsUtil;
 	Vector2 size;
+	DrawData2D drawData;
 
 public:
 	Background();
@@ -69,5 +71,6 @@ public:
 	// Inherited via Reflectable
 	virtual bool HasMethod(std::string method) override;
 	virtual ReflectionContainer<Background>& GetReflectionContainer();
+    void OnSync(const DrawData &data) override;
 };
 

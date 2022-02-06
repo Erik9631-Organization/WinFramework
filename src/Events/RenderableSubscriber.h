@@ -7,6 +7,9 @@
 
 
 class RenderEventInfo;
+class DrawData;
+#include "DrawData.h"
+
 /**
  *	This interface defines all the classes which are capable of drawing on the canvas.
  */
@@ -18,5 +21,6 @@ public:
 	 * \param e the render event object which contains the renderer on which the rendering is to be done. Check RenderEventInfo class.
 	 */
 	virtual void OnRender(RenderEventInfo e) = 0;
+	virtual void OnSync(const DrawData& data) = 0;
 };
 

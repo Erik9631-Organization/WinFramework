@@ -67,7 +67,7 @@ void Text::SetFontSize(float fontSize)
 
 void Text::OnRender(RenderEventInfo e)
 {
-    graphicsUtil.CreateRatio(e.GetParentPosition(), e.GetParentSize());
+    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
     std::unique_ptr<FontFormat> format = e.GetRenderer()->CreateFontFormat();
     format->SetAlignment(alignment);
     format->SetLineAlignment(lineAlignment);
@@ -144,4 +144,9 @@ float Text::GetX()
 float Text::GetY()
 {
     return position.GetY();
+}
+
+void Text::OnSync(const DrawData &data)
+{
+    drawData = DrawData2D(static_cast<const DrawData2D&>(data));
 }

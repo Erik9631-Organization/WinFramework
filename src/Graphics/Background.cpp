@@ -70,10 +70,7 @@ float Background::GetY()
 void Background::OnRender(RenderEventInfo e)
 {
     Renderer& renderer = *e.GetRenderer();
-    Vector2 parentSize {e.GetParentSize().GetX(), e.GetParentSize().GetY()};
-    Vector2 parentPos = {e.GetParentPosition().GetX(), e.GetParentPosition().GetY()};
-
-    graphicsUtil.CreateRatio(parentPos, parentSize);
+    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
     renderer.SetColor(currentColor);
     e.GetRenderer()->FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
 }
@@ -176,4 +173,12 @@ void Background::SetColor(Vector4 color)
 Vector4 Background::GetColorRGBA()
 {
     return currentColor;
+}
+
+void Background::OnSync(const DrawData &data)
+{
+    if(data.GetDataType() != DrawData::drawData2D)
+        return;
+    const DrawData2D& syncedData = static_cast<const DrawData2D&>(data);
+    drawData = DrawData2D(syncedData);
 }

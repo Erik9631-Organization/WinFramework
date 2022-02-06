@@ -12,6 +12,7 @@
 #include "Vector4.h"
 #include "Vector3.h"
 #include "FontAlignment.h"
+#include "DrawData2D.h"
 
 /**
  * A text renderable. Draws text within the canvas of the defined object.
@@ -34,6 +35,8 @@ private:
 
 	int lineAlignment = FontAlingnment::FontAlignmentNear;
 	int alignment = FontAlingnment::FontAlignmentNear;
+
+	DrawData2D drawData;
 
 public:
 	void SetLineAlignment(int alignment);
@@ -72,5 +75,6 @@ public:
 
 	// Inherited via Reflectable
 	virtual ReflectionContainer<Text>& GetReflectionContainer() override;
+    void OnSync(const DrawData &data) override;
 };
 

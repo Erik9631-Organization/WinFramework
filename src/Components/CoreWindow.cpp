@@ -70,6 +70,8 @@ LONG CoreWindow::RemoveWindowAttributes(int index, LONG parameter)
 void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
 	PAINTSTRUCT paintInfo;
+	//Wait for onSync mutex && and syncIsComplete
+	updateDone = false;
 	switch (msg)
 	{
 	case WM_CLOSE:
@@ -120,6 +122,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         break;
 
 	}
+    updateDone = true;
 }
 
 void CoreWindow::RedrawWindow()
@@ -242,7 +245,9 @@ std::vector<std::reference_wrapper<Renderable>> CoreWindow::GetRenderables()
 
 void CoreWindow::OnRender(RenderEventInfo e)
 {
-    CoreWindow::ConsoleWrite("Repaint called!");
+    //Wait for on sync to finish before returning the call.
+    //The reason why is because we want to capture the current snapshot of the draw state and then draw the complete data.
+    //During the sync we can't end up in a case where the data is changed.
     if(renderingProvider != nullptr)
         renderingProvider->AssignRenderer();
 }
@@ -265,6 +270,21 @@ void CoreWindow::SetRenderingProvider(RenderingProvider& provider)
 void CoreWindow::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
 {
     preProcessSubject.RemoveOnResizeSubscriber(subscriber);
+}
+
+void CoreWindow::OnSync(const DrawData &data)
+{
+    //No sync data here
+}
+
+const bool& CoreWindow::IsUpdateDone() const
+{
+    return updateDone;
+}
+
+void CoreWindow::OnSyncComplete(OnSyncCompleteSubject &src)
+{
+    //Sync complete, update thread can continue
 }
 
 void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
