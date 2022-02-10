@@ -15,7 +15,7 @@ using namespace std;
 void Window::CreateCoreWindow(LONG style)
 {
 	mutex windowInit;
-	windowThread = new thread([=]
+	windowThread = new std::thread([=]
 	{
 		ApplicationController::WinEntryArgs args = ApplicationController::GetWinEntryArgs();
 		coreFrame = new CoreWindow(args , *this, name, style);
@@ -23,7 +23,7 @@ void Window::CreateCoreWindow(LONG style)
 		initNotified = true;
 		initWait->notify_one();
 		ApplicationController::SubscribeToWinProc(*coreFrame); //Not subscription. This is only the callback where all the messages from the windows are processed.
-		coreFrame->MessageLoop();
+        coreFrame->WindowsMessageLoop();
 	});
 	ApplicationController::AddThread(windowThread);
 	unique_lock<mutex>lock(windowInit);
@@ -215,7 +215,6 @@ void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingPr
     if(this->renderingProvider != nullptr)
     {
         this->renderingProvider->OnRemove(*coreFrame);
-        this->renderingProvider->RemoveOnSyncSubscriber(*coreFrame);
     }
 
     coreFrame->SetRenderingProvider(*renderingProvider);

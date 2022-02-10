@@ -44,7 +44,7 @@ std::wstring UiElement::GetText()
 void UiElement::SetText(std::wstring text)
 {
 	this->text = text;
-	Repaint();
+	//Repaint();
 }
 
 void UiElement::SetIgnoreTranslate(bool ignoreTranslate)
@@ -74,7 +74,12 @@ void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
 
 void UiElement::SetX(float x)
 {
+    //Can't change during sync.
+    //Perform a data update
+    //Notify the root that the data was updated
+
 	moveBehavior.SetX(x);
+
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -322,7 +327,7 @@ void UiElement::OnUpdate(EventUpdateInfo e)
 	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
-	Repaint();
+	//Repaint();
 }
 
 void UiElement::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
@@ -601,8 +606,10 @@ UiElement * UiElement::GetParent()
 	return (UiElement*)&uiElementNode.GetParent()->GetValue();
 }
 
+
 void UiElement::SetSize(float width, float height)
 {
+    ///Wait for sync
 	resizeBehavior.SetSize(width, height);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }

@@ -16,12 +16,11 @@
 using namespace std;
 using namespace Gdiplus;
 class RenderingProvider;
-#include "OnSyncCompleteSubscriber.h"
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : public Renderable, public OnSyncCompleteSubscriber
+class CoreWindow : public Renderable
 {
 
 
@@ -51,9 +50,19 @@ private:
 	Vector2 mouseDelta;
 	Vector2 relativePos;
 	RenderingProvider* renderingProvider = nullptr;
-	bool updateDone;
+	bool updateFinished = true;
+	std::condition_variable updateFinishedSignal;
+	std::thread* updateThread = nullptr;
+	DWORD updateThreadId = 0;
+	int targetFps = 60;
+	Timer fpsTimer;
+	void InternalMessageLoop();
+	bool eventBased = false;
+	bool processMessages = true;
 public:
-    void OnSyncComplete(OnSyncCompleteSubject &src) override;
+    bool IsEventBased() const;
+    void SetEventBased(bool eventBased);
+public:
     const bool& IsUpdateDone() const;
 	/**
 	 * Updates the scale of the window
@@ -70,9 +79,9 @@ public:
 	/**
 	 * The message loop of the window. This is where all the messages are processed.
 	 */
-	void MessageLoop();
+    void WindowsMessageLoop();
 	/**
-	 * Called by CoreWindow::MessageLoop to process a specific message.
+	 * Called by CoreWindow::WindowsMessageLoop to process a specific message.
 	 */
 	void ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam);
 	/**
@@ -156,5 +165,8 @@ public:
 	void SetRenderingProvider(RenderingProvider& provider);
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
+    void WaitForUpdateToFinish();
+    void RecieveMessage(const MSG &msg);
+    void RecieveMessage(UINT msg, WPARAM wparam, LPARAM lparam);
 };
 

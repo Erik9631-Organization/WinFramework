@@ -13,7 +13,7 @@
 wglCreateContextAttribsARB* OpenGLRenderingProvider::pWglCreateContextAttribsARB = nullptr;
 wglChoosePixelFormatARB* OpenGLRenderingProvider::pWglChoosePixelFormatARB = nullptr;
 
-void OpenGLRenderingProvider::AssignRenderer()
+void OpenGLRenderingProvider::Render()
 {
     wglMakeCurrent(windowDc, openGlContext);
     glClearColor(0.5, 0, 0, 1.0f); // rgb(33,150,243)

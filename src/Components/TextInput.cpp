@@ -28,7 +28,7 @@ TextInput::TextInput(string name) : TextInput(0, 0, 0, 0, name)
 void TextInput::SetText(wstring text)
 {
 	this->text.SetText(text);
-	Repaint();
+	//Repaint();
 }
 
 wstring TextInput::GetText()
@@ -54,5 +54,5 @@ bool TextInput::IsMultiLine()
 void TextInput::SetBackgroundColor(Vector3 color)
 {
 	background.SetColor(color);
-	Repaint();
+	//Repaint();
 }

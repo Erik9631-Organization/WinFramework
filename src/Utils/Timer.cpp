@@ -2,24 +2,33 @@
 #include <chrono>
 #include <iostream>
 #include "TimerSubscriber.h"
+#include "CoreWindow.h"
+#include <Windows.h>
+#include <processthreadsapi.h>
 using namespace std::chrono;
+
 
 void Timer::timerCheck()
 {
-	int lastTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+	long long lastTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 	while (start)
 	{
-		int currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-		int elapsedTime = currentTime - lastTime;
+	    signaled = false;
+	    long long currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+	    long long elapsedTime = currentTime - lastTime;
+	    //CoreWindow::ConsoleWrite(to_string(elapsedTime) + ">=" + to_string(interval));
 		if (elapsedTime >= interval)
 		{
 			lastTime = currentTime;
-			EventOnTimerElapsed e = EventOnTimerElapsed(interval);
+			auto e = EventOnTimerElapsed(interval);
             NotifyOnTimerElapsed(e);
+            signaled = true;
 			if (!IsPeriodic())
 				break;
+			else
+				timerEndSingal->notify_all();
 		}
-		std::this_thread::sleep_for(5ms);
+		std::this_thread::sleep_for(2ms);
 	}
 
 	start = false;
@@ -30,23 +39,24 @@ void Timer::timerCheck()
 
 void Timer::Start()
 {
-	if (timerThread == nullptr)
+	if (!start)
 	{
 		start = true;
 		signaled = false;
 		timerThread = new std::thread(&Timer::timerCheck, this);
+		SetThreadPriority(timerThread->native_handle(), REALTIME_PRIORITY_CLASS);
 	}
 
 }
 
 void Timer::Stop()
 {
-    if(IsStopped())
+    if(timerThread == nullptr)
         return;
     start = false;
-	std::mutex timerMutex;
-	std::unique_lock<std::mutex>lock(timerMutex);
-	timerEndSingal->wait(lock, [=] {return signaled; });
+    signaled = true;
+	timerThread->join();
+	timerThread = nullptr;
 }
 
 void Timer::SetInterval(long long interval)

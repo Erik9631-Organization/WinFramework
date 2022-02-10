@@ -12,12 +12,16 @@
 #include <algorithm>
 #include <execution>
 #include <future>
-#include "OnSyncCompleteSubscriber.h"
+#include <chrono>
+using namespace std::chrono;
 
 using namespace Gdiplus;
-void GdiRenderingProvider::AssignRenderer()
+void GdiRenderingProvider::Render()
 {
-    Render();
+    //Change the rendering bit
+    CoreWindow::ConsoleWrite("Render requested");
+    performRender = true;
+    performRenderSignal.notify_one();
 }
 
 void GdiRenderingProvider::CleanBackBuffer()
@@ -87,11 +91,21 @@ void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     coreWindowframe->AddOnResizePreProcessSubsriber(*this);
     secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame().GetWidth(),
                                              coreWindowframe->GetWrapperFrame().GetHeight());
+    performRender = !coreWindowframe->IsEventBased();
+    fpsTimer.Start();
+
+    if(renderingThread == nullptr)
+        renderingThread = std::make_unique<std::thread>([=]{ InternalRender();});
 }
 
 void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
 {
     CleanBackBuffer();
+    startRenderingLoop = false;
+    //CoreWindow::ConsoleWrite("Render thread ending!");
+    fpsTimer.Stop();
+    renderingThread->join();
+    //CoreWindow::ConsoleWrite("Render thread ended!");
 }
 
 void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
@@ -99,19 +113,40 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
 }
 
-void GdiRenderingProvider::Render()
+[[noreturn]] void GdiRenderingProvider::InternalRender()
 {
-    //OnSync
-    SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
-    //Wait for sync to finish
-    NotifyOnSyncComplete(*this);
-    //Notify the core that onSync was finished.
 
+    while(startRenderingLoop)
+    {
 
-    GetSecondaryDC();
-    AssignGraphicsToNodes(); //This is where components draw on the buffer
-    BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
-    CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
+        long long start = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+        //fpsTimer.Start();
+        //Render only if the rendering was requested
+        mutex lockMutex;
+        std::unique_lock<std::mutex>performRenderLock(lockMutex);
+
+        CoreWindow::ConsoleWrite("Waiting for render");
+        performRenderSignal.wait(performRenderLock, [=]{return performRender;});
+        //OnSync
+        //Sync only if updating is finished.
+        coreWindowframe->WaitForUpdateToFinish();
+        syncFinished = false;
+        CoreWindow::ConsoleWrite("Syncing data");
+        SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
+        syncFinished = true;
+        CoreWindow::ConsoleWrite("Syncing finished");
+        syncFinishedSignal.notify_all();
+
+        CoreWindow::ConsoleWrite("Rendering data");
+        GetSecondaryDC();
+        AssignGraphicsToNodes(); //This is where components draw on the buffer
+        BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+        CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
+        performRender = !coreWindowframe->IsEventBased();
+        //fpsTimer.Wait();
+        long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+        //CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
+    }
 }
 
 void GdiRenderingProvider::SyncData(MultiTree<UiElement &> &node)
@@ -125,20 +160,34 @@ void GdiRenderingProvider::SyncData(MultiTree<UiElement &> &node)
     syncResult.wait();
 }
 
-void GdiRenderingProvider::NotifyOnSyncComplete(OnSyncCompleteSubject &src)
+void GdiRenderingProvider::WaitForSyncToFinish()
 {
-    if(onSyncCompleteSubscriber != nullptr)
-        onSyncCompleteSubscriber->OnSyncComplete(src);
-
+    if(!syncFinished)
+        CoreWindow::ConsoleWrite("Waiting for sync to finish");
+    else
+        CoreWindow::ConsoleWrite("No sync, continuing");
+    mutex lockMutex;
+    std::unique_lock<std::mutex>syncFinishedLock(lockMutex);
+    syncFinishedSignal.wait(syncFinishedLock, [=]{return syncFinished;});
 }
 
-void GdiRenderingProvider::AddOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber)
+int GdiRenderingProvider::GetTargetFps() const
 {
-    onSyncCompleteSubscriber = &subscriber;
+    return targetFps;
 }
 
-void GdiRenderingProvider::RemoveOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber)
+void GdiRenderingProvider::SetTargetFps(int targetFps)
 {
-    if(onSyncCompleteSubscriber == &subscriber)
-        onSyncCompleteSubscriber = nullptr;
+    this->targetFps = targetFps;
+    fpsTimer.SetInterval(1000/targetFps);
+    fpsTimer.SetPeriodic(false);
+}
+
+GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
+{
+    fpsTimer.SetPeriodic(false);
+    int interval = 1000/targetFps;
+    fpsTimer.SetInterval(interval);
+    renderingThread.reset();
+
 }

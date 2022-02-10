@@ -18,7 +18,7 @@ Label::Label(int x, int y, int width, int height, std::string name) : UiElement(
 void Label::SetBackground(Vector3 color)
 {
 	background.SetColor(color);
-	Repaint();
+	//Repaint();
 }
 
 Vector3 Label::GetBackground()
@@ -29,7 +29,7 @@ Vector3 Label::GetBackground()
 void Label::SetText(std::wstring str)
 {
 	text.SetText(str);
-	Repaint();
+	//Repaint();
 }
 
 std::wstring Label::GetText()

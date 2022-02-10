@@ -51,6 +51,7 @@ void ApplicationController::JoinThreads()
 	{
 		if(i->joinable())
 			i->join();
+
 	}
 }
 

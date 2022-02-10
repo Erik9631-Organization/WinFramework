@@ -22,7 +22,7 @@ void RadioButton::SetChecked(bool checked)
 	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, this));
 
 	radioButtonGraphics.SetFillEnabled(checked);
-	Repaint();
+	//Repaint();
 }
 
 void RadioButton::AddToGroup(RadioButton& button)
@@ -43,7 +43,7 @@ void RadioButton::UnGroup()
 void RadioButton::SetText(std::wstring text)
 {
 	this->text.SetText(text);
-	Repaint();
+	//Repaint();
 }
 
 std::wstring RadioButton::GetText()

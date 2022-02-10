@@ -4,7 +4,7 @@
 void Checkbox::SetText(std::wstring text)
 {
 	this->text.SetText(text);
-	Repaint();
+	//Repaint();
 }
 
 void Checkbox::Check()

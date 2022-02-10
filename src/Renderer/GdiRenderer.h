@@ -24,6 +24,7 @@ class GdiRenderer : public Renderer
 public:
     Gdiplus::Graphics& graphics;
     GdiRenderer(Gdiplus::Graphics& graphics);
+    ~GdiRenderer();
     void SetColor(const Vector4& color) override;
     void SetColor(const Vector3& color) override;
     void SetThickness(float thickness) override;

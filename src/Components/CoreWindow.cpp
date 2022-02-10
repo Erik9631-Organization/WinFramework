@@ -9,6 +9,9 @@
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "RenderingProvider.h"
+#include <processthreadsapi.h>
+#include "Messages.h"
+#include <chrono>
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -18,14 +21,30 @@
 
 HDC windowHdc;
 using namespace std;
+using namespace chrono;
 
-void CoreWindow::MessageLoop()
+void CoreWindow::WindowsMessageLoop()
 {
 	MSG currentMsg;
-	while (GetMessage(&currentMsg, NULL, NULL, NULL))
+	while (processMessages)
 	{
+//	    if(!eventBased)
+//	        fpsTimer.Start();
+
+	    if(eventBased)
+	        GetMessage(&currentMsg, NULL, NULL, NULL);
+	    else
+	        if(!PeekMessage(&currentMsg, NULL, NULL, NULL, PM_REMOVE))
+	        {
+	            //memset(&currentMsg, 0, sizeof(MSG));
+	            currentMsg.hwnd = GetWindowHandle();
+	            currentMsg.message = LiiMessages::UPDATE;
+	        }
 		TranslateMessage(&currentMsg);
 		DispatchMessage(&currentMsg);
+//		if(!eventBased)
+//		    fpsTimer.Wait();
+		//CoreWindow::ConsoleWrite(to_string(current - start));
 	}
 }
 void CoreWindow::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
@@ -69,15 +88,24 @@ LONG CoreWindow::RemoveWindowAttributes(int index, LONG parameter)
 
 void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
+    updateFinished = false;
+    CoreWindow::ConsoleWrite("Update started");
 	PAINTSTRUCT paintInfo;
-	//Wait for onSync mutex && and syncIsComplete
-	updateDone = false;
+	//Wait for sync to finish.
+	if(renderingProvider != nullptr)
+	{
+	    renderingProvider->WaitForSyncToFinish();
+	    CoreWindow::ConsoleWrite("Sync finished, continuing update");
+	}
+
 	switch (msg)
 	{
 	case WM_CLOSE:
 		DestroyWindow(windowHandle);
 		if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
 			ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
+		processMessages = false;
+		CoreWindow::ConsoleWrite("Update thread ending!");
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -120,14 +148,19 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PRINT:
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
-
 	}
-    updateDone = true;
+
+	if(renderingProvider != nullptr)
+	    renderingProvider->Render();
+    updateFinished = true;
+    CoreWindow::ConsoleWrite("Update finished");
+	updateFinishedSignal.notify_all();
 }
 
 void CoreWindow::RedrawWindow()
 {
-    OnRender(nullptr);
+    if(renderingProvider != nullptr)
+        renderingProvider->Render();
 	UpdateWindow(windowHandle);
 }
 
@@ -199,11 +232,15 @@ CoreWindow::CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrappe
 
 	if (!windowHandle)
 	{
-		ConsoleWrite("Error creating window handle");
+		ConsoleWrite("Error creating window handle " + to_string(GetLastError()));
 		system("PAUSE");
 		exit(0);
 	}
 	SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
+	updateThread = new std::thread([=]{InternalMessageLoop();});
+	updateThreadId = GetThreadId(updateThread->native_handle());
+	fpsTimer.SetInterval(1000/targetFps);
+	fpsTimer.SetPeriodic(false);
 
 	ShowWindow(windowHandle, SW_SHOW);
 	UpdateWindow(windowHandle);
@@ -219,7 +256,6 @@ HWND CoreWindow::GetWindowHandle()
 
 CoreWindow::~CoreWindow()
 {
-
 }
 
 void CoreWindow::Repaint()
@@ -248,8 +284,8 @@ void CoreWindow::OnRender(RenderEventInfo e)
     //Wait for on sync to finish before returning the call.
     //The reason why is because we want to capture the current snapshot of the draw state and then draw the complete data.
     //During the sync we can't end up in a case where the data is changed.
-    if(renderingProvider != nullptr)
-        renderingProvider->AssignRenderer();
+    /*if(renderingProvider != nullptr)
+        renderingProvider->Render();*/
 }
 
 void CoreWindow::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -279,12 +315,50 @@ void CoreWindow::OnSync(const DrawData &data)
 
 const bool& CoreWindow::IsUpdateDone() const
 {
-    return updateDone;
+    return updateFinished;
 }
 
-void CoreWindow::OnSyncComplete(OnSyncCompleteSubject &src)
+
+void CoreWindow::WaitForUpdateToFinish()
 {
-    //Sync complete, update thread can continue
+    if(!updateFinished)
+        CoreWindow::ConsoleWrite("Waiting for update to finish");
+    else
+        CoreWindow::ConsoleWrite("No update, continuing");
+    mutex lockMutex;
+    std::unique_lock<std::mutex>updateFinishedLock(lockMutex);
+    updateFinishedSignal.wait(updateFinishedLock, [=]{return updateFinished;});
+}
+
+void CoreWindow::InternalMessageLoop()
+{
+    MSG currentMsg;
+    while (GetMessage(&currentMsg, NULL, NULL, NULL))
+    {
+        //TranslateMessage(&currentMsg);
+        ProcessMessage(currentMsg.message, currentMsg.wParam, currentMsg.lParam);
+    }
+}
+
+void CoreWindow::RecieveMessage(const MSG &msg)
+{
+    PostThreadMessageA(updateThreadId, msg.message, msg.wParam, msg.lParam);
+}
+
+void CoreWindow::RecieveMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    MSG currentMsg = {NULL, uMsg, wParam, lParam};
+    RecieveMessage(currentMsg);
+}
+
+bool CoreWindow::IsEventBased() const
+{
+    return eventBased;
+}
+
+void CoreWindow::SetEventBased(bool eventBased)
+{
+    CoreWindow::eventBased = eventBased;
 }
 
 void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

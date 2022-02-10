@@ -36,7 +36,7 @@ private:
     void timerCheck();
     std::thread* timerThread = nullptr;
     bool start = false;
-    bool signaled = false;
+    bool signaled = true;
     std::condition_variable* timerEndSingal;
 };
 

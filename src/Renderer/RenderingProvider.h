@@ -5,15 +5,15 @@
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
 class CoreWindow;
-#include "OnSyncCompleteSubject.h"
 
-class RenderingProvider : public OnSyncCompleteSubject
+class RenderingProvider
 {
 public:
-    virtual void AssignRenderer() = 0;
+    virtual void Render() = 0;
     virtual void OnInit(CoreWindow& coreWindow) = 0;
     virtual void OnDestroy(CoreWindow& coreWindow) = 0;
     virtual void OnRemove(CoreWindow& coreWindow) = 0;
+    virtual void WaitForSyncToFinish() = 0;
 };
 
 

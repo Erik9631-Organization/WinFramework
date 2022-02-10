@@ -13,7 +13,7 @@ typedef bool wglChoosePixelFormatARB (HDC hdc, const int *piAttribIList, const F
 class OpenGLRenderingProvider : public RenderingProvider
 {
 public:
-    void AssignRenderer() override;
+    void Render() override;
     void OnInit(CoreWindow &coreWindowFrame) override;
     void OnDestroy(CoreWindow &coreWindow) override;
     void OnRemove(CoreWindow &coreWindow) override;

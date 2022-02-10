@@ -5,14 +5,14 @@
 void Button::SetBorderColor(Vector3 color)
 {
 	border.SetColor(color);
-	Repaint();
+	//Repaint();
 }
 
 void Button::SetBackgroundColor(Vector3 color)
 {
 	background.SetColor(color);
 	buttonBehavior.SetStatelessColor(color);
-	Repaint();
+	//Repaint();
 }
 
 
@@ -29,7 +29,7 @@ Vector3 Button::GetBorderColor()
 void Button::SetBorderThickness(float thickness)
 {
 	border.SetThickness(thickness);
-	Repaint();
+	//Repaint();
 }
 
 
@@ -59,7 +59,7 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 void Button::SetText(std::wstring text)
 {
 	this->text.SetText(text);
-	Repaint();
+	//Repaint();
 }
 
 std::wstring Button::GetText()
@@ -87,7 +87,7 @@ void Button::SetOnClickColor(Vector3 color)
 void Button::SetColor(Vector3 color)
 {
     background.SetColor(color);
-    Repaint();
+    //Repaint();
 }
 
 Vector3 Button::GetOnClickColor()

@@ -75,14 +75,13 @@ public:
 	Window(int x, int y, int width, int height, std::string windowName);
 	Window(int x, int y, int width, int height, std::string windowName, LONG style);
 	virtual void Add(UiElement& component) override;
-	~Window();
+	~Window() override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
 
     void SetRenderingProvider(RenderingProvider& provider);
-
     RenderingProvider* GetRenderingProvider();
     void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
 };

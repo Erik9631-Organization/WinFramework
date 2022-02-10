@@ -8,6 +8,12 @@
 #include "ResizeSubscriber.h"
 #include "DrawData2D.h"
 #include <functional>
+#include <thread>
+#include "Timer.h"
+#include <mutex>
+#include <condition_variable>
+
+class Timer;
 class CoreWindow;
 class UiElement;
 namespace Gdiplus
@@ -21,28 +27,38 @@ template<typename T> class MultiTree;
 class GdiRenderingProvider : public RenderingProvider, public ResizeSubscriber
 {
 public:
-    void AssignRenderer() override;
+    GdiRenderingProvider();
+    void Render() override;
     void OnResize(EventResizeInfo e) override;
     void OnInit(CoreWindow &coreWindowFrame) override;
     void OnDestroy(CoreWindow &coreWindow) override;
     void OnRemove(CoreWindow &coreWindow) override;
+    void WaitForSyncToFinish() override;
+    int GetTargetFps() const;
+    void SetTargetFps(int targetFps);
+    std::unique_ptr<std::thread> renderingThread;
 private:
     CoreWindow* coreWindowframe;
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();
-    void Render();
+    [[noreturn]] void InternalRender();
     void SyncData(MultiTree<UiElement&>& node);
     HDC GetSecondaryDC();
-    void NotifyOnSyncComplete(OnSyncCompleteSubject &src) override;
-    void AddOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber) override;
-    void RemoveOnSyncSubscriber(OnSyncCompleteSubscriber &subscriber) override;
     HWND windowHandle;
     HDC windowHdc;
     HDC secondaryDc;
     HBITMAP secondaryBitmap;
     DrawData2D defaultDrawData;
-    OnSyncCompleteSubscriber* onSyncCompleteSubscriber = nullptr;
+    int targetFps = 60;
+    bool startRenderingLoop = true;
+    Timer fpsTimer;
+
+    bool performRender = false;
+    bool syncFinished = true;
+    std::condition_variable performRenderSignal;
+
+    std::condition_variable syncFinishedSignal;
 
 };
 

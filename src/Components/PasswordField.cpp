@@ -30,7 +30,7 @@ void PasswordField::SetText(wstring text)
 	realText = text;
 	hiddenText.insert(0, text.size(), '*');
 	this->text.SetText(hiddenText);
-	Repaint();
+	//Repaint();
 }
 
 wstring PasswordField::GetText()
@@ -47,5 +47,5 @@ Vector3 PasswordField::GetBackgroundColor()
 void PasswordField::SetBackgroundColor(Vector3 color)
 {
 	background.SetColor(color);
-	Repaint();
+	//Repaint();
 }

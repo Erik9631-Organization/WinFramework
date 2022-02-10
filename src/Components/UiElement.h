@@ -141,7 +141,7 @@ public:
 	 * \param uiElement the uiElement to be added
 	 */
 	virtual void Add(UiElement& uiElement);
-	virtual ~UiElement(){};
+	virtual ~UiElement() {};
 	
 
 
@@ -249,7 +249,7 @@ public:
 		{
 			AccessTools::Invoke<void>(name, renderable, args ...);
 		}
-		Repaint();
+		//Repaint();
 
 	}
 

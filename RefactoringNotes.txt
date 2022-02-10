@@ -3,7 +3,7 @@ vector<reference_wrapper<Component>> components // Reference to component should
 CreateConsole // Move to somehwere more appropriate
 void AssignGraphicsToComponents() //Move to Window, this is HIGH level stuff. 
 ComponentAdded() // Should be a subscriber to the Window which is a source---Observer pattern
-MessageLoop() // Should be handled internally by the CoreWindow and should start on its own. No external call should be required
+WindowsMessageLoop() // Should be handled internally by the CoreWindow and should start on its own. No external call should be required
 ProcessMessage() Should be handled in its own class via observer visitor pattern
 ConsoleWrite() Should be moved to a utility class
 

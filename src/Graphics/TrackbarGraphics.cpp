@@ -22,7 +22,7 @@ TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContaine
 void TrackbarGraphics::SetPercentualHeight(float height)
 {
     tracker.SetHeight(height);
-    Repaint();
+    //Repaint();
 }
 
 float TrackbarGraphics::GetPercentualHeight()
@@ -33,7 +33,7 @@ float TrackbarGraphics::GetPercentualHeight()
 void TrackbarGraphics::SetPercentualPosition(float posY)
 {
     tracker.SetY(posY);
-    Repaint();
+    //Repaint();
 }
 
 float TrackbarGraphics::GetPercentualPosition()

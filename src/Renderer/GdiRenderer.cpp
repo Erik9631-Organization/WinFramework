@@ -104,7 +104,8 @@ void GdiRenderer::SetThickness(float thickness)
 
 void GdiRenderer::SetFontFamily(std::wstring fontFamily)
 {
-    this->fontFamily = new Gdiplus::FontFamily(fontFamily.c_str());
+    delete this->fontFamily;
+    this->fontFamily = new Gdiplus::FontFamily(L"Arial");
 }
 
 void GdiRenderer::SetFontSize(float fontSize)
@@ -115,4 +116,11 @@ void GdiRenderer::SetFontSize(float fontSize)
 std::unique_ptr<FontFormat> GdiRenderer::CreateFontFormat()
 {
     return std::make_unique<GdiFontFormat>();
+}
+
+GdiRenderer::~GdiRenderer()
+{
+    delete pen;
+    delete brush;
+    delete fontFamily;
 }
