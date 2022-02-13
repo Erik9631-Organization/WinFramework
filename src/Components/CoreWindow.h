@@ -56,14 +56,11 @@ private:
 	DWORD updateThreadId = 0;
 	int targetFps = 60;
 	Timer fpsTimer;
-	void InternalMessageLoop();
 	bool eventBased = false;
-	bool processMessages = true;
+    mutex updateMutex;
 public:
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
-public:
-    const bool& IsUpdateDone() const;
 	/**
 	 * Updates the scale of the window
 	 */

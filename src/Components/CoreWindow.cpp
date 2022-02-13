@@ -94,6 +94,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	//Wait for sync to finish.
 	if(renderingProvider != nullptr)
 	{
+	    CoreWindow::ConsoleWrite("Waiting for sync to finish...");
 	    renderingProvider->WaitForSyncToFinish();
 	    CoreWindow::ConsoleWrite("Sync finished, continuing update");
 	}
@@ -152,6 +153,8 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 	if(renderingProvider != nullptr)
 	    renderingProvider->Render();
+
+	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
     CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
@@ -313,32 +316,16 @@ void CoreWindow::OnSync(const DrawData &data)
     //No sync data here
 }
 
-const bool& CoreWindow::IsUpdateDone() const
-{
-    return updateFinished;
-}
-
-
 void CoreWindow::WaitForUpdateToFinish()
 {
     if(!updateFinished)
         CoreWindow::ConsoleWrite("Waiting for update to finish");
     else
         CoreWindow::ConsoleWrite("No update, continuing");
-    mutex lockMutex;
-    std::unique_lock<std::mutex>updateFinishedLock(lockMutex);
+    std::unique_lock<std::mutex>updateFinishedLock(updateMutex);
     updateFinishedSignal.wait(updateFinishedLock, [=]{return updateFinished;});
 }
 
-void CoreWindow::InternalMessageLoop()
-{
-    MSG currentMsg;
-    while (GetMessage(&currentMsg, NULL, NULL, NULL))
-    {
-        //TranslateMessage(&currentMsg);
-        ProcessMessage(currentMsg.message, currentMsg.wParam, currentMsg.lParam);
-    }
-}
 
 void CoreWindow::RecieveMessage(const MSG &msg)
 {

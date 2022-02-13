@@ -221,3 +221,8 @@ void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingPr
     this->renderingProvider = renderingProvider;
     renderingProvider->OnInit(*coreFrame);
 }
+
+void Window::WaitForSync()
+{
+    renderingProvider->WaitForSyncToFinish();
+}

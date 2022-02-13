@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "DemoApplication.h"
 #include "Window.h"
+#include "OpenGLRenderingProvider.h"
 
 using namespace std;
 
@@ -62,11 +63,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 int LiiEntry()
 {
-    DemoApplication::LaunchDemoApp();
+    //DemoApplication::LaunchDemoApp();
 
-    //Window frame = Window(0, 0, 800, 600, "TestFrame");
-    /*shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-    frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));*/
+    Window frame = Window(0, 0, 800, 600, "TestFrame");
+    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
+    frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
 	ApplicationController::JoinThreads();
 	return 0;
 }

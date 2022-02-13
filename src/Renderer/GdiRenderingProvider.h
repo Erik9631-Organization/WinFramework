@@ -12,6 +12,7 @@
 #include "Timer.h"
 #include <mutex>
 #include <condition_variable>
+#include "UiTreeDataSyncer.h"
 
 class Timer;
 class CoreWindow;
@@ -38,6 +39,7 @@ public:
     void SetTargetFps(int targetFps);
     std::unique_ptr<std::thread> renderingThread;
 private:
+    UiTreeDataSyncer syncer;
     CoreWindow* coreWindowframe;
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
@@ -55,10 +57,7 @@ private:
     Timer fpsTimer;
 
     bool performRender = false;
-    bool syncFinished = true;
     std::condition_variable performRenderSignal;
-
-    std::condition_variable syncFinishedSignal;
 
 };
 

@@ -303,13 +303,17 @@ set(Lii_Utils
     Events/TimerSubscriber.h
     )
 
-source_group("Header Files\\Utils" FILES ${Lii_Utils})
+source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
         OpenGL/wglext.h
-        )
+        OpenGL/glext.h OpenGL/LiiGlExtentions.h OpenGL/khrplatform.h)
+source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
+set(Lii_Sync
 
-source_group("Header Files\\OpenGL" FILES ${Lii_OpenGL})
+        Sync/UiTreeDataSyncer.cpp Sync/UiTreeDataSyncer.h)
+source_group("Lii\\Sync" FILES ${Lii_OpenGL})
+
 
 
 set(ALL_FILES
@@ -327,6 +331,7 @@ set(ALL_FILES
     ${Lii_MetaObjects}
     ${Lii_Utils}
     ${Lii_OpenGL}
+    ${Lii_Sync}
 )
 
 ################################################################################
@@ -349,6 +354,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "Components/ScrollBar"
         "Renderer"
         "OpenGL/"
+        "Sync/"
+        "../libs/glew/include/gl"
         )
 
-target_link_libraries(Lii opengl32)
+target_link_libraries(Lii
+        opengl32
+        "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
+        "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
+)

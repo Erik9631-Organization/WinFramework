@@ -84,5 +84,6 @@ public:
     void SetRenderingProvider(RenderingProvider& provider);
     RenderingProvider* GetRenderingProvider();
     void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
+    void WaitForSync();
 };
 

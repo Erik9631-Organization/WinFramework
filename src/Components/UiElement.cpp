@@ -9,6 +9,10 @@
 
 void UiElement::Add(UiElement& uiElement)
 {
+    auto root = dynamic_cast<Window*>(&GetRoot());
+    if(root != nullptr)
+        root->WaitForSync();
+
 	uiElementNode.Add(uiElement.GetUiElementNode());
 	//RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent

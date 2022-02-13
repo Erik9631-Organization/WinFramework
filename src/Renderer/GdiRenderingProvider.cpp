@@ -19,7 +19,7 @@ using namespace Gdiplus;
 void GdiRenderingProvider::Render()
 {
     //Change the rendering bit
-    CoreWindow::ConsoleWrite("Render requested");
+    //CoreWindow::ConsoleWrite("Render requested");
     performRender = true;
     performRenderSignal.notify_one();
 }
@@ -50,7 +50,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
         transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
         graphics.SetTransform(&transformMatrix);
     }
-    RenderEventInfo renderEvent{RenderEventInfo{&renderer}};
+    RenderEventInfo renderEvent{&renderer};
 
     node.GetValue().OnRender(renderEvent);
 
@@ -111,6 +111,11 @@ void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
 void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
 {
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
+    CleanBackBuffer();
+    startRenderingLoop = false;
+    //CoreWindow::ConsoleWrite("Render thread ending!");
+    fpsTimer.Stop();
+    renderingThread->join();
 }
 
 [[noreturn]] void GdiRenderingProvider::InternalRender()
@@ -125,19 +130,18 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
         mutex lockMutex;
         std::unique_lock<std::mutex>performRenderLock(lockMutex);
 
-        CoreWindow::ConsoleWrite("Waiting for render");
+        //CoreWindow::ConsoleWrite("Waiting for render");
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         //OnSync
         //Sync only if updating is finished.
         coreWindowframe->WaitForUpdateToFinish();
-        syncFinished = false;
-        CoreWindow::ConsoleWrite("Syncing data");
-        SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
-        syncFinished = true;
-        CoreWindow::ConsoleWrite("Syncing finished");
-        syncFinishedSignal.notify_all();
+       // syncFinished = false;
+        //CoreWindow::ConsoleWrite("Syncing data");
+        syncer.SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
+        //syncFinished = true;
+        //CoreWindow::ConsoleWrite("Syncing finished");
 
-        CoreWindow::ConsoleWrite("Rendering data");
+        //CoreWindow::ConsoleWrite("Rendering data");
         GetSecondaryDC();
         AssignGraphicsToNodes(); //This is where components draw on the buffer
         BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
@@ -162,13 +166,14 @@ void GdiRenderingProvider::SyncData(MultiTree<UiElement &> &node)
 
 void GdiRenderingProvider::WaitForSyncToFinish()
 {
-    if(!syncFinished)
-        CoreWindow::ConsoleWrite("Waiting for sync to finish");
-    else
-        CoreWindow::ConsoleWrite("No sync, continuing");
-    mutex lockMutex;
-    std::unique_lock<std::mutex>syncFinishedLock(lockMutex);
-    syncFinishedSignal.wait(syncFinishedLock, [=]{return syncFinished;});
+    syncer.WaitForSync();
+//    if(!syncFinished)
+//        CoreWindow::ConsoleWrite("Waiting for sync to finish");
+//    else
+//        CoreWindow::ConsoleWrite("No sync, continuing");
+//    mutex lockMutex;
+//    std::unique_lock<std::mutex>syncFinishedLock(lockMutex);
+//    syncFinishedSignal.wait(syncFinishedLock, [=]{return syncFinished;});
 }
 
 int GdiRenderingProvider::GetTargetFps() const
