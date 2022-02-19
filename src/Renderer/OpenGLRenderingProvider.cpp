@@ -6,12 +6,14 @@
 #include <Windows.h>
 #include <glew.h>
 #include <wglew.h>
-#include <gl/gl.h>
 #include "ApplicationController.h"
 #include "CoreWindow.h"
 #include <string>
 #include "OpenGLRenderer.h"
 #include "RenderEventInfo.h"
+#include "GraphicsShader.h"
+#include "DefaultMesh.h"
+#include "OpenGLRendererPool.h"
 
 void OpenGLRenderingProvider::Render()
 {
@@ -52,7 +54,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
     bool pWglChoosePixelFormatARBStatus = wglChoosePixelFormatARB(windowDc, pixelFormat, NULL, 1, &matchingIndex, &matchingSize);
     if(!pWglChoosePixelFormatARBStatus || !matchingSize)
     {
-        CoreWindow::ConsoleWrite("pWglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
+        CoreWindow::ConsoleWrite("wglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -76,7 +78,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
     int glContextAttrib[] =
     {
         WGL_CONTEXT_MAJOR_VERSION_ARB, 4,
-        WGL_CONTEXT_MINOR_VERSION_ARB, 5,
+        WGL_CONTEXT_MINOR_VERSION_ARB, 6,
         WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
         0
     };
@@ -173,22 +175,6 @@ void OpenGLRenderingProvider::GetGlExtensions()
         exit(0);
     }
 
-//    wglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress("wglCreateContextAttribsARB");
-//    if(!wglCreateContextAttribsARB)
-//    {
-//        CoreWindow::ConsoleWrite("Error getting pWglCreateContextAttribsARB" );
-//        system("PAUSE");
-//        exit(0);
-//    }
-//    wglChoosePixelFormatARB = (PFNWGLCHOOSEPIXELFORMATARBPROC) wglGetProcAddress("wglChoosePixelFormatARB");
-//
-//    if(!wglChoosePixelFormatARB)
-//    {
-//        CoreWindow::ConsoleWrite("Error getting wglChoosePixelFormatARB" + to_string(GetLastError()));
-//        system("PAUSE");
-//        exit(0);
-//    }
-
     wglMakeCurrent(nullptr, nullptr); // release current
     wglDeleteContext(glContext);
     ReleaseDC(dummyHandle, windowHdc);
@@ -211,93 +197,14 @@ void OpenGLRenderingProvider::OnRemove(CoreWindow &coreWindow)
 
 void OpenGLRenderingProvider::WaitForSyncToFinish()
 {
-    syncer.WaitForSync();
+    uiSyncer.WaitForSync();
 }
 
 void OpenGLRenderingProvider::InternalRender()
 {
     wglMakeCurrent(windowDc, openGlContext);
-
-    const char *vertexShaderSource = "#version 330 core\n"
-                                     "layout (location = 0) in vec3 aPos;\n"
-                                     "void main()\n"
-                                     "{\n"
-                                     "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                     "}\0";
-    const char *fragmentShaderSource = "#version 330 core\n"
-                                       "out vec4 FragColor;\n"
-                                       "void main()\n"
-                                       "{\n"
-                                       "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-                                       "}\n\0";
-
-
-    // build and compile our shader program
-    // ------------------------------------
-    // vertex shader
-    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-    // check for shader compile errors
-    int success;
-    char infoLog[512];
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        CoreWindow::ConsoleWrite( "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n");
-    }
-    // fragment shader
-    unsigned int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-    // check for shader compile errors
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        CoreWindow::ConsoleWrite("ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n");
-    }
-    // link shaders
-    unsigned int shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
-    // check for linking errors
-    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
-    if (!success) {
-        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-        CoreWindow::ConsoleWrite("ERROR::SHADER::PROGRAM::LINKING_FAILED\n");
-    }
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f,  0.5f, 0.0f
-    };
-
-    unsigned int VBO, VAO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(VAO);
-
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);
-
+    PreRender();
+    float color = 0.01f;
     while(startRenderingLoop)
     {
         mutex lockMutex;
@@ -305,27 +212,22 @@ void OpenGLRenderingProvider::InternalRender()
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         coreWindow->WaitForUpdateToFinish();
 
-        CoreWindow::ConsoleWrite("Syncing data!");
-        syncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
-        CoreWindow::ConsoleWrite("Syncing done");
-        /////////////////Rendering
-        // -----
-        // render
-        // ------
+        //CoreWindow::ConsoleWrite("Syncing data!");
+        uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
+        //CoreWindow::ConsoleWrite("Syncing done");
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw our first triangle
-        glUseProgram(shaderProgram);
-        glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        // glBindVertexArray(0); // no need to unbind it every time
+        defaultProgram->Use();
+        defaultProgram->GetUniformManager().SetUniform(glUniform4f, "color", color, 0.1f, 0.0f, 1.0f);
+        for(std::unique_ptr<Mesh>& mesh : meshes)
+            mesh->Draw();
 
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
-        ////////////Rendering end
-        //AssignRendererToNodes();
-        SwapBuffers(windowDc);
+        color+= 0.001f;
+        if(color >= 1.0f)
+            color = 0.0f;
+
         performRender = !coreWindow->IsEventBased();
         SwapBuffers(windowDc);
     }
@@ -333,22 +235,19 @@ void OpenGLRenderingProvider::InternalRender()
 
 void OpenGLRenderingProvider::AssignRendererToNodes()
 {
-
-
-    /*Window& wrapperFrame = coreWindow->GetWrapperFrame();
-    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode());*/
+    Window& wrapperFrame = coreWindow->GetWrapperFrame();
+    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode());
 }
 
 void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node)
 {
-    OpenGLRenderer renderer{};
     if(!node.IsRoot())
     {
-        glTranslatef(node.GetValue().GetY(), node.GetValue().GetY(), 0);
+        //glTranslatef(node.GetValue().GetY(), node.GetValue().GetY(), 0);
     }
 
-    RenderEventInfo renderEvent{&renderer};
-    node.GetValue().OnRender(renderEvent);
+    //RenderEventInfo renderEvent{&renderer};
+   // node.GetValue().OnRender(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {
@@ -356,3 +255,46 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node
     }
 
 }
+
+void OpenGLRenderingProvider::PreRender()
+{
+    defaultProgram = std::make_unique<DefaultShaderProgram>();
+    defaultProgram->Add<GraphicsShader>(L"Shaders//default.frag", GL_FRAGMENT_SHADER);
+    defaultProgram->Add<GraphicsShader>(L"Shaders//default.vert", GL_VERTEX_SHADER);
+
+    if(!defaultProgram->Link())
+    {
+        CoreWindow::ConsoleWrite("Linking program failed!");
+        return;
+    }
+
+    std::unique_ptr<DefaultMesh> shape1 = std::make_unique<DefaultMesh>(3, std::vector<float>{
+        0.2f, 0.2f, 0.0f,
+        0.2f, 0.4f, 0.0f,
+        0.4f, 0.4f, 0.0f,
+        0.4f, 0.2f, 0.0f,
+
+    });
+    shape1->SetVerticeDrawOrder(
+    {
+        0, 1, 3,
+        1, 2, 3
+    });
+
+    std::unique_ptr<DefaultMesh> shape2 = std::make_unique<DefaultMesh>(3, std::vector<float>{
+        0.4f, 0.4f, 0.0f,
+        0.4f, 0.6f, 0.0f,
+        0.6f, 0.6f, 0.0f,
+        0.6f, 0.4f, 0.0f,
+
+        });
+    shape2->SetVerticeDrawOrder(
+        {
+            0, 1, 3,
+            1, 2, 3
+        });
+
+    meshes.emplace_back(std::move(shape1));
+    meshes.emplace_back(std::move(shape2));
+}
+

@@ -1,4 +1,5 @@
 #include "RenderEventInfo.h"
+#include "CoreWindow.h"
 
 RenderEventInfo::RenderEventInfo(Renderer *renderer)
 {

@@ -5,9 +5,12 @@
 #ifndef LII_OPENGLRENDERER_H
 #define LII_OPENGLRENDERER_H
 #include "Renderer.h"
+class Renderable;
 
 class OpenGLRenderer : public Renderer
 {
+private:
+    //const Renderable& owner;
 public:
     void DrawEllipse(float x, float y, float width, float height) override;
     void DrawEllipse(float x, float y, Vector2 vector2) override;

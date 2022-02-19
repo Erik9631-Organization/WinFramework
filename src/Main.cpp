@@ -4,6 +4,7 @@
 #include "DemoApplication.h"
 #include "Window.h"
 #include "OpenGLRenderingProvider.h"
+#include "GraphicsShader.h"
 
 using namespace std;
 
@@ -50,7 +51,9 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 * 2) All the behaviors should be covered by a common interface to be able to make them hot swappable. (It is not going to be completely possible, but at least create a common interface for the same behavioral groups)
 * 3) ListBox and combobox
 *		1) Both have internal factories that generate the elements. Give an option to place any factory inside the components so any element can be part of it.
-* 4) Introduce a merge function, so composite components handle events as a single logical component
+* 4) !IMPORTANT! Sync improvement. Add a SendSyncData function to the UiElement (GameObj as well), which allows user to specify his custom data that the component will receive
+*    during a sync. The target should be known by Id. Both UiElement (GameObj as well) will need to generate their instance Ids during the start.
+ *    The DrawData should be renamed to SyncData. They should have an ID to know what kind of data is used.
 * 
 * Bugs
  * 1) Sometimes the window closes but the process doesn't. Can be observed as console stays open and the window closes
@@ -63,11 +66,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 int LiiEntry()
 {
-    //DemoApplication::LaunchDemoApp();
+    DemoApplication::LaunchDemoApp();
 
-    Window frame = Window(0, 0, 800, 600, "TestFrame");
+    /*Window frame = Window(0, 0, 800, 600, "TestFrame");
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
     frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
-	ApplicationController::JoinThreads();
+	ApplicationController::JoinThreads();*/
 	return 0;
 }

@@ -89,14 +89,14 @@ LONG CoreWindow::RemoveWindowAttributes(int index, LONG parameter)
 void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
     updateFinished = false;
-    CoreWindow::ConsoleWrite("Update started");
+    //CoreWindow::ConsoleWrite("Update started");
 	PAINTSTRUCT paintInfo;
 	//Wait for sync to finish.
 	if(renderingProvider != nullptr)
 	{
-	    CoreWindow::ConsoleWrite("Waiting for sync to finish...");
+	    //CoreWindow::ConsoleWrite("Waiting for sync to finish...");
 	    renderingProvider->WaitForSyncToFinish();
-	    CoreWindow::ConsoleWrite("Sync finished, continuing update");
+	    //CoreWindow::ConsoleWrite("Sync finished, continuing update");
 	}
 
 	switch (msg)
@@ -106,7 +106,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
 			ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
 		processMessages = false;
-		CoreWindow::ConsoleWrite("Update thread ending!");
+		//CoreWindow::ConsoleWrite("Update thread ending!");
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -156,7 +156,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
-    CoreWindow::ConsoleWrite("Update finished");
+    //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
 }
 
@@ -240,8 +240,6 @@ CoreWindow::CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrappe
 		exit(0);
 	}
 	SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
-	updateThread = new std::thread([=]{InternalMessageLoop();});
-	updateThreadId = GetThreadId(updateThread->native_handle());
 	fpsTimer.SetInterval(1000/targetFps);
 	fpsTimer.SetPeriodic(false);
 
@@ -318,10 +316,10 @@ void CoreWindow::OnSync(const DrawData &data)
 
 void CoreWindow::WaitForUpdateToFinish()
 {
-    if(!updateFinished)
-        CoreWindow::ConsoleWrite("Waiting for update to finish");
-    else
-        CoreWindow::ConsoleWrite("No update, continuing");
+//    if(!updateFinished)
+//        CoreWindow::ConsoleWrite("Waiting for update to finish");
+//    else
+//        CoreWindow::ConsoleWrite("No update, continuing");
     std::unique_lock<std::mutex>updateFinishedLock(updateMutex);
     updateFinishedSignal.wait(updateFinishedLock, [=]{return updateFinished;});
 }

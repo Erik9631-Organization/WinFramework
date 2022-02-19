@@ -52,12 +52,12 @@ private:
 	RenderingProvider* renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
-	std::thread* updateThread = nullptr;
 	DWORD updateThreadId = 0;
 	int targetFps = 60;
 	Timer fpsTimer;
 	bool eventBased = false;
     mutex updateMutex;
+    bool processMessages = true;
 public:
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);

@@ -135,10 +135,8 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
         //OnSync
         //Sync only if updating is finished.
         coreWindowframe->WaitForUpdateToFinish();
-       // syncFinished = false;
         //CoreWindow::ConsoleWrite("Syncing data");
         syncer.SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
-        //syncFinished = true;
         //CoreWindow::ConsoleWrite("Syncing finished");
 
         //CoreWindow::ConsoleWrite("Rendering data");
@@ -149,7 +147,7 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
         performRender = !coreWindowframe->IsEventBased();
         //fpsTimer.Wait();
         long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-        //CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
+        CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
     }
 }
 

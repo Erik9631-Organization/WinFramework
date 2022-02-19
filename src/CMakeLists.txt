@@ -306,12 +306,13 @@ set(Lii_Utils
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
-        OpenGL/wglext.h
-        OpenGL/glext.h OpenGL/LiiGlExtentions.h OpenGL/khrplatform.h)
+        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h OpenGL/OpenGLRendererPool.cpp OpenGL/OpenGLRendererPool.h)
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
-set(Lii_Sync
 
-        Sync/UiTreeDataSyncer.cpp Sync/UiTreeDataSyncer.h)
+set(Lii_Sync
+        Sync/UiTreeDataSyncer.cpp
+        Sync/UiTreeDataSyncer.h
+)
 source_group("Lii\\Sync" FILES ${Lii_OpenGL})
 
 
