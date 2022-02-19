@@ -45,7 +45,6 @@ private:
     void CleanBackBuffer();
     void AssignGraphicsToNodes();
     [[noreturn]] void InternalRender();
-    void SyncData(MultiTree<UiElement&>& node);
     HDC GetSecondaryDC();
     HWND windowHandle;
     HDC windowHdc;

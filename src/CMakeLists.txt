@@ -99,7 +99,7 @@ set(Lii_Renderer
         Renderer/GdiRenderer.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
-        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h Renderer/DrawData.cpp Renderer/DrawData.h Renderer/DrawData2D.cpp Renderer/DrawData2D.h)
+        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h Renderer/DrawData.cpp Renderer/DrawData.h Renderer/DrawData2D.cpp Renderer/DrawData2D.h Renderer/RenderingPool.cpp Renderer/RenderingPool.h Renderer/GdiRenderingPool.cpp Renderer/GdiRenderingPool.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Components
@@ -306,7 +306,7 @@ set(Lii_Utils
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
-        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h OpenGL/OpenGLRendererPool.cpp OpenGL/OpenGLRendererPool.h)
+        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h Renderer/OpenGLRenderingPool.cpp Renderer/OpenGLRenderingPool.h)
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync

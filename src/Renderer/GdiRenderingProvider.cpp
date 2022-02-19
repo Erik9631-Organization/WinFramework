@@ -13,6 +13,8 @@
 #include <execution>
 #include <future>
 #include <chrono>
+#include "GdiRenderingPool.h"
+
 using namespace std::chrono;
 
 using namespace Gdiplus;
@@ -34,6 +36,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
 {
     Graphics graphics(secondaryDc);
     GdiRenderer renderer{graphics};
+    GdiRenderingPool gdiRenderingPool{&renderer};
     graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
 
     if(!node.IsRoot())
@@ -50,7 +53,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
         transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
         graphics.SetTransform(&transformMatrix);
     }
-    RenderEventInfo renderEvent{&renderer};
+    RenderEventInfo renderEvent{&gdiRenderingPool};
 
     node.GetValue().OnRender(renderEvent);
 
@@ -143,7 +146,7 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
         GetSecondaryDC();
         AssignGraphicsToNodes(); //This is where components draw on the buffer
         BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
-        CleanBackBuffer(); // No longer needed as it window will use CS_OWNDC
+        CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
         performRender = !coreWindowframe->IsEventBased();
         //fpsTimer.Wait();
         long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
@@ -151,16 +154,6 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
     }
 }
 
-void GdiRenderingProvider::SyncData(MultiTree<UiElement &> &node)
-{
-    //Notify current node, then go to the next one.
-    std::future<void> syncResult = std::async(std::launch::async, [&]{node.GetValue().OnSync(defaultDrawData);});
-    std::for_each(std::execution::par, node.GetNodes().begin(), node.GetNodes().end(), [&](MultiTree<UiElement &>& i)
-    {
-        SyncData(i);
-    });
-    syncResult.wait();
-}
 
 void GdiRenderingProvider::WaitForSyncToFinish()
 {

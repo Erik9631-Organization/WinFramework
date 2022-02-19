@@ -1,6 +1,7 @@
 #include "Background.h"
 #include "RenderEventInfo.h"
 #include "CoreWindow.h"
+#include "RenderingPool.h"
 
 
 Background::Background() : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, size)
@@ -69,10 +70,10 @@ float Background::GetY()
 
 void Background::OnRender(RenderEventInfo e)
 {
-    Renderer& renderer = *e.GetRenderer();
+    Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
     renderer.SetColor(currentColor);
-    e.GetRenderer()->FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
 }
 
 void Background::Repaint()

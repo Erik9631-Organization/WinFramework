@@ -5,6 +5,7 @@
 #include "TestGraphics.h"
 #include "RenderEventInfo.h"
 #include "Vector3.h"
+#include "RenderingPool.h"
 
 void TestGraphics::Repaint()
 {
@@ -28,9 +29,10 @@ std::vector<std::reference_wrapper<Renderable>> TestGraphics::GetRenderables()
 
 void TestGraphics::OnRender(RenderEventInfo e)
 {
-    e.GetRenderer()->SetColor({0, 0, 0});
-    e.GetRenderer()->SetThickness(0.1f);
-    e.GetRenderer()->DrawRectangle(10, 10, 50, 50);
+    Renderer& renderer = e.GetRenderer()->Acquire(*this);
+    renderer.SetColor({0, 0, 0});
+    renderer.SetThickness(0.1f);
+    renderer.DrawRectangle(10, 10, 50, 50);
 }
 
 TestGraphics::TestGraphics()

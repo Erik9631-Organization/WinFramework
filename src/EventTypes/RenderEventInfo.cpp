@@ -1,12 +1,14 @@
 #include "RenderEventInfo.h"
 #include "CoreWindow.h"
+#include "RenderingPool.h"
 
-RenderEventInfo::RenderEventInfo(Renderer *renderer)
-{
-    this->renderer = renderer;
-}
-
-Renderer * RenderEventInfo::GetRenderer() const
+RenderingPool * RenderEventInfo::GetRenderer() const
 {
     return renderer;
+}
+
+
+RenderEventInfo::RenderEventInfo(RenderingPool *g)
+{
+    this->renderer = g;
 }

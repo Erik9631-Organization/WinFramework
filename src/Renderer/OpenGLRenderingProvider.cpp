@@ -13,7 +13,7 @@
 #include "RenderEventInfo.h"
 #include "GraphicsShader.h"
 #include "DefaultMesh.h"
-#include "OpenGLRendererPool.h"
+#include "OpenGLRenderingPool.h"
 
 void OpenGLRenderingProvider::Render()
 {

@@ -2,6 +2,7 @@
 #include "RenderEventInfo.h"
 #include "GraphicsScaling.h"
 #include "CoreWindow.h"
+#include "RenderingPool.h"
 
 
 SimpleBorder::SimpleBorder() :
@@ -53,12 +54,12 @@ void SimpleBorder::DrawFromCenterY(bool state)
 
 void SimpleBorder::OnRender(RenderEventInfo e)
 {
-    Renderer* renderer = e.GetRenderer();
+    Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
 
-    renderer->SetThickness(thickness);
-    renderer->SetColor(color);
-    renderer->DrawRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.SetThickness(thickness);
+    renderer.SetColor(color);
+    renderer.DrawRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
 	renderBehavior.OnRender(e);
 }
 

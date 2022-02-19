@@ -2,6 +2,7 @@
 #include "EventTypes/RenderEventInfo.h"
 #include "MetaObjects/ClassMethod.h"
 #include "FontFormat.h"
+#include "RenderingPool.h"
 
 void Text::SetLineAlignment(int alignment)
 {
@@ -67,13 +68,14 @@ void Text::SetFontSize(float fontSize)
 
 void Text::OnRender(RenderEventInfo e)
 {
+    Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
-    std::unique_ptr<FontFormat> format = e.GetRenderer()->CreateFontFormat();
+    std::unique_ptr<FontFormat> format = renderer.CreateFontFormat();
     format->SetAlignment(alignment);
     format->SetLineAlignment(lineAlignment);
-    e.GetRenderer()->SetColor(color);
-    e.GetRenderer()->SetFontFamily(fontFamily);
-    e.GetRenderer()->DrawString(text, graphicsUtil.GetPosition(), *format, text.size());
+    renderer.SetColor(color);
+    renderer.SetFontFamily(fontFamily);
+    renderer.DrawString(text, graphicsUtil.GetPosition(), *format, text.size());
 }
 
 void Text::Repaint()

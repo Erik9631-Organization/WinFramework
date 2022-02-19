@@ -1,6 +1,7 @@
 #include "CircleBorder.h"
 #include "EventTypes/RenderEventInfo.h"
 #include "DrawData.h"
+#include "RenderingPool.h"
 
 CircleBorder::CircleBorder() : renderBehavior(*this), graphicsUtil(position, size)
 {
@@ -15,12 +16,12 @@ CircleBorder::~CircleBorder()
 
 void CircleBorder::OnRender(RenderEventInfo e)
 {
-    Renderer* renderer = e.GetRenderer();
+    Renderer& renderer = e.GetRenderer()->Acquire(*this);
 
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
-    renderer->SetThickness(thickness);
-    renderer->SetColor(color);
-    renderer->DrawEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.SetThickness(thickness);
+    renderer.SetColor(color);
+    renderer.DrawEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
     renderBehavior.OnRender(e);
 }
 
