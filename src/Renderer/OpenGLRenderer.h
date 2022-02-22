@@ -56,6 +56,7 @@ public:
     void SetFontSize(float fontSize) override;
     std::unique_ptr<FontFormat> CreateFontFormat() override;
     void Translate(Vector2 translation) override;
+    void CreateViewMatrix(float width, float height, glm::mat4& viewMatrix);
 private:
     void OnResize(EventResizeInfo e) override;
 

@@ -126,36 +126,28 @@ OpenGLRenderer::OpenGLRenderer(Window& window) : window(window)
 {
     window.AddOnResizeSubscriber(*this);
     viewMatrix = std::make_unique<glm::mat4>(1.0f);
-    float screenWidth = window.GetWidth();
-    float screenHeight = window.GetHeight();
-    *viewMatrix =
-    {
-    2.0f/screenWidth, 0, 0, -1,
-    0, -2.0f/screenHeight, 0, 1,
-    0, 0, 1, 0,
-    0, 0, 0, 1
-    };
-    *viewMatrix = glm::transpose(*viewMatrix);
+    CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
     builder.SetViewMatrix(viewMatrix);
 }
 
 void OpenGLRenderer::OnResize(EventResizeInfo e)
 {
-    Vector2 size = e.GetSize();
-
-    float screenWidth = size.GetX();
-    float screenHeight = size.GetY();
-    *viewMatrix =
-    {
-        2.0f/screenWidth, 0, 0, -1,
-        0, -2.0f/screenHeight, 0, 1,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-    };
-    *viewMatrix = glm::transpose(*viewMatrix);
+    CreateViewMatrix(e.GetSize().GetX(), e.GetSize().GetY(), *viewMatrix);
 }
 
 void OpenGLRenderer::Translate(Vector2 translation)
 {
     this->translation = translation;
+}
+
+void OpenGLRenderer::CreateViewMatrix(float width, float height, glm::mat4 &viewMatrix)
+{
+    viewMatrix =
+        {
+        2.0f/width, 0, 0, -1,
+        0, -2.0f/height, 0, 1,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+        };
+    viewMatrix = glm::transpose(viewMatrix);
 }
