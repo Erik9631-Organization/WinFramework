@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "OpenGLRenderingProvider.h"
 #include "GraphicsShader.h"
+#include "Button.h"
 
 using namespace std;
 
@@ -66,11 +67,17 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 int LiiEntry()
 {
-    DemoApplication::LaunchDemoApp();
+   // DemoApplication::LaunchDemoApp();
 
-    /*Window frame = Window(0, 0, 800, 600, "TestFrame");
+    Window frame = Window(0, 0, 800, 600, "TestFrame");
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
     frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
-	ApplicationController::JoinThreads();*/
+    Button button{50, 50, 50, 50};
+    frame.Add(button);
+
+    //Button button2{100, 100, 400, 400};
+    //frame.Add(button2);
+
+	ApplicationController::JoinThreads();
 	return 0;
 }

@@ -333,7 +333,7 @@ public:
 * 12) Renderables lack visibility option.
 * 13) Renderables should have rendering order
 * 14) Checkbox should be a graphical component on its own, similar to radio thumbTrack
-* 15) Matrix transformation reset applies to renderables on the same layer. src is a POINTER!!!!! -- I think I fixed this??? lol
+* 15) Matrix translation reset applies to renderables on the same layer. src is a POINTER!!!!! -- I think I fixed this??? lol
 * 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
 * 18) Specialize the trackbar behavior to either vertical or horizontal
 * 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover -- Should differentiate between OnHover and OnMove (One hovers when mouse within, the other when focused)

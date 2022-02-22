@@ -26,10 +26,10 @@ set(Lii
     "GenericObj.h"
     "Components/Grid/GridCell.h"
     "Components/Grid/GridSpan.h"
-        "Events/OnAddSubscriber.h"
+    "Events/OnAddSubscriber.h"
     "TableElement.h"
-        "Graphics/TrackbarGraphics.h"
-        "AddSubject.cpp"
+    "Graphics/TrackbarGraphics.h"
+    "AddSubject.cpp"
     "Events/ComboBoxStateSubject.cpp"
     "Behavior/DefaultListBoxBehavior.cpp"
     "DemoApplication.cpp"
@@ -306,7 +306,7 @@ set(Lii_Utils
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
-        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h Renderer/OpenGLRenderingPool.cpp Renderer/OpenGLRenderingPool.h)
+        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h Renderer/OpenGLRenderingPool.cpp Renderer/OpenGLRenderingPool.h OpenGL/Shape2DBuilder.cpp OpenGL/Shape2DBuilder.h)
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync
@@ -314,6 +314,11 @@ set(Lii_Sync
         Sync/UiTreeDataSyncer.h
 )
 source_group("Lii\\Sync" FILES ${Lii_OpenGL})
+
+set(Lii_Objects
+        Objects/Model.h Objects/DefaultModel.cpp Objects/DefaultModel.h)
+
+source_group("Lii\\Objects" FILES ${Lii_Objects})
 
 
 
@@ -333,6 +338,7 @@ set(ALL_FILES
     ${Lii_Utils}
     ${Lii_OpenGL}
     ${Lii_Sync}
+    ${Lii_Objects}
 )
 
 ################################################################################
@@ -357,6 +363,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "OpenGL/"
         "Sync/"
         "../libs/glew/include/gl"
+        "../libs/glm"
+        "Objects/"
         )
 
 target_link_libraries(Lii

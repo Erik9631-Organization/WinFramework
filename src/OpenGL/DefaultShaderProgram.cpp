@@ -21,7 +21,7 @@ Shader &DefaultShaderProgram::AddShader(std::unique_ptr<Shader> shader)
 {
     Shader& shaderObjRef = *shader;
 
-    //Make sure that the shader source is loaded and compiled
+    //Make sure that the shaderProgram source is loaded and compiled
     if(!LoadAndCompile(shaderObjRef))
     {
         CoreWindow::ConsoleWrite("Error, Shader load and compile failed!");

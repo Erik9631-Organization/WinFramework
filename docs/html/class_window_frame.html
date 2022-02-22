@@ -136,10 +136,10 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>SetSize</b> (Size siz
 <tr class="separator:a25347c33646be87dc103406fabf163ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae43e561da745e2b5620ae8dfb604342c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window_frame.html#ae43e561da745e2b5620ae8dfb604342c">NotifyOnMouseDown</a> (<a class="el" href="class_event_mouse_state_info.html">EventMouseStateInfo</a> e) override</td></tr>
 <tr class="separator:ae43e561da745e2b5620ae8dfb604342c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aefd805bfb8b786c261adc2c578626c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window_frame.html#a5aefd805bfb8b786c261adc2c578626c">SetPosition</a> (int x, int y) override</td></tr>
+<tr class="memitem:a5aefd805bfb8b786c261adc2c578626c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window_frame.html#a5aefd805bfb8b786c261adc2c578626c">Translate</a> (int x, int y) override</td></tr>
 <tr class="separator:a5aefd805bfb8b786c261adc2c578626c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abec27f8610ff28c77a6ea68969d9ddeb"><td class="memItemLeft" align="right" valign="top"><a id="abec27f8610ff28c77a6ea68969d9ddeb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>SetPosition</b> (Point point) override</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>Translate</b> (Point point) override</td></tr>
 <tr class="separator:abec27f8610ff28c77a6ea68969d9ddeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a486350b49ae876fdb9590b9c5b232f89"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_window_frame.html#a486350b49ae876fdb9590b9c5b232f89">NotifyOnKeyDown</a> (<a class="el" href="class_event_key_state_info.html">EventKeyStateInfo</a> e) override</td></tr>
 <tr class="separator:a486350b49ae876fdb9590b9c5b232f89"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,7 +209,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>UpdateWindow</b> ()</
 <tr class="separator:accd66a9e99649593e33712d5bef9d5b3 inherit pub_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0020f545fdcaefbaf75bbaaec3856af9 inherit pub_methods_class_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a0020f545fdcaefbaf75bbaaec3856af9">SetComponentName</a> (string name)</td></tr>
 <tr class="separator:a0020f545fdcaefbaf75bbaaec3856af9 inherit pub_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57571f953e01c0e66fde0cb3b5eefdf3 inherit pub_methods_class_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a57571f953e01c0e66fde0cb3b5eefdf3">SetPosition</a> (Gdiplus::Point pos)</td></tr>
+<tr class="memitem:a57571f953e01c0e66fde0cb3b5eefdf3 inherit pub_methods_class_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#a57571f953e01c0e66fde0cb3b5eefdf3">Translate</a> (Gdiplus::Point pos)</td></tr>
 <tr class="separator:a57571f953e01c0e66fde0cb3b5eefdf3 inherit pub_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed9d27bb97eae63e2c293388ea5d0703 inherit pub_methods_class_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_component.html#aed9d27bb97eae63e2c293388ea5d0703">AddOnMoveSubscriber</a> (<a class="el" href="class_move_subscriber.html">MoveSubscriber</a> &amp;subscriber) override</td></tr>
 <tr class="separator:aed9d27bb97eae63e2c293388ea5d0703 inherit pub_methods_class_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -753,7 +753,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
 </div>
 </div>
 <a id="a5aefd805bfb8b786c261adc2c578626c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5aefd805bfb8b786c261adc2c578626c">&#9670;&nbsp;</a></span>SetPosition()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5aefd805bfb8b786c261adc2c578626c">&#9670;&nbsp;</a></span>Translate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -762,7 +762,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>ignoreTranslate</b> =
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Window::SetPosition </td>
+          <td class="memname">void Window::Translate </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>x</em>, </td>

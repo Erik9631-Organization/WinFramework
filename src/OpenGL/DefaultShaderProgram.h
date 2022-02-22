@@ -27,7 +27,7 @@ public:
         auto shaderObj = std::make_unique<Type>( constructorArgs ...);
         Type& shaderObjRef = *shaderObj;
 
-        //Make sure that the shader source is loaded and compiled
+        //Make sure that the shaderProgram source is loaded and compiled
         if(!LoadAndCompile(shaderObjRef))
         {
             CoreWindow::ConsoleWrite("Error, Shader load and compilation failed!");

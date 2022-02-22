@@ -11,8 +11,8 @@
 #include <mutex>
 #include <DefaultShaderProgram.h>
 #include "UiTreeDataSyncer.h"
-#include "Mesh.h"
-//#include "DefaultShaderProgram.h"
+#include "Model.h"
+#include "OpenGLRenderingPool.h"
 
 
 class OpenGLRenderingProvider : public RenderingProvider
@@ -38,6 +38,7 @@ private:
     bool performRender = false;
     std::condition_variable performRenderSignal;
     UiTreeDataSyncer uiSyncer;
+    std::unique_ptr<OpenGLRenderingPool> renderingPool;
 
     //Used for default rendering if nothing else is specified
     std::unique_ptr<DefaultShaderProgram> defaultProgram;
@@ -46,7 +47,7 @@ private:
     unsigned int shaderProgram;
 
     ///TestPurpose --- DELETE
-    std::vector<std::unique_ptr<Mesh>> meshes;
+    std::vector<std::unique_ptr<Model>> models;
 };
 
 

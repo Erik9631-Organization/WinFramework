@@ -13,7 +13,11 @@
 #include "RenderEventInfo.h"
 #include "GraphicsShader.h"
 #include "DefaultMesh.h"
-#include "OpenGLRenderingPool.h"
+#include <glm.hpp>
+#include <gtc/matrix_transform.hpp>
+#include <gtc/type_ptr.hpp>
+#include "DefaultModel.h"
+#include "Shape2DBuilder.h"
 
 void OpenGLRenderingProvider::Render()
 {
@@ -28,6 +32,7 @@ void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     PrepareWindowRenderer(coreWindowFrame);
     coreWindow = &coreWindowFrame;
     renderingThread = std::make_unique<std::thread>([=]{InternalRender();});
+    renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame());
 }
 
 void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
@@ -204,29 +209,25 @@ void OpenGLRenderingProvider::InternalRender()
 {
     wglMakeCurrent(windowDc, openGlContext);
     PreRender();
-    float color = 0.01f;
+    Window& window = coreWindow->GetWrapperFrame();
     while(startRenderingLoop)
     {
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         mutex lockMutex;
         std::unique_lock<std::mutex>performRenderLock(lockMutex);
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         coreWindow->WaitForUpdateToFinish();
-
-        //CoreWindow::ConsoleWrite("Syncing data!");
         uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
-        //CoreWindow::ConsoleWrite("Syncing done");
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glViewport(0, 0, window.GetWidth(), window.GetHeight());
+        AssignRendererToNodes();
 
-        // draw our first triangle
-        defaultProgram->Use();
-        defaultProgram->GetUniformManager().SetUniform(glUniform4f, "color", color, 0.1f, 0.0f, 1.0f);
-        for(std::unique_ptr<Mesh>& mesh : meshes)
-            mesh->Draw();
-
-        color+= 0.001f;
-        if(color >= 1.0f)
-            color = 0.0f;
+        /*for(unique_ptr<Model>& model : models)
+        {
+            model->GetShader().GetUniformManager().SetUniform(glUniform4f, "color", 1.0f, 1.0f, 1.0f, 1.0f);
+            model->Draw();
+        }*/
 
         performRender = !coreWindow->IsEventBased();
         SwapBuffers(windowDc);
@@ -242,12 +243,15 @@ void OpenGLRenderingProvider::AssignRendererToNodes()
 void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node)
 {
     if(!node.IsRoot())
-    {
-        //glTranslatef(node.GetValue().GetY(), node.GetValue().GetY(), 0);
-    }
+        renderingPool->SetTranslation(node.GetValue().GetPosition());
+    else
+        renderingPool->SetTranslation({0, 0});
 
-    //RenderEventInfo renderEvent{&renderer};
-   // node.GetValue().OnRender(renderEvent);
+    /**
+     * TODO breaking RAII here. Ensure that either uniq_ptr is passed or reference
+     */
+    RenderEventInfo renderEvent{renderingPool.get()};
+    node.GetValue().OnRender(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {
@@ -258,43 +262,22 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node
 
 void OpenGLRenderingProvider::PreRender()
 {
-    defaultProgram = std::make_unique<DefaultShaderProgram>();
-    defaultProgram->Add<GraphicsShader>(L"Shaders//default.frag", GL_FRAGMENT_SHADER);
-    defaultProgram->Add<GraphicsShader>(L"Shaders//default.vert", GL_VERTEX_SHADER);
+    Shape2DBuilder builder;
+    float screenWidth = 800;
+    float screenHeight = 600;
+    std::shared_ptr<glm::mat4> viewMatrix = std::make_shared<glm::mat4>
+    (
+        2.0f/screenWidth, 0, 0, -1,
+        0, -2.0f/screenHeight, 0, 1,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+    );
+    *viewMatrix = glm::transpose(*viewMatrix);
+    builder.SetViewMatrix(viewMatrix);
 
-    if(!defaultProgram->Link())
-    {
-        CoreWindow::ConsoleWrite("Linking program failed!");
-        return;
-    }
-
-    std::unique_ptr<DefaultMesh> shape1 = std::make_unique<DefaultMesh>(3, std::vector<float>{
-        0.2f, 0.2f, 0.0f,
-        0.2f, 0.4f, 0.0f,
-        0.4f, 0.4f, 0.0f,
-        0.4f, 0.2f, 0.0f,
-
-    });
-    shape1->SetVerticeDrawOrder(
-    {
-        0, 1, 3,
-        1, 2, 3
-    });
-
-    std::unique_ptr<DefaultMesh> shape2 = std::make_unique<DefaultMesh>(3, std::vector<float>{
-        0.4f, 0.4f, 0.0f,
-        0.4f, 0.6f, 0.0f,
-        0.6f, 0.6f, 0.0f,
-        0.6f, 0.4f, 0.0f,
-
-        });
-    shape2->SetVerticeDrawOrder(
-        {
-            0, 1, 3,
-            1, 2, 3
-        });
-
-    meshes.emplace_back(std::move(shape1));
-    meshes.emplace_back(std::move(shape2));
+   // auto triangle = builder.CreateTriangle({0, 0}, {100, 125}, {100, 175});
+    //triangle->ResetTransform();
+    //triangle->Translate({0, 0, 0});
+    models.emplace_back(builder.CreateRectangle(0, 0, 800, 600));
 }
 

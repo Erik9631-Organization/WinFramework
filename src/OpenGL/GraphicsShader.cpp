@@ -32,7 +32,7 @@ bool GraphicsShader::Compile()
 
 void GraphicsShader::SetShaderSrc(std::wstring path, unsigned int shaderType)
 {
-    //Clear previous shader
+    //Clear previous shaderProgram
     glDeleteShader(shaderId);
     shaderId = glCreateShader(shaderType);
 

@@ -7,21 +7,23 @@
 #include <unordered_map>
 #include <memory>
 #include "RenderingPool.h"
-
-class OpenGLRenderer;
+#include "OpenGLRenderer.h"
+#include "Vector2.h"
+class Window;
 class Renderable;
 
 class OpenGLRenderingPool : public RenderingPool
 {
 public:
-    static OpenGLRenderingPool& GetRenderPool();
     Renderer &Acquire(const Renderable &target) override;
+    OpenGLRenderingPool(Window& window);
 private:
-    OpenGLRenderingPool() = default;
-    OpenGLRenderingPool(OpenGLRenderingPool &&) = default;
-    OpenGLRenderingPool(OpenGLRenderingPool &) = default;
-    static OpenGLRenderingPool* rendererPool;
     std::unordered_map<const Renderable*, std::unique_ptr<OpenGLRenderer>> renderers;
+    Window& window;
+    Vector2 translation;
+public:
+    const Vector2 &GetTranslation() const;
+    void SetTranslation(const Vector2 &translation);
 };
 
 

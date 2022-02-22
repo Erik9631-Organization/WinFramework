@@ -5,20 +5,36 @@
 #include "OpenGLRenderingPool.h"
 #include "Renderable.h"
 #include "OpenGLRenderer.h"
-OpenGLRenderingPool* OpenGLRenderingPool::rendererPool = new OpenGLRenderingPool();
-
-OpenGLRenderingPool &OpenGLRenderingPool::GetRenderPool()
-{
-    return *rendererPool;
-}
-
+#include "Window.h";
 
 Renderer &OpenGLRenderingPool::Acquire(const Renderable &target)
 {
     auto renderableIt = renderers.find(&target);
     if(renderableIt != renderers.end())
+    {
+        OpenGLRenderer& renderer = *renderableIt->second;
+        renderer.Translate(translation);
         return *renderableIt->second;
+    }
+
     //Not found, new one needs to be created
-    renderers.insert({&target, std::make_unique<OpenGLRenderer>()});
+    renderers.insert({&target, std::make_unique<OpenGLRenderer>(window)});
+    OpenGLRenderer& renderer = *renderers[&target];
+    renderer.Translate(translation);
     return *renderers[&target];
+}
+
+OpenGLRenderingPool::OpenGLRenderingPool(Window &window) : window(window)
+{
+
+}
+
+const Vector2 &OpenGLRenderingPool::GetTranslation() const
+{
+    return translation;
+}
+
+void OpenGLRenderingPool::SetTranslation(const Vector2 &translation)
+{
+    this->translation = translation;
 }

@@ -42,6 +42,7 @@ public:
     void SetFontFamily(std::wstring fontFamily) override;
     void SetFontSize(float fontSize) override;
     std::unique_ptr<FontFormat> CreateFontFormat() override;
+    void Translate(Vector2 translation) override;
 private:
     Gdiplus::Pen* pen = nullptr;
     Gdiplus::SolidBrush* brush = nullptr;

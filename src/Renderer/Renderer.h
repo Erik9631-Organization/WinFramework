@@ -34,6 +34,7 @@ public:
     virtual void SetFontFamily(std::wstring fontFamily) = 0;
     virtual void SetFontSize(float fontSize) = 0;
     virtual std::unique_ptr<FontFormat> CreateFontFormat() = 0;
+    virtual void Translate(Vector2 translation) = 0;
 };
 
 

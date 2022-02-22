@@ -30,12 +30,21 @@ public:
     }
 
     template<typename type>
-    void SetUniform(void (*glUniform)(int, type ...), const std::string& name, const std::vector<type>& args) const
+    void SetUniform(void (*glUniform)(int, int, type), const std::string& name, type* input, int count = 1) const
     {
         int uniformShader = glGetUniformLocation(shaderProgramId, name.c_str());
         if(uniformShader == -1)
             return;
-        glUniform(uniformShader, args.size(), args.data());
+        glUniform(uniformShader, count, input);
+    }
+
+    template<typename type>
+    void SetUniform(void (*glUniform)(GLint ,GLsizei ,GLboolean, type), const std::string& name, type input, int count = 1) const
+    {
+        int uniformShader = glGetUniformLocation(shaderProgramId, name.c_str());
+        if(uniformShader == -1)
+            return;
+        glUniform(uniformShader, count, GL_FALSE, input);
     }
 };
 

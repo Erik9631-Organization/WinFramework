@@ -7,10 +7,13 @@
 #include "Vector3.h"
 #include <windows.h>
 #include <gdiplus.h>
+#include <CoreWindow.h>
 #include "FontFormat.h"
 #include "GdiFontFormat.h"
+#include "CoreWindow.h"
 
 using namespace Gdiplus;
+unsigned int fpsfuckingcounter = 0;
 
 void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
 {
@@ -50,6 +53,7 @@ void GdiRenderer::DrawString(const std::wstring &string, Vector2 position, const
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
     graphics.DrawString(string.c_str(), -1, font, {position.GetX(), position.GetY()}, &stringFormat, brush);
+    fpsfuckingcounter++;
     delete font;
 }
 
@@ -123,4 +127,9 @@ GdiRenderer::~GdiRenderer()
     delete pen;
     delete brush;
     delete fontFamily;
+}
+
+void GdiRenderer::Translate(Vector2 translation)
+{
+    graphics.TranslateTransform(translation.GetX(), translation.GetY());
 }
