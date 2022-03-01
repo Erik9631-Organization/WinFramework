@@ -71,3 +71,8 @@ void DefaultModel::SetViewMatrix(std::shared_ptr<glm::mat4> view)
 {
     viewMatrix = view;
 }
+
+void DefaultModel::SetDrawMode(unsigned int drawMode)
+{
+    mesh->DrawMode(drawMode);
+}

@@ -68,7 +68,8 @@ void OpenGLRenderer::FillRectangle(Vector2 pos, Vector2 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
-        lastShape = builder.CreateRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(), size.GetX(), size.GetY());
+        lastShape = builder.CreateFillRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(),
+                                                size.GetX(), size.GetY());
         lastDrawdata = {pos, size};
         lastShapeType = ShapeType::Rectangle;
     }

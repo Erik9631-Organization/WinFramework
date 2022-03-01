@@ -27,6 +27,7 @@ public:
     void ResetTransform() override;
     void SetMesh(std::unique_ptr<Mesh> mesh);
     void SetViewMatrix(std::shared_ptr<glm::mat4> view) override;
+    void SetDrawMode(unsigned int drawMode) override;
 };
 
 

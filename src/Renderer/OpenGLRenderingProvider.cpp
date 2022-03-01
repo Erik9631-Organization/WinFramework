@@ -220,12 +220,11 @@ void OpenGLRenderingProvider::InternalRender()
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         coreWindow->WaitForUpdateToFinish();
         uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
-        glViewport(0, 0, window.GetWidth(), window.GetHeight());
+        glViewport(0, 0, window.GetWidth(), window.GetHeight()); // Update the viewport
         AssignRendererToNodes();
-
         /*for(unique_ptr<Model>& model : models)
         {
-            model->GetShader().GetUniformManager().SetUniform(glUniform4f, "color", 1.0f, 1.0f, 1.0f, 1.0f);
+            model->GetShader().GetUniformManager().SetUniform(glUniform4f, "color", 1.0f, 0.0f, 0.0f, 0.0f);
             model->Draw();
         }*/
 
@@ -278,6 +277,7 @@ void OpenGLRenderingProvider::PreRender()
    // auto triangle = builder.CreateTriangle({0, 0}, {100, 125}, {100, 175});
     //triangle->ResetTransform();
     //triangle->Translate({0, 0, 0});
-    models.emplace_back(builder.CreateRectangle(0, 0, 800, 600));
+    //models.emplace_back(builder.CreateFillRectangle(0, 0, 800, 600));
+    models.emplace_back(builder.CreateEllipse(400, 300, 100, 100));
 }
 
