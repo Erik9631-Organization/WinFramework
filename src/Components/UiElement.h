@@ -8,18 +8,20 @@
 #include "DefaultMultiTree.h"
 #include "DefaultMove.h"
 #include "DefaultResize.h"
-#include "Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "Viewport.h"
-#include "Viewable.h"
+#include "api/Viewable.h"
 #include "UpdateSubscriber.h"
 #include "DefaultActivate.h"
-#include "Collidable.h"
-#include "MouseInteractable.h"
+#include "api/Collidable.h"
+#include "api/MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
 #include "DefaultKeyStateBehavior.h"
 #include "AccessTools.h"
 #include "AddSubject.h"
+#include "TickSubject.h"
+#include "OnTickSubscriber.h"
 
 
 class EventInfo;
@@ -32,10 +34,11 @@ using namespace std;
 using namespace Gdiplus;
 
 
-class UiElement : public Adjustable, public Renderable, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<UiElement&>
+class UiElement : public Adjustable, public RenderCommander, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<UiElement&>, public TickSubject
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
+    std::mutex addUiElementMutex;
 protected:
 	string componentType;
 	string name;
@@ -49,6 +52,7 @@ protected:
 	Viewport viewport;
 	std::wstring text;
 	bool ignoreTranslate = false;
+	std::vector<OnTickSubscriber*> tickSubscribers;
 public:
 
 	UiElement();
@@ -158,8 +162,8 @@ public:
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable &renderable) override;
-	virtual void RemoveRenderable(Renderable& renderable) override;
+	virtual void AddRenderable(RenderCommander &renderable) override;
+	virtual void RemoveRenderable(RenderCommander& renderable) override;
 
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
@@ -169,7 +173,7 @@ public:
 	virtual void SetHeight(float height) override;
 
 	// Inherited via Renderable
-	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 	// Inherited via Viewable
 	virtual void AddOnViewportMoveSubscriber(MoveSubscriber& subscriber) override;
@@ -245,7 +249,7 @@ public:
 	template<typename ... Args>
 	void SetProperty(std::string name, Args ... args)
 	{
-		for (Renderable& renderable : GetRenderables())
+		for (RenderCommander& renderable : GetRenderables())
 		{
 			AccessTools::Invoke<void>(name, renderable, args ...);
 		}
@@ -262,7 +266,7 @@ public:
 	template<typename returnType, typename ... Args>
 	returnType GetPropery(std::string name, Args ... args)
 	{
-		for (Renderable& renderable : GetRenderables())
+		for (RenderCommander& renderable : GetRenderables())
 		{
 			return AccessTools::Invoke<returnType>(name, renderable, args ...);
 		}
@@ -312,4 +316,7 @@ public:
 
     void SetMouseCaptured(bool state) override;
     void OnSync(const DrawData &data) override;
+	void AddOnTickSubscriber(OnTickSubscriber *subscriber) override;
+	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
+	void NotifyOnTick() override;
 };

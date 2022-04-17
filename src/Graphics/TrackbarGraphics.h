@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Background.h"
@@ -9,7 +9,7 @@
 
 class UiElement;
 
-class TrackbarGraphics : public Renderable, public Reflectable<TrackbarGraphics>
+class TrackbarGraphics : public RenderCommander, public Reflectable<TrackbarGraphics>
 {
 private:
 	DefaultRender renderBehavior;
@@ -31,9 +31,9 @@ public:
 
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable &renderable) override;
-	virtual void RemoveRenderable(Renderable& renderable) override;
-	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	virtual void AddRenderable(RenderCommander &renderable) override;
+	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 	// Inherited via Reflectable
 	virtual bool HasMethod(std::string method) override;

@@ -29,12 +29,12 @@ void CircleBorder::Repaint()
 {
 }
 
-void CircleBorder::AddRenderable(Renderable &renderable)
+void CircleBorder::AddRenderable(RenderCommander &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
 
-void CircleBorder::RemoveRenderable(Renderable& renderable)
+void CircleBorder::RemoveRenderable(RenderCommander& renderable)
 {
     renderBehavior.RemoveRenderable(renderable);
 }
@@ -45,7 +45,7 @@ void CircleBorder::SetDiameter(float diameter)
     this->diameter = diameter;
 }
 
-std::vector<std::reference_wrapper<Renderable>> CircleBorder::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> CircleBorder::GetRenderables()
 {
     return renderBehavior.GetRenderables();
 }

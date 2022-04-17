@@ -10,7 +10,7 @@ class Vector2;
 class FontFormat;
 class Vector4;
 class Vector3;
-class Renderable;
+class RenderCommander;
 
 class Renderer
 {

@@ -6,12 +6,12 @@
 #include <fstream>
 #include <glew.h>
 #include "CoreWindow.h"
-unsigned int GraphicsShader::GetId()
+unsigned int OpenGL::GraphicsShader::GetId()
 {
     return shaderId;
 }
 
-bool GraphicsShader::Compile()
+bool OpenGL::GraphicsShader::Compile()
 {
     glCompileShader(shaderId);
     int compileStatus = 0;
@@ -30,7 +30,7 @@ bool GraphicsShader::Compile()
     return compiled;
 }
 
-void GraphicsShader::SetShaderSrc(std::wstring path, unsigned int shaderType)
+void OpenGL::GraphicsShader::SetShaderSrc(std::wstring path, unsigned int shaderType)
 {
     //Clear previous shaderProgram
     glDeleteShader(shaderId);
@@ -40,12 +40,12 @@ void GraphicsShader::SetShaderSrc(std::wstring path, unsigned int shaderType)
     this->type = shaderType;
 }
 
-std::wstring GraphicsShader::GetShaderPath()
+std::wstring OpenGL::GraphicsShader::GetShaderPath()
 {
     return path;
 }
 
-bool GraphicsShader::Load()
+bool OpenGL::GraphicsShader::Load()
 {
     std::ifstream fileStream;
     fileStream.open(path, std::fstream::in);
@@ -63,32 +63,32 @@ bool GraphicsShader::Load()
     return loaded;
 }
 
-const std::string & GraphicsShader::GetShaderSource()
+const std::string & OpenGL::GraphicsShader::GetShaderSource()
 {
     return shaderSource;
 }
 
-bool GraphicsShader::IsLoaded()
+bool OpenGL::GraphicsShader::IsLoaded()
 {
     return loaded;
 }
 
-unsigned int GraphicsShader::GetShaderType()
+unsigned int OpenGL::GraphicsShader::GetShaderType()
 {
     return type;
 }
 
-GraphicsShader::GraphicsShader(std::wstring path, unsigned int shaderType)
+OpenGL::GraphicsShader::GraphicsShader(std::wstring path, unsigned int shaderType)
 {
     SetShaderSrc(std::move(path), shaderType);
 }
 
-GraphicsShader::~GraphicsShader()
+OpenGL::GraphicsShader::~GraphicsShader()
 {
     glDeleteShader(shaderId);
 }
 
-bool GraphicsShader::IsCompiled()
+bool OpenGL::GraphicsShader::IsCompiled()
 {
     return compiled;
 }

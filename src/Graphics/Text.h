@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include <Windows.h>
 #include <gdiplus.h>
@@ -20,7 +20,7 @@
  * text-color, args: Gdiplus::Color<br>
  * font-size, args: double
  */
-class Text : public Renderable, public Reflectable<Text>
+class Text : public RenderCommander, public Reflectable<Text>
 {
 private:
 	DefaultRender renderBehavior;
@@ -52,9 +52,9 @@ public:
 	virtual void SetFontSize(float fontSize);
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable &renderable) override;
-	virtual void RemoveRenderable(Renderable& renderable) override;
-	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	virtual void AddRenderable(RenderCommander &renderable) override;
+	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 
 

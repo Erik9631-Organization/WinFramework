@@ -16,7 +16,7 @@ public:
     Vector2Int();
 
     int GetX() const;
-    void SetX(float x);
+    void SetX(int x);
     int GetY() const;
     void SetY(int y);
     void SetValue(int x, int y);

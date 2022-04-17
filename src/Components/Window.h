@@ -31,6 +31,10 @@ private:
 	std::shared_ptr<RenderingProvider> renderingProvider;
 
 public:
+    void SetLockCursorSize(const Vector2& size);
+    void LockCursor(const bool& lockState);
+    const bool& IsCursorLocked() const;
+
 	/**
 	 * Adds a new flag to the window style. Some of these styles can not be changed at runtime. Please refer to <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">MSDN</a>
 	 * \param styleFlags the flag of the style you would like to add. List of flags are available here: <a href="https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles">MSDN</a>

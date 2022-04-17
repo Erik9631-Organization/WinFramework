@@ -4,13 +4,17 @@
 
 #ifndef LII_UNIFORM_H
 #define LII_UNIFORM_H
-class UniformManager;
 
-class Uniform
+#include "UniformProperties.h"
+
+namespace OpenGL
 {
-public:
-    virtual const UniformManager& GetUniformManager() = 0;
-};
+    class Uniform
+    {
+    public:
+        virtual const UniformProperties& GetUniformProperties() = 0;
+    };
+}
 
 
 #endif //LII_UNIFORM_H

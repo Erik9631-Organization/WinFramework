@@ -6,17 +6,20 @@
 #define LII_SHADER_H
 #include <string>
 
-class Shader
+namespace OpenGL
 {
-public:
-    virtual unsigned int GetId() = 0;
-    virtual bool Compile() = 0;
-    virtual bool Load() = 0;
-    virtual bool IsLoaded() = 0;
-    virtual bool IsCompiled() = 0;
-    virtual unsigned int GetShaderType() = 0;
-    virtual ~Shader() = default;
-};
+    class Shader
+    {
+    public:
+        virtual unsigned int GetId() = 0;
+        virtual bool Compile() = 0;
+        virtual bool Load() = 0;
+        virtual bool IsLoaded() = 0;
+        virtual bool IsCompiled() = 0;
+        virtual unsigned int GetShaderType() = 0;
+        virtual ~Shader() = default;
+    };
+}
 
 
 #endif //LII_SHADER_H

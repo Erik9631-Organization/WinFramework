@@ -83,17 +83,17 @@ void Text::Repaint()
 
 }
 
-void Text::AddRenderable(Renderable &renderable)
+void Text::AddRenderable(RenderCommander &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
 
-void Text::RemoveRenderable(Renderable& renderable)
+void Text::RemoveRenderable(RenderCommander& renderable)
 {
     renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> Text::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> Text::GetRenderables()
 {
     return renderBehavior.GetRenderables();
 }

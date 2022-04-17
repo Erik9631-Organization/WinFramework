@@ -82,17 +82,17 @@ void RadioButtonGraphics::Repaint()
 
 }
 
-void RadioButtonGraphics::AddRenderable(Renderable &renderable)
+void RadioButtonGraphics::AddRenderable(RenderCommander &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void RadioButtonGraphics::RemoveRenderable(Renderable& renderable)
+void RadioButtonGraphics::RemoveRenderable(RenderCommander& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> RadioButtonGraphics::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> RadioButtonGraphics::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }

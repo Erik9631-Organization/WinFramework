@@ -6,14 +6,14 @@
 #define LII_OPENGLRENDERER_H
 #include "Renderer.h"
 #include "glm.hpp"
-#include "Shape2DBuilder.h"
+#include "ShapeBuilder.h"
 #include "ResizeSubscriber.h"
 #include "Model.h"
 #include "Vector4.h"
 #include "Vector2.h"
 #include "DrawData2D.h"
 
-class Renderable;
+class RenderCommander;
 class Window;
 
 class OpenGLRenderer : public Renderer, ResizeSubscriber
@@ -22,20 +22,25 @@ private:
     enum class ShapeType
     {
         None,
+        FillRectangle,
         Rectangle,
+        FillEllipse,
+        Ellipse
     };
     ShapeType lastShapeType = ShapeType::None;
-    DrawData2D lastDrawdata;
+    DrawData2D originalData;
 
     Vector2 lastShapeSize;
     Vector2 lastShapePos;
 
-    std::unique_ptr<Model> lastShape;
+    std::unique_ptr<OpenGL::Model> lastShape;
     Window& window; //For the view matrix
     std::shared_ptr<glm::mat4> viewMatrix;
-    Shape2DBuilder builder;
+    OpenGL::ShapeBuilder builder;
     Vector4 lastColor;
     Vector2 translation;
+private:
+    void TransformModel(OpenGL::Model &model, const Vector2 &pos, const Vector2 &size);
 public:
     OpenGLRenderer(Window& window);
     void DrawEllipse(float x, float y, float width, float height) override;
@@ -57,6 +62,7 @@ public:
     std::unique_ptr<FontFormat> CreateFontFormat() override;
     void Translate(Vector2 translation) override;
     void CreateViewMatrix(float width, float height, glm::mat4& viewMatrix);
+    void DrawModel(const Model& model);
 private:
     void OnResize(EventResizeInfo e) override;
 

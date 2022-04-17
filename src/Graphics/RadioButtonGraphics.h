@@ -1,12 +1,12 @@
 #pragma once
 #include <Windows.h>
 #include <gdiplus.h>
-#include "Components/Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "CircleBackground.h"
 #include "CircleBorder.h"
 
-class RadioButtonGraphics : public Renderable
+class RadioButtonGraphics : public RenderCommander
 {
 private:
 	DefaultRender renderBehavior;
@@ -57,9 +57,9 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable &renderable) override;
-	void RemoveRenderable(Renderable& renderable) override;
-	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	void AddRenderable(RenderCommander &renderable) override;
+	void RemoveRenderable(RenderCommander& renderable) override;
+	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
     void OnSync(const DrawData &data) override;
 };
 

@@ -5,7 +5,7 @@
 #include "VerticalScrollbarBehavior.h"
 #include "ScrollBar.h"
 #include "Button.h"
-#include "Adjustable.h"
+#include "api/Adjustable.h"
 
 VerticalScrollbarBehavior::VerticalScrollbarBehavior(ScrollBar &scrollbar, Button& button) :
         associatedScrollbar(scrollbar), associatedTrackBar(button)

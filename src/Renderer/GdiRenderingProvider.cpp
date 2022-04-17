@@ -150,7 +150,7 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
         performRender = !coreWindowframe->IsEventBased();
         //fpsTimer.Wait();
         long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-        CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
+        //CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
     }
 }
 

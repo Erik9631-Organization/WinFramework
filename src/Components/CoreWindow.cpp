@@ -2,7 +2,7 @@
 #include <Windows.h>
 #include <iostream>
 #include <functional>
-#include "Resizable.h"
+#include "api/Resizable.h"
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
 #include <stack>
@@ -13,6 +13,7 @@
 #include "Messages.h"
 #include <chrono>
 #include "GdiRenderer.h"
+#include "Vector2Int.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -114,6 +115,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_MOVE:
 		wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
+        UpdateLockCursor();
 		break;
 	case WM_SIZE:
 	{
@@ -121,6 +123,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short height = ((unsigned short*)&lParam)[1];
 	    preProcessSubject.NotifyOnResizeSubscribers(EventResizeInfo({(float)width, (float)height}, nullptr));
 	    wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
+        UpdateLockCursor();
 	    break;
 	}
 	case WM_MOUSEMOVE:
@@ -151,6 +154,17 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
 	}
+    if(cursorLocked)
+    {
+        UpdateLockCursor();
+        ClipCursor(&lockCursorRegion);
+    }
+
+
+    UpdateGlobalInputState();
+    //Notify that update happened
+    wrapperFrame.NotifyOnTick();
+
 
 	if(renderingProvider != nullptr)
 	    renderingProvider->Render();
@@ -159,6 +173,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
+    mouseDelta.SetValue(0, 0); //Reset the delta as it is 0
 }
 
 void CoreWindow::RedrawWindow()
@@ -258,6 +273,7 @@ HWND CoreWindow::GetWindowHandle()
 
 CoreWindow::~CoreWindow()
 {
+    ClipCursor(NULL);
 }
 
 void CoreWindow::Repaint()
@@ -265,17 +281,17 @@ void CoreWindow::Repaint()
 	RedrawWindow();
 }
 
-void CoreWindow::AddRenderable(Renderable &renderable)
+void CoreWindow::AddRenderable(RenderCommander &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void CoreWindow::RemoveRenderable(Renderable& renderable)
+void CoreWindow::RemoveRenderable(RenderCommander& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> CoreWindow::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> CoreWindow::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
@@ -345,6 +361,52 @@ bool CoreWindow::IsEventBased() const
 void CoreWindow::SetEventBased(bool eventBased)
 {
     CoreWindow::eventBased = eventBased;
+}
+
+void CoreWindow::UpdateGlobalInputState()
+{
+    BYTE keyboardState[256];
+    bool state = GetKeyboardState(keyboardState);
+    InputManager::globalInput->SetKeyboardState(keyboardState);
+    InputManager::globalInput->SetMousePosition(mousePos);
+    InputManager::globalInput->SetMouseDeltaPosition(mouseDelta);
+}
+
+void CoreWindow::SetLockCursorSize(const Vector2& size)
+{
+    lockCursorSize = size;
+}
+
+void CoreWindow::UpdateLockCursor()
+{
+    if (cursorLocked == false)
+        return;
+
+    //Calculate the center of the wrapper frame
+    lockCursorRegion.left = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
+    lockCursorRegion.top = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
+    lockCursorRegion.right = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
+    lockCursorRegion.bottom = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
+
+    //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
+    //The single pixel determines how much to add towards the delta.
+    //Also create a strategy for various mouse inputs.
+    lockCursorRegion.left -= lockCursorSize.GetX() / 2;
+    lockCursorRegion.top -= lockCursorSize.GetY() / 2;
+    lockCursorRegion.right += lockCursorSize.GetX() / 2;
+    lockCursorRegion.bottom += lockCursorSize.GetY() / 2;
+}
+
+void CoreWindow::LockCursor(const bool &lockState)
+{
+    if(lockState == false)
+        ClipCursor(NULL);
+    cursorLocked = lockState;
+}
+
+const bool &CoreWindow::IsCursorLocked() const
+{
+    return cursorLocked;
 }
 
 void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

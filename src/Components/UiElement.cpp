@@ -5,7 +5,9 @@
 #include "EventTypes/EventUpdateInfo.h"
 #include "EventTypes/EventKeyStateInfo.h"
 #include "DrawData2D.h"
+#include <execution>
 #include <future>
+#include <algorithm>
 
 void UiElement::Add(UiElement& uiElement)
 {
@@ -13,8 +15,11 @@ void UiElement::Add(UiElement& uiElement)
     if(root != nullptr)
         root->WaitForSync();
 
+    addUiElementMutex.lock();
 	uiElementNode.Add(uiElement.GetUiElementNode());
-	//RegisterComponent to the memory manager
+    addUiElementMutex.unlock();
+
+    //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
 }
 
@@ -118,12 +123,12 @@ void UiElement::Repaint()
 	GetRoot().Repaint();
 }
 
-void UiElement::AddRenderable(Renderable &renderable)
+void UiElement::AddRenderable(RenderCommander &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void UiElement::RemoveRenderable(Renderable& renderable)
+void UiElement::RemoveRenderable(RenderCommander& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
@@ -154,7 +159,7 @@ void UiElement::SetHeight(float height)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-std::vector<std::reference_wrapper<Renderable>> UiElement::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> UiElement::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
@@ -654,4 +659,35 @@ bool UiElement::IsMouseCaptured()
 void UiElement::SetMouseCaptured(bool state)
 {
     mouseHandler.SetMouseCaptured(state);
+}
+
+void UiElement::AddOnTickSubscriber(OnTickSubscriber *subscriber)
+{
+    tickSubscribers.push_back(subscriber);
+}
+
+void UiElement::RemoveOnTickSubscriber(OnTickSubscriber *subscriber)
+{
+    for(auto it = tickSubscribers.begin(); it < tickSubscribers.end(); it++)
+    {
+        if(*it == subscriber)
+        {
+            tickSubscribers.erase(it);
+            return;
+        }
+
+    }
+}
+
+void UiElement::NotifyOnTick()
+{
+    for(OnTickSubscriber* i : tickSubscribers)
+        i->OnTick();
+
+    addUiElementMutex.lock();
+    std::for_each(std::execution::par, uiElementNode.GetNodes().begin(), uiElementNode.GetNodes().end(), [&](auto node)
+    {
+        node.get().GetValue().NotifyOnTick();
+    });
+    addUiElementMutex.unlock();
 }

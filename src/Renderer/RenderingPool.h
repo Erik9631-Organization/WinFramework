@@ -5,12 +5,12 @@
 #ifndef LII_RENDERINGPOOL_H
 #define LII_RENDERINGPOOL_H
 class Renderer;
-class Renderable;
+class RenderCommander;
 
 class RenderingPool
 {
 public:
-    virtual Renderer& Acquire(const Renderable &target) = 0;
+    virtual Renderer& Acquire(const RenderCommander &target) = 0;
 };
 
 

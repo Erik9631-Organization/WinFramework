@@ -11,7 +11,7 @@ class GdiRenderingPool : public RenderingPool
 {
 public:
     GdiRenderingPool(Renderer* renderer);
-    Renderer &Acquire(const Renderable &target) override;
+    Renderer &Acquire(const RenderCommander &target) override;
 private:
     Renderer* renderer = nullptr;
 };

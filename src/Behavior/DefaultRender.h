@@ -1,22 +1,24 @@
 #pragma once
-#include "Components/Renderable.h"
+#include "api/RenderCommander.h"
 #include <vector>
 #include <Renderer.h>
+#include <mutex>
 
-class DefaultRender : public Renderable
+class DefaultRender : public RenderCommander
 {
 private:
-	Renderable& assosiactedRenderable;
-	std::vector<std::reference_wrapper<Renderable>> renderables;
+	RenderCommander& assosiactedRenderable;
+	std::vector<std::reference_wrapper<RenderCommander>> renderables;
+    std::mutex addRenderableMutex;
 public:
 	// Inherited via Renderable
-	DefaultRender(Renderable& renderable);
+	DefaultRender(RenderCommander& renderable);
 
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(Renderable &renderable) override;
-	virtual void RemoveRenderable(Renderable& renderable) override;
-	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	virtual void AddRenderable(RenderCommander &renderable) override;
+	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
     void OnSync(const DrawData& data) override;
 };
 

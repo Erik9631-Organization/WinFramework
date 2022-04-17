@@ -7,7 +7,7 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include "GraphicsScaling.h"
-#include "Renderable.h"
+#include "api/RenderCommander.h"
 #include "Vector2.h"
 
 class ScalingUtil

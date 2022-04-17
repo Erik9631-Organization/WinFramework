@@ -23,6 +23,7 @@ public:
     Vector2 Copy();
     Vector2 operator +(const Vector2& ref);
     Vector2 operator -(const Vector2& ref);
+    void Normalize();
 
 private:
     float x;

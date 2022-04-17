@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Adjustable.h"
+#include "api/Adjustable.h"
 #include "EventTypes/EventResizeInfo.h"
 #include "EventTypes/EventMoveInfo.h"
 #include "GridSpan.h"

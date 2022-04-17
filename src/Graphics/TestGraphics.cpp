@@ -12,17 +12,17 @@ void TestGraphics::Repaint()
 
 }
 
-void TestGraphics::AddRenderable(Renderable &renderable)
+void TestGraphics::AddRenderable(RenderCommander &renderable)
 {
     renderables.emplace_back(renderable);
 }
 
-void TestGraphics::RemoveRenderable(Renderable &renderable)
+void TestGraphics::RemoveRenderable(RenderCommander &renderable)
 {
 
 }
 
-std::vector<std::reference_wrapper<Renderable>> TestGraphics::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> TestGraphics::GetRenderables()
 {
     return renderables;
 }

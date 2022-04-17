@@ -60,17 +60,17 @@ void TrackbarGraphics::Repaint()
 {
 }
 
-void TrackbarGraphics::AddRenderable(Renderable &renderable)
+void TrackbarGraphics::AddRenderable(RenderCommander &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
 
-void TrackbarGraphics::RemoveRenderable(Renderable& renderable)
+void TrackbarGraphics::RemoveRenderable(RenderCommander& renderable)
 {
     renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> TrackbarGraphics::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> TrackbarGraphics::GetRenderables()
 {
     return renderBehavior.GetRenderables();
 }

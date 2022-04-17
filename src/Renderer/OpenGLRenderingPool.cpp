@@ -3,11 +3,11 @@
 //
 
 #include "OpenGLRenderingPool.h"
-#include "Renderable.h"
+#include "api/RenderCommander.h"
 #include "OpenGLRenderer.h"
 #include "Window.h";
 
-Renderer &OpenGLRenderingPool::Acquire(const Renderable &target)
+Renderer &OpenGLRenderingPool::Acquire(const RenderCommander &target)
 {
     auto renderableIt = renderers.find(&target);
     if(renderableIt != renderers.end())

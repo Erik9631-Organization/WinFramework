@@ -2,22 +2,52 @@
 // Created by Erik on 01/02/22.
 //
 
-#include "OpenGLRenderingProvider.h"
 #include <Windows.h>
+#include <gdiplus.h>
+#include "OpenGLRenderingProvider.h"
 #include <glew.h>
 #include <wglew.h>
 #include "ApplicationController.h"
 #include "CoreWindow.h"
 #include <string>
-#include "OpenGLRenderer.h"
 #include "RenderEventInfo.h"
-#include "GraphicsShader.h"
-#include "DefaultMesh.h"
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
-#include <gtc/type_ptr.hpp>
-#include "DefaultModel.h"
-#include "Shape2DBuilder.h"
+#include "ShapeBuilder.h"
+#include "DefaultTexture.h"
+#include "CameraManager.h"
+#include "Model.h"
+#include "EventUpdateInfo.h"
+#include "ShaderManager.h"
+#include "GraphicsShader.h"
+#include "GlobalResourceManager.h"
+
+/**
+ * TODO
+ * 1. Cover everything with interfaces. - DONE
+ * 2. Make Mesh more customizable so you can add glAttributes externally. Create a new class for it
+ * 3. Optimize the VBOs. Do as little context switching as possible, do as little draw calls as possible (Do them at once)
+ *    Consider using larger VBOs for multiple meshes.
+ * 4. Move the normal matrix calculation from shader to CPU. You only need to do it once for the object.
+ * 5. Allow shader reuse.
+ * 6. Create a tree node scene.
+ * 7. Each object in the high level interface receives a "Renderer"(Or a command) object. From various interface calls the state of the Renderer object
+ *    and its values can be modified within the event. In the background, the graphics objects are allocated in the rendering pool.
+ *    Since each "Renderable" receives its own version of this object, it is free to upload data to it as it wants.
+ *    Once all the OnRender calls are done, the threads should desync and the objects should render independently.
+ *    The rendering of these objects should be handled by the RenderingManager, which guarantees that they are drawn with the least amount of context switching possible.
+ *    OnSync should also become obsolete
+ *    All Renderables should be renamed to RenderCommanders
+ *    Shaders should be only modified during draw event.
+ *    It is expected that the user will hold a reference to his own model. The model shouldn't have a direct way of modifying the shader uniforms.
+ *    Instead the renderer recieved during the event should be used.
+ *
+ *
+ *
+ *    When it comes to GDI. The renderer also acts as a command queve. You tell it what to do, update the data during a draw call and then once it is done,
+ *    all the GDI stuff will render asynchonously. This should really boost the performance.
+ *
+ */
 
 void OpenGLRenderingProvider::Render()
 {
@@ -208,12 +238,15 @@ void OpenGLRenderingProvider::WaitForSyncToFinish()
 void OpenGLRenderingProvider::InternalRender()
 {
     wglMakeCurrent(windowDc, openGlContext);
-    PreRender();
+    GraphicsInit();
     Window& window = coreWindow->GetWrapperFrame();
+    glEnable(GL_DEPTH_TEST);
+    float translation = 0;
+    float translationAnim = 0.2f;
     while(startRenderingLoop)
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         mutex lockMutex;
         std::unique_lock<std::mutex>performRenderLock(lockMutex);
@@ -221,15 +254,20 @@ void OpenGLRenderingProvider::InternalRender()
         coreWindow->WaitForUpdateToFinish();
         uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
         glViewport(0, 0, window.GetWidth(), window.GetHeight()); // Update the viewport
-        AssignRendererToNodes();
-        /*for(unique_ptr<Model>& model : models)
-        {
-            model->GetShader().GetUniformManager().SetUniform(glUniform4f, "color", 1.0f, 0.0f, 0.0f, 0.0f);
-            model->Draw();
-        }*/
+        //AssignRendererToNodes();
+        models.at(1)->Translate({ translation, 0, 0});
+        models.at(1)->Rotate(45.0f, {0.0f, 0.0f,1.0f});
+        SyncTestData();
+        manager.Render();
+        for(unique_ptr<OpenGL::Model>& model : models)
+            model->OnUpdate(EventUpdateInfo{EventUpdateFlags::None});
 
         performRender = !coreWindow->IsEventBased();
         SwapBuffers(windowDc);
+        models.at(1)->ResetTransform();
+        translation += translationAnim;
+        if (translation > 50 || translation < -50)
+            translationAnim *= -1;
     }
 }
 
@@ -259,25 +297,58 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node
 
 }
 
-void OpenGLRenderingProvider::PreRender()
+void OpenGLRenderingProvider::GraphicsInit()
 {
-    Shape2DBuilder builder;
+    //Create default shaders
+    ShaderProgram& program = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<ShaderManager>("shader")->
+        CreateShaderProgram<OpenGL::DefaultShaderProgram>("default");
+
+    program.AddShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.frag", GL_FRAGMENT_SHADER));
+    program.AddShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.vert", GL_VERTEX_SHADER));
+    program.Link();
+
+
+    OpenGL::ShapeBuilder builder;
     float screenWidth = 800;
     float screenHeight = 600;
-    std::shared_ptr<glm::mat4> viewMatrix = std::make_shared<glm::mat4>
+    auto projection2D = std::make_shared<glm::mat4>
     (
         2.0f/screenWidth, 0, 0, -1,
         0, -2.0f/screenHeight, 0, 1,
         0, 0, 1, 0,
         0, 0, 0, 1
     );
-    *viewMatrix = glm::transpose(*viewMatrix);
-    builder.SetViewMatrix(viewMatrix);
+    *projection2D = glm::transpose(*projection2D);
+    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), screenWidth/screenHeight, 0.1f, 1000.0f));
+
+    builder.SetProjectionMatrix(projectionMatrix);
+    auto wallBlock = builder.CreateBlock(0, 100, 0, 20.0f, 20.0f, 20.0f);
+    auto texture = new OpenGL::DefaultTexture("Textures/wall.jpg", GL_RGB);
+    if(texture->LoadFromFile() == false)
+        CoreWindow::ConsoleWrite("Texture load failed!");
+    texture->LoadResource();
+    wallBlock->SetTexture(texture);
+    auto block = builder.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
+
+    //rectangle->Translate({0.0f, 0.0f, -10.0f});
+    //rectangle->Rotate(-55.0f, {1.0f, 0.0f, 0.0f});
 
    // auto triangle = builder.CreateTriangle({0, 0}, {100, 125}, {100, 175});
     //triangle->ResetTransform();
     //triangle->Translate({0, 0, 0});
-    //models.emplace_back(builder.CreateFillRectangle(0, 0, 800, 600));
-    models.emplace_back(builder.CreateEllipse(400, 300, 100, 100));
+
+    manager.AddModel(*wallBlock);
+    manager.AddModel(*block);
+    models.emplace_back(std::move(block));
+    models.emplace_back(std::move(wallBlock));
+    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+}
+
+void OpenGLRenderingProvider::SyncTestData()
+{
+    for(unique_ptr<OpenGL::Model>& model : models)
+    {
+        manager.Move(*model);
+    }
 }
 

@@ -7,14 +7,14 @@ set(Enums
     "Enums/EventUpdateFlags.h"
     "Enums/GraphicsScaling.h"
         Enums/FontAlignment.h Enums/Messages.h)
-source_group("Enums" FILES ${Enums})
+source_group("Lii\\Enums" FILES ${Enums})
 
 set(Lii
     "AddSubject.h"
     "Events/ComboBoxStateSubject.h"
     "Behavior/DefaultListBoxBehavior.h"
     "DemoApplication.h"
-    "Components/Draggable.h"
+    "api/Draggable.h"
     "DragManager.h"
     "Events/DragSubject.h"
     "Events/DragSubscriber.h"
@@ -33,8 +33,7 @@ set(Lii
     "Events/ComboBoxStateSubject.cpp"
     "Behavior/DefaultListBoxBehavior.cpp"
     "DemoApplication.cpp"
-    "Components/Draggable.cpp"
-    "DragManager.cpp"
+        "DragManager.cpp"
     "Events/DragSubject.cpp"
     "Events/DragSubscriber.cpp"
     "DropAction.cpp"
@@ -82,7 +81,9 @@ set(Lii_Behavior
     "Behavior/RadioButtonBehavior.cpp"
     "Behavior/TextInputBehavior.cpp"
     "Behavior/Viewport.cpp"
-        Behavior/VerticalScrollbarBehavior.cpp Behavior/VerticalScrollbarBehavior.h)
+    Behavior/VerticalScrollbarBehavior.cpp
+    Behavior/VerticalScrollbarBehavior.h
+)
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
@@ -99,73 +100,110 @@ set(Lii_Renderer
         Renderer/GdiRenderer.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
-        Renderer/OpenGLRenderingProvider.cpp Renderer/OpenGLRenderingProvider.h Renderer/OpenGLRenderer.cpp Renderer/OpenGLRenderer.h Renderer/DrawData.cpp Renderer/DrawData.h Renderer/DrawData2D.cpp Renderer/DrawData2D.h Renderer/RenderingPool.cpp Renderer/RenderingPool.h Renderer/GdiRenderingPool.cpp Renderer/GdiRenderingPool.h)
+        Renderer/OpenGLRenderingProvider.cpp
+        Renderer/OpenGLRenderingProvider.h
+        Renderer/OpenGLRenderer.cpp
+        Renderer/OpenGLRenderer.h 
+        Renderer/DrawData.cpp
+        Renderer/DrawData.h
+        Renderer/DrawData2D.cpp
+        Renderer/DrawData2D.h
+        Renderer/RenderingPool.cpp
+        Renderer/RenderingPool.h 
+        Renderer/GdiRenderingPool.cpp
+        Renderer/GdiRenderingPool.h
+        Renderer/OpenGLRenderingPool.cpp
+        Renderer/OpenGLRenderingPool.h
+)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
+
+set(Lii_Api
+        api/Translatable.h
+        api/Rotatable.h
+        api/Rotatable.h
+        api/Transformable.h
+        api/RenderSubscriber.h
+        api/Activatable.h
+        api/Adjustable.h
+        api/Collidable.h
+        api/MouseInteractable.h
+        api/Movable.h
+        api/RenderCommander.h
+        api/Resizable.h
+        api/Viewable.h
+        api/Scalable.h
+        api/RenderObjectSubscriber.h
+        api/RelativeMovement.h
+        api/Clonable.h
+        api/MemoryMovable.h
+        api/Clonable.h
+        api/TextureManager.h
+        api/MeshManager.h
+        api/Texture.h
+        api/ShaderManager.h
+        api/ResourceManager.h
+        api/ShaderManager.h
+        api/MeshManager.h)
+source_group("Lii/api" FILES ${Lii_Api})
+
+
 set(Lii_Components
-    "Components/Activatable.h"
-    "Components/Adjustable.h"
     "Components/Button.h"
     "Components/Checkbox.h"
-    "Components/Collidable.h"
     "Components/UiElement.h"
     "Components/CoreWindow.h"
     "Components/FileBrowser.h"
     "Components/Grid/Grid.h"
     "Components/Label.h"
     "Components/ListBox.h"
-    "Components/MouseInteractable.h"
-    "Components/Movable.h"
     "Components/Panel.h"
     "Components/PasswordField.h"
     "Components/RadioButton.h"
     "Components/Reflectable.h"
     "Components/ReflectionContainer.h"
-    "Components/Renderable.h"
-    "Components/Resizable.h"
     "Components/TextInput.h"
-    "Components/Viewable.h"
     "Components/Window.h"
-    "Components/Activatable.cpp"
-    "Components/Adjustable.cpp"
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
-    "Components/Collidable.cpp"
     "Components/UiElement.cpp"
     "Components/CoreWindow.cpp"
     "Components/Label.cpp"
-    "Components/MouseInteractable.cpp"
-    "Components/Movable.cpp"
     "Components/PasswordField.cpp"
     "Components/RadioButton.cpp"
     "Components/Reflectable.cpp"
     "Components/ReflectionContainer.cpp"
-    "Components/Renderable.cpp"
-    "Components/Resizable.cpp"
     "Components/TextInput.cpp"
-        "Components/Viewable.cpp"
     "Components/Window.cpp"
-        Components/ScrollBar/ScrollBar.cpp Components/ScrollBar/ScrollBar.h OnAddHandler.h)
+    Components/ScrollBar/ScrollBar.cpp
+    Components/ScrollBar/ScrollBar.h
+    OnAddHandler.h)
 source_group("Lii\\Components" FILES ${Lii_Components})
 
 
 set(Lii_Components_ComboBox
-    "Components/ComboBox/ComboBox.h"
-    "Components/ComboBox/ComboElement.h"
-    "Components/ComboBox/ComboSelection.h"
-    "Components/ComboBox/ComboSelection.cpp"
+    Components/ComboBox/ComboBox.h
+    Components/ComboBox/ComboElement.h
+    Components/ComboBox/ComboSelection.h
+    Components/ComboBox/ComboSelection.cpp
 )
 source_group("Lii\\Components\\ComboBox" FILES ${Lii_Components_ComboBox})
 
 
 set(Lii_DataTypes
-    "DataTypes/CastableTree.h"
-    "DataTypes/DefaultMultiTree.h"
-    "DataTypes/MultiTree.h"
-    "DataTypes/CastableTree.cpp"
-    "DataTypes/DefaultMultiTree.cpp"
-    "DataTypes/MultiTree.cpp"
-        DataTypes/Vector3.cpp DataTypes/Vector3.h DataTypes/Vector4.cpp DataTypes/Vector4.h DataTypes/Vector2Int.cpp DataTypes/Vector2Int.h)
+    DataTypes/CastableTree.h
+    DataTypes/DefaultMultiTree.h
+    DataTypes/MultiTree.h
+    DataTypes/CastableTree.cpp
+    DataTypes/DefaultMultiTree.cpp
+    DataTypes/MultiTree.cpp
+    DataTypes/Vector3.cpp
+    DataTypes/Vector3.h
+    DataTypes/Vector4.cpp
+    DataTypes/Vector4.h
+    DataTypes/Vector2Int.cpp
+    DataTypes/Vector2Int.h
+)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
@@ -183,7 +221,6 @@ set(Lii_Events
     "Events/MoveSubscriber.h"
     "Events/RadioButtonStateSubject.h"
     "Events/RadioButtonStateSubscriber.h"
-    "Events/RenderableSubscriber.h"
     "Events/ResizeSubject.h"
     "Events/ResizeSubscriber.h"
     "Events/UpdateSubject.h"
@@ -207,9 +244,15 @@ set(Lii_Events
     "Events/UpdateSubject.cpp"
     Events/TimerSubject.cpp
     Events/TimerSubject.h
-)
+    Events/OnTickSubscriber.h
+    Events/TickSubject.h
+    Events/RenderObjectEventInfo.cpp
+    Events/RenderObjectEventInfo.h
+    Events/DestroySubject.h
+    Events/DestroySubscriber.h
+    )
 
-source_group("Header Files\\Events" FILES ${Lii_Events})
+source_group("Lii\\Events" FILES ${Lii_Events})
 
 
 set(Lii_EventTypes
@@ -236,7 +279,11 @@ set(Lii_EventTypes
     "EventTypes/EventUpdateInfo.cpp"
     "EventTypes/RenderEventInfo.cpp"
     EventTypes/EventOnTimerElapsed.cpp
-    EventTypes/EventOnTimerElapsed.h)
+    EventTypes/EventOnTimerElapsed.h
+    EventTypes/DestroyEventInfo.cpp
+    EventTypes/DestroyEventInfo.h
+)
+
 source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
 
 
@@ -301,24 +348,86 @@ set(Lii_Utils
     Utils/ValueConverter.cpp
     Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
-    )
+        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h)
 
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
-        OpenGL/Shader.h OpenGL/GraphicsShader.cpp OpenGL/GraphicsShader.h OpenGL/ShaderProgram.h OpenGL/DefaultShaderProgram.cpp OpenGL/DefaultShaderProgram.h OpenGL/Mesh.h OpenGL/DefaultMesh.cpp OpenGL/DefaultMesh.h OpenGL/Uniform.h OpenGL/UniformManager.cpp OpenGL/UniformManager.h Renderer/OpenGLRenderingPool.cpp Renderer/OpenGLRenderingPool.h OpenGL/Shape2DBuilder.cpp OpenGL/Shape2DBuilder.h)
+        OpenGL/Shader.h 
+        OpenGL/GraphicsShader.cpp
+        OpenGL/GraphicsShader.h
+        api/ShaderProgram.h
+        OpenGL/DefaultShaderProgram.cpp
+        OpenGL/DefaultShaderProgram.h
+        api/Mesh.h OpenGL/DefaultMesh.cpp
+        OpenGL/DefaultMesh.h OpenGL/Uniform.h 
+        OpenGL/UniformManager.cpp
+        OpenGL/UniformProperties.h
+        OpenGL/ShapeBuilder.cpp
+        OpenGL/ShapeBuilder.h 
+        OpenGL/Texture.cpp
+        OpenGL/DefaultTexture.h
+        api/Resource.h
+        OpenGL/FloatVertexAttribute.cpp
+        OpenGL/FloatVertexAttribute.h
+        OpenGL/VertexArrayObjectPool.h
+        OpenGL/DefaultMeshMemoryManager.cpp
+        OpenGL/DefaultMeshMemoryManager.h
+        OpenGL/Taggable.h
+        OpenGL/MemoryManager.h
+        OpenGL/MeshMemoryManager.h
+        OpenGL/DefaultMemoryManager.cpp
+        OpenGL/DefaultMemoryManager.h
+        OpenGL/VertexAttributeGroup.cpp
+        OpenGL/VboProperties.h
+        OpenGL/VertexAttribute.h
+        OpenGL/MemoryManager.cpp
+        OpenGL/Identifiable.h
+        OpenGL/RenderingManager.h
+        OpenGL/DefaultRenderingManager.cpp
+        OpenGL/DefaultRenderingManager.h
+        OpenGL/RenderObject.h
+        OpenGL/Hashable.h
+        )
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync
         Sync/UiTreeDataSyncer.cpp
         Sync/UiTreeDataSyncer.h
 )
-source_group("Lii\\Sync" FILES ${Lii_OpenGL})
+source_group("Lii\\Sync" FILES ${Lii_Sync})
 
 set(Lii_Objects
-        Objects/Model.h Objects/DefaultModel.cpp Objects/DefaultModel.h)
+        OpenGL/Objects/Model.h 
+        OpenGL/Objects/DefaultModel.cpp
+        OpenGL/Objects/DefaultModel.h 
+        OpenGL/Objects/Camera.h 
+        OpenGL/Objects/BasicCamera.h 
+        OpenGL/Objects/BasicCamera.cpp 
+        OpenGL/Objects/CameraManager.cpp 
+        OpenGL/Objects/CameraManager.h 
+        OpenGL/Objects/CameraManagerSubscriber.h
+    )
 
-source_group("Lii\\Objects" FILES ${Lii_Objects})
+source_group("Lii/OpenGL/Objects" FILES ${Lii_Objects})
+
+set(Lii_Shaders
+        "Shaders/default.frag"
+        "Shaders/default.vert"
+)
+source_group("Lii/Shaders" FILES ${Lii_Shaders})
+
+set (Lii_Materials
+        Materials/Material.cpp
+        Materials/Material.h
+)
+source_group("Lii/Materials" FILES ${Lii_Materials})
+
+
+set (Lii/Managers
+        Managers/GlobalResourceManager.cpp
+        Managers/GlobalResourceManager.h)
+source_group("Lii/Managers" FILES ${Lii/Managers})
 
 
 
@@ -339,16 +448,21 @@ set(ALL_FILES
     ${Lii_OpenGL}
     ${Lii_Sync}
     ${Lii_Objects}
-)
+    ${Lii_Shaders}
+    ${Lii_Materials}
+    ${Lii_Api}
+    ${Lii/Managers}
+        OpenGL/RenderingPriorities.h)
 
 ################################################################################
 # Target
 ################################################################################
 
 add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES})
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_include_directories(${PROJECT_NAME} PRIVATE
         .
         "Behavior/"
+        "api/"
         "Components/"
         "DataTypes/"
         "Events/"
@@ -362,13 +476,17 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         "Renderer"
         "OpenGL/"
         "Sync/"
+        "OpenGL/Objects"
+        "Materials/"
         "../libs/glew/include/gl"
         "../libs/glm"
-        "Objects/"
+        "../libs/stb"
+        "Managers/"
         )
 
 target_link_libraries(Lii
+        stb
         opengl32
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
-)
+        )

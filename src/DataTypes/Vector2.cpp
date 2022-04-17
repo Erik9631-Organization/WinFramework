@@ -76,3 +76,12 @@ Vector2 Vector2::operator-(const Vector2 &ref)
    // CoreWindow::ConsoleWrite(to_string(ref.GetX()) + " " + to_string(ref.GetY()) + " - " + to_string(this->x) + " " + to_string(this->y));
     return {this->x - ref.GetX(), this->y - ref.GetY()};
 }
+
+void Vector2::Normalize()
+{
+    float magnitude = sqrt( (x * x) + (y * y));
+    if(magnitude == 0)
+        return;
+    x /= magnitude;
+    y /= magnitude;
+}

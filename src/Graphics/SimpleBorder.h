@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include <Windows.h>
 #include <gdiplus.h>
@@ -20,7 +20,7 @@
  * border-thickness, args: float
  */
 
-class SimpleBorder : public Renderable, public Reflectable<SimpleBorder>
+class SimpleBorder : public RenderCommander, public Reflectable<SimpleBorder>
 {
 private:
 	//Field map
@@ -48,9 +48,9 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable &renderable) override;
-	void RemoveRenderable(Renderable& renderable) override;
-	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	void AddRenderable(RenderCommander &renderable) override;
+	void RemoveRenderable(RenderCommander& renderable) override;
+	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 	Vector2 GetSize();
 	Vector2 GetPosition();
 	void SetSize(Vector2 size);

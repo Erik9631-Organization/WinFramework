@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "Components/Resizable.h"
+#include "api/Resizable.h"
 class DefaultResize : public Resizable
 {
 private:

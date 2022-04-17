@@ -4,7 +4,7 @@
 
 #include "GdiRenderingPool.h"
 
-Renderer &GdiRenderingPool::Acquire(const Renderable &target)
+Renderer &GdiRenderingPool::Acquire(const RenderCommander &target)
 {
     return *renderer;
 }

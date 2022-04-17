@@ -4,8 +4,8 @@
 
 #ifndef LII_OPENGLRENDERINGPROVIDER_H
 #define LII_OPENGLRENDERINGPROVIDER_H
-#include "RenderingProvider.h"
 #include <Windows.h>
+#include "RenderingProvider.h"
 #include <memory>
 #include <thread>
 #include <mutex>
@@ -13,7 +13,7 @@
 #include "UiTreeDataSyncer.h"
 #include "Model.h"
 #include "OpenGLRenderingPool.h"
-
+#include "DefaultRenderingManager.h"
 
 class OpenGLRenderingProvider : public RenderingProvider
 {
@@ -25,7 +25,7 @@ public:
     void WaitForSyncToFinish() override;
 private:
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node);
-    void PreRender();
+    void GraphicsInit();
     void AssignRendererToNodes();
     void GetGlExtensions();
     void PrepareWindowRenderer(CoreWindow& window);
@@ -39,15 +39,15 @@ private:
     std::condition_variable performRenderSignal;
     UiTreeDataSyncer uiSyncer;
     std::unique_ptr<OpenGLRenderingPool> renderingPool;
+    void SyncTestData();
 
     //Used for default rendering if nothing else is specified
-    std::unique_ptr<DefaultShaderProgram> defaultProgram;
-    unsigned int VAO;
-    unsigned int VBO;
+    std::unique_ptr<OpenGL::DefaultShaderProgram> defaultProgram;
     unsigned int shaderProgram;
 
     ///TestPurpose --- DELETE
-    std::vector<std::unique_ptr<Model>> models;
+    std::vector<std::unique_ptr<OpenGL::Model>> models;
+    OpenGL::DefaultRenderingManager manager;
 };
 
 

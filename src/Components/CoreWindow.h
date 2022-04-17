@@ -6,8 +6,8 @@
 #include "Utils/ApplicationController.h"
 #include "Events/ResizeSubscriber.h"
 #include "Events/MoveSubscriber.h"
-#include "Movable.h"
-#include "Resizable.h"
+#include "api/Movable.h"
+#include "api/Resizable.h"
 #include "EventTypes/EventMoveInfo.h"
 #include "TimerSubscriber.h"
 #include "Timer.h"
@@ -20,7 +20,7 @@ class RenderingProvider;
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : public Renderable
+class CoreWindow : public RenderCommander
 {
 
 
@@ -49,6 +49,9 @@ private:
 	Vector2 prevMousePos;
 	Vector2 mouseDelta;
 	Vector2 relativePos;
+    Vector2 lockCursorSize;
+    RECT lockCursorRegion;
+    bool cursorLocked = false;
 	RenderingProvider* renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
@@ -58,7 +61,12 @@ private:
 	bool eventBased = false;
     mutex updateMutex;
     bool processMessages = true;
+    void UpdateGlobalInputState();
+    void UpdateLockCursor();
 public:
+    void SetLockCursorSize(const Vector2& size);
+    void LockCursor(const bool& lockState);
+    const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
 	/**
@@ -129,17 +137,17 @@ public:
 	 * Adds new renderable to the system which will be painted on the canvas.
 	 * \param renderable the renderable object reference to pass
 	 */
-	virtual void AddRenderable(Renderable &renderable) override;
+	virtual void AddRenderable(RenderCommander &renderable) override;
 	/**
 	 * Removes an existing renderable by reference.
 	 * \param reference of the renderable to remove.
 	 */
-	virtual void RemoveRenderable(Renderable& renderable) override;
+	virtual void RemoveRenderable(RenderCommander& renderable) override;
 	/**
 	 * Returns the list of renderables.
 	 * \return a vector of references to the renderables in the current system,
 	 */
-	virtual std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 	/**
 	 * Changes attributes of the window. Some of these attributes are not changable at runtime. Refer to MSDN.
 	 * \param index the index of the attribute to change

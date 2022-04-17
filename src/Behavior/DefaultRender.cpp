@@ -5,7 +5,7 @@
 #include <execution>
 #include <algorithm>
 
-DefaultRender::DefaultRender(Renderable& renderable) : assosiactedRenderable(renderable)
+DefaultRender::DefaultRender(RenderCommander& renderable) : assosiactedRenderable(renderable)
 {
 
 }
@@ -16,7 +16,7 @@ void DefaultRender::OnRender(RenderEventInfo e)
 	if (e.GetRenderer() == nullptr)
 		return;
 
-	for (Renderable& renderable : renderables)
+	for (RenderCommander& renderable : renderables)
 		renderable.OnRender(e);
 }
 
@@ -25,15 +25,18 @@ void DefaultRender::Repaint()
 	assosiactedRenderable.Repaint();
 }
 
-void DefaultRender::AddRenderable(Renderable &renderable)
+void DefaultRender::AddRenderable(RenderCommander &renderable)
 {
+    addRenderableMutex.lock();
 	renderables.push_back(renderable);
 	Repaint();
+    addRenderableMutex.unlock();
 }
 
-void DefaultRender::RemoveRenderable(Renderable& renderable)
+void DefaultRender::RemoveRenderable(RenderCommander& renderable)
 {
-	for (std::vector<std::reference_wrapper<Renderable>>::iterator i = renderables.begin(); i != renderables.end(); i++)
+    addRenderableMutex.lock();
+	for (std::vector<std::reference_wrapper<RenderCommander>>::iterator i = renderables.begin(); i != renderables.end(); i++)
 	{
 		if (&i->get() == &renderable)
 		{
@@ -41,9 +44,10 @@ void DefaultRender::RemoveRenderable(Renderable& renderable)
 			return;
 		}
 	}
+    addRenderableMutex.unlock();
 }
 
-std::vector<std::reference_wrapper<Renderable>> DefaultRender::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> DefaultRender::GetRenderables()
 {
 	return renderables;
 }
@@ -51,9 +55,12 @@ std::vector<std::reference_wrapper<Renderable>> DefaultRender::GetRenderables()
 void DefaultRender::OnSync(const DrawData& data)
 {
     //Perform parallel for loop here
-    std::for_each(std::execution::par, renderables.begin(), renderables.end(), [&](Renderable& renderable)
+    addRenderableMutex.lock();
+    std::for_each(std::execution::par, renderables.begin(), renderables.end(), [&](RenderCommander& renderable)
     {
         renderable.OnSync(data);
     });
+    addRenderableMutex.unlock();
+
 }
 

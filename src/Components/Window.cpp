@@ -76,13 +76,20 @@ void Window::Repaint()
 
 void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 {
+    if(currentFocus != nullptr && currentFocus->IsActive() == false)
+    {
+        currentFocus = nullptr;
+    }
+
+
 	UiElement::NotifyOnMouseDown(e);
 	UiElement* result = std::any_cast<UiElement*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
 
 	currentCapture = result;
 	//Handle mouse capture
 	if(result == nullptr) // Error check
-	    return;
+        return;
+
 
 	result->NotifyOnMouseCapture(e);
 
@@ -225,4 +232,19 @@ void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingPr
 void Window::WaitForSync()
 {
     renderingProvider->WaitForSyncToFinish();
+}
+
+void Window::SetLockCursorSize(const Vector2 &size)
+{
+    coreFrame->SetLockCursorSize(size);
+}
+
+void Window::LockCursor(const bool &lockState)
+{
+    coreFrame->LockCursor(lockState);
+}
+
+const bool &Window::IsCursorLocked() const
+{
+    return coreFrame->IsCursorLocked();
 }

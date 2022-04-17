@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 #include <gdiplus.h>
-#include "Components/Renderable.h"
+#include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "GraphicsScaling.h"
 #include "ScalingUtil.h"
@@ -9,7 +9,7 @@
 #include "Vector4.h"
 #include "DrawData2D.h"
 
-class CircleBorder : public Renderable
+class CircleBorder : public RenderCommander
 {
 protected:
 	float diameter = 1;
@@ -44,9 +44,9 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(Renderable &renderable) override;
-	void RemoveRenderable(Renderable& renderable) override;
-	std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+	void AddRenderable(RenderCommander &renderable) override;
+	void RemoveRenderable(RenderCommander& renderable) override;
+	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 
 

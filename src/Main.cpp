@@ -6,6 +6,13 @@
 #include "OpenGLRenderingProvider.h"
 #include "GraphicsShader.h"
 #include "Button.h"
+#include "OnTickSubscriber.h"
+#include "CameraManager.h"
+#include "InputManager.h"
+#include "ActivateSubscriber.h"
+#include "EventOnActivateInfo.h"
+#include "FloatVertexAttribute.h"
+#include <iostream>
 
 using namespace std;
 
@@ -65,18 +72,73 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
  * Modify transform of the components based on scrollbar position
  */
 
+class CameraController : public OnTickSubscriber, public ActivateSubscriber
+{
+
+public:
+    CameraController(Window& window) : window(window){}
+    Window& window;
+    const float speed = 0.001f;
+    const float sensitivity = 0.15f;
+    void OnTick() override
+    {
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::W))
+        {
+            OpenGL::CameraManager::GetActiveCamera()->Foward(speed);
+        }
+
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::S))
+        {
+            OpenGL::CameraManager::GetActiveCamera()->Backward(speed);
+        }
+
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::A))
+        {
+            OpenGL::CameraManager::GetActiveCamera()->Left(speed);
+        }
+
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::D))
+        {
+            OpenGL::CameraManager::GetActiveCamera()->Right(speed);
+        }
+
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::Escape))
+        {
+            window.LockCursor(false);
+            window.SetActive(false);
+        }
+
+        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
+        {
+            const Vector2& mousePos = InputManager::GetGlobalInput().GetMouseDelta();
+            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.GetX() * sensitivity);
+            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.GetY() * sensitivity);
+        }
+
+    }
+
+    void OnActiveStateChanged(EventOnActivateInfo info) override
+    {
+        if(info.IsActive() == true)
+        {
+            //window.SetLockCursorSize({2, 2});
+            //window.LockCursor(true);
+        }
+    }
+
+};
+
 int LiiEntry()
 {
-   // DemoApplication::LaunchDemoApp();
-
+//    DemoApplication::LaunchDemoApp();
     Window frame = Window(0, 0, 800, 600, "TestFrame");
+    CameraController controller{frame};
+    frame.AddOnTickSubscriber(&controller);
+    frame.AddOnActivateSubscriber(controller);
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
     frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
-    Button button{50, 50, 50, 50};
-    frame.Add(button);
-
-    //Button button2{100, 100, 400, 400};
-    //frame.Add(button2);
+    /*Button button{50, 50, 50, 50};
+    frame.Add(button);*/
 
 	ApplicationController::JoinThreads();
 	return 0;

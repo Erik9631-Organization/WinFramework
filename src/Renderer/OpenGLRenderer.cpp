@@ -10,7 +10,7 @@
 #include "Window.h"
 #include "EventResizeInfo.h"
 #include "ShaderProgram.h"
-#include "UniformManager.h"
+#include "UniformProperties.h"
 #include "GdiFontFormat.h"
 #include "CoreWindow.h"
 
@@ -36,12 +36,22 @@ void OpenGLRenderer::DrawLine(Vector2 pos, Vector2 size)
 
 void OpenGLRenderer::DrawRectangle(Vector2 pos, Vector2 size)
 {
-
+    if(lastShapeType != ShapeType::Rectangle)
+    {
+        lastShape = builder.CreateRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(),
+                                                size.GetX(), size.GetY());
+        originalData = {pos, size};
+        lastShapeType = ShapeType::Rectangle;
+    }
+    else
+        TransformModel(*lastShape, pos, size);
+    lastShape->GetShader().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    //lastShape->UpdateUniform();
 }
 
 void OpenGLRenderer::DrawRectangle(float x, float y, float width, float height)
 {
-
+    DrawRectangle({x, y}, {width, height});
 }
 
 void OpenGLRenderer::DrawString(const std::wstring &string, Vector2 position, const FontFormat &format, int len)
@@ -66,30 +76,18 @@ void OpenGLRenderer::FillRectangle(float x, float y, float width, float height)
 
 void OpenGLRenderer::FillRectangle(Vector2 pos, Vector2 size)
 {
-    if(lastShapeType != ShapeType::Rectangle)
+    if(lastShapeType != ShapeType::FillRectangle)
     {
         lastShape = builder.CreateFillRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(),
                                                 size.GetX(), size.GetY());
-        lastDrawdata = {pos, size};
-        lastShapeType = ShapeType::Rectangle;
+        originalData = {pos, size};
+        lastShapeType = ShapeType::FillRectangle;
     }
     else
-    {
-        //lastShape->ResetTransform();
-        float sizeXDelta = size.GetX() / lastDrawdata.GetSize().GetX();
-        float sizeYDelta = size.GetY() / lastDrawdata.GetSize().GetY();
+        TransformModel(*lastShape, pos, size);
 
-        float posXDelta = (pos.GetX()) - lastDrawdata.GetPosition().GetX();
-        float posYDelta = (pos.GetY()) - lastDrawdata.GetPosition().GetY();
-
-        lastShape->Scale({sizeXDelta, sizeYDelta, 1.0f});
-        lastShape->Translate({posXDelta, posYDelta, 0.0f});
-
-        //Save the last parameters;
-        lastDrawdata = {pos, size};
-    }
-    lastShape->GetShader().GetUniformManager().SetUniform(glUniform4f, "color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
-    lastShape->Draw();
+    lastShape->GetShader().GetUniformProperties().SetProperty( "color",lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    //lastShape->UpdateUniform();
 }
 
 void OpenGLRenderer::SetColor(const Vector4 &color)
@@ -128,7 +126,7 @@ OpenGLRenderer::OpenGLRenderer(Window& window) : window(window)
     window.AddOnResizeSubscriber(*this);
     viewMatrix = std::make_unique<glm::mat4>(1.0f);
     CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
-    builder.SetViewMatrix(viewMatrix);
+    //builder.SetProjectionMatrix(viewMatrix);
 }
 
 void OpenGLRenderer::OnResize(EventResizeInfo e)
@@ -151,4 +149,15 @@ void OpenGLRenderer::CreateViewMatrix(float width, float height, glm::mat4 &view
         0, 0, 0, 1
         };
     viewMatrix = glm::transpose(viewMatrix);
+}
+
+void OpenGLRenderer::TransformModel(OpenGL::Model &model, const Vector2 &pos, const Vector2 &size)
+{
+    float sizeXDelta = size.GetX() / originalData.GetSize().GetX();
+    float sizeYDelta = size.GetY() / originalData.GetSize().GetY();
+
+    model.ResetTransform();
+    model.Scale({sizeXDelta, sizeYDelta, 1.0f});
+    model.Translate({translation.GetX(), translation.GetY(), 0.0f});
+    model.Translate({pos.GetX(), pos.GetY(), 0.0f});
 }

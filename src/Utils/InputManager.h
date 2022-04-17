@@ -1,16 +1,34 @@
 #pragma once
 #include <Windows.h>
+#include <memory>
+#include <Vector2.h>
+class CoreWindow;
 
 class InputManager
 {
+    friend CoreWindow;
 private:
 	BYTE keyboardState[256];
+    static std::unique_ptr<InputManager> globalInput;
+    Vector2 mousePosition;
+    Vector2 mouseScreenPosition;
+    Vector2 mouseDelta;
 public:
+    static const InputManager& GetGlobalInput();
+
 	InputManager(BYTE* keyboardState);
 	InputManager();
 	void SetKeyboardState(BYTE* keyboardState);
-	bool IsKeyDown(unsigned int key);
-	bool IsKeyUp(unsigned int key);
+	const bool& IsKeyDown(unsigned int key) const;
+	const bool& IsKeyUp(unsigned int key) const;
+    const Vector2& GetMouseDelta() const;
+    const Vector2& GetMouseScreenPosition() const;
+    const Vector2& GetMousePosition() const;
+    void SetMousePosition(const Vector2& mousePosition);
+    void SetMouseScreenPosition(const Vector2& mousePosition);
+    void SetMouseDeltaPosition(const Vector2& mousePosition);
+
+
     enum class VirtualKeys : unsigned int
     {
         LeftButton = 0x01,
@@ -394,8 +412,7 @@ public:
         /// <summary></summary>
         OEMClear = 0xFE
     };
-
-    bool IsKeyDown(VirtualKeys key);
-    bool IsKeyUp(VirtualKeys key);
+    const bool& IsKeyDown(VirtualKeys key) const;
+    const bool& IsKeyUp(VirtualKeys key) const;
 };
 

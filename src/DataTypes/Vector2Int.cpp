@@ -10,7 +10,7 @@ int Vector2Int::GetX() const
     return x;
 }
 
-void Vector2Int::SetX(float x)
+void Vector2Int::SetX(int x)
 {
     this->x = x;
 }

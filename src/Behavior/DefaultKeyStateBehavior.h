@@ -3,7 +3,7 @@
 #include "Events/KeyStateSubscriber.h"
 #include <vector>
 #include "Utils/InputManager.h"
-#include "Components/Activatable.h"
+#include "api/Activatable.h"
 class DefaultKeyStateBehavior : KeyStateSubject
 {
 private:

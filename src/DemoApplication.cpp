@@ -13,7 +13,7 @@
 #include "DataTypes/DefaultMultiTree.h"
 #include "Events/MoveSubscriber.h"
 #include "EventTypes/EventUpdateInfo.h"
-#include "MouseInteractable.h"
+#include "api/MouseInteractable.h"
 #include "Events/MouseStateSubscriber.h"
 #include "EventTypes/EventMouseStateInfo.h"
 #include "Components/Label.h"

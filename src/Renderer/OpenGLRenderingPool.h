@@ -10,15 +10,15 @@
 #include "OpenGLRenderer.h"
 #include "Vector2.h"
 class Window;
-class Renderable;
+class RenderCommander;
 
 class OpenGLRenderingPool : public RenderingPool
 {
 public:
-    Renderer &Acquire(const Renderable &target) override;
+    Renderer &Acquire(const RenderCommander &target) override;
     OpenGLRenderingPool(Window& window);
 private:
-    std::unordered_map<const Renderable*, std::unique_ptr<OpenGLRenderer>> renderers;
+    std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderer>> renderers;
     Window& window;
     Vector2 translation;
 public:

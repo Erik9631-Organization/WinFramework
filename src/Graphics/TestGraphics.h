@@ -4,22 +4,22 @@
 
 #ifndef GRAPHICS_TESTGRAPHICS_H
 #define GRAPHICS_TESTGRAPHICS_H
-#include "Renderable.h"
+#include "api/RenderCommander.h"
 #include <Windows.h>
 #include <gdiplus.h>
 #include <Renderer.h>
 
 
-class TestGraphics : public Renderable
+class TestGraphics : public RenderCommander
 {
 private:
-    std::vector<std::reference_wrapper<Renderable>> renderables;
+    std::vector<std::reference_wrapper<RenderCommander>> renderables;
 public:
     TestGraphics();
     void Repaint() override;
-    void AddRenderable(Renderable &renderable) override;
-    void RemoveRenderable(Renderable &renderable) override;
-    std::vector<std::reference_wrapper<Renderable>> GetRenderables() override;
+    void AddRenderable(RenderCommander &renderable) override;
+    void RemoveRenderable(RenderCommander &renderable) override;
+    std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
     void OnRender(RenderEventInfo e) override;
 };
 

@@ -5,7 +5,7 @@
 #include "Events/KeyStateSubscriber.h"
 #include "Events/MouseStateSubscriber.h"
 #include "Utils/InputManager.h"
-#include "Components/Draggable.h"
+#include "api/Draggable.h"
 #include "Events/DragSubscriber.h"
 #include "Events/DropSubscriber.h"
 

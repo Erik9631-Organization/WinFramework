@@ -81,19 +81,19 @@ void Background::Repaint()
 
 }
 
-void Background::AddRenderable(Renderable &renderable)
+void Background::AddRenderable(RenderCommander &renderable)
 {
     renderBehavior.AddRenderable(renderable);
 }
 
-void Background::RemoveRenderable(Renderable& renderable)
+void Background::RemoveRenderable(RenderCommander& renderable)
 {
     renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> Background::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> Background::GetRenderables()
 {
-    return std::vector<std::reference_wrapper<Renderable>>();
+    return std::vector<std::reference_wrapper<RenderCommander>>();
 }
 
 bool Background::HasMethod(std::string method)

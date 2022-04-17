@@ -4,20 +4,11 @@
 
 #include "DefaultShaderProgram.h"
 #include "CoreWindow.h"
+#include "Shader.h"
+#include "UniformProperties.h"
 
-/**
- *
- * DefaultShaderProgram program
- * program.Add<GraphicsShader>("../Shaders/default.vert")
- * program.Add<GraphicsShader>("../Shaders/default.frag")
- */
 
-/**
- * (A*B)*C = A*(B*C)
- * A*B =! B*A
- */
-
-Shader &DefaultShaderProgram::AddShader(std::unique_ptr<Shader> shader)
+OpenGL::Shader &OpenGL::DefaultShaderProgram::AddShader(std::unique_ptr<Shader> shader)
 {
     Shader& shaderObjRef = *shader;
 
@@ -32,23 +23,24 @@ Shader &DefaultShaderProgram::AddShader(std::unique_ptr<Shader> shader)
     shaders[shader->GetId()] = std::move(shader);
     glAttachShader(programId, shaderObjRef.GetId());
     std::string error = to_string(glGetError());
-    CoreWindow::ConsoleWrite("attach failed: " + error);
+    if(error != "0")
+        CoreWindow::ConsoleWrite("attach failed: " + error);
     return shaderObjRef;
 }
 
-Shader &DefaultShaderProgram::GetShader(int id)
+OpenGL::Shader &OpenGL::DefaultShaderProgram::GetShader(int id)
 {
     return *shaders.at(id);
 }
 
-bool DefaultShaderProgram::HasShader(int id)
+bool OpenGL::DefaultShaderProgram::HasShader(int id)
 {
     if(shaders.find(id) == shaders.end())
         return false;
     return true;
 }
 
-std::unique_ptr<Shader> DefaultShaderProgram::RemoveShader(int id)
+std::unique_ptr<OpenGL::Shader> OpenGL::DefaultShaderProgram::RemoveShader(int id)
 {
     auto findIter = shaders.find(id);
     if(findIter == shaders.end())
@@ -59,24 +51,20 @@ std::unique_ptr<Shader> DefaultShaderProgram::RemoveShader(int id)
     return removedShader;
 }
 
-unsigned int DefaultShaderProgram::GetId()
-{
-    return programId;
-}
 
-DefaultShaderProgram::DefaultShaderProgram()
+OpenGL::DefaultShaderProgram::DefaultShaderProgram()
 {
     programId = glCreateProgram();
-    uniformManager = new UniformManager(programId);
+    uniformManager = new UniformProperties(programId);
 }
 
-DefaultShaderProgram::~DefaultShaderProgram()
+OpenGL::DefaultShaderProgram::~DefaultShaderProgram()
 {
     glDeleteProgram(programId);
     delete uniformManager;
 }
 
-bool DefaultShaderProgram::LoadAndCompile(Shader& shader)
+bool OpenGL::DefaultShaderProgram::LoadAndCompile(Shader& shader)
 {
     if(!shader.IsLoaded())
         if(!shader.Load()) // If loading failed, return error
@@ -89,7 +77,7 @@ bool DefaultShaderProgram::LoadAndCompile(Shader& shader)
     return true;
 }
 
-bool DefaultShaderProgram::Link()
+bool OpenGL::DefaultShaderProgram::Link()
 {
     glLinkProgram(programId);
     unsigned int error = glGetError();
@@ -105,19 +93,33 @@ bool DefaultShaderProgram::Link()
     return true;
 }
 
-void DefaultShaderProgram::Use()
+void OpenGL::DefaultShaderProgram::Use() const
 {
     glUseProgram(programId);
 }
 
-void DefaultShaderProgram::DeleteShaders()
+void OpenGL::DefaultShaderProgram::DeleteShaders()
 {
     for( auto it = shaders.begin(); it != shaders.end(); it = shaders.begin())
         shaders.erase(it);
 }
 
-const UniformManager &DefaultShaderProgram::GetUniformManager()
+const OpenGL::UniformProperties &OpenGL::DefaultShaderProgram::GetUniformProperties()
 {
     return *uniformManager;
 }
 
+const unsigned long long int & OpenGL::DefaultShaderProgram::GetId() const
+{
+    return programId;
+}
+
+const std::string &OpenGL::DefaultShaderProgram::GetTag()
+{
+    return tag;
+}
+
+void OpenGL::DefaultShaderProgram::SetTag(const std::string &tag)
+{
+    this->tag = tag;
+}

@@ -1,5 +1,5 @@
 #pragma once
-#include "Components/Activatable.h"
+#include "api/Activatable.h"
 #include <vector>
 
 class DefaultActivate : public Activatable

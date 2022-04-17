@@ -1,4 +1,4 @@
-Image - NOT DONE (Should be simple)
+LiiImage - NOT DONE (Should be simple)
 Button - Done
 Label - Done
 TextField - Done

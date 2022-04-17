@@ -68,17 +68,17 @@ void SimpleBorder::Repaint()
 
 }
 
-void SimpleBorder::AddRenderable(Renderable &renderable)
+void SimpleBorder::AddRenderable(RenderCommander &renderable)
 {
 	renderBehavior.AddRenderable(renderable);
 }
 
-void SimpleBorder::RemoveRenderable(Renderable& renderable)
+void SimpleBorder::RemoveRenderable(RenderCommander& renderable)
 {
 	renderBehavior.RemoveRenderable(renderable);
 }
 
-std::vector<std::reference_wrapper<Renderable>> SimpleBorder::GetRenderables()
+std::vector<std::reference_wrapper<RenderCommander>> SimpleBorder::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
