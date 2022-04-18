@@ -5,7 +5,7 @@ layout (location = 2) in vec3 aNormal;
 uniform mat4 model = mat4(1);
 uniform mat4 view = mat4(1);
 uniform mat4 projection = mat4(1);
-uniform vec4 lightPosition = vec4(60, 40, -50, 1.0f);
+uniform vec4 lightPosition = vec4(40, 40, -50, 1.0f);
 out flat vec3 viewLightPosition;
 out vec2 TextCoord;
 out vec3 FragPos;

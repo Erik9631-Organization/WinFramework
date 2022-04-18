@@ -5,7 +5,10 @@
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
 class CoreWindow;
-
+/**
+ * TODO Cleanup RenderingProvider interface.
+ * Ensure that it uses existing interfaces instead of its own
+ */
 class RenderingProvider
 {
 public:
@@ -13,6 +16,7 @@ public:
     virtual void OnInit(CoreWindow& coreWindow) = 0;
     virtual void OnDestroy(CoreWindow& coreWindow) = 0;
     virtual void OnRemove(CoreWindow& coreWindow) = 0;
+    virtual void OnMainFinished() = 0;
     virtual void WaitForSyncToFinish() = 0;
 };
 

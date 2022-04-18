@@ -187,3 +187,8 @@ GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
     renderingThread.reset();
 
 }
+
+void GdiRenderingProvider::OnMainFinished()
+{
+
+}

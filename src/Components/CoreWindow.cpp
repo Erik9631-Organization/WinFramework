@@ -14,6 +14,7 @@
 #include <chrono>
 #include "GdiRenderer.h"
 #include "Vector2Int.h"
+#include "DestroySubscriber.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -93,6 +94,7 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = false;
     //CoreWindow::ConsoleWrite("Update started");
 	PAINTSTRUCT paintInfo;
+
 	//Wait for sync to finish.
 	if(renderingProvider != nullptr)
 	{
@@ -281,14 +283,14 @@ void CoreWindow::Repaint()
 	RedrawWindow();
 }
 
-void CoreWindow::AddRenderable(RenderCommander &renderable)
+void CoreWindow::AddRenderCommander(RenderCommander &renderable)
 {
-	renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void CoreWindow::RemoveRenderable(RenderCommander& renderable)
+void CoreWindow::RemoveRenderCommander(RenderCommander& renderable)
 {
-	renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 std::vector<std::reference_wrapper<RenderCommander>> CoreWindow::GetRenderables()
@@ -407,6 +409,20 @@ void CoreWindow::LockCursor(const bool &lockState)
 const bool &CoreWindow::IsCursorLocked() const
 {
     return cursorLocked;
+}
+
+void CoreWindow::OnObjectDestroyed(DestroyEventInfo *e)
+{
+    renderingProvider->OnMainFinished();
+    std::lock_guard<std::mutex> lock{mainFinishedMutex};
+    hasMainFinished = true;
+    mainFinishedSignal.notify_all();
+}
+
+void CoreWindow::WaitForMainToFinish()
+{
+    std::unique_lock<std::mutex> mainFinishedLock{mainFinishedMutex};
+    mainFinishedSignal.wait(mainFinishedLock, [=]{return hasMainFinished;});
 }
 
 void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

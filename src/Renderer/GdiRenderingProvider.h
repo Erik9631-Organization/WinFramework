@@ -37,6 +37,7 @@ public:
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
+    void OnMainFinished() override;
     std::unique_ptr<std::thread> renderingThread;
 private:
     UiTreeDataSyncer syncer;

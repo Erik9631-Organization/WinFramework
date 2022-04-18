@@ -81,14 +81,14 @@ void Background::Repaint()
 
 }
 
-void Background::AddRenderable(RenderCommander &renderable)
+void Background::AddRenderCommander(RenderCommander &renderable)
 {
-    renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void Background::RemoveRenderable(RenderCommander& renderable)
+void Background::RemoveRenderCommander(RenderCommander& renderable)
 {
-    renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 std::vector<std::reference_wrapper<RenderCommander>> Background::GetRenderables()

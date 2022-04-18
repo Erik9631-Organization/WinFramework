@@ -38,7 +38,7 @@ void DefaultRenderingManager::RemoveModel(OpenGL::Model &model)
 
 }
 //Used for updating the values during a sync event
-void DefaultRenderingManager::Move(const OpenGL::Model &model)
+void DefaultRenderingManager::Move(const Model &model)
 {
     auto result = renderingScene.find(&model);
     if(result == renderingScene.end())
@@ -78,4 +78,12 @@ void DefaultRenderingManager::DrawInternalModel(OpenGL::Model &model)
 
     RenderObjectEventInfo eventInfo{this, nullptr};
     model.OnRender(&eventInfo);
+}
+
+bool DefaultRenderingManager::HasModel(const Model &model) const
+{
+    auto result = renderingScene.find(&model);
+    if(result == renderingScene.end())
+        return false;
+    return true;
 }

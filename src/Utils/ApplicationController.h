@@ -4,9 +4,18 @@
 #include <vector>
 #include <gdiplus.h>
 #include <thread>
+#include "DestroySubjectBehavior.h"
+#include "StartSubjectBehavior.h"
+
 using namespace Gdiplus;
 using namespace std;
 class CoreWindow;
+
+/**
+ * TODO Finish DestroySubject event types
+ * TODO Finish StartSubject event types
+ * Also make sure that no nullptrs are being passed
+ */
 class ApplicationController
 {
 public:
@@ -26,10 +35,16 @@ public:
 	static void JoinThreads();
 	static void AddThread(thread* joinableThread);
 	~ApplicationController();
+    static void NotifyOnStart();
+    static void NotifyOnDestroy();
+    static void AddOnStartSubscriber(StartSubscriber* subscriber);
+    static void AddOnDestroySubscriber(DestroySubscriber* subscriber);
 private:
 	static vector<thread*> threads;
 	static WinEntryArgs args;
 	static ULONG token;
 	static GdiplusStartupOutput output;
+    static DestroySubjectBehavior* destroySubjectBehavior;
+    static StartSubjectBehavior* startSubjectBehavior;
 };
 

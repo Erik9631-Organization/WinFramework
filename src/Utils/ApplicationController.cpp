@@ -8,12 +8,17 @@
 #endif
 
 
-
+/**
+ * TODO Application controller should be singleton
+ */
 ApplicationController::WinEntryArgs ApplicationController::args;
 vector<reference_wrapper<CoreWindow>> ApplicationController::windows = vector<reference_wrapper<CoreWindow>>();
 ULONG ApplicationController::token = 0;
 GdiplusStartupOutput ApplicationController::output;
 vector<thread*> ApplicationController::threads;
+DestroySubjectBehavior* ApplicationController::destroySubjectBehavior = new DestroySubjectBehavior();
+StartSubjectBehavior* ApplicationController::startSubjectBehavior = new StartSubjectBehavior();
+
 
 ApplicationController::ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -47,6 +52,7 @@ GdiplusStartupOutput ApplicationController::getGdiOutput()
 
 void ApplicationController::JoinThreads()
 {
+    NotifyOnDestroy();
 	for (thread* i : threads)
 	{
 		if(i->joinable())
@@ -72,4 +78,24 @@ LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, L
 ApplicationController::~ApplicationController()
 {
 	GdiplusShutdown(token);
+}
+
+void ApplicationController::NotifyOnStart()
+{
+    startSubjectBehavior->NotifyOnStartSubscribers();
+}
+
+void ApplicationController::NotifyOnDestroy()
+{
+    destroySubjectBehavior->NotifyOnDestroy(nullptr);
+}
+
+void ApplicationController::AddOnStartSubscriber(StartSubscriber *subscriber)
+{
+    startSubjectBehavior->AddOnStartSubscriber(subscriber);
+}
+
+void ApplicationController::AddOnDestroySubscriber(DestroySubscriber *subscriber)
+{
+    destroySubjectBehavior->AddOnDestroySubscriber(subscriber);
 }

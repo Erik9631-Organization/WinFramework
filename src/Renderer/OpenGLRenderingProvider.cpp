@@ -13,7 +13,7 @@
 #include "RenderEventInfo.h"
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
-#include "ShapeBuilder.h"
+#include "ModelBuilder.h"
 #include "DefaultTexture.h"
 #include "CameraManager.h"
 #include "Model.h"
@@ -61,9 +61,17 @@ void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     //now create openGlWindow
     PrepareWindowRenderer(coreWindowFrame);
     coreWindow = &coreWindowFrame;
+    renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame(), manager);
+    element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
+    GraphicsInit();
     renderingThread = std::make_unique<std::thread>([=]{InternalRender();});
-    renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame());
 }
+
+void OpenGLRenderingProvider::OnMainFinished()
+{
+    wglMakeCurrent(nullptr, nullptr);
+}
+
 
 void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
 {
@@ -137,7 +145,6 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
     glClearColor(0.129f, 0.586f, 0.949f, 1.0f); // rgb(33,150,243)
     glClear(GL_COLOR_BUFFER_BIT);
     SwapBuffers(windowDc);
-    wglMakeCurrent(nullptr, nullptr);
 }
 
 void OpenGLRenderingProvider::GetGlExtensions()
@@ -198,11 +205,13 @@ void OpenGLRenderingProvider::GetGlExtensions()
         system("PAUSE");
         exit(0);
     }
+
     if(!wglMakeCurrent(windowHdc, glContext))
     {
         CoreWindow::ConsoleWrite("Error selecting dummy gl context");
         exit(0);
     }
+
     GLenum result = glewInit();
     if(result != GLEW_OK)
     {
@@ -233,12 +242,14 @@ void OpenGLRenderingProvider::OnRemove(CoreWindow &coreWindow)
 void OpenGLRenderingProvider::WaitForSyncToFinish()
 {
     uiSyncer.WaitForSync();
+    if(element3dSyncer != nullptr)
+        element3dSyncer->WaitForSync();
 }
 
 void OpenGLRenderingProvider::InternalRender()
 {
+    coreWindow->WaitForMainToFinish();
     wglMakeCurrent(windowDc, openGlContext);
-    GraphicsInit();
     Window& window = coreWindow->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
     float translation = 0;
@@ -251,25 +262,19 @@ void OpenGLRenderingProvider::InternalRender()
         mutex lockMutex;
         std::unique_lock<std::mutex>performRenderLock(lockMutex);
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
+        ///TODO Thread sync problem
+        //Wait for update could finish and another cycle could start before uiSyncer sends a signal. Mutex is requried here.
         coreWindow->WaitForUpdateToFinish();
         uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
+        element3dSyncer->SyncData(coreWindow->GetWrapperFrame().Get3dScene().GetElementNode());
         glViewport(0, 0, window.GetWidth(), window.GetHeight()); // Update the viewport
-        //AssignRendererToNodes();
-        models.at(1)->Translate({ translation, 0, 0});
-        models.at(1)->Rotate(45.0f, {0.0f, 0.0f,1.0f});
-        SyncTestData();
+        AssignRendererToNodes();
         manager.Render();
-        for(unique_ptr<OpenGL::Model>& model : models)
-            model->OnUpdate(EventUpdateInfo{EventUpdateFlags::None});
-
         performRender = !coreWindow->IsEventBased();
         SwapBuffers(windowDc);
-        models.at(1)->ResetTransform();
-        translation += translationAnim;
-        if (translation > 50 || translation < -50)
-            translationAnim *= -1;
     }
 }
+
 
 void OpenGLRenderingProvider::AssignRendererToNodes()
 {
@@ -303,52 +308,44 @@ void OpenGLRenderingProvider::GraphicsInit()
     ShaderProgram& program = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<ShaderManager>("shader")->
         CreateShaderProgram<OpenGL::DefaultShaderProgram>("default");
 
-    program.AddShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.frag", GL_FRAGMENT_SHADER));
-    program.AddShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.vert", GL_VERTEX_SHADER));
+    program.AssembleShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.frag", GL_FRAGMENT_SHADER));
+    program.AssembleShader(std::make_unique<OpenGL::GraphicsShader>(L"Shaders/default.vert", GL_VERTEX_SHADER));
     program.Link();
 
 
-    OpenGL::ShapeBuilder builder;
-    float screenWidth = 800;
-    float screenHeight = 600;
-    auto projection2D = std::make_shared<glm::mat4>
-    (
-        2.0f/screenWidth, 0, 0, -1,
-        0, -2.0f/screenHeight, 0, 1,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-    );
-    *projection2D = glm::transpose(*projection2D);
-    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), screenWidth/screenHeight, 0.1f, 1000.0f));
-
-    builder.SetProjectionMatrix(projectionMatrix);
-    auto wallBlock = builder.CreateBlock(0, 100, 0, 20.0f, 20.0f, 20.0f);
-    auto texture = new OpenGL::DefaultTexture("Textures/wall.jpg", GL_RGB);
-    if(texture->LoadFromFile() == false)
-        CoreWindow::ConsoleWrite("Texture load failed!");
-    texture->LoadResource();
-    wallBlock->SetTexture(texture);
-    auto block = builder.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
-
-    //rectangle->Translate({0.0f, 0.0f, -10.0f});
-    //rectangle->Rotate(-55.0f, {1.0f, 0.0f, 0.0f});
-
-   // auto triangle = builder.CreateTriangle({0, 0}, {100, 125}, {100, 175});
-    //triangle->ResetTransform();
-    //triangle->Translate({0, 0, 0});
-
-    manager.AddModel(*wallBlock);
-    manager.AddModel(*block);
-    models.emplace_back(std::move(block));
-    models.emplace_back(std::move(wallBlock));
-    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-}
-
-void OpenGLRenderingProvider::SyncTestData()
-{
-    for(unique_ptr<OpenGL::Model>& model : models)
-    {
-        manager.Move(*model);
-    }
+//    OpenGL::ShapeBuilder builder;
+//    float screenWidth = 800;
+//    float screenHeight = 600;
+//    auto projection2D = std::make_shared<glm::mat4>
+//    (
+//        2.0f/screenWidth, 0, 0, -1,
+//        0, -2.0f/screenHeight, 0, 1,
+//        0, 0, 1, 0,
+//        0, 0, 0, 1
+//    );
+//    *projection2D = glm::transpose(*projection2D);
+//    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), screenWidth/screenHeight, 0.1f, 1000.0f));
+//
+//    builder.SetProjectionMatrix(projectionMatrix);
+//    auto wallBlock = builder.CreateBlock(0, 100, 0, 20.0f, 20.0f, 20.0f);
+//    auto texture = new OpenGL::DefaultTexture("Textures/wall.jpg", GL_RGB);
+//    if(texture->LoadFromFile() == false)
+//        CoreWindow::ConsoleWrite("Texture load failed!");
+//    texture->LoadResource();
+//    wallBlock->SetTexture(texture);
+//    auto block = builder.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
+//
+//    //rectangle->Translate({0.0f, 0.0f, -10.0f});
+//    //rectangle->Rotate(-55.0f, {1.0f, 0.0f, 0.0f});
+//
+//   // auto triangle = builder.CreateTriangle({0, 0}, {100, 125}, {100, 175});
+//    //triangle->ResetTransform();
+//    //triangle->Translate({0, 0, 0});
+//
+//    manager.AddModel(*wallBlock);
+//    manager.AddModel(*block);
+//    models.emplace_back(std::move(block));
+//    models.emplace_back(std::move(wallBlock));
+//    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 }
 

@@ -43,6 +43,7 @@ public:
     void SetFontSize(float fontSize) override;
     std::unique_ptr<FontFormat> CreateFontFormat() override;
     void Translate(Vector2 translation) override;
+    void DrawModel(const OpenGL::Model &model) override;
 private:
     Gdiplus::Pen* pen = nullptr;
     Gdiplus::SolidBrush* brush = nullptr;

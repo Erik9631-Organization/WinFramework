@@ -11,9 +11,9 @@ class DestroyEventInfo
 public:
     std::any src;
     template<class T>
-    T GetSrc()
+    T* GetSrc()
     {
-        return std::any_cast<T>(src);
+        return std::any_cast<T*>(src);
     }
 };
 

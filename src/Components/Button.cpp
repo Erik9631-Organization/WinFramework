@@ -51,9 +51,9 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
 	text.SetAlignment(FontAlingnment::FontAlignmentCenter);
 
-	renderBehavior.AddRenderable(background);
-	renderBehavior.AddRenderable(border);
-	renderBehavior.AddRenderable(text);
+    renderBehavior.AddRenderCommander(background);
+    renderBehavior.AddRenderCommander(border);
+    renderBehavior.AddRenderCommander(text);
 }
 
 void Button::SetText(std::wstring text)

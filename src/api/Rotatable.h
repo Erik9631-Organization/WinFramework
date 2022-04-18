@@ -10,6 +10,9 @@ class Rotatable
 {
 public:
     virtual void Rotate(const float& angle, const glm::vec3& axis) = 0;
+    virtual void SetRotation(const float& angle, const glm::vec3& axis) = 0;
+    virtual const glm::vec3& GetRotationAxis() = 0;
+    virtual const float& GetAngle() = 0;
 };
 
 

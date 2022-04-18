@@ -10,9 +10,9 @@
 class DestroySubject
 {
 public:
-    virtual NotifyOnDestroy(DestroyEventInfo* e) = 0;
-    virtual AddOnDestroySubscriber(DestroySubscriber* subject) = 0;
-    virtual RemoveOnDestroySubscriber(DestroySubscriber* subject) = 0;
+    virtual void NotifyOnDestroy(DestroyEventInfo* e) = 0;
+    virtual void AddOnDestroySubscriber(DestroySubscriber* subject) = 0;
+    virtual void RemoveOnDestroySubscriber(DestroySubscriber* subject) = 0;
 };
 
 

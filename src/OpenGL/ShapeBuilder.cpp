@@ -2,7 +2,7 @@
 // Created by Erik on 20/02/22.
 //
 #define _USE_MATH_DEFINES
-#include "ShapeBuilder.h"
+#include "ModelBuilder.h"
 #include "DefaultShaderProgram.h"
 #include "DefaultMesh.h"
 #include "GraphicsShader.h"
@@ -13,7 +13,7 @@
 #include <cmath>
 #include <DestroyEventInfo.h>
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillRectangle(float x, float y, float width, float height)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x, float y, float width, float height)
 {
 
     Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("",3, std::vector<float>
@@ -38,22 +38,22 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillRectangle(float x
 
 
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillRectangle(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(glm::vec2 position, glm::vec2 size)
 {
     return CreateFillRectangle(position.x, position.y, size.x, size.y);
 }
 
-void OpenGL::ShapeBuilder::SetProjectionMatrix(glm::mat4 *projection)
+void OpenGL::ModelBuilder::SetProjectionMatrix(glm::mat4 *projection)
 {
     projectionMatrix = projection;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateTriangle(std::initializer_list<glm::vec2> vertices)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(std::initializer_list<glm::vec2> vertices)
 {
     return std::unique_ptr<Model>();
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateTriangle(glm::vec2 a1, glm::vec2 a2, glm::vec2 a3)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(glm::vec2 a1, glm::vec2 a2, glm::vec2 a3)
 {
 
     Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("", 3, std::vector<float>
@@ -68,7 +68,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateTriangle(glm::vec2 a1
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillEllipse(float x, float y, float width, float height)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(float x, float y, float width, float height)
 {
     std::vector<float> vertices;
     std::vector<unsigned int> drawOrder;
@@ -101,17 +101,17 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillEllipse(float x, 
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateFillEllipse(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(glm::vec2 position, glm::vec2 size)
 {
     return CreateFillEllipse(position.x, position.y, size.x, size.y);
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateRectangle(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(glm::vec2 position, glm::vec2 size)
 {
     return CreateRectangle(position.x, position.y, size.x, size.y);
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateRectangle(float x, float y, float width, float height)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(float x, float y, float width, float height)
 {
 
     Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("", 3, std::vector<float>
@@ -136,12 +136,12 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateRectangle(float x, fl
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateEllipse(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(glm::vec2 position, glm::vec2 size)
 {
     return CreateEllipse(position.x, position.y, size.x, size.y);
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateEllipse(float x, float y, float width, float height)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(float x, float y, float width, float height)
 {
     std::vector<float> vertices;
     std::vector<unsigned int> drawOrder;
@@ -172,7 +172,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateEllipse(float x, floa
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateBlock(float x, float y, float z, float width, float height, float depth)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float y, float z, float width, float height, float depth)
 {
 
     depth *= -1;
@@ -230,12 +230,12 @@ std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateBlock(float x, float 
 
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ShapeBuilder::CreateBlock(glm::vec3 position, glm::vec3 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(glm::vec3 position, glm::vec3 size)
 {
     return CreateBlock(position.x, position.y, position.z, size.x, size.y, size.z);
 }
 
-OpenGL::ShapeBuilder::ShapeBuilder()
+OpenGL::ModelBuilder::ModelBuilder()
 {
     shaderProgram = GlobalResourceManager::GetGlobalResourceManager().AquireResource<ShaderProgram>("shader", "default");
     meshManager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<MeshManager>("mesh");

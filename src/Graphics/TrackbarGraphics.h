@@ -31,8 +31,8 @@ public:
 
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(RenderCommander &renderable) override;
-	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual void AddRenderCommander(RenderCommander &renderable) override;
+	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
 	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 	// Inherited via Reflectable

@@ -11,8 +11,8 @@ Label::Label() : text("Arial")
 Label::Label(int x, int y, int width, int height, std::string name) : UiElement(x, y, width, height, name), text("Arial")
 {
 	background.SetColor({30, 30, 30});
-	AddRenderable(background);
-	AddRenderable(text);
+    AddRenderCommander(background);
+    AddRenderCommander(text);
 }
 
 void Label::SetBackground(Vector3 color)

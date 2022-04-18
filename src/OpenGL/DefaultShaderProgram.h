@@ -20,7 +20,7 @@ namespace OpenGL
     {
     public:
         DefaultShaderProgram();
-        Shader &AddShader(std::unique_ptr<Shader> shader) override;
+        Shader &AssembleShader(std::unique_ptr<Shader> shader) override;
         Shader &GetShader(int id) override;
         bool HasShader(int id) override;
         std::unique_ptr<Shader> RemoveShader(int id) override;

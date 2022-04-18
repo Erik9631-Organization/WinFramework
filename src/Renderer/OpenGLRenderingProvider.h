@@ -14,6 +14,7 @@
 #include "Model.h"
 #include "OpenGLRenderingPool.h"
 #include "DefaultRenderingManager.h"
+#include "Element3dDataSyncer.h"
 
 class OpenGLRenderingProvider : public RenderingProvider
 {
@@ -23,6 +24,7 @@ public:
     void OnDestroy(CoreWindow &coreWindow) override;
     void OnRemove(CoreWindow &coreWindow) override;
     void WaitForSyncToFinish() override;
+    void OnMainFinished() override;
 private:
     void AssignGraphicsToNodes(MultiTree<UiElement&>& node);
     void GraphicsInit();
@@ -38,8 +40,8 @@ private:
     bool performRender = false;
     std::condition_variable performRenderSignal;
     UiTreeDataSyncer uiSyncer;
+    std::unique_ptr<Element3dDataSyncer> element3dSyncer;
     std::unique_ptr<OpenGLRenderingPool> renderingPool;
-    void SyncTestData();
 
     //Used for default rendering if nothing else is specified
     std::unique_ptr<OpenGL::DefaultShaderProgram> defaultProgram;

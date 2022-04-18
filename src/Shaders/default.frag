@@ -37,7 +37,6 @@ vec3 DiffuseLight()
 	float distance = length(lightVector);
 	float attenuation = CalculateAttenuation(distance, globalLinearTerm, globalQuadraticTerm);
 
-
     float rayStrength = max( dot(lightVector, normalize(Normal)), 0.0f);
     return lightColor * rayStrength * material.diffuse * attenuation;
 }

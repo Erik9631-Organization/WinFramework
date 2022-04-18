@@ -84,9 +84,9 @@ RadioButton::RadioButton(int x, int y, int width, int height, string componentNa
 	text.SetText(L"Radio");
 	SetChecked(false);
 
-	AddRenderable(radioButtonGraphics);
-	AddRenderable(border);
-	AddRenderable(text);
+    AddRenderCommander(radioButtonGraphics);
+    AddRenderCommander(border);
+    AddRenderCommander(text);
 }
 
 void RadioButton::NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e)

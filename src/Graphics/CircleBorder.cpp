@@ -29,14 +29,14 @@ void CircleBorder::Repaint()
 {
 }
 
-void CircleBorder::AddRenderable(RenderCommander &renderable)
+void CircleBorder::AddRenderCommander(RenderCommander &renderable)
 {
-    renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void CircleBorder::RemoveRenderable(RenderCommander& renderable)
+void CircleBorder::RemoveRenderCommander(RenderCommander& renderable)
 {
-    renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 void CircleBorder::SetDiameter(float diameter)

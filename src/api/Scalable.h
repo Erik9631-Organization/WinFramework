@@ -10,6 +10,8 @@ class Scalable
 {
 public:
     virtual void Scale(const glm::vec3& scale) = 0;
+    virtual void SetScale(const glm::vec3& scale) = 0;
+    virtual const glm::vec3& GetScale() = 0;
 };
 
 

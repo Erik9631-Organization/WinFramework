@@ -44,8 +44,8 @@ public:
 	// Inherited via Renderable
 	void OnRender(RenderEventInfo e) override;
 	void Repaint() override;
-	void AddRenderable(RenderCommander &renderable) override;
-	void RemoveRenderable(RenderCommander& renderable) override;
+	void AddRenderCommander(RenderCommander &renderable) override;
+	void RemoveRenderCommander(RenderCommander& renderable) override;
 	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 
 

@@ -8,6 +8,7 @@
 #include "Events/ResizeSubscriber.h"
 #include "Graphics/Background.h"
 #include "GdiRenderingProvider.h"
+#include "Scene.h"
 
 using namespace std;
 class CoreWindow;
@@ -29,7 +30,7 @@ private:
 	Background background;
 	void CreateCoreWindow(LONG style);
 	std::shared_ptr<RenderingProvider> renderingProvider;
-
+    Scene scene3d;
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -89,5 +90,7 @@ public:
     RenderingProvider* GetRenderingProvider();
     void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
     void WaitForSync();
+    void Add(Element3d* element);
+    Scene& Get3dScene();
 };
 

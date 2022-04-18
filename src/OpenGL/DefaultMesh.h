@@ -37,8 +37,6 @@ namespace OpenGL
         MeshMemoryManager* manager;
         void CreateDefaultAttributes();
         std::vector<std::unique_ptr<VertexAttribute>> defaultAttributes;
-        void DrawArrays();
-        void DrawElements();
         void Bind();
         void UnBind();
         long long id = 0;

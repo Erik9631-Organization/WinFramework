@@ -10,6 +10,8 @@ class Translatable
 {
 public:
     virtual void Translate(const glm::vec3& translation) = 0;
+    virtual void SetTranslation(const glm::vec3& translation) = 0;
+    virtual const glm::vec3& GetTranslation() = 0;
 };
 
 

@@ -16,9 +16,9 @@ TextInput::TextInput(int x, int y, int width, int height, string windowName) : t
 	border.SetThickness(1.0f);
 	background.SetColor({200, 200, 200});
 
-	renderBehavior.AddRenderable(background);
-	renderBehavior.AddRenderable(border);
-	renderBehavior.AddRenderable(text);
+    renderBehavior.AddRenderCommander(background);
+    renderBehavior.AddRenderCommander(border);
+    renderBehavior.AddRenderCommander(text);
 }
 
 TextInput::TextInput(string name) : TextInput(0, 0, 0, 0, name)

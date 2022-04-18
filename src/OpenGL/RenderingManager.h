@@ -17,6 +17,7 @@ namespace OpenGL
         virtual void AddModel(const Model &model) = 0;
         virtual void RemoveModel(Model& model) = 0;
         virtual void Move(const Model& model) = 0;
+        virtual bool HasModel(const Model &model) const = 0;
         ~RenderingManager() = default;
     };
 }

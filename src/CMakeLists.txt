@@ -83,7 +83,7 @@ set(Lii_Behavior
     "Behavior/Viewport.cpp"
     Behavior/VerticalScrollbarBehavior.cpp
     Behavior/VerticalScrollbarBehavior.h
-)
+        Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h Behavior/DestroySubjectBehavior.cpp Behavior/DestroySubjectBehavior.h)
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
@@ -177,9 +177,14 @@ set(Lii_Components
     "Components/Window.cpp"
     Components/ScrollBar/ScrollBar.cpp
     Components/ScrollBar/ScrollBar.h
-    OnAddHandler.h)
+    OnAddHandler.h
+        )
 source_group("Lii\\Components" FILES ${Lii_Components})
 
+set(Lii_Components_3d
+
+        Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h)
+source_group("Lii\\Components\\3d" FILES ${Lii_Components_3d})
 
 set(Lii_Components_ComboBox
     Components/ComboBox/ComboBox.h
@@ -250,7 +255,7 @@ set(Lii_Events
     Events/RenderObjectEventInfo.h
     Events/DestroySubject.h
     Events/DestroySubscriber.h
-    )
+        Events/OnStartSubject.h)
 
 source_group("Lii\\Events" FILES ${Lii_Events})
 
@@ -364,7 +369,7 @@ set(Lii_OpenGL
         OpenGL/UniformManager.cpp
         OpenGL/UniformProperties.h
         OpenGL/ShapeBuilder.cpp
-        OpenGL/ShapeBuilder.h 
+        OpenGL/ModelBuilder.h
         OpenGL/Texture.cpp
         OpenGL/DefaultTexture.h
         api/Resource.h
@@ -388,13 +393,14 @@ set(Lii_OpenGL
         OpenGL/DefaultRenderingManager.h
         OpenGL/RenderObject.h
         OpenGL/Hashable.h
+        OpenGL/RenderingPriorities.h
         )
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync
         Sync/UiTreeDataSyncer.cpp
         Sync/UiTreeDataSyncer.h
-)
+        Sync/Element3dDataSyncer.cpp Sync/Element3dDataSyncer.h)
 source_group("Lii\\Sync" FILES ${Lii_Sync})
 
 set(Lii_Objects
@@ -431,6 +437,7 @@ source_group("Lii/Managers" FILES ${Lii/Managers})
 
 
 
+
 set(ALL_FILES
     ${Enums}
     ${Lii}
@@ -452,7 +459,8 @@ set(ALL_FILES
     ${Lii_Materials}
     ${Lii_Api}
     ${Lii/Managers}
-        OpenGL/RenderingPriorities.h)
+    ${Lii_Components_3d}
+        )
 
 ################################################################################
 # Target
@@ -482,6 +490,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "../libs/glm"
         "../libs/stb"
         "Managers/"
+        "Components/3d"
         )
 
 target_link_libraries(Lii

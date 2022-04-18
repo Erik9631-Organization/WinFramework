@@ -16,8 +16,9 @@ class OpenGLRenderingPool : public RenderingPool
 {
 public:
     Renderer &Acquire(const RenderCommander &target) override;
-    OpenGLRenderingPool(Window& window);
+    OpenGLRenderingPool(Window &window, OpenGL::RenderingManager &manager);
 private:
+    OpenGL::RenderingManager& renderingManager;
     std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderer>> renderers;
     Window& window;
     Vector2 translation;

@@ -15,8 +15,8 @@ TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContaine
     border.SetColor({0, 0, 0});
     tracker.SetColor({0, 0, 0});
 
-    AddRenderable(tracker);
-    AddRenderable(border);
+    AddRenderCommander(tracker);
+    AddRenderCommander(border);
 }
 
 void TrackbarGraphics::SetPercentualHeight(float height)
@@ -60,14 +60,14 @@ void TrackbarGraphics::Repaint()
 {
 }
 
-void TrackbarGraphics::AddRenderable(RenderCommander &renderable)
+void TrackbarGraphics::AddRenderCommander(RenderCommander &renderable)
 {
-    renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void TrackbarGraphics::RemoveRenderable(RenderCommander& renderable)
+void TrackbarGraphics::RemoveRenderCommander(RenderCommander& renderable)
 {
-    renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 std::vector<std::reference_wrapper<RenderCommander>> TrackbarGraphics::GetRenderables()

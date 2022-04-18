@@ -2,27 +2,28 @@
 // Created by Erik on 20/02/22.
 //
 
-#ifndef LII_SHAPEBUILDER_H
-#define LII_SHAPEBUILDER_H
+#ifndef LII_MODELBUILDER_H
+#define LII_MODELBUILDER_H
 #include <memory>
 #include <glm.hpp>
 #include "ShaderProgram.h"
 #include "Model.h"
 
-class Model;
+
 class ShaderProgram;
 class MeshManager;
 
 namespace OpenGL
 {
-    class ShapeBuilder
+    class Model;
+    class ModelBuilder
     {
     private:
         glm::mat4* projectionMatrix;
         ShaderProgram* shaderProgram = nullptr;
         MeshManager* meshManager = nullptr;
     public:
-        ShapeBuilder();
+        ModelBuilder();
         std::unique_ptr<Model> CreateFillRectangle(float x, float y, float width, float height);
         std::unique_ptr<Model> CreateFillRectangle(glm::vec2 position, glm::vec2 size);
         std::unique_ptr<Model> CreateRectangle(float x, float y, float width, float height);
@@ -40,4 +41,4 @@ namespace OpenGL
 }
 
 
-#endif //LII_SHAPEBUILDER_H
+#endif //LII_MODELBUILDER_H

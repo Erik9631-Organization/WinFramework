@@ -22,7 +22,9 @@ DefaultMeshMemoryManager::DefaultMeshMemoryManager(std::unique_ptr<VboProperties
     hash = vertexAttributes->GetHash();
 
     glGenVertexArrays(1, &vaoId);
+    unsigned int error = glGetError();
     glGenBuffers(1, &vboId);
+    error = glGetError();
     glGenBuffers(1, &eboId);
     glBindVertexArray(vaoId);
 

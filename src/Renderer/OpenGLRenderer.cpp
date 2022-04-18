@@ -71,7 +71,7 @@ void OpenGLRenderer::FillEllipse(Vector2 pos, Vector2 size)
 
 void OpenGLRenderer::FillRectangle(float x, float y, float width, float height)
 {
-    FillRectangle({x, y}, {width, height});
+    //FillRectangle({x, y}, {width, height});
 }
 
 void OpenGLRenderer::FillRectangle(Vector2 pos, Vector2 size)
@@ -121,12 +121,12 @@ std::unique_ptr<FontFormat> OpenGLRenderer::CreateFontFormat()
     return std::make_unique<GdiFontFormat>();
 }
 
-OpenGLRenderer::OpenGLRenderer(Window& window) : window(window)
+OpenGLRenderer::OpenGLRenderer(Window &window, OpenGL::RenderingManager& manager) : window(window), renderingManager(manager)
 {
     window.AddOnResizeSubscriber(*this);
-    viewMatrix = std::make_unique<glm::mat4>(1.0f);
+    viewMatrix = &defaultViewMatrix;
     CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
-    //builder.SetProjectionMatrix(viewMatrix);
+    builder.SetProjectionMatrix(viewMatrix);
 }
 
 void OpenGLRenderer::OnResize(EventResizeInfo e)
@@ -160,4 +160,12 @@ void OpenGLRenderer::TransformModel(OpenGL::Model &model, const Vector2 &pos, co
     model.Scale({sizeXDelta, sizeYDelta, 1.0f});
     model.Translate({translation.GetX(), translation.GetY(), 0.0f});
     model.Translate({pos.GetX(), pos.GetY(), 0.0f});
+}
+
+void OpenGLRenderer::DrawModel(const OpenGL::Model &model)
+{
+    if(!renderingManager.HasModel(model))
+        renderingManager.AddModel(model);
+
+    renderingManager.Move(model);
 }

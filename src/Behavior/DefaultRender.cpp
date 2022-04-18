@@ -25,7 +25,7 @@ void DefaultRender::Repaint()
 	assosiactedRenderable.Repaint();
 }
 
-void DefaultRender::AddRenderable(RenderCommander &renderable)
+void DefaultRender::AddRenderCommander(RenderCommander &renderable)
 {
     addRenderableMutex.lock();
 	renderables.push_back(renderable);
@@ -33,7 +33,7 @@ void DefaultRender::AddRenderable(RenderCommander &renderable)
     addRenderableMutex.unlock();
 }
 
-void DefaultRender::RemoveRenderable(RenderCommander& renderable)
+void DefaultRender::RemoveRenderCommander(RenderCommander& renderable)
 {
     addRenderableMutex.lock();
 	for (std::vector<std::reference_wrapper<RenderCommander>>::iterator i = renderables.begin(); i != renderables.end(); i++)

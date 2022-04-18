@@ -38,7 +38,7 @@ class UiElement : public Adjustable, public RenderCommander, public Viewable, pu
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
-    std::mutex addUiElementMutex;
+    std::mutex addToContainerMutex;
 protected:
 	string componentType;
 	string name;
@@ -162,8 +162,8 @@ public:
 	// Inherited via Renderable
 	virtual void OnRender(RenderEventInfo e) override;
 	virtual void Repaint() override;
-	virtual void AddRenderable(RenderCommander &renderable) override;
-	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual void AddRenderCommander(RenderCommander &renderable) override;
+	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
 
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;

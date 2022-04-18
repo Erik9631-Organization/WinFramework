@@ -15,9 +15,9 @@ void UiElement::Add(UiElement& uiElement)
     if(root != nullptr)
         root->WaitForSync();
 
-    addUiElementMutex.lock();
+    addToContainerMutex.lock();
 	uiElementNode.Add(uiElement.GetUiElementNode());
-    addUiElementMutex.unlock();
+    addToContainerMutex.unlock();
 
     //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
@@ -123,14 +123,14 @@ void UiElement::Repaint()
 	GetRoot().Repaint();
 }
 
-void UiElement::AddRenderable(RenderCommander &renderable)
+void UiElement::AddRenderCommander(RenderCommander &renderable)
 {
-	renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void UiElement::RemoveRenderable(RenderCommander& renderable)
+void UiElement::RemoveRenderCommander(RenderCommander& renderable)
 {
-	renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 void UiElement::NotifyOnResizeSubscribers(EventResizeInfo event)
@@ -663,7 +663,9 @@ void UiElement::SetMouseCaptured(bool state)
 
 void UiElement::AddOnTickSubscriber(OnTickSubscriber *subscriber)
 {
+    addToContainerMutex.lock();
     tickSubscribers.push_back(subscriber);
+    addToContainerMutex.unlock();
 }
 
 void UiElement::RemoveOnTickSubscriber(OnTickSubscriber *subscriber)
@@ -681,13 +683,13 @@ void UiElement::RemoveOnTickSubscriber(OnTickSubscriber *subscriber)
 
 void UiElement::NotifyOnTick()
 {
+    addToContainerMutex.lock();
     for(OnTickSubscriber* i : tickSubscribers)
         i->OnTick();
 
-    addUiElementMutex.lock();
     std::for_each(std::execution::par, uiElementNode.GetNodes().begin(), uiElementNode.GetNodes().end(), [&](auto node)
     {
         node.get().GetValue().NotifyOnTick();
     });
-    addUiElementMutex.unlock();
+    addToContainerMutex.unlock();
 }

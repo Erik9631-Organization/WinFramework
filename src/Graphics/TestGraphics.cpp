@@ -12,12 +12,12 @@ void TestGraphics::Repaint()
 
 }
 
-void TestGraphics::AddRenderable(RenderCommander &renderable)
+void TestGraphics::AddRenderCommander(RenderCommander &renderable)
 {
     renderables.emplace_back(renderable);
 }
 
-void TestGraphics::RemoveRenderable(RenderCommander &renderable)
+void TestGraphics::RemoveRenderCommander(RenderCommander &renderable)
 {
 
 }

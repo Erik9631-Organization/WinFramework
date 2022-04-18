@@ -83,11 +83,11 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 
 	text.SetPosition({20.0f, 0.51f});
 
-	AddRenderable(background);
-	AddRenderable(border);
-	AddRenderable(checkboxBorder);
-	AddRenderable(checkBoxChar);
-	AddRenderable(text);
+    AddRenderCommander(background);
+    AddRenderCommander(border);
+    AddRenderCommander(checkboxBorder);
+    AddRenderCommander(checkBoxChar);
+    AddRenderCommander(text);
 }
 
 void Checkbox::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)

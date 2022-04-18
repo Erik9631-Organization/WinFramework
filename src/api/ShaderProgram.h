@@ -15,7 +15,7 @@ class Shader;
 class ShaderProgram : public OpenGL::Uniform, public Identifiable, public Taggable
 {
 public:
-    virtual OpenGL::Shader& AddShader(std::unique_ptr<OpenGL::Shader> shader) = 0;
+    virtual OpenGL::Shader& AssembleShader(std::unique_ptr<OpenGL::Shader> shader) = 0;
     virtual OpenGL::Shader& GetShader(int id) = 0;
     virtual bool HasShader(int id) = 0;
     virtual std::unique_ptr<OpenGL::Shader>RemoveShader(int id) = 0;

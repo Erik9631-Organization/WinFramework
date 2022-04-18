@@ -47,9 +47,9 @@ namespace OpenGL
         unsigned int eboExtentionSize = 0;
 
 
-        unsigned int vboId;
-        unsigned int vaoId;
-        unsigned int eboId;
+        unsigned int vboId = 0;
+        unsigned int vaoId = 0;
+        unsigned int eboId = 0;
         std::unordered_map<size_t, std::unique_ptr<MeshMetaData>> meshMetaData;
 
         void ReallocGpuBuffer(const unsigned int &newSize, unsigned int &bufferId,

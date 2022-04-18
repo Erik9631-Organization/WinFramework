@@ -14,9 +14,9 @@ PasswordField::PasswordField(int x, int y, int width, int height, string windowN
 	border.SetThickness(1.0f);
 	background.SetColor({200, 200, 200});
 
-	renderBehavior.AddRenderable(background);
-	renderBehavior.AddRenderable(border);
-	renderBehavior.AddRenderable(text);
+    renderBehavior.AddRenderCommander(background);
+    renderBehavior.AddRenderCommander(border);
+    renderBehavior.AddRenderCommander(text);
 	behavior.SetMultiline(false);
 }
 

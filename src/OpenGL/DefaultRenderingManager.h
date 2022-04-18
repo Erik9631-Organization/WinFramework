@@ -19,6 +19,7 @@ namespace OpenGL
         void AddModel(const Model &model) override;
         void RemoveModel(Model &model) override;
         void Move(const Model &model) override;
+        bool HasModel(const Model &model) const override;
     private:
         void DrawInternalModel(Model &model);
         long long lastShaderId = -1;

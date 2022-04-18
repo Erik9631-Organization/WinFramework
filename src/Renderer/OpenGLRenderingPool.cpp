@@ -5,7 +5,7 @@
 #include "OpenGLRenderingPool.h"
 #include "api/RenderCommander.h"
 #include "OpenGLRenderer.h"
-#include "Window.h";
+#include "Window.h"
 
 Renderer &OpenGLRenderingPool::Acquire(const RenderCommander &target)
 {
@@ -18,15 +18,14 @@ Renderer &OpenGLRenderingPool::Acquire(const RenderCommander &target)
     }
 
     //Not found, new one needs to be created
-    renderers.insert({&target, std::make_unique<OpenGLRenderer>(window)});
+    renderers.insert({&target, std::make_unique<OpenGLRenderer>(window, renderingManager)});
     OpenGLRenderer& renderer = *renderers[&target];
     renderer.Translate(translation);
     return *renderers[&target];
 }
 
-OpenGLRenderingPool::OpenGLRenderingPool(Window &window) : window(window)
+OpenGLRenderingPool::OpenGLRenderingPool(Window &window, OpenGL::RenderingManager &manager) : window(window), renderingManager(manager)
 {
-
 }
 
 const Vector2 &OpenGLRenderingPool::GetTranslation() const

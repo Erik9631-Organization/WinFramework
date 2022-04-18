@@ -20,7 +20,7 @@ class RenderingProvider;
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : public RenderCommander
+class CoreWindow : public RenderCommander, public DestroySubscriber
 {
 
 
@@ -63,6 +63,9 @@ private:
     bool processMessages = true;
     void UpdateGlobalInputState();
     void UpdateLockCursor();
+    std::mutex mainFinishedMutex;
+    std::condition_variable mainFinishedSignal;
+    bool hasMainFinished = false;
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -137,12 +140,12 @@ public:
 	 * Adds new renderable to the system which will be painted on the canvas.
 	 * \param renderable the renderable object reference to pass
 	 */
-	virtual void AddRenderable(RenderCommander &renderable) override;
+	virtual void AddRenderCommander(RenderCommander &renderable) override;
 	/**
 	 * Removes an existing renderable by reference.
 	 * \param reference of the renderable to remove.
 	 */
-	virtual void RemoveRenderable(RenderCommander& renderable) override;
+	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
 	/**
 	 * Returns the list of renderables.
 	 * \return a vector of references to the renderables in the current system,
@@ -171,7 +174,9 @@ public:
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
+    void WaitForMainToFinish();
     void RecieveMessage(const MSG &msg);
     void RecieveMessage(UINT msg, WPARAM wparam, LPARAM lparam);
+    void OnObjectDestroyed(DestroyEventInfo *e) override;
 };
 

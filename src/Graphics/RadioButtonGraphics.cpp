@@ -13,8 +13,8 @@ void RadioButtonGraphics::UpdateFill()
 
 RadioButtonGraphics::RadioButtonGraphics() : renderBehavior(*this)
 {
-    AddRenderable(fill);
-	AddRenderable(border);
+    AddRenderCommander(fill);
+    AddRenderCommander(border);
 	fillBackground = {0, 0, 0, 255};
 }
 
@@ -82,14 +82,14 @@ void RadioButtonGraphics::Repaint()
 
 }
 
-void RadioButtonGraphics::AddRenderable(RenderCommander &renderable)
+void RadioButtonGraphics::AddRenderCommander(RenderCommander &renderable)
 {
-	renderBehavior.AddRenderable(renderable);
+    renderBehavior.AddRenderCommander(renderable);
 }
 
-void RadioButtonGraphics::RemoveRenderable(RenderCommander& renderable)
+void RadioButtonGraphics::RemoveRenderCommander(RenderCommander& renderable)
 {
-	renderBehavior.RemoveRenderable(renderable);
+    renderBehavior.RemoveRenderCommander(renderable);
 }
 
 std::vector<std::reference_wrapper<RenderCommander>> RadioButtonGraphics::GetRenderables()

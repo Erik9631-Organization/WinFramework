@@ -133,3 +133,8 @@ void GdiRenderer::Translate(Vector2 translation)
 {
     graphics.TranslateTransform(translation.GetX(), translation.GetY());
 }
+
+void GdiRenderer::DrawModel(const OpenGL::Model &model)
+{
+
+}

@@ -166,9 +166,11 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
 	initWait = new condition_variable();
 	componentType = "Window";
 	CreateCoreWindow(style);
+    ApplicationController::AddOnDestroySubscriber(coreFrame);
 	coreFrame->RedrawWindow();
 	background.SetColor({255, 255, 255});
-	AddRenderable(background);
+    AddOnTickSubscriber(&scene3d);
+    AddRenderCommander(background);
 }
 
 void Window::Add(UiElement & component)
@@ -247,4 +249,14 @@ void Window::LockCursor(const bool &lockState)
 const bool &Window::IsCursorLocked() const
 {
     return coreFrame->IsCursorLocked();
+}
+
+void Window::Add(Element3d *element)
+{
+    scene3d.Add(element);
+}
+
+Scene &Window::Get3dScene()
+{
+    return scene3d;
 }

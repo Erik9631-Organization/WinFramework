@@ -8,7 +8,7 @@
 #include "UniformProperties.h"
 
 
-OpenGL::Shader &OpenGL::DefaultShaderProgram::AddShader(std::unique_ptr<Shader> shader)
+OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Shader> shader)
 {
     Shader& shaderObjRef = *shader;
 
