@@ -136,27 +136,27 @@ public:
 int LiiEntry()
 {
 //    DemoApplication::LaunchDemoApp();
-    Window frame = Window(0, 0, 800, 600, "TestFrame");
+    Window* frame = new Window(0, 0, 800, 600, "TestFrame");
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-    frame.SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
 
     OpenGL::ModelBuilder builder{};
     glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 1000.0f));
     builder.SetProjectionMatrix(projectionMatrix);
     std::unique_ptr<OpenGL::Model> wallBlock = builder.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
     std::unique_ptr<OpenGL::Model> block = builder.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
-    std::unique_ptr<ModeledElement> wallBlockElement = std::make_unique<ModeledElement>(std::move(wallBlock));
+    ModeledElement* wallBlockElement = new ModeledElement(std::move(wallBlock));
     wallBlockElement->GetModel()->GetMaterial().SetColor({1.0f, 0.3f, 0.3f, 1.0f});
-    std::unique_ptr<ModeledElement> blockElement = std::make_unique<ModeledElement>(std::move(block));
+    ModeledElement* blockElement = new ModeledElement(std::move(block));
     blockElement->GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 
-    frame.Add(wallBlockElement.get());
-    frame.Add(blockElement.get());
+    frame->Add(wallBlockElement);
+    frame->Add(blockElement);
 
 
-    CameraController controller{frame};
-    frame.AddOnTickSubscriber(&controller);
-    frame.AddOnActivateSubscriber(controller);
+    CameraController controller{*frame};
+    frame->AddOnTickSubscriber(&controller);
+    frame->AddOnActivateSubscriber(controller);
 
 	ApplicationController::JoinThreads();
 	return 0;

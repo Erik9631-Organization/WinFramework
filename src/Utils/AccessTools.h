@@ -22,7 +22,7 @@ private:
 	{
 		RealType& target = static_cast<RealType&>(*((RealType*)instance));
 		if (target.HasMethod(functionName))
-			return target.GetReflectionContainer().Invoke<ReturnType>(functionName, args ...);
+			return target.GetReflectionContainer().template Invoke<ReturnType>(functionName, args ...);
 	}
 public:
 	template<typename ReturnType, typename Type, typename ... Args>

@@ -25,7 +25,7 @@ public:
 	template<typename ReturnType, typename ... Args>
 	ReturnType Invoke(std::string accessName, Args ... args)
 	{
-		return methods[accessName]->Invoke<ReturnType>(args ...);
+		return methods[accessName]->template Invoke<ReturnType>(args ...);
 	}
 
 	bool HasMethod(std::string method)
