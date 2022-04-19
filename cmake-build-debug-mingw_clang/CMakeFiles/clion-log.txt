@@ -1,0 +1,17 @@
+"C:\Program Files\JetBrains\CLion 2022.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2022.1/bin/ninja/win/ninja.exe" -DCMAKE_C_COMPILER=C:/msys64/mingw64/bin/clang.exe -DCMAKE_CXX_COMPILER=C:/msys64/mingw64/bin/clang++.exe -G Ninja -S C:\Erik\Documents\Projects\C++\Lii\WinFramework -B C:\Erik\Documents\Projects\C++\Lii\WinFramework\cmake-build-debug-mingw_clang
+-- The CXX compiler identification is Clang 13.0.1
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/msys64/mingw64/bin/clang++.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+Runtime directory is: C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-mingw_clang/src
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    CMAKE_C_COMPILER
+
+
+-- Build files have been written to: C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-mingw_clang
