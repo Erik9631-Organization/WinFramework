@@ -1,0 +1,2 @@
+Todo list for design
+1. Cover everything with interfaces: Transfomable (Rotation, Scaling, Translation)
