@@ -1,5 +1,0 @@
-C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-visual-studio/src/Shaders/default.frag
-C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-visual-studio/src/Shaders/default.vert
-C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-visual-studio/src/Textures/container.jpg
-C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-visual-studio/src/Textures/wall.jpg
-C:/Erik/Documents/Projects/C++/Lii/WinFramework/cmake-build-debug-visual-studio/src/glew32.dll

@@ -491,11 +491,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "../libs/stb"
         "Managers/"
         "Components/3d"
+        "../libs/PhysX-4.1/physx/include/"
         )
 
 target_link_libraries(Lii
         stb
         opengl32
+        PhysXSDK
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
         )
