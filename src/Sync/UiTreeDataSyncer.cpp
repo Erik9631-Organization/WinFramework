@@ -11,14 +11,14 @@
 #include "MultiTree.h"
 #include "CoreWindow.h"
 
-void UiTreeDataSyncer::InternalSyncData(MultiTree<UiElement &>& node)
+void UiTreeDataSyncer::InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &node)
 {
     //Notify current node, then go to the next one.
     DrawData2D defaultDrawData;
-    std::future<void> syncResult = std::async(std::launch::async, [&]{node.GetValue().OnSync(defaultDrawData);});
-    std::for_each(std::execution::par, node.GetNodes().begin(), node.GetNodes().end(), [&](MultiTree<UiElement &>& i)
+    std::future<void> syncResult = std::async(std::launch::async, [&]{node.GetValue()->OnSync(defaultDrawData);});
+    std::for_each(std::execution::par, node.GetNodes().begin(), node.GetNodes().end(), [&](std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>>& i)
     {
-        InternalSyncData(i);
+        InternalSyncData(*i);
     });
     syncResult.wait();
 }
@@ -29,7 +29,7 @@ void UiTreeDataSyncer::WaitForSync()
     syncFinishedSignal.wait(syncFinishedGuard, [=]{return syncFinished;});
 }
 
-void UiTreeDataSyncer::SyncData(MultiTree<UiElement &> &node)
+void UiTreeDataSyncer::SyncData(MultiTree<unique_ptr<UiElement>> &node)
 {
     syncFinished = false;
     InternalSyncData(node);

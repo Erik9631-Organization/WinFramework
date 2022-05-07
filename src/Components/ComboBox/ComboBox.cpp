@@ -24,7 +24,7 @@ ComboBox::ComboBox(int x, int y, int width, int height, std::string componentNam
 	button(new Button(0, 0, width, height)),
 	behavior(*this, button, selections)
 {
-	Add(*button);
+	Add(std::unique_ptr<Button>(button));
 }
 
 void ComboBox::SetComboButton(Button* button)

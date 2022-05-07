@@ -8,7 +8,6 @@
 #include <glew.h>
 #include <wglew.h>
 #include "ApplicationController.h"
-#include "CoreWindow.h"
 #include <string>
 #include "RenderEventInfo.h"
 #include <glm.hpp>
@@ -21,33 +20,10 @@
 #include "ShaderManager.h"
 #include "GraphicsShader.h"
 #include "GlobalResourceManager.h"
+#include "Window.h"
+#include "CoreWindow.h"
 
-/**
- * TODO
- * 1. Cover everything with interfaces. - DONE
- * 2. Make Mesh more customizable so you can add glAttributes externally. Create a new class for it
- * 3. Optimize the VBOs. Do as little context switching as possible, do as little draw calls as possible (Do them at once)
- *    Consider using larger VBOs for multiple meshes.
- * 4. Move the normal matrix calculation from shader to CPU. You only need to do it once for the object.
- * 5. Allow shader reuse.
- * 6. Create a tree node scene.
- * 7. Each object in the high level interface receives a "Renderer"(Or a command) object. From various interface calls the state of the Renderer object
- *    and its values can be modified within the event. In the background, the graphics objects are allocated in the rendering pool.
- *    Since each "Renderable" receives its own version of this object, it is free to upload data to it as it wants.
- *    Once all the OnRender calls are done, the threads should desync and the objects should render independently.
- *    The rendering of these objects should be handled by the RenderingManager, which guarantees that they are drawn with the least amount of context switching possible.
- *    OnSync should also become obsolete
- *    All Renderables should be renamed to RenderCommanders
- *    Shaders should be only modified during draw event.
- *    It is expected that the user will hold a reference to his own model. The model shouldn't have a direct way of modifying the shader uniforms.
- *    Instead the renderer recieved during the event should be used.
- *
- *
- *
- *    When it comes to GDI. The renderer also acts as a command queve. You tell it what to do, update the data during a draw call and then once it is done,
- *    all the GDI stuff will render asynchonously. This should really boost the performance.
- *
- */
+
 
 void OpenGLRenderingProvider::Render()
 {
@@ -57,6 +33,7 @@ void OpenGLRenderingProvider::Render()
 
 void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
 {
+    ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
     GetGlExtensions();
     //now create openGlWindow
     PrepareWindowRenderer(coreWindowFrame);
@@ -64,12 +41,7 @@ void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame(), manager);
     element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
     GraphicsInit();
-    renderingThread = std::make_unique<std::thread>([=]{InternalRender();});
-}
-
-void OpenGLRenderingProvider::OnMainFinished()
-{
-    wglMakeCurrent(nullptr, nullptr);
+    renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{InternalRender();}, to_string((long long)this)+"renderThread");
 }
 
 
@@ -152,7 +124,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
     //Create dummy window
     WNDCLASSA dummyWindowClass;
     ZeroMemory(&dummyWindowClass, sizeof(WNDCLASSA));
-    dummyWindowClass.hInstance = ApplicationController::GetWinEntryArgs().hInstance;
+    dummyWindowClass.hInstance = ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance;
     dummyWindowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     dummyWindowClass.lpfnWndProc = DefWindowProcA;
     dummyWindowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -167,7 +139,8 @@ void OpenGLRenderingProvider::GetGlExtensions()
     }
 
     HWND dummyHandle = CreateWindow("Dummy window", NULL, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-                                    CW_USEDEFAULT, NULL, NULL, ApplicationController::GetWinEntryArgs().hInstance, NULL);
+                                    CW_USEDEFAULT, NULL, NULL,
+                                    ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance, NULL);
     if(!dummyHandle)
     {
         CoreWindow::ConsoleWrite("Error creating dummy window handle" + to_string(GetLastError()));
@@ -248,7 +221,7 @@ void OpenGLRenderingProvider::WaitForSyncToFinish()
 
 void OpenGLRenderingProvider::InternalRender()
 {
-    coreWindow->WaitForMainToFinish();
+    ApplicationController::GetApplicationController()->WaitForEntryToFinish();
     wglMakeCurrent(windowDc, openGlContext);
     Window& window = coreWindow->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
@@ -282,22 +255,19 @@ void OpenGLRenderingProvider::AssignRendererToNodes()
     AssignGraphicsToNodes(wrapperFrame.GetUiElementNode());
 }
 
-void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement &> &node)
+void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiElement>> &node)
 {
     if(!node.IsRoot())
-        renderingPool->SetTranslation(node.GetValue().GetPosition());
+        renderingPool->SetTranslation(node.GetValue()->GetPosition());
     else
         renderingPool->SetTranslation({0, 0});
 
-    /**
-     * TODO breaking RAII here. Ensure that either uniq_ptr is passed or reference
-     */
     RenderEventInfo renderEvent{renderingPool.get()};
-    node.GetValue().OnRender(renderEvent);
+    node.GetValue()->OnRender(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {
-        AssignGraphicsToNodes(node.Get(i));
+        AssignGraphicsToNodes(node.GetNode(i));
     }
 
 }
@@ -347,5 +317,15 @@ void OpenGLRenderingProvider::GraphicsInit()
 //    models.emplace_back(std::move(block));
 //    models.emplace_back(std::move(wallBlock));
 //    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+}
+
+void OpenGLRenderingProvider::OnEntryStart()
+{
+
+}
+
+void OpenGLRenderingProvider::OnEntryEnd()
+{
+    wglMakeCurrent(nullptr, nullptr);
 }
 

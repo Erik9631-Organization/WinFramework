@@ -14,10 +14,10 @@ class UiTreeDataSyncer
 private:
     std::condition_variable syncFinishedSignal;
     bool syncFinished = true;
-    void InternalSyncData(MultiTree<UiElement&>& node);
+    void InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &node);
     std::mutex syncFinishedMutex;
 public:
-    void SyncData(MultiTree<UiElement&>& node);
+    void SyncData(MultiTree<std::unique_ptr<UiElement>> &node);
     void WaitForSync();
 };
 

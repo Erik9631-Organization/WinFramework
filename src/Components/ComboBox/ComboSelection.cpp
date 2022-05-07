@@ -22,7 +22,7 @@ void ComboSelection::CreateGui(int x, int y, int width, int height)
 	comboGrid = new Grid(0, 0, width, totalHeight);
 	comboGrid->SetGridColumns({ width });
 	comboGrid->SetDefaultRowSize(elementHeight);
-	comboSelectionFrame->Add(*comboGrid);
+	comboSelectionFrame->Add(std::unique_ptr<Grid>(comboGrid));
 
 	//Iterate through all the comboElements and spawn their gui
 	for (ComboElement* element : comboElements)
@@ -131,9 +131,9 @@ ComboSelection::ComboSelection()
 	comboSelectionFrame = nullptr;
 }
 
-void ComboSelection::AddComboElementGui(Button& button)
+void ComboSelection::AddComboElementGui(unique_ptr<UiElement> element)
 {
-	comboGrid->Add((UiElement&)button);
+	comboGrid->Add(std::move(element));
 }
 
 MouseStateSubject& ComboSelection::CreateComboElement(std::wstring comboElementText, std::any value)

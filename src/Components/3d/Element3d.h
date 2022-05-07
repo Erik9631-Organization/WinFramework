@@ -9,19 +9,15 @@
 #include "OnTickSubscriber.h"
 #include "TickSubject.h"
 #include "MultiTree.h"
-/**
- * TODO Multi tree quality of life
- * Fix all the reference and pointer discrepencies
- * fix the need to have every component implement access to the element node.
- * The tree should receive the type and should automatically wrap the object into a tree node.
- * The nodes should be hidden away from the user
- */
+#include <memory>
+
 
 class Element3d : public Transformable, public RenderCommander, public OnTickSubscriber, public TickSubject
 {
 public:
-    virtual void Add(Element3d* element) = 0;
-    virtual MultiTree<Element3d*>& GetElementNode() = 0;
+    virtual void Add(std::unique_ptr<Element3d> element) = 0;
+    virtual MultiTree<std::unique_ptr<Element3d>> & GetElementNode() = 0;
+    virtual ~Element3d() = default;
 };
 
 #endif //LII_ELEMENT3D_H

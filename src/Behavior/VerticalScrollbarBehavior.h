@@ -44,7 +44,7 @@ class Adjustable;
 
 
 
-class VerticalScrollbarBehavior : public MouseStateSubscriber, public OnAddSubscriber<UiElement&>, public ResizeSubscriber, public MoveSubscriber
+class VerticalScrollbarBehavior : public MouseStateSubscriber, public OnAddSubscriber<std::unique_ptr<UiElement>>, public ResizeSubscriber, public MoveSubscriber
 {
 public:
     VerticalScrollbarBehavior(ScrollBar& scrollbar, Button& trackBar);
@@ -58,7 +58,7 @@ public:
 
 
     void SetPadding(int padding);
-    void OnAdd(EventOnAddInfo<UiElement&> e) override;
+    void OnAdd(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
 
     void OnResize(EventResizeInfo e) override;
 

@@ -54,13 +54,13 @@ DefaultListBoxBehavior::DefaultListBoxBehavior(ListBox& associatedListBox) : ass
 
 void DefaultListBoxBehavior::CreateListElement(std::wstring text, std::any value)
 {
-	TableElement* element = new TableElement(0, 0, 0, 0, "element"+to_string(listElements.size()));
+	auto element = std::make_unique<TableElement>(0, 0, 0, 0, "element"+to_string(listElements.size()));
 	element->SetText(text);
 	element->AddKeyStateSubscriber(*this);
 	element->AddMouseStateSubscriber(*this);
 
-	listElements.push_back(element);
-	associatedListBox.Add(*element);
+	listElements.push_back(element.get());
+	associatedListBox.Add(std::move(element));
 }
 
 std::vector<TableElement*> DefaultListBoxBehavior::GetElements()

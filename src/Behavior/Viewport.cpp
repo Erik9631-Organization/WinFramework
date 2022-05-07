@@ -16,7 +16,7 @@ void Viewport::CalculateAbsoluteSize(Vector2 size)
     absoluteSize.SetY((size.GetY() + associatedAdjustable.GetHeight() + 1) * heightMultiplier);
 }
 
-Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable&)*this), moveBehavior(viewportNode), resizeBehavior(*this)
+Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable*)this), moveBehavior(viewportNode), resizeBehavior(*this)
 {
 
     CalculateAbsoluteSize({0, 0});

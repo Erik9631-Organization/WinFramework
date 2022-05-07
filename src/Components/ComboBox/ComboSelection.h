@@ -5,6 +5,8 @@
 #include "Events/MouseStateSubscriber.h"
 #include "Events/ComboBoxStateSubject.h"
 #include <any>
+#include "UiElement.h"
+#include <memory>
 
 class Button;
 class ComboElement;
@@ -24,7 +26,7 @@ private:
 
 public:
 	ComboSelection();
-	void AddComboElementGui(Button& button);
+	void AddComboElementGui(unique_ptr<UiElement> element);
 	MouseStateSubject& CreateComboElement(std::wstring comboElementText, std::any value);
 	void CreateGui(int x, int y, int width, int height);
 	void CloseGui();

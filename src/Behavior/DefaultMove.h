@@ -8,7 +8,9 @@
 #include "api/Adjustable.h"
 #include "../GenericObj.h"
 
-
+/**
+ * T has to be of pointer type
+ */
 template<class T>
 class DefaultMove : public Movable
 {
@@ -61,7 +63,7 @@ void DefaultMove<T>::TranslateChildren(Vector2 translate)
 {
 	this->childrenTranslate = translate;
 	for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
-        associatedAdjustableNode.Get(i).GetValue().SetTranslate(translate);
+        associatedAdjustableNode.Get(i)->SetTranslate(translate);
 }
 
 
@@ -110,14 +112,14 @@ DefaultMove<T>::DefaultMove(MultiTree<T>& adjustable) : associatedAdjustableNode
 template<class T>
 void DefaultMove<T>::CalculateAbsolutePosition()
 {
-	if (associatedAdjustableNode.IsRoot() || associatedAdjustableNode.GetParent()->IsRoot()) //If the parent is root, we are in the global windowSpace and relative is same as absolute
+	if (associatedAdjustableNode.IsRoot() || associatedAdjustableNode.GetParentNode()->IsRoot()) //If the parent is root, we are in the global windowSpace and relative is same as absolute
 	{
 		absolutePosition = relativePosition + translate;
 	}
 	else
 	{
-	    absolutePosition.SetX(relativePosition.GetX() + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteX() + translate.GetX());
-	    absolutePosition.SetY(relativePosition.GetY() + associatedAdjustableNode.GetParent()->GetValue().GetAbsoluteY() + translate.GetY());
+	    absolutePosition.SetX(relativePosition.GetX() + associatedAdjustableNode.GetParent()->GetAbsoluteX() + translate.GetX());
+	    absolutePosition.SetY(relativePosition.GetY() + associatedAdjustableNode.GetParent()->GetAbsoluteY() + translate.GetY());
 	}
 }
 

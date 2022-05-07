@@ -1,6 +1,7 @@
 #include "ApplicationController.h"
 #include "Components/CoreWindow.h"
 #include <thread>
+#include <functional>
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
 #else
@@ -8,17 +9,7 @@
 #endif
 
 
-/**
- * TODO Application controller should be singleton
- */
-ApplicationController::WinEntryArgs ApplicationController::args;
-vector<reference_wrapper<CoreWindow>> ApplicationController::windows = vector<reference_wrapper<CoreWindow>>();
-ULONG ApplicationController::token = 0;
-GdiplusStartupOutput ApplicationController::output;
-vector<thread*> ApplicationController::threads;
-DestroySubjectBehavior* ApplicationController::destroySubjectBehavior = new DestroySubjectBehavior();
-StartSubjectBehavior* ApplicationController::startSubjectBehavior = new StartSubjectBehavior();
-
+ApplicationController* ApplicationController::applicationController = nullptr;
 
 ApplicationController::ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -35,35 +26,23 @@ ApplicationController::ApplicationController(HINSTANCE hInstance, HINSTANCE hPre
 	GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
 
-ApplicationController::WinEntryArgs ApplicationController::GetWinEntryArgs()
+const ApplicationController::WinEntryArgs & ApplicationController::GetWinEntryArgs()
 {
 	return args;
 }
 
-void ApplicationController::SubscribeToWinProc(CoreWindow& frame)
-{
-	windows.push_back(frame);
-}
-
-GdiplusStartupOutput ApplicationController::getGdiOutput()
+const GdiplusStartupOutput & ApplicationController::GetGdiOutput()
 {
 	return output;
 }
 
 void ApplicationController::JoinThreads()
 {
-    NotifyOnDestroy();
-	for (thread* i : threads)
+	for (auto& i : threads)
 	{
-		if(i->joinable())
-			i->join();
-
+        if(i.second->joinable())
+            i.second->join();
 	}
-}
-
-void ApplicationController::AddThread(thread* joinableThread)
-{
-	threads.push_back(joinableThread);
 }
 
 LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -80,22 +59,52 @@ ApplicationController::~ApplicationController()
 	GdiplusShutdown(token);
 }
 
-void ApplicationController::NotifyOnStart()
+void ApplicationController::Create(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-    startSubjectBehavior->NotifyOnStartSubscribers();
+    if(ApplicationController::applicationController != nullptr)
+        return;
+    ApplicationController::applicationController = new ApplicationController(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
 }
 
-void ApplicationController::NotifyOnDestroy()
+void ApplicationController::NotifyOnEntryStart()
 {
-    destroySubjectBehavior->NotifyOnDestroy(nullptr);
+    for(EntryStateSubscriber* subscriber : subscribers)
+        subscriber->OnEntryStart();
 }
 
-void ApplicationController::AddOnStartSubscriber(StartSubscriber *subscriber)
+void ApplicationController::NotifyOnEntryEnd()
 {
-    startSubjectBehavior->AddOnStartSubscriber(subscriber);
+    for(EntryStateSubscriber* subscriber : subscribers)
+        subscriber->OnEntryEnd();
+    std::unique_lock<std::mutex> entryFinishedLock{(entryFinishedMutex)};
+    entryFinishedSignaled = true;
+    entryFinished.notify_all();
 }
 
-void ApplicationController::AddOnDestroySubscriber(DestroySubscriber *subscriber)
+ApplicationController *ApplicationController::GetApplicationController()
 {
-    destroySubjectBehavior->AddOnDestroySubscriber(subscriber);
+    return applicationController;
+}
+
+void ApplicationController::AddEntryStateSubscriber(EntryStateSubscriber *subscriber)
+{
+    subscribers.push_back(subscriber);
+}
+
+void ApplicationController::RemoveEntryStateSubscriber(EntryStateSubscriber *subscriber)
+{
+    for(auto it = subscribers.begin(); it != subscribers.end(); it++)
+    {
+        if(*it == subscriber)
+        {
+            subscribers.erase(it);
+            return;
+        }
+    }
+}
+
+void ApplicationController::WaitForEntryToFinish()
+{
+    std::unique_lock<std::mutex> entryFinishedLock{(entryFinishedMutex)};
+    entryFinished.wait(entryFinishedLock, [=]{return entryFinishedSignaled;});
 }

@@ -34,7 +34,7 @@ using namespace std;
 using namespace Gdiplus;
 
 
-class UiElement : public Adjustable, public RenderCommander, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<UiElement&>, public TickSubject
+class UiElement : public Adjustable, public RenderCommander, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<std::unique_ptr<UiElement>>, public TickSubject
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -42,10 +42,10 @@ private:
 protected:
 	string componentType;
 	string name;
-	DefaultMultiTree <UiElement&> uiElementNode;
+	DefaultMultiTree<std::unique_ptr<UiElement>>* uiElementNode;
 	DefaultRender renderBehavior;
-	DefaultMove<UiElement&> moveBehavior;
-	DefaultMouseBehavior<MultiTree<UiElement&>&> mouseHandler;
+	DefaultMove<std::unique_ptr<UiElement>> moveBehavior;
+	DefaultMouseBehavior<MultiTree<std::unique_ptr<UiElement>> &> mouseHandler;
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
@@ -53,8 +53,10 @@ protected:
 	std::wstring text;
 	bool ignoreTranslate = false;
 	std::vector<OnTickSubscriber*> tickSubscribers;
+    //Used to check for a special case where there is no parent and UiElementNode was already deleted to prevent cyclic
+    //Deletion
+    bool deletedElementNode = false;
 public:
-
 	UiElement();
 	UiElement(string name);
 	UiElement(float x, float y, float width, float height, string name);
@@ -103,7 +105,7 @@ public:
 	 * Gets the current node within the containment hierarchy
 	 * \return returns a node within the Tree of the containment hierarchy.
 	 */
-	MultiTree<UiElement&>& GetUiElementNode();
+    MultiTree<std::unique_ptr<UiElement>> & GetUiElementNode();
 	float GetY() override;
 
 	/**
@@ -144,8 +146,18 @@ public:
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
 	 * \param uiElement the uiElement to be added
 	 */
-	virtual void Add(UiElement& uiElement);
-	virtual ~UiElement() {};
+	virtual void Add(std::unique_ptr<UiElement> uiElement);
+	
+	template <typename type, typename ... Args>
+	type& Create(Args  ... args)
+	{
+		std::unique_ptr<type> instance = std::make_unique(args ...);
+		auto ref = instance;
+		uiElementNode->Add(instance);
+		return ref;
+	}
+
+	virtual ~UiElement();
 	
 
 
@@ -284,9 +296,9 @@ public:
 
 
 	// Inherited via AddSubject
-	virtual void NotifyOnAddInfo(EventOnAddInfo<UiElement&> e) override;
-	virtual void AddOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber) override;
-	virtual void RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber) override;
+	virtual void NotifyOnAddInfo(EventOnAddInfo<unique_ptr<UiElement>> e) override;
+	virtual void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
+	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
 	virtual void SetTranslate(Vector2 offset) override;

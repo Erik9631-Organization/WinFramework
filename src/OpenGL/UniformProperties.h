@@ -123,12 +123,6 @@ namespace OpenGL
                 glUniformMatrix4x3fv(uniformShaderId, arg1.size(), GL_FALSE, ToData<glm::mat4x3>(arg1));
         }
 
-        /**
-         * TODO FIX make it work for arrays
-         * @tparam type
-         * @param data
-         * @return
-         */
         template<typename type>
         const float* ToData(const std::vector<type>& data)
         {

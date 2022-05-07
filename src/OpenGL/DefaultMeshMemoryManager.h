@@ -12,11 +12,7 @@
 #include "MeshMemoryManager.h"
 #include "VboProperties.h"
 
-/**
- * TODO
- * Create a meshId struct that contains two parts. First part defines the id of the VertexVector it is part of, the second part defines
- * the unique Id of the mesh within that vector.
- */
+
 class Mesh;
 namespace OpenGL
 {

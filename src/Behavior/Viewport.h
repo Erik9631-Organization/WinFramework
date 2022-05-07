@@ -12,9 +12,9 @@ class Viewport : public Adjustable
 {
 private:
 	Adjustable& associatedAdjustable;
-	DefaultMultiTree<Adjustable&> viewportNode; //For the default behavior
+	DefaultMultiTree<Adjustable*> viewportNode; //For the default behavior
 
-	DefaultMove<Adjustable&> moveBehavior;
+	DefaultMove<Adjustable*> moveBehavior;
 	DefaultResize resizeBehavior;
 
 	Vector2 absoluteSize;

@@ -2,7 +2,7 @@
 // Created by Erik on 09/04/22.
 //
 
-#include <CoreWindow.h>
+#include "CoreWindow.h"
 #include "DefaultRenderingManager.h"
 using namespace OpenGL;
 
@@ -30,9 +30,7 @@ void DefaultRenderingManager::AddModel(const Model &model)
     if(inserted.second == false)
         CoreWindow::ConsoleWrite("Insertion failed!!");
 }
-/**
- * TODO Implement remove
- */
+
 void DefaultRenderingManager::RemoveModel(OpenGL::Model &model)
 {
 

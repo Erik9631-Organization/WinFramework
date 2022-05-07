@@ -32,11 +32,7 @@ DefaultMesh::DefaultMesh(int componentCount, const std::vector<FloatVertexAttrib
 {
     this->componentCount = componentCount;
 }
-/**
- * TODO
- * Create a memory manager that will automatically push the content of the current mesh into a VBO with the exact attributes. A new VBO should be used
- * only if a VBO with the same attributes pointers doesn't exist.
- */
+
 DefaultMesh::DefaultMesh(int componentCount, std::vector<float> vertices, std::vector<std::unique_ptr<VertexAttribute>> &attributes)
 {
     this->vertices = std::make_unique<std::vector<float>>(std::move(vertices));
@@ -59,19 +55,11 @@ void DefaultMesh::UnBind()
 {
 
 }
-/**
- * TODO Memory clean
- * Remove from the main buffer.
- */
+
 DefaultMesh::~DefaultMesh()
 {
 
 }
-/**
- * TODO
- * Create a rendering manager that will receive rendering commands from the interface.
- *
- */
 
 
 void DefaultMesh::SetDrawMode(GLenum drawMode)

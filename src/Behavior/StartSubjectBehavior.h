@@ -7,11 +7,6 @@
 #include "OnStartSubject.h"
 #include "StartSubscriber.h"
 #include <vector>
-/**
- * TODO REFACTOR Default event behavior, use templates
- * Use templates instead of default behaviors as event based behavior is always same.
- * The behaviors themselves don't even need to have an interface
- */
 class StartSubjectBehavior : public OnStartSubject
 {
 public:

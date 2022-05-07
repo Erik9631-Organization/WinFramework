@@ -14,12 +14,13 @@
 class Scene : public Element3d
 {
 private:
-    DefaultMultiTree<Element3d*> sceneGraph;
+    DefaultMultiTree<std::unique_ptr<Element3d>>* sceneGraph;
     DefaultRender renderingBehavior;
     std::mutex addToContainerMutex;
     TickSubjectBehavior tickSubjectBehavior;
 public:
     Scene();
+    ~Scene();
     void Repaint() override;
     void AddRenderCommander(RenderCommander &renderable) override;
     void RemoveRenderCommander(RenderCommander &renderable) override;
@@ -37,8 +38,8 @@ public:
     void Translate(const glm::vec3 &translation) override;
     void SetTranslation(const glm::vec3 &translation) override;
     const glm::vec3 &GetTranslation() override;
-    MultiTree<Element3d *> &GetElementNode() override;
-    void Add(Element3d *element) override;
+    MultiTree<std::unique_ptr<Element3d>> & GetElementNode() override;
+    void Add(std::unique_ptr<Element3d> element) override;
     void OnTick() override;
     void AddOnTickSubscriber(OnTickSubscriber *subscriber) override;
     void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;

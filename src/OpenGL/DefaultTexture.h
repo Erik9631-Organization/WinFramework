@@ -11,11 +11,6 @@
 #include <string>
 #include "Vector2Int.h"
 #include "Texture.h"
-/**
- * TODO Revisit resource
- * Contains pointess stuff. Has Bind Unbind which is used in other classes yet they are not a "Resource"
- */
-
 
 namespace OpenGL
 {

@@ -20,7 +20,7 @@ class GridCell : Adjustable
 {
 private:
 	Grid& parentGrid;
-	Adjustable* associatedAdjustable;
+	Adjustable* associatedAdjustable = nullptr;
 
 	Vector2 cellSize;
 	Vector2Int indexPos;

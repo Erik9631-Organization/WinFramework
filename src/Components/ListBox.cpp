@@ -11,16 +11,18 @@ ListBox::ListBox(std::string name) : ListBox(0, 0, 0, 0, name)
 
 }
 
-ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(x, y, width, height, name), layout(0, 0, width, height+50), dragManager(*this, this), behavior(*this)
+ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(x, y, width, height, name), dragManager(*this, this), behavior(*this)
 {
-	this->Panel::Add(trackbar);
-	trackbar.SetWidth(10);
-	trackbar.Control(this);
-	this->Panel::Add(layout);
-	layout.SetAutoExtend(true);
-	layout.SetGridColumns({ width - (int)trackbar.GetWidth() });
-	layout.SetRowGap(1);
-	layout.SetDefaultRowSize(30);
+    trackbar = new ScrollBar();
+    layout = new Grid(0, 0, width, height+50);
+	//this->Panel::Add(std::unique_ptr<ScrollBar>(trackbar));
+	trackbar->SetWidth(10);
+    ScrollBar::Control(this, std::unique_ptr<ScrollBar>(trackbar));
+	this->Panel::Add(std::unique_ptr<Grid>(layout));
+	layout->SetAutoExtend(true);
+	layout->SetGridColumns({ width - (int)trackbar->GetWidth() });
+	layout->SetRowGap(1);
+	layout->SetDefaultRowSize(30);
 }
 
 std::vector<TableElement*> ListBox::GetElements()
@@ -33,9 +35,9 @@ void ListBox::CreateListElement(std::wstring name, std::any value)
 	behavior.CreateListElement(name, value);
 }
 
-void ListBox::Add(UiElement& component)
+void ListBox::Add(unique_ptr<UiElement> component)
 {
-	layout.Add(component);
+	layout->Add(std::move(component));
 }
 
 std::any ListBox::GetDragContent()

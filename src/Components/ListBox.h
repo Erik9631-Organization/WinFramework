@@ -10,8 +10,8 @@
 class ListBox : public Panel, public Draggable, public DragSubject, public DropSubject
 {
 private:
-	Grid layout;
-	ScrollBar trackbar;
+	Grid* layout;
+	ScrollBar* trackbar;
 	DragManager dragManager;
 	DefaultListBoxBehavior behavior;
 
@@ -44,7 +44,7 @@ public:
 	*/
 	void CreateListElement(std::wstring name, std::any value);
 
-	void Add(UiElement& component) override;
+	void Add(unique_ptr<UiElement> component) override;
 
 	// Inherited via Draggable
 	virtual std::any GetDragContent() override;

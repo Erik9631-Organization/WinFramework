@@ -17,10 +17,6 @@
 class RenderCommander;
 class Window;
 
-/**
- * TODO Rename remove OpenGL names from classes and place them into namespace
- *
- */
 class OpenGLRenderer : public Renderer, ResizeSubscriber
 {
 private:

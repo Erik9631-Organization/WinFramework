@@ -16,7 +16,7 @@ class RenderingProvider;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
- * All the components that are to be displayed within the window should be added via the UiElement::Add function which this class inherits.
+ * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
  */
 class Window : public UiElement
 {
@@ -31,6 +31,7 @@ private:
 	void CreateCoreWindow(LONG style);
 	std::shared_ptr<RenderingProvider> renderingProvider;
     Scene scene3d;
+    void InitCoreWindow(LONG style);
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -79,7 +80,7 @@ public:
 	Window(std::string windowName);
 	Window(int x, int y, int width, int height, std::string windowName);
 	Window(int x, int y, int width, int height, std::string windowName, LONG style);
-	virtual void Add(UiElement& component) override;
+	virtual void Add(unique_ptr<UiElement> component) override;
 	~Window() override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
@@ -90,7 +91,15 @@ public:
     RenderingProvider* GetRenderingProvider();
     void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
     void WaitForSync();
-    void Add(Element3d* element);
+    void Add(unique_ptr<Element3d> element);
+    template<typename type, typename ... Args>
+    type& Create(Args ... args)
+    {
+        std::unique_ptr<type> objPtr = std::make_unique<type>(std::move(args ... ));
+        auto& objRef = *objPtr;
+        Add(std::move(objPtr));
+        return objRef;
+    }
     Scene& Get3dScene();
 };
 

@@ -6,11 +6,11 @@
 #include "MouseStateSubscriber.h"
 
 ScrollBar::ScrollBar(int x, int y, int width, int height, const string &name) :
-        Panel(x, y, width, height, name),
-        thumbTrack(0, 0, 0, 0),
-        scrollbarBehavior(*this, thumbTrack)
+        Panel(x, y, width, height, name)
 {
-    Add(thumbTrack);
+    thumbTrack = new Button(0, 0, 0, 0);
+    scrollbarBehavior = std::make_unique<VerticalScrollbarBehavior>(*this, *thumbTrack);
+    Add(std::unique_ptr<Button>(thumbTrack));
 }
 
 ScrollBar::ScrollBar(const string &name) :
@@ -25,10 +25,11 @@ ScrollBar::ScrollBar() :
 
 }
 
-void ScrollBar::Control(UiElement* component)
+void ScrollBar::Control(UiElement *component, std::unique_ptr<ScrollBar> scrollbar)
 {
-    if(controlledComponent != nullptr)
-        ClearControl();
+    auto& scrollbarRef = *scrollbar;
+    if(scrollbar->controlledComponent != nullptr)
+        scrollbar->ClearControl();
 
     //For every child in the component
     //Remove it from the parent
@@ -38,21 +39,21 @@ void ScrollBar::Control(UiElement* component)
     //If control is lost
     //Reassign the components to the parent
 
-    controlledComponent = component;
-    controlledComponent->Add(*this);
+    scrollbar->controlledComponent = component;
+    component->Add(std::move(scrollbar));
 
-    controlledComponent->AddOnResizeSubscriber(scrollbarBehavior);
-    controlledComponent->AddOnAddSubscriber(scrollbarBehavior);
+    component->AddOnResizeSubscriber(*scrollbarRef.scrollbarBehavior);
+    component->AddOnAddSubscriber(*scrollbarRef.scrollbarBehavior);
 
     //Send resize event to calculate the position
-    EventResizeInfo resizeInfo = EventResizeInfo(controlledComponent->GetSize(), controlledComponent);
-    scrollbarBehavior.OnResize(resizeInfo);
+    EventResizeInfo resizeInfo = EventResizeInfo(component->GetSize(), component);
+    scrollbarRef.scrollbarBehavior->OnResize(resizeInfo);
 }
 
 void ScrollBar::ClearControl()
 {
-    controlledComponent->RemoveOnResizeSubscriber(scrollbarBehavior);
-    controlledComponent->RemoveOnAddSubscriber(scrollbarBehavior);
+    controlledComponent->RemoveOnResizeSubscriber(*scrollbarBehavior);
+    controlledComponent->RemoveOnAddSubscriber(*scrollbarBehavior);
     controlledComponent = nullptr;
 }
 

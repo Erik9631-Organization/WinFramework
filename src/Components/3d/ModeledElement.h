@@ -17,13 +17,14 @@ class ModeledElement : public Element3d
 {
 private:
     DefaultRender renderingBehavior;
-    DefaultMultiTree<Element3d*> treeNode;
+    DefaultMultiTree<std::unique_ptr<Element3d>>* treeNode;
     TickSubjectBehavior tickSubjectBehavior;
     std::mutex addToContainerMutex;
 protected:
     std::unique_ptr<OpenGL::Model> model;
 public:
     ModeledElement();
+    ~ModeledElement();
     ModeledElement(std::unique_ptr<OpenGL::Model> model);
     void Repaint() override;
     void AddRenderCommander(RenderCommander &renderable) override;
@@ -42,8 +43,8 @@ public:
     const float &GetAngle() override;
     const glm::vec3 &GetScale() override;
     const glm::vec3 &GetTranslation() override;
-    void Add(Element3d *element) override;
-    MultiTree<Element3d *> &GetElementNode() override;
+    void Add(std::unique_ptr<Element3d> element) override;
+    MultiTree<std::unique_ptr<Element3d>> & GetElementNode() override;
     void OnTick() override;
     void AddOnTickSubscriber(OnTickSubscriber *subscriber) override;
     void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;

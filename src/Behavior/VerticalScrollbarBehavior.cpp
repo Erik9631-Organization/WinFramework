@@ -57,7 +57,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     associatedTrackBar.SetY(e.GetMouseDelta().GetY() + associatedTrackBar.GetY());
 
     //Set the components
-    UiElement& parent = associatedScrollbar.GetParent()->GetUiElementNode().GetValue();
+    UiElement* parent = associatedScrollbar.GetParent();
     float percentualPos = GetScrollbarPercentualPos();
     float pageHeight = GetPageHeight();
     //We only want the offset of the not visible part, not the complete page offset
@@ -65,7 +65,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     //That is why we need to subtract
     float offset = (percentualPos * (pageHeight - associatedScrollbar.GetControlledComponent()->GetHeight()));
 
-    parent.SetChildrenTranslate({0, -offset});
+    parent->SetChildrenTranslate({0, -offset});
 }
 
 void VerticalScrollbarBehavior::SetPadding(int padding)
@@ -89,11 +89,11 @@ Adjustable* VerticalScrollbarBehavior::GetBottomComponentFromParent()
     if(controlledComponent == nullptr) // Not assigned to any container
         return nullptr;
 
-    Adjustable* lastMovable = &controlledComponent->GetUiElementNode().Get(0).GetValue();
+    Adjustable* lastMovable = controlledComponent->GetUiElementNode().Get(0).get();
 
     for(int i = 0; i < controlledComponent->GetUiElementNode().GetNodeCount(); i++)
     {
-        Adjustable& movable = controlledComponent->GetUiElementNode().Get(i).GetValue();
+        Adjustable& movable = *controlledComponent->GetUiElementNode().Get(i);
         if(&movable == &associatedScrollbar)
             continue;
 
@@ -123,16 +123,16 @@ float VerticalScrollbarBehavior::GetScrollbarPercentualHeight()
     return (float)associatedScrollbar.GetControlledComponent()->GetHeight() / (float)pageHeight;
 }
 
-void VerticalScrollbarBehavior::OnAdd(EventOnAddInfo<UiElement&> e)
+void VerticalScrollbarBehavior::OnAdd(EventOnAddInfo<unique_ptr<UiElement>> e)
 {
     //Subscribe to added component in order to keep track of move and resize
-    e.GetAddedComponent().AddOnResizeSubscriber(*this);
-    e.GetAddedComponent().AddOnMoveSubscriber(*this);
+    e.GetAddedComponent()->get()->AddOnResizeSubscriber(*this);
+    e.GetAddedComponent()->get()->AddOnMoveSubscriber(*this);
 
     if(bottomComponent == nullptr)
         bottomComponent = GetBottomComponentFromParent();
     else
-        bottomComponent = GetBottomComponent(&e.GetAddedComponent());
+        bottomComponent = GetBottomComponent(e.GetAddedComponent()->get());
     UpdateThumbTrackSize();
 }
 

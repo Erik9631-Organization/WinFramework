@@ -8,15 +8,19 @@
 #include <execution>
 #include <future>
 #include <algorithm>
+#include "CoreWindow.h"
 
-void UiElement::Add(UiElement& uiElement)
+void UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
     auto root = dynamic_cast<Window*>(&GetRoot());
     if(root != nullptr)
         root->WaitForSync();
 
     addToContainerMutex.lock();
-	uiElementNode.Add(uiElement.GetUiElementNode());
+    std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};
+    uiElementNode->AddNode(std::move(nodeToBeAdded));
+    //
+    uiElement.release();
     addToContainerMutex.unlock();
 
     //RegisterComponent to the memory manager
@@ -27,14 +31,16 @@ UiElement::UiElement() : UiElement(0, 0, 0, 0, "")
 {
 
 }
+
 UiElement::UiElement(string name) : UiElement(0, 0, 0, 0, name)
 {
+
 }
 
 UiElement::UiElement(float x, float y, float width, float height, string name) :
-        uiElementNode(*this),
-	moveBehavior(uiElementNode),
-	mouseHandler(uiElementNode),
+         uiElementNode(new DefaultMultiTree(std::unique_ptr<UiElement>(this))),
+	moveBehavior(*uiElementNode),
+	mouseHandler(*uiElementNode),
 	renderBehavior(*this),
 	viewport(*this),
 	keyStateBehavior(*this),
@@ -420,10 +426,10 @@ bool UiElement::HasMouseEntered()
 
 std::any UiElement::ColidesWithUpmost(Vector2 point)
 {
-	for (int i = 0; i < uiElementNode.GetNodeCount(); i++)
+	for (int i = 0; i < uiElementNode->GetNodeCount(); i++)
 	{
-		if (uiElementNode.Get(i).GetValue().ColidesWithPoint(point))
-			return std::any_cast<UiElement*>(uiElementNode.Get(i).GetValue().ColidesWithUpmost(point));
+		if (uiElementNode->GetNode(i).GetValue()->ColidesWithPoint(point))
+			return std::any_cast<UiElement*>(uiElementNode->GetNode(i).GetValue()->ColidesWithUpmost(point));
 	}
 	return std::make_any<UiElement*>(this);
 }
@@ -453,19 +459,19 @@ void UiElement::RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber)
 	keyStateBehavior.RemoveKeyStateSubscriber(subscriber);
 }
 
-void UiElement::NotifyOnAddInfo(EventOnAddInfo<UiElement&> e)
+void UiElement::NotifyOnAddInfo(EventOnAddInfo<unique_ptr<UiElement>> e)
 {
-	uiElementNode.NotifyOnAddInfo(e);
+	uiElementNode->NotifyOnAddInfo(e);
 }
 
-void UiElement::AddOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber)
+void UiElement::AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber)
 {
-	uiElementNode.AddOnAddSubscriber(subscriber);
+	uiElementNode->AddOnAddSubscriber(subscriber);
 }
 
-void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<UiElement&>& subscriber)
+void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber)
 {
-	uiElementNode.RemoveOnAddSubscriber(subscriber);
+	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
 void UiElement::SetTranslate(Vector2 offset)
@@ -524,10 +530,10 @@ void UiElement::SetChildrenTranslate(Vector2 internalOffset)
 void UiElement::UpdateSubNodes(EventUpdateInfo e)
 {
 	e.DisableFlag(EventUpdateFlags::Redraw); //Only the top of the subTree should do redraw
-	for (int i = 0; i < uiElementNode.GetNodeCount(); i++)
+	for (int i = 0; i < uiElementNode->GetNodeCount(); i++)
 	{
-		MultiTree<UiElement&>& node = (MultiTree<UiElement&>&) uiElementNode.Get(i);
-		node.GetValue().OnUpdate(EventUpdateInfo(e));
+		std::unique_ptr<UiElement>& node = uiElementNode->Get(i);
+		node->OnUpdate(EventUpdateInfo(e));
 	}
 }
 
@@ -549,12 +555,12 @@ Vector2 UiElement::GetAbsolutePosition()
 
 bool UiElement::IsRoot()
 {
-	return uiElementNode.IsRoot();
+	return uiElementNode->IsRoot();
 }
 
 UiElement& UiElement::GetRoot()
 {
-	return uiElementNode.GetRoot().GetValue();
+	return *uiElementNode->GetRootNode().GetValue();
 }
 
 string UiElement::GetComponentType()
@@ -597,9 +603,9 @@ float UiElement::GetX()
 	return moveBehavior.GetX();
 }
 
-MultiTree<UiElement&>& UiElement::GetUiElementNode()
+MultiTree<std::unique_ptr<UiElement>> & UiElement::GetUiElementNode()
 {
-	return uiElementNode;
+	return *uiElementNode;
 }
 
 
@@ -610,9 +616,9 @@ float UiElement::GetY()
 
 UiElement * UiElement::GetParent()
 {
-	if (uiElementNode.GetParent() == nullptr)
+	if (uiElementNode->GetParent() == nullptr)
 		return nullptr;
-	return (UiElement*)&uiElementNode.GetParent()->GetValue();
+	return uiElementNode->GetParent().get();
 }
 
 
@@ -687,9 +693,18 @@ void UiElement::NotifyOnTick()
     for(OnTickSubscriber* i : tickSubscribers)
         i->OnTick();
 
-    std::for_each(std::execution::par, uiElementNode.GetNodes().begin(), uiElementNode.GetNodes().end(), [&](auto node)
+    std::for_each(std::execution::par, uiElementNode->GetNodes().begin(), uiElementNode->GetNodes().end(), [&](auto& node)
     {
-        node.get().GetValue().NotifyOnTick();
+        node->GetValue()->NotifyOnTick();
     });
     addToContainerMutex.unlock();
+}
+
+UiElement::~UiElement()
+{
+    if(IsRoot())
+    {
+        uiElementNode->Disown(true);
+        delete uiElementNode;
+    }
 }

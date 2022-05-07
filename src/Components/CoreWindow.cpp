@@ -49,6 +49,7 @@ void CoreWindow::WindowsMessageLoop()
 //		    fpsTimer.Wait();
 		//CoreWindow::ConsoleWrite(to_string(current - start));
 	}
+    delete &wrapperFrame;
 }
 void CoreWindow::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -106,12 +107,11 @@ void CoreWindow::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_CLOSE:
-		DestroyWindow(windowHandle);
-		if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
-			ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
-		processMessages = false;
-		//CoreWindow::ConsoleWrite("Update thread ending!");
-		break;
+        DestroyWindow(windowHandle);
+        if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
+            ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
+        processMessages = false;
+        return;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
@@ -249,7 +249,8 @@ CoreWindow::CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrappe
 		system("PAUSE");
 		exit(0);
 	}
-	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
+	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(),
+                                wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
 
 	if (!windowHandle)
 	{
@@ -344,17 +345,6 @@ void CoreWindow::WaitForUpdateToFinish()
 }
 
 
-void CoreWindow::RecieveMessage(const MSG &msg)
-{
-    PostThreadMessageA(updateThreadId, msg.message, msg.wParam, msg.lParam);
-}
-
-void CoreWindow::RecieveMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    MSG currentMsg = {NULL, uMsg, wParam, lParam};
-    RecieveMessage(currentMsg);
-}
-
 bool CoreWindow::IsEventBased() const
 {
     return eventBased;
@@ -411,19 +401,6 @@ const bool &CoreWindow::IsCursorLocked() const
     return cursorLocked;
 }
 
-void CoreWindow::OnObjectDestroyed(DestroyEventInfo *e)
-{
-    renderingProvider->OnMainFinished();
-    std::lock_guard<std::mutex> lock{mainFinishedMutex};
-    hasMainFinished = true;
-    mainFinishedSignal.notify_all();
-}
-
-void CoreWindow::WaitForMainToFinish()
-{
-    std::unique_lock<std::mutex> mainFinishedLock{mainFinishedMutex};
-    mainFinishedSignal.wait(mainFinishedLock, [=]{return hasMainFinished;});
-}
 
 void CoreWindow::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {

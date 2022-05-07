@@ -50,9 +50,9 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseDown(EventMouseStateInfo e)
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
-		if (associatedNode.Get(i).GetValue().ColidesWithPoint(e.GetMouseAbsolutePosition()))
+		if (associatedNode.GetNode(i).GetValue()->ColidesWithPoint(e.GetMouseAbsolutePosition()))
 		{
-			associatedNode.Get(i).GetValue().NotifyOnMouseDown(e);
+			associatedNode.GetNode(i).GetValue()->NotifyOnMouseDown(e);
 			subComponentCollision = true;
 		}
 	}
@@ -78,9 +78,9 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseUp(EventMouseStateInfo e)
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
-		if (associatedNode.Get(i).GetValue().ColidesWithPoint(e.GetMouseAbsolutePosition()))
+		if (associatedNode.GetNode(i).GetValue()->ColidesWithPoint(e.GetMouseAbsolutePosition()))
 		{
-			associatedNode.Get(i).GetValue().NotifyOnMouseUp(e);
+			associatedNode.GetNode(i).GetValue()->NotifyOnMouseUp(e);
 			subComponentCollision = true;
 		}
 	}
@@ -107,9 +107,9 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
-		if (associatedNode.Get(i).GetValue().ColidesWithPoint(e.GetMouseAbsolutePosition()))
+		if (associatedNode.GetNode(i).GetValue()->ColidesWithPoint(e.GetMouseAbsolutePosition()))
 		{
-			associatedNode.Get(i).GetValue().NotifyOnMousePressed(e);
+			associatedNode.GetNode(i).GetValue()->NotifyOnMousePressed(e);
 			subComponentCollision = true;
 		}
 	}
@@ -137,15 +137,15 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseHover(EventMouseStateInfo e)
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{
-		if (associatedNode.Get(i).GetValue().ColidesWithPoint(e.GetMouseAbsolutePosition()))
+		if (associatedNode.GetNode(i).GetValue()->ColidesWithPoint(e.GetMouseAbsolutePosition()))
 		{
-			associatedNode.Get(i).GetValue().NotifyOnMouseHover(e);
+			associatedNode.GetNode(i).GetValue()->NotifyOnMouseHover(e);
 			subComponentCollision = true;
 		}
 		else
 		{
-			if (associatedNode.Get(i).GetValue().HasMouseEntered())
-				associatedNode.Get(i).GetValue().NotifyOnMouseLeave(e);
+			if (associatedNode.GetNode(i).GetValue()->HasMouseEntered())
+				associatedNode.GetNode(i).GetValue()->NotifyOnMouseLeave(e);
 		}
 
 	}
@@ -189,8 +189,8 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMouseLeave(EventMouseStateInfo e)
 
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Check if left from any of the subcomponents
 	{
-		if (associatedNode.Get(i).GetValue().HasMouseEntered())
-			associatedNode.Get(i).GetValue().NotifyOnMouseLeave(e);
+		if (associatedNode.GetNode(i).GetValue()->HasMouseEntered())
+			associatedNode.GetNode(i).GetValue()->NotifyOnMouseLeave(e);
 	}
 
 	mouseEntered = false;

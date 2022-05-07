@@ -177,6 +177,6 @@ public:
 	 * \return returns the auto extention state.
 	 */
 	bool IsAutoextending();
-	void Add(UiElement& component) override;
+	void Add(unique_ptr<UiElement> component) override;
 };
 

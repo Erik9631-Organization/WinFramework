@@ -7,7 +7,7 @@
 #include "EventUpdateInfo.h"
 
 Scene::Scene() :
-    sceneGraph(this), renderingBehavior(*this)
+    sceneGraph(new DefaultMultiTree(std::unique_ptr<Element3d>(this))), renderingBehavior(*this)
 {
 
 }
@@ -99,16 +99,18 @@ const glm::vec3 &Scene::GetTranslation()
 }
 
 
-void Scene::Add(Element3d *element)
+void Scene::Add(std::unique_ptr<Element3d> element)
 {
     addToContainerMutex.lock();
-    sceneGraph.Add(element->GetElementNode());
+    std::unique_ptr<MultiTree<std::unique_ptr<Element3d>>> elementToBeAdded{&element->GetElementNode()};
+    sceneGraph->AddNode(std::move(elementToBeAdded));
+    element.release();
     addToContainerMutex.unlock();
 }
 
-MultiTree<Element3d *> &Scene::GetElementNode()
+MultiTree<std::unique_ptr<Element3d>> & Scene::GetElementNode()
 {
-    return sceneGraph;
+    return *sceneGraph;
 }
 
 void Scene::OnTick()
@@ -130,10 +132,16 @@ void Scene::NotifyOnTick()
 {
     addToContainerMutex.lock();
     tickSubjectBehavior.NotifyOnTick();
-    for(int i = 0; i < sceneGraph.GetNodeCount(); i++)
+    for(int i = 0; i < sceneGraph->GetNodeCount(); i++)
     {
-        auto* shit = sceneGraph.Get(i).GetValue();
+        auto& shit = sceneGraph->Get(i);
         shit->OnTick();
     }
     addToContainerMutex.unlock();
+}
+
+Scene::~Scene()
+{
+    sceneGraph->Disown(true);
+    delete sceneGraph;
 }

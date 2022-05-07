@@ -460,7 +460,7 @@ set(ALL_FILES
     ${Lii_Api}
     ${Lii/Managers}
     ${Lii_Components_3d}
-        )
+        Events/EntryStateSubscriber.h)
 
 ################################################################################
 # Target

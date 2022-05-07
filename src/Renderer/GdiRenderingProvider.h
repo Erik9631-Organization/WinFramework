@@ -37,12 +37,13 @@ public:
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
-    void OnMainFinished() override;
-    std::unique_ptr<std::thread> renderingThread;
+    void OnEntryStart() override;
+    void OnEntryEnd() override;
+    std::thread* renderingThread;
 private:
     UiTreeDataSyncer syncer;
     CoreWindow* coreWindowframe;
-    void AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion);
+    void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();
     [[noreturn]] void InternalRender();

@@ -1,16 +1,17 @@
 #pragma once
+#include <utility>
 template <class type>
 class EventOnAddInfo
 {
 private:
-	type addedElement;
+	type* addedElement;
 public:
-	EventOnAddInfo(type element) : addedElement(element)
+	EventOnAddInfo(type* element)
 	{
-
+        addedElement = element;
 	}
 
-	type GetAddedComponent()
+	type* GetAddedComponent()
 	{
 		return addedElement;
 	}

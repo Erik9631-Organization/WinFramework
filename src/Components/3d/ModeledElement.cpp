@@ -120,16 +120,16 @@ const glm::vec3 &ModeledElement::GetTranslation()
     return model->GetTranslation();
 }
 
-void ModeledElement::Add(Element3d *element)
+void ModeledElement::Add(std::unique_ptr<Element3d> element)
 {
     addToContainerMutex.lock();
-    treeNode.Add(element->GetElementNode());
+    treeNode->Add(element);
     addToContainerMutex.unlock();
 }
 
-MultiTree<Element3d *> &ModeledElement::GetElementNode()
+MultiTree<std::unique_ptr<Element3d>> & ModeledElement::GetElementNode()
 {
-    return treeNode;
+    return *treeNode;
 }
 
 ModeledElement::ModeledElement() : ModeledElement(nullptr)
@@ -155,13 +155,14 @@ void ModeledElement::RemoveOnTickSubscriber(OnTickSubscriber *subscriber)
 
 void ModeledElement::NotifyOnTick()
 {
-    for(int i = 0; i < treeNode.GetNodeCount(); i++)
+    for(int i = 0; i < treeNode->GetNodeCount(); i++)
     {
-        treeNode.Get(i).GetValue()->OnTick();
+        treeNode->Get(i)->OnTick();
     }
 }
 
-ModeledElement::ModeledElement(std::unique_ptr<OpenGL::Model> model) : renderingBehavior(*this), treeNode(this)
+ModeledElement::ModeledElement(std::unique_ptr<OpenGL::Model> model) : renderingBehavior(*this),
+    treeNode(new DefaultMultiTree(std::unique_ptr<Element3d>(this)))
 {
     this->model = std::move(model);
 }
@@ -169,4 +170,13 @@ ModeledElement::ModeledElement(std::unique_ptr<OpenGL::Model> model) : rendering
 OpenGL::Model *ModeledElement::GetModel()
 {
     return model.get();
+}
+
+ModeledElement::~ModeledElement()
+{
+    if(treeNode->IsRoot())
+    {
+        treeNode->Disown(true);
+        delete treeNode;
+    }
 }

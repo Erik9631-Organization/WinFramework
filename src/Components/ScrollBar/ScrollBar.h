@@ -7,6 +7,7 @@
 #include "Panel.h"
 #include "Button.h"
 #include "VerticalScrollbarBehavior.h"
+#include <memory>
 
 class MouseStateSubscriber;
 
@@ -16,13 +17,18 @@ public:
     ScrollBar(int x, int y, int width, int height, const string &name);
     ScrollBar(const string &name);
     ScrollBar();
-    void Control(UiElement* component);
+    /**
+     * \remark If control is called, the controlled component will also become owner of the scrollbar.
+     * If the scrollbar owner dies, the scrollbar will be deleted
+     * \param component The component the scrollbar controls
+     */
+    static void Control(UiElement *component, std::unique_ptr<ScrollBar> scrollbar);
     UiElement* GetControlledComponent();
     void ClearControl();
 private:
-    Button thumbTrack;
+    Button* thumbTrack;
     UiElement* controlledComponent = nullptr;
-    VerticalScrollbarBehavior scrollbarBehavior;
+    std::unique_ptr<VerticalScrollbarBehavior> scrollbarBehavior;
 
 };
 

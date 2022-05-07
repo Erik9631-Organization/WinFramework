@@ -34,7 +34,7 @@ private:
 
 public:
     FloatVertexAttribute(const FloatVertexAttribute& attribute) = default;
-    FloatVertexAttribute(const unsigned int& componentCount, const unsigned int& elementSize, const unsigned int& offset);
+    FloatVertexAttribute(const unsigned int& componentCount, const unsigned int& stride, const unsigned int& offset);
     void SetId(unsigned int id);
     void SetComponentCount(unsigned int componentCount);
     void SetType(GLenum type);

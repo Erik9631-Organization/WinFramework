@@ -43,7 +43,7 @@ void ComboElement::DisplayElementGui()
 
 	elementGui->SetText(text);
 	elementGui->AddMouseStateSubscriber(*this);
-	comboSelection.AddComboElementGui(*elementGui);
+	comboSelection.AddComboElementGui(std::unique_ptr<Button>(elementGui));
 }
 
 void ComboElement::RemoveElementGui()

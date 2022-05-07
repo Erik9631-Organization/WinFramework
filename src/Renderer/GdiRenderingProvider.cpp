@@ -14,6 +14,7 @@
 #include <future>
 #include <chrono>
 #include "GdiRenderingPool.h"
+#include "ApplicationController.h"
 
 using namespace std::chrono;
 
@@ -32,7 +33,7 @@ void GdiRenderingProvider::CleanBackBuffer()
     DeleteDC(secondaryDc);
 }
 
-void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gdiplus::Region& clippingRegion)
+void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion)
 {
     Graphics graphics(secondaryDc);
     GdiRenderer renderer{graphics};
@@ -41,8 +42,8 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
 
     if(!node.IsRoot())
     {
-        Vector2 viewPortAbsPos = node.GetValue().GetViewportAbsolutePosition();
-        Vector2 viewPortAbsSize = node.GetValue().GetViewportAbsoluteSize();
+        Vector2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
+        Vector2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
         RectF viewport = RectF(viewPortAbsPos.GetX(), viewPortAbsPos.GetY(), viewPortAbsSize.GetX(), viewPortAbsSize.GetY());
         graphics.SetClip(viewport);
         clippingRegion.Intersect(viewport);
@@ -50,17 +51,17 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<UiElement&>& node, Gd
 
         //translate
         Matrix transformMatrix;
-        transformMatrix.Translate(node.GetValue().GetAbsoluteX(), node.GetValue().GetAbsoluteY());
+        transformMatrix.Translate(node.GetValue()->GetAbsoluteX(), node.GetValue()->GetAbsoluteY());
         graphics.SetTransform(&transformMatrix);
     }
     RenderEventInfo renderEvent{&gdiRenderingPool};
 
-    node.GetValue().OnRender(renderEvent);
+    node.GetValue()->OnRender(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {
         Region* newRegion = clippingRegion.Clone();
-        AssignGraphicsToNodes(node.Get(i), *newRegion);
+        AssignGraphicsToNodes(node.GetNode(i), *newRegion);
         delete newRegion;
     }
 }
@@ -98,7 +99,7 @@ void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
     fpsTimer.Start();
 
     if(renderingThread == nullptr)
-        renderingThread = std::make_unique<std::thread>([=]{ InternalRender();});
+        renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
 }
 
 void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
@@ -158,13 +159,6 @@ void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
 void GdiRenderingProvider::WaitForSyncToFinish()
 {
     syncer.WaitForSync();
-//    if(!syncFinished)
-//        CoreWindow::ConsoleWrite("Waiting for sync to finish");
-//    else
-//        CoreWindow::ConsoleWrite("No sync, continuing");
-//    mutex lockMutex;
-//    std::unique_lock<std::mutex>syncFinishedLock(lockMutex);
-//    syncFinishedSignal.wait(syncFinishedLock, [=]{return syncFinished;});
 }
 
 int GdiRenderingProvider::GetTargetFps() const
@@ -184,11 +178,15 @@ GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
     fpsTimer.SetPeriodic(false);
     int interval = 1000/targetFps;
     fpsTimer.SetInterval(interval);
-    renderingThread.reset();
+    renderingThread = nullptr;
+}
+
+void GdiRenderingProvider::OnEntryStart()
+{
 
 }
 
-void GdiRenderingProvider::OnMainFinished()
+void GdiRenderingProvider::OnEntryEnd()
 {
 
 }

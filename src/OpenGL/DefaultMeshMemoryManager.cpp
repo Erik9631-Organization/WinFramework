@@ -10,10 +10,7 @@
 
 using namespace OpenGL;
 
-/**
- * TODO Feature
- * Make the MeshManager react to vertice changes made in the Mesh itself
- */
+
 DefaultMeshMemoryManager::DefaultMeshMemoryManager(std::unique_ptr<VboProperties> properties, const unsigned int &vboSize,
                                                    const unsigned int &eboSize)
 {
@@ -91,15 +88,15 @@ void DefaultMeshMemoryManager::ReallocGpuBuffer(const unsigned int &newSize, uns
     glBindVertexArray(0);
     glBindBuffer(bufferType, 0);
 }
-/**
- * TODO Critical
- * Ensure that the mesh doesn't push the same vertices twice.
- * Special condition requries if metaData->hasEbo is already true
- */
+
 void DefaultMeshMemoryManager::PushOrder(const Mesh &mesh)
 {
     //If there is no meta data then exit. Can't push vertice order to something that doesn't exist yet
-    if(meshMetaData.find((size_t)&mesh) == meshMetaData.end())
+    const auto& metaDataEntry = meshMetaData.find((size_t)&mesh);
+    if(metaDataEntry == meshMetaData.end())
+        return;
+    std::unique_ptr<MeshMetaData>& metaData = metaDataEntry->second;
+    if(metaData->hasEbo)
         return;
 
     unsigned int orderSize = mesh.GetVerticeOrders().size() * sizeof(float);
@@ -110,7 +107,7 @@ void DefaultMeshMemoryManager::PushOrder(const Mesh &mesh)
         ReallocGpuBuffer(eboSize + eboExtentionSize, eboId, GL_ELEMENT_ARRAY_BUFFER, eboSize);
     glBindVertexArray(vaoId);
     glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, eboUsedSize, orderSize, mesh.GetVerticeOrders().data());
-    std::unique_ptr<MeshMetaData>& metaData = meshMetaData.find((size_t)&mesh)->second;
+
     metaData->orderSize = orderSize;
     metaData->hasEbo = true;
     metaData->orderOffset = eboUsedSize;

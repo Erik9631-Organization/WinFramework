@@ -15,16 +15,6 @@
 
 using namespace OpenGL;
 
-/**
- * TODO
- * Model should accept a material class.
- * The material should encapsulate all the shader calls
- * The material should have specializations that unify the properties
- * It would be cool if the material had a reflection system.
- * The rendering manager should sort by shaders used in the material to decrease the amount of context swapping required
- * The texture, camera, shaders should be a unique ptr and should be owned by their own managers. Only reference should be here
- */
-
 
 void DefaultModel::Translate(const glm::vec3 &translation)
 {
@@ -125,9 +115,7 @@ Model *DefaultModel::Clone() const
     return new DefaultModel(*this);
 }
 
-/**
- * TODO Move only if there are changes
- */
+
 DefaultModel:: DefaultModel(const DefaultModel &model)
 {
     id = model.id;
@@ -178,11 +166,7 @@ void DefaultModel::OnUpdate(EventUpdateInfo e)
     }
 }
 
-/**
- *  TODO Safety
- *  Ensure that renderObjectEventInfo contains the manager and is not null. Otherwise rendering should be ignored.
- *  Only the manager should be allowed to call the OnRender
- */
+
 void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 {
     if(activeCamera != nullptr)

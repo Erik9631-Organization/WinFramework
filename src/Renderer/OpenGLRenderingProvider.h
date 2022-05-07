@@ -24,9 +24,10 @@ public:
     void OnDestroy(CoreWindow &coreWindow) override;
     void OnRemove(CoreWindow &coreWindow) override;
     void WaitForSyncToFinish() override;
-    void OnMainFinished() override;
+    void OnEntryStart() override;
+    void OnEntryEnd() override;
 private:
-    void AssignGraphicsToNodes(MultiTree<UiElement&>& node);
+    void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
     void GraphicsInit();
     void AssignRendererToNodes();
     void GetGlExtensions();
@@ -36,7 +37,7 @@ private:
     void InternalRender();
     bool startRenderingLoop = true;
     CoreWindow* coreWindow;
-    std::unique_ptr<std::thread> renderingThread;
+    std::thread* renderingThread;
     bool performRender = false;
     std::condition_variable performRenderSignal;
     UiTreeDataSyncer uiSyncer;

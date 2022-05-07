@@ -7,14 +7,10 @@
 using namespace std;
 
 
-/**
- * TODO
- * The attribute should become unchangable after it was created. Also hash should be calculated on creation. It won't change afterwards
-*/
-FloatVertexAttribute::FloatVertexAttribute(const unsigned int &componentCount, const unsigned int &elementSize, const unsigned int& offset)
+FloatVertexAttribute::FloatVertexAttribute(const unsigned int &componentCount, const unsigned int &stride, const unsigned int& offset)
 {
     SetComponentCount(componentCount);
-    SetElementSize(elementSize);
+    SetElementSize(stride);
     SetOffset(offset);
 }
 

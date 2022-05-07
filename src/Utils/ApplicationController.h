@@ -1,22 +1,22 @@
 #pragma once
 #pragma comment (lib, "Gdiplus.lib")
 #include <Windows.h>
-#include <vector>
 #include <gdiplus.h>
 #include <thread>
-#include "DestroySubjectBehavior.h"
-#include "StartSubjectBehavior.h"
+#include <map>
+#include <string>
+#include <functional>
+#include "EntryStateSubject.h"
+#include <condition_variable>
+#include "EntryStateSubscriber.h"
 
 using namespace Gdiplus;
 using namespace std;
-class CoreWindow;
 
 /**
- * TODO Finish DestroySubject event types
- * TODO Finish StartSubject event types
  * Also make sure that no nullptrs are being passed
  */
-class ApplicationController
+class ApplicationController : public EntryStateSubject
 {
 public:
 	struct WinEntryArgs
@@ -26,25 +26,39 @@ public:
 		LPSTR lpCmdLine;
 		int nCmdShow;
 	};
-	ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
-	static vector<reference_wrapper<CoreWindow>> windows;
-	static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-	static WinEntryArgs GetWinEntryArgs();
-	static void SubscribeToWinProc(CoreWindow& frame);
-	static GdiplusStartupOutput getGdiOutput();
-	static void JoinThreads();
-	static void AddThread(thread* joinableThread);
+
+    const WinEntryArgs & GetWinEntryArgs();
+    const GdiplusStartupOutput & GetGdiOutput();
+	void JoinThreads();
+    template<typename Function, class ... Args>
+	thread& CreateThread(Function&& f, const string&& tag, Args&& ... args)
+    {
+        auto thread = std::make_unique<std::thread>(f, args ...);
+        auto& threadRef = *thread;
+        threads.emplace(std::make_pair(tag, std::move(thread)));
+        return threadRef;
+    }
+    static void Create(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
+    static ApplicationController* GetApplicationController();
 	~ApplicationController();
-    static void NotifyOnStart();
-    static void NotifyOnDestroy();
-    static void AddOnStartSubscriber(StartSubscriber* subscriber);
-    static void AddOnDestroySubscriber(DestroySubscriber* subscriber);
+    void NotifyOnEntryStart() override;
+    void NotifyOnEntryEnd() override;
+    void AddEntryStateSubscriber(EntryStateSubscriber *subscriber) override;
+    void RemoveEntryStateSubscriber(EntryStateSubscriber *subscriber) override;
+    void WaitForEntryToFinish() override;
+
+    static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 private:
-	static vector<thread*> threads;
-	static WinEntryArgs args;
-	static ULONG token;
-	static GdiplusStartupOutput output;
-    static DestroySubjectBehavior* destroySubjectBehavior;
-    static StartSubjectBehavior* startSubjectBehavior;
+    ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow);
+    std::vector<EntryStateSubscriber*> subscribers;
+    std::multimap<std::string, std::unique_ptr<std::thread>> threads;
+    WinEntryArgs args;
+
+    static ApplicationController* applicationController;
+    ULONG token = 0;
+    GdiplusStartupOutput output;
+    std::condition_variable entryFinished;
+    std::mutex entryFinishedMutex;
+    bool entryFinishedSignaled = false;
 };
 

@@ -320,49 +320,6 @@ public:
 
 };
 
-/*
-* TODO
-* 1) Add OnActionEvent for buttons
-* 2) Repaint not being used on pure renderable components. Investigate better design --- interface pollution
-*	A) Repaint should notify the parent component which in return should send a repaint request
-* 3) Create a global event class that has event src as parameter. All events MUST derive from that
-* 9) Input is propagated by the root to whoever has the focus. To make the design consistent, each component should propagate the input to its subcomponents. The component recieving
-*	 The event should then decide whether it should notify the subscribers or not (Based on IsFocus). Revisit this design and improve.
-* 10) Every renderable should have scaling option and position option. Either relative or relative with %
-* 11) Make graphical element properties consistent
-* 12) Renderables lack visibility option.
-* 13) Renderables should have rendering order
-* 14) Checkbox should be a graphical component on its own, similar to radio thumbTrack
-* 15) Matrix translation reset applies to renderables on the same layer. src is a POINTER!!!!! -- I think I fixed this??? lol
-* 17) Behaviors should have setters and getters. They are strategy pattern and they should be run time hot swapable
-* 18) Specialize the trackbar behavior to either vertical or horizontal
-* 19) If parent component has focus and hovering over sub component, the parent doesn't recieve hover -- Should differentiate between OnHover and OnMove (One hovers when mouse within, the other when focused)
-* 20) Fix InternalOffset calls causing massive slow down (Internal position calls Element position which causes updates, this is temporarily disabled for the sake of functionality)
-*		Should be removed entirely. The offsets should be handled by the matrix you fucking moron
-* 21) Duplicate methods. "Listener methods" leftover in the components.
-* 22) Wrap grid into a builder. The parameters should not be changed after the grid is created. Explore other options making it possible.
-* 23) Finish collision checking so invalid spans can't be added to the grid --- done, grid should only call the method now.
-* 24) Fix event GetSrc generics. Some return components some return any and some return your custom made generic type. Explore if it is necessary and try to avoid it.
-*
-* Optimization
-* 1) Create rendering queve and rendering request class which specifies the rendering source. Each class should have an ID (Either real or pregenerated from the type)
-*	 The rendering queve should be handled by the root and it should limit the maximum amount of renders to 30 repaints per second
-* 2) Combobox memory leaks
-*
-* Design
-* 1) Remove generics from all the events and send the src as subject by default. The inheritance hierarchy will allow you to cast it to the correct type. Src is ALWAYS a subject.
-* 2) All the behaviors should be covered by a common interface to be able to make them hot swappable. (It is not going to be completely possible, but at least create a common interface for the same behavioral groups)
-* 3) Trackbar
-*		1) UpdateTracker() vs UpdateTrackerHeight, rename and recheck the design. What is the difference, why is UpdateTrackbar not calling UpdateTracker --- optimize and change
-* 3) ListBox and combobox
-*		1) Both have internal factories that generate the elements. Give an option to place any factory inside the components so any element can be part of it.
-* 4) Introduce a merge function, so composite components handle events as a single logical component
-*
-* Bugs
-* Trackbar
-*	1) If trackbar width is called after trackbar control, the width doesn't get updated
-*	2) If component is added to the controlled trackbar before the trackbar is added as a control, the size doesn't update
-*/
 
 void DemoApplication::LaunchDemoApp()
 {
@@ -382,30 +339,27 @@ void DemoApplication::LaunchDemoApp()
 	int offset = 100;
 	int gap = 1;
 
-	
-	InputTester inputTest = InputTester();
-	CheckboxTester checkboxTester = CheckboxTester();
-	RadioButtonTester radioButtonTester = RadioButtonTester();
+//
+	InputTester* inputTest = new InputTester();
+	CheckboxTester* checkboxTester = new CheckboxTester();
+	RadioButtonTester* radioButtonTester = new RadioButtonTester();
 
-	ScrollBar trackbar = ScrollBar(0, 10, 10, 0, "trackbar");
-	ScrollBar scrollbar = ScrollBar(0, 0, 10, 0, "ScrollBar");
+    auto scrollbar = std::make_unique<ScrollBar>(0, 0, 10, 0, "ScrollBar");
 
-	Panel panel = Panel(50, 300, 300, 250, "panel");
-	//panel.Add(trackbar);
-	//trackbar.Control(panel);
-	scrollbar.Control(&panel);
+	auto panel = std::make_unique<Panel>(50, 300, 300, 250, "panel");
+    ScrollBar::Control(panel.get(), std::move(scrollbar));
 
 
 	/*
 	* Listbox test start
 	*/
 
-	ListBox listBox = ListBox(225, 30, 100, 250, "TestListbox");
-	ListBox listBoxDragTest = ListBox(335, 30, 100, 250, "TestListboxDrag");
-	listBoxDragTest.CreateListElement(L"value 1", std::make_any<int>(1));
+	auto listBox = std::make_unique<ListBox>(225, 30, 100, 250, "TestListbox");
+	auto listBoxDragTest = std::make_unique<ListBox>(335, 30, 100, 250, "TestListboxDrag");
+	listBoxDragTest->CreateListElement(L"value 1", std::make_any<int>(1));
 
 	for (int i = 0; i < 10; i++)
-		listBox.CreateListElement(L"Value " + to_wstring(i), std::make_any<int>(i));
+		listBox->CreateListElement(L"Value " + to_wstring(i), std::make_any<int>(i));
 
 	/*
 	* Listbox test end
@@ -415,15 +369,15 @@ void DemoApplication::LaunchDemoApp()
 	* ComboBox test start
 	*/
 
-	ComboBox comboBox = ComboBox(490, 20, 100, 30, "ComboBox");
-	comboBox.SetText(L"Combo Box");
-	comboBox.CreateComboElement(L"First", std::make_any<int>(1));
-	comboBox.CreateComboElement(L"Second", std::make_any<int>(2));
-	comboBox.CreateComboElement(L"Third", std::make_any<int>(3));
-	comboBox.CreateComboElement(L"Fourth", std::make_any<int>(4));
-	comboBox.CreateComboElement(L"Fifth", std::make_any<int>(5));
-	ComboBoxTester comboBoxTester = ComboBoxTester(comboBox);
-	comboBox.AddComboBoxStateSubscriber(comboBoxTester);
+	auto comboBox = std::make_unique<ComboBox>(490, 20, 100, 30, "ComboBox");
+	comboBox->SetText(L"Combo Box");
+	comboBox->CreateComboElement(L"First", std::make_any<int>(1));
+	comboBox->CreateComboElement(L"Second", std::make_any<int>(2));
+	comboBox->CreateComboElement(L"Third", std::make_any<int>(3));
+	comboBox->CreateComboElement(L"Fourth", std::make_any<int>(4));
+	comboBox->CreateComboElement(L"Fifth", std::make_any<int>(5));
+	auto comboBoxTester = std::make_unique<ComboBoxTester>(*comboBox);
+	comboBox->AddComboBoxStateSubscriber(*comboBoxTester);
 
 	/*
 	* ComboBox test end
@@ -433,60 +387,61 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* Grid Test Start
 	*/
-	Grid mainTestGrid = Grid(800, 10, 500, 500);
-	mainTestGrid.SetGridColumns({ 100, 400 });
-	mainTestGrid.SetGridRows({ 100, 300, 100 });
-	mainTestGrid.SetColumnGap(2);
-	mainTestGrid.SetRowGap(2);
-	mainTestGrid.AddRowSpan(0, 2);
+	auto mainTestGrid = std::make_unique<Grid>(800, 10, 500, 500);
+	mainTestGrid->SetGridColumns({ 100, 400 });
+	mainTestGrid->SetGridRows({ 100, 300, 100 });
+	mainTestGrid->SetColumnGap(2);
+	mainTestGrid->SetRowGap(2);
+	mainTestGrid->AddRowSpan(0, 2);
 
-	Grid contentGrid = Grid(0, 0, 0, 0);
-	contentGrid.SetRowGap(2);
-	contentGrid.SetGridColumns({ 100, 100, 100, 100 });
-	contentGrid.SetDefaultRowSize(100);
-
-
-	Label header = Label(0, 0, 0, 0, "header");
-	header.SetText(L"header");
-
-	Label footer = Label(0, 0, 0, 0, "footer");
-	footer.SetText(L"footer");
-
-	Label content = Label(0, 0, 0, 0, "content");
-	content.SetText(L"content");
-
-	Label navBar = Label(0, 0, 0, 0, "navBar");
-	navBar.SetText(L"navBar");
+	auto contentGrid = std::make_unique<Grid>(0, 0, 0, 0);
+	contentGrid->SetRowGap(2);
+	contentGrid->SetGridColumns({ 100, 100, 100, 100 });
+	contentGrid->SetDefaultRowSize(100);
 
 
-	mainTestGrid.Add(navBar);
-	mainTestGrid.Add(header);
-	mainTestGrid.Add(contentGrid);
-	mainTestGrid.Add(footer);
-	contentGrid.Add(content);
+	auto header = std::make_unique<Label>(0, 0, 0, 0, "header");
+	header->SetText(L"header");
+
+	auto footer = std::make_unique<Label>(0, 0, 0, 0, "footer");
+	footer->SetText(L"footer");
+
+	auto content = std::make_unique<Label>(0, 0, 0, 0, "content");
+	content->SetText(L"content");
+
+	auto navBar = std::make_unique<Label>(0, 0, 0, 0, "navBar");
+	navBar->SetText(L"navBar");
+
+
+	mainTestGrid->Add(std::move(navBar));
+	mainTestGrid->Add(std::move(header));
+    auto& ContentGridRef = *contentGrid;
+	mainTestGrid->Add(std::move(contentGrid));
+	mainTestGrid->Add(std::move(footer));
+    ContentGridRef.Add(std::move(content));
 
 	for (int i = 0; i < 11; i++)
 	{
-		Label* contentLabel = new Label(0, 0, 100, 100, "ContentLabel" + to_string(i));
-		contentGrid.Add(*contentLabel);
+		auto contentLabel = std::make_unique<Label>(0, 0, 100, 100, "ContentLabel" + to_string(i));
+        ContentGridRef.Add(std::move(contentLabel));
 	}
 
 
 	/*
 	* File browser test start
 	*/
-	Button fileBrowseButton = Button(490, 320, 100, 25);
-	Button fileSaveButton = Button(595, 320, 100, 25);
-	Button clearButton = Button(700, 320, 100, 25);
-	TextInput fileOutput = TextInput(490, 350, 300, 100, "File Content");
-	fileOutput.SetMultiline(true);
-	fileBrowseButton.SetText(L"Browse");
-	fileSaveButton.SetText(L"Save");
-	clearButton.SetText(L"Clear");
-	FileBrowserTester tester = FileBrowserTester(fileOutput);
-	fileSaveButton.AddMouseStateSubscriber(tester);
-	clearButton.AddMouseStateSubscriber(tester);
-	fileBrowseButton.AddMouseStateSubscriber(tester);
+	auto fileBrowseButton = std::make_unique<Button>(490, 320, 100, 25);
+	auto fileSaveButton = std::make_unique<Button>(595, 320, 100, 25);
+	auto clearButton = std::make_unique<Button>(700, 320, 100, 25);
+	auto fileOutput = std::make_unique<TextInput>(490, 350, 300, 100, "File Content");
+	fileOutput->SetMultiline(true);
+	fileBrowseButton->SetText(L"Browse");
+	fileSaveButton->SetText(L"Save");
+	clearButton->SetText(L"Clear");
+	auto tester = new FileBrowserTester(*fileOutput);
+	fileSaveButton->AddMouseStateSubscriber(*tester);
+	clearButton->AddMouseStateSubscriber(*tester);
+	fileBrowseButton->AddMouseStateSubscriber(*tester);
 
 	/*
 	* File browser test end
@@ -500,14 +455,14 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* Password Form START
 	*/
-	PasswordField passwordField = PasswordField(490, 210, 100, 30, "PasswordField");
-	Button submitButton = Button(600, 210, 100, 30);
-	submitButton.SetText(L"Submit");
-	Label resultLabel = Label(490, 250, 100, 50, "resultLabel");
+	auto passwordField = std::make_unique<PasswordField>(490, 210, 100, 30, "PasswordField");
+	auto submitButton = std::make_unique<Button>(600, 210, 100, 30);
+	submitButton->SetText(L"Submit");
+	auto resultLabel = std::make_unique<Label>(490, 250, 100, 50, "resultLabel");
 
 
-	FormSubmiter submiter = FormSubmiter(resultLabel, passwordField);
-	submitButton.AddMouseStateSubscriber(submiter);
+	auto submiter = std::make_unique<FormSubmiter>(*resultLabel, *passwordField);
+	submitButton->AddMouseStateSubscriber(*submiter);
 	/*
 	* Password Form END
 	*/
@@ -518,114 +473,120 @@ void DemoApplication::LaunchDemoApp()
 
 	for (int i = 0; i < 10; i++)
 	{
-		Label* scrollBarTest = new Label(0, 10 + 110 * i, 100, 100, "testLabel");
+		auto scrollBarTest = std::make_unique<Label>(0, 10 + 110 * i, 100, 100, "testLabel");
 
 		scrollBarTest->SetText(L"TestLabel " + to_wstring(i));
-		panel.Add(*scrollBarTest);
+		panel->Add(std::move(scrollBarTest));
 	}
 
 	/*
 	* SCROLL BAR TEST END
 	*/
 
-	RadioButton radioButton1 = RadioButton(600, 100, 100, 30, "radioButton1");
-	RadioButton radioButton2 = RadioButton(600, 135, 100, 30, "radioButton2");
-	RadioButton radioButton3 = RadioButton(600, 170, 100, 30, "radioButton3");
+	auto radioButton1 = std::make_unique<RadioButton>(600, 100, 100, 30, "radioButton1");
+	auto radioButton2 = std::make_unique<RadioButton>(600, 135, 100, 30, "radioButton2");
+	auto radioButton3 = std::make_unique<RadioButton>(600, 170, 100, 30, "radioButton3");
 
-	RadioButton radioButtonG1 = RadioButton(490, 100, 100, 30, "radioButtonG1");
-	RadioButton radioButtonG2 = RadioButton(490, 135, 100, 30, "radioButtonG2");
-	RadioButton radioButtonG3 = RadioButton(490, 170, 100, 30, "radioButtonG3");
+	auto radioButtonG1 = std::make_unique<RadioButton>(490, 100, 100, 30, "radioButtonG1");
+	auto radioButtonG2 = std::make_unique<RadioButton>(490, 135, 100, 30, "radioButtonG2");
+	auto radioButtonG3 = std::make_unique<RadioButton>(490, 170, 100, 30, "radioButtonG3");
 
-	radioButton1.AddRadioButtonStateSubscriber(radioButtonTester);
-	radioButton2.AddRadioButtonStateSubscriber(radioButtonTester);
-	radioButton3.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButton1->AddRadioButtonStateSubscriber(*radioButtonTester);
+	radioButton2->AddRadioButtonStateSubscriber(*radioButtonTester);
+	radioButton3->AddRadioButtonStateSubscriber(*radioButtonTester);
 
-	radioButtonG1.AddRadioButtonStateSubscriber(radioButtonTester);
-	radioButtonG2.AddRadioButtonStateSubscriber(radioButtonTester);
-	radioButtonG3.AddRadioButtonStateSubscriber(radioButtonTester);
+	radioButtonG1->AddRadioButtonStateSubscriber(*radioButtonTester);
+	radioButtonG2->AddRadioButtonStateSubscriber(*radioButtonTester);
+	radioButtonG3->AddRadioButtonStateSubscriber(*radioButtonTester);
 
-	Label groupLabel1 = Label(600, 60, 100, 30, "Group1");
-	groupLabel1.SetText(L"Group 1 buttons");
-	Label groupLabel2 = Label(490, 60, 100, 30, "Group2");
-	groupLabel2.SetText(L"Group 2 buttons");
+    auto groupLabel1 = std::make_unique<Label>(600, 60, 100, 30, "Group1");
+	groupLabel1->SetText(L"Group 1 buttons");
+    auto groupLabel2 = std::make_unique<Label>(490, 60, 100, 30, "Group2");
+	groupLabel2->SetText(L"Group 2 buttons");
 
-	radioButton1.SetText(L"First");
-	radioButton2.SetText(L"Second");
-	radioButton3.SetText(L"Third");
+	radioButton1->SetText(L"First");
+	radioButton2->SetText(L"Second");
+	radioButton3->SetText(L"Third");
 
-	radioButtonG1.SetText(L"First");
-	radioButtonG2.SetText(L"Second");
-	radioButtonG3.SetText(L"Third");
+	radioButtonG1->SetText(L"First");
+	radioButtonG2->SetText(L"Second");
+	radioButtonG3->SetText(L"Third");
 
-	radioButton1.AddToGroup(radioButton2);
-	radioButton2.AddToGroup(radioButton3);
+	radioButton1->AddToGroup(*radioButton2);
+	radioButton2->AddToGroup(*radioButton3);
 
-	radioButtonG1.AddToGroup(radioButtonG2);
-	radioButtonG2.AddToGroup(radioButtonG3);
-
-
-	TextInput input = TextInput(500, 500, 200, 100, "input");
-	input.SetText(L"おはよお");
-
-	Checkbox checkbox = Checkbox(600, 20, 105, 35, "Checkbox1");
-	checkbox.SetText(L"Test checkbox");
-	checkbox.AddCheckboxStateSubscriber(checkboxTester);
-
-	input.SetMultiline(true);
-
-	Window frame = Window(800, 600, 800, 600, "testFrame");
-	frame.Add(input);
-	frame.Add(checkbox);
-
-	frame.Add(radioButton1);
-	frame.Add(radioButton2);
-	frame.Add(radioButton3);
-
-	frame.Add(radioButtonG1);
-	frame.Add(radioButtonG2);
-	frame.Add(radioButtonG3);
-	frame.Add(groupLabel1);
-	frame.Add(groupLabel2);
-	frame.Add(passwordField);
-	frame.Add(resultLabel);
-	frame.Add(submitButton);
-	frame.Add(panel);
-	frame.Add(mainTestGrid);
-	frame.Add(fileBrowseButton);
-	frame.Add(fileOutput);
-	frame.Add(fileSaveButton);
-	frame.Add(clearButton);
-	frame.Add(comboBox);
-	frame.Add(listBox);
-	frame.Add(listBoxDragTest);
+	radioButtonG1->AddToGroup(*radioButtonG2);
+	radioButtonG2->AddToGroup(*radioButtonG3);
 
 
+	auto input = std::make_unique<TextInput>(500, 500, 200, 100, "input");
+	input->SetText(L"おはよお");
 
-	Grid calculatorGrid = Grid(10, 10, 208, 208);
-	calculatorGrid.SetGridColumns({ 50, 50, 50, 50 });
-	calculatorGrid.SetGridRows({ 50, 50, 50, 50 });
-	calculatorGrid.AddColumnSpan(0, 3);
-	calculatorGrid.SetColumnGap(2);
-	calculatorGrid.SetRowGap(2);
-	calculatorGrid.AddKeyStateSubscriber(inputTest);
-	calculatorGrid.SetComponentName("CalculatorGrid");
-	frame.Add(calculatorGrid);
+	auto checkbox = std::make_unique<Checkbox>(600, 20, 105, 35, "Checkbox1");
+	checkbox->SetText(L"Test checkbox");
+	checkbox->AddCheckboxStateSubscriber(*checkboxTester);
 
-	Label outputLabel = Label(offset, offset - height - gap, width * 3 + gap * 3, height, "outputLabel");
-	calculatorGrid.Add(outputLabel);
-	SimpleCalculator calculator = SimpleCalculator(outputLabel);
+	input->SetMultiline(true);
+
+	Window* frame = new Window(800, 600, 800, 600, "testFrame");
+	frame->Add(std::move(input));
+	frame->Add(std::move(checkbox));
+
+	frame->Add(std::move(radioButton1));
+	frame->Add(std::move(radioButton2));
+	frame->Add(std::move(radioButton3));
+
+	frame->Add(std::move(radioButtonG1));
+	frame->Add(std::move(radioButtonG2));
+	frame->Add(std::move(radioButtonG3));
+	frame->Add(std::move(groupLabel1));
+	frame->Add(std::move(groupLabel2));
+	frame->Add(std::move(passwordField));
+	frame->Add(std::move(resultLabel));
+	frame->Add(std::move(submitButton));
+	frame->Add(std::move(panel));
+	frame->Add(std::move(mainTestGrid));
+	frame->Add(std::move(fileBrowseButton));
+	frame->Add(std::move(fileOutput));
+	frame->Add(std::move(fileSaveButton));
+	frame->Add(std::move(clearButton));
+	frame->Add(std::move(comboBox));
+	frame->Add(std::move(listBox));
+	frame->Add(std::move(listBoxDragTest));
+
+
+
+	auto calculatorGridPtr = std::make_unique<Grid>(10, 10, 208, 208);
+    auto* calculatorGridRef = calculatorGridPtr.get();
+	calculatorGridRef->SetGridColumns({50, 50, 50, 50 });
+	calculatorGridRef->SetGridRows({50, 50, 50, 50 });
+	calculatorGridRef->AddColumnSpan(0, 3);
+	calculatorGridRef->SetColumnGap(2);
+	calculatorGridRef->SetRowGap(2);
+	calculatorGridRef->AddKeyStateSubscriber(*inputTest);
+	calculatorGridRef->SetComponentName("CalculatorGrid");
+
+	auto outputLabelPtr = std::make_unique<Label>(offset, offset - height - gap, width * 3 + gap * 3, height, "outputLabel");
+    auto* outputLabel = outputLabelPtr.get();
+
+	calculatorGridRef->Add(std::move(outputLabelPtr));
+	SimpleCalculator* calculator = new SimpleCalculator(*outputLabel);
 
 
 	for (int i = 0; i < 11; i++)
 	{
-		Button* inputButton = new Button(0, 0, 0, 0);
+		auto inputButtonPtr = std::make_unique<Button>(0, 0, 0, 0);
+        auto* inputButton = inputButtonPtr.get();
 		inputButton->SetText(to_wstring(i));
 		if (i == 3)
 			inputButton->SetText(L"Add");
 		if (i == 7)
 			inputButton->SetText(L"Multiply");
-		calculatorGrid.Add(*inputButton);
-		inputButton->AddMouseStateSubscriber(calculator);
+		calculatorGridRef->Add(std::move(inputButtonPtr));
+		inputButton->AddMouseStateSubscriber(*calculator);
 	}
-	ApplicationController::JoinThreads();
+
+    frame->Add(std::move(calculatorGridPtr));
+    auto& UiElementNode = frame->GetUiElementNode().GetNode(0);
+    CoreWindow::ConsoleWrite(UiElementNode.GetValue()->GetComponentName() + " nodeCount: " + to_string(UiElementNode.GetNodeCount()));
 }

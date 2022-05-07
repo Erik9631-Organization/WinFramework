@@ -11,6 +11,7 @@
 #include "EventTypes/EventMoveInfo.h"
 #include "TimerSubscriber.h"
 #include "Timer.h"
+#include "EntryStateSubscriber.h"
 
 
 using namespace std;
@@ -20,7 +21,7 @@ class RenderingProvider;
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : public RenderCommander, public DestroySubscriber
+class CoreWindow : public RenderCommander
 {
 
 
@@ -38,9 +39,7 @@ private:
 
 	HWND windowHandle;
 	void CreateConsole();
-	HDC secondaryDc;
 	Window& wrapperFrame;
-	HBITMAP secondaryBitmap;
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
     DefaultRender renderBehavior;
 	HINSTANCE hInstance;
@@ -55,7 +54,6 @@ private:
 	RenderingProvider* renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
-	DWORD updateThreadId = 0;
 	int targetFps = 60;
 	Timer fpsTimer;
 	bool eventBased = false;
@@ -63,9 +61,6 @@ private:
     bool processMessages = true;
     void UpdateGlobalInputState();
     void UpdateLockCursor();
-    std::mutex mainFinishedMutex;
-    std::condition_variable mainFinishedSignal;
-    bool hasMainFinished = false;
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -174,9 +169,5 @@ public:
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
-    void WaitForMainToFinish();
-    void RecieveMessage(const MSG &msg);
-    void RecieveMessage(UINT msg, WPARAM wparam, LPARAM lparam);
-    void OnObjectDestroyed(DestroyEventInfo *e) override;
 };
 

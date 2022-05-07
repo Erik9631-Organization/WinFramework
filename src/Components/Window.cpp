@@ -15,17 +15,12 @@ using namespace std;
 void Window::CreateCoreWindow(LONG style)
 {
 	mutex windowInit;
-	windowThread = new std::thread([=]
+    ApplicationController* controller = ApplicationController::GetApplicationController();
+	windowThread = &controller->CreateThread([=]
 	{
-		ApplicationController::WinEntryArgs args = ApplicationController::GetWinEntryArgs();
-		coreFrame = new CoreWindow(args , *this, name, style);
-		CoreWindow::ConsoleWrite("Construction complete");
-		initNotified = true;
-		initWait->notify_one();
-		ApplicationController::SubscribeToWinProc(*coreFrame); //Not subscription. This is only the callback where all the messages from the windows are processed.
-        coreFrame->WindowsMessageLoop();
-	});
-	ApplicationController::AddThread(windowThread);
+        InitCoreWindow(style);
+	}, to_string((long long) this)+"window");
+
 	unique_lock<mutex>lock(windowInit);
 	initWait->wait(lock, [=] {return initNotified; });
 	SetRenderingProvider(make_shared<GdiRenderingProvider>());
@@ -166,16 +161,15 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
 	initWait = new condition_variable();
 	componentType = "Window";
 	CreateCoreWindow(style);
-    ApplicationController::AddOnDestroySubscriber(coreFrame);
 	coreFrame->RedrawWindow();
 	background.SetColor({255, 255, 255});
     AddOnTickSubscriber(&scene3d);
     AddRenderCommander(background);
 }
 
-void Window::Add(UiElement & component)
+void Window::Add(unique_ptr<UiElement> component)
 {
-	UiElement::Add(component);
+	UiElement::Add(std::move(component));
 }
 
 Window::~Window()
@@ -251,12 +245,22 @@ const bool &Window::IsCursorLocked() const
     return coreFrame->IsCursorLocked();
 }
 
-void Window::Add(Element3d *element)
+void Window::Add(unique_ptr<Element3d> element)
 {
-    scene3d.Add(element);
+    scene3d.Add(std::move(element));
 }
 
 Scene &Window::Get3dScene()
 {
     return scene3d;
+}
+
+void Window::InitCoreWindow(LONG style)
+{
+    ApplicationController::WinEntryArgs args = ApplicationController::GetApplicationController()->GetWinEntryArgs();
+    coreFrame = new CoreWindow(args , *this, name, style);
+    CoreWindow::ConsoleWrite("Construction complete");
+    initNotified = true;
+    initWait->notify_one();
+    coreFrame->WindowsMessageLoop();
 }
