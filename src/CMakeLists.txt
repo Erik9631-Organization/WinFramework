@@ -500,4 +500,5 @@ target_link_libraries(Lii
         PhysXSDK
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
+        MemoryManagerLib
         )

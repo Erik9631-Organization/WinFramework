@@ -16,6 +16,7 @@ message("Runtime directory is: ${outputDir}")
 
 add_subdirectory(libs/stb EXCLUDE_FROM_ALL)
 add_subdirectory(libs/PhysX-4.1/physx/compiler/public EXCLUDE_FROM_ALL)
+add_subdirectory(libs/MemoryManager)
 add_subdirectory(src)
 
 #File installations
