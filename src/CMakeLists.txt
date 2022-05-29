@@ -384,7 +384,7 @@ set(Lii_OpenGL
         OpenGL/DefaultMemoryManager.cpp
         OpenGL/DefaultMemoryManager.h
         OpenGL/VertexAttributeGroup.cpp
-        OpenGL/VboProperties.h
+        OpenGL/VertexAttributeGroup.h
         OpenGL/VertexAttribute.h
         OpenGL/MemoryManager.cpp
         OpenGL/Identifiable.h
@@ -394,7 +394,7 @@ set(Lii_OpenGL
         OpenGL/RenderObject.h
         OpenGL/Hashable.h
         OpenGL/RenderingPriorities.h
-        )
+        OpenGL/GpuMemoryStrategy.h)
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync

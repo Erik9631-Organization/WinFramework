@@ -2,8 +2,8 @@
 // Created by Erik on 29/03/22.
 //
 
-#ifndef LII_VBOPROPERTIES_H
-#define LII_VBOPROPERTIES_H
+#ifndef LII_VERTEXATTRIBUTEGROUP_H
+#define LII_VERTEXATTRIBUTEGROUP_H
 
 #include <glew.h>
 #include "VertexAttribute.h"
@@ -13,7 +13,7 @@
 #include "FloatVertexAttribute.h"
 #include <memory>
 
-class VboProperties : Hashable
+class VertexAttributeGroup : Hashable
 {
 private:
     std::map<size_t, std::unique_ptr<VertexAttribute>> vertexAttributes;
@@ -24,15 +24,16 @@ private:
     size_t hash = 0;
 
 public:
-    VboProperties(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage = GL_STATIC_DRAW);
+    VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage = GL_STATIC_DRAW);
     const size_t & GetHash() const override;
     const GLenum& GetUsage() const;
     void Create();
     void Enable();
     void Disable();
     unsigned int GetVerticeSize();
+    unsigned int GetSize();
 
 };
 
 
-#endif //LII_VBOPROPERTIES_H
+#endif //LII_VERTEXATTRIBUTEGROUP_H

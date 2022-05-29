@@ -6,7 +6,9 @@
 #define LII_DEFAULTMESH_H
 #include "Mesh.h"
 #include "MeshMemoryManager.h"
-
+/**
+ * TODO Code cleanup, remove uneeded variables
+ */
 namespace OpenGL
 {
     class DefaultMesh : public Mesh
@@ -33,6 +35,8 @@ namespace OpenGL
         MeshMemoryManager & GetMeshManager() const override;
         const unsigned int & GetDrawMode() override;
         const int & GetPriority() override;
+        void SetGpuPointer(MemManager::ManagedPtr<float, GpuMemoryStrategy> ptr) override;
+        const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuPointer() override;
     private:
         MeshMemoryManager* manager;
         void CreateDefaultAttributes();
@@ -40,6 +44,7 @@ namespace OpenGL
         void Bind();
         void UnBind();
         long long id = 0;
+        MemManager::ManagedPtr<float, GpuMemoryStrategy> gpuVertices;
 
         std::unique_ptr<std::vector<float>>vertices;
         std::unique_ptr<std::vector<unsigned int>>indexOrders;

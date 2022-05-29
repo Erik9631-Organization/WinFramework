@@ -10,6 +10,7 @@
 *.sln.docstates
 CodeGraphData/
 Doxyfile
+out
 
 cmake-build-debug/
 cmake-build-release/

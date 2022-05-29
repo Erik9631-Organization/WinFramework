@@ -5,13 +5,11 @@
 #include "Window.h"
 #include "OpenGLRenderingProvider.h"
 #include "GraphicsShader.h"
-#include "Button.h"
 #include "OnTickSubscriber.h"
 #include "CameraManager.h"
 #include "InputManager.h"
 #include "ActivateSubscriber.h"
 #include "EventOnActivateInfo.h"
-#include "FloatVertexAttribute.h"
 #include <iostream>
 #include "ModelBuilder.h"
 #include "Model.h"
@@ -104,9 +102,10 @@ int LiiEntry()
     builder.SetProjectionMatrix(projectionMatrix);
     std::unique_ptr<OpenGL::Model> wallBlock = builder.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
     std::unique_ptr<OpenGL::Model> block = builder.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
-    ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
 
+    ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
     wallBlockElement.GetModel()->GetMaterial().SetColor({1.0f, 0.3f, 0.3f, 1.0f});
+
     ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
     blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 

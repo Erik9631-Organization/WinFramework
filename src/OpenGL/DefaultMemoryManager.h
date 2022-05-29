@@ -19,7 +19,7 @@ namespace OpenGL
         static DefaultMemoryManager manager;
     public:
         std::unique_ptr<MeshMemoryManager> & Aquire(const long long int &id) override;
-        MeshMemoryManager &Aquire(const unsigned int &usage, std::unique_ptr<VboProperties> attributes) override;
+        MeshMemoryManager &Aquire(const unsigned int &usage, std::unique_ptr<VertexAttributeGroup> attributes) override;
     };
 }
 

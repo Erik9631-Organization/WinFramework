@@ -9,7 +9,7 @@
 #include <unordered_map>
 #include "MeshMemoryManager.h"
 #include <memory>
-#include "VboProperties.h"
+#include "VertexAttributeGroup.h"
 
 namespace OpenGL
 {
@@ -20,7 +20,7 @@ namespace OpenGL
         static DefaultMemoryManager* manager;
     public:
         virtual std::unique_ptr<MeshMemoryManager> & Aquire(const long long& id) = 0;
-        virtual MeshMemoryManager& Aquire(const unsigned int &usage, std::unique_ptr<VboProperties> attributes) = 0;
+        virtual MeshMemoryManager& Aquire(const unsigned int &usage, std::unique_ptr<VertexAttributeGroup> attributes) = 0;
         static MemoryManager& GetMemoryManager();
     };
 }

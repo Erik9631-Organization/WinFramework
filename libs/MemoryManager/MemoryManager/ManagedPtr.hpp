@@ -5,37 +5,51 @@
 #ifndef REDBLACKMEMORYMANAGER_MANAGEDPTR_HPP
 #define REDBLACKMEMORYMANAGER_MANAGEDPTR_HPP
 #include "MetaData.hpp"
-template<class MemoryStrategyType, class MetaDataType>
-class MemoryManager;
-
-template<class Type, class MemoryStrategyType, class MetaDataType = size_t>
-class ManagedPtr
+namespace MemManager
 {
-public:
-    ManagedPtr(MemoryManager<MemoryStrategyType, MetaDataType>& manager, MetaData<MetaDataType>& objectMetaData) :
-    manager(manager),
-    objectMetaData(objectMetaData){}
+    template<class MemoryStrategyType, class MetaDataType>
+    class MemoryManager;
 
-    Type& operator * ()
+    template<class Type, class MemoryStrategyType, class MetaDataType = size_t>
+    class ManagedPtr
     {
-        return *manager.GetData<Type>(objectMetaData.GetOffset());
-    }
+    public:
+        ManagedPtr(MemoryManager<MemoryStrategyType, MetaDataType>* manager, MetaData<MetaDataType>* objectMetaData) :
+            manager(manager),
+            objectMetaData(objectMetaData)
+        {}
 
-    Type* operator ->()
-    {
-        return manager.GetData<Type>(objectMetaData.GetOffset());
-    }
+        ManagedPtr() = default;
 
-    void Free()
-    {
-        manager.Remove<Type>(objectMetaData);
-    }
+        Type &operator*() const
+        {
+            return *(manager->GetData<Type>(objectMetaData->GetOffset()));
+        }
 
+        Type *operator->() const
+        {
+            return manager->GetData<Type>(objectMetaData->GetOffset());
+        }
 
-private:
-    MetaData<MetaDataType>& objectMetaData;
-    MemoryManager<MemoryStrategyType, MetaDataType>& manager;
-};
+        Type operator [] (const size_t& value)
+        {
+            return *(manager->GetData<Type>(objectMetaData->GetOffset() + sizeof(Type)*value));
+        }
 
+        const MetaData<MetaDataType>* GetMetaData() const
+        {
+            return objectMetaData;
+        }
+
+        void Free()
+        {
+            manager->Remove<Type>(*objectMetaData);
+        }
+
+    private:
+        MetaData<MetaDataType>* objectMetaData = nullptr;
+        MemoryManager<MemoryStrategyType, MetaDataType>* manager = nullptr;
+    };
+}
 
 #endif //REDBLACKMEMORYMANAGER_MANAGEDPTR_HPP

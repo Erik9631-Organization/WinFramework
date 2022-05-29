@@ -2,37 +2,37 @@
 // Created by Erik on 29/03/22.
 //
 
-#include "VboProperties.h"
+#include "VertexAttributeGroup.h"
 
-const size_t & VboProperties::GetHash() const
+const size_t & VertexAttributeGroup::GetHash() const
 {
     return hash;
 }
 
-void VboProperties::Create()
+void VertexAttributeGroup::Create()
 {
     for(auto& i : vertexAttributes)
         i.second->Create();
 }
 
-void VboProperties::Enable()
+void VertexAttributeGroup::Enable()
 {
     for(auto& i : vertexAttributes)
         i.second->Enable();
 }
 
-void VboProperties::Disable()
+void VertexAttributeGroup::Disable()
 {
     for(auto& i : vertexAttributes)
         i.second->Disable();
 }
 
-const GLenum &VboProperties::GetUsage() const
+const GLenum &VertexAttributeGroup::GetUsage() const
 {
     return usage;
 }
 
-VboProperties::VboProperties(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage)
+VertexAttributeGroup::VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage)
 {
     std::string stringHash = "usage:"+std::to_string(usage)+";";
     this->usage = usage;
@@ -48,7 +48,12 @@ VboProperties::VboProperties(std::vector<std::unique_ptr<VertexAttribute>> &attr
     hash = Utils::HashDjb2::CalculateHash(stringHash);
 }
 
-unsigned int VboProperties::GetVerticeSize()
+unsigned int VertexAttributeGroup::GetVerticeSize()
 {
     return verticeSize;
+}
+
+unsigned int VertexAttributeGroup::GetSize()
+{
+    return vertexAttributes.size();
 }

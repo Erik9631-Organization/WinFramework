@@ -41,7 +41,7 @@ DefaultMesh::DefaultMesh(int componentCount, std::vector<float> vertices, std::v
     if(&attributes == &defaultAttributes)
         CreateDefaultAttributes();
 
-    manager = &MemoryManager::GetMemoryManager().Aquire(GL_STATIC_DRAW, std::make_unique<VboProperties>(attributes));
+    manager = &MemoryManager::GetMemoryManager().Aquire(GL_STATIC_DRAW, std::make_unique<VertexAttributeGroup>(attributes));
     manager->Push(*this);
 
 }
@@ -70,7 +70,6 @@ void DefaultMesh::SetDrawMode(GLenum drawMode)
 std::vector<unsigned int> & DefaultMesh::SetVerticeDrawOrder(std::unique_ptr<std::vector<unsigned int>> indexOrders)
 {
     this->indexOrders = std::move(indexOrders);
-    manager->PushOrder(*this);
     return *this->indexOrders;
 }
 
@@ -150,4 +149,14 @@ void DefaultMesh::CreateDefaultAttributes()
 const int & DefaultMesh::GetPriority()
 {
     return RenderingPriorities::Mesh;
+}
+
+void DefaultMesh::SetGpuPointer(MemManager::ManagedPtr<float, GpuMemoryStrategy> ptr)
+{
+    this->gpuVertices = ptr;
+}
+
+const MemManager::ManagedPtr<float, GpuMemoryStrategy> & DefaultMesh::GetGpuPointer()
+{
+    return gpuVertices;
 }

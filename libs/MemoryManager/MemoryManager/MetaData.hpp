@@ -5,38 +5,42 @@
 #ifndef REDBLACKMEMORYMANAGER_METADATA_HPP
 #define REDBLACKMEMORYMANAGER_METADATA_HPP
 
-template<class T>
-class MetaData
+namespace MemManager
 {
-private:
-    size_t offset;
-    size_t size;
-    T* userData = nullptr;
-public:
-    MetaData(const size_t offset, const size_t& size)
+    template<class T>
+    class MetaData
     {
-        this->offset = offset;
-        this->size = size;
-        this->userData = nullptr;
-    }
-    const T& GetUserData() const
-    {
-        return *userData;
-    }
+    private:
+        size_t offset;
+        size_t size;
+        T* userData = nullptr;
+    public:
+        MetaData(const size_t offset, const size_t& size)
+        {
+            this->offset = offset;
+            this->size = size;
+            this->userData = nullptr;
+        }
+        const T& GetUserData() const
+        {
+            return *userData;
+        }
 
-    const size_t& GetOffset() const
-    {
-        return offset;
-    }
-    const size_t& GetSize() const
-    {
-        return size;
-    }
-    void SetUserData(T* userData)
-    {
-        this->userData = userData;
-    }
-};
+        const size_t& GetOffset() const
+        {
+            return offset;
+        }
+        const size_t& GetSize() const
+        {
+            return size;
+        }
+        void SetUserData(T* userData)
+        {
+            this->userData = userData;
+        }
+    };
+
+}
 
 
 #endif //REDBLACKMEMORYMANAGER_METADATA_HPP

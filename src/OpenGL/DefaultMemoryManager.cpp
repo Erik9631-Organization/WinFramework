@@ -6,7 +6,7 @@
 #include "DefaultMeshMemoryManager.h"
 
 OpenGL::MeshMemoryManager &
-OpenGL::DefaultMemoryManager::Aquire(const unsigned int &usage, std::unique_ptr<VboProperties> attributes)
+OpenGL::DefaultMemoryManager::Aquire(const unsigned int &usage, std::unique_ptr<VertexAttributeGroup> attributes)
 {
     //First try to find by hash
     auto element = memoryMap.find(attributes->GetHash());

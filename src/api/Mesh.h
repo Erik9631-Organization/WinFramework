@@ -12,6 +12,8 @@
 #include "FloatVertexAttribute.h"
 #include "Taggable.h"
 #include "MeshMemoryManager.h"
+#include "ManagedPtr.hpp"
+#include "GpuMemoryStrategy.h"
 
 class Mesh : public RenderObjectSubscriber, public Taggable
 {
@@ -24,6 +26,8 @@ public:
 
     virtual const std::vector<float>& GetVertices() const = 0 ;
     virtual const std::vector<unsigned int> & GetVerticeOrders() const = 0;
+    virtual void SetGpuPointer(MemManager::ManagedPtr<float, GpuMemoryStrategy> ptr) = 0;
+    virtual const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuPointer() = 0;
 
     virtual void SetTextureComponentCount(const unsigned int& componentCount) = 0;
     virtual void SetComponentCount(const unsigned int& componentCount) = 0;
