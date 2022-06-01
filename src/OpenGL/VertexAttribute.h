@@ -6,7 +6,7 @@
 #define LII_VERTEXATTRIBUTE_H
 #include "Hashable.h"
 
-class VertexAttribute : public Hashable
+class VertexAttribute
 {
 public:
     virtual void SetId(unsigned int id) = 0;
@@ -24,7 +24,7 @@ public:
     virtual bool IsNormalized() const = 0;
     virtual unsigned int GetElementSize() const = 0;
     virtual unsigned int GetOffset() const = 0;
-    ~VertexAttribute() = default;
+    virtual ~VertexAttribute() = default;
 };
 
 

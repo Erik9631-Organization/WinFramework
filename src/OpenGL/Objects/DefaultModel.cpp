@@ -77,7 +77,7 @@ void DefaultModel::SetProjectionMatrix(glm::mat4 *projection)
 
 void DefaultModel::SetDrawMode(unsigned int drawMode)
 {
-    mesh->SetDrawMode(drawMode);
+    mesh->SetPrimitiveType(drawMode);
 }
 
 void DefaultModel::SetViewMatrix(glm::mat4 *view)

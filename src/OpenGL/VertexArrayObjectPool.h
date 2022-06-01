@@ -5,7 +5,7 @@
 #ifndef LII_VERTEXARRAYOBJECTPOOL_H
 #define LII_VERTEXARRAYOBJECTPOOL_H
 #include <unordered_map>
-#include <FloatVertexAttribute.h>
+#include <DefaultVertexAttribute.h>
 #include <memory>
 
 namespace OpenGL
@@ -13,11 +13,11 @@ namespace OpenGL
     class VertexArrayObjectPool
     {
     private:
-        std::unordered_map<std::string, std::unique_ptr<FloatVertexAttribute>> vertexAttributeMap;
+        std::unordered_map<std::string, std::unique_ptr<DefaultVertexAttribute>> vertexAttributeMap;
         static const VertexArrayObjectPool& attributePool;
     public:
         static VertexArrayObjectPool GetVertexAttributePool();
-        FloatVertexAttribute& Aquire(const std::string& tag);
+        DefaultVertexAttribute& Aquire(const std::string& tag);
     };
 }
 

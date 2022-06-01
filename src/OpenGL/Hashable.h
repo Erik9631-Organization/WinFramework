@@ -10,7 +10,7 @@ class Hashable
 {
 public:
     virtual const size_t & GetHash() const = 0;
-    ~Hashable() = default;
+    virtual ~Hashable() = default;
 };
 
 #endif //LII_HASHABLE_H

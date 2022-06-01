@@ -10,28 +10,26 @@
 #include <vector>
 #include <map>
 #include "Hash.h"
-#include "FloatVertexAttribute.h"
+#include "DefaultVertexAttribute.h"
 #include <memory>
 
-class VertexAttributeGroup : Hashable
+class VertexAttributeGroup
 {
 private:
-    std::map<size_t, std::unique_ptr<VertexAttribute>> vertexAttributes;
+    std::vector<std::unique_ptr<VertexAttribute>> vertexAttributes;
     unsigned int verticeSize = 0;
-    GLenum usage;
-
-    //For hash
-    size_t hash = 0;
 
 public:
-    VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage = GL_STATIC_DRAW);
-    const size_t & GetHash() const override;
-    const GLenum& GetUsage() const;
+    VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes);
+    VertexAttributeGroup() = default;
+    void AddVertexAttribute(std::unique_ptr<VertexAttribute> vertexAttribute);
+    void RemoveVertexAttribute(const std::vector<std::unique_ptr<VertexAttribute>>::iterator &iterator);
     void Create();
     void Enable();
     void Disable();
-    unsigned int GetVerticeSize();
-    unsigned int GetSize();
+    const unsigned int & GetVerticeSize();
+    const std::vector<std::unique_ptr<VertexAttribute>> & GetVertexAttributes() const;
+    unsigned int lastId = 0;
 
 };
 

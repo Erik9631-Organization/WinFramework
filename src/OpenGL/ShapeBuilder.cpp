@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #include "ModelBuilder.h"
 #include "DefaultShaderProgram.h"
-#include "DefaultMesh.h"
+#include "StaticMesh.h"
 #include "GraphicsShader.h"
 #include "DefaultModel.h"
 #include "ShaderProgram.h"
@@ -16,18 +16,18 @@
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x, float y, float width, float height)
 {
 
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("",3, std::vector<float>
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
     {
         0, 0, 0,            0, 1,
         width, 0, 0,        1, 1,
         width, height, 0,   1, 0,
         0, height, 0,       0, 0
     });
-    shape.SetVerticeDrawOrder(
-    {
-        0, 1, 2,
-        0, 3, 2
-    });
+    shape.SetIndexBufferContent(
+        {
+            0, 1, 2,
+            0, 3, 2
+        });
 
     auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
     if(projectionMatrix != nullptr)
@@ -56,7 +56,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(std::initial
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(glm::vec2 a1, glm::vec2 a2, glm::vec2 a3)
 {
 
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("", 3, std::vector<float>
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
     {
         0, 0, 0,
         a2.x - a1.x, a2.y - a1.y, 0,
@@ -91,8 +91,8 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(float x, 
 
     drawOrder.insert(drawOrder.end(), {360, 0, 359}); // To loop the ellipse
 
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("",3, vertices);
-    shape.SetVerticeDrawOrder(drawOrder);
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", vertices);
+    shape.SetIndexBufferContent(drawOrder);
 
     auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
     model->SetProjectionMatrix(projectionMatrix);
@@ -114,20 +114,20 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(glm::vec2 p
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(float x, float y, float width, float height)
 {
 
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("", 3, std::vector<float>
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
     {
         0, 0, 0,
         width, 0, 0,
         width, height, 0,
         0, height, 0
     });
-    shape.SetVerticeDrawOrder(
+    shape.SetIndexBufferContent(
         {
             0, 1,
             1, 2,
             2, 3,
         });
-    shape.SetDrawMode(GL_LINE_LOOP);
+    shape.SetPrimitiveType(GL_LINE_LOOP);
 
     auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
     if(projectionMatrix != nullptr)
@@ -161,9 +161,9 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(float x, floa
     {
         drawOrder.insert(drawOrder.end(), {prevVertice, vertice});
     }
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("",3, vertices);
-    shape.SetVerticeDrawOrder(drawOrder);
-    shape.SetDrawMode(GL_LINE_LOOP);
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", vertices);
+    shape.SetIndexBufferContent(drawOrder);
+    shape.SetPrimitiveType(GL_LINE_LOOP);
 
     auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
     model->SetProjectionMatrix(projectionMatrix);
@@ -177,7 +177,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float 
 
     depth *= -1;
     height *= -1;
-    Mesh& shape = meshManager->CreateMesh<OpenGL::DefaultMesh>("",3, std::vector<float>
+    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
         {
             0, 0, 0,            0, 1,   0, 0, 1,//Front Face
             width, 0, 0,        1, 1,   0, 0, 1,

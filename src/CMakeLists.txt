@@ -364,8 +364,8 @@ set(Lii_OpenGL
         api/ShaderProgram.h
         OpenGL/DefaultShaderProgram.cpp
         OpenGL/DefaultShaderProgram.h
-        api/Mesh.h OpenGL/DefaultMesh.cpp
-        OpenGL/DefaultMesh.h OpenGL/Uniform.h 
+        api/Mesh.h OpenGL/StaticMesh.cpp
+        OpenGL/StaticMesh.h OpenGL/Uniform.h
         OpenGL/UniformManager.cpp
         OpenGL/UniformProperties.h
         OpenGL/ShapeBuilder.cpp
@@ -373,20 +373,18 @@ set(Lii_OpenGL
         OpenGL/Texture.cpp
         OpenGL/DefaultTexture.h
         api/Resource.h
-        OpenGL/FloatVertexAttribute.cpp
-        OpenGL/FloatVertexAttribute.h
+        OpenGL/DefaultVertexAttribute.cpp
+        OpenGL/DefaultVertexAttribute.h
         OpenGL/VertexArrayObjectPool.h
-        OpenGL/DefaultMeshMemoryManager.cpp
-        OpenGL/DefaultMeshMemoryManager.h
+        OpenGL/DefaultGpuMemoryAllocator.cpp
+        OpenGL/DefaultGpuMemoryAllocator.h
         OpenGL/Taggable.h
-        OpenGL/MemoryManager.h
-        OpenGL/MeshMemoryManager.h
-        OpenGL/DefaultMemoryManager.cpp
-        OpenGL/DefaultMemoryManager.h
+        OpenGL/GpuMemoryAllocator.h
+        OpenGL/MemoryAllocatorManager.cpp
+        OpenGL/MemoryAllocatorManager.h
         OpenGL/VertexAttributeGroup.cpp
         OpenGL/VertexAttributeGroup.h
         OpenGL/VertexAttribute.h
-        OpenGL/MemoryManager.cpp
         OpenGL/Identifiable.h
         OpenGL/RenderingManager.h
         OpenGL/DefaultRenderingManager.cpp

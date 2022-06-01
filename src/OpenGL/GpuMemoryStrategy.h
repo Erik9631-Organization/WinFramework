@@ -25,10 +25,11 @@ private:
         glBindVertexArray(vaoId);
     }
 
-    void BindVaoToBuffer()
+    void BindVaoToBoundBuffers()
     {
         properties->Create();
         properties->Enable();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferId);
     }
 
 public:
@@ -57,7 +58,7 @@ public:
         glBufferData(GL_ARRAY_BUFFER, size, NULL, this->usage);
 
         if(properties != nullptr)
-            BindVaoToBuffer();
+            BindVaoToBoundBuffers();
 
 
         if(vaoId)
@@ -80,7 +81,7 @@ public:
         if(properties != nullptr)
         {
             glBindVertexArray(vaoId);
-            BindVaoToBuffer();
+            BindVaoToBoundBuffers();
         }
 
         return bufferId;
@@ -95,7 +96,7 @@ public:
     }
 
     template<typename T, typename MetaDataType>
-    void EraseData(MemManager::MetaData<MetaDataType>& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
+    void EraseData(const MemManager::MetaData<MetaDataType>& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
     {
         //The data will be simply rewritten. Nothing else required here
         usedMemory-= metaData.GetSize();

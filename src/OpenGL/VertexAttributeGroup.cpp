@@ -4,56 +4,56 @@
 
 #include "VertexAttributeGroup.h"
 
-const size_t & VertexAttributeGroup::GetHash() const
-{
-    return hash;
-}
-
 void VertexAttributeGroup::Create()
 {
     for(auto& i : vertexAttributes)
-        i.second->Create();
+        i->Create();
 }
 
 void VertexAttributeGroup::Enable()
 {
     for(auto& i : vertexAttributes)
-        i.second->Enable();
+        i->Enable();
 }
 
 void VertexAttributeGroup::Disable()
 {
     for(auto& i : vertexAttributes)
-        i.second->Disable();
+        i->Disable();
 }
 
-const GLenum &VertexAttributeGroup::GetUsage() const
-{
-    return usage;
-}
 
-VertexAttributeGroup::VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes, GLenum usage)
+VertexAttributeGroup::VertexAttributeGroup(std::vector<std::unique_ptr<VertexAttribute>> &attributes)
 {
-    std::string stringHash = "usage:"+std::to_string(usage)+";";
-    this->usage = usage;
-    unsigned int counter = 0;
     for(std::unique_ptr<VertexAttribute>& attribute : attributes)
     {
-        attribute->SetId(counter);
-        stringHash += std::to_string(attribute->GetHash()) + ";";
+        attribute->SetId(lastId);
         verticeSize += attribute->GetComponentCount();
-        vertexAttributes.try_emplace(attribute->GetHash(), std::move(attribute));
-        counter++;
+        vertexAttributes.push_back(std::move(attribute));
+        lastId++;
     }
-    hash = Utils::HashDjb2::CalculateHash(stringHash);
 }
 
-unsigned int VertexAttributeGroup::GetVerticeSize()
+const unsigned int & VertexAttributeGroup::GetVerticeSize()
 {
     return verticeSize;
 }
 
-unsigned int VertexAttributeGroup::GetSize()
+const std::vector<std::unique_ptr<VertexAttribute>> & VertexAttributeGroup::GetVertexAttributes() const
 {
-    return vertexAttributes.size();
+    return vertexAttributes;
 }
+
+void VertexAttributeGroup::AddVertexAttribute(std::unique_ptr<VertexAttribute> vertexAttribute)
+{
+    verticeSize += vertexAttribute->GetComponentCount();
+    vertexAttribute->SetId(lastId);
+    vertexAttributes.push_back(std::move(vertexAttribute));
+    lastId++;
+}
+
+void VertexAttributeGroup::RemoveVertexAttribute(const std::vector<std::unique_ptr<VertexAttribute>>::iterator &iterator)
+{
+    vertexAttributes.erase(iterator);
+}
+

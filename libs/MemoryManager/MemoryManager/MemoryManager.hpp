@@ -255,6 +255,10 @@ namespace MemManager
         {
             return currentMemorySize - usedMemory;
         }
+        const size_t& GetStartAddr() const
+        {
+            return memoryStartAddr;
+        }
 
     };
 }
