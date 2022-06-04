@@ -9,6 +9,7 @@
 #include "DefaultShaderProgram.h"
 #include "Clonable.h"
 #include "ShaderProgram.h"
+#include "Texture.h"
 
 namespace OpenGL
 {
@@ -22,6 +23,7 @@ namespace OpenGL
         glm::vec3 diffuse = glm::vec3(1.0f, 1.0f, 1.0f);
         glm::vec4 color = glm::vec4(0.0f, 0.0f, 0.0f, 0.0f);
         float specularStrength = 8;
+        const Texture* texture  = nullptr;
     public:
         Material(ShaderProgram &program);
         void SetAmbient(const glm::vec3& ambient);

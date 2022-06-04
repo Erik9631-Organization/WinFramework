@@ -15,6 +15,7 @@ void Material::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
     program.GetUniformProperties().SetProperty("material.diffuse", diffuse);
     program.GetUniformProperties().SetProperty("material.specStrength", specularStrength);
     program.GetUniformProperties().SetProperty("color", color);
+    program.GetUniformProperties().SetProperty("inputTexture", 0);
 }
 
 void Material::SetSpecularStrength(const float &specularStrength)

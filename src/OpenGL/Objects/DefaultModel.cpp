@@ -130,6 +130,7 @@ DefaultModel:: DefaultModel(const DefaultModel &model)
     texture = model.texture;
     activeCamera = model.activeCamera;
     renderObjectSubscribers = model.renderObjectSubscribers;
+    renderObjectSubscribers = model.renderObjectSubscribers;
 }
 
 const glm::mat4 & DefaultModel::GetModelMatrix()  const

@@ -101,6 +101,7 @@ int LiiEntry()
     frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
     auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
     auto& texture = manager->CreateTexture<OpenGL::DefaultTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
+    texture.LoadResource();
 
     OpenGL::ModelBuilder builder3D{};
     OpenGL::ModelBuilder builder2D{};
@@ -114,7 +115,7 @@ int LiiEntry()
     rectangle->Translate({0, 0, -10.0f});
 
     ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
-    wallBlockElement.GetModel()->GetMaterial().SetColor({1.0f, 0.3f, 0.3f, 1.0f});
+    //wallBlockElement.GetModel()->GetMaterial().SetColor({1.0f, 0.3f, 0.3f, 1.0f});
 
     ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
     blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
