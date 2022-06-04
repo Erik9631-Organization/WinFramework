@@ -13,7 +13,7 @@ namespace OpenGL
     class CameraManagerSubscriber
     {
     public:
-        virtual void OnCameraChanged(const Camera &newCamera) = 0;
+        virtual void OnCameraChanged(const Camera *newCamera) = 0;
     };
 }
 

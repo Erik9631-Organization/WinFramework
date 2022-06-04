@@ -107,7 +107,7 @@ namespace MemManager
         }
 
 
-        void EraseFreeMemoryNodes(std::multimap<size_t, size_t>::iterator& freeSegment)
+        void EraseFreeMemoryNodes(const std::multimap<size_t, size_t>::iterator& freeSegment)
         {
             auto offsetIt = freeOffsetMemoryMap.find(freeSegment->second);
             if(offsetIt == freeOffsetMemoryMap.end())

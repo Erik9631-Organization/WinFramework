@@ -58,5 +58,5 @@ void main()
 {
    vec3 diffuseLight = DiffuseLight();
    vec3 specularLight = SpecularLight();
-   FragColor = (texture(inputTexture, TextCoord) + color)  * vec4(diffuseLight + material.ambientStrength + specularLight, 1.0f);
+   FragColor = (texture(inputTexture, TextCoord) + color)  * vec4(diffuseLight + material. ambientStrength + specularLight, 1.0f);
 }

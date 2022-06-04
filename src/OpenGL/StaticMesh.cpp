@@ -19,19 +19,27 @@ const std::vector<float> * StaticMesh::GetVertices() const
     return vertices.get();
 }
 
-StaticMesh::StaticMesh(std::vector<float> vertices, bool hasIndices)
+StaticMesh::StaticMesh(std::vector<float> vertices, std::vector<unsigned int> indices)
 {
-    this->hasIndices = hasIndices;
     this->vertices = std::make_unique<std::vector<float>>(std::move(vertices));
+    if(indices.size() != 0)
+        this->indices = std::make_unique<std::vector<unsigned int>>(std::move(indices));
+
     manager = static_cast<DefaultGpuMemoryAllocator*>(MemoryAllocatorManager::GetMemoryAllocatorManager().Aquire("static"));
-    gpuVertices = manager->Push(*this);
-    //Delete from the ram as it is no longer needed
+    auto pointerPair = manager->Push(*this);
+    gpuVertices = pointerPair.first;
+    gpuIndices = pointerPair.second;
+
+    //Delete from the system RAM as it is no longer needed
     this->vertices.reset();
+    this->indices.reset();
 }
 
 StaticMesh::~StaticMesh()
 {
     manager->Erase(gpuVertices);
+    if(gpuIndices.GetMetaData() != nullptr)
+        manager->Erase(gpuIndices);
 }
 
 
@@ -42,22 +50,24 @@ void StaticMesh::SetPrimitiveType(const unsigned int &primitiveType)
 
 std::vector<unsigned int> * StaticMesh::SetIndexBuffer(std::unique_ptr<std::vector<unsigned int>> indices)
 {
+    //Static mesh can not be set
     return nullptr;
 }
 
 const std::vector<unsigned int> * StaticMesh::GetIndices() const
 {
-    return nullptr;
+    //Static mesh can not be get
+    return indices.get();
 }
 
 void StaticMesh::SetVertices(std::vector<float> vertices)
 {
-    SetVertices(std::make_unique<std::vector<float>>(std::move(vertices)));
+    //Static mesh can not be set
 }
 
 void StaticMesh::SetIndexBufferContent(std::vector<unsigned int> indexOrders)
 {
-    SetIndexBuffer(std::make_unique<std::vector<unsigned int>>(std::move(indexOrders)));
+    //Static mesh can not be set
 }
 
 void StaticMesh::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
@@ -91,13 +101,24 @@ const int & StaticMesh::GetPriority()
     return RenderingPriorities::Mesh;
 }
 
-
-const MemManager::ManagedPtr<float, GpuMemoryStrategy> & StaticMesh::GetGpuPointer()
+const MemManager::ManagedPtr<float, GpuMemoryStrategy> & StaticMesh::GetGpuVerticePointer()
 {
     return gpuVertices;
 }
 
 const bool &StaticMesh::HasIndices()
 {
-    return hasIndices;
+    if(gpuIndices.GetMetaData() == nullptr)
+        return false;
+    return true;
+}
+
+const MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> & StaticMesh::GetGpuIndicePointer()
+{
+    return gpuIndices;
+}
+
+StaticMesh::StaticMesh(std::vector<float> vertices) : StaticMesh(std::move(vertices), {})
+{
+
 }

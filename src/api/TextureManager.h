@@ -13,14 +13,6 @@ class TextureManager : public ResourceManager
 {
 
 public:
-    template<class T, typename Args>
-    Texture& CreateTexture(Args args ...)
-    {
-        T* instance = new T();
-        instance->SetTag(tag);
-        return InsertToMap(std::unique_ptr<Texture>(instance));
-    }
-
     template<class T, typename ... Args>
     Texture& CreateTexture(const std::string& tag, Args ... args)
     {

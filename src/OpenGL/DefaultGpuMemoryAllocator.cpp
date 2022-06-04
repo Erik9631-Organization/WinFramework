@@ -15,9 +15,17 @@ DefaultGpuMemoryAllocator::DefaultGpuMemoryAllocator(std::unique_ptr<VertexAttri
     vertexAttributes = std::move(properties);
 }
 
-MemManager::ManagedPtr<float, GpuMemoryStrategy> OpenGL::DefaultGpuMemoryAllocator::Push(Mesh &mesh)
+std::pair<MemManager::ManagedPtr<float, GpuMemoryStrategy>, MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy>>
+OpenGL::DefaultGpuMemoryAllocator::Push(Mesh &mesh)
 {
-    return gpuMemoryManager.Copy<float>((float*)mesh.GetVertices()->data(), mesh.GetVertices()->size());
+    std::pair<MemManager::ManagedPtr<float, GpuMemoryStrategy>, MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy>> pointerPair;
+
+    pointerPair.first = gpuMemoryManager.Copy<float>((float*)mesh.GetVertices()->data(), mesh.GetVertices()->size());
+    if(mesh.GetIndices() == nullptr)
+        return pointerPair;
+
+    pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), mesh.GetIndices()->size());
+    return pointerPair;
 }
 
 void DefaultGpuMemoryAllocator::Bind()
@@ -34,7 +42,8 @@ void DefaultGpuMemoryAllocator::UnBind()
 void DefaultGpuMemoryAllocator::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 {
     Mesh* mesh = renderObjectEventInfo->GetSrc<Mesh>();
-    auto& gpuPtr = mesh->GetGpuPointer();
+    auto& verticePtr = mesh->GetGpuVerticePointer();
+    auto& indicePtr = mesh->GetGpuIndicePointer();
 
 //    //auto element = meshMetaData.find((size_t)mesh);
 //    //Nothing to draw as the array contains no data
@@ -46,8 +55,17 @@ void DefaultGpuMemoryAllocator::OnRender(const RenderObjectEventInfo *renderObje
     //else
     //GL Draw arrays draws the number of VERTICES!!!!!!
 
-    unsigned int verticeIndex = gpuPtr.GetMetaData()->GetOffset() / sizeof(float) / vertexAttributes->GetVerticeSize();
-    unsigned int numberOfVertices = gpuPtr.GetMetaData()->GetSize() / sizeof(float) / vertexAttributes->GetVerticeSize();
+    unsigned int verticeIndex = verticePtr.GetMetaData()->GetOffset() / sizeof(float) / vertexAttributes->GetVerticeSize();
+    unsigned int numberOfVertices = verticePtr.GetMetaData()->GetSize() / sizeof(float) / vertexAttributes->GetVerticeSize();
+
+    if(indicePtr.GetMetaData() != nullptr)
+    {
+        glDrawElementsBaseVertex(mesh->GetPrimitiveType(), indicePtr.GetMetaData()->GetSize() / sizeof(unsigned int),
+                       GL_UNSIGNED_INT, (void*)indicePtr.GetMetaData()->GetOffset(), verticeIndex);
+        return;
+    }
+
+
     glDrawArrays(mesh->GetPrimitiveType(), verticeIndex, numberOfVertices);
 }
 
@@ -69,10 +87,5 @@ void DefaultGpuMemoryAllocator::SetTag(const std::string &tag)
 const unsigned long long int &DefaultGpuMemoryAllocator::GetId() const
 {
     return gpuMemoryManager.GetStartAddr();
-}
-
-void DefaultGpuMemoryAllocator::Erase(MemManager::ManagedPtr<float, GpuMemoryStrategy> gpuPtr)
-{
-    gpuPtr.Free();
 }
 

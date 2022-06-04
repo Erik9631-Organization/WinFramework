@@ -27,7 +27,8 @@ public:
     virtual const bool& HasIndices() = 0;
     virtual const std::vector<float> * GetVertices() const = 0 ;
     virtual const std::vector<unsigned int> * GetIndices() const = 0;
-    virtual const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuPointer() = 0;
+    virtual const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuVerticePointer() = 0;
+    virtual const MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> & GetGpuIndicePointer() = 0;
 
     virtual OpenGL::GpuMemoryAllocator & GetMeshManager() const = 0;
     virtual void SetPrimitiveType(const unsigned int &primitiveType) = 0;

@@ -370,7 +370,7 @@ set(Lii_OpenGL
         OpenGL/UniformProperties.h
         OpenGL/ShapeBuilder.cpp
         OpenGL/ModelBuilder.h
-        OpenGL/Texture.cpp
+        OpenGL/DefaultTexture.cpp
         OpenGL/DefaultTexture.h
         api/Resource.h
         OpenGL/DefaultVertexAttribute.cpp

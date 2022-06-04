@@ -61,7 +61,7 @@ DefaultModel::DefaultModel(ShaderProgram *shaderProgram, Mesh *mesh)
 {
     this->id = Utils::AutoId::AquireId();
     activeCamera = OpenGL::CameraManager::GetActiveCamera();
-    viewMatrix = &defaultViewMatrix;
+    viewMatrix = new glm::mat4(defaultViewMatrix);
     projectionMatrix = &defaultProjectionMatrix;
     this->mesh = mesh;
     this->shaderProgram = shaderProgram;
@@ -90,9 +90,11 @@ void DefaultModel::SetTexture(Texture *texture)
     this->texture = texture;
 }
 
-void DefaultModel::OnCameraChanged(const Camera &newCamera)
+void DefaultModel::OnCameraChanged(const Camera *newCamera)
 {
-    activeCamera = &newCamera;
+    if(customCameraEnabled == true)
+        return;
+    activeCamera = newCamera;
 }
 
 const Mesh * OpenGL::DefaultModel::GetMesh() const
@@ -171,6 +173,8 @@ void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 {
     if(activeCamera != nullptr)
         *viewMatrix = glm::lookAt(activeCamera->GetPosition(), activeCamera->GetPosition() + activeCamera->GetForwardAxis(), activeCamera->GetUpAxis());
+    else
+        *viewMatrix = defaultViewMatrix;
 
     if(projectionMatrix == nullptr)
         shaderProgram->GetUniformProperties().SetProperty("projection", glm::mat4{1});
@@ -282,4 +286,24 @@ const glm::vec3 &DefaultModel::GetScale()
 const glm::vec3 &DefaultModel::GetTranslation()
 {
     return translationVec;
+}
+
+void DefaultModel::CustomCameraEnabled(const bool &state)
+{
+    this->customCameraEnabled = state;
+}
+
+const bool &DefaultModel::IsCustomCameraEnabled()
+{
+    return customCameraEnabled;
+}
+
+void DefaultModel::SetCamera(const Camera *camera)
+{
+    activeCamera = camera;
+}
+
+const Camera * DefaultModel::GetCamera()
+{
+    return activeCamera;
 }

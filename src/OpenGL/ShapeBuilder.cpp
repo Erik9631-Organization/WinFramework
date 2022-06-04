@@ -15,19 +15,18 @@
 
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x, float y, float width, float height)
 {
-
     Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
     {
-        0, 0, 0,            0, 1,
-        width, 0, 0,        1, 1,
-        width, height, 0,   1, 0,
-        0, height, 0,       0, 0
-    });
-    shape.SetIndexBufferContent(
-        {
-            0, 1, 2,
-            0, 3, 2
-        });
+        0, 0, 0,            0, 0,   0, 0, 0,
+        width, 0, 0,        0, 0,   0, 0, 0,
+        width, height, 0,   0, 0,   0, 0, 0,
+        0, height, 0,       0, 0,   0, 0, 0
+
+    },
+      std::vector<unsigned int>{
+          0, 1, 2,
+          0, 3, 2
+      });
 
     auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
     if(projectionMatrix != nullptr)
@@ -116,10 +115,10 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(float x, fl
 
     Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
     {
-        0, 0, 0,
-        width, 0, 0,
-        width, height, 0,
-        0, height, 0
+        0, 0, 0,            0, 0,   0, 0, 0,
+        width, 0, 0,        0, 0,   0, 0, 0,
+        width, height, 0,   0, 0,   0, 0, 0,
+        0, height, 0,       0, 0,   0, 0, 0
     });
     shape.SetIndexBufferContent(
         {

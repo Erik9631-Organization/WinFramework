@@ -13,7 +13,8 @@ namespace OpenGL
     class StaticMesh : public Mesh
     {
     public:
-        StaticMesh(std::vector<float> vertices, bool hasIndices = false);
+        StaticMesh(std::vector<float> vertices, std::vector<unsigned int> indices);
+        StaticMesh(std::vector<float> vertices);
         std::vector<float> * SetVertices(std::unique_ptr<std::vector<float>> vertices) override;
         const std::vector<float> * GetVertices() const override;
         ~StaticMesh() override;
@@ -28,14 +29,16 @@ namespace OpenGL
         GpuMemoryAllocator & GetMeshManager() const override;
         const unsigned int & GetPrimitiveType() override;
         const int & GetPriority() override;
-        const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuPointer() override;
+        const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuVerticePointer() override;
         const bool &HasIndices() override;
+        const MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> & GetGpuIndicePointer() override;
     private:
         DefaultGpuMemoryAllocator* manager;
-        bool hasIndices = false;
         std::unique_ptr<std::vector<float>> vertices;
+        std::unique_ptr<std::vector<unsigned int>> indices;
 
         MemManager::ManagedPtr<float, GpuMemoryStrategy> gpuVertices;
+        MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> gpuIndices;
         GLenum primitiveType = GL_TRIANGLES;
         std::string tag = "";
     };

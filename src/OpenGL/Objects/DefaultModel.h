@@ -38,6 +38,7 @@ namespace OpenGL
         glm::vec3 rotationAxis = glm::vec3{1};
         glm::vec3 scalingVec = glm::vec3{1};
         float angle = 0;
+        bool customCameraEnabled = false;
 
         void RecalculateMatrix();
     public:
@@ -54,7 +55,7 @@ namespace OpenGL
         void SetDrawMode(unsigned int drawMode) override;
         void SetViewMatrix(glm::mat4 *view) override;
         void SetTexture(Texture *texture) override;
-        void OnCameraChanged(const Camera &newCamera) override;
+        void OnCameraChanged(const Camera *newCamera) override;
         const Mesh * GetMesh() const override;
         std::unique_ptr<Model> CloneUnique() const;
         std::shared_ptr<Model> CloneShared() const;
@@ -81,6 +82,10 @@ namespace OpenGL
         const float &GetAngle() override;
         const glm::vec3 &GetScale() override;
         const glm::vec3 &GetTranslation() override;
+        void CustomCameraEnabled(const bool &state) override;
+        const bool &IsCustomCameraEnabled() override;
+        void SetCamera(const Camera *camera) override;
+        const Camera * GetCamera() override;
     };
 }
 

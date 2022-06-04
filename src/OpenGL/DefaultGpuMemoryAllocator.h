@@ -27,8 +27,13 @@ namespace OpenGL
         std::string tag;
     public:
         DefaultGpuMemoryAllocator(std::unique_ptr<VertexAttributeGroup> properties);
-        MemManager::ManagedPtr<float, GpuMemoryStrategy> Push(Mesh &mesh);
-        void Erase(MemManager::ManagedPtr<float, GpuMemoryStrategy> gpuPtr);
+        std::pair<MemManager::ManagedPtr<float, GpuMemoryStrategy>, MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy>>
+        Push(Mesh &mesh);
+        template<typename type>
+        void Erase(MemManager::ManagedPtr<type, GpuMemoryStrategy> gpuPtr)
+        {
+            gpuPtr.Free();
+        }
         void Bind() override;
         void UnBind() override;
         const unsigned long long int & GetId() const override;

@@ -27,5 +27,5 @@ void OpenGL::CameraManager::AddSubscriber(CameraManagerSubscriber *subscriber)
 void OpenGL::CameraManager::NotifySubscribers()
 {
     for(CameraManagerSubscriber* i : *cameraSubscribers)
-        i->OnCameraChanged(*activeCamera);
+        i->OnCameraChanged(activeCamera.get());
 }
