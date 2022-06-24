@@ -14,8 +14,9 @@
 #include "GpuMemoryAllocator.h"
 #include "ManagedPtr.hpp"
 #include "GpuMemoryStrategy.h"
+#include "Resource.h"
 
-class Mesh : public RenderObjectSubscriber, public Taggable
+class Mesh : public RenderObjectSubscriber,  public Resource
 {
 public:
     virtual std::vector<float> * SetVertices(std::unique_ptr<std::vector<float>> vertices) = 0;

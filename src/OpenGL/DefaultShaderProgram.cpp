@@ -93,9 +93,10 @@ bool OpenGL::DefaultShaderProgram::Link()
     return true;
 }
 
-void OpenGL::DefaultShaderProgram::Use() const
+void OpenGL::DefaultShaderProgram::Load()
 {
     glUseProgram(programId);
+    loaded = true;
 }
 
 void OpenGL::DefaultShaderProgram::DeleteShaders()
@@ -122,4 +123,15 @@ const std::string &OpenGL::DefaultShaderProgram::GetTag()
 void OpenGL::DefaultShaderProgram::SetTag(const std::string &tag)
 {
     this->tag = tag;
+}
+
+void OpenGL::DefaultShaderProgram::Unload()
+{
+    glUseProgram(0);
+    loaded = false;
+}
+
+const bool &OpenGL::DefaultShaderProgram::IsLoaded()
+{
+    return loaded;
 }

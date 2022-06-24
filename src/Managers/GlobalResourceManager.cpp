@@ -6,9 +6,6 @@
 #include "GlobalResourceManager.h"
 #include "DefaultShaderProgram.h"
 
-std::unique_ptr<MeshManager> GlobalResourceManager::meshManager = std::make_unique<MeshManager>();
-std::unique_ptr<TextureManager> GlobalResourceManager::textureManager = std::make_unique<TextureManager>();
-std::unique_ptr<ShaderManager> GlobalResourceManager::shaderManager = std::make_unique<ShaderManager>();
 std::unique_ptr<GlobalResourceManager> GlobalResourceManager::globalManager = std::make_unique<GlobalResourceManager>();
 
 void GlobalResourceManager::AddResourceManager(std::unique_ptr<ResourceManager> resourceManager)
@@ -23,7 +20,13 @@ GlobalResourceManager &GlobalResourceManager::GetGlobalResourceManager()
 
 GlobalResourceManager::GlobalResourceManager()
 {
-    AddResourceManager(std::move(meshManager));
-    AddResourceManager(std::move(textureManager));
-    AddResourceManager(std::move(shaderManager));
+    AddResourceManager(std::move(std::make_unique<MeshManager>()));
+    AddResourceManager(std::move(std::make_unique<TextureManager>()));
+    AddResourceManager(std::move(std::make_unique<ShaderManager>()));
+
+    //Get the defaults
+    defaultMeshManager = GetResourceManager<MeshManager>("mesh");
+    defaultTextureManager = GetResourceManager<TextureManager>("texture");
+    defaultShaderManager = GetResourceManager<ShaderManager>("shader");
+
 }

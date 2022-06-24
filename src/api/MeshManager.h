@@ -28,7 +28,7 @@ public:
         return InsertToMap(std::unique_ptr<Mesh>(instance));
     }
 
-    Mesh* AquireMesh(const std::string& tag)
+    Mesh* GetMesh(const std::string& tag)
     {
         auto meshIt = meshList.find(tag);
         if(meshIt == meshList.end())
@@ -36,14 +36,9 @@ public:
         return meshIt->second.get();
     }
 
-    std::any GetResource(std::string tag) override
+    Resource * GetResource(std::string tag) override
     {
-        Mesh* aquiredMesh = AquireMesh(tag);
-        std::any genericResource;
-        genericResource.reset();
-        if(aquiredMesh != nullptr)
-            genericResource = aquiredMesh;
-        return genericResource;
+        return GetMesh(tag);
     }
 
     const std::string &GetTag() override
@@ -54,6 +49,42 @@ public:
     void SetTag(const std::string &tag) override
     {
         this->tag = tag;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetLoadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : meshList)
+        {
+            auto& meshPtr = mesh.second;
+            if(meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : meshList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : meshList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
     }
 
 private:
@@ -67,6 +98,14 @@ private:
         meshList.try_emplace(mesh->GetTag(), std::move(mesh));
         return meshRef;
     }
+
+    Mesh& InsertToMap(std::unique_ptr<Mesh> mesh, std::string tag)
+    {
+        mesh->SetTag(tag);
+        InsertToMap(std::move(mesh));
+    }
+
+
     std::unordered_map<std::string, std::unique_ptr<Mesh>> meshList;
     std::string tag = "mesh";
 };

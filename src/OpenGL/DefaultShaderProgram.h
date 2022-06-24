@@ -44,11 +44,13 @@ namespace OpenGL
         }
         ~DefaultShaderProgram() override;
         bool Link() override;
-        void Use() const override;
+        void Load() override;
         const UniformProperties &GetUniformProperties() override;
         const unsigned long long int & GetId() const override;
         const std::string& GetTag() override;
         void SetTag(const std::string& tag) override;
+        void Unload() override;
+        const bool &IsLoaded() override;
     private:
         UniformProperties* uniformManager;
         bool LoadAndCompile(Shader& shader);
@@ -57,6 +59,7 @@ namespace OpenGL
         std::map<unsigned int, std::unique_ptr<Shader>>shaders;
         void DeleteShaders();
         std::string tag;
+        bool loaded = false;
     };
 }
 

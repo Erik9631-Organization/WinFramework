@@ -14,7 +14,7 @@
 
 namespace OpenGL
 {
-    class DefaultTexture : public Texture
+    class StaticTexture : public Texture
     {
     private:
         DefaultResize resizeBehavior;
@@ -26,8 +26,8 @@ namespace OpenGL
         bool loaded = false;
         std::string tag;
     public:
-        DefaultTexture();
-        DefaultTexture(const std::string &path, const int &format);
+        StaticTexture();
+        StaticTexture(const std::string &path, const int &format);
         void SetSize(Vector2 size) override;
         void SetSize(float width, float height) override;
         void SetWidth(float width) override;
@@ -39,7 +39,7 @@ namespace OpenGL
         void SetPath(const std::string &wstring, const int &format) override;
         const unsigned char * GetData() const override;
         const bool &LoadFromFile() override;
-        void LoadResource() override;
+        void Load() override;
         const int &GetFormat() const override;
         const bool &IsLoaded() override;
         void Bind() const override;
@@ -47,7 +47,7 @@ namespace OpenGL
         float GetHeight() override;
         Vector2 GetSize() override;
         float GetWidth() override;
-        void UnloadResource() override;
+        void Unload() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
         const unsigned long long int &GetId() const override;

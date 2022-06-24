@@ -9,10 +9,11 @@
 #include "Shader.h"
 #include "Identifiable.h"
 #include "Taggable.h"
+#include "Resource.h"
 
 class Shader;
 
-class ShaderProgram : public OpenGL::Uniform, public Identifiable, public Taggable
+class ShaderProgram : public OpenGL::Uniform, public Identifiable, public Resource
 {
 public:
     virtual OpenGL::Shader& AssembleShader(std::unique_ptr<OpenGL::Shader> shader) = 0;
@@ -20,7 +21,6 @@ public:
     virtual bool HasShader(int id) = 0;
     virtual std::unique_ptr<OpenGL::Shader>RemoveShader(int id) = 0;
     virtual bool Link() = 0;
-    virtual void Use() const = 0;
     virtual ~ShaderProgram() = default;
 };
 

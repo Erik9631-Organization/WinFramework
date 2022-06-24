@@ -17,7 +17,7 @@
 #include "GlobalResourceManager.h"
 #include "ModeledElement.h"
 #include "TextureManager.h"
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 
 using namespace std;
 
@@ -99,9 +99,11 @@ int LiiEntry()
     Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
     frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+
+
     auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
-    auto& texture = manager->CreateTexture<OpenGL::DefaultTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
-    texture.LoadResource();
+    auto& texture = manager->CreateTexture<OpenGL::StaticTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
+    texture.Load();
 
     OpenGL::ModelBuilder builder3D{};
     OpenGL::ModelBuilder builder2D{};

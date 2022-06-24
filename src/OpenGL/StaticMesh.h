@@ -32,7 +32,11 @@ namespace OpenGL
         const MemManager::ManagedPtr<float, GpuMemoryStrategy> & GetGpuVerticePointer() override;
         const bool &HasIndices() override;
         const MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> & GetGpuIndicePointer() override;
+        void Load() override;
+        void Unload() override;
+        const bool &IsLoaded() override;
     private:
+        bool loaded = false;
         DefaultGpuMemoryAllocator* manager;
         std::unique_ptr<std::vector<float>> vertices;
         std::unique_ptr<std::vector<unsigned int>> indices;

@@ -6,7 +6,7 @@
 #define LII_MODEL_H
 #include <memory>
 #include <glm.hpp>
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 #include "ShaderProgram.h"
 #include "Transformable.h"
 #include "Mesh.h"
@@ -37,6 +37,9 @@ namespace OpenGL
         virtual void SetProjectionMatrix(glm::mat4 *projection) = 0;
         virtual void SetViewMatrix(glm::mat4 *view) = 0;
         virtual void SetTexture(Texture *texture) = 0;
+        virtual void SetTexture(std::string& textureTag) = 0;
+        virtual void SetMesh(std::string& meshTag) = 0;
+        virtual void SetShaderProgram(std::string shaderTag) = 0;
         virtual const Texture* GetTexture() const = 0;
         virtual void SetMesh(Mesh *mesh) = 0;
         virtual const Mesh * GetMesh() const = 0;

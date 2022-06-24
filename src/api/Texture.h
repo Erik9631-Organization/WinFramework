@@ -18,6 +18,8 @@ public:
     virtual void SetPath(const std::string &wstring, const int &format) = 0;
     virtual const unsigned char * GetData() const = 0;
     virtual const int &GetFormat() const = 0;
+    virtual void Bind() const = 0;
+    virtual void Unbind() const = 0;
 };
 
 #endif //LII_TEXTURE_H

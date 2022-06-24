@@ -13,7 +13,7 @@
 #include <glm.hpp>
 #include <gtc/matrix_transform.hpp>
 #include "ModelBuilder.h"
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 #include "CameraManager.h"
 #include "Model.h"
 #include "EventUpdateInfo.h"

@@ -28,7 +28,7 @@ public:
         return InsertToMap(std::move(std::unique_ptr<ShaderProgram>(instance)));
 	}
 
-	ShaderProgram* AquireShaderProgram(const std::string& tag)
+	ShaderProgram* GetShaderProgram(const std::string& tag)
 	{
 		auto shaderProgramIt = shaderProgramList.find(tag);
 		if (shaderProgramIt == shaderProgramList.end())
@@ -36,14 +36,45 @@ public:
 		return shaderProgramIt->second.get();
 	}
 
-    std::any GetResource(std::string tag) override
+    Resource * GetResource(std::string tag) override
     {
-        ShaderProgram* aquiredShaderProgram = AquireShaderProgram(tag);
-        std::any genericResource;
-        genericResource.reset();
-        if(aquiredShaderProgram != nullptr)
-            genericResource = aquiredShaderProgram;
-        return genericResource;
+        return GetShaderProgram(tag);;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetLoadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : shaderProgramList)
+        {
+            auto& meshPtr = mesh.second;
+            if(meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : shaderProgramList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : shaderProgramList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
     }
 
     const std::string &GetTag() override

@@ -2,29 +2,29 @@
 // Created by Erik on 08/03/22.
 //
 
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 #include "EventResizeInfo.h"
 #include <stb_image.h>
 #include <stb_image_resize.h>
 #include "glew.h"
 using namespace OpenGL;
 
-Vector2 DefaultTexture::GetSize()
+Vector2 StaticTexture::GetSize()
 {
     return Vector2();
 }
 
-float DefaultTexture::GetWidth()
+float StaticTexture::GetWidth()
 {
     return size.GetX();
 }
 
-float DefaultTexture::GetHeight()
+float StaticTexture::GetHeight()
 {
     return size.GetY();
 }
 
-void DefaultTexture::SetSize(Vector2 size)
+void StaticTexture::SetSize(Vector2 size)
 {
     if(imageData == nullptr)
         return;
@@ -35,65 +35,65 @@ void DefaultTexture::SetSize(Vector2 size)
     imageData = output;
 }
 
-void DefaultTexture::SetSize(float width, float height)
+void StaticTexture::SetSize(float width, float height)
 {
     SetSize({width, height});
 }
 
-void DefaultTexture::SetWidth(float width)
+void StaticTexture::SetWidth(float width)
 {
     SetSize(width, size.GetY());
 }
 
-void DefaultTexture::SetHeight(float height)
+void StaticTexture::SetHeight(float height)
 {
     SetSize(size.GetX(), height);
 }
 
-void DefaultTexture::NotifyOnResizeSubscribers(EventResizeInfo event)
+void StaticTexture::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
     resizeBehavior.NotifyOnResizeSubscribers(event);
 }
 
-void OpenGL::DefaultTexture::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
+void OpenGL::StaticTexture::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void OpenGL::DefaultTexture::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
+void OpenGL::StaticTexture::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-OpenGL::DefaultTexture::DefaultTexture(const std::string &path, const int &format) :
+OpenGL::StaticTexture::StaticTexture(const std::string &path, const int &format) :
     resizeBehavior(*this)
 {
     this->path = path;
     this->format = format;
 }
 
-OpenGL::DefaultTexture::DefaultTexture() : DefaultTexture("", 0)
+OpenGL::StaticTexture::StaticTexture() : StaticTexture("", 0)
 {
 
 }
 
-const std::string & OpenGL::DefaultTexture::GetPath() const
+const std::string & OpenGL::StaticTexture::GetPath() const
 {
     return path;
 }
 
-void OpenGL::DefaultTexture::SetPath(const std::string &wstring, const int &format)
+void OpenGL::StaticTexture::SetPath(const std::string &wstring, const int &format)
 {
     this->path = wstring;
     this->format = format;
 }
 
-const unsigned char * OpenGL::DefaultTexture::GetData() const
+const unsigned char * OpenGL::StaticTexture::GetData() const
 {
     return imageData;
 }
 
-const bool &OpenGL::DefaultTexture::LoadFromFile()
+const bool &OpenGL::StaticTexture::LoadFromFile()
 {
     int width = 0;
     int height = 0;
@@ -106,7 +106,7 @@ const bool &OpenGL::DefaultTexture::LoadFromFile()
     return true;
 }
 
-void OpenGL::DefaultTexture::LoadResource()
+void OpenGL::StaticTexture::Load()
 {
     glGenTextures(1, &textureId);
     glBindTexture(GL_TEXTURE_2D, textureId);
@@ -121,43 +121,43 @@ void OpenGL::DefaultTexture::LoadResource()
     stbi_image_free(imageData);
 }
 
-const int &OpenGL::DefaultTexture::GetFormat() const
+const int &OpenGL::StaticTexture::GetFormat() const
 {
     return format;
 }
 
-const bool &OpenGL::DefaultTexture::IsLoaded()
+const bool &OpenGL::StaticTexture::IsLoaded()
 {
     return loaded;
 }
 
-void OpenGL::DefaultTexture::Bind() const
+void OpenGL::StaticTexture::Bind() const
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureId);
 }
 
-void OpenGL::DefaultTexture::Unbind() const
+void OpenGL::StaticTexture::Unbind() const
 {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void DefaultTexture::UnloadResource()
+void StaticTexture::Unload()
 {
 
 }
 
-const std::string &DefaultTexture::GetTag()
+const std::string &StaticTexture::GetTag()
 {
     return tag;
 }
 
-void DefaultTexture::SetTag(const std::string &tag)
+void StaticTexture::SetTag(const std::string &tag)
 {
     this->tag = tag;
 }
 
-const unsigned long long int &DefaultTexture::GetId() const
+const unsigned long long int &StaticTexture::GetId() const
 {
     return textureId;
 }

@@ -21,7 +21,7 @@ public:
         return InsertToMap(std::unique_ptr<Texture>(instance));
     }
 
-    Texture* AquireTextre(const std::string& tag)
+    Texture* GetTexture(const std::string& tag)
     {
         auto textureIt = textureList.find(tag);
         if(textureIt == textureList.end())
@@ -29,14 +29,45 @@ public:
         return textureIt->second.get();
     }
 
-    std::any GetResource(std::string tag) override
+    Resource * GetResource(std::string tag) override
     {
-        Texture* aquiredTexture = AquireTextre(tag);
-        std::any genericResource;
-        genericResource.reset();
-        if(aquiredTexture != nullptr)
-            genericResource = aquiredTexture;
-        return genericResource;
+        return GetTexture(tag);;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetLoadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : textureList)
+        {
+            auto& meshPtr = mesh.second;
+            if(meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : textureList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
+    }
+
+    std::unique_ptr<std::vector<Resource *>> GetResources() override
+    {
+        std::unique_ptr<std::vector<Resource*>> resourceList = std::make_unique<std::vector<Resource*>>();
+        for(auto& mesh : textureList)
+        {
+            auto& meshPtr = mesh.second;
+            if(!meshPtr->IsLoaded())
+                resourceList->push_back(meshPtr.get());
+        }
+        return resourceList;
     }
 
     const std::string &GetTag() override

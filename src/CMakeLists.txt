@@ -371,7 +371,7 @@ set(Lii_OpenGL
         OpenGL/ShapeBuilder.cpp
         OpenGL/ModelBuilder.h
         OpenGL/DefaultTexture.cpp
-        OpenGL/DefaultTexture.h
+        OpenGL/StaticTexture.h
         api/Resource.h
         OpenGL/DefaultVertexAttribute.cpp
         OpenGL/DefaultVertexAttribute.h

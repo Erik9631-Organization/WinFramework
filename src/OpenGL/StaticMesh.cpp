@@ -33,13 +33,12 @@ StaticMesh::StaticMesh(std::vector<float> vertices, std::vector<unsigned int> in
     //Delete from the system RAM as it is no longer needed
     this->vertices.reset();
     this->indices.reset();
+    loaded = true;
 }
 
 StaticMesh::~StaticMesh()
 {
-    manager->Erase(gpuVertices);
-    if(gpuIndices.GetMetaData() != nullptr)
-        manager->Erase(gpuIndices);
+    Unload();
 }
 
 
@@ -121,4 +120,22 @@ const MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy> & StaticMesh::GetG
 StaticMesh::StaticMesh(std::vector<float> vertices) : StaticMesh(std::move(vertices), {})
 {
 
+}
+
+void StaticMesh::Load()
+{
+    //Static mesh is loaded on creation, no implementation needed
+}
+
+void StaticMesh::Unload()
+{
+    manager->Erase(gpuVertices);
+    if(gpuIndices.GetMetaData() != nullptr)
+        manager->Erase(gpuIndices);
+    loaded = false;
+}
+
+const bool &StaticMesh::IsLoaded()
+{
+    return loaded;
 }

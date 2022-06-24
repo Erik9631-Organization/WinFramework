@@ -236,6 +236,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(glm::vec3 posit
 
 OpenGL::ModelBuilder::ModelBuilder()
 {
-    shaderProgram = GlobalResourceManager::GetGlobalResourceManager().AquireResource<ShaderProgram>("shader", "default");
-    meshManager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<MeshManager>("mesh");
+    shaderProgram = static_cast<ShaderProgram*>(GlobalResourceManager::GetGlobalResourceManager()
+        .GetDefaultShaderManager()->GetResource("default"));
+    meshManager = GlobalResourceManager::GetGlobalResourceManager().GetDefaultMeshManager();
 }

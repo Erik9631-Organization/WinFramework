@@ -5,11 +5,15 @@
 #ifndef LII_RESOURCEMANAGER_H
 #define LII_RESOURCEMANAGER_H
 #include "Taggable.h"
-#include <any>
+#include <map>
+#include "Resource.h"
 
 class ResourceManager : public Taggable
 {
 public:
-    virtual std::any GetResource(std:: string tag) = 0;
+    virtual Resource * GetResource(std:: string tag) = 0;
+    virtual std::unique_ptr<std::vector<Resource *>> GetLoadedResources() = 0;
+    virtual std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() = 0;
+    virtual std::unique_ptr<std::vector<Resource *>> GetResources() = 0;
 };
 #endif //LII_RESOURCEMANAGER_H

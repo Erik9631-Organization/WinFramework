@@ -7,11 +7,12 @@
 #include "Mesh.h"
 #include "UniformProperties.h"
 #include <gtc/type_ptr.hpp>
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 #include "CameraManager.h"
 #include "EventUpdateInfo.h"
 #include <any>
 #include "AutoId.h"
+#include "GlobalResourceManager.h"
 
 using namespace OpenGL;
 
@@ -307,4 +308,19 @@ void DefaultModel::SetCamera(const Camera *camera)
 const Camera * DefaultModel::GetCamera()
 {
     return activeCamera;
+}
+
+void DefaultModel::SetTexture(string &textureTag)
+{
+    this->texture = GlobalResourceManager::GetGlobalResourceManager().GetDefaultTextureManager()->GetTexture(textureTag);
+}
+
+void DefaultModel::SetMesh(string &meshTag)
+{
+    this->mesh = GlobalResourceManager::GetGlobalResourceManager().GetDefaultMeshManager()->GetMesh(meshTag);
+}
+
+void DefaultModel::SetShaderProgram(std::string shaderTag)
+{
+    this->shaderProgram = GlobalResourceManager::GetGlobalResourceManager().GetDefaultShaderManager()->GetShaderProgram(shaderTag);
 }

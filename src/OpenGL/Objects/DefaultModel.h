@@ -11,7 +11,7 @@
 #include "CameraManagerSubscriber.h"
 #include "Camera.h"
 #include "ShaderProgram.h"
-#include "DefaultTexture.h"
+#include "StaticTexture.h"
 #include "Material.h"
 
 namespace OpenGL
@@ -86,6 +86,9 @@ namespace OpenGL
         const bool &IsCustomCameraEnabled() override;
         void SetCamera(const Camera *camera) override;
         const Camera * GetCamera() override;
+        void SetTexture(string &textureTag) override;
+        void SetMesh(string &meshTag) override;
+        void SetShaderProgram(std::string shaderTag) override;
     };
 }
 

@@ -28,7 +28,7 @@ public:
     }
 
     template<typename T>
-    T* AquireResource(std::string resourceManager, std::string resource)
+    T* GetResource(std::string resourceManager, std::string resource)
     {
         ResourceManager* manager = GetResourceManager<ResourceManager>(resourceManager);
         if(manager == nullptr)
@@ -40,15 +40,56 @@ public:
         return std::any_cast<T*>(aquiredResource);
     }
 
+    void SetDefaultTextureManager(std::string& managerName)
+    {
+        defaultTextureManager = GetResourceManager<TextureManager>(managerName);
+    }
+
+    void SetDefaultMeshManager(std::string& managerName)
+    {
+        defaultMeshManager = GetResourceManager<MeshManager>(managerName);
+    }
+
+    void SetDefaultModelManager(std::string& managerName)
+    {
+        // Not implemented yet
+    }
+
+    void SetDefaultShaderProgramManager(std::string& managerName)
+    {
+        defaultShaderManager = GetResourceManager<ShaderManager>(managerName);
+    }
+
+    MeshManager *GetDefaultMeshManager() const
+    {
+        return defaultMeshManager;
+    }
+
+    TextureManager *GetDefaultTextureManager() const
+    {
+        return defaultTextureManager;
+    }
+
+    ShaderManager *GetDefaultShaderManager() const
+    {
+        return defaultShaderManager;
+    }
+
+
     GlobalResourceManager();
 
     static GlobalResourceManager& GetGlobalResourceManager();
     void AddResourceManager(std::unique_ptr<ResourceManager> resourceManager);
 
 private:
-    static std::unique_ptr<MeshManager> meshManager;
-    static std::unique_ptr<TextureManager> textureManager;
-    static std::unique_ptr<ShaderManager> shaderManager;
+    MeshManager* defaultMeshManager;
+    TextureManager* defaultTextureManager;
+
+
+private:
+    ShaderManager* defaultShaderManager;
+
+    //Singleton, has to be unique_ptr
     static std::unique_ptr<GlobalResourceManager> globalManager;
     std::unordered_map<std::string, std::unique_ptr<ResourceManager>> resourceManagers;
 };
