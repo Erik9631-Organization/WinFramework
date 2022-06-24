@@ -30,3 +30,18 @@ GlobalResourceManager::GlobalResourceManager()
     defaultShaderManager = GetResourceManager<ShaderManager>("shader");
 
 }
+
+MeshManager *GlobalResourceManager::GetDefaultMeshManager() const
+{
+    return defaultMeshManager;
+}
+
+TextureManager *GlobalResourceManager::GetDefaultTextureManager() const
+{
+    return defaultTextureManager;
+}
+
+ShaderManager *GlobalResourceManager::GetDefaultShaderManager() const
+{
+    return defaultShaderManager;
+}

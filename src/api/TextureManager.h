@@ -80,6 +80,22 @@ public:
         this->tag = tag;
     }
 
+    void LoadResource(const string &resource) override
+    {
+        auto* resourceToLoad = GetResource(resource);
+        if(resourceToLoad == nullptr)
+            return;
+        resourceToLoad->Load();
+    }
+
+    void UnloadResource(const string &resource) override
+    {
+        auto* resourceToLoad = GetResource(resource);
+        if(resourceToLoad == nullptr)
+            return;
+        resourceToLoad->Unload();
+    }
+
 
 private:
     Texture& InsertToMap(std::unique_ptr<Texture> texture)

@@ -310,17 +310,17 @@ const Camera * DefaultModel::GetCamera()
     return activeCamera;
 }
 
-void DefaultModel::SetTexture(string &textureTag)
+void DefaultModel::SetTexture(const string &textureTag)
 {
     this->texture = GlobalResourceManager::GetGlobalResourceManager().GetDefaultTextureManager()->GetTexture(textureTag);
 }
 
-void DefaultModel::SetMesh(string &meshTag)
+void DefaultModel::SetMesh(const string &meshTag)
 {
     this->mesh = GlobalResourceManager::GetGlobalResourceManager().GetDefaultMeshManager()->GetMesh(meshTag);
 }
 
-void DefaultModel::SetShaderProgram(std::string shaderTag)
+void DefaultModel::SetShaderProgram(const string shaderTag)
 {
     this->shaderProgram = GlobalResourceManager::GetGlobalResourceManager().GetDefaultShaderManager()->GetShaderProgram(shaderTag);
 }

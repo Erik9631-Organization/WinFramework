@@ -60,21 +60,9 @@ public:
         defaultShaderManager = GetResourceManager<ShaderManager>(managerName);
     }
 
-    MeshManager *GetDefaultMeshManager() const
-    {
-        return defaultMeshManager;
-    }
-
-    TextureManager *GetDefaultTextureManager() const
-    {
-        return defaultTextureManager;
-    }
-
-    ShaderManager *GetDefaultShaderManager() const
-    {
-        return defaultShaderManager;
-    }
-
+    MeshManager *GetDefaultMeshManager() const;
+    TextureManager *GetDefaultTextureManager() const;
+    ShaderManager *GetDefaultShaderManager() const;
 
     GlobalResourceManager();
 
@@ -84,9 +72,6 @@ public:
 private:
     MeshManager* defaultMeshManager;
     TextureManager* defaultTextureManager;
-
-
-private:
     ShaderManager* defaultShaderManager;
 
     //Singleton, has to be unique_ptr

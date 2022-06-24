@@ -103,7 +103,7 @@ int LiiEntry()
 
     auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
     auto& texture = manager->CreateTexture<OpenGL::StaticTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
-    texture.Load();
+    manager->LoadResource("WallTexture");
 
     OpenGL::ModelBuilder builder3D{};
     OpenGL::ModelBuilder builder2D{};
@@ -128,7 +128,7 @@ int LiiEntry()
     rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
     rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
 
-    wallBlockElement.GetModel()->SetTexture(&texture);
+    wallBlockElement.GetModel()->SetTexture("WallTexture");
 
 
     CameraController* controller = new CameraController{*frame};

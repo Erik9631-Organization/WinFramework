@@ -87,6 +87,22 @@ public:
         return resourceList;
     }
 
+    void LoadResource(const string &resource) override
+    {
+        auto* resourceToLoad = GetResource(resource);
+        if(resourceToLoad == nullptr)
+            return;
+        resourceToLoad->Load();
+    }
+
+    void UnloadResource(const string &resource) override
+    {
+        auto* resourceToLoad = GetResource(resource);
+        if(resourceToLoad == nullptr)
+            return;
+        resourceToLoad->Unload();
+    }
+
 private:
     Mesh& InsertToMap(std::unique_ptr<Mesh> mesh)
     {

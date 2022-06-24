@@ -15,5 +15,7 @@ public:
     virtual std::unique_ptr<std::vector<Resource *>> GetLoadedResources() = 0;
     virtual std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() = 0;
     virtual std::unique_ptr<std::vector<Resource *>> GetResources() = 0;
+    virtual void LoadResource(const std::string& resource) = 0;
+    virtual void UnloadResource(const std::string& resource) = 0;
 };
 #endif //LII_RESOURCEMANAGER_H
