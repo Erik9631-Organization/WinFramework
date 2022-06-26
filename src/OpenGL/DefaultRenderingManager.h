@@ -39,9 +39,9 @@ namespace OpenGL
                     bTextureId = b->GetTexture()->GetId();
 
                 //First compare by ShaderId as swapping shader is the most expensive
-                if(a->GetShader().GetId() < b->GetShader().GetId())
+                if(a->GetShaderProgram().GetId() < b->GetShaderProgram().GetId())
                     return true;
-                if(a->GetShader().GetId() > b->GetShader().GetId())
+                if(a->GetShaderProgram().GetId() > b->GetShaderProgram().GetId())
                     return false;
 
                 //Compare by texture as texture swapping is the second most expensive.

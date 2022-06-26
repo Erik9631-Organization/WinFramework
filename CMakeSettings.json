@@ -10,18 +10,6 @@
       "cmakeCommandArgs": "",
       "buildCommandArgs": "-v install",
       "ctestCommandArgs": ""
-    },
-    {
-      "name": "x64-Debug-2",
-      "generator": "Ninja",
-      "configurationType": "Debug",
-      "buildRoot": "${projectDir}\\out\\build\\${name}",
-      "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "",
-      "buildCommandArgs": "-v install",
-      "ctestCommandArgs": "",
-      "inheritEnvironments": [ "clang_cl_x64_x64" ],
-      "variables": []
     }
   ]
 }

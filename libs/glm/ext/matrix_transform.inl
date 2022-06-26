@@ -98,7 +98,7 @@ namespace glm
 	template<typename T, qualifier Q>
 	GLM_FUNC_QUALIFIER mat<4, 4, T, Q> lookAtRH(vec<3, T, Q> const& eye, vec<3, T, Q> const& center, vec<3, T, Q> const& up)
 	{
-		vec<3, T, Q> const f(normalize(center - eye));
+ 		vec<3, T, Q> const f(normalize(center - eye));
 		vec<3, T, Q> const s(normalize(cross(f, up)));
 		vec<3, T, Q> const u(cross(s, f));
 

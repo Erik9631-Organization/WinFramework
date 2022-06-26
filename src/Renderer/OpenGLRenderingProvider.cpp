@@ -225,8 +225,6 @@ void OpenGLRenderingProvider::InternalRender()
     wglMakeCurrent(windowDc, openGlContext);
     Window& window = coreWindow->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
-    float translation = 0;
-    float translationAnim = 0.2f;
     while(startRenderingLoop)
     {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

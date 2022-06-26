@@ -46,10 +46,10 @@ void DefaultRenderingManager::Move(const Model &model)
 
 void DefaultRenderingManager::DrawInternalModel(OpenGL::Model &model)
 {
-    if(model.GetShader().GetId() != lastShaderId)
+    if(model.GetShaderProgram().GetId() != lastShaderId)
     {
-        lastShaderId = model.GetShader().GetId();
-        model.GetShader().Load();
+        lastShaderId = model.GetShaderProgram().GetId();
+        model.GetShaderProgram().Load();
     }
 
     if(model.GetMesh()->GetMeshManager().GetId() != lastMeshManagerId)

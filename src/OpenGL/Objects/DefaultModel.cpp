@@ -41,7 +41,7 @@ void DefaultModel::SetShaderProgram(ShaderProgram *shader)
     this->shaderProgram = shader;
 }
 
-ShaderProgram & DefaultModel::GetShader() const
+ShaderProgram & DefaultModel::GetShaderProgram() const
 {
     return *shaderProgram;
 }
@@ -183,10 +183,7 @@ void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
     else
         shaderProgram->GetUniformProperties().SetProperty("projection", *projectionMatrix);
 
-    if(viewMatrix == nullptr)
-        shaderProgram->GetUniformProperties().SetProperty("view", glm::mat4{1});
-    else
-        shaderProgram->GetUniformProperties().SetProperty("view", *viewMatrix);
+    shaderProgram->GetUniformProperties().SetProperty("view", *viewMatrix);
 
     shaderProgram->GetUniformProperties().SetProperty("model", basisMatrix * modelMatrix);
 

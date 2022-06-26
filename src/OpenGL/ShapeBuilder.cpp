@@ -15,23 +15,35 @@
 
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x, float y, float width, float height)
 {
-    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
+    float defaultWidth = 1;
+    float defaultHeight = 1;
+
+    Mesh* shape = meshManager->GetMesh("fillRectangle");
+
+    if(shape == nullptr)
     {
-        0, 0, 0,            0, 0,   0, 0, 0,
-        width, 0, 0,        0, 0,   0, 0, 0,
-        width, height, 0,   0, 0,   0, 0, 0,
-        0, height, 0,       0, 0,   0, 0, 0
+        shape = &meshManager->CreateMesh<OpenGL::StaticMesh>("fillRectangle", std::vector<float>
+        {
+                0, 0, 0,                        0, 0,   0, 0, 0,
+                defaultWidth, 0, 0,             0, 0,   0, 0, 0,
+                defaultWidth, defaultHeight,0,  0, 0,   0, 0, 0,
+                0, defaultHeight, 0,            0, 0,   0, 0, 0
 
-    },
-      std::vector<unsigned int>{
-          0, 1, 2,
-          0, 3, 2
-      });
+        },
+        std::vector<unsigned int>
+        {
+            0, 1, 2,
+            0, 3, 2
+        });
+    }
 
-    auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
+
+
+    auto model = std::make_unique<DefaultModel>(shaderProgram, shape);
     if(projectionMatrix != nullptr)
         model->SetProjectionMatrix(projectionMatrix);
     model->Translate({x, y, 0});
+    model->Scale(glm::vec3{width, height, 1.0});
     return model;
 }
 
@@ -113,24 +125,33 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(glm::vec2 p
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(float x, float y, float width, float height)
 {
 
-    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
+    float defaultWidth = 1;
+    float defaultHeight = 1;
+
+    Mesh* shape = meshManager->GetMesh("rectangle");
+
+    if(shape == nullptr)
     {
-        0, 0, 0,            0, 0,   0, 0, 0,
-        width, 0, 0,        0, 0,   0, 0, 0,
-        width, height, 0,   0, 0,   0, 0, 0,
-        0, height, 0,       0, 0,   0, 0, 0
-    });
-    shape.SetIndexBufferContent(
+        shape = &meshManager->CreateMesh<OpenGL::StaticMesh>("rectangle", std::vector<float>
+        {
+            0, 0, 0,                         0, 0,   0, 0, 0,
+            defaultWidth, 0, 0,              0, 0,   0, 0, 0,
+            defaultWidth, defaultHeight, 0,  0, 0,   0, 0, 0,
+            0, defaultHeight, 0,             0, 0,   0, 0, 0
+        },
+        std::vector<unsigned int>
         {
             0, 1,
             1, 2,
-            2, 3,
+            2, 3
         });
-    shape.SetPrimitiveType(GL_LINE_LOOP);
+    }
+    shape->SetPrimitiveType(GL_LINE_LOOP);
 
-    auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
+    auto model = std::make_unique<DefaultModel>(shaderProgram, shape);
     if(projectionMatrix != nullptr)
         model->SetProjectionMatrix(projectionMatrix);
+    model->Scale({width, height, 1});
     model->Translate({x, y, 0});
     return model;
 }
@@ -173,58 +194,68 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(float x, floa
 
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float y, float z, float width, float height, float depth)
 {
+    float defaultWidth = 1;
+    float defaultHeight = 1;
+    float defaultDepth = 1;
+    defaultDepth *= -1;
+    defaultHeight *= -1;
 
-    depth *= -1;
-    height *= -1;
-    Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
-        {
-            0, 0, 0,            0, 1,   0, 0, 1,//Front Face
-            width, 0, 0,        1, 1,   0, 0, 1,
-            width, height, 0,   1, 0,   0, 0, 1,
-            0, 0, 0,            0, 1,   0, 0, 1,
-            0, height, 0,       0, 0,   0, 0, 1,
-            width, height, 0,   1, 0,   0, 0, 1,
+    Mesh* shape = meshManager->GetMesh("block");
+
+    if(shape == nullptr)
+    {
+        shape = &meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
+            {
+                0, 0, 0,                                    0, 1,   0, 0, 1,//Front Face
+                defaultWidth, 0, 0,                         1, 1,   0, 0, 1,
+                defaultWidth, defaultHeight, 0,             1, 0,   0, 0, 1,
+                0, 0, 0,                                    0, 1,   0, 0, 1,
+                0, defaultHeight, 0,                        0, 0,   0, 0, 1,
+                defaultWidth, defaultHeight, 0,             1, 0,   0, 0, 1,
 
 
-            0, 0, depth,            0, 1,   0, 0, -1, //Back Face
-            width, 0, depth,        1, 1,   0, 0, -1,
-            width, height, depth,   1, 0,   0, 0, -1,
-            0, 0, depth,            0, 1,   0, 0, -1,
-            0, height, depth,       0, 0,   0, 0, -1,
-            width, height, depth,   1, 0,   0, 0, -1,
+                0, 0, defaultDepth,                         0, 1,   0, 0, -1, //Back Face
+                defaultWidth, 0, defaultDepth,              1, 1,   0, 0, -1,
+                defaultWidth, defaultHeight, defaultDepth,  1, 0,   0, 0, -1,
+                0, 0, defaultDepth,                         0, 1,   0, 0, -1,
+                0, defaultHeight, defaultDepth,             0, 0,   0, 0, -1,
+                defaultWidth, defaultHeight, defaultDepth,  1, 0,   0, 0, -1,
 
-            0, 0, 0,            0, 1,   -1, 0, 0, //Left Face
-            0, height, 0,       0, 0,   -1, 0, 0,
-            0, 0, depth,        1, 1,   -1, 0, 0,
-            0, 0, depth,        1, 1,   -1, 0, 0,
-            0, height, depth,   1, 0,   -1, 0, 0,
-            0, height, 0,       0, 0,   -1, 0, 0,
+                0, 0, 0,                                    0, 1,   -1, 0, 0, //Left Face
+                0, defaultHeight, 0,                        0, 0,   -1, 0, 0,
+                0, 0, defaultDepth,                         1, 1,   -1, 0, 0,
+                0, 0, defaultDepth,                         1, 1,   -1, 0, 0,
+                0, defaultHeight, defaultDepth,             1, 0,   -1, 0, 0,
+                0, defaultHeight, 0,                        0, 0,   -1, 0, 0,
 
-            width, 0, 0,            0, 1,   1, 0, 0, //Right Face
-            width, height, 0,       0, 0,   1, 0, 0,
-            width, 0, depth,        1, 1,   1, 0, 0,
-            width, 0, depth,        1, 1,   1, 0, 0,
-            width, height, depth,   1, 0,   1, 0, 0,
-            width, height, 0,       0, 0,   1, 0, 0,
+                defaultWidth, 0, 0,                         0, 1,   1, 0, 0, //Right Face
+                defaultWidth, defaultHeight, 0,             0, 0,   1, 0, 0,
+                defaultWidth, 0, defaultDepth,              1, 1,   1, 0, 0,
+                defaultWidth, 0, defaultDepth,              1, 1,   1, 0, 0,
+                defaultWidth, defaultHeight, defaultDepth,  1, 0,   1, 0, 0,
+                defaultWidth, defaultHeight, 0,             0, 0,   1, 0, 0,
 
-            0, 0, 0,                0, 1,   0, 1, 0, //Up Face
-            width, 0, 0,            0, 0,   0, 1, 0,
-            width, 0, depth,        1, 0,   0, 1, 0,
-            width, 0, depth,        1, 0,   0, 1, 0,
-            0, 0, depth,            1, 1,   0, 1, 0,
-            0, 0, 0,                0, 1,   0, 1, 0,
+                0, 0, 0,                                    0, 1,   0, 1, 0, //Up Face
+                defaultWidth, 0, 0,                         0, 0,   0, 1, 0,
+                defaultWidth, 0, defaultDepth,              1, 0,   0, 1, 0,
+                defaultWidth, 0, defaultDepth,              1, 0,   0, 1, 0,
+                0, 0, defaultDepth,                         1, 1,   0, 1, 0,
+                0, 0, 0,                                    0, 1,   0, 1, 0,
 
-            0, height, 0,                0, 1,   0, -1, 0,//Bottom Face
-            width, height, 0,            0, 0,   0, -1, 0,
-            width, height, depth,        1, 0,   0, -1, 0,
-            width, height, depth,        1, 0,   0, -1, 0,
-            0, height, depth,            1, 1,   0, -1, 0,
-            0, height, 0,                0, 1,   0, -1, 0,
-        });
+                0, defaultHeight, 0,                        0, 1,   0, -1, 0,//Bottom Face
+                defaultWidth, defaultHeight, 0,             0, 0,   0, -1, 0,
+            defaultWidth, defaultHeight, defaultDepth,      1, 0,   0, -1, 0,
+                defaultWidth, defaultHeight, defaultDepth,  1, 0,   0, -1, 0,
+                0, defaultHeight, defaultDepth,             1, 1,   0, -1, 0,
+                0, defaultHeight, 0,                        0, 1,   0, -1, 0,
+            });
+    }
 
-    auto model = std::make_unique<DefaultModel>(shaderProgram, &shape);
+    auto model = std::make_unique<DefaultModel>(shaderProgram, shape);
     model->SetProjectionMatrix(projectionMatrix);
     model->Translate({x, y, z});
+    model->Scale({width, height, depth});
+
     return model;
 
 }

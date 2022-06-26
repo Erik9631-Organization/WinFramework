@@ -144,7 +144,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h)
+        api/MeshManager.h api/Light.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -183,7 +183,7 @@ source_group("Lii\\Components" FILES ${Lii_Components})
 
 set(Lii_Components_3d
 
-        Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h)
+        Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h Components/3d/PointLight.cpp Components/3d/PointLight.h)
 source_group("Lii\\Components\\3d" FILES ${Lii_Components_3d})
 
 set(Lii_Components_ComboBox
@@ -366,7 +366,6 @@ set(Lii_OpenGL
         OpenGL/DefaultShaderProgram.h
         api/Mesh.h OpenGL/StaticMesh.cpp
         OpenGL/StaticMesh.h OpenGL/Uniform.h
-        OpenGL/UniformManager.cpp
         OpenGL/UniformProperties.h
         OpenGL/ShapeBuilder.cpp
         OpenGL/ModelBuilder.h

@@ -12,6 +12,7 @@ class ResourceManager : public Taggable
 {
 public:
     virtual Resource * GetResource(std:: string tag) = 0;
+    virtual bool ResourceExists(const std::string &resourceTag) = 0;
     virtual std::unique_ptr<std::vector<Resource *>> GetLoadedResources() = 0;
     virtual std::unique_ptr<std::vector<Resource *>> GetUnloadedResources() = 0;
     virtual std::unique_ptr<std::vector<Resource *>> GetResources() = 0;

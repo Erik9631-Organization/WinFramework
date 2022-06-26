@@ -96,6 +96,13 @@ public:
         resourceToLoad->Unload();
     }
 
+    bool ResourceExists(const string &resourceTag) override
+    {
+        if(GetResource(resourceTag) == nullptr)
+            return false;
+        return true;
+    }
+
 
 private:
     Texture& InsertToMap(std::unique_ptr<Texture> texture)

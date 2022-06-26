@@ -33,7 +33,7 @@ namespace OpenGL
         virtual const bool& IsCustomCameraEnabled() = 0;
         virtual void SetShaderProgram(ShaderProgram *shader) = 0;
         virtual void SetDrawMode(unsigned int drawMode) = 0;
-        virtual ShaderProgram & GetShader() const = 0;
+        virtual ShaderProgram & GetShaderProgram() const = 0;
         virtual void SetProjectionMatrix(glm::mat4 *projection) = 0;
         virtual void SetViewMatrix(glm::mat4 *view) = 0;
         virtual void SetTexture(Texture *texture) = 0;

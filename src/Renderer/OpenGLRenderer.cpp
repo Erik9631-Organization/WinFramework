@@ -45,7 +45,7 @@ void OpenGLRenderer::DrawRectangle(Vector2 pos, Vector2 size)
     }
     else
         TransformModel(*lastShape, pos, size);
-    lastShape->GetShader().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
     //lastShape->UpdateUniform();
 }
 
@@ -86,7 +86,7 @@ void OpenGLRenderer::FillRectangle(Vector2 pos, Vector2 size)
     else
         TransformModel(*lastShape, pos, size);
 
-    lastShape->GetShader().GetUniformProperties().SetProperty( "color",lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
     //lastShape->UpdateUniform();
 }
 

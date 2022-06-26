@@ -50,7 +50,6 @@ public:
     void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
     void NotifyOnTick() override;
     OpenGL::Model* GetModel();
-
 };
 
 

@@ -48,7 +48,7 @@ namespace OpenGL
         void Scale(const glm::vec3 &scale) override;
         void Rotate(const float& angle, const glm::vec3 &axis) override;
         void SetShaderProgram(ShaderProgram *shader) override;
-        ShaderProgram & GetShader() const override;
+        ShaderProgram & GetShaderProgram() const override;
         void ResetTransform() override;
         void SetMesh(Mesh *mesh);
         void SetProjectionMatrix(glm::mat4 *projection) override;
