@@ -23,6 +23,7 @@ namespace OpenGL
         ~GraphicsShader() override;
         bool IsCompiled() override;
     private:
+        static constexpr unsigned int errorLogSize = 2048;
         GraphicsShader() = default;
         unsigned int shaderId = 0;
         unsigned int type = 0;
@@ -30,7 +31,7 @@ namespace OpenGL
         std::string shaderSource;
         bool loaded = false;
         bool compiled = false;
-        char lastError[512];
+        char lastError[errorLogSize];
     };
 }
 

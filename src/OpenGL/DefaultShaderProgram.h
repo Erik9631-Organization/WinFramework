@@ -52,9 +52,10 @@ namespace OpenGL
         void Unload() override;
         const bool &IsLoaded() override;
     private:
+        static constexpr unsigned int errorLogSize = 65536;
         UniformProperties* uniformManager;
         bool LoadAndCompile(Shader& shader);
-        char lastError[512];
+        char errorLog[errorLogSize];
         unsigned int programId;
         std::map<unsigned int, std::unique_ptr<Shader>>shaders;
         void DeleteShaders();

@@ -19,11 +19,10 @@ bool OpenGL::GraphicsShader::Compile()
     if(compileStatus == GL_FALSE)
     {
         compiled = false;
-        glGetShaderInfoLog(shaderId, 512, NULL, lastError);
+        glGetShaderInfoLog(shaderId, errorLogSize, NULL, lastError);
         CoreWindow::ConsoleWrite(std::string(lastError));
 
     }
-
     else
         compiled = true;
 

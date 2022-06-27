@@ -83,12 +83,14 @@ bool OpenGL::DefaultShaderProgram::Link()
     unsigned int error = glGetError();
     int status = 0;
     glGetProgramiv(programId, GL_LINK_STATUS, &status);
+    glGetProgramInfoLog(programId, errorLogSize, NULL, errorLog);
     if(status == GL_FALSE)
     {
-        glGetProgramInfoLog(programId, 512, NULL, lastError);
-        CoreWindow::ConsoleWrite("Error: " + to_string(error) + " " + std::string(lastError));
+        CoreWindow::ConsoleWrite("Error\n: " + to_string(error) + " " + std::string(errorLog));
         return false;
     }
+    CoreWindow::ConsoleWrite(to_string(error) + " " + std::string(errorLog));
+
     DeleteShaders();
     return true;
 }

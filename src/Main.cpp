@@ -114,12 +114,11 @@ int LiiEntry()
 
     std::unique_ptr<OpenGL::Model> wallBlock = builder3D.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
     std::unique_ptr<OpenGL::Model> block = builder3D.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
-    block->GetMaterial().SetSpecular({1.0f, 1.0f, 1.0f});
+    block->GetMaterial().SetSpecular({0.5f, 0.5f, 0.5f});
     std::unique_ptr<OpenGL::Model> rectangle = builder2D.CreateFillRectangle(50, 50, 100, 100);
     rectangle->SetTranslation({0, 0, -10.0f});
 
     ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
-    //wallBlockElement.GetModel()->GetMaterial().SetColor({1.0f, 0.3f, 0.3f, 1.0f});
 
     ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
     blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
