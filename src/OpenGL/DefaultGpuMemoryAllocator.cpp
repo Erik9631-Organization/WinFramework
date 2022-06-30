@@ -31,9 +31,9 @@ OpenGL::DefaultGpuMemoryAllocator::Push(Mesh &mesh)
         return pointerPair;
 
     paddedSize = CalculatePadding(mesh.GetIndices()->size(), vertexAttributes->GetVerticeCount());
+    realSize = mesh.GetIndices()->size();
     //pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), mesh.GetIndices()->size());
     pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), paddedSize);
-    realSize = mesh.GetIndices()->size();
 
     return pointerPair;
 }
