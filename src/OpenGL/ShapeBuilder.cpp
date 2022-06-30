@@ -204,7 +204,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float 
 
     if(shape == nullptr)
     {
-        shape = &meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
+        shape = &meshManager->CreateMesh<OpenGL::StaticMesh>("block", std::vector<float>
             {
                 0, 0, 0,                                    0, 1,   0, 0, 1,//Front Face
                 defaultWidth, 0, 0,                         1, 1,   0, 0, 1,
