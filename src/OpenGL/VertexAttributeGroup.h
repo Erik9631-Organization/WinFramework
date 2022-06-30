@@ -27,7 +27,7 @@ public:
     void Create();
     void Enable();
     void Disable();
-    const unsigned int & GetVerticeSize();
+    const unsigned int & GetVerticeCount();
     const std::vector<std::unique_ptr<VertexAttribute>> & GetVertexAttributes() const;
     unsigned int lastId = 0;
 

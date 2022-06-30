@@ -14,7 +14,7 @@ CircleBorder::~CircleBorder()
 
 }
 
-void CircleBorder::OnRender(RenderEventInfo e)
+void CircleBorder::OnRenderSync(RenderEventInfo e)
 {
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
 
@@ -22,7 +22,7 @@ void CircleBorder::OnRender(RenderEventInfo e)
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
     renderer.DrawEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
-    renderBehavior.OnRender(e);
+    renderBehavior.OnRenderSync(e);
 }
 
 void CircleBorder::Repaint()

@@ -10,14 +10,14 @@ DefaultRender::DefaultRender(RenderCommander& renderable) : assosiactedRenderabl
 
 }
 
-void DefaultRender::OnRender(RenderEventInfo e)
+void DefaultRender::OnRenderSync(RenderEventInfo e)
 {
 
 	if (e.GetRenderer() == nullptr)
 		return;
 
 	for (RenderCommander& renderable : renderables)
-		renderable.OnRender(e);
+        renderable.OnRenderSync(e);
 }
 
 void DefaultRender::Repaint()

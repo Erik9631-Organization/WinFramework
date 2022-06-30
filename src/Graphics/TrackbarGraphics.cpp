@@ -51,9 +51,9 @@ Vector3 TrackbarGraphics::GetTrackerColor()
     return tracker.GetColor();
 }
 
-void TrackbarGraphics::OnRender(RenderEventInfo e)
+void TrackbarGraphics::OnRenderSync(RenderEventInfo e)
 {
-    renderBehavior.OnRender(e);
+    renderBehavior.OnRenderSync(e);
 }
 
 void TrackbarGraphics::Repaint()

@@ -183,7 +183,7 @@ source_group("Lii\\Components" FILES ${Lii_Components})
 
 set(Lii_Components_3d
 
-        Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h Components/3d/PointLight.cpp Components/3d/PointLight.h)
+        Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h Components/3d/PointLight.cpp Components/3d/PointLight.h Components/3d/DirectionalLight.h Components/3d/DirectionalLight.cpp)
 source_group("Lii\\Components\\3d" FILES ${Lii_Components_3d})
 
 set(Lii_Components_ComboBox
@@ -353,7 +353,7 @@ set(Lii_Utils
     Utils/ValueConverter.cpp
     Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
-        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h)
+        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h)
 
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
@@ -391,7 +391,7 @@ set(Lii_OpenGL
         OpenGL/RenderObject.h
         OpenGL/Hashable.h
         OpenGL/RenderingPriorities.h
-        OpenGL/GpuMemoryStrategy.h)
+        OpenGL/GpuMemoryStrategy.h OpenGL/RenderObjectSubject.h OpenGL/GpuMemoryStrategySubscriber.h)
 source_group("Lii\\OpenGL" FILES ${Lii_OpenGL})
 
 set(Lii_Sync

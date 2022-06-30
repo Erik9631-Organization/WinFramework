@@ -56,7 +56,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
     }
     RenderEventInfo renderEvent{&gdiRenderingPool};
 
-    node.GetValue()->OnRender(renderEvent);
+    node.GetValue()->OnRenderSync(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {

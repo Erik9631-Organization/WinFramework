@@ -6,64 +6,42 @@
 #include "ModelBuilder.h"
 #include "RenderEventInfo.h"
 #include "RenderingPriorities.h"
-PointLight** PointLight::lightPool = GenerateLightPool();
 
-unique_ptr<PointLight> PointLight::Create(std::unique_ptr<OpenGL::Model> model)
-{
-    unsigned int id = AquireId();
-    if(id == -1)
-        return nullptr;
-    auto* lightInstance = new PointLight(std::move(model), 0);
-    lightInstance->SetEnabled(true);
+IdManager PointLight::idManager = IdManager(maxLights);
 
-
-    return std::unique_ptr<PointLight>(lightInstance);
-}
-
-int PointLight::AquireId()
-{
-    for(unsigned int i = 0; i < maxLights; i++)
-        if(lightPool[i] == nullptr)
-            return i;
-    return -1;
-}
-
-PointLight::PointLight(std::unique_ptr<OpenGL::Model> model, const unsigned int &id) :
+PointLight::PointLight(std::unique_ptr<OpenGL::Model> model) :
     ModeledElement(std::move(model))
 {
-    SetId(id);
-    model->AddRenderObjectSubscriber(*this);
+    this->lightId = idManager.AquireId();
+    GetModel()->AddRenderObjectSubscriber(*this);
+    this->color = {0.5f, 0.5f, 0.5f, 1.0f};
 }
 
 PointLight::~PointLight()
 {
-    FreeLight(lightId);
     model->RemoveRenderObjectSubscriber(*this);
-}
-
-void PointLight::FreeLight(const unsigned int& id)
-{
-    lightPool[id] = nullptr;
-}
-
-void PointLight::SetId(unsigned int id)
-{
-    this->lightId = id;
-    lightPositionUniform = "lightPositions["+std::to_string(id)+"]";
-    usedLightsUniform = "usedLights["+std::to_string(id)+"]";
+    idManager.FreeId(lightId);
 }
 
 void PointLight::UpdateShader()
 {
-    GetModel()->GetShaderProgram().GetUniformProperties().SetProperty(lightPositionUniform, GetTranslation());
-    GetModel()->GetShaderProgram().GetUniformProperties().SetProperty(usedLightsUniform, (int)enabled);
+    std::string colorStr = "pointLights["+to_string(lightId)+"]."+"color";
+    std::string positionStr = "pointLights["+to_string(lightId)+"]."+"pos";
+    std::string enabledStr = "pointLights["+to_string(lightId)+"]."+"enabled";
+
+    glm::vec3 viewLight = GetModel()->GetCamera()->GetViewMatrix() * glm::vec4(ModeledElement::GetTranslation(), 1.0f);
+
+    GetModel()->GetShaderProgram().GetUniformProperties().SetProperty(colorStr, glm::vec3{color});
+    GetModel()->GetShaderProgram().GetUniformProperties().SetProperty(positionStr, viewLight);
+    GetModel()->GetShaderProgram().GetUniformProperties().SetProperty(enabledStr, (int)enabled);
+
 }
 void PointLight::SetEnabled(const bool &state)
 {
     enabled = state;
 }
 
-const bool & PointLight::GetEnabled()
+const bool & PointLight::GetEnabled() const
 {
     return enabled;
 }
@@ -78,9 +56,13 @@ const int &PointLight::GetPriority()
     return OpenGL::RenderingPriorities::Material;
 }
 
-PointLight **PointLight::GenerateLightPool()
+
+const glm::vec4 PointLight::GetColor() const
 {
-    PointLight** pool = new PointLight*[maxLights];
-    memset(pool, 0, sizeof(PointLight*)*maxLights);
-    return pool;
+    return glm::vec4();
+}
+
+void PointLight::SetColor(const glm::vec4 &color)
+{
+    this->color = color;
 }

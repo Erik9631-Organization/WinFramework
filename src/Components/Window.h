@@ -9,6 +9,7 @@
 #include "Graphics/Background.h"
 #include "GdiRenderingProvider.h"
 #include "Scene.h"
+#include <utility>
 
 using namespace std;
 class CoreWindow;
@@ -92,10 +93,10 @@ public:
     void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
     void WaitForSync();
     void Add(unique_ptr<Element3d> element);
-    template<typename type, typename ... Args>
+    template<typename type, typename ...Args>
     type& Create(Args ... args)
     {
-        std::unique_ptr<type> objPtr = std::make_unique<type>(std::move(args ... ));
+        std::unique_ptr<type> objPtr = std::make_unique<type>(std::forward<Args>(args) ...);
         auto& objRef = *objPtr;
         Add(std::move(objPtr));
         return objRef;

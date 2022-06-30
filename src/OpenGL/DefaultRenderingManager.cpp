@@ -52,7 +52,7 @@ void DefaultRenderingManager::DrawInternalModel(OpenGL::Model &model)
         model.GetShaderProgram().Load();
     }
 
-    if(model.GetMesh()->GetMeshManager().GetId() != lastMeshManagerId)
+    if(model.GetMesh() != nullptr && model.GetMesh()->GetMeshManager().GetId() != lastMeshManagerId)
     {
         lastMeshManagerId = model.GetMesh()->GetMeshManager().GetId();
         model.GetMesh()->GetMeshManager().Bind();

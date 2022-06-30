@@ -300,7 +300,7 @@ std::vector<std::reference_wrapper<RenderCommander>> CoreWindow::GetRenderables(
 }
 
 
-void CoreWindow::OnRender(RenderEventInfo e)
+void CoreWindow::OnRenderSync(RenderEventInfo e)
 {
     //Wait for on sync to finish before returning the call.
     //The reason why is because we want to capture the current snapshot of the draw state and then draw the complete data.

@@ -33,9 +33,9 @@ std::vector<std::reference_wrapper<RenderCommander>> Scene::GetRenderables()
     return renderingBehavior.GetRenderables();
 }
 
-void Scene::OnRender(RenderEventInfo e)
+void Scene::OnRenderSync(RenderEventInfo e)
 {
-    renderingBehavior.OnRender(e);
+    renderingBehavior.OnRenderSync(e);
 }
 
 void Scene::OnSync(const DrawData &data)

@@ -7,14 +7,14 @@
 #include "MetaData.hpp"
 namespace MemManager
 {
-    template<class MemoryStrategyType, class MetaDataType>
+    template<class MemoryStrategyType>
     class MemoryManager;
 
-    template<class Type, class MemoryStrategyType, class MetaDataType = size_t>
+    template<class Type, class MemoryStrategyType>
     class ManagedPtr
     {
     public:
-        ManagedPtr(MemoryManager<MemoryStrategyType, MetaDataType>* manager, MetaData<MetaDataType>* objectMetaData) :
+        ManagedPtr(MemoryManager<MemoryStrategyType>* manager, MetaData* objectMetaData) :
             manager(manager),
             objectMetaData(objectMetaData)
         {}
@@ -36,7 +36,7 @@ namespace MemManager
             return *(manager->GetData<Type>(objectMetaData->GetOffset() + sizeof(Type)*value));
         }
 
-        const MetaData<MetaDataType>* GetMetaData() const
+        const MetaData* GetMetaData() const
         {
             return objectMetaData;
         }
@@ -47,8 +47,8 @@ namespace MemManager
         }
 
     private:
-        MetaData<MetaDataType>* objectMetaData = nullptr;
-        MemoryManager<MemoryStrategyType, MetaDataType>* manager = nullptr;
+        MetaData* objectMetaData = nullptr;
+        MemoryManager<MemoryStrategyType>* manager = nullptr;
     };
 }
 

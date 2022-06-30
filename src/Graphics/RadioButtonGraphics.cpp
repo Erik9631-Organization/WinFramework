@@ -72,9 +72,9 @@ float RadioButtonGraphics::GetDiameter()
 	return border.GetDiameter();
 }
 
-void RadioButtonGraphics::OnRender(RenderEventInfo e)
+void RadioButtonGraphics::OnRenderSync(RenderEventInfo e)
 {
-	renderBehavior.OnRender(e);
+    renderBehavior.OnRenderSync(e);
 }
 
 void RadioButtonGraphics::Repaint()

@@ -66,9 +66,10 @@ DefaultModel::DefaultModel(ShaderProgram *shaderProgram, Mesh *mesh)
     projectionMatrix = &defaultProjectionMatrix;
     this->mesh = mesh;
     this->shaderProgram = shaderProgram;
-    AddRenderObjectSubscriber(*this->mesh);
+    if(mesh != nullptr)
+        renderObjectSubscribers.emplace(mesh->GetPriority(), mesh);
     this->material = std::make_unique<Material>(*shaderProgram);
-    AddRenderObjectSubscriber(*this->material);
+    renderObjectSubscribers.emplace(this->material->GetPriority(), this->material.get());
 }
 
 void DefaultModel::SetProjectionMatrix(glm::mat4 *projection)
@@ -164,17 +165,13 @@ void DefaultModel::Move(const Model &model)
 
 void DefaultModel::OnUpdate(EventUpdateInfo e)
 {
-    if(activeCamera != nullptr)
-    {
-        *viewMatrix = glm::lookAt(activeCamera->GetPosition(), activeCamera->GetPosition() + activeCamera->GetForwardAxis(), activeCamera->GetUpAxis());
-    }
 }
 
 
 void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 {
     if(activeCamera != nullptr)
-        *viewMatrix = glm::lookAt(activeCamera->GetPosition(), activeCamera->GetPosition() + activeCamera->GetForwardAxis(), activeCamera->GetUpAxis());
+        *viewMatrix = activeCamera->GetViewMatrix();
     else
         *viewMatrix = defaultViewMatrix;
 
@@ -184,7 +181,6 @@ void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
         shaderProgram->GetUniformProperties().SetProperty("projection", *projectionMatrix);
 
     shaderProgram->GetUniformProperties().SetProperty("view", *viewMatrix);
-
     shaderProgram->GetUniformProperties().SetProperty("model", basisMatrix * modelMatrix);
 
     NotifyOnRenderObjects({this, mesh});
@@ -320,4 +316,9 @@ void DefaultModel::SetMesh(const string &meshTag)
 void DefaultModel::SetShaderProgram(const string shaderTag)
 {
     this->shaderProgram = GlobalResourceManager::GetGlobalResourceManager().GetDefaultShaderManager()->GetShaderProgram(shaderTag);
+}
+
+DefaultModel::DefaultModel(ShaderProgram *shaderProgram) : DefaultModel(shaderProgram, nullptr)
+{
+
 }

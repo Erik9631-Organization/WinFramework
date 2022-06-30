@@ -5,6 +5,7 @@
 #include <glm.hpp>
 #include <gtc/type_ptr.hpp>
 #include <vector>
+#include "CoreWindow.h"
 
 namespace OpenGL
 {
@@ -176,10 +177,15 @@ namespace OpenGL
         template<typename ... type >
         void SetProperty(const std::string& propertyName, const type& ... args ) const
         {
-           unsigned int uniformShaderId = glGetUniformLocation(shaderProgramId, propertyName.c_str());
-            if(uniformShaderId == -1)
-                return;
-            SetPropertyCount(uniformShaderId, args ...);
+            unsigned int uniformLocation = glGetUniformLocation(shaderProgramId, propertyName.c_str());
+            unsigned int error;
+            if( (error = glGetError()) != GL_NO_ERROR)
+            {
+               CoreWindow::ConsoleWrite("UniformProperties error: " + to_string(error));
+               return;
+            }
+
+            SetPropertyCount(uniformLocation, args ...);
         }
 
     };

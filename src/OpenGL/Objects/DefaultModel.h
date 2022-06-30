@@ -20,7 +20,7 @@ namespace OpenGL
     {
     private:
         ShaderProgram* shaderProgram;
-        Mesh* mesh;
+        Mesh* mesh = nullptr;
         glm::mat4 modelMatrix{1.0f};
         glm::mat4 basisMatrix{1.0f};
 
@@ -43,6 +43,7 @@ namespace OpenGL
         void RecalculateMatrix();
     public:
         DefaultModel(ShaderProgram *shaderProgram, Mesh *mesh);
+        DefaultModel(ShaderProgram* shaderProgram);
         DefaultModel(const DefaultModel &model);
         void Translate(const glm::vec3 &translation) override;
         void Scale(const glm::vec3 &scale) override;

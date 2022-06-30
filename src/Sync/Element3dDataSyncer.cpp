@@ -13,7 +13,8 @@ using namespace std;
 void Element3dDataSyncer::InternalSyncData(MultiTree<unique_ptr<Element3d>> &node)
 {
     RenderEventInfo e{&renderingPool};
-    std::future<void> syncResult = std::async(std::launch::async, [&]{node.GetValue()->OnRender(e);});
+    //Causes crash CRASH1
+    std::future<void> syncResult = std::async(std::launch::async, [&]{ node.GetValue()->OnRenderSync(e);});
     std::for_each(std::execution::par, node.GetNodes().begin(), node.GetNodes().end(), [&](std::unique_ptr<MultiTree<unique_ptr<Element3d>>>& i)
     {
         InternalSyncData(*i);

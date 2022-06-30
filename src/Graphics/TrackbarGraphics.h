@@ -29,7 +29,7 @@ public:
 	void SetTrackerColor(Vector3 color);
 	Vector3 GetTrackerColor();
 
-	virtual void OnRender(RenderEventInfo e) override;
+	virtual void OnRenderSync(RenderEventInfo e) override;
 	virtual void Repaint() override;
 	virtual void AddRenderCommander(RenderCommander &renderable) override;
 	virtual void RemoveRenderCommander(RenderCommander& renderable) override;

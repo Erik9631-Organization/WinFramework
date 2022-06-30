@@ -50,7 +50,7 @@ public:
 	std::wstring GetText();
 	virtual void SetColor(Vector3 color);
 	virtual void SetFontSize(float fontSize);
-	virtual void OnRender(RenderEventInfo e) override;
+	virtual void OnRenderSync(RenderEventInfo e) override;
 	virtual void Repaint() override;
 	virtual void AddRenderCommander(RenderCommander &renderable) override;
 	virtual void RemoveRenderCommander(RenderCommander& renderable) override;

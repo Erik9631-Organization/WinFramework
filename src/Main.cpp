@@ -18,6 +18,8 @@
 #include "ModeledElement.h"
 #include "TextureManager.h"
 #include "StaticTexture.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
 
 using namespace std;
 
@@ -93,12 +95,43 @@ public:
 
 };
 
+class LightController : public OnTickSubscriber
+{
+public:
+
+    LightController(PointLight& pointLight) : light(pointLight)
+    {
+
+    }
+    void OnTick() override
+    {
+        glm::vec3 translation = light.GetTranslation();
+        translation.z = currentTranslation;
+        light.SetTranslation(translation);
+
+
+        currentTranslation += translationValue;
+
+        if(currentTranslation > translationMax)
+            translationValue *= -1;
+        if(currentTranslation < translationMax * -1)
+            translationValue *= -1;
+    }
+private:
+    float currentTranslation = 0.0f;
+    float translationValue = 0.0005f;
+    float translationMax = 100.0f;
+    PointLight& light;
+
+};
+
 int LiiEntry()
 {
 //    DemoApplication::LaunchDemoApp();
     Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
     shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
     frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+
 
 
     auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
@@ -110,6 +143,7 @@ int LiiEntry()
     glm::mat4* orthographicMatrix = new glm::mat4(glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.0f, 100.0f));
     builder3D.SetProjectionMatrix(projectionMatrix);
     builder2D.SetProjectionMatrix(orthographicMatrix);
+
 
 
     std::unique_ptr<OpenGL::Model> wallBlock = builder3D.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
@@ -131,9 +165,23 @@ int LiiEntry()
 
     wallBlockElement.GetModel()->SetTexture("WallTexture");
 
+    DirectionalLight& light = frame->Create<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
+    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
+
+    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
+    auto& pointLight = frame->Create<PointLight>(std::move(pointLightModel));
+    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
+    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
+    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
+
 
     CameraController* controller = new CameraController{*frame};
     frame->AddOnTickSubscriber(controller);
     frame->AddOnActivateSubscriber(*controller);
+
+    LightController* lightController = new LightController(pointLight);
+
+    frame->AddOnTickSubscriber(lightController);
 	return 0;
 }

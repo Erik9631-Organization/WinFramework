@@ -7,15 +7,13 @@
 #include <memory>
 #include "RenderObjectEventInfo.h"
 #include "RenderObjectSubscriber.h"
+#include "RenderObjectSubject.h"
 
 namespace OpenGL
 {
-    class RenderObject : public RenderObjectSubscriber
+    class RenderObject : public RenderObjectSubscriber, public RenderObjectSubject
     {
     public:
-        virtual void AddRenderObjectSubscriber(RenderObjectSubscriber& subscriber) = 0;
-        virtual void RemoveRenderObjectSubscriber(const RenderObjectSubscriber& subscriber) = 0;
-        virtual void NotifyOnRenderObjects(const RenderObjectEventInfo &eventInfo) = 0;
         ~RenderObject() = default;
     };
 }

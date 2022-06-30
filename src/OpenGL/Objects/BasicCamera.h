@@ -30,8 +30,12 @@ namespace OpenGL
         const glm::vec3 & GetForwardAxis() const override;
         const glm::vec3 & GetRightAxis() const override;
         const glm::vec3 & GetUpAxis() const override;
+        const glm::mat4 & GetViewMatrix() const override;
     private:
+        glm::mat4 viewMatrix {1};
+
         void UpdateAxes();
+        void UpdateViewMatrix();
 
         float yaw = 0;
         float pitch = -90;

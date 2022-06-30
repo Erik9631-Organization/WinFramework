@@ -52,7 +52,7 @@ void SimpleBorder::DrawFromCenterY(bool state)
     graphicsUtil.SetCalculateFromCenterY(state);
 }
 
-void SimpleBorder::OnRender(RenderEventInfo e)
+void SimpleBorder::OnRenderSync(RenderEventInfo e)
 {
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
@@ -60,7 +60,7 @@ void SimpleBorder::OnRender(RenderEventInfo e)
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
     renderer.DrawRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
-	renderBehavior.OnRender(e);
+    renderBehavior.OnRenderSync(e);
 }
 
 void SimpleBorder::Repaint()

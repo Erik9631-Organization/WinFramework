@@ -10,6 +10,7 @@
 #include "MetaData.hpp"
 #include <glew.h>
 #include "VertexAttributeGroup.h"
+#include "GpuMemoryStrategySubscriber.h"
 
 class GpuMemoryStrategy : public MemManager::MemoryStrategy
 {
@@ -18,6 +19,32 @@ private:
     unsigned int vaoId = 0;
     VertexAttributeGroup* properties;
     GLenum usage;
+    std::vector<GpuMemoryStrategySubscriber*> subscribers;
+
+    void NotifyOnCopy(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
+    {
+        for(auto i : subscribers)
+        {
+            i->OnCopyData(metaData, usedMemory, memoryStartAddr);
+        }
+    }
+
+    void NotifyOnWrite(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
+    {
+        for(auto i : subscribers)
+        {
+            i->OnWriteData(metaData, usedMemory, memoryStartAddr);
+        }
+    }
+
+    void NotifyOnErase(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
+    {
+        for(auto i : subscribers)
+        {
+            i->OnEraseData(metaData, usedMemory, memoryStartAddr);
+        }
+    }
+
     void CreateVao()
     {
         glDeleteVertexArrays(1, &vaoId);
@@ -33,6 +60,23 @@ private:
     }
 
 public:
+    void AddGpuAddGpuMemoryStrategySubscriber(GpuMemoryStrategySubscriber* subscriber)
+    {
+        subscribers.push_back(subscriber);
+    }
+
+    void RemoveGpuMemoryStrategySubscriber(GpuMemoryStrategySubscriber* subscriber)
+    {
+        for(auto it = subscribers.begin(); it < subscribers.end(); it++)
+        {
+            if(*it == subscriber)
+            {
+                subscribers.erase(it);
+                return;
+            }
+        }
+    }
+
     GpuMemoryStrategy(VertexAttributeGroup* properties = nullptr, GLenum usage = GL_STATIC_DRAW) :
     usage(usage),
     properties{properties}{}
@@ -87,25 +131,28 @@ public:
         return bufferId;
     }
 
-    template<typename T, typename MetaDataType, typename ... Args>
-    void CopyData(MemManager::MetaData<MetaDataType>& metaData, size_t& usedMemory, const size_t& memoryStartAddr, T* src)
+    template<typename T>
+    void CopyData(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr, T* src)
     {
         glBindBuffer(GL_ARRAY_BUFFER, memoryStartAddr);
         glBufferSubData(GL_ARRAY_BUFFER, metaData.GetOffset(), metaData.GetSize(), src);
         usedMemory+=metaData.GetSize();
+        NotifyOnCopy(metaData, usedMemory, memoryStartAddr);
     }
 
-    template<typename T, typename MetaDataType>
-    void EraseData(const MemManager::MetaData<MetaDataType>& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
+    template<typename T>
+    void EraseData(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr)
     {
         //The data will be simply rewritten. Nothing else required here
         usedMemory-= metaData.GetSize();
+        NotifyOnErase(metaData, usedMemory, memoryStartAddr);
     }
 
-    template<typename T, typename MetaDataType, typename ... Args>
-    void WriteData(MemManager::MetaData<MetaDataType>& metaData, size_t& usedMemory, const size_t& memoryStartAddr, Args ... args)
+    template<typename T, typename ... Args>
+    void WriteData(MemManager::MetaData& metaData, size_t& usedMemory, const size_t& memoryStartAddr, Args ... args)
     {
         //Currently not supported. DMA required
+        NotifyOnWrite(metaData, usedMemory, memoryStartAddr);
     }
 
     template<typename T>

@@ -4,6 +4,6 @@
 class CircleBackground : public CircleBorder
 {
 public:
-	virtual void OnRender(RenderEventInfo e) override;
+	virtual void OnRenderSync(RenderEventInfo e) override;
 };
 

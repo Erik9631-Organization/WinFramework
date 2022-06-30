@@ -121,10 +121,10 @@ public:
 
 	// Inherited via Renderable
 	/**
-	 * OnRender event
+	 * OnRenderSync event
 	 * \param e event object to pass.
 	 */
-	virtual void OnRender(RenderEventInfo e) override;
+	virtual void OnRenderSync(RenderEventInfo e) override;
 	
 	/**
 	 * Similar to RedrawWindow, but also updates the position and scale.

@@ -27,7 +27,7 @@ std::vector<std::reference_wrapper<RenderCommander>> TestGraphics::GetRenderable
     return renderables;
 }
 
-void TestGraphics::OnRender(RenderEventInfo e)
+void TestGraphics::OnRenderSync(RenderEventInfo e)
 {
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
     renderer.SetColor({0, 0, 0});

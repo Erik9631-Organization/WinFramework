@@ -261,7 +261,7 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiEleme
         renderingPool->SetTranslation({0, 0});
 
     RenderEventInfo renderEvent{renderingPool.get()};
-    node.GetValue()->OnRender(renderEvent);
+    node.GetValue()->OnRenderSync(renderEvent);
 
     for (int i = 0; i < node.GetNodeCount(); i++)
     {

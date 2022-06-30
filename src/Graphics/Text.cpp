@@ -66,7 +66,7 @@ void Text::SetFontSize(float fontSize)
     this->fontSize = fontSize;
 }
 
-void Text::OnRender(RenderEventInfo e)
+void Text::OnRenderSync(RenderEventInfo e)
 {
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());

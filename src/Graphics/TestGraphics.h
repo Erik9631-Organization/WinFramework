@@ -20,7 +20,7 @@ public:
     void AddRenderCommander(RenderCommander &renderable) override;
     void RemoveRenderCommander(RenderCommander &renderable) override;
     std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-    void OnRender(RenderEventInfo e) override;
+    void OnRenderSync(RenderEventInfo e) override;
 };
 
 

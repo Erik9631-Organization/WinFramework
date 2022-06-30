@@ -36,6 +36,7 @@ namespace OpenGL
         std::unique_ptr<Model> CreateTriangle(std::initializer_list<glm::vec2> vertices);
         std::unique_ptr<Model> CreateBlock(float x, float y, float z, float width, float height, float depth);
         std::unique_ptr<Model> CreateBlock(glm::vec3 position, glm::vec3 size);
+        std::unique_ptr<Model> CreateEmptyModel();
         void SetProjectionMatrix(glm::mat4 *projection);
     };
 }

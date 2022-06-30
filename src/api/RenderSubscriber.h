@@ -20,7 +20,7 @@ public:
 	 * Method which recieves the render events
 	 * \param e the render event object which contains the renderer on which the rendering is to be done. Check RenderEventInfo class.
 	 */
-	virtual void OnRender(RenderEventInfo e) = 0;
+	virtual void OnRenderSync(RenderEventInfo e) = 0;
 	virtual void OnSync(const DrawData& data) = 0;
 };
 

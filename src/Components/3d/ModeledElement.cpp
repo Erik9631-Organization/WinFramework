@@ -27,11 +27,12 @@ std::vector<std::reference_wrapper<RenderCommander>> ModeledElement::GetRenderab
     return renderingBehavior.GetRenderables();
 }
 
-void ModeledElement::OnRender(RenderEventInfo e)
+void ModeledElement::OnRenderSync(RenderEventInfo e)
 {
-    renderingBehavior.OnRender(e);
+    renderingBehavior.OnRenderSync(e);
     if(model == nullptr)
         return;
+    //Causes crash CRASH1
     e.GetRenderer()->Acquire(*this).DrawModel(*model);
 }
 

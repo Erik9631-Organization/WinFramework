@@ -2,46 +2,54 @@
 // Created by Erik on 13/03/22.
 //
 #include "BasicCamera.h"
+#include <gtc/matrix_transform.hpp>
 
 void OpenGL::BasicCamera::Left(const float &val)
 {
     position -= val * rightAxis;
+    UpdateViewMatrix();
 }
 
 void OpenGL::BasicCamera::Right(const float &val)
 {
     position += val * rightAxis;
+    UpdateViewMatrix();
 }
 
 void OpenGL::BasicCamera::Up(const float &val)
 {
     position += val * upAxis;
+    UpdateViewMatrix();
 }
 
 void OpenGL::BasicCamera::Down(const float &val)
 {
     position -= val * upAxis;
+    UpdateViewMatrix();
 }
 
 void OpenGL::BasicCamera::Foward(const float &val)
 {
     position += val * forwardAxis;
+    UpdateViewMatrix();
 }
 
 void OpenGL::BasicCamera::Backward(const float &val)
 {
     position -= val * forwardAxis;
+    UpdateViewMatrix();
 }
 
 
 void OpenGL::BasicCamera::SetPosition(const float &x, const float &y, const float &z)
 {
-    position = {x, y, z};
+    SetPosition({x, y, z});
 }
 
 void OpenGL::BasicCamera::SetPosition(const glm::vec3 &position)
 {
     this->position = position;
+    UpdateViewMatrix();
 }
 
 const glm::vec3 &OpenGL::BasicCamera::GetPosition() const
@@ -116,4 +124,16 @@ void OpenGL::BasicCamera::UpdateAxes()
     forwardAxis.z = cos(yawRads) * sin(pitchRads);
     forwardAxis = glm::normalize(forwardAxis);
     rightAxis = glm::cross(forwardAxis, upAxis);
+
+    UpdateViewMatrix();
+}
+
+void OpenGL::BasicCamera::UpdateViewMatrix()
+{
+    viewMatrix = glm::lookAt(position, position + forwardAxis, upAxis);
+}
+
+const glm::mat4 & OpenGL::BasicCamera::GetViewMatrix() const
+{
+    return viewMatrix;
 }

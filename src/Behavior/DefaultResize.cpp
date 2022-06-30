@@ -15,6 +15,7 @@ void DefaultResize::NotifyOnResizeSubscribers(EventResizeInfo event)
 
 void DefaultResize::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
+    //CRASH1
     subscribers.push_back(subscriber);
 }
 

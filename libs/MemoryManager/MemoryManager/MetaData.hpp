@@ -4,16 +4,16 @@
 
 #ifndef REDBLACKMEMORYMANAGER_METADATA_HPP
 #define REDBLACKMEMORYMANAGER_METADATA_HPP
+#include <any>
 
 namespace MemManager
 {
-    template<class T>
     class MetaData
     {
     private:
         size_t offset;
         size_t size;
-        T* userData = nullptr;
+        std::any userData;
     public:
         MetaData(const size_t offset, const size_t& size)
         {
@@ -21,9 +21,11 @@ namespace MemManager
             this->size = size;
             this->userData = nullptr;
         }
-        const T& GetUserData() const
+
+        template<typename DataType>
+        const DataType GetUserData() const
         {
-            return *userData;
+            return std::any_cast<DataType>(userData);
         }
 
         const size_t& GetOffset() const
@@ -34,9 +36,11 @@ namespace MemManager
         {
             return size;
         }
-        void SetUserData(T* userData)
+
+        template<typename DataType>
+        void SetUserData(DataType userData)
         {
-            this->userData = userData;
+            this->userData = std::make_any<DataType>(std::forward<DataType>(userData));
         }
     };
 

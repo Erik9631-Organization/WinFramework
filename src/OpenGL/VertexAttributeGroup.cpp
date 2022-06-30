@@ -34,7 +34,7 @@ VertexAttributeGroup::VertexAttributeGroup(std::vector<std::unique_ptr<VertexAtt
     }
 }
 
-const unsigned int & VertexAttributeGroup::GetVerticeSize()
+const unsigned int & VertexAttributeGroup::GetVerticeCount()
 {
     return verticeSize;
 }

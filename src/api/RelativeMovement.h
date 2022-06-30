@@ -27,6 +27,7 @@ public:
     virtual const glm::vec3 & GetForwardAxis() const = 0;
     virtual const glm::vec3 & GetRightAxis() const = 0;
     virtual const glm::vec3 & GetUpAxis() const = 0;
+    virtual ~RelativeMovement() = default;
 };
 
 

@@ -68,7 +68,7 @@ float Background::GetY()
     return position.GetY();
 }
 
-void Background::OnRender(RenderEventInfo e)
+void Background::OnRenderSync(RenderEventInfo e)
 {
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());

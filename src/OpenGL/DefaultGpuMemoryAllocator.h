@@ -13,18 +13,20 @@
 #include "VertexAttributeGroup.h"
 #include "MemoryManager.hpp"
 #include "GpuMemoryStrategy.h"
+#include "GpuMemoryStrategySubscriber.h"
 
 
 class Mesh;
 namespace OpenGL
 {
-    class DefaultGpuMemoryAllocator : public GpuMemoryAllocator
+    class DefaultGpuMemoryAllocator : public GpuMemoryAllocator, public GpuMemoryStrategySubscriber
     {
     private:
         MemManager::MemoryManager<GpuMemoryStrategy> gpuMemoryManager;
         //After the attributes are created, we only need to keep the hasj
         std::unique_ptr<VertexAttributeGroup> vertexAttributes;
         std::string tag;
+        size_t realSize = 0;
     public:
         DefaultGpuMemoryAllocator(std::unique_ptr<VertexAttributeGroup> properties);
         std::pair<MemManager::ManagedPtr<float, GpuMemoryStrategy>, MemManager::ManagedPtr<unsigned int, GpuMemoryStrategy>>
@@ -41,6 +43,11 @@ namespace OpenGL
         const int & GetPriority() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
+        size_t CalculatePadding(const size_t &size, const size_t padding);
+        void OnCopyData(MemManager::MetaData &metaData, size_t &usedMemory, const size_t &memoryStartAddr) override;
+        void
+        OnEraseData(const MemManager::MetaData &metaData, size_t &usedMemory, const size_t &memoryStartAddr) override;
+        void OnWriteData(MemManager::MetaData &metaData, size_t &usedMemory, const size_t &memoryStartAddr) override;
     };
 }
 

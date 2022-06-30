@@ -123,6 +123,7 @@ std::unique_ptr<FontFormat> OpenGLRenderer::CreateFontFormat()
 
 OpenGLRenderer::OpenGLRenderer(Window &window, OpenGL::RenderingManager& manager) : window(window), renderingManager(manager)
 {
+    //CRASH1
     window.AddOnResizeSubscriber(*this);
     viewMatrix = &defaultViewMatrix;
     CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
@@ -167,5 +168,6 @@ void OpenGLRenderer::DrawModel(const OpenGL::Model &model)
     if(!renderingManager.HasModel(model))
         renderingManager.AddModel(model);
 
+    //Updates the model in the manager
     renderingManager.Move(model);
 }

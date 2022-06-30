@@ -11,6 +11,8 @@ namespace OpenGL
 {
     class Camera : public RelativeMovement
     {
+    public:
+        virtual const glm::mat4 & GetViewMatrix() const = 0;
     };
 }
 

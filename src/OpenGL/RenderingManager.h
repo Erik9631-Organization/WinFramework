@@ -6,10 +6,11 @@
 #define LII_RENDERINGMANAGER_H
 #include "Model.h"
 #include <map>
+#include "RenderObjectSubject.h"
 
 namespace OpenGL
 {
-    class RenderingManager
+class RenderingManager
     {
     public:
         virtual void Render() = 0;

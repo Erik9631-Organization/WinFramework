@@ -25,7 +25,7 @@ public:
     void AddRenderCommander(RenderCommander &renderable) override;
     void RemoveRenderCommander(RenderCommander &renderable) override;
     std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-    void OnRender(RenderEventInfo e) override;
+    void OnRenderSync(RenderEventInfo e) override;
     void OnSync(const DrawData &data) override;
     void Rotate(const float &angle, const glm::vec3 &axis) override;
     void SetRotation(const float &angle, const glm::vec3 &axis) override;

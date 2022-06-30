@@ -51,9 +51,11 @@ namespace OpenGL
                     return false;
 
                 //Lastly compare by the buffer.
-                if(a->GetMesh()->GetMeshManager().GetId() < b->GetMesh()->GetMeshManager().GetId())
+                if(a->GetMesh() != nullptr && b->GetMesh() != nullptr &&
+                    a->GetMesh()->GetMeshManager().GetId() < b->GetMesh()->GetMeshManager().GetId())
                     return true;
-                if(a->GetMesh()->GetMeshManager().GetId() > b->GetMesh()->GetMeshManager().GetId())
+                if(a->GetMesh() != nullptr && b->GetMesh() != nullptr &&
+                    a->GetMesh()->GetMeshManager().GetId() > b->GetMesh()->GetMeshManager().GetId())
                     return false;
 
                 //If everything is equal then just decide using generic ID

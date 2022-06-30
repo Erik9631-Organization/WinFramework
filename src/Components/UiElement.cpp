@@ -104,9 +104,9 @@ void UiElement::SetY(float y)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::OnRender(RenderEventInfo e)
+void UiElement::OnRenderSync(RenderEventInfo e)
 {
-	renderBehavior.OnRender(e);
+    renderBehavior.OnRenderSync(e);
 }
 
 void UiElement::OnSync(const DrawData &data)
@@ -146,6 +146,7 @@ void UiElement::NotifyOnResizeSubscribers(EventResizeInfo event)
 
 void UiElement::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
+    //CRASH1
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 

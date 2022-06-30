@@ -18,6 +18,7 @@ Renderer &OpenGLRenderingPool::Acquire(const RenderCommander &target)
     }
 
     //Not found, new one needs to be created
+    //CRASH1
     renderers.insert({&target, std::make_unique<OpenGLRenderer>(window, renderingManager)});
     OpenGLRenderer& renderer = *renderers[&target];
     renderer.Translate(translation);

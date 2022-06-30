@@ -46,7 +46,7 @@ public:
 	void DrawFromCenterX(bool state);
 
 	// Inherited via Renderable
-	void OnRender(RenderEventInfo e) override;
+	void OnRenderSync(RenderEventInfo e) override;
 	void Repaint() override;
 	void AddRenderCommander(RenderCommander &renderable) override;
 	void RemoveRenderCommander(RenderCommander& renderable) override;

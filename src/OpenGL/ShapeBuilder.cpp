@@ -244,7 +244,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float 
 
                 0, defaultHeight, 0,                        0, 1,   0, -1, 0,//Bottom Face
                 defaultWidth, defaultHeight, 0,             0, 0,   0, -1, 0,
-            defaultWidth, defaultHeight, defaultDepth,      1, 0,   0, -1, 0,
+                defaultWidth, defaultHeight, defaultDepth,      1, 0,   0, -1, 0,
                 defaultWidth, defaultHeight, defaultDepth,  1, 0,   0, -1, 0,
                 0, defaultHeight, defaultDepth,             1, 1,   0, -1, 0,
                 0, defaultHeight, 0,                        0, 1,   0, -1, 0,
@@ -270,4 +270,11 @@ OpenGL::ModelBuilder::ModelBuilder()
     shaderProgram = static_cast<ShaderProgram*>(GlobalResourceManager::GetGlobalResourceManager()
         .GetDefaultShaderManager()->GetResource("default"));
     meshManager = GlobalResourceManager::GetGlobalResourceManager().GetDefaultMeshManager();
+}
+
+unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEmptyModel()
+{
+    auto model = std::make_unique<DefaultModel>(shaderProgram, nullptr);
+    model->SetProjectionMatrix(projectionMatrix);
+    return std::move(model);
 }
