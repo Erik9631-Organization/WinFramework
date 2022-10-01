@@ -376,7 +376,7 @@ void DemoApplication::LaunchDemoApp()
 	comboBox->CreateComboElement(L"Third", std::make_any<int>(3));
 	comboBox->CreateComboElement(L"Fourth", std::make_any<int>(4));
 	comboBox->CreateComboElement(L"Fifth", std::make_any<int>(5));
-	auto comboBoxTester = std::make_unique<ComboBoxTester>(*comboBox);
+	auto comboBoxTester = new ComboBoxTester(*comboBox);
 	comboBox->AddComboBoxStateSubscriber(*comboBoxTester);
 
 	/*
@@ -458,10 +458,11 @@ void DemoApplication::LaunchDemoApp()
 	auto passwordField = std::make_unique<PasswordField>(490, 210, 100, 30, "PasswordField");
 	auto submitButton = std::make_unique<Button>(600, 210, 100, 30);
 	submitButton->SetText(L"Submit");
+    submitButton->SetComponentName("SubmitButton");
 	auto resultLabel = std::make_unique<Label>(490, 250, 100, 50, "resultLabel");
 
 
-	auto submiter = std::make_unique<FormSubmiter>(*resultLabel, *passwordField);
+	auto submiter = new FormSubmiter(*resultLabel, *passwordField);
 	submitButton->AddMouseStateSubscriber(*submiter);
 	/*
 	* Password Form END

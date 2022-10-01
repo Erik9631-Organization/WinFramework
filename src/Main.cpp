@@ -127,61 +127,61 @@ private:
 
 int LiiEntry()
 {
-//    DemoApplication::LaunchDemoApp();
-    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
-    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
-
-
-
-    auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
-    auto& texture = manager->CreateTexture<OpenGL::StaticTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
-    manager->LoadResource("WallTexture");
-    OpenGL::ModelBuilder builder3D{};
-    OpenGL::ModelBuilder builder2D{};
-    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 1000.0f));
-    glm::mat4* orthographicMatrix = new glm::mat4(glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.0f, 100.0f));
-    builder3D.SetProjectionMatrix(projectionMatrix);
-    builder2D.SetProjectionMatrix(orthographicMatrix);
-
-
-
-    std::unique_ptr<OpenGL::Model> wallBlock = builder3D.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
-    std::unique_ptr<OpenGL::Model> block = builder3D.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
-    block->GetMaterial().SetSpecular({0.5f, 0.5f, 0.5f});
-    std::unique_ptr<OpenGL::Model> rectangle = builder2D.CreateFillRectangle(50, 50, 100, 100);
-    rectangle->SetTranslation({0, 0, -10.0f});
-
-    ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
-
-    ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
-    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-
-    rectangle->SetCamera(nullptr);
-    rectangle->CustomCameraEnabled(true);
-    auto& rectangleElement = frame->Create<ModeledElement>(std::move(rectangle));
-    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
-
-    wallBlockElement.GetModel()->SetTexture("WallTexture");
-
-    DirectionalLight& light = frame->Create<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
-    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
-
-    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
-    auto& pointLight = frame->Create<PointLight>(std::move(pointLightModel));
-    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
-    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
-    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
-
-
-    CameraController* controller = new CameraController{*frame};
-    frame->AddOnTickSubscriber(controller);
-    frame->AddOnActivateSubscriber(*controller);
-
-    LightController* lightController = new LightController(pointLight);
-
-    frame->AddOnTickSubscriber(lightController);
+    DemoApplication::LaunchDemoApp();
+//    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
+//    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
+//    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+//
+//
+//
+//    auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
+//    auto& texture = manager->CreateTexture<OpenGL::StaticTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
+//    manager->LoadResource("WallTexture");
+//    OpenGL::ModelBuilder builder3D{};
+//    OpenGL::ModelBuilder builder2D{};
+//    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 1000.0f));
+//    glm::mat4* orthographicMatrix = new glm::mat4(glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.0f, 100.0f));
+//    builder3D.SetProjectionMatrix(projectionMatrix);
+//    builder2D.SetProjectionMatrix(orthographicMatrix);
+//
+//
+//
+//    std::unique_ptr<OpenGL::Model> wallBlock = builder3D.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
+//    std::unique_ptr<OpenGL::Model> block = builder3D.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
+//    block->GetMaterial().SetSpecular({0.5f, 0.5f, 0.5f});
+//    std::unique_ptr<OpenGL::Model> rectangle = builder2D.CreateFillRectangle(50, 50, 100, 100);
+//    rectangle->SetTranslation({0, 0, -10.0f});
+//
+//    ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
+//
+//    ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
+//    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//
+//    rectangle->SetCamera(nullptr);
+//    rectangle->CustomCameraEnabled(true);
+//    auto& rectangleElement = frame->Create<ModeledElement>(std::move(rectangle));
+//    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
+//
+//    wallBlockElement.GetModel()->SetTexture("WallTexture");
+//
+//    DirectionalLight& light = frame->Create<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
+//    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
+//
+//    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
+//    auto& pointLight = frame->Create<PointLight>(std::move(pointLightModel));
+//    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
+//    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
+//    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
+//
+//
+//    CameraController* controller = new CameraController{*frame};
+//    frame->AddOnTickSubscriber(controller);
+//    frame->AddOnActivateSubscriber(*controller);
+//
+//    LightController* lightController = new LightController(pointLight);
+//
+//    frame->AddOnTickSubscriber(lightController);
 	return 0;
 }
