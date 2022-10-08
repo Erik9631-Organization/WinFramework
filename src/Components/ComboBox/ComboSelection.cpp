@@ -3,7 +3,7 @@
 #include "Components/Window.h"
 #include "Components/Grid/Grid.h"
 #include "Components/UiElement.h"
-#include "Components/CoreWindow.h"
+#include "Components/WindowsCore.h"
 #include "Events/ComboBoxStateSubscriber.h"
 
 int ComboSelection::numberOfBoxes = 0;

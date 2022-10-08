@@ -8,7 +8,7 @@
 #include <execution>
 #include <future>
 #include <algorithm>
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 void UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {

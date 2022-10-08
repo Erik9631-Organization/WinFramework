@@ -7,6 +7,7 @@ class KeyStateSubscriber;
  */
 class KeyStateSubject
 {
+public:
 	/**
 	 * Sends an event to all subscribers on KeyDown.
 	 * \param e the event object to be sent.

@@ -12,7 +12,7 @@
 #include <utility>
 
 using namespace std;
-class CoreWindow;
+class WindowsCore;
 class RenderingProvider;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
@@ -24,7 +24,7 @@ class Window : public UiElement
 private:
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	CoreWindow* coreFrame = nullptr;
+	WindowsCore* coreFrame = nullptr;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;

@@ -8,7 +8,7 @@
 #include <Windows.h>
 
 #include <string>
-#include "Components/CoreWindow.h"
+#include "Components/WindowsCore.h"
 #include <gdiplus.h>
 #include "DataTypes/DefaultMultiTree.h"
 #include "Events/MoveSubscriber.h"
@@ -118,21 +118,21 @@ class InputTester : public KeyStateSubscriber
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 
 		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
-			CoreWindow::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
-		CoreWindow::ConsoleWrite(src->GetComponentName());
+			WindowsCore::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
+		WindowsCore::ConsoleWrite(src->GetComponentName());
 
 	}
 	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		CoreWindow::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
-		CoreWindow::ConsoleWrite(src->GetComponentName());
+		WindowsCore::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
+		WindowsCore::ConsoleWrite(src->GetComponentName());
 	}
 	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		CoreWindow::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
-		CoreWindow::ConsoleWrite(src->GetComponentName());
+		WindowsCore::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
+		WindowsCore::ConsoleWrite(src->GetComponentName());
 	}
 };
 
@@ -143,9 +143,9 @@ class CheckboxTester : public CheckboxStateSubscriber
 	{
 		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
 		if (e.GetState())
-			CoreWindow::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
+			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
 		else
-			CoreWindow::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
+			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
 	}
 };
 
@@ -156,9 +156,9 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	{
 		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
 		if (e.IsSelected())
-			CoreWindow::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
+			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
 		else
-			CoreWindow::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
+			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
 	}
 };
 
@@ -299,13 +299,13 @@ public:
 	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		CoreWindow::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
+		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
 	}
 
 	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		CoreWindow::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
+		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
 	}
 
 	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
@@ -314,8 +314,8 @@ public:
 		if (e.GetElement() == nullptr)
 			return;
 		ComboElement& element = *e.GetElement();
-		CoreWindow::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
-		CoreWindow::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
+		WindowsCore::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
+		WindowsCore::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
 	}
 
 };
@@ -589,5 +589,5 @@ void DemoApplication::LaunchDemoApp()
 
     frame->Add(std::move(calculatorGridPtr));
     auto& UiElementNode = frame->GetUiElementNode().GetNode(0);
-    CoreWindow::ConsoleWrite(UiElementNode.GetValue()->GetComponentName() + " nodeCount: " + to_string(UiElementNode.GetNodeCount()));
+    WindowsCore::ConsoleWrite(UiElementNode.GetValue()->GetComponentName() + " nodeCount: " + to_string(UiElementNode.GetNodeCount()));
 }

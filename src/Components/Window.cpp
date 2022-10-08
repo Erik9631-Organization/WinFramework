@@ -1,11 +1,11 @@
 #include "Window.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include <thread>
 #include <mutex>
-#include <condition_variable>
 #include "ApplicationController.h"
 #include <string>
-#include "EventResizeInfo.h"
+
+
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
@@ -24,29 +24,29 @@ void Window::CreateCoreWindow(LONG style)
 	unique_lock<mutex>lock(windowInit);
 	initWait->wait(lock, [=] {return initNotified; });
 	SetRenderingProvider(make_shared<GdiRenderingProvider>());
-	CoreWindow::ConsoleWrite("Init done");
+	WindowsCore::ConsoleWrite("Init done");
 	initDone = true;
 }
 
 
 void Window::AddWindowStyle(LONG styleFlags)
 {
-	coreFrame->SetWindowAttributes(GWL_STYLE, styleFlags);
+    coreFrame->SetAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::RemoveWindowStyle(LONG styleFlags)
 {
-	coreFrame->RemoveWindowAttributes(GWL_STYLE, styleFlags);
+    coreFrame->RemoveAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::AddWindowExtendedStyle(LONG styleFlags)
 {
-	coreFrame->SetWindowAttributes(GWL_EXSTYLE, styleFlags);
+    coreFrame->SetAttributes(GWL_EXSTYLE, styleFlags);
 }
 
 void Window::RemoveWindowExtendedStyle(LONG styleFlags)
 {
-	coreFrame->RemoveWindowAttributes(GWL_EXSTYLE, styleFlags);
+    coreFrame->RemoveAttributes(GWL_EXSTYLE, styleFlags);
 }
 
 void Window::SetSize(float width, float height)
@@ -66,7 +66,7 @@ void Window::SetSize(Vector2 size)
 void Window::Repaint()
 {
 	if(coreFrame != nullptr)
-		coreFrame->RedrawWindow();
+        coreFrame->Redraw();
 }
 
 void Window::NotifyOnMouseDown(EventMouseStateInfo e)
@@ -136,13 +136,13 @@ void Window::NotifyOnKeyPressed(EventKeyStateInfo e)
 void Window::CloseWindow()
 {
 	if (coreFrame != nullptr)
-		coreFrame->CloseWindow();
+        coreFrame->Close();
 }
 
 void Window::UpdateWindow()
 {
 	if(coreFrame != nullptr)
-		coreFrame->RedrawWindow();
+        coreFrame->Redraw();
 }
 
 Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
@@ -161,7 +161,7 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
 	initWait = new condition_variable();
 	componentType = "Window";
 	CreateCoreWindow(style);
-	coreFrame->RedrawWindow();
+    coreFrame->Redraw();
 	background.SetColor({255, 255, 255});
     AddOnTickSubscriber(&scene3d);
     AddRenderCommander(background);
@@ -258,8 +258,8 @@ Scene &Window::Get3dScene()
 void Window::InitCoreWindow(LONG style)
 {
     ApplicationController::WinEntryArgs args = ApplicationController::GetApplicationController()->GetWinEntryArgs();
-    coreFrame = new CoreWindow(args , *this, name, style);
-    CoreWindow::ConsoleWrite("Construction complete");
+    coreFrame = new WindowsCore(args , *this, name, style);
+    WindowsCore::ConsoleWrite("Construction complete");
     initNotified = true;
     initWait->notify_one();
     coreFrame->WindowsMessageLoop();

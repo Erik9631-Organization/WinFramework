@@ -48,7 +48,7 @@ set(Lii
         "Events/OnAddSubscriber.cpp"
     "TableElement.cpp"
         "Graphics/TrackbarGraphics.cpp"
-        )
+        CoreMediator.cpp CoreMediator.h)
 source_group("Lii" FILES ${Lii})
 
 
@@ -144,7 +144,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresentationSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -152,7 +152,7 @@ set(Lii_Components
     "Components/Button.h"
     "Components/Checkbox.h"
     "Components/UiElement.h"
-    "Components/CoreWindow.h"
+    "Components/WindowsCore.h"
     "Components/FileBrowser.h"
     "Components/Grid/Grid.h"
     "Components/Label.h"
@@ -167,7 +167,7 @@ set(Lii_Components
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
     "Components/UiElement.cpp"
-    "Components/CoreWindow.cpp"
+    "Components/WindowsCore.cpp"
     "Components/Label.cpp"
     "Components/PasswordField.cpp"
     "Components/RadioButton.cpp"
@@ -243,8 +243,7 @@ set(Lii_Events
     "Events/MoveSubscriber.cpp"
     "Events/RadioButtonStateSubject.cpp"
     "Events/RadioButtonStateSubscriber.cpp"
-    "Events/RenderableSubscriber.cpp"
-    "Events/ResizeSubject.cpp"
+        "Events/ResizeSubject.cpp"
     "Events/ResizeSubscriber.cpp"
     "Events/UpdateSubject.cpp"
     Events/TimerSubject.cpp
@@ -287,7 +286,7 @@ set(Lii_EventTypes
     EventTypes/EventOnTimerElapsed.h
     EventTypes/DestroyEventInfo.cpp
     EventTypes/DestroyEventInfo.h
-)
+        EventTypes/EventAttributeInfo.cpp EventTypes/EventAttributeInfo.h)
 
 source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
 
@@ -457,7 +456,7 @@ set(ALL_FILES
     ${Lii_Api}
     ${Lii/Managers}
     ${Lii_Components_3d}
-        Events/EntryStateSubscriber.h)
+        Events/EntryStateSubscriber.h api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
 
 ################################################################################
 # Target

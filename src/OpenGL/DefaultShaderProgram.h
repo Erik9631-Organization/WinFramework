@@ -10,8 +10,8 @@
 #include <windows.h>
 #include <glew.h>
 #include <wglew.h>
-#include <CoreWindow.h>
-#include "CoreWindow.h"
+#include <WindowsCore.h>
+#include "WindowsCore.h"
 #include "UniformProperties.h"
 
 namespace OpenGL
@@ -33,7 +33,7 @@ namespace OpenGL
             //Make sure that the shaderProgram source is loaded and compiled
             if(!LoadAndCompile(shaderObjRef))
             {
-                CoreWindow::ConsoleWrite("Error, Shader load and compilation failed!");
+                WindowsCore::ConsoleWrite("Error, Shader load and compilation failed!");
                 return shaderObjRef;
             }
 

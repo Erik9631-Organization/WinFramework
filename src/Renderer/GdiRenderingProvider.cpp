@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include "GdiRenderingProvider.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include "Window.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
@@ -87,7 +87,7 @@ void GdiRenderingProvider::OnResize(EventResizeInfo e)
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
-void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
+void GdiRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
 {
     this->coreWindowframe = &coreWindowFrame;
     windowHandle = coreWindowframe->GetWindowHandle();
@@ -102,7 +102,7 @@ void GdiRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
         renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
 }
 
-void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
+void GdiRenderingProvider::OnDestroy(WindowsCore &coreWindow)
 {
     CleanBackBuffer();
     startRenderingLoop = false;
@@ -112,7 +112,7 @@ void GdiRenderingProvider::OnDestroy(CoreWindow &coreWindow)
     //CoreWindow::ConsoleWrite("Render thread ended!");
 }
 
-void GdiRenderingProvider::OnRemove(CoreWindow &coreWindow)
+void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
 {
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
     CleanBackBuffer();

@@ -2,11 +2,11 @@
 #include <Windows.h>
 #include <memory>
 #include <Vector2.h>
-class CoreWindow;
+class WindowsCore;
 
 class InputManager
 {
-    friend CoreWindow;
+    friend WindowsCore;
 private:
 	BYTE keyboardState[256];
     static std::unique_ptr<InputManager> globalInput;

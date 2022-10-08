@@ -12,6 +12,9 @@
 #include "ResizeSubscriber.h"
 #include "EventResizeInfo.h"
 #include "MoveSubscriber.h"
+#include "EventMouseStateInfo.h"
+#include "EventOnAddInfo.h"
+#include "EventMoveInfo.h"
 
 class ScrollBar;
 class Button;

@@ -1,5 +1,5 @@
 #pragma once
-class EventResizeInfo;
+#include "EventResizeInfo.h"
 class ResizeSubscriber
 {
 public:

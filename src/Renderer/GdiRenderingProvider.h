@@ -15,7 +15,7 @@
 #include "UiTreeDataSyncer.h"
 
 class Timer;
-class CoreWindow;
+class WindowsCore;
 class UiElement;
 namespace Gdiplus
 {
@@ -31,9 +31,9 @@ public:
     GdiRenderingProvider();
     void Render() override;
     void OnResize(EventResizeInfo e) override;
-    void OnInit(CoreWindow &coreWindowFrame) override;
-    void OnDestroy(CoreWindow &coreWindow) override;
-    void OnRemove(CoreWindow &coreWindow) override;
+    void OnInit(WindowsCore &coreWindowFrame) override;
+    void OnDestroy(WindowsCore &coreWindow) override;
+    void OnRemove(WindowsCore &coreWindow) override;
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
@@ -42,7 +42,7 @@ public:
     std::thread* renderingThread;
 private:
     UiTreeDataSyncer syncer;
-    CoreWindow* coreWindowframe;
+    WindowsCore* coreWindowframe;
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();

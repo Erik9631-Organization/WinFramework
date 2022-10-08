@@ -2,6 +2,7 @@
 #include "RenderSubscriber.h"
 #include <vector>
 #include <Renderer.h>
+#include <functional>
 
 /**
  * This interface is implemented by all the classes that are capable of rendering
