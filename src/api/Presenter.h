@@ -10,7 +10,7 @@
 #include "KeyStateSubject.h"
 #include "Resizable.h"
 
-class Presenter : public Movable, public Resizable, public MouseStateSubject, public KeyStateSubject
+class Presenter : public virtual Movable, public virtual Resizable, public virtual MouseStateSubject, public virtual KeyStateSubject
 {
 
 };

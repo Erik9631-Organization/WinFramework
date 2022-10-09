@@ -94,45 +94,63 @@ void CoreMediator::OnRenderingProviderChanged(EventRenderingProviderInfo &e)
 
 void CoreMediator::OnAttributesChanged(EventAttributeInfo &e)
 {
+    if(core == nullptr)
+        return;
     core->SetAttributes(e.GetIndex(), e.GetValue());
 }
 
 void CoreMediator::OnAttributesRemoved(EventAttributeInfo &e)
 {
+    if(core == nullptr)
+        return;
     core->RemoveAttribute(e.GetIndex(), e.GetValue());
 }
 
 void CoreMediator::OnScaleUpdate(std::any src)
 {
+    if(core == nullptr)
+        return;
     core->UpdateScale();
 }
 
 void CoreMediator::OnRedraw(std::any src)
 {
+    if(core == nullptr)
+        return;
     core->Redraw();
 }
 
 void CoreMediator::OnClose(std::any src)
 {
+    if(core == nullptr)
+        return;
     core->Close();
 }
 
 void CoreMediator::OnLockCursorSizeChanged(EventResizeInfo &e)
 {
+    if(core == nullptr)
+        return;
     core->SetLockCursorSize(e.GetSize());
 }
 
 void CoreMediator::OnCursorLockStateChanged(EventCursorLockInfo &e)
 {
+    if(core == nullptr)
+        return;
     core->LockCursor(e.GetCursorLockInfo());
 }
 
 const bool CoreMediator::IsCursorLocked()
 {
+    if(core == nullptr)
+        return false;
     return core->IsCursorLocked();
 }
 
-RenderingProvider * CoreMediator::OnRenderingProviderRequested()
+RenderingProvider * CoreMediator::GetRenderingProvider()
 {
+    if(core == nullptr)
+        return nullptr;
     return core->GetRenderingProvider();
 }

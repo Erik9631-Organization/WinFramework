@@ -5,7 +5,7 @@
 #ifndef LII_COREMEDIATOR_H
 #define LII_COREMEDIATOR_H
 #include "CoreSubscriber.h"
-#include "PresentationSubscriber.h"
+#include "PresenterSubscriber.h"
 #include "Presenter.h"
 #include "Core.h"
 class Window;
@@ -14,7 +14,7 @@ class Window;
  * TODO refactor so it meets names of existing interfaces
  */
 
-class CoreMediator : public CoreSubscriber, public PresentationSubscriber
+class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 {
 private:
     Presenter* window = nullptr;
@@ -41,7 +41,7 @@ public:
     void OnLockCursorSizeChanged(EventResizeInfo &e) override;
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;
     const bool IsCursorLocked() override;
-    RenderingProvider * OnRenderingProviderRequested() override;
+    RenderingProvider * GetRenderingProvider() override;
 
 };
 

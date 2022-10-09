@@ -10,7 +10,9 @@
 #include "GdiRenderingProvider.h"
 #include "Scene.h"
 #include <utility>
-
+#include "PresenterSubject.h"
+#include "Presenter.h"
+#include "CoreMediator.h"
 using namespace std;
 class WindowsCore;
 class RenderingProvider;
@@ -19,9 +21,10 @@ class RenderingProvider;
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
  * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
  */
-class Window : public UiElement
+class Window : public UiElement, public virtual PresenterSubject
 {
 private:
+    CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
 	WindowsCore* coreFrame = nullptr;
@@ -31,8 +34,19 @@ private:
 	Background background;
 	void CreateCoreWindow(LONG style);
 	std::shared_ptr<RenderingProvider> renderingProvider;
+    std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void InitCoreWindow(LONG style);
+    void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
+    void NotifyOnAttributesChanged(EventAttributeInfo &e) override;
+    void NotifyOnAttributesRemoved(EventAttributeInfo &e) override;
+    void NotifyOnScaleUpdate(std::any src) override;
+    void NotifyOnRedraw(std::any src) override;
+    void NotifyOnClose(std::any src) override;
+    void NotifyOnLockCursorSizeChanged(EventResizeInfo &e) override;
+    void NotifyOnCursorLockStateChanged(EventCursorLockInfo &e) override;
+    void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
+    void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);

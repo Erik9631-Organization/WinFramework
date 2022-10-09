@@ -22,6 +22,8 @@
 #include "AddSubject.h"
 #include "TickSubject.h"
 #include "OnTickSubscriber.h"
+#include "Presenter.h"
+#include "KeyStateSubject.h"
 
 
 class EventInfo;
@@ -34,7 +36,14 @@ using namespace std;
 using namespace Gdiplus;
 
 
-class UiElement : public Adjustable, public RenderCommander, public Viewable, public MouseInteractable, public KeyStateSubject, public AddSubject<std::unique_ptr<UiElement>>, public TickSubject
+class UiElement : virtual public Adjustable,
+    public virtual RenderCommander,
+    public virtual Viewable,
+    public virtual MouseInteractable,
+    public virtual KeyStateSubject,
+    public virtual AddSubject<std::unique_ptr<UiElement>>,
+    public virtual TickSubject,
+    public virtual Presenter
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
