@@ -38,7 +38,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 }
 
 
-
 class CameraController : public OnTickSubscriber, public ActivateSubscriber
 {
 

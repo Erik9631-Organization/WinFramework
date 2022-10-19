@@ -253,7 +253,7 @@ const bool &Window::IsCursorLocked() const
 {
     return coreFrame->IsCursorLocked();
 }
-
+N
 void Window::Add(unique_ptr<Element3d> element)
 {
     scene3d.Add(std::move(element));
