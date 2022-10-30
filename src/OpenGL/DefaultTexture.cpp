@@ -24,7 +24,7 @@ float StaticTexture::GetHeight()
     return size.GetY();
 }
 
-void StaticTexture::SetSize(Vector2 size)
+void StaticTexture::SetSize(Vector2 size, bool emit)
 {
     if(imageData == nullptr)
         return;
@@ -35,19 +35,19 @@ void StaticTexture::SetSize(Vector2 size)
     imageData = output;
 }
 
-void StaticTexture::SetSize(float width, float height)
+void StaticTexture::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height});
+    SetSize({width, height}, false);
 }
 
 void StaticTexture::SetWidth(float width)
 {
-    SetSize(width, size.GetY());
+    SetSize(width, size.GetY(), false);
 }
 
 void StaticTexture::SetHeight(float height)
 {
-    SetSize(size.GetX(), height);
+    SetSize(size.GetX(), height, false);
 }
 
 void StaticTexture::NotifyOnResizeSubscribers(EventResizeInfo event)

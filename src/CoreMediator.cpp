@@ -26,7 +26,7 @@ void CoreMediator::CoreOnResize(EventResizeInfo e)
 {
     if(window == nullptr)
         return;
-    window->SetSize(e.GetSize());
+    window->SetSize(e.GetSize(), false);
 }
 
 void CoreMediator::CoreOnMouseMove(EventMouseStateInfo e)
@@ -153,4 +153,14 @@ RenderingProvider * CoreMediator::GetRenderingProvider()
     if(core == nullptr)
         return nullptr;
     return core->GetRenderingProvider();
+}
+
+void CoreMediator::SetPresenter(Presenter *presenter)
+{
+    this->window = presenter;
+}
+
+void CoreMediator::SetCore(Core *core)
+{
+    this->core = core;
 }

@@ -16,6 +16,7 @@
 #include <functional>
 #include "CoreMediator.h"
 #include "CoreSubject.h"
+#include "Core.h"
 
 using namespace Gdiplus;
 class RenderingProvider;
@@ -23,7 +24,7 @@ class RenderingProvider;
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class WindowsCore : public RenderCommander, public CoreSubject
+class WindowsCore : public RenderCommander, public CoreSubject, public Core
 {
 
 
@@ -163,7 +164,6 @@ public:
 	 * \param parameter the flag of the attribute to remove.
 	 * \return returns non negative value on fail and 0 on success.
 	 */
-    long long int RemoveAttributes(int index, long long int parameter);
 
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
@@ -186,5 +186,7 @@ public:
     void RemoveCoreSubscriber(CoreSubscriber *subscriber) override;
     void NotifyCoreOnMousePressed(EventMouseStateInfo e) override;
     void NotifyCoreOnKeyPressed(EventKeyStateInfo e) override;
+
+    long long int RemoveAttribute(int index, long long int parameter) override;
 };
 

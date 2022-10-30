@@ -147,31 +147,31 @@ float GridCell::GetHeight()
     return cellSize.GetY();
 }
 
-void GridCell::SetSize(Vector2 size)
+void GridCell::SetSize(Vector2 size, bool emit)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)
         return;
 
     if (span.isSet())
-        GetControlledAdjustable()->SetSize(GetSpanSize());
+        GetControlledAdjustable()->SetSize(GetSpanSize(), false);
     else
-        GetControlledAdjustable()->SetSize(size);
+        GetControlledAdjustable()->SetSize(size, false);
 }
 
-void GridCell::SetSize(float width, float height)
+void GridCell::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height});
+    SetSize({width, height}, false);
 }
 
 void GridCell::SetWidth(float width)
 {
-    SetSize(width, cellSize.GetY());
+    SetSize(width, cellSize.GetY(), false);
 }
 
 void GridCell::SetHeight(float height)
 {
-    SetSize(cellSize.GetX(), height);
+    SetSize(cellSize.GetX(), height, false);
 }
 
 void GridCell::AddOnMoveSubscriber(MoveSubscriber& subscriber)
@@ -303,7 +303,7 @@ void GridCell::OnUpdate(EventUpdateInfo e)
     }
 
     if (e.HasFlag(EventUpdateFlags::Resize))
-        SetSize(cellSize);
+        SetSize(cellSize, false);
 
     if (e.HasFlag(EventUpdateFlags::Redraw))
     {

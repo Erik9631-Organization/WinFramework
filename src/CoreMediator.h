@@ -20,6 +20,8 @@ private:
     Presenter* window = nullptr;
     Core* core = nullptr;
 public:
+    void SetPresenter(Presenter* presenter);
+    void SetCore(Core* core);
     void CoreOnDestroy(std::any src) override;
     void CoreOnClose(std::any src) override;
     void CoreOnMove(EventMoveInfo e) override;
@@ -42,7 +44,6 @@ public:
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;
     const bool IsCursorLocked() override;
     RenderingProvider * GetRenderingProvider() override;
-
 };
 
 

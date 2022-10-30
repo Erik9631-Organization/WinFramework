@@ -78,8 +78,8 @@ public:
 	
 	bool initDone = false;
 
-	void SetSize(float width, float height) override;
-	void SetSize(Vector2 size) override;
+	void SetSize(float width, float height, bool emit) override;
+	void SetSize(Vector2 size, bool emit) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 

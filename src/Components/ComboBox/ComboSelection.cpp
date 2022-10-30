@@ -17,7 +17,7 @@ void ComboSelection::CreateGui(int x, int y, int width, int height)
 	comboSelectionFrame = new Window(x, y, width, totalHeight, "ComboSelection" + to_string(numberOfBoxes), WS_VISIBLE | WS_POPUP);
 
 	comboSelectionFrame->AddWindowExtendedStyle(WS_EX_TOOLWINDOW);
-	comboSelectionFrame->SetSize(width, totalHeight);
+    comboSelectionFrame->SetSize(width, totalHeight, false);
 
 	comboGrid = new Grid(0, 0, width, totalHeight);
 	comboGrid->SetGridColumns({ width });

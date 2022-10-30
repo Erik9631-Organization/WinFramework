@@ -175,14 +175,14 @@ float Viewport::GetHeight()
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(Vector2 size)
+void Viewport::SetSize(Vector2 size, bool emit)
 {
-    resizeBehavior.SetSize(size);
+    resizeBehavior.SetSize(size, false);
 }
 
-void Viewport::SetSize(float width, float height)
+void Viewport::SetSize(float width, float height, bool emit)
 {
-    resizeBehavior.SetSize(width, height);
+    resizeBehavior.SetSize(width, height, false);
 }
 
 void Viewport::SetWidth(float width)

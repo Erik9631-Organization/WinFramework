@@ -76,7 +76,7 @@ long long int WindowsCore::SetAttributes(int index, long long int parameter)
 	return returnVal;
 }
 
-long long int WindowsCore::RemoveAttributes(int index, long long int parameter)
+long long int WindowsCore::RemoveAttribute(int index, long long int parameter)
 {
 	LONG currentAttributes = GetWindowLong(windowHandle, index);
 	LONG newAttributes = currentAttributes & (~parameter);
@@ -125,7 +125,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
-        NotifyCoreOnResize(e);
+        //NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
         UpdateLockCursor();
 	    break;

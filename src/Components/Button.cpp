@@ -35,7 +35,7 @@ void Button::SetBorderThickness(float thickness)
 
 Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this)
 {
-	SetSize(width, height);
+    SetSize(width, height, false);
 	SetPosition(x, y);
 	componentType = "Button";
 

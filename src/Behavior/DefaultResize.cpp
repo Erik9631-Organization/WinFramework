@@ -43,23 +43,23 @@ float DefaultResize::GetHeight()
     return size.GetY();
 }
 
-void DefaultResize::SetSize(Vector2 size)
+void DefaultResize::SetSize(Vector2 size, bool emit)
 {
     this->size = size;
     NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
 }
 
-void DefaultResize::SetSize(float width, float height)
+void DefaultResize::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height});
+    SetSize({width, height}, false);
 }
 
 void DefaultResize::SetWidth(float width)
 {
-    SetSize(width, size.GetY());
+    SetSize(width, size.GetY(), false);
 }
 
 void DefaultResize::SetHeight(float height)
 {
-    SetSize(size.GetX(), height);
+    SetSize(size.GetX(), height, false);
 }

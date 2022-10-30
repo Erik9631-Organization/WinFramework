@@ -57,17 +57,17 @@ void Window::RemoveWindowExtendedStyle(LONG styleFlags)
     //coreFrame->RemoveAttributes(GWL_EXSTYLE, styleFlags);
 }
 
-void Window::SetSize(float width, float height)
+void Window::SetSize(float width, float height, bool emit)
 {
-	UiElement::SetSize(width, height);
+    UiElement::SetSize(width, height, false);
     NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 	/*if (coreFrame != nullptr)
 		coreFrame->UpdateScale();*/
 }
 
-void Window::SetSize(Vector2 size)
+void Window::SetSize(Vector2 size, bool emit)
 {
-    SetSize(size.GetX(), size.GetY());
+    SetSize(size.GetX(), size.GetY(), false);
 }
 
 void Window::Repaint()
@@ -174,6 +174,11 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
 	background.SetColor({255, 255, 255});
     AddOnTickSubscriber(&scene3d);
     AddRenderCommander(background);
+    coreMediator = new CoreMediator();
+    AddPresenterSubscriber(coreMediator);
+    coreFrame->AddCoreSubscriber(coreMediator);
+    coreMediator->SetCore(coreFrame);
+    coreMediator->SetPresenter(this);
 }
 
 void Window::Add(unique_ptr<UiElement> component)
@@ -253,7 +258,7 @@ const bool &Window::IsCursorLocked() const
 {
     return coreFrame->IsCursorLocked();
 }
-N
+
 void Window::Add(unique_ptr<Element3d> element)
 {
     scene3d.Add(std::move(element));

@@ -47,7 +47,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	resizeBehavior(*this)
 {
 	moveBehavior.SetPosition(x, y);
-	resizeBehavior.SetSize(width, height);
+    resizeBehavior.SetSize(width, height, false);
 	this->name = name;
 }
 
@@ -298,12 +298,12 @@ int UiElement::GetViewportHeight()
 
 void UiElement::SetViewportSize(Vector2 size)
 {
-	viewport.SetSize(size);
+    viewport.SetSize(size, false);
 }
 
 void UiElement::SetViewportSize(int width, int height)
 {
-	viewport.SetSize(width, height);
+    viewport.SetSize(width, height, false);
 }
 
 void UiElement::SetViewportWidth(int width)
@@ -623,16 +623,16 @@ UiElement * UiElement::GetParent()
 }
 
 
-void UiElement::SetSize(float width, float height)
+void UiElement::SetSize(float width, float height, bool emit)
 {
     ///Wait for sync
-	resizeBehavior.SetSize(width, height);
+    resizeBehavior.SetSize(width, height, false);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(Vector2 size)
+void UiElement::SetSize(Vector2 size, bool emit)
 {
-	resizeBehavior.SetSize(size);
+    resizeBehavior.SetSize(size, false);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
