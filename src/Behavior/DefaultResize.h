@@ -16,9 +16,17 @@ public:
 	virtual Vector2 GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
-	virtual void SetSize(Vector2 size) override;
-	virtual void SetSize(float width, float height) override;
-	virtual void SetWidth(float width) override;
-	virtual void SetHeight(float height) override;
+	virtual void SetSize(Vector2 size, bool emit) override;
+	virtual void SetSize(float width, float height, bool emit) override;
+	virtual void SetWidth(float width, bool emit) override;
+	virtual void SetHeight(float height, bool emit) override;
+
+    void SetSize(Vector2 size) override;
+
+    void SetSize(float width, float height) override;
+
+    void SetWidth(float width) override;
+
+    void SetHeight(float height) override;
 };
 

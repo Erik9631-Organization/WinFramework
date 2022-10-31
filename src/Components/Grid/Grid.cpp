@@ -21,8 +21,8 @@ void Grid::AddRow()
 		//Get spans Y find the different between current row and preemtivly add rows till the last span, use recursion
 		//Create last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
-		cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex)); // First position
-		cell->SetPosition(i, lastRowIndex); // Then size since position is dependent on size
+        cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex), false); // First position
+        cell->SetPosition(i, lastRowIndex, false); // Then size since position is dependent on size
 	}
 	if (autoExtend == false)
 		return;
@@ -38,7 +38,7 @@ void Grid::AddRow()
 	int lastHeight = gridArray.at(gridArray.size() - 1)->at(0)->GetHeight();
 
 	if (lastY + lastHeight > GetHeight())
-		SetHeight(lastY + lastHeight);
+        SetHeight(lastY + lastHeight, false);
 
 }
 

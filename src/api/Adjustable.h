@@ -6,7 +6,7 @@
  * An interface for all classes that can be moved as well as resized.
  * It enforces the Resizable, Movable and the UpdateSubscriber interface.
  */
-class Adjustable : public Resizable, public Movable, public UpdateSubscriber
+class Adjustable : virtual public Resizable, virtual public Movable, virtual public UpdateSubscriber
 {
 
 };

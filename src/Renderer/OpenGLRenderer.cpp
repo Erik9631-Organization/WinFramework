@@ -12,7 +12,7 @@
 #include "ShaderProgram.h"
 #include "UniformProperties.h"
 #include "GdiFontFormat.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 void OpenGLRenderer::DrawEllipse(float x, float y, float width, float height)
 {

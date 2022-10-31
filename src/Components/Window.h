@@ -10,29 +10,43 @@
 #include "GdiRenderingProvider.h"
 #include "Scene.h"
 #include <utility>
-
+#include "PresenterSubject.h"
+#include "Presenter.h"
+#include "CoreMediator.h"
 using namespace std;
-class CoreWindow;
+class WindowsCore;
 class RenderingProvider;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
  * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
  */
-class Window : public UiElement
+class Window : public UiElement, public virtual PresenterSubject
 {
 private:
+    CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	CoreWindow* coreFrame = nullptr;
+	WindowsCore* coreFrame = nullptr;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;
 	Background background;
 	void CreateCoreWindow(LONG style);
 	std::shared_ptr<RenderingProvider> renderingProvider;
+    std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void InitCoreWindow(LONG style);
+    void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
+    void NotifyOnAttributesChanged(EventAttributeInfo &e) override;
+    void NotifyOnAttributesRemoved(EventAttributeInfo &e) override;
+    void NotifyOnScaleUpdate(std::any src) override;
+    void NotifyOnRedraw(std::any src) override;
+    void NotifyOnClose(std::any src) override;
+    void NotifyOnLockCursorSizeChanged(EventResizeInfo &e) override;
+    void NotifyOnCursorLockStateChanged(EventCursorLockInfo &e) override;
+    void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
+    void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -64,13 +78,13 @@ public:
 	
 	bool initDone = false;
 
-	void SetSize(float width, float height) override;
-	void SetSize(Vector2 size) override;
+	void SetSize(float width, float height, bool emit) override;
+	void SetSize(Vector2 size, bool emit) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
-	void SetPosition(float x, float y) override;
-	void SetPosition(Vector2 point) override;
+	void SetPosition(float x, float y, bool emit) override;
+	void SetPosition(Vector2 point, bool emit) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

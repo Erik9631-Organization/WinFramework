@@ -2,7 +2,7 @@
 // Created by Erik on 09/04/22.
 //
 
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include "DefaultRenderingManager.h"
 using namespace OpenGL;
 
@@ -28,7 +28,7 @@ void DefaultRenderingManager::AddModel(const Model &model)
     Model* internalModel = model.Clone();
     auto inserted = renderingScene.try_emplace(internalModel, internalModel);
     if(inserted.second == false)
-        CoreWindow::ConsoleWrite("Insertion failed!!");
+        WindowsCore::ConsoleWrite("Insertion failed!!");
 }
 
 void DefaultRenderingManager::RemoveModel(OpenGL::Model &model)

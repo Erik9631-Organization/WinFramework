@@ -20,9 +20,9 @@ class OpenGLRenderingProvider : public RenderingProvider
 {
 public:
     void Render() override;
-    void OnInit(CoreWindow &coreWindowFrame) override;
-    void OnDestroy(CoreWindow &coreWindow) override;
-    void OnRemove(CoreWindow &coreWindow) override;
+    void OnInit(WindowsCore &coreWindowFrame) override;
+    void OnDestroy(WindowsCore &coreWindow) override;
+    void OnRemove(WindowsCore &coreWindow) override;
     void WaitForSyncToFinish() override;
     void OnEntryStart() override;
     void OnEntryEnd() override;
@@ -31,12 +31,12 @@ private:
     void GraphicsInit();
     void AssignRendererToNodes();
     void GetGlExtensions();
-    void PrepareWindowRenderer(CoreWindow& window);
+    void PrepareWindowRenderer(WindowsCore& window);
     HGLRC openGlContext;
     HDC windowDc;
     void InternalRender();
     bool startRenderingLoop = true;
-    CoreWindow* coreWindow;
+    WindowsCore* coreWindow;
     std::thread* renderingThread;
     bool performRender = false;
     std::condition_variable performRenderSignal;

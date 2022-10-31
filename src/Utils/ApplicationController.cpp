@@ -1,5 +1,5 @@
 #include "ApplicationController.h"
-#include "Components/CoreWindow.h"
+#include "Components/WindowsCore.h"
 #include <thread>
 #include <functional>
 #if defined(_M_X64)
@@ -47,7 +47,7 @@ void ApplicationController::JoinThreads()
 
 LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    CoreWindow* frame = reinterpret_cast<CoreWindow*>(GetWindowLongPtr(hwnd, USER_DATA));
+    WindowsCore* frame = reinterpret_cast<WindowsCore*>(GetWindowLongPtr(hwnd, USER_DATA));
 	if (frame != nullptr)
 		frame->ProcessMessage(uMsg, wParam, lParam);
 

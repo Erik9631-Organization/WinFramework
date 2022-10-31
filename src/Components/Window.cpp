@@ -1,11 +1,11 @@
 #include "Window.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include <thread>
 #include <mutex>
-#include <condition_variable>
 #include "ApplicationController.h"
 #include <string>
-#include "EventResizeInfo.h"
+
+
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
@@ -24,49 +24,56 @@ void Window::CreateCoreWindow(LONG style)
 	unique_lock<mutex>lock(windowInit);
 	initWait->wait(lock, [=] {return initNotified; });
 	SetRenderingProvider(make_shared<GdiRenderingProvider>());
-	CoreWindow::ConsoleWrite("Init done");
+	WindowsCore::ConsoleWrite("Init done");
 	initDone = true;
 }
 
 
 void Window::AddWindowStyle(LONG styleFlags)
 {
-	coreFrame->SetWindowAttributes(GWL_STYLE, styleFlags);
+    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
+    NotifyOnAttributesChanged(e);
+    //coreFrame->SetAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::RemoveWindowStyle(LONG styleFlags)
 {
-	coreFrame->RemoveWindowAttributes(GWL_STYLE, styleFlags);
+    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
+    NotifyOnAttributesRemoved(e);
+    //coreFrame->RemoveAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::AddWindowExtendedStyle(LONG styleFlags)
 {
-	coreFrame->SetWindowAttributes(GWL_EXSTYLE, styleFlags);
+    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
+    NotifyOnAttributesChanged(e);
+    //coreFrame->SetAttributes(GWL_EXSTYLE, styleFlags);
 }
 
 void Window::RemoveWindowExtendedStyle(LONG styleFlags)
 {
-	coreFrame->RemoveWindowAttributes(GWL_EXSTYLE, styleFlags);
+    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
+    NotifyOnAttributesRemoved(e);
+    //coreFrame->RemoveAttributes(GWL_EXSTYLE, styleFlags);
 }
 
-void Window::SetSize(float width, float height)
+void Window::SetSize(float width, float height, bool emit)
 {
-	UiElement::SetSize(width, height);
-	if (coreFrame != nullptr)
-		coreFrame->UpdateScale();
+    UiElement::SetSize(width, height, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
+	/*if (coreFrame != nullptr)
+		coreFrame->UpdateScale();*/
 }
 
-void Window::SetSize(Vector2 size)
+void Window::SetSize(Vector2 size, bool emit)
 {
-	UiElement::SetSize(size);
-	if (coreFrame != nullptr)
-		coreFrame->UpdateScale();
+    SetSize(size.GetX(), size.GetY(), emit);
 }
 
 void Window::Repaint()
 {
-	if(coreFrame != nullptr)
-		coreFrame->RedrawWindow();
+    NotifyOnRedraw(std::make_any<Window*>(this));
 }
 
 void Window::NotifyOnMouseDown(EventMouseStateInfo e)
@@ -98,18 +105,20 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(float x, float y)
+void Window::SetPosition(float x, float y, bool emit)
 {
-	UiElement::SetPosition(x, y);
-	if (coreFrame != nullptr)
-		coreFrame->UpdateScale();
+    UiElement::SetPosition(x, y, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
+//	if (coreFrame != nullptr)
+//		coreFrame->UpdateScale();
 }
 
-void Window::SetPosition(Vector2 point)
+void Window::SetPosition(Vector2 position, bool emit)
 {
-	UiElement::SetPosition(point);
-	if (coreFrame != nullptr)
-		coreFrame->UpdateScale();
+    SetPosition(position.GetX(), position.GetY(), emit);
+//	if (coreFrame != nullptr)
+//		coreFrame->UpdateScale();
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)
@@ -135,14 +144,16 @@ void Window::NotifyOnKeyPressed(EventKeyStateInfo e)
 
 void Window::CloseWindow()
 {
-	if (coreFrame != nullptr)
-		coreFrame->CloseWindow();
+    NotifyOnClose(std::make_any<Presenter*>(this));
+//	if (coreFrame != nullptr)
+//        coreFrame->Close();
 }
 
 void Window::UpdateWindow()
 {
-	if(coreFrame != nullptr)
-		coreFrame->RedrawWindow();
+    NotifyOnRedraw(std::make_any<Presenter*>(this));
+//	if(coreFrame != nullptr)
+//        coreFrame->Redraw();
 }
 
 Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
@@ -161,10 +172,15 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
 	initWait = new condition_variable();
 	componentType = "Window";
 	CreateCoreWindow(style);
-	coreFrame->RedrawWindow();
+    coreFrame->Redraw();
 	background.SetColor({255, 255, 255});
     AddOnTickSubscriber(&scene3d);
     AddRenderCommander(background);
+    coreMediator = new CoreMediator();
+    AddPresenterSubscriber(coreMediator);
+    coreFrame->AddCoreSubscriber(coreMediator);
+    coreMediator->SetCore(coreFrame);
+    coreMediator->SetPresenter(this);
 }
 
 void Window::Add(unique_ptr<UiElement> component)
@@ -258,9 +274,69 @@ Scene &Window::Get3dScene()
 void Window::InitCoreWindow(LONG style)
 {
     ApplicationController::WinEntryArgs args = ApplicationController::GetApplicationController()->GetWinEntryArgs();
-    coreFrame = new CoreWindow(args , *this, name, style);
-    CoreWindow::ConsoleWrite("Construction complete");
+    coreFrame = new WindowsCore(args , *this, name, style);
+    WindowsCore::ConsoleWrite("Construction complete");
     initNotified = true;
     initWait->notify_one();
     coreFrame->WindowsMessageLoop();
+}
+
+void Window::NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnRenderingProviderChanged(e);
+}
+
+void Window::NotifyOnAttributesChanged(EventAttributeInfo &e)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnAttributesChanged(e);
+}
+
+void Window::NotifyOnAttributesRemoved(EventAttributeInfo &e)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnAttributesRemoved(e);
+}
+
+void Window::NotifyOnScaleUpdate(std::any src)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnScaleUpdate(src);
+}
+
+void Window::NotifyOnRedraw(std::any src)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnRedraw(src);
+}
+
+void Window::NotifyOnClose(std::any src)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnRedraw(src);
+}
+
+void Window::NotifyOnLockCursorSizeChanged(EventResizeInfo &e)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnLockCursorSizeChanged(e);
+}
+
+void Window::NotifyOnCursorLockStateChanged(EventCursorLockInfo &e)
+{
+    for(auto subscriber : presenterSubscribers)
+        subscriber->OnCursorLockStateChanged(e);
+}
+
+void Window::AddPresenterSubscriber(PresenterSubscriber *subscriber)
+{
+    presenterSubscribers.emplace_back(subscriber);
+}
+
+void Window::RemovePresetnerSubscriber(PresenterSubscriber *subscriber)
+{
+    for(auto it = presenterSubscribers.begin(); it != presenterSubscribers.end(); it++)
+        if(*it == subscriber)
+            presenterSubscribers.erase(it);
 }

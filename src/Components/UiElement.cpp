@@ -8,7 +8,7 @@
 #include <execution>
 #include <future>
 #include <algorithm>
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 void UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
@@ -46,8 +46,8 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-	moveBehavior.SetPosition(x, y);
-	resizeBehavior.SetSize(width, height);
+    moveBehavior.SetPosition(x, y, false);
+    resizeBehavior.SetSize(width, height, false);
 	this->name = name;
 }
 
@@ -87,20 +87,19 @@ void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
 	moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-void UiElement::SetX(float x)
+void UiElement::SetX(float x, bool emit)
 {
     //Can't change during sync.
     //Perform a data update
     //Notify the root that the data was updated
 
-	moveBehavior.SetX(x);
-
+    moveBehavior.SetX(x, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetY(float y)
+void UiElement::SetY(float y, bool emit)
 {
-	moveBehavior.SetY(y);
+    moveBehavior.SetY(y, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -155,14 +154,14 @@ void UiElement::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetWidth(float width)
+void UiElement::SetWidth(float width, bool emit)
 {
-	resizeBehavior.SetWidth(width);
+    resizeBehavior.SetWidth(width, emit);
 }
 
-void UiElement::SetHeight(float height)
+void UiElement::SetHeight(float height, bool emit)
 {
-	resizeBehavior.SetHeight(height);
+    resizeBehavior.SetHeight(height, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -228,17 +227,17 @@ float UiElement::GetViewportHeightMultiplier()
 
 void UiElement::SetViewportXOffset(int x)
 {
-	viewport.SetX(x);
+    viewport.SetX(x, false);
 }
 
 void UiElement::SetViewportYOffset(int y)
 {
-	viewport.SetY(y);
+    viewport.SetY(y, false);
 }
 
 void UiElement::SetViewportOffset(Vector2 offset)
 {
-	viewport.SetPosition(offset);
+    viewport.SetPosition(offset, false);
 }
 
 int UiElement::GetViewportAbsoluteX()
@@ -298,22 +297,22 @@ int UiElement::GetViewportHeight()
 
 void UiElement::SetViewportSize(Vector2 size)
 {
-	viewport.SetSize(size);
+    viewport.SetSize(size, false);
 }
 
 void UiElement::SetViewportSize(int width, int height)
 {
-	viewport.SetSize(width, height);
+    viewport.SetSize(width, height, false);
 }
 
 void UiElement::SetViewportWidth(int width)
 {
-	viewport.SetWidth(width);
+    viewport.SetWidth(width, false);
 }
 
 void UiElement::SetViewportHeight(int height)
 {
-	viewport.SetHeight(height);
+    viewport.SetHeight(height, false);
 }
 
 Vector2 UiElement::GetViewportSize()
@@ -475,27 +474,27 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(Vector2 offset)
+void UiElement::SetTranslate(Vector2 offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
 
-    moveBehavior.SetTranslate(offset);
+    moveBehavior.SetTranslate(offset, emit);
 }
 
-void UiElement::SetTranslateX(float x)
+void UiElement::SetTranslateX(float x, bool emit)
 {
 	if (ignoreTranslate)
 		return;
-    moveBehavior.SetTranslateX(x);
+    moveBehavior.SetTranslateX(x, emit);
 }
 
-void UiElement::SetTranslateY(float y)
+void UiElement::SetTranslateY(float y, bool emit)
 {
 	if (ignoreTranslate)
 		return;
 
-    moveBehavior.SetTranslateY(y);
+    moveBehavior.SetTranslateY(y, emit);
 }
 
 Vector2 UiElement::GetTranslate()
@@ -623,16 +622,16 @@ UiElement * UiElement::GetParent()
 }
 
 
-void UiElement::SetSize(float width, float height)
+void UiElement::SetSize(float width, float height, bool emit)
 {
     ///Wait for sync
-	resizeBehavior.SetSize(width, height);
+    resizeBehavior.SetSize(width, height, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(Vector2 size)
+void UiElement::SetSize(Vector2 size, bool emit)
 {
-	resizeBehavior.SetSize(size);
+    resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -641,15 +640,15 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetPosition(float x, float y)
+void UiElement::SetPosition(float x, float y, bool emit)
 {
-	moveBehavior.SetPosition(x, y);
+    moveBehavior.SetPosition(x, y, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(Vector2 pos)
+void UiElement::SetPosition(Vector2 pos, bool emit)
 {
-	moveBehavior.SetPosition(pos);
+    moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -708,4 +707,59 @@ UiElement::~UiElement()
         uiElementNode->Disown(true);
         delete uiElementNode;
     }
+}
+
+void UiElement::SetPosition(Vector2 position)
+{
+    SetPosition(position, true);
+}
+
+void UiElement::SetPosition(float x, float y)
+{
+    SetPosition(x, y, true);
+}
+
+void UiElement::SetX(float x)
+{
+    SetX(x, true);
+}
+
+void UiElement::SetY(float y)
+{
+    SetY(y, true);
+}
+
+void UiElement::SetTranslate(Vector2 offset)
+{
+    SetTranslate(offset, true);
+}
+
+void UiElement::SetTranslateX(float x)
+{
+    SetTranslateX(x, true);
+}
+
+void UiElement::SetTranslateY(float y)
+{
+    SetTranslateY(y, true);
+}
+
+void UiElement::SetSize(Vector2 size)
+{
+    SetSize(size, true);
+}
+
+void UiElement::SetSize(float width, float height)
+{
+    SetSize(width, height, true);
+}
+
+void UiElement::SetWidth(float width)
+{
+    SetWidth(width, true);
+}
+
+void UiElement::SetHeight(float height)
+{
+    SetHeight(height, true);
 }

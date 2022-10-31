@@ -12,16 +12,19 @@
 #include "TimerSubscriber.h"
 #include "Timer.h"
 #include "EntryStateSubscriber.h"
+#include "RenderEventInfo.h"
+#include <functional>
+#include "CoreMediator.h"
+#include "CoreSubject.h"
+#include "Core.h"
 
-
-using namespace std;
 using namespace Gdiplus;
 class RenderingProvider;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class CoreWindow : public RenderCommander
+class WindowsCore : public RenderCommander, public CoreSubject, public Core
 {
 
 
@@ -35,8 +38,9 @@ private:
     private:
         vector<reference_wrapper<ResizeSubscriber>> resizeSubscribers;
     };
+    vector<CoreSubscriber*> coreSubscribers;
     MsgSubject preProcessSubject;
-
+    CoreMediator coreAdapter;
 	HWND windowHandle;
 	void CreateConsole();
 	Window& wrapperFrame;
@@ -78,7 +82,7 @@ public:
 	 * \param windowName the name of the window which is being displayed
 	 * \param style the style of the window that should be used. Please check MSDN for window styles.
 	 */
-	CoreWindow(ApplicationController::WinEntryArgs &args, Window& wrapperFrame,string windowName, LONG style);
+	WindowsCore(ApplicationController::WinEntryArgs &args, Window& wrapperFrame, string windowName, LONG style);
 	/**
 	 * The message loop of the window. This is where all the messages are processed.
 	 */
@@ -90,11 +94,11 @@ public:
 	/**
 	 * Repaints the current window.
 	 */
-	void RedrawWindow();
+	void Redraw();
 	/**
 	 * Closes the current window.
 	 */
-	void CloseWindow();
+	void Close();
 	/**
 	 * Gets the wrapper frame of this class.
 	 */
@@ -117,7 +121,7 @@ public:
 	 * /param output unicode text to output.
 	 */
 	static void UnicodeConsoleWrite(std::wstring output);
-	~CoreWindow();
+	~WindowsCore();
 
 	// Inherited via Renderable
 	/**
@@ -127,7 +131,7 @@ public:
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	
 	/**
-	 * Similar to RedrawWindow, but also updates the position and scale.
+	 * Similar to Redraw, but also updates the position and scale.
 	 * \param e event object to pass.
 	 */
 	virtual void Repaint() override;
@@ -152,7 +156,7 @@ public:
 	 * \param parameter the flag of the attribute to set it to
 	 * \return returns non negative value on fail and 0 on success.
 	 */
-	LONG SetWindowAttributes(int index, LONG parameter);
+    long long int SetAttributes(int index, long long int parameter);
 
 	/**
 	 * Removes attributes of the window. Some of these attributes are not changable at runtime. Refer to MSDN.
@@ -160,7 +164,6 @@ public:
 	 * \param parameter the flag of the attribute to remove.
 	 * \return returns non negative value on fail and 0 on success.
 	 */
-	LONG RemoveWindowAttributes(int index, LONG parameter);
 
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
@@ -169,5 +172,21 @@ public:
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
+    void NotifyCoreOnDestroy(std::any src) override;
+    void NotifyCoreOnClose(std::any src) override;
+    void NotifyCoreOnMove(EventMoveInfo e) override;
+    void NotifyCoreOnResize(EventResizeInfo e) override;
+    void NotifyCoreOnMouseMove(EventMouseStateInfo e) override;
+    void NotifyCoreOnMouseLButtonDown(EventMouseStateInfo e) override;
+    void NotifyCoreOnMouseLButtonUp(EventMouseStateInfo e) override;
+    void NotifyCoreOnKeyUp(EventKeyStateInfo e) override;
+    void NotifyCoreOnKeyDown(EventKeyStateInfo e) override;
+    void NotifyCoreOnWheelMoved(EventKeyStateInfo e) override;
+    void AddCoreSubscriber(CoreSubscriber *subscriber) override;
+    void RemoveCoreSubscriber(CoreSubscriber *subscriber) override;
+    void NotifyCoreOnMousePressed(EventMouseStateInfo e) override;
+    void NotifyCoreOnKeyPressed(EventKeyStateInfo e) override;
+
+    long long int RemoveAttribute(int index, long long int parameter) override;
 };
 

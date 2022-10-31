@@ -1,5 +1,5 @@
 #include "InputManager.h"
-#include "Components/CoreWindow.h"
+#include "Components/WindowsCore.h"
 std::unique_ptr<InputManager> InputManager::globalInput = std::make_unique<InputManager>();
 
 

@@ -9,6 +9,7 @@
 class RenderEventInfo;
 class DrawData;
 #include "DrawData.h"
+#include "RenderEventInfo.h"
 
 /**
  *	This interface defines all the classes which are capable of drawing on the canvas.

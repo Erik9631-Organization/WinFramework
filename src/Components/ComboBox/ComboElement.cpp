@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include <gdiplus.h>
 #include <mutex>
-#include "Components/CoreWindow.h"
+#include "Components/WindowsCore.h"
 
 ComboElement::ComboElement(ComboSelection& comboSelection, std::wstring displayText, std::any value) : comboSelection(comboSelection), text(displayText)
 {

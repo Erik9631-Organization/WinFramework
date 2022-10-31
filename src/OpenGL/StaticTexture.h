@@ -28,10 +28,10 @@ namespace OpenGL
     public:
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
-        void SetSize(Vector2 size) override;
-        void SetSize(float width, float height) override;
-        void SetWidth(float width) override;
-        void SetHeight(float height) override;
+        void SetSize(Vector2 size, bool emit) override;
+        void SetSize(float width, float height, bool emit) override;
+        void SetWidth(float width, bool emit) override;
+        void SetHeight(float height, bool emit) override;
         void NotifyOnResizeSubscribers(EventResizeInfo event) override;
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;

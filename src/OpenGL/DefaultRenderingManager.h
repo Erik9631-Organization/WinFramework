@@ -7,7 +7,7 @@
 #include "RenderingManager.h"
 #include <map>
 #include "ShaderProgram.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 namespace OpenGL
 {

@@ -1,7 +1,7 @@
 #include "SimpleBorder.h"
 #include "RenderEventInfo.h"
 #include "GraphicsScaling.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include "RenderingPool.h"
 
 

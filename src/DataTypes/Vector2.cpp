@@ -4,7 +4,7 @@
 
 #include "Vector2.h"
 #include "Vector2Int.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 float Vector2::GetX() const
 {

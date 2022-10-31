@@ -21,7 +21,7 @@
 #include "GraphicsShader.h"
 #include "GlobalResourceManager.h"
 #include "Window.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 
 
@@ -31,7 +31,7 @@ void OpenGLRenderingProvider::Render()
     performRenderSignal.notify_one();
 }
 
-void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
+void OpenGLRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
 {
     ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
     GetGlExtensions();
@@ -45,7 +45,7 @@ void OpenGLRenderingProvider::OnInit(CoreWindow &coreWindowFrame)
 }
 
 
-void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
+void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
 {
     int pixelFormat[] =
     {
@@ -69,7 +69,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
     bool pWglChoosePixelFormatARBStatus = wglChoosePixelFormatARB(windowDc, pixelFormat, NULL, 1, &matchingIndex, &matchingSize);
     if(!pWglChoosePixelFormatARBStatus || !matchingSize)
     {
-        CoreWindow::ConsoleWrite("wglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("wglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -77,14 +77,14 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
     PIXELFORMATDESCRIPTOR  formatDescription;
     if(!DescribePixelFormat(windowDc, matchingIndex, sizeof(PIXELFORMATDESCRIPTOR), &formatDescription))
     {
-        CoreWindow::ConsoleWrite("Failed to describe pixel format!" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Failed to describe pixel format!" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowDc, matchingIndex, &formatDescription))
     {
-        CoreWindow::ConsoleWrite("Failed to set pixel format!" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Failed to set pixel format!" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -101,14 +101,14 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(CoreWindow& window)
 
     if(!openGlContext)
     {
-        CoreWindow::ConsoleWrite("Failed creating GL context with error: " + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Failed creating GL context with error: " + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowDc, openGlContext))
     {
-        CoreWindow::ConsoleWrite("Error selecting gl context");
+        WindowsCore::ConsoleWrite("Error selecting gl context");
         exit(0);
     }
     std::string test{(LPCSTR)glGetString(GL_VERSION)};
@@ -133,7 +133,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
 
     if(!RegisterClass(&dummyWindowClass))
     {
-        CoreWindow::ConsoleWrite("Register dummy Class error: " + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Register dummy Class error: " + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -143,7 +143,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
                                     ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance, NULL);
     if(!dummyHandle)
     {
-        CoreWindow::ConsoleWrite("Error creating dummy window handle" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Error creating dummy window handle" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -159,14 +159,14 @@ void OpenGLRenderingProvider::GetGlExtensions()
     int pixelFormatIndex = ChoosePixelFormat(windowHdc, &pixelDescription);
     if(!pixelFormatIndex)
     {
-        CoreWindow::ConsoleWrite("Error creating dummy pixel format index" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Error creating dummy pixel format index" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowHdc, pixelFormatIndex, &pixelDescription))
     {
-        CoreWindow::ConsoleWrite("Error setting dummy pixel format index" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Error setting dummy pixel format index" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
@@ -174,21 +174,21 @@ void OpenGLRenderingProvider::GetGlExtensions()
     HGLRC glContext = wglCreateContext(windowHdc);
     if(!glContext)
     {
-        CoreWindow::ConsoleWrite("Error creating dummy openGL rendering context" + to_string(GetLastError()));
+        WindowsCore::ConsoleWrite("Error creating dummy openGL rendering context" + to_string(GetLastError()));
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowHdc, glContext))
     {
-        CoreWindow::ConsoleWrite("Error selecting dummy gl context");
+        WindowsCore::ConsoleWrite("Error selecting dummy gl context");
         exit(0);
     }
 
     GLenum result = glewInit();
     if(result != GLEW_OK)
     {
-        CoreWindow::ConsoleWrite("Error loading extentions");
+        WindowsCore::ConsoleWrite("Error loading extentions");
         exit(0);
     }
 
@@ -199,7 +199,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
     DestroyWindow(dummyHandle);
 }
 
-void OpenGLRenderingProvider::OnDestroy(CoreWindow &coreWindow)
+void OpenGLRenderingProvider::OnDestroy(WindowsCore &coreWindow)
 {
     ReleaseDC(coreWindow.GetWindowHandle(), GetDC(coreWindow.GetWindowHandle()));
     startRenderingLoop = false;
@@ -207,7 +207,7 @@ void OpenGLRenderingProvider::OnDestroy(CoreWindow &coreWindow)
 
 }
 
-void OpenGLRenderingProvider::OnRemove(CoreWindow &coreWindow)
+void OpenGLRenderingProvider::OnRemove(WindowsCore &coreWindow)
 {
 
 }

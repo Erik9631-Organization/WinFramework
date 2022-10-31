@@ -5,7 +5,7 @@
 #include <glm.hpp>
 #include <gtc/type_ptr.hpp>
 #include <vector>
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 namespace OpenGL
 {
@@ -181,7 +181,7 @@ namespace OpenGL
             unsigned int error;
             if( (error = glGetError()) != GL_NO_ERROR)
             {
-               CoreWindow::ConsoleWrite("UniformProperties error: " + to_string(error));
+               WindowsCore::ConsoleWrite("UniformProperties error: " + to_string(error));
                return;
             }
 

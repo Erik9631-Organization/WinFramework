@@ -20,7 +20,7 @@ DefaultComboBoxBehavior::DefaultComboBoxBehavior(ComboBox& associatedComboBox, B
 void DefaultComboBoxBehavior::OnResize(EventResizeInfo e)
 {
 	if (comboBoxButton != nullptr)
-		comboBoxButton->SetSize(e.GetSize());
+        comboBoxButton->SetSize(e.GetSize(), false);
 }
 
 void DefaultComboBoxBehavior::OnMouseDown(EventMouseStateInfo e)

@@ -1,5 +1,5 @@
 #include "Button.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 #include "EventTypes/RenderEventInfo.h"
 #include "FontAlignment.h"
 void Button::SetBorderColor(Vector3 color)
@@ -35,8 +35,8 @@ void Button::SetBorderThickness(float thickness)
 
 Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this)
 {
-	SetSize(width, height);
-	SetPosition(x, y);
+    SetSize(width, height, false);
+    SetPosition(x, y, false);
 	componentType = "Button";
 
 	border.SetColor({0, 0, 0});

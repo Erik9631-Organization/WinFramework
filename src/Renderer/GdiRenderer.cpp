@@ -7,10 +7,10 @@
 #include "Vector3.h"
 #include <windows.h>
 #include <gdiplus.h>
-#include <CoreWindow.h>
+#include <WindowsCore.h>
 #include "FontFormat.h"
 #include "GdiFontFormat.h"
-#include "CoreWindow.h"
+#include "WindowsCore.h"
 
 using namespace Gdiplus;
 unsigned int fpsfuckingcounter = 0;
