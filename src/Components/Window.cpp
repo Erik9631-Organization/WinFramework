@@ -59,15 +59,16 @@ void Window::RemoveWindowExtendedStyle(LONG styleFlags)
 
 void Window::SetSize(float width, float height, bool emit)
 {
-    UiElement::SetSize(width, height, false);
-    NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
+    UiElement::SetSize(width, height, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 	/*if (coreFrame != nullptr)
 		coreFrame->UpdateScale();*/
 }
 
 void Window::SetSize(Vector2 size, bool emit)
 {
-    SetSize(size.GetX(), size.GetY(), false);
+    SetSize(size.GetX(), size.GetY(), emit);
 }
 
 void Window::Repaint()
@@ -104,17 +105,18 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(float x, float y)
+void Window::SetPosition(float x, float y, bool emit)
 {
-	UiElement::SetPosition(x, y);
-    NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
+    UiElement::SetPosition(x, y, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 //	if (coreFrame != nullptr)
 //		coreFrame->UpdateScale();
 }
 
-void Window::SetPosition(Vector2 point)
+void Window::SetPosition(Vector2 position, bool emit)
 {
-    SetPosition(point.GetX(), point.GetY());
+    SetPosition(position.GetX(), position.GetY(), emit);
 //	if (coreFrame != nullptr)
 //		coreFrame->UpdateScale();
 }

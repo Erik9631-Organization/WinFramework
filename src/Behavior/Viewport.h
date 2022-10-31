@@ -56,10 +56,10 @@ public:
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
 	virtual Vector2 GetAbsolutePosition() override;
-	virtual void SetPosition(Vector2 position) override;
-	virtual void SetPosition(float x, float y) override;
-	virtual void SetX(float x) override;
-	virtual void SetY(float y) override;
+	virtual void SetPosition(Vector2 position, bool emit) override;
+	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetX(float x, bool emit) override;
+	virtual void SetY(float y, bool emit) override;
 
 	// Inherited via Resizable
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
@@ -70,25 +70,47 @@ public:
 	virtual float GetHeight() override;
 	virtual void SetSize(Vector2 size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
-	virtual void SetWidth(float width) override;
-	virtual void SetHeight(float height) override;
+	virtual void SetWidth(float width, bool emit) override;
+	virtual void SetHeight(float height, bool emit) override;
 
 	// Inherited via Adjustable
 	virtual void OnUpdate(EventUpdateInfo e) override;
 
 
 	// Inherited via Adjustable
-	virtual void SetTranslate(Vector2 offset) override;
+	virtual void SetTranslate(Vector2 offset, bool emit) override;
 
-	virtual void SetTranslateX(float x) override;
+	virtual void SetTranslateX(float x, bool emit) override;
 
-	virtual void SetTranslateY(float y) override;
+	virtual void SetTranslateY(float y, bool emit) override;
 
 	virtual Vector2 GetTranslate() override;
 
 	virtual float GetTranslateX() override;
 
 	virtual float GetTranslateY() override;
+
+    void SetPosition(Vector2 position) override;
+
+    void SetPosition(float x, float y) override;
+
+    void SetX(float x) override;
+
+    void SetY(float y) override;
+
+    void SetTranslate(Vector2 offset) override;
+
+    void SetTranslateX(float x) override;
+
+    void SetTranslateY(float y) override;
+
+    void SetSize(Vector2 size) override;
+
+    void SetSize(float width, float height) override;
+
+    void SetWidth(float width) override;
+
+    void SetHeight(float height) override;
 
 };
 

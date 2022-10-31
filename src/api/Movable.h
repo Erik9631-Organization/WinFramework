@@ -50,45 +50,53 @@ public:
 	 * Sets the position of the object.
 	 * \param position Sets the position as a point which specifies the X and Y position.
 	 */
-	virtual void SetPosition(Vector2 position) = 0;
+	virtual void SetPosition(Vector2 position, bool emit) = 0;
+    virtual void SetPosition(Vector2 position) = 0;
 
 	/**
 	 * Sets the position of the object. 
 	 * \param x sets the X position of the object.
 	 * \param y sets the Y position of the object.
 	 */
-	virtual void SetPosition(float x, float y) = 0;
+	virtual void SetPosition(float x, float y, bool emit) = 0;
+    virtual void SetPosition(float x, float y) = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param x sets the X position of the object.
 	 */
-	virtual void SetX(float x) = 0;
+	virtual void SetX(float x, bool emit) = 0;
+    virtual void SetX(float x) = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param y sets the Y position of the object.
 	 */
-	virtual void SetY(float y) = 0;
+	virtual void SetY(float y, bool emit) = 0;
+    virtual void SetY(float y) = 0;
 
 
 	/**
 	 * Sets position from the current position
 	 * \param offset sets the position via a point object which specifies the X and Y position.
 	 */
-	virtual void SetTranslate(Vector2 offset) = 0;
+	virtual void SetTranslate(Vector2 offset, bool emit) = 0;
+    virtual void SetTranslate(Vector2 offset) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param x specifies the X position.
 	 */
-	virtual void SetTranslateX(float x) = 0;
+	virtual void SetTranslateX(float x, bool emit) = 0;
+    virtual void SetTranslateX(float x) = 0;
 
 	/**
 	 * Sets position from the current position
 	 * \param y specifies the Y position.
 	 */
-	virtual void SetTranslateY(float y) = 0;
+	virtual void SetTranslateY(float y, bool emit) = 0;
+
+    virtual void SetTranslateY(float y) = 0;
 
 	/**
 	 * Gets the element position dependent on the current position.

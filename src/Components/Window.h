@@ -83,8 +83,8 @@ public:
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
-	void SetPosition(float x, float y) override;
-	void SetPosition(Vector2 point) override;
+	void SetPosition(float x, float y, bool emit) override;
+	void SetPosition(Vector2 point, bool emit) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

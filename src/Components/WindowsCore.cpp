@@ -125,7 +125,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
-        //NotifyCoreOnResize(e);
+        NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
         UpdateLockCursor();
 	    break;

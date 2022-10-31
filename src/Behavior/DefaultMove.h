@@ -31,17 +31,17 @@ public:
 	virtual Vector2 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
-	virtual void SetPosition(Vector2 position) override;
-	virtual void SetPosition(float x, float y) override;
-	virtual void SetX(float x) override;
-	virtual void SetY(float y) override;
+	virtual void SetPosition(Vector2 position, bool emit) override;
+	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetX(float x, bool emit) override;
+	virtual void SetY(float y, bool emit) override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
 	virtual Vector2 GetAbsolutePosition() override;
 
-	virtual void SetTranslate(Vector2 offset) override;
-	virtual void SetTranslateX(float x) override;
-	virtual void SetTranslateY(float Y) override;
+	virtual void SetTranslate(Vector2 offset, bool emit) override;
+	virtual void SetTranslateX(float x, bool emit) override;
+	virtual void SetTranslateY(float Y, bool emit) override;
 
 	virtual Vector2 GetTranslate() override;
 	virtual float GetTranslateX() override;
@@ -49,6 +49,20 @@ public:
 
 	Vector2 GetChildrenTranslate() const;
 	void TranslateChildren(Vector2 translate);
+
+    void SetPosition(Vector2 position) override;
+
+    void SetPosition(float x, float y) override;
+
+    void SetX(float x) override;
+
+    void SetY(float y) override;
+
+    void SetTranslate(Vector2 offset) override;
+
+    void SetTranslateX(float x) override;
+
+    void SetTranslateY(float y) override;
 };
 
 
@@ -63,22 +77,22 @@ void DefaultMove<T>::TranslateChildren(Vector2 translate)
 {
 	this->childrenTranslate = translate;
 	for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
-        associatedAdjustableNode.Get(i)->SetTranslate(translate);
+        associatedAdjustableNode.Get(i)->SetTranslate(translate, true);
 }
 
 
 template<class T>
-void DefaultMove<T>::SetTranslate(Vector2 offset)
+void DefaultMove<T>::SetTranslate(Vector2 offset, bool emit)
 {
 	this->translate = offset;
 }
 template<class T>
-void DefaultMove<T>::SetTranslateX(float x)
+void DefaultMove<T>::SetTranslateX(float x, bool emit)
 {
 	this->translate.SetX(x);
 }
 template<class T>
-void DefaultMove<T>::SetTranslateY(float y)
+void DefaultMove<T>::SetTranslateY(float y, bool emit)
 {
 	this->translate.SetY(y);
 }
@@ -168,35 +182,37 @@ float DefaultMove<T>::GetY()
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(Vector2 position)
+void DefaultMove<T>::SetPosition(Vector2 position, bool emit)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();
-	NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue() ));
+    if(emit)
+	    NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue() ));
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(float x, float y)
+void DefaultMove<T>::SetPosition(float x, float y, bool emit)
 {
 	Vector2 newPoint = {x, y};
-	SetPosition(newPoint);
+    SetPosition(newPoint, emit);
 }
 
 template<class T>
-void DefaultMove<T>::SetX(float x)
+void DefaultMove<T>::SetX(float x, bool emit)
 {
 	relativePosition.SetX(x);
 	CalculateAbsolutePosition();
-	NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
+    if(emit)
+	    NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
 }
 
 template<class T>
-void DefaultMove<T>::SetY(float y)
+void DefaultMove<T>::SetY(float y, bool emit)
 {
 	relativePosition.SetY(y);
 	CalculateAbsolutePosition();
-
-	NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
+    if(emit)
+	    NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue()));
 }
 
 template<class T>
@@ -215,4 +231,46 @@ template<class T>
 Vector2 DefaultMove<T>::GetAbsolutePosition()
 {
 	return absolutePosition;
+}
+
+template<class T>
+void DefaultMove<T>::SetPosition(Vector2 position)
+{
+    SetPosition(position, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetPosition(float x, float y)
+{
+    SetPosition(x, y, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetX(float x)
+{
+    SetX(x, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetY(float y)
+{
+    SetY(y, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetTranslate(Vector2 offset)
+{
+    SetTranslate(offset, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetTranslateX(float x)
+{
+    SetTranslateX(x, true);
+}
+
+template<class T>
+void DefaultMove<T>::SetTranslateY(float y)
+{
+    SetTranslateY(y, true);
 }

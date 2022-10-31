@@ -7,7 +7,7 @@ TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
 
 TextInput::TextInput(int x, int y, int width, int height, string windowName) : text("Arial"), border(), background(), inputBehavior(*this)
 {
-	SetPosition(x, y);
+    SetPosition(x, y, false);
     SetSize(width, height, false);
 
 	text.SetFontSize(12.0);

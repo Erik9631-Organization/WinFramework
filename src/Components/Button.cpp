@@ -36,7 +36,7 @@ void Button::SetBorderThickness(float thickness)
 Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this)
 {
     SetSize(width, height, false);
-	SetPosition(x, y);
+    SetPosition(x, y, false);
 	componentType = "Button";
 
 	border.SetColor({0, 0, 0});

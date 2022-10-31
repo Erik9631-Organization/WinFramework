@@ -5,6 +5,7 @@
 
 DefaultResize::DefaultResize(Resizable& resizeComponent) : associatedResizable(resizeComponent)
 {
+
 }
 
 void DefaultResize::NotifyOnResizeSubscribers(EventResizeInfo event)
@@ -46,20 +47,41 @@ float DefaultResize::GetHeight()
 void DefaultResize::SetSize(Vector2 size, bool emit)
 {
     this->size = size;
-    NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
+    if(emit)
+        NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
 }
 
 void DefaultResize::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height}, false);
+    SetSize({width, height}, emit);
+}
+
+void DefaultResize::SetWidth(float width, bool emit)
+{
+    SetSize(width, size.GetY(), emit);
+}
+
+void DefaultResize::SetHeight(float height, bool emit)
+{
+    SetSize(size.GetX(), height, emit);
+}
+
+void DefaultResize::SetSize(Vector2 size)
+{
+    SetSize(size, true);
+}
+
+void DefaultResize::SetSize(float width, float height)
+{
+    SetSize(width, height, true);
 }
 
 void DefaultResize::SetWidth(float width)
 {
-    SetSize(width, size.GetY(), false);
+    SetWidth(width, true);
 }
 
 void DefaultResize::SetHeight(float height)
 {
-    SetSize(size.GetX(), height, false);
+    SetHeight(height, true);
 }

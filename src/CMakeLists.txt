@@ -490,7 +490,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "../libs/PhysX-4.1/physx/include/"
         )
 
-target_link_libraries(Lii
+target_link_libraries(${PROJECT_NAME}
         stb
         opengl32
         PhysXSDK
