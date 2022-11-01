@@ -474,7 +474,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(Vector2 offset, bool emit)
+void UiElement::SetTranslate(const glm::vec2 &offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
@@ -646,7 +646,7 @@ void UiElement::SetPosition(float x, float y, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(Vector2 pos, bool emit)
+void UiElement::SetPosition(const glm::vec2 &pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -709,7 +709,7 @@ UiElement::~UiElement()
     }
 }
 
-void UiElement::SetPosition(Vector2 position)
+void UiElement::SetPosition(const glm::vec2 &position)
 {
     SetPosition(position, true);
 }
@@ -729,7 +729,7 @@ void UiElement::SetY(float y)
     SetY(y, true);
 }
 
-void UiElement::SetTranslate(Vector2 offset)
+void UiElement::SetTranslate(const glm::vec2 &offset)
 {
     SetTranslate(offset, true);
 }
@@ -744,7 +744,7 @@ void UiElement::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void UiElement::SetSize(Vector2 size)
+void UiElement::SetSize(const glm::vec2 &size)
 {
     SetSize(size, true);
 }

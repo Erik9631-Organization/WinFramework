@@ -76,6 +76,5 @@ void InputManager::SetMouseDeltaPosition(const glm::vec2 &mousePosition)
 {
     this->mouseDelta = mousePosition;
 
-    ///FIXME: use normalize in glm::vec2
-    //mouseDelta.Normalize();
+    mouseDelta = glm::normalize(mouseDelta);
 }

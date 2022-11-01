@@ -32,7 +32,7 @@ private:
 
 	Vector2Int GetSpanSize();
 
-    void SetPosition(Vector2 position) override;
+    void SetPosition(const glm::vec2 &position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -40,13 +40,13 @@ private:
 
     void SetY(float y) override;
 
-    void SetTranslate(Vector2 offset) override;
+    void SetTranslate(const glm::vec2 &offset) override;
 
     void SetTranslateX(float x) override;
 
     void SetTranslateY(float y) override;
 
-    void SetSize(Vector2 size) override;
+    void SetSize(const glm::vec2 &size) override;
 
     void SetSize(float width, float height) override;
 
@@ -88,15 +88,15 @@ public:
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual Vector2 GetAbsolutePosition() override;
-	virtual void SetPosition(Vector2 position, bool emit) override;
+	virtual glm::vec2 GetAbsolutePosition() override;
+	virtual void SetPosition(const glm::vec2 &position, bool emit) override;
 	virtual void SetPosition(float x, float y, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
-	virtual void SetTranslate(Vector2 offset, bool emit) override;
+	virtual void SetTranslate(const glm::vec2 &offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float y, bool emit) override;
-	virtual Vector2 GetTranslate() override;
+	virtual glm::vec2 GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 	virtual void OnUpdate(EventUpdateInfo e) override;

@@ -149,7 +149,7 @@ public:
 	void SetComponentName(string name);
 
 	virtual void SetPosition(float x, float y, bool emit);
-	virtual void SetPosition(Vector2 pos, bool emit);
+	virtual void SetPosition(const glm::vec2 &pos, bool emit);
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -310,7 +310,7 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(Vector2 offset, bool emit) override;
+	virtual void SetTranslate(const glm::vec2 &offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float Y, bool emit) override;
 
@@ -341,7 +341,7 @@ public:
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
 
-    void SetPosition(Vector2 position) override;
+    void SetPosition(const glm::vec2 &position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -349,13 +349,13 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(Vector2 offset) override;
+    void SetTranslate(const glm::vec2 &offset) override;
 
     void SetTranslateX(float x) override;
 
     void SetTranslateY(float y) override;
 
-    void SetSize(Vector2 size) override;
+    void SetSize(const glm::vec2 &size) override;
 
     void SetSize(float width, float height) override;
 

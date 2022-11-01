@@ -49,7 +49,7 @@ void Window::SetSize(float width, float height, bool emit)
 
 void Window::SetSize(const glm::vec2 &size, bool emit)
 {
-    SetSize(size.GetX(), size.GetY(), emit);
+    SetSize(size.x, size.y, emit);
 }
 
 void Window::Repaint()
@@ -92,9 +92,9 @@ void Window::SetPosition(float x, float y, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetPosition(Vector2 position, bool emit)
+void Window::SetPosition(const glm::vec2 &point, bool emit)
 {
-    SetPosition(position.GetX(), position.GetY(), emit);
+    SetPosition(point.x, point.y, emit);
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)

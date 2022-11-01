@@ -59,15 +59,15 @@ void DefaultResize::SetSize(float width, float height, bool emit)
 
 void DefaultResize::SetWidth(float width, bool emit)
 {
-    SetSize(width, size.GetY(), emit);
+    SetSize(width, size.y, emit);
 }
 
 void DefaultResize::SetHeight(float height, bool emit)
 {
-    SetSize(size.GetX(), height, emit);
+    SetSize(size.x, height, emit);
 }
 
-void DefaultResize::SetSize(Vector2 size)
+void DefaultResize::SetSize(const glm::vec2 &size)
 {
     SetSize(size, true);
 }

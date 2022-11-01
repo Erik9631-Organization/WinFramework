@@ -23,7 +23,7 @@ public:
 	virtual void SetWidth(float width, bool emit) override;
 	virtual void SetHeight(float height, bool emit) override;
 
-    void SetSize(Vector2 size) override;
+    void SetSize(const glm::vec2 &size) override;
 
     void SetSize(float width, float height) override;
 

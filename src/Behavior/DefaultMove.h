@@ -47,10 +47,10 @@ public:
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 
-	Vector2 GetChildrenTranslate() const;
-	void TranslateChildren(Vector2 translate);
+	glm::vec2 GetChildrenTranslate() const;
+	void TranslateChildren(const glm::vec2 &translate);
 
-    void SetPosition(Vector2 position) override;
+    void SetPosition(const glm::vec2 &position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -58,7 +58,7 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(Vector2 offset) override;
+    void SetTranslate(const glm::vec2 &offset) override;
 
     void SetTranslateX(float x) override;
 
@@ -82,7 +82,7 @@ void DefaultMove<T>::TranslateChildren(const glm::vec2 &translate)
 
 
 template<class T>
-void DefaultMove<T>::SetTranslate(Vector2 offset, bool emit)
+void DefaultMove<T>::SetTranslate(const glm::vec2 &offset, bool emit)
 {
 	this->translate = offset;
 }
@@ -182,7 +182,7 @@ float DefaultMove<T>::GetY()
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(Vector2 position, bool emit)
+void DefaultMove<T>::SetPosition(const glm::vec2 &position, bool emit)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();
@@ -193,8 +193,7 @@ void DefaultMove<T>::SetPosition(Vector2 position, bool emit)
 template<class T>
 void DefaultMove<T>::SetPosition(float x, float y, bool emit)
 {
-	Vector2 newPoint = {x, y};
-    SetPosition(newPoint, emit);
+    SetPosition(glm::vec2(x, y), emit);
 }
 
 template<class T>
@@ -234,7 +233,7 @@ glm::vec2 DefaultMove<T>::GetAbsolutePosition()
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(Vector2 position)
+void DefaultMove<T>::SetPosition(const glm::vec2 &position)
 {
     SetPosition(position, true);
 }
@@ -258,7 +257,7 @@ void DefaultMove<T>::SetY(float y)
 }
 
 template<class T>
-void DefaultMove<T>::SetTranslate(Vector2 offset)
+void DefaultMove<T>::SetTranslate(const glm::vec2 &offset)
 {
     SetTranslate(offset, true);
 }

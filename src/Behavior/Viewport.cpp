@@ -125,7 +125,7 @@ glm::vec2 Viewport::GetAbsolutePosition()
     return absolutePosition;
 }
 
-void Viewport::SetPosition(Vector2 position, bool emit)
+void Viewport::SetPosition(const glm::vec2 &position, bool emit)
 {
     moveBehavior.SetPosition(position, emit);
 }
@@ -201,7 +201,7 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetTranslate(Vector2 offset, bool emit)
+void Viewport::SetTranslate(const glm::vec2 &offset, bool emit)
 {
     moveBehavior.SetTranslate(offset, emit);
 }
@@ -231,7 +231,7 @@ float Viewport::GetTranslateY()
     return moveBehavior.GetTranslateY();
 }
 
-void Viewport::SetPosition(Vector2 position)
+void Viewport::SetPosition(const glm::vec2 &position)
 {
     SetPosition(position, true);
 }
@@ -251,7 +251,7 @@ void Viewport::SetY(float y)
     SetY(y, true);
 }
 
-void Viewport::SetTranslate(Vector2 offset)
+void Viewport::SetTranslate(const glm::vec2 &offset)
 {
     SetTranslate(offset, true);
 }
@@ -266,7 +266,7 @@ void Viewport::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void Viewport::SetSize(Vector2 size)
+void Viewport::SetSize(const glm::vec2 &size)
 {
     SetSize(size, true);
 }

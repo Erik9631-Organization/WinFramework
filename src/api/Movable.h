@@ -49,8 +49,8 @@ public:
 	 * Sets the position of the object.
 	 * \param position Sets the position as a point which specifies the X and Y position.
 	 */
-	virtual void SetPosition(Vector2 position, bool emit) = 0;
-    virtual void SetPosition(Vector2 position) = 0;
+	virtual void SetPosition(const glm::vec2 &position, bool emit) = 0;
+    virtual void SetPosition(const glm::vec2 &position) = 0;
 
 	/**
 	 * Sets the position of the object. 
@@ -79,8 +79,8 @@ public:
 	 * Sets position from the current position
 	 * \param offset sets the position via a point object which specifies the X and Y position.
 	 */
-	virtual void SetTranslate(Vector2 offset, bool emit) = 0;
-    virtual void SetTranslate(Vector2 offset) = 0;
+	virtual void SetTranslate(const glm::vec2 &offset, bool emit) = 0;
+    virtual void SetTranslate(const glm::vec2 &offset) = 0;
 
 	/**
 	 * Sets position from the current position
