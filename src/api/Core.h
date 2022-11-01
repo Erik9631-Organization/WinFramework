@@ -5,7 +5,6 @@
 #ifndef LII_CORE_H
 #define LII_CORE_H
 #include "RenderingProvider.h"
-#include "Vector2.h"
 
 class Core
 {
@@ -16,7 +15,7 @@ public:
     virtual void UpdateScale() = 0;
     virtual void Redraw() = 0;
     virtual void Close() = 0;
-    virtual void SetLockCursorSize(const Vector2& size) = 0;
+    virtual void SetLockCursorSize(const glm::vec2 &size) = 0;
     virtual void LockCursor(const bool& lockState) = 0;
     virtual const bool& IsCursorLocked() const = 0;
     virtual RenderingProvider* GetRenderingProvider() = 0;

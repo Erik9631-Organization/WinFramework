@@ -4,6 +4,7 @@
 #include "EventTypes/EventMoveInfo.h"
 #include "GridSpan.h"
 #include "Vector2Int.h"
+#include "vec2.hpp"
 
 class Grid;
 
@@ -22,9 +23,9 @@ private:
 	Grid& parentGrid;
 	Adjustable* associatedAdjustable = nullptr;
 
-	Vector2 cellSize;
+    glm::vec2 cellSize;
 	Vector2Int indexPos;
-	Vector2 position;
+    glm::vec2 position;
 	Vector2Int CalculatePixelPosition();;
 
 	GridSpan span;
@@ -49,35 +50,35 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual Vector2 GetSize() override;
+	virtual glm::vec2 GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
-	virtual void SetSize(Vector2 size, bool emit) override;
+	virtual void SetSize(const glm::vec2 &size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
 	virtual void SetWidth(float width) override;
 	virtual void SetHeight(float height) override;
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual Vector2 GetPosition() override;
+	virtual glm::vec2 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual Vector2 GetAbsolutePosition() override;
-	virtual void SetPosition(Vector2 position) override;
+	virtual glm::vec2 GetAbsolutePosition() override;
+	virtual void SetPosition(const glm::vec2 &position) override;
 	virtual void SetPosition(float x, float y) override;
 	virtual void SetX(float x) override;
 	virtual void SetY(float y) override;
-	virtual void SetTranslate(Vector2 offset) override;
+	virtual void SetTranslate(const glm::vec2 &offset) override;
 	virtual void SetTranslateX(float x) override;
 	virtual void SetTranslateY(float y) override;
-	virtual Vector2 GetTranslate() override;
+	virtual glm::vec2 GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 	virtual void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();
-	Vector2 GetPixelPosition();
+	glm::vec2 GetPixelPosition();
 };
 

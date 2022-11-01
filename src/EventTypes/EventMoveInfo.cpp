@@ -3,7 +3,7 @@
 #include "api/Movable.h"
 
 
-Vector2 EventMoveInfo::GetPosition() const
+glm::vec2 EventMoveInfo::GetPosition() const
 {
 	return position;
 }
@@ -13,7 +13,7 @@ Movable* EventMoveInfo::GetSrc() const
 	return src;
 }
 
-EventMoveInfo::EventMoveInfo(Vector2 position, Movable* src) : src(src)
+EventMoveInfo::EventMoveInfo(const glm::vec2 &position, Movable* src) : src(src)
 {
 	this->position = position;
 	this->src = src;

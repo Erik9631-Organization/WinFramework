@@ -48,7 +48,7 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
-    void SetLockCursorSize(const Vector2& size);
+    void SetLockCursorSize(const glm::vec2 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
 
@@ -79,12 +79,12 @@ public:
 	bool initDone = false;
 
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(Vector2 size, bool emit) override;
+	void SetSize(const glm::vec2 &size, bool emit) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(float x, float y) override;
-	void SetPosition(Vector2 point) override;
+	void SetPosition(const glm::vec2 &point) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

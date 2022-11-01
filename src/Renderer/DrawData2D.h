@@ -5,7 +5,7 @@
 #ifndef LII_DRAWDATA2D_H
 #define LII_DRAWDATA2D_H
 #include "DrawData.h"
-#include "Vector2.h"
+#include <glm.hpp>
 
 class DrawData2D : public DrawData
 {
@@ -13,13 +13,13 @@ public:
     DrawData2D(const DrawData2D& data);
     DrawData2D();
 
-    DrawData2D(Vector2 position, Vector2 size);
+    DrawData2D(const glm::vec2 &position, const glm::vec2 &size);
     int GetDataType() const override;
-    Vector2 GetPosition() const;
-    Vector2 GetSize() const;
+    glm::vec2 GetPosition() const;
+    glm::vec2 GetSize() const;
 private:
-    Vector2 position;
-    Vector2 size;
+    glm::vec2 position;
+    glm::vec2 size;
 };
 
 

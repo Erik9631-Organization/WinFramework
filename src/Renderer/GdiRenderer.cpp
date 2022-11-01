@@ -20,9 +20,9 @@ void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
     graphics.DrawEllipse(pen, x, y, width, height);
 }
 
-void GdiRenderer::DrawEllipse(float x, float y, Vector2 vector2)
+void GdiRenderer::DrawEllipse(float x, float y, const glm::vec2 &vector2)
 {
-    graphics.DrawEllipse(pen, x, y, vector2.GetY(), vector2.GetY());
+    graphics.DrawEllipse(pen, x, y, vector2.x, vector2.y);
 }
 
 void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
@@ -30,14 +30,14 @@ void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
     graphics.DrawLine(pen, x1, y1, x2, y2);
 }
 
-void GdiRenderer::DrawLine(Vector2 pos, Vector2 size)
+void GdiRenderer::DrawLine(const glm::vec2 &pos, const glm::vec2 &size)
 {
-    graphics.DrawLine(pen, pos.GetY(), pos.GetY(), size.GetX(), size.GetY());
+    graphics.DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiRenderer::DrawRectangle(Vector2 pos, Vector2 size)
+void GdiRenderer::DrawRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
-    graphics.DrawRectangle(pen, pos.GetX(), pos.GetY(), size.GetX(), size.GetY());
+    graphics.DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
@@ -45,14 +45,14 @@ void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
     graphics.DrawRectangle(pen, x, y, width, height);
 }
 
-void GdiRenderer::DrawString(const std::wstring &string, Vector2 position, const FontFormat &format, int len)
+void GdiRenderer::DrawString(const std::wstring &string, const glm::vec2 &position, const FontFormat &format, int len)
 {
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
     stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    graphics.DrawString(string.c_str(), -1, font, {position.GetX(), position.GetY()}, &stringFormat, brush);
+    graphics.DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
     fpsfuckingcounter++;
     delete font;
 }
@@ -62,9 +62,9 @@ void GdiRenderer::FillEllipse(float x, float y, float width, float height)
     graphics.FillEllipse(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillEllipse(Vector2 pos, Vector2 size)
+void GdiRenderer::FillEllipse(const glm::vec2 &pos, const glm::vec2 &size)
 {
-    graphics.FillEllipse(brush, pos.GetX(), pos.GetY(), size.GetX(), size.GetY());
+    graphics.FillEllipse(brush, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiRenderer::FillRectangle(float x, float y, float width, float height)
@@ -72,9 +72,9 @@ void GdiRenderer::FillRectangle(float x, float y, float width, float height)
     graphics.FillRectangle(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillRectangle(Vector2 pos, Vector2 size)
+void GdiRenderer::FillRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
-    graphics.FillRectangle(brush, pos.GetX(), pos.GetY(), size.GetX(), size.GetY());
+    graphics.FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
 
 GdiRenderer::GdiRenderer(Gdiplus::Graphics &graphics) : graphics(graphics)
@@ -129,9 +129,9 @@ GdiRenderer::~GdiRenderer()
     delete fontFamily;
 }
 
-void GdiRenderer::Translate(Vector2 translation)
+void GdiRenderer::Translate(const glm::vec2 &translation)
 {
-    graphics.TranslateTransform(translation.GetX(), translation.GetY());
+    graphics.TranslateTransform(translation.x, translation.y);
 }
 
 void GdiRenderer::DrawModel(const OpenGL::Model &model)

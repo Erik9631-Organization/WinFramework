@@ -76,9 +76,9 @@ public:
 
         if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
         {
-            const Vector2& mousePos = InputManager::GetGlobalInput().GetMouseDelta();
-            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.GetX() * sensitivity);
-            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.GetY() * sensitivity);
+            const glm::vec2& mousePos = InputManager::GetGlobalInput().GetMouseDelta();
+            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.x * sensitivity);
+            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.y * sensitivity);
         }
 
     }

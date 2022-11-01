@@ -129,34 +129,34 @@ void CircleBorder::SetDrawFromCenterX(bool drawFromCenterX)
     graphicsUtil.SetCalculateFromCenterX(drawFromCenterX);
 }
 
-Vector2 CircleBorder::GetPosition()
+glm::vec2 CircleBorder::GetPosition()
 {
     return position;
 }
 
-void CircleBorder::SetPosition(Vector2 point)
+void CircleBorder::SetPosition(const glm::vec2 &point)
 {
     this->position = point;
 }
 
 void CircleBorder::SetX(float x)
 {
-    position.SetX(x);
+    position.x = x;
 }
 
 void CircleBorder::SetY(float y)
 {
-    position.SetY(y);
+    position.y = y;
 }
 
 float CircleBorder::GetX()
 {
-    return position.GetX();
+    return position.x;
 }
 
 float CircleBorder::GetY()
 {
-    return position.GetY();
+    return position.y;
 }
 
 void CircleBorder::SetColor(Vector4 color)

@@ -25,7 +25,7 @@ class Text : public RenderCommander, public Reflectable<Text>
 private:
 	DefaultRender renderBehavior;
 	std::wstring fontFamily;
-	Vector2 position;
+    glm::vec2 position;
 	Vector4 color;
 	ScalingUtil graphicsUtil;
 
@@ -63,8 +63,8 @@ public:
 	GraphicsScaling GetScalingTypeY() const;
 	void SetScalingTypeY(GraphicsScaling scalingTypeY);
 
-	Vector2 GetPosition();
-	void SetPosition(Vector2 position);
+	glm::vec2 GetPosition();
+	void SetPosition(const glm::vec2 &position);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

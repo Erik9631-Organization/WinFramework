@@ -17,9 +17,9 @@ private:
 	DefaultMove<Adjustable*> moveBehavior;
 	DefaultResize resizeBehavior;
 
-	Vector2 absoluteSize;
-	Vector2 absolutePosition;
-	Vector2 internalOffset;
+    glm::vec2 absoluteSize;
+    glm::vec2 absolutePosition;
+    glm::vec2 internalOffset;
 
 	float xMultiplier = 1;
 	float yMultiplier = 1;
@@ -27,8 +27,8 @@ private:
 	float heightMultiplier = 1;
 
 private:
-	void CalculateAbsolutePosition(Vector2 relative);
-	void CalculateAbsoluteSize(Vector2 size);
+	void CalculateAbsolutePosition(const glm::vec2 &relative);
+	void CalculateAbsoluteSize(const glm::vec2 &size);
 
 public:
 	Viewport(Adjustable& adjustable);
@@ -44,19 +44,19 @@ public:
 
 	virtual int GetViewportAbsoluteWidth();
 	virtual int GetViewportAbsoluteHeight();
-	virtual Vector2 GetViewportAbsoluteSize();
+	virtual glm::vec2 GetViewportAbsoluteSize();
 
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual Vector2 GetPosition() override;
+	virtual glm::vec2 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual Vector2 GetAbsolutePosition() override;
-	virtual void SetPosition(Vector2 position) override;
+	virtual glm::vec2 GetAbsolutePosition() override;
+	virtual void SetPosition(const glm::vec2 &position) override;
 	virtual void SetPosition(float x, float y) override;
 	virtual void SetX(float x) override;
 	virtual void SetY(float y) override;
@@ -65,10 +65,10 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual Vector2 GetSize() override;
+	virtual glm::vec2 GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
-	virtual void SetSize(Vector2 size, bool emit) override;
+	virtual void SetSize(const glm::vec2 &size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
 	virtual void SetWidth(float width) override;
 	virtual void SetHeight(float height) override;
@@ -78,13 +78,13 @@ public:
 
 
 	// Inherited via Adjustable
-	virtual void SetTranslate(Vector2 offset) override;
+	virtual void SetTranslate(const glm::vec2 &offset) override;
 
 	virtual void SetTranslateX(float x) override;
 
 	virtual void SetTranslateY(float y) override;
 
-	virtual Vector2 GetTranslate() override;
+	virtual glm::vec2 GetTranslate() override;
 
 	virtual float GetTranslateX() override;
 

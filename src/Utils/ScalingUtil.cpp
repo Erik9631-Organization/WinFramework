@@ -6,13 +6,13 @@
 #include "Vector2DScaler.h"
 
 
-ScalingUtil::ScalingUtil(Vector2 &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
+ScalingUtil::ScalingUtil(const glm::vec2 &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
 {
 
 }
 
 
-ScalingUtil::ScalingUtil(Vector2 &associatedPosition, Vector2 &associatedSize) :
+ScalingUtil::ScalingUtil(glm::vec2 associatedPosition, glm::vec2 associatedSize) :
     associatedPosition(associatedPosition),
     associatedSize(associatedSize)
 {
@@ -79,53 +79,53 @@ void ScalingUtil::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil::CreateRatio(Vector2 parentPosition, Vector2 parentSize)
+void ScalingUtil::CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize)
 {
     Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
     Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
 
-    Vector2 scaledPosition = positionScaler.GetScaledValues(associatedPosition);
-    Vector2 scaledSize = sizeScaler.GetScaledValues(associatedSize);
+    auto scaledPosition = positionScaler.GetScaledValues(associatedPosition);
+    auto scaledSize = sizeScaler.GetScaledValues(associatedSize);
 
 
     if (calculateFromCenterX)
-        scaledPosition.SetX(scaledPosition.GetX() - (scaledSize.GetX() / 2.0f));
+        scaledPosition.x = scaledPosition.x - (scaledSize.x / 2.0f);
     if(calculateFromCenterY)
-        scaledPosition.SetY(scaledPosition.GetY() - (scaledSize.GetY() / 2.0f));
+        scaledPosition.y = scaledPosition.y - (scaledSize.y / 2.0f);
 
-    calculatedSize.SetX(scaledSize.GetX());
-    calculatedSize.SetY(scaledSize.GetY());
+    calculatedSize.x = scaledSize.x;
+    calculatedSize.y = scaledSize.y;
 
-    calculatedPosition.SetX(scaledPosition.GetX());
-    calculatedPosition.SetY(scaledPosition.GetY());
+    calculatedPosition.x = scaledPosition.x;
+    calculatedPosition.y = scaledPosition.y;
 }
 
-Vector2 ScalingUtil::GetSize()
+glm::vec2 ScalingUtil::GetSize()
 {
     return calculatedSize;
 }
 
-Vector2 ScalingUtil::GetPosition()
+glm::vec2 ScalingUtil::GetPosition()
 {
     return calculatedPosition;
 }
 
 float ScalingUtil::GetX()
 {
-    return calculatedPosition.GetX();
+    return calculatedPosition.x;
 }
 
 float ScalingUtil::GetY()
 {
-    return calculatedPosition.GetY();
+    return calculatedPosition.y;
 }
 
 float ScalingUtil::GetWidth()
 {
-    return calculatedSize.GetX();
+    return calculatedSize.x;
 }
 
 float ScalingUtil::GetHeight()
 {
-    return calculatedSize.GetY();
+    return calculatedSize.y;
 }

@@ -29,8 +29,8 @@ private:
 
 	ScalingUtil graphicsUtil;
 	float thickness;
-	Vector2 position;
-	Vector2 size;
+    glm::vec2 position;
+    glm::vec2 size;
 	DrawData2D drawData;
 
 public:
@@ -51,10 +51,10 @@ public:
 	void AddRenderCommander(RenderCommander &renderable) override;
 	void RemoveRenderCommander(RenderCommander& renderable) override;
 	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-	Vector2 GetSize();
-	Vector2 GetPosition();
-	void SetSize(Vector2 size);
-	void SetPosition(Vector2 point);
+	glm::vec2 GetSize();
+	glm::vec2 GetPosition();
+	void SetSize(const glm::vec2 &size);
+	void SetPosition(const glm::vec2 &point);
 	void SetX(float x);
 	void SetY(float y);
 	void SetWidth(float width);

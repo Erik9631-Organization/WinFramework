@@ -1,5 +1,5 @@
 #pragma once
-#include <Vector2.h>
+#include <glm.hpp>
 
 class UiElement;
 class MouseStateSubject;
@@ -10,18 +10,18 @@ class MouseStateSubject;
 class EventMouseStateInfo
 {
 private:
-	Vector2 position;
-	Vector2 relativePosition;
+    glm::vec2 position;
+    glm::vec2 relativePosition;
 	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
-	Vector2 mouseDelta;
+    glm::vec2 mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
 	int key;
 public:
 
-    Vector2 GetMouseDelta();
+    glm::vec2 GetMouseDelta();
 
-    EventMouseStateInfo(Vector2 position, Vector2 relativePosition, Vector2 delta, int key, MouseStateSubject* src);
+    EventMouseStateInfo(const glm::vec2 &position, const glm::vec2 &relativePosition, const glm::vec2 &delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative position is automatically calculated from the src component
@@ -30,7 +30,7 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(Vector2 position, int key, UiElement* src);
+	EventMouseStateInfo(const glm::vec2 &position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
@@ -43,17 +43,17 @@ public:
 	 * \param relativePosition the new relative position.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, Vector2 relativePosition, MouseStateSubject* src);
+	EventMouseStateInfo(EventMouseStateInfo e, const glm::vec2 &relativePosition, MouseStateSubject* src);
 
 	/**
 	 * \return returns the mouse position within the window at the time the event was called.
 	 */
-	Vector2 GetMouseAbsolutePosition();
+    glm::vec2 GetMouseAbsolutePosition();
 
 	/**
 	 * \return returns the mouse position within the component at the time the event was called.
 	 */
-	Vector2 GetMousePosition();
+    glm::vec2 GetMousePosition();
 
 	/**
 	 * \return returns the X position of the mouse within the window.

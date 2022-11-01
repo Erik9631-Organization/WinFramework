@@ -65,9 +65,9 @@ void Window::SetSize(float width, float height, bool emit)
 		coreFrame->UpdateScale();*/
 }
 
-void Window::SetSize(Vector2 size, bool emit)
+void Window::SetSize(const glm::vec2 &size, bool emit)
 {
-    SetSize(size.GetX(), size.GetY(), false);
+    SetSize(size.x, size.y, false);
 }
 
 void Window::Repaint()
@@ -112,9 +112,9 @@ void Window::SetPosition(float x, float y)
 //		coreFrame->UpdateScale();
 }
 
-void Window::SetPosition(Vector2 point)
+void Window::SetPosition(const glm::vec2 &point)
 {
-    SetPosition(point.GetX(), point.GetY());
+    SetPosition(point.x, point.y);
 //	if (coreFrame != nullptr)
 //		coreFrame->UpdateScale();
 }
@@ -244,7 +244,7 @@ void Window::WaitForSync()
     renderingProvider->WaitForSyncToFinish();
 }
 
-void Window::SetLockCursorSize(const Vector2 &size)
+void Window::SetLockCursorSize(const glm::vec2 &size)
 {
     coreFrame->SetLockCursorSize(size);
 }

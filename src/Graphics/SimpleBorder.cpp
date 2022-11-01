@@ -93,12 +93,12 @@ ReflectionContainer<SimpleBorder>& SimpleBorder::GetReflectionContainer()
 	return reflectionContainer;
 }
 
-Vector2 SimpleBorder::GetSize()
+glm::vec2 SimpleBorder::GetSize()
 {
 	return this->size;
 }
 
-Vector2 SimpleBorder::GetPosition()
+glm::vec2 SimpleBorder::GetPosition()
 {
 	return this->position;
 }
@@ -143,54 +143,54 @@ void SimpleBorder::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-void SimpleBorder::SetSize(Vector2 size)
+void SimpleBorder::SetSize(const glm::vec2 &size)
 {
     this->size = size;
 }
 
-void SimpleBorder::SetPosition(Vector2 point)
+void SimpleBorder::SetPosition(const glm::vec2 &point)
 {
     this->position = point;
 }
 
 void SimpleBorder::SetX(float x)
 {
-    this->position.SetX(x);
+    this->position.x = x;
 }
 
 void SimpleBorder::SetY(float y)
 {
-    this->position.SetY(y);
+    this->position.y = y;
 }
 
 void SimpleBorder::SetWidth(float width)
 {
-    this->size.SetX(width);
+    this->size.x = width;
 }
 
 void SimpleBorder::SetHeight(float height)
 {
-    this->size.SetY(height);
+    this->size.y = height;
 }
 
 float SimpleBorder::GetX()
 {
-    return position.GetX();
+    return position.x;
 }
 
 float SimpleBorder::GetY()
 {
-    return position.GetY();
+    return position.y;
 }
 
 float SimpleBorder::GetWidth()
 {
-    return size.GetX();
+    return size.x;
 }
 
 float SimpleBorder::GetHeight()
 {
-    return size.GetY();
+    return size.y;
 }
 
 void SimpleBorder::SetColor(Vector4 color)

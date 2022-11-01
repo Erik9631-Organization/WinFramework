@@ -8,13 +8,13 @@
 #include <gdiplus.h>
 #include "GraphicsScaling.h"
 #include "api/RenderCommander.h"
-#include "Vector2.h"
+#include "vec2.hpp"
 
 class ScalingUtil
 {
 public:
-    ScalingUtil(Vector2 &associatedPosition);
-    ScalingUtil(Vector2 &associatedPosition, Vector2 &associatedSize);
+    ScalingUtil(const glm::vec2 &associatedPosition);
+    ScalingUtil(glm::vec2 associatedPosition, glm::vec2 associatedSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);
@@ -30,10 +30,10 @@ public:
     GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void CreateRatio(Vector2 parentPosition, Vector2 parentSize);
+    void CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize);
 
-    Vector2 GetSize();
-    Vector2 GetPosition();
+    glm::vec2 GetSize();
+    glm::vec2 GetPosition();
     float GetX();
     float GetY();
     float GetWidth();
@@ -48,13 +48,13 @@ private:
     GraphicsScaling scalingTypeWidth = Percentual;
     GraphicsScaling scalingTypeHeight = Percentual;
 
-    Vector2& associatedSize;
-    Vector2& associatedPosition;
+    glm::vec2& associatedSize;
+    glm::vec2& associatedPosition;
 
-    Vector2 calculatedSize;
-    Vector2 calculatedPosition;
+    glm::vec2 calculatedSize;
+    glm::vec2 calculatedPosition;
 
-    Vector2 defaultSize;
+    glm::vec2 defaultSize;
 };
 
 

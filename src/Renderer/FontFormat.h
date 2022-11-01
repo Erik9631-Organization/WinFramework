@@ -5,7 +5,6 @@
 #ifndef LII_FONTFORMAT_H
 #define LII_FONTFORMAT_H
 #include <string>
-#include "Vector2.h"
 
 class FontFormat
 {

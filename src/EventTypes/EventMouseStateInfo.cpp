@@ -2,7 +2,7 @@
 #include "Events/MouseStateSubject.h"
 #include "Components/UiElement.h"
 
-EventMouseStateInfo::EventMouseStateInfo(Vector2 position, int key, UiElement* src) : src(src)
+EventMouseStateInfo::EventMouseStateInfo(const glm::vec2 &position, int key, UiElement* src) : src(src)
 {
 	this->position = position;
 	this->relativePosition = position - src->GetAbsolutePosition();
@@ -18,7 +18,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* sourc
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Vector2 relativePosition, MouseStateSubject* src) : mouseSrc(src)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, const glm::vec2 &relativePosition, MouseStateSubject* src) : mouseSrc(src)
 {
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
@@ -27,12 +27,12 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, Vector2 relative
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-Vector2 EventMouseStateInfo::GetMouseAbsolutePosition()
+glm::vec2 EventMouseStateInfo::GetMouseAbsolutePosition()
 {
 	return position;
 }
 
-Vector2 EventMouseStateInfo::GetMousePosition()
+glm::vec2 EventMouseStateInfo::GetMousePosition()
 {
 	if (src == nullptr)
 		return GetMouseAbsolutePosition();
@@ -41,26 +41,26 @@ Vector2 EventMouseStateInfo::GetMousePosition()
 
 float EventMouseStateInfo::GetAbsoluteMouseX()
 {
-	return position.GetX();
+	return position.x;
 }
 
 float EventMouseStateInfo::GetAbsoluteMouseY()
 {
-	return position.GetY();
+	return position.y;
 }
 
 float EventMouseStateInfo::GetMouseX()
 {
 	if (src == nullptr && mouseSrc == nullptr)
 		return GetAbsoluteMouseX();
-	return relativePosition.GetX();
+	return relativePosition.x;
 }
 
 float EventMouseStateInfo::GetMouseY()
 {
 	if (src == nullptr && mouseSrc == nullptr)
 		return GetAbsoluteMouseY();
-	return relativePosition.GetY();
+	return relativePosition.y;
 }
 
 int EventMouseStateInfo::GetKey()
@@ -90,7 +90,7 @@ bool EventMouseStateInfo::IsRecursive()
 	return recursive;
 }
 
-EventMouseStateInfo::EventMouseStateInfo(Vector2 position, Vector2 relativePosition, Vector2 delta,
+EventMouseStateInfo::EventMouseStateInfo(const glm::vec2 &position, const glm::vec2 &relativePosition, const glm::vec2 &delta,
                                          int key, MouseStateSubject *src)
 {
     this->position = position;
@@ -100,7 +100,7 @@ EventMouseStateInfo::EventMouseStateInfo(Vector2 position, Vector2 relativePosit
     this->key = key;
 }
 
-Vector2 EventMouseStateInfo::GetMouseDelta()
+glm::vec2 EventMouseStateInfo::GetMouseDelta()
 {
     return mouseDelta;
 }

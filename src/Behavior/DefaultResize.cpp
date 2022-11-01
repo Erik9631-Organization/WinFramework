@@ -2,6 +2,7 @@
 #include "EventTypes/EventResizeInfo.h"
 #include "Events/ResizeSubscriber.h"
 #include "../GenericObj.h"
+#include "vec2.hpp"
 
 DefaultResize::DefaultResize(Resizable& resizeComponent) : associatedResizable(resizeComponent)
 {
@@ -28,22 +29,22 @@ void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     }
 }
 
-Vector2 DefaultResize::GetSize()
+glm::vec2 DefaultResize::GetSize()
 {
     return size;
 }
 
 float DefaultResize::GetWidth()
 {
-    return size.GetX();
+    return size.x;
 }
 
 float DefaultResize::GetHeight()
 {
-    return size.GetY();
+    return size.y;
 }
 
-void DefaultResize::SetSize(Vector2 size, bool emit)
+void DefaultResize::SetSize(const glm::vec2 &size, bool emit)
 {
     this->size = size;
     NotifyOnResizeSubscribers(EventResizeInfo(size, &associatedResizable));
@@ -56,10 +57,10 @@ void DefaultResize::SetSize(float width, float height, bool emit)
 
 void DefaultResize::SetWidth(float width)
 {
-    SetSize(width, size.GetY(), false);
+    SetSize(width, size.y, false);
 }
 
 void DefaultResize::SetHeight(float height)
 {
-    SetSize(size.GetX(), height, false);
+    SetSize(size.x, height, false);
 }

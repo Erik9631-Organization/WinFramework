@@ -3,7 +3,6 @@
 //
 
 #include "Vector2Int.h"
-#include "Vector2.h"
 
 int Vector2Int::GetX() const
 {
@@ -66,8 +65,8 @@ Vector2Int &Vector2Int::operator+(const Vector2Int &ref)
     return *this;
 }
 
-Vector2Int::Vector2Int(const Vector2 &vector)
+Vector2Int::Vector2Int(const glm::vec2 &vector)
 {
-    this->x = (int)(vector.GetX());
-    this->y = (int)(vector.GetY());
+    this->x = (int)(vector.x);
+    this->y = (int)(vector.y);
 }
