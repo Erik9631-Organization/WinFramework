@@ -4,8 +4,6 @@
 #include <mutex>
 #include "ApplicationController.h"
 #include <string>
-
-
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
@@ -14,60 +12,44 @@ using namespace std;
 
 void Window::CreateCoreWindow(LONG style)
 {
-	mutex windowInit;
-    ApplicationController* controller = ApplicationController::GetApplicationController();
-	windowThread = &controller->CreateThread([=]
-	{
-        InitCoreWindow(style);
-	}, to_string((long long) this)+"window");
-
-	unique_lock<mutex>lock(windowInit);
-	initWait->wait(lock, [=] {return initNotified; });
-	SetRenderingProvider(make_shared<GdiRenderingProvider>());
-	WindowsCore::ConsoleWrite("Init done");
-	initDone = true;
+    coreFrame = WindowsCore::Create(*this, name, style);
+    SetRenderingProvider(make_shared<GdiRenderingProvider>());
 }
-
 
 void Window::AddWindowStyle(LONG styleFlags)
 {
     EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
     NotifyOnAttributesChanged(e);
-    //coreFrame->SetAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::RemoveWindowStyle(LONG styleFlags)
 {
     EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
     NotifyOnAttributesRemoved(e);
-    //coreFrame->RemoveAttributes(GWL_STYLE, styleFlags);
 }
 
 void Window::AddWindowExtendedStyle(LONG styleFlags)
 {
     EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
     NotifyOnAttributesChanged(e);
-    //coreFrame->SetAttributes(GWL_EXSTYLE, styleFlags);
 }
 
 void Window::RemoveWindowExtendedStyle(LONG styleFlags)
 {
     EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
     NotifyOnAttributesRemoved(e);
-    //coreFrame->RemoveAttributes(GWL_EXSTYLE, styleFlags);
 }
 
 void Window::SetSize(float width, float height, bool emit)
 {
-    UiElement::SetSize(width, height, false);
-    NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
-	/*if (coreFrame != nullptr)
-		coreFrame->UpdateScale();*/
+    UiElement::SetSize(width, height, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
 void Window::SetSize(const glm::vec2 &size, bool emit)
 {
-    SetSize(size.x, size.y, false);
+    SetSize(size.GetX(), size.GetY(), emit);
 }
 
 void Window::Repaint()
@@ -87,7 +69,6 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	UiElement* result = std::any_cast<UiElement*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
 
 	currentCapture = result;
-	//Handle mouse capture
 	if(result == nullptr) // Error check
         return;
 
@@ -104,19 +85,16 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(float x, float y)
+void Window::SetPosition(float x, float y, bool emit)
 {
-	UiElement::SetPosition(x, y);
-    NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
-//	if (coreFrame != nullptr)
-//		coreFrame->UpdateScale();
+    UiElement::SetPosition(x, y, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetPosition(const glm::vec2 &point)
+void Window::SetPosition(Vector2 position, bool emit)
 {
-    SetPosition(point.x, point.y);
-//	if (coreFrame != nullptr)
-//		coreFrame->UpdateScale();
+    SetPosition(position.GetX(), position.GetY(), emit);
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)
@@ -143,15 +121,11 @@ void Window::NotifyOnKeyPressed(EventKeyStateInfo e)
 void Window::CloseWindow()
 {
     NotifyOnClose(std::make_any<Presenter*>(this));
-//	if (coreFrame != nullptr)
-//        coreFrame->Close();
 }
 
 void Window::UpdateWindow()
 {
     NotifyOnRedraw(std::make_any<Presenter*>(this));
-//	if(coreFrame != nullptr)
-//        coreFrame->Redraw();
 }
 
 Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
@@ -163,7 +137,6 @@ Window::Window(int x, int y, int width, int height, string windowName) : Window(
 {
 
 }
-
 
 Window::Window(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
 {
@@ -177,7 +150,7 @@ Window::Window(int x, int y, int width, int height, string windowName, LONG styl
     coreMediator = new CoreMediator();
     AddPresenterSubscriber(coreMediator);
     coreFrame->AddCoreSubscriber(coreMediator);
-    coreMediator->SetCore(coreFrame);
+    coreMediator->SetCore(coreFrame.get());
     coreMediator->SetPresenter(this);
 }
 
@@ -189,7 +162,6 @@ void Window::Add(unique_ptr<UiElement> component)
 Window::~Window()
 {
     renderingProvider->OnDestroy(*coreFrame);
-	delete coreFrame;
 	delete initWait;
 }
 
@@ -207,7 +179,6 @@ void Window::NotifyOnMouseUp(EventMouseStateInfo e)
         return;
     currentCapture->SetMouseCaptured(false);
     currentCapture = nullptr;
-
 }
 
 void Window::SetRenderingProvider(RenderingProvider &provider)
@@ -267,16 +238,6 @@ void Window::Add(unique_ptr<Element3d> element)
 Scene &Window::Get3dScene()
 {
     return scene3d;
-}
-
-void Window::InitCoreWindow(LONG style)
-{
-    ApplicationController::WinEntryArgs args = ApplicationController::GetApplicationController()->GetWinEntryArgs();
-    coreFrame = new WindowsCore(args , *this, name, style);
-    WindowsCore::ConsoleWrite("Construction complete");
-    initNotified = true;
-    initWait->notify_one();
-    coreFrame->WindowsMessageLoop();
 }
 
 void Window::NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e)

@@ -17,7 +17,7 @@ class Grid;
 * The idea is that spanning should be possible with the existing grid system, without creating incompatibilities
 */
 
-class GridCell : Adjustable
+class GridCell : public Adjustable
 {
 private:
 	Grid& parentGrid;
@@ -31,6 +31,29 @@ private:
 	GridSpan span;
 
 	Vector2Int GetSpanSize();
+
+    void SetPosition(Vector2 position) override;
+
+    void SetPosition(float x, float y) override;
+
+    void SetX(float x) override;
+
+    void SetY(float y) override;
+
+    void SetTranslate(Vector2 offset) override;
+
+    void SetTranslateX(float x) override;
+
+    void SetTranslateY(float y) override;
+
+    void SetSize(Vector2 size) override;
+
+    void SetSize(float width, float height) override;
+
+    void SetWidth(float width) override;
+
+    void SetHeight(float height) override;
+
 public:
 
 	void ControlAdjustable(Adjustable* associatedAdjustable);
@@ -55,8 +78,8 @@ public:
 	virtual float GetHeight() override;
 	virtual void SetSize(const glm::vec2 &size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
-	virtual void SetWidth(float width) override;
-	virtual void SetHeight(float height) override;
+	virtual void SetWidth(float width, bool emit) override;
+	virtual void SetHeight(float height, bool emit) override;
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
@@ -65,15 +88,15 @@ public:
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual glm::vec2 GetAbsolutePosition() override;
-	virtual void SetPosition(const glm::vec2 &position) override;
-	virtual void SetPosition(float x, float y) override;
-	virtual void SetX(float x) override;
-	virtual void SetY(float y) override;
-	virtual void SetTranslate(const glm::vec2 &offset) override;
-	virtual void SetTranslateX(float x) override;
-	virtual void SetTranslateY(float y) override;
-	virtual glm::vec2 GetTranslate() override;
+	virtual Vector2 GetAbsolutePosition() override;
+	virtual void SetPosition(Vector2 position, bool emit) override;
+	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetX(float x, bool emit) override;
+	virtual void SetY(float y, bool emit) override;
+	virtual void SetTranslate(Vector2 offset, bool emit) override;
+	virtual void SetTranslateX(float x, bool emit) override;
+	virtual void SetTranslateY(float y, bool emit) override;
+	virtual Vector2 GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 	virtual void OnUpdate(EventUpdateInfo e) override;

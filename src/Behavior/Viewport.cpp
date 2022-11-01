@@ -125,24 +125,24 @@ glm::vec2 Viewport::GetAbsolutePosition()
     return absolutePosition;
 }
 
-void Viewport::SetPosition(const glm::vec2 &position)
+void Viewport::SetPosition(Vector2 position, bool emit)
 {
-    moveBehavior.SetPosition(position);
+    moveBehavior.SetPosition(position, emit);
 }
 
-void Viewport::SetPosition(float x, float y)
+void Viewport::SetPosition(float x, float y, bool emit)
 {
-    moveBehavior.SetPosition(x, y);
+    moveBehavior.SetPosition(x, y, emit);
 }
 
-void Viewport::SetX(float x)
+void Viewport::SetX(float x, bool emit)
 {
-    moveBehavior.SetX(x);
+    moveBehavior.SetX(x, emit);
 }
 
-void Viewport::SetY(float y)
+void Viewport::SetY(float y, bool emit)
 {
-    moveBehavior.SetY(y);
+    moveBehavior.SetY(y, emit);
 }
 
 void Viewport::NotifyOnResizeSubscribers(EventResizeInfo event)
@@ -177,22 +177,22 @@ float Viewport::GetHeight()
 
 void Viewport::SetSize(const glm::vec2 &size, bool emit)
 {
-    resizeBehavior.SetSize(size, false);
+    resizeBehavior.SetSize(size, emit);
 }
 
 void Viewport::SetSize(float width, float height, bool emit)
 {
-    resizeBehavior.SetSize(width, height, false);
+    resizeBehavior.SetSize(width, height, emit);
 }
 
-void Viewport::SetWidth(float width)
+void Viewport::SetWidth(float width, bool emit)
 {
-    resizeBehavior.SetWidth(width);
+    resizeBehavior.SetWidth(width, emit);
 }
 
-void Viewport::SetHeight(float height)
+void Viewport::SetHeight(float height, bool emit)
 {
-    resizeBehavior.SetHeight(height);
+    resizeBehavior.SetHeight(height, emit);
 }
 
 void Viewport::OnUpdate(EventUpdateInfo e)
@@ -201,19 +201,19 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetTranslate(const glm::vec2 &offset)
+void Viewport::SetTranslate(Vector2 offset, bool emit)
 {
-    moveBehavior.SetTranslate(offset);
+    moveBehavior.SetTranslate(offset, emit);
 }
 
-void Viewport::SetTranslateX(float x)
+void Viewport::SetTranslateX(float x, bool emit)
 {
-    moveBehavior.SetTranslateX(x);
+    moveBehavior.SetTranslateX(x, emit);
 }
 
-void Viewport::SetTranslateY(float y)
+void Viewport::SetTranslateY(float y, bool emit)
 {
-    moveBehavior.SetTranslateY(y);
+    moveBehavior.SetTranslateY(y, emit);
 }
 
 glm::vec2 Viewport::GetTranslate()
@@ -229,4 +229,59 @@ float Viewport::GetTranslateX()
 float Viewport::GetTranslateY()
 {
     return moveBehavior.GetTranslateY();
+}
+
+void Viewport::SetPosition(Vector2 position)
+{
+    SetPosition(position, true);
+}
+
+void Viewport::SetPosition(float x, float y)
+{
+    SetPosition(x, y, true);
+}
+
+void Viewport::SetX(float x)
+{
+    SetX(x, true);
+}
+
+void Viewport::SetY(float y)
+{
+    SetY(y, true);
+}
+
+void Viewport::SetTranslate(Vector2 offset)
+{
+    SetTranslate(offset, true);
+}
+
+void Viewport::SetTranslateX(float x)
+{
+    SetTranslateX(x, true);
+}
+
+void Viewport::SetTranslateY(float y)
+{
+    SetTranslateY(y, true);
+}
+
+void Viewport::SetSize(Vector2 size)
+{
+    SetSize(size, true);
+}
+
+void Viewport::SetSize(float width, float height)
+{
+    SetSize(width, height, true);
+}
+
+void Viewport::SetWidth(float width)
+{
+    SetWidth(width, true);
+}
+
+void Viewport::SetHeight(float height)
+{
+    SetHeight(height, true);
 }

@@ -125,7 +125,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
-        //NotifyCoreOnResize(e);
+        NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
         UpdateLockCursor();
 	    break;
@@ -224,55 +224,59 @@ void WindowsCore::UpdateScale()
 	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-WindowsCore::WindowsCore(ApplicationController::WinEntryArgs &args, Window& wrapperFrame, string windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+WindowsCore::WindowsCore(Window &wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
-	//Arguments
-	hInstance = args.hInstance;
-	HINSTANCE hPrevInstance = args.hPrevInstance;
-	LPSTR lpCmdLine = args.lpCmdLine;
-	int nCmdShow = args.nCmdShow;
+    this->windowName = windowName;
+    this->style = style;
+}
 
-	CreateConsole();
-	WNDCLASS* windowInfo = new WNDCLASS;
-	memset(windowInfo, 0, sizeof(WNDCLASS));
-	windowInfo->style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-	windowInfo->lpfnWndProc = (WNDPROC)ApplicationController::WindowProc;
-	windowInfo->cbClsExtra = NULL;
-	windowInfo->cbWndExtra = NULL;
-	windowInfo->hInstance = hInstance;
-	windowInfo->hIcon = NULL;
-	windowInfo->hCursor = LoadCursor(NULL, IDC_ARROW);
-	windowInfo->hbrBackground = NULL;
-	windowInfo->lpszMenuName = NULL;
-	windowInfo->lpszClassName = windowName.c_str();
+void WindowsCore::CreateWinApiWindow()
+{
+    //Arguments
+    hInstance = GetModuleHandleA(NULL);
+
+    CreateConsole();
+    WNDCLASS* windowInfo = new WNDCLASS;
+    memset(windowInfo, 0, sizeof(WNDCLASS));
+    windowInfo->style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+    windowInfo->lpfnWndProc = (WNDPROC)ApplicationController::WindowProc;
+    windowInfo->cbClsExtra = NULL;
+    windowInfo->cbWndExtra = NULL;
+    windowInfo->hInstance = hInstance;
+    windowInfo->hIcon = NULL;
+    windowInfo->hCursor = LoadCursor(NULL, IDC_ARROW);
+    windowInfo->hbrBackground = NULL;
+    windowInfo->lpszMenuName = NULL;
+    windowInfo->lpszClassName = windowName.c_str();
 
 
 
-	if (!RegisterClass(windowInfo))
-	{
-		ConsoleWrite("Register Class error: " + to_string(GetLastError()));
-		system("PAUSE");
-		exit(0);
-	}
-	windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(),
+    if (!RegisterClass(windowInfo))
+    {
+        ConsoleWrite("Register Class error: " + to_string(GetLastError()));
+        system("PAUSE");
+        exit(0);
+    }
+    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(),
                                 wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
 
-	if (!windowHandle)
-	{
-		ConsoleWrite("Error creating window handle " + to_string(GetLastError()));
-		system("PAUSE");
-		exit(0);
-	}
-	SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
-	fpsTimer.SetInterval(1000/targetFps);
-	fpsTimer.SetPeriodic(false);
+    if (!windowHandle)
+    {
+        ConsoleWrite("Error creating window handle " + to_string(GetLastError()));
+        system("PAUSE");
+        exit(0);
+    }
+    SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
+    fpsTimer.SetInterval(1000/targetFps);
+    fpsTimer.SetPeriodic(false);
     coreSubscribers.emplace_back(&coreAdapter);
 
-	ShowWindow(windowHandle, SW_SHOW);
-	UpdateWindow(windowHandle);
+    ShowWindow(windowHandle, SW_SHOW);
+    UpdateWindow(windowHandle);
 
-	//Critical Section end
+    //Critical Section end
 }
+
 
 
 HWND WindowsCore::GetWindowHandle()
@@ -497,6 +501,32 @@ void WindowsCore::RemoveCoreSubscriber(CoreSubscriber *subscriber)
         }
     }
 }
+
+void WindowsCore::Start()
+{
+    bool initSignal = false;
+    mutex initLock;
+    auto initCondition = new std::condition_variable();
+    updateThread = &ApplicationController::GetApplicationController()->CreateThread([&]{
+        CreateWinApiWindow();
+        initSignal = true;
+        std::unique_lock<mutex> lock{initLock};
+        initCondition->notify_one();
+        lock.unlock();
+        WindowsMessageLoop();
+    },to_string((long long) this)+"window");
+    std::unique_lock<mutex> lock{initLock};
+    initCondition->wait(lock, [&]{return initSignal;});
+}
+
+std::unique_ptr<WindowsCore> WindowsCore::Create(Window &wrapperFrame, string windowName, LONG style)
+{
+    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
+    auto window = std::unique_ptr<WindowsCore>(coreInstance);
+    window->Start();
+    return std::move(window);
+}
+
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {

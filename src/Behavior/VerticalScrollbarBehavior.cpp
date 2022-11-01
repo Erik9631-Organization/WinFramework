@@ -54,7 +54,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     if(e.GetMouseDelta().y + associatedTrackBar.GetY() < 0)
         return;
     //Set the trackbar
-    associatedTrackBar.SetY(e.GetMouseDelta().y + associatedTrackBar.GetY());
+    associatedTrackBar.SetY(e.GetMouseDelta().GetY() + associatedTrackBar.GetY(), false);
 
     //Set the components
     UiElement* parent = associatedScrollbar.GetParent();
@@ -155,8 +155,8 @@ void VerticalScrollbarBehavior::UpdateThumbTrackSize()
     if(trackbarHeight < minSize) // Force minsize.
         trackbarHeight = minSize;
 
-    associatedTrackBar.SetWidth(trackbarWidth);
-    associatedTrackBar.SetHeight(trackbarHeight);
+    associatedTrackBar.SetWidth(trackbarWidth, false);
+    associatedTrackBar.SetHeight(trackbarHeight, false);
 
 }
 
@@ -167,8 +167,9 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
-        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0);
-        associatedScrollbar.SetHeight(e.GetSize().y);
+        Vector2 size = e.GetSize();
+        associatedScrollbar.SetPosition(size.GetX() - associatedScrollbar.GetWidth(), 0, false);
+        associatedScrollbar.SetHeight(size.GetY(), false);
     }
     else
     {

@@ -19,7 +19,7 @@ void CoreMediator::CoreOnMove(EventMoveInfo e)
 {
     if(window == nullptr)
         return;
-    window->SetPosition(e.GetPosition());
+    window->SetPosition(e.GetPosition(), false);
 }
 
 void CoreMediator::CoreOnResize(EventResizeInfo e)

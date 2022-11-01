@@ -33,7 +33,8 @@ public:
 	 * Sets the size of the object
 	 * \param size the size object which specifies the width and height of the target object.
 	 */
-	virtual void SetSize(const glm::vec2 &size, bool emit) = 0;
+	virtual void SetSize(Vector2 size, bool emit) = 0;
+    virtual void SetSize(Vector2 size) = 0;
 	
 	/**
 	 * Sets the Size of the object
@@ -41,17 +42,20 @@ public:
 	 * \param height parameter which should specify the height of the object.
 	 */
 	virtual void SetSize(float width, float height, bool emit) = 0;
+    virtual void SetSize(float width, float height) = 0;
 
 	/**
 	 * Sets the Width of the object
 	 * \param width parameter which should specify the width of the object.
 	 */
-	virtual void SetWidth(float width) = 0;
+	virtual void SetWidth(float width, bool emit) = 0;
+    virtual void SetWidth(float width) = 0;
 	
 	/**
 	 * Sets the Height of the object
 	 * \param height parameter which should specify the height of the object.
 	 */
-	virtual void SetHeight(float height) = 0;
+	virtual void SetHeight(float height, bool emit) = 0;
+    virtual void SetHeight(float height) = 0;
 };
 

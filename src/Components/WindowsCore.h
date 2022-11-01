@@ -47,6 +47,9 @@ private:
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
     DefaultRender renderBehavior;
 	HINSTANCE hInstance;
+    std::thread* updateThread;
+    std::string windowName;
+    LONG style;
 
     glm::vec2 mousePos;
     glm::vec2 prevMousePos;
@@ -65,12 +68,15 @@ private:
     bool processMessages = true;
     void UpdateGlobalInputState();
     void UpdateLockCursor();
+    void CreateWinApiWindow();
+    WindowsCore(Window &wrapperFrame, const string &windowName, LONG style);
 public:
     void SetLockCursorSize(const glm::vec2 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
+    std::unique_ptr<WindowsCore> static Create(Window &wrapperFrame, string windowName, LONG style);
 	/**
 	 * Updates the scale of the window
 	 */
@@ -82,7 +88,7 @@ public:
 	 * \param windowName the name of the window which is being displayed
 	 * \param style the style of the window that should be used. Please check MSDN for window styles.
 	 */
-	WindowsCore(ApplicationController::WinEntryArgs &args, Window& wrapperFrame, string windowName, LONG style);
+
 	/**
 	 * The message loop of the window. This is where all the messages are processed.
 	 */
@@ -188,5 +194,7 @@ public:
     void NotifyCoreOnKeyPressed(EventKeyStateInfo e) override;
 
     long long int RemoveAttribute(int index, long long int parameter) override;
+
+    void Start() override;
 };
 
