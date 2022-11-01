@@ -13,6 +13,7 @@
 #include "PresenterSubject.h"
 #include "Presenter.h"
 #include "CoreMediator.h"
+
 using namespace std;
 class WindowsCore;
 class RenderingProvider;
@@ -21,13 +22,14 @@ class RenderingProvider;
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
  * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
  */
+
 class Window : public UiElement, public virtual PresenterSubject
 {
 private:
     CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	WindowsCore* coreFrame = nullptr;
+	std::unique_ptr<WindowsCore> coreFrame;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;
@@ -36,7 +38,6 @@ private:
 	std::shared_ptr<RenderingProvider> renderingProvider;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
-    void InitCoreWindow(LONG style);
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
     void NotifyOnAttributesChanged(EventAttributeInfo &e) override;
     void NotifyOnAttributesRemoved(EventAttributeInfo &e) override;

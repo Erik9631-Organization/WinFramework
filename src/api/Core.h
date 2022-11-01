@@ -16,6 +16,7 @@ public:
     virtual void UpdateScale() = 0;
     virtual void Redraw() = 0;
     virtual void Close() = 0;
+    virtual void Start() = 0;
     virtual void SetLockCursorSize(const Vector2& size) = 0;
     virtual void LockCursor(const bool& lockState) = 0;
     virtual const bool& IsCursorLocked() const = 0;
