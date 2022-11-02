@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <gdiplus.h>
 #include "GdiRenderingProvider.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "Window.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
@@ -68,10 +68,12 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
 {
-    Window& wrapperFrame = coreWindowframe->GetWrapperFrame();
-    Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
+    Window* wrapperFrame = coreWindowframe->GetWrapperFrame();
+    if(wrapperFrame == nullptr)
+        return;
+    Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame->GetWidth() + 1, wrapperFrame->GetHeight() + 1);
     Gdiplus::Region clippingRegion = Gdiplus::Region(rootViewport);
-    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode(), clippingRegion);
+    AssignGraphicsToNodes(wrapperFrame->GetUiElementNode(), clippingRegion);
 }
 
 HDC GdiRenderingProvider::GetSecondaryDC()
@@ -93,8 +95,9 @@ void GdiRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
     windowHandle = coreWindowframe->GetWindowHandle();
     windowHdc = GetDC(windowHandle);
     coreWindowframe->AddOnResizePreProcessSubsriber(*this);
-    secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame().GetWidth(),
-                                             coreWindowframe->GetWrapperFrame().GetHeight());
+
+    secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame()->GetWidth(),
+                                             coreWindowframe->GetWrapperFrame()->GetHeight());
     performRender = !coreWindowframe->IsEventBased();
     fpsTimer.Start();
 
@@ -127,7 +130,6 @@ void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
 
     while(startRenderingLoop)
     {
-
         long long start = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         //fpsTimer.Start();
         //Render only if the rendering was requested
@@ -136,17 +138,19 @@ void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
 
         //CoreWindow::ConsoleWrite("Waiting for render");
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
+        if(coreWindowframe == nullptr)
+            continue;
         //OnSync
         //Sync only if updating is finished.
         coreWindowframe->WaitForUpdateToFinish();
         //CoreWindow::ConsoleWrite("Syncing data");
-        syncer.SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
+        syncer.SyncData(coreWindowframe->GetWrapperFrame()->GetUiElementNode());
         //CoreWindow::ConsoleWrite("Syncing finished");
 
         //CoreWindow::ConsoleWrite("Rendering data");
         GetSecondaryDC();
         AssignGraphicsToNodes(); //This is where components draw on the buffer
-        BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+        BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame()->GetWidth(), coreWindowframe->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
         CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
         performRender = !coreWindowframe->IsEventBased();
         //fpsTimer.Wait();

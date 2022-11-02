@@ -8,7 +8,7 @@
 #include <Windows.h>
 
 #include <string>
-#include "Components/WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include <gdiplus.h>
 #include "DataTypes/DefaultMultiTree.h"
 #include "Events/MoveSubscriber.h"

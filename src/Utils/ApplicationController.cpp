@@ -1,5 +1,5 @@
 #include "ApplicationController.h"
-#include "Components/WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include <thread>
 #include <functional>
 #if defined(_M_X64)

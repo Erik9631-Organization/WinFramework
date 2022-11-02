@@ -9,7 +9,7 @@
 #include "UiElement.h"
 #include "DrawData2D.h"
 #include "MultiTree.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 
 void UiTreeDataSyncer::InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &node)
 {

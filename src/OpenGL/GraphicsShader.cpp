@@ -5,7 +5,7 @@
 #include "GraphicsShader.h"
 #include <fstream>
 #include <glew.h>
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 unsigned int OpenGL::GraphicsShader::GetId()
 {
     return shaderId;

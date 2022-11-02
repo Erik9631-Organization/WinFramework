@@ -2,7 +2,7 @@
 // Created by Erik on 09/04/22.
 //
 
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "DefaultRenderingManager.h"
 using namespace OpenGL;
 

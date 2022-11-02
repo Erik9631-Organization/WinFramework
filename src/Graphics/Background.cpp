@@ -1,6 +1,6 @@
 #include "Background.h"
 #include "RenderEventInfo.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "RenderingPool.h"
 
 

@@ -4,7 +4,7 @@
 #include "Events/MouseStateSubject.h"
 #include "Events/DragSubscriber.h"
 #include "Events/DropSubscriber.h"
-#include "Components/WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 
 bool DragManager::isDragging = false;
 Draggable* DragManager::currentDragObj = nullptr;

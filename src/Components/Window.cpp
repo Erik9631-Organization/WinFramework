@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include <thread>
 #include <mutex>
 #include "ApplicationController.h"
@@ -12,7 +12,7 @@ using namespace std;
 
 void Window::CreateCoreWindow(LONG style)
 {
-    coreFrame = WindowsCore::Create(*this, name, style);
+    coreFrame = WindowsCore::Create(this, name, style);
     SetRenderingProvider(make_shared<GdiRenderingProvider>());
 }
 

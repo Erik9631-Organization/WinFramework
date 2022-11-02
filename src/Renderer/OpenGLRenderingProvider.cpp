@@ -21,7 +21,7 @@
 #include "GraphicsShader.h"
 #include "GlobalResourceManager.h"
 #include "Window.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 
 
 
@@ -38,7 +38,7 @@ void OpenGLRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
     //now create openGlWindow
     PrepareWindowRenderer(coreWindowFrame);
     coreWindow = &coreWindowFrame;
-    renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame(), manager);
+    renderingPool = std::make_unique<OpenGLRenderingPool>(*coreWindow->GetWrapperFrame(), manager);
     element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
     GraphicsInit();
     renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{InternalRender();}, to_string((long long)this)+"renderThread");
@@ -223,7 +223,7 @@ void OpenGLRenderingProvider::InternalRender()
 {
     ApplicationController::GetApplicationController()->WaitForEntryToFinish();
     wglMakeCurrent(windowDc, openGlContext);
-    Window& window = coreWindow->GetWrapperFrame();
+    Window* window = coreWindow->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
     while(startRenderingLoop)
     {
@@ -236,9 +236,11 @@ void OpenGLRenderingProvider::InternalRender()
         ///TODO Thread sync problem
         //Wait for update could finish and another cycle could start before uiSyncer sends a signal. Mutex is requried here.
         coreWindow->WaitForUpdateToFinish();
-        uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
-        element3dSyncer->SyncData(coreWindow->GetWrapperFrame().Get3dScene().GetElementNode());
-        glViewport(0, 0, window.GetWidth(), window.GetHeight()); // Update the viewport
+        uiSyncer.SyncData(coreWindow->GetWrapperFrame()->GetUiElementNode());
+        element3dSyncer->SyncData(coreWindow->GetWrapperFrame()->Get3dScene().GetElementNode());
+        if(window == nullptr)
+            continue;
+        glViewport(0, 0, window->GetWidth(), window->GetHeight()); // Update the viewport
         AssignRendererToNodes();
         manager.Render();
         performRender = !coreWindow->IsEventBased();
@@ -249,8 +251,10 @@ void OpenGLRenderingProvider::InternalRender()
 
 void OpenGLRenderingProvider::AssignRendererToNodes()
 {
-    Window& wrapperFrame = coreWindow->GetWrapperFrame();
-    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode());
+    Window* wrapperFrame = coreWindow->GetWrapperFrame();
+    if(wrapperFrame == nullptr)
+        return;
+    AssignGraphicsToNodes(wrapperFrame->GetUiElementNode());
 }
 
 void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiElement>> &node)

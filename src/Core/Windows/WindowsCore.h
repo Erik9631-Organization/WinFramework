@@ -43,7 +43,7 @@ private:
     CoreMediator coreAdapter;
 	HWND windowHandle;
 	void CreateConsole();
-	Window& wrapperFrame;
+	Window* wrapperFrame = nullptr;
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
     DefaultRender renderBehavior;
 	HINSTANCE hInstance;
@@ -69,14 +69,14 @@ private:
     void UpdateGlobalInputState();
     void UpdateLockCursor();
     void CreateWinApiWindow();
-    WindowsCore(Window &wrapperFrame, const string &windowName, LONG style);
+    WindowsCore(Window *wrapperFrame, const string &windowName, LONG style);
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
-    std::unique_ptr<WindowsCore> static Create(Window &wrapperFrame, string windowName, LONG style);
+    std::unique_ptr<WindowsCore> static Create(Window *wrapperFrame, const string &windowName, LONG style);
 	/**
 	 * Updates the scale of the window
 	 */
@@ -108,7 +108,7 @@ public:
 	/**
 	 * Gets the wrapper frame of this class.
 	 */
-	Window& GetWrapperFrame();
+    Window * GetWrapperFrame();
 	/**
 	 * Gets the hardware context of the current window.
 	 */
@@ -196,5 +196,9 @@ public:
     long long int RemoveAttribute(int index, long long int parameter) override;
 
     void Start() override;
+
+    unique_ptr<Core> Create(Window *window, std::any args) override;
+
+    void SetWindow(Window *window) override;
 };
 

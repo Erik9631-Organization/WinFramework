@@ -3,7 +3,7 @@
 //
 
 #include "DefaultShaderProgram.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "Shader.h"
 #include "UniformProperties.h"
 

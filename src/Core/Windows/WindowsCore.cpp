@@ -45,7 +45,7 @@ void WindowsCore::WindowsMessageLoop()
 //		    fpsTimer.Wait();
 		//CoreWindow::ConsoleWrite(to_string(current - start));
 	}
-    delete &wrapperFrame;
+    delete wrapperFrame;
 }
 void WindowsCore::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -103,7 +103,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CLOSE:
         DestroyWindow(windowHandle);
-        if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
+        if(!UnregisterClassA(wrapperFrame->GetComponentName().c_str(), hInstance))
             ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
         processMessages = false;
         return;
@@ -137,16 +137,16 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
         mouseDelta = mousePos - prevMousePos;
         //relativePos = mousePos - wrapperFrame.GetPosition();
-        NotifyCoreOnMouseMove(EventMouseStateInfo(mousePos, mousePos, mouseDelta, 0, &wrapperFrame));
+        NotifyCoreOnMouseMove(EventMouseStateInfo(mousePos, mousePos, mouseDelta, 0, wrapperFrame));
 		break;
 	case WM_LBUTTONDOWN:
-        NotifyCoreOnMouseLButtonDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+        NotifyCoreOnMouseLButtonDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_LBUTTONUP:
-        NotifyCoreOnMouseLButtonUp(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+        NotifyCoreOnMouseLButtonUp(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_LBUTTONDBLCLK:
-	    NotifyCoreOnMousePressed(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+	    NotifyCoreOnMousePressed(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_KEYDOWN:
 		ProcessKeyState(msg, wParam, lParam);
@@ -167,7 +167,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
     UpdateGlobalInputState();
     //Notify that update happened
-    wrapperFrame.NotifyOnTick();
+    wrapperFrame->NotifyOnTick();
 
 
 	if(renderingProvider != nullptr)
@@ -192,7 +192,7 @@ void WindowsCore::Close()
 	PostMessage(windowHandle, WM_CLOSE, NULL, NULL);
 }
 
-Window& WindowsCore::GetWrapperFrame()
+Window * WindowsCore::GetWrapperFrame()
 {
 	return wrapperFrame;
 }
@@ -218,10 +218,10 @@ void WindowsCore::UnicodeConsoleWrite(std::wstring output)
 
 void WindowsCore::UpdateScale()
 {
-	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+	SetWindowPos(windowHandle, NULL, wrapperFrame->GetX(), wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-WindowsCore::WindowsCore(Window &wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
     this->windowName = windowName;
     this->style = style;
@@ -254,8 +254,8 @@ void WindowsCore::CreateWinApiWindow()
         system("PAUSE");
         exit(0);
     }
-    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(),
-                                wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
+    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame->GetX(),
+                                wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), NULL, NULL, hInstance, NULL);
 
     if (!windowHandle)
     {
@@ -382,10 +382,10 @@ void WindowsCore::UpdateLockCursor()
         return;
 
     //Calculate the center of the wrapper frame
-    lockCursorRegion.left = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
-    lockCursorRegion.top = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
-    lockCursorRegion.right = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
-    lockCursorRegion.bottom = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
+    lockCursorRegion.left = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.top = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.right = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.bottom = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
 
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.
@@ -516,12 +516,22 @@ void WindowsCore::Start()
     initCondition->wait(lock, [&]{return initSignal;});
 }
 
-std::unique_ptr<WindowsCore> WindowsCore::Create(Window &wrapperFrame, string windowName, LONG style)
+std::unique_ptr<WindowsCore> WindowsCore::Create(Window *wrapperFrame, const string& windowName, LONG style)
 {
     auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
     auto window = std::unique_ptr<WindowsCore>(coreInstance);
     window->Start();
     return std::move(window);
+}
+
+unique_ptr<Core> WindowsCore::Create(Window *window, std::any args)
+{
+    return nullptr;
+}
+
+void WindowsCore::SetWindow(Window *window)
+{
+    this->wrapperFrame = window;
 }
 
 

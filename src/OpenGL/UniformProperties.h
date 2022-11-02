@@ -5,7 +5,7 @@
 #include <glm.hpp>
 #include <gtc/type_ptr.hpp>
 #include <vector>
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 
 namespace OpenGL
 {

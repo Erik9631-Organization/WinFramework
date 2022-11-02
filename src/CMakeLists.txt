@@ -152,7 +152,6 @@ set(Lii_Components
     "Components/Button.h"
     "Components/Checkbox.h"
     "Components/UiElement.h"
-    "Components/WindowsCore.h"
     "Components/FileBrowser.h"
     "Components/Grid/Grid.h"
     "Components/Label.h"
@@ -167,7 +166,6 @@ set(Lii_Components
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
     "Components/UiElement.cpp"
-    "Components/WindowsCore.cpp"
     "Components/Label.cpp"
     "Components/PasswordField.cpp"
     "Components/RadioButton.cpp"
@@ -180,6 +178,12 @@ set(Lii_Components
     OnAddHandler.h
         )
 source_group("Lii\\Components" FILES ${Lii_Components})
+
+Set(Lii_Core_Windows
+        "Core/Windows/WindowsCore.h"
+        "Core/Windows/WindowsCore.cpp"
+)
+source_group("Lii\\Core\\Windows" FILES ${Lii_Core_Windows})
 
 set(Lii_Components_3d
 
@@ -441,6 +445,7 @@ set(ALL_FILES
     ${Lii_Behavior}
     ${Lii_Components}
     ${Lii_Components_ComboBox}
+    ${Lii_Core_Windows}
     ${Lii_DataTypes}
     ${Lii_Events}
     ${Lii_EventTypes}
@@ -488,6 +493,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Managers/"
         "Components/3d"
         "../libs/PhysX-4.1/physx/include/"
+        "Core/Windows"
         )
 
 target_link_libraries(${PROJECT_NAME}
