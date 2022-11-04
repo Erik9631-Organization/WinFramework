@@ -20,6 +20,10 @@
 #include "StaticTexture.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "Button.h"
+#include "Label.h"
+#include "Panel.h"
+#include "ScrollBar.h"
 
 using namespace std;
 
@@ -126,8 +130,27 @@ private:
 
 int LiiEntry()
 {
-    DemoApplication::LaunchDemoApp();
-//    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
+//    DemoApplication::LaunchDemoApp();
+
+    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
+//    auto& button = frame->Create<Button>(50,50,50,25);
+//    button.SetText(L"Zajebem plyn");
+//    button.SetComponentName("Zajebem plyn");
+
+    auto scrollbar = std::make_unique<ScrollBar>(0, 0, 10, 0, "ScrollBar");
+    auto panel = std::make_unique<Panel>(50, 300, 300, 250, "panel");
+    ScrollBar::Control(panel.get(), std::move(scrollbar));
+
+    for (int i = 0; i < 10; i++)
+    {
+        auto scrollBarTest = std::make_unique<Label>(0, 10 + 110 * i, 100, 100, "testLabel");
+
+        scrollBarTest->SetText(L"TestLabel " + to_wstring(i));
+        panel->Add(std::move(scrollBarTest));
+    }
+
+    frame->Add(std::move(panel));
+
 //    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
 //    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
 //

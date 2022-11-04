@@ -13,8 +13,8 @@
 class ScalingUtil
 {
 public:
-    ScalingUtil(const glm::vec2 &associatedPosition);
-    ScalingUtil(glm::vec2 associatedPosition, glm::vec2 associatedSize);
+    ScalingUtil(glm::vec2 &associatedPosition);
+    ScalingUtil(glm::vec2 &associatedPosition, glm::vec2 &associatedSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);

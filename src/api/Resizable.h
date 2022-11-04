@@ -33,7 +33,7 @@ public:
 	 * Sets the size of the object
 	 * \param size the size object which specifies the width and height of the target object.
 	 */
-	virtual void SetSize(const glm::vec2 &size, bool emit) = 0;
+	virtual void SetSize(const glm::vec2 size, bool emit) = 0;
     virtual void SetSize(const glm::vec2 &size) = 0;
 	
 	/**

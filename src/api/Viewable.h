@@ -41,7 +41,7 @@ class Viewable
 
 	virtual int GetViewportWidth() = 0;
 	virtual int GetViewportHeight() = 0;
-	virtual void SetViewportSize(const glm::vec2 &size) = 0;
+	virtual void SetViewportSize(const glm::vec2 size) = 0;
 	virtual void SetViewportSize(int width, int height) = 0;
 	virtual void SetViewportWidth(int width) = 0;
 	virtual void SetViewportHeight(int height) = 0;

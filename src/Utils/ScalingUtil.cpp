@@ -6,13 +6,13 @@
 #include "Vector2DScaler.h"
 
 
-ScalingUtil::ScalingUtil(const glm::vec2 &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
+ScalingUtil::ScalingUtil(glm::vec2 &associatedPosition) : ScalingUtil(associatedPosition, defaultSize)
 {
 
 }
 
 
-ScalingUtil::ScalingUtil(glm::vec2 associatedPosition, glm::vec2 associatedSize) :
+ScalingUtil::ScalingUtil(glm::vec2 &associatedPosition, glm::vec2 &associatedSize) :
     associatedPosition(associatedPosition),
     associatedSize(associatedSize)
 {

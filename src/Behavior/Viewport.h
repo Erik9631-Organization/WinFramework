@@ -56,7 +56,7 @@ public:
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
 	virtual glm::vec2 GetAbsolutePosition() override;
-	virtual void SetPosition(const glm::vec2 &position, bool emit) override;
+	virtual void SetPosition(const glm::vec2 position, bool emit) override;
 	virtual void SetPosition(float x, float y, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
@@ -68,7 +68,7 @@ public:
 	virtual glm::vec2 GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
-	virtual void SetSize(const glm::vec2 &size, bool emit) override;
+	virtual void SetSize(const glm::vec2 size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
 	virtual void SetWidth(float width, bool emit) override;
 	virtual void SetHeight(float height, bool emit) override;

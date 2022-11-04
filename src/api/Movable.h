@@ -49,7 +49,7 @@ public:
 	 * Sets the position of the object.
 	 * \param position Sets the position as a point which specifies the X and Y position.
 	 */
-	virtual void SetPosition(const glm::vec2 &position, bool emit) = 0;
+	virtual void SetPosition(const glm::vec2 position, bool emit) = 0;
     virtual void SetPosition(const glm::vec2 &position) = 0;
 
 	/**

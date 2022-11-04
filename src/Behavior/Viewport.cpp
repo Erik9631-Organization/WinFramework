@@ -125,9 +125,9 @@ glm::vec2 Viewport::GetAbsolutePosition()
     return absolutePosition;
 }
 
-void Viewport::SetPosition(const glm::vec2 &position, bool emit)
+void Viewport::SetPosition(const glm::vec2 pos, bool emit)
 {
-    moveBehavior.SetPosition(position, emit);
+    moveBehavior.SetPosition(pos, emit);
 }
 
 void Viewport::SetPosition(float x, float y, bool emit)
@@ -175,7 +175,7 @@ float Viewport::GetHeight()
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(const glm::vec2 &size, bool emit)
+void Viewport::SetSize(const glm::vec2 size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 }

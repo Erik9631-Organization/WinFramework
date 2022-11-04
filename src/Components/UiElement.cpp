@@ -295,7 +295,7 @@ int UiElement::GetViewportHeight()
 	return viewport.GetHeight();
 }
 
-void UiElement::SetViewportSize(const glm::vec2 &size)
+void UiElement::SetViewportSize(const glm::vec2 size)
 {
     viewport.SetSize(size, false);
 }
@@ -629,7 +629,7 @@ void UiElement::SetSize(float width, float height, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(const glm::vec2 &size, bool emit)
+void UiElement::SetSize(const glm::vec2 size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -646,7 +646,7 @@ void UiElement::SetPosition(float x, float y, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(const glm::vec2 &pos, bool emit)
+void UiElement::SetPosition(const glm::vec2 pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));

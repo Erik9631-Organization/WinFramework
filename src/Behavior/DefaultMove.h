@@ -31,7 +31,7 @@ public:
 	virtual glm::vec2 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
-	virtual void SetPosition(const glm::vec2 &position, bool emit) override;
+	virtual void SetPosition(const glm::vec2 position, bool emit) override;
 	virtual void SetPosition(float x, float y, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
@@ -182,7 +182,7 @@ float DefaultMove<T>::GetY()
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(const glm::vec2 &position, bool emit)
+void DefaultMove<T>::SetPosition(const glm::vec2 position, bool emit)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();

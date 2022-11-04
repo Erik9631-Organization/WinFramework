@@ -37,7 +37,7 @@ void OpenGLRenderer::DrawRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
-        lastShape = builder.CreateRectangle(pos.x + translation.x, pos.y + translation.x,
+        lastShape = builder.CreateRectangle(pos.x + translation.x, pos.y + translation.y,
                                                 size.x, size.y);
         originalData = {pos, size};
         lastShapeType = ShapeType::Rectangle;
@@ -77,7 +77,7 @@ void OpenGLRenderer::FillRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
-        lastShape = builder.CreateFillRectangle(pos.x + translation.x, pos.y + translation.x,
+        lastShape = builder.CreateFillRectangle(pos.x + translation.x, pos.y + translation.y,
                                                 size.x, size.y);
         originalData = {pos, size};
         lastShapeType = ShapeType::FillRectangle;

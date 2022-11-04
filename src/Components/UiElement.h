@@ -123,7 +123,7 @@ public:
 	 */
 	UiElement * GetParent();
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(const glm::vec2 &size, bool emit) override;
+	void SetSize(const glm::vec2 size, bool emit) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -149,7 +149,7 @@ public:
 	void SetComponentName(string name);
 
 	virtual void SetPosition(float x, float y, bool emit);
-	virtual void SetPosition(const glm::vec2 &pos, bool emit);
+	virtual void SetPosition(const glm::vec2 pos, bool emit);
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -222,7 +222,7 @@ public:
 	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual int GetViewportWidth() override;
 	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(const glm::vec2 &size) override;
+	virtual void SetViewportSize(const glm::vec2 size) override;
 	virtual void SetViewportSize(int width, int height) override;
 	virtual void SetViewportWidth(int width) override;
 	virtual void SetViewportHeight(int height) override;
