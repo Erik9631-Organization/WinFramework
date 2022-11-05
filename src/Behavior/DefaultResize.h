@@ -6,7 +6,7 @@
 class DefaultResize : public Resizable
 {
 private:
-    glm::vec2 size;
+    glm::vec2 size{0};
 	std::vector<std::reference_wrapper<ResizeSubscriber>> subscribers;
 	Resizable& associatedResizable;
 public:

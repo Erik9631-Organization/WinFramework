@@ -16,10 +16,10 @@ class DefaultMove : public Movable
 {
 private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
-    glm::vec2 absolutePosition;
-    glm::vec2 relativePosition;
-    glm::vec2 translate; // Defines the position within the viewport
-    glm::vec2 childrenTranslate;
+    glm::vec2 absolutePosition{0};
+    glm::vec2 relativePosition{0};
+    glm::vec2 translate{0}; // Defines the position within the viewport
+    glm::vec2 childrenTranslate{0};
 	MultiTree<T>& associatedAdjustableNode;
 
 public:
