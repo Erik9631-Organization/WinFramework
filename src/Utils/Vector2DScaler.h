@@ -10,7 +10,7 @@
 class Vector2DScaler
 {
 private:
-    glm::vec2 parentVector;
+    glm::vec2 parentVector{0};
     GraphicsScaling scalingTypeX;
     GraphicsScaling scalingTypeY;
 public:

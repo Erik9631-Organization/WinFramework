@@ -21,8 +21,8 @@ protected:
 	DrawData2D drawData;
 
 public:
-    glm::vec2 position;
-    glm::vec2 size;
+    glm::vec2 position{0};
+    glm::vec2 size{0};
 
 	CircleBorder();
 	~CircleBorder();

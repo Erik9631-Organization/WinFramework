@@ -11,9 +11,9 @@ class InputManager
 private:
 	BYTE keyboardState[256];
     static std::unique_ptr<InputManager> globalInput;
-    glm::vec2 mousePosition;
-    glm::vec2 mouseScreenPosition;
-    glm::vec2 mouseDelta;
+    glm::vec2 mousePosition{0};
+    glm::vec2 mouseScreenPosition{0};
+    glm::vec2 mouseDelta{0};
 public:
     static const InputManager& GetGlobalInput();
 

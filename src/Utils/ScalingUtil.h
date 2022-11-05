@@ -51,10 +51,10 @@ private:
     glm::vec2& associatedSize;
     glm::vec2& associatedPosition;
 
-    glm::vec2 calculatedSize;
-    glm::vec2 calculatedPosition;
+    glm::vec2 calculatedSize{0};
+    glm::vec2 calculatedPosition{0};
 
-    glm::vec2 defaultSize;
+    glm::vec2 defaultSize{0};
 };
 
 

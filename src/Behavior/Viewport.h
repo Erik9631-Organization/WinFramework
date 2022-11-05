@@ -17,9 +17,9 @@ private:
 	DefaultMove<Adjustable*> moveBehavior;
 	DefaultResize resizeBehavior;
 
-    glm::vec2 absoluteSize;
-    glm::vec2 absolutePosition;
-    glm::vec2 internalOffset;
+    glm::vec2 absoluteSize{0};
+    glm::vec2 absolutePosition{0};
+    glm::vec2 internalOffset{0};
 
 	float xMultiplier = 1;
 	float yMultiplier = 1;
