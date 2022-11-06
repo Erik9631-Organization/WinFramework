@@ -61,8 +61,6 @@ void FileBrowser::AddFilter(std::string filterName ,std::string pattern)
 	//filters = ("All\0*.*\0Text\0*.TXT\0");
 }
 
-
-
 FileBrowser& FileBrowser::AllowMultiSelect()
 {
 	flags |= OFN_ALLOWMULTISELECT;
@@ -98,8 +96,6 @@ FileBrowser& FileBrowser::SetFlags(DWORD Flags)
 	flags = flags;
 	return *this;
 }
-
-
 
 std::string FileBrowser::GetPath()
 {

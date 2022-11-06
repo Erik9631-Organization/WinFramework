@@ -6,6 +6,15 @@ class MouseInteractable;
 /**
  * A filebrwoser class. If FileBrowser::Open is called, a file browser window is openned, allowing the user to select the file to save / load.
 */
+
+
+/*
+ * TODO:
+ *      1. rename to winFileBrowser
+ *      2. Create iterface
+ *      3. implement interface to linuxFileBrowser class
+ *      4. create "abtract factory" which defines platform dependencies
+ */
 class FileBrowser
 {
 private:

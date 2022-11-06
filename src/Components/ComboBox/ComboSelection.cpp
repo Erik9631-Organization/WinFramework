@@ -8,6 +8,20 @@
 
 int ComboSelection::numberOfBoxes = 0;
 
+void ComboSelection::CloseGui()
+{
+    if (comboSelectionFrame == nullptr)
+        return;
+
+    for (ComboElement* element : comboElements) // First clear elements, then close window
+        element->RemoveElementGui();
+
+    comboSelectionFrame->CloseWindow();
+    numberOfBoxes--;
+
+    comboSelectionFrame = nullptr;
+}
+
 void ComboSelection::CreateGui(int x, int y, int width, int height)
 {
 	if (comboSelectionFrame != nullptr)
@@ -28,20 +42,6 @@ void ComboSelection::CreateGui(int x, int y, int width, int height)
 	for (ComboElement* element : comboElements)
 		element->DisplayElementGui();
 	numberOfBoxes++;
-}
-
-void ComboSelection::CloseGui()
-{
-	if (comboSelectionFrame == nullptr)
-		return;
-
-	for (ComboElement* element : comboElements) // First clear elements, then close window
-		element->RemoveElementGui();
-
-	comboSelectionFrame->CloseWindow();
-	numberOfBoxes--;
-
-	comboSelectionFrame = nullptr;
 }
 
 void ComboSelection::SetElementHeight(int width)
