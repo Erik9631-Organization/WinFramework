@@ -182,7 +182,7 @@ source_group("Lii\\Components" FILES ${Lii_Components})
 Set(Lii_Core_Windows
         "Core/Windows/WindowsCore.h"
         "Core/Windows/WindowsCore.cpp"
-)
+        Core/Windows/WindowsCoreArgs.cpp Core/Windows/WindowsCoreArgs.h)
 source_group("Lii\\Core\\Windows" FILES ${Lii_Core_Windows})
 
 set(Lii_Components_3d

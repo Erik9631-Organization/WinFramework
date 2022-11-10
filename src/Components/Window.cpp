@@ -7,12 +7,14 @@
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
+#include "WindowsCoreArgs.h"
 
 using namespace std;
 
 void Window::CreateCoreWindow(LONG style)
 {
-    coreFrame = WindowsCore::Create(this, name, style);
+    //coreFrame = WindowsCore::Create(this, name, style);
+    coreFrame = WindowsCore::Create(this, WindowsCoreArgs::Create(name, style));
     SetRenderingProvider(make_shared<GdiRenderingProvider>());
 }
 

@@ -13,6 +13,7 @@
 #include <mutex>
 #include <condition_variable>
 #include "UiTreeDataSyncer.h"
+#include "Core.h"
 
 class Timer;
 class WindowsCore;
@@ -31,9 +32,9 @@ public:
     GdiRenderingProvider();
     void Render() override;
     void OnResize(EventResizeInfo e) override;
-    void OnInit(WindowsCore &coreWindowFrame) override;
-    void OnDestroy(WindowsCore &coreWindow) override;
-    void OnRemove(WindowsCore &coreWindow) override;
+    void OnInit(Core &coreWindowFrame) override;
+    void OnDestroy(Core &coreWindow) override;
+    void OnRemove(Core &coreWindow) override;
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
@@ -42,7 +43,7 @@ public:
     std::thread* renderingThread;
 private:
     UiTreeDataSyncer syncer;
-    WindowsCore* coreWindowframe;
+    Core* coreWindowframe;
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();

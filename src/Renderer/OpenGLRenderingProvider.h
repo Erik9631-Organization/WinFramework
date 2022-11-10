@@ -20,9 +20,9 @@ class OpenGLRenderingProvider : public RenderingProvider
 {
 public:
     void Render() override;
-    void OnInit(WindowsCore &coreWindowFrame) override;
-    void OnDestroy(WindowsCore &coreWindow) override;
-    void OnRemove(WindowsCore &coreWindow) override;
+    void OnInit(Core &coreWindowFrame) override;
+    void OnDestroy(Core &coreWindow) override;
+    void OnRemove(Core &coreWindow) override;
     void WaitForSyncToFinish() override;
     void OnEntryStart() override;
     void OnEntryEnd() override;

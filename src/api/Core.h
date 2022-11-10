@@ -6,9 +6,11 @@
 #define LII_CORE_H
 #include "RenderingProvider.h"
 #include "Vector2.h"
+#include "CoreSubject.h"
+
 class Window;
 
-class Core
+class Core : public CoreSubject
 {
 public:
     virtual void SetRenderingProvider(RenderingProvider& provider) = 0;
@@ -17,7 +19,6 @@ public:
     virtual void UpdateScale() = 0;
     virtual void Redraw() = 0;
     virtual void Close() = 0;
-    virtual std::unique_ptr<Core> Create(Window* window, std::any args) = 0;
     virtual void SetWindow(Window* window) = 0;
     virtual void Start() = 0;
     virtual void SetLockCursorSize(const Vector2& size) = 0;

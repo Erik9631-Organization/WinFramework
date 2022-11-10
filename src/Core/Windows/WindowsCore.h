@@ -24,7 +24,7 @@ class RenderingProvider;
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class WindowsCore : public RenderCommander, public CoreSubject, public Core
+class WindowsCore : public RenderCommander, public Core
 {
 
 
@@ -76,7 +76,7 @@ public:
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
-    std::unique_ptr<WindowsCore> static Create(Window *wrapperFrame, const string &windowName, LONG style);
+//    std::unique_ptr<WindowsCore> static Create(Window *wrapperFrame, const string &windowName, LONG style);
 	/**
 	 * Updates the scale of the window
 	 */
@@ -197,7 +197,7 @@ public:
 
     void Start() override;
 
-    unique_ptr<Core> Create(Window *window, std::any args) override;
+    static unique_ptr<Core> Create(Window *window, std::any args);
 
     void SetWindow(Window *window) override;
 };

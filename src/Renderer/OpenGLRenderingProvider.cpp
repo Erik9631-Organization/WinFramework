@@ -31,7 +31,7 @@ void OpenGLRenderingProvider::Render()
     performRenderSignal.notify_one();
 }
 
-void OpenGLRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
+void OpenGLRenderingProvider::OnInit(Core &coreWindowFrame)
 {
     ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
     GetGlExtensions();
@@ -199,7 +199,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
     DestroyWindow(dummyHandle);
 }
 
-void OpenGLRenderingProvider::OnDestroy(WindowsCore &coreWindow)
+void OpenGLRenderingProvider::OnDestroy(Core &coreWindow)
 {
     ReleaseDC(coreWindow.GetWindowHandle(), GetDC(coreWindow.GetWindowHandle()));
     startRenderingLoop = false;
@@ -207,7 +207,7 @@ void OpenGLRenderingProvider::OnDestroy(WindowsCore &coreWindow)
 
 }
 
-void OpenGLRenderingProvider::OnRemove(WindowsCore &coreWindow)
+void OpenGLRenderingProvider::OnRemove(Core &coreWindow)
 {
 
 }

@@ -29,7 +29,7 @@ private:
     CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	std::unique_ptr<WindowsCore> coreFrame;
+	std::unique_ptr<Core> coreFrame;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;

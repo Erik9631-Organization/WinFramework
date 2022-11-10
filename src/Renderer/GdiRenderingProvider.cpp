@@ -89,7 +89,7 @@ void GdiRenderingProvider::OnResize(EventResizeInfo e)
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
-void GdiRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
+void GdiRenderingProvider::OnInit(Core &coreWindowFrame)
 {
     this->coreWindowframe = &coreWindowFrame;
     windowHandle = coreWindowframe->GetWindowHandle();
@@ -105,7 +105,7 @@ void GdiRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
         renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
 }
 
-void GdiRenderingProvider::OnDestroy(WindowsCore &coreWindow)
+void GdiRenderingProvider::OnDestroy(Core &coreWindow)
 {
     CleanBackBuffer();
     startRenderingLoop = false;
@@ -115,7 +115,7 @@ void GdiRenderingProvider::OnDestroy(WindowsCore &coreWindow)
     //CoreWindow::ConsoleWrite("Render thread ended!");
 }
 
-void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
+void GdiRenderingProvider::OnRemove(Core &coreWindow)
 {
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
     CleanBackBuffer();

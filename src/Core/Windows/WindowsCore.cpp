@@ -11,6 +11,7 @@
 #include <processthreadsapi.h>
 #include "Messages.h"
 #include <chrono>
+#include "WindowsCoreArgs.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -515,18 +516,22 @@ void WindowsCore::Start()
     std::unique_lock<mutex> lock{initLock};
     initCondition->wait(lock, [&]{return initSignal;});
 }
-
-std::unique_ptr<WindowsCore> WindowsCore::Create(Window *wrapperFrame, const string& windowName, LONG style)
-{
-    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
-    auto window = std::unique_ptr<WindowsCore>(coreInstance);
-    window->Start();
-    return std::move(window);
-}
+//
+//std::unique_ptr<WindowsCore> WindowsCore::Create(Window *wrapperFrame, const string& windowName, LONG style)
+//{
+//    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
+//    auto window = std::unique_ptr<WindowsCore>(coreInstance);
+//    window->Start();
+//    return std::move(window);
+//}
 
 unique_ptr<Core> WindowsCore::Create(Window *window, std::any args)
 {
-    return nullptr;
+    auto inputArgs = std::any_cast<WindowsCoreArgs>(args);
+    auto core = new WindowsCore(window, inputArgs.name, inputArgs.style);
+    auto corePtr = std::unique_ptr<WindowsCore>(core);
+    corePtr->Start();
+    return std::move(corePtr);
 }
 
 void WindowsCore::SetWindow(Window *window)
