@@ -53,8 +53,8 @@ public:
 	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 	glm::vec2 GetSize();
 	glm::vec2 GetPosition();
-	void SetSize(const glm::vec2 &size);
-	void SetPosition(const glm::vec2 &point);
+	void SetSize(glm::vec2 size);
+	void SetPosition(glm::vec2 point);
 	void SetX(float x);
 	void SetY(float y);
 	void SetWidth(float width);

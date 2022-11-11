@@ -14,8 +14,8 @@ private:
     GraphicsScaling scalingTypeX;
     GraphicsScaling scalingTypeY;
 public:
-    Vector2DScaler(const glm::vec2 &parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
-    Vector2DScaler(const glm::vec2 &parentVector);
+    Vector2DScaler(glm::vec2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
+    Vector2DScaler(glm::vec2 parentVector);
 
     GraphicsScaling GetScalingTypeX() const;
 
@@ -24,7 +24,7 @@ public:
     GraphicsScaling GetScalingTypeY() const;
 
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    glm::vec2 GetScaledValues(const glm::vec2 &input);
+    glm::vec2 GetScaledValues(glm::vec2 input);
 
 
 };

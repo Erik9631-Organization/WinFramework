@@ -4,13 +4,13 @@
 
 #include "Vector2DScaler.h"
 
-Vector2DScaler::Vector2DScaler(const glm::vec2 &parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
+Vector2DScaler::Vector2DScaler(glm::vec2 parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
 {
 
 }
 
 
-Vector2DScaler::Vector2DScaler(const glm::vec2 &parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY)
+Vector2DScaler::Vector2DScaler(glm::vec2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY)
 {
     this->scalingTypeX = scalingTypeX;
     this->scalingTypeY = scalingTypeY;
@@ -18,7 +18,7 @@ Vector2DScaler::Vector2DScaler(const glm::vec2 &parentVector, GraphicsScaling sc
 }
 
 
-glm::vec2 Vector2DScaler::GetScaledValues(const glm::vec2 &input)
+glm::vec2 Vector2DScaler::GetScaledValues(glm::vec2 input)
 {
     float calculatedX = input.x;
     float calculatedY = input.y;

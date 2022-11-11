@@ -31,7 +31,7 @@ public:
 	 * \param size the size of the source object
 	 * \param src the source object that that called the event.
 	 */
-	EventResizeInfo(const glm::vec2 &size, Resizable* src);
+	EventResizeInfo(glm::vec2 size, Resizable* src);
 	~EventResizeInfo();
 };
 

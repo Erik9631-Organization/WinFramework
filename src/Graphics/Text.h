@@ -64,7 +64,7 @@ public:
 	void SetScalingTypeY(GraphicsScaling scalingTypeY);
 
 	glm::vec2 GetPosition();
-	void SetPosition(const glm::vec2 &position);
+	void SetPosition(glm::vec2 position);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

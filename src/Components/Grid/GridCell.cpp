@@ -148,7 +148,7 @@ float GridCell::GetHeight()
     return cellSize.y;
 }
 
-void GridCell::SetSize(const glm::vec2 size, bool emit)
+void GridCell::SetSize(glm::vec2 size, bool emit)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)
@@ -226,7 +226,7 @@ glm::vec2 GridCell::GetAbsolutePosition()
     return {indexPos.GetX() + parentGrid.GetAbsoluteX(), indexPos.GetY() + parentGrid.GetAbsoluteY()};
 }
 
-void GridCell::SetPosition(const glm::vec2 position, bool emit)
+void GridCell::SetPosition(glm::vec2 position, bool emit)
 {
     this->indexPos = position;
     this->position = glm::vec2(CalculatePixelPosition().GetX(), CalculatePixelPosition().GetY());
@@ -250,7 +250,7 @@ void GridCell::SetY(float y, bool emit)
     SetPosition(indexPos.GetX(), y, emit);
 }
 
-void GridCell::SetTranslate(const glm::vec2 &offset, bool emit)
+void GridCell::SetTranslate(glm::vec2 offset, bool emit)
 {
     if (associatedAdjustable == nullptr)
         return;
@@ -332,7 +332,7 @@ glm::vec2 GridCell::GetPixelPosition()
     return position;
 }
 
-void GridCell::SetPosition(const glm::vec2 &position)
+void GridCell::SetPosition(glm::vec2 position)
 {
     SetPosition(position, true);
 }
@@ -352,7 +352,7 @@ void GridCell::SetY(float y)
     SetY(y, true);
 }
 
-void GridCell::SetTranslate(const glm::vec2 &offset)
+void GridCell::SetTranslate(glm::vec2 offset)
 {
     SetTranslate(offset, true);
 }
@@ -367,7 +367,7 @@ void GridCell::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void GridCell::SetSize(const glm::vec2 &size)
+void GridCell::SetSize(glm::vec2 size)
 {
     SetSize(size, true);
 }

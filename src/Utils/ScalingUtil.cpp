@@ -79,7 +79,7 @@ void ScalingUtil::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil::CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize)
+void ScalingUtil::CreateRatio(glm::vec2 parentPosition, glm::vec2 parentSize)
 {
     Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
     Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);

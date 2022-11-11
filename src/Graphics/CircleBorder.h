@@ -32,7 +32,7 @@ public:
 	void SetColor(Vector4 color);
 
 	glm::vec2 GetPosition();
-	void SetPosition(const glm::vec2 &point);
+	void SetPosition(glm::vec2 point);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

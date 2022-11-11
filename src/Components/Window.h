@@ -80,12 +80,12 @@ public:
 	bool initDone = false;
 
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(const glm::vec2 size, bool emit) override;
+	void SetSize(glm::vec2 size, bool emit) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(float x, float y, bool emit) override;
-	void SetPosition(const glm::vec2 point, bool emit) override;
+	void SetPosition(glm::vec2 point, bool emit) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

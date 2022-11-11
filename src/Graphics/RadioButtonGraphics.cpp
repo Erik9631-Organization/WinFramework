@@ -38,7 +38,7 @@ void RadioButtonGraphics::SetDiameter(float Diameter)
 }
 
 
-void RadioButtonGraphics::SetPosition(const glm::vec2 &position)
+void RadioButtonGraphics::SetPosition(glm::vec2 position)
 {
 	border.position = position;
 	fill.position = position;

@@ -67,7 +67,7 @@ protected:
     bool deletedElementNode = false;
 public:
 	UiElement();
-	UiElement(string name);
+    explicit UiElement(string name);
 	UiElement(float x, float y, float width, float height, string name);
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
@@ -123,7 +123,7 @@ public:
 	 */
 	UiElement * GetParent();
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(const glm::vec2 size, bool emit) override;
+	void SetSize(glm::vec2 size, bool emit) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -148,8 +148,8 @@ public:
 	 */
 	void SetComponentName(string name);
 
-	virtual void SetPosition(float x, float y, bool emit);
-	virtual void SetPosition(const glm::vec2 pos, bool emit);
+	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetPosition(glm::vec2 pos, bool emit) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -210,7 +210,7 @@ public:
 	virtual float GetViewportHeightMultiplier() override;
 	virtual void SetViewportXOffset(int x) override;
 	virtual void SetViewportYOffset(int y) override;
-	virtual void SetViewportOffset(const glm::vec2 &offset) override;
+	virtual void SetViewportOffset(glm::vec2 offset) override;
 	virtual int GetViewportAbsoluteX() override;
 	virtual int GetViewportAbsoluteY() override;
 	virtual glm::vec2 GetViewportAbsolutePosition() override;
@@ -222,7 +222,7 @@ public:
 	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual int GetViewportWidth() override;
 	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(const glm::vec2 size) override;
+	virtual void SetViewportSize(glm::vec2 size) override;
 	virtual void SetViewportSize(int width, int height) override;
 	virtual void SetViewportWidth(int width) override;
 	virtual void SetViewportHeight(int height) override;
@@ -252,7 +252,7 @@ public:
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(const glm::vec2 &point) override;
+	virtual bool ColidesWithPoint(glm::vec2 point) override;
 
 	// Inherited via MouseStateSubject
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
@@ -294,7 +294,7 @@ public:
 	}
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(const glm::vec2 &point) override;
+	virtual std::any ColidesWithUpmost(glm::vec2 point) override;
 
 	// Inherited via KeyStateSubject
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
@@ -310,7 +310,7 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(const glm::vec2 &offset, bool emit) override;
+	virtual void SetTranslate(glm::vec2 offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float Y, bool emit) override;
 
@@ -329,7 +329,7 @@ public:
 	 * Sets the position of all the subcomponents that are owned by this component at once
 	 * \param internalOffset the position
 	 */
-	void SetChildrenTranslate(const glm::vec2 &internalOffset);
+	void SetChildrenTranslate(glm::vec2 internalOffset);
 
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 
@@ -341,7 +341,7 @@ public:
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
 
-    void SetPosition(const glm::vec2 &position) override;
+    void SetPosition(glm::vec2 position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -349,13 +349,13 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(const glm::vec2 &offset) override;
+    void SetTranslate(glm::vec2 offset) override;
 
     void SetTranslateX(float x) override;
 
     void SetTranslateY(float y) override;
 
-    void SetSize(const glm::vec2 &size) override;
+    void SetSize(glm::vec2 size) override;
 
     void SetSize(float width, float height) override;
 

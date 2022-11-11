@@ -30,7 +30,7 @@ public:
     GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize);
+    void CreateRatio(glm::vec2 parentPosition, glm::vec2 parentSize);
 
     glm::vec2 GetSize();
     glm::vec2 GetPosition();

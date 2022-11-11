@@ -4,13 +4,13 @@
 #include "Components/UiElement.h"
 #include "EventTypes/EventUpdateInfo.h"
 
-void Viewport::CalculateAbsolutePosition(const glm::vec2 &relative)
+void Viewport::CalculateAbsolutePosition(glm::vec2 relative)
 {
     absolutePosition.x = (relative.x + associatedAdjustable.GetAbsoluteX()) * xMultiplier;
     absolutePosition.y = (relative.y + associatedAdjustable.GetAbsoluteY()) * yMultiplier;
 }
 
-void Viewport::CalculateAbsoluteSize(const glm::vec2 &size)
+void Viewport::CalculateAbsoluteSize(glm::vec2 size)
 {
     absoluteSize.x = (size.x+ associatedAdjustable.GetWidth() + 1) * widthMultiplier;
     absoluteSize.y = (size.y + associatedAdjustable.GetHeight() + 1) * heightMultiplier;
@@ -125,7 +125,7 @@ glm::vec2 Viewport::GetAbsolutePosition()
     return absolutePosition;
 }
 
-void Viewport::SetPosition(const glm::vec2 pos, bool emit)
+void Viewport::SetPosition(glm::vec2 pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 }
@@ -175,7 +175,7 @@ float Viewport::GetHeight()
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(const glm::vec2 size, bool emit)
+void Viewport::SetSize(glm::vec2 size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 }
@@ -201,7 +201,7 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetTranslate(const glm::vec2 &offset, bool emit)
+void Viewport::SetTranslate(glm::vec2 offset, bool emit)
 {
     moveBehavior.SetTranslate(offset, emit);
 }
@@ -231,7 +231,7 @@ float Viewport::GetTranslateY()
     return moveBehavior.GetTranslateY();
 }
 
-void Viewport::SetPosition(const glm::vec2 &position)
+void Viewport::SetPosition(glm::vec2 position)
 {
     SetPosition(position, true);
 }
@@ -251,7 +251,7 @@ void Viewport::SetY(float y)
     SetY(y, true);
 }
 
-void Viewport::SetTranslate(const glm::vec2 &offset)
+void Viewport::SetTranslate(glm::vec2 offset)
 {
     SetTranslate(offset, true);
 }
@@ -266,7 +266,7 @@ void Viewport::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void Viewport::SetSize(const glm::vec2 &size)
+void Viewport::SetSize(glm::vec2 size)
 {
     SetSize(size, true);
 }

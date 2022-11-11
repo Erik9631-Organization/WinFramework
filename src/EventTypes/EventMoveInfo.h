@@ -30,7 +30,7 @@ public:
 	 * \param position the position of the source object.
 	 * \param src the source object that called the event. 
 	 */
-	EventMoveInfo(const glm::vec2 &position, Movable* src);
+	EventMoveInfo(glm::vec2 position, Movable* src);
 	~EventMoveInfo();
 };
 

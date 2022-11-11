@@ -45,7 +45,7 @@ float DefaultResize::GetHeight()
     return size.y;
 }
 
-void DefaultResize::SetSize(const glm::vec2 size, bool emit)
+void DefaultResize::SetSize(glm::vec2 size, bool emit)
 {
     this->size = size;
     if(emit)
@@ -67,7 +67,7 @@ void DefaultResize::SetHeight(float height, bool emit)
     SetSize(size.x, height, emit);
 }
 
-void DefaultResize::SetSize(const glm::vec2 &size)
+void DefaultResize::SetSize(glm::vec2 size)
 {
     SetSize(size, true);
 }

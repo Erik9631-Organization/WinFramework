@@ -18,12 +18,12 @@ public:
 	virtual glm::vec2 GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
-	virtual void SetSize(const glm::vec2 size, bool emit) override;
+	virtual void SetSize(glm::vec2 size, bool emit) override;
 	virtual void SetSize(float width, float height, bool emit) override;
 	virtual void SetWidth(float width, bool emit) override;
 	virtual void SetHeight(float height, bool emit) override;
 
-    void SetSize(const glm::vec2 &size) override;
+    void SetSize(glm::vec2 size) override;
 
     void SetSize(float width, float height) override;
 

@@ -156,12 +156,12 @@ glm::vec2 Background::GetPosition()
     return position;
 }
 
-void Background::SetPosition(const glm::vec2 &position)
+void Background::SetPosition(glm::vec2 position)
 {
     this->position = position;
 }
 
-void Background::SetSize(const glm::vec2 &size)
+void Background::SetSize(glm::vec2 size)
 {
     this->size = size;
 }

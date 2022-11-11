@@ -31,7 +31,7 @@ public:
 	float GetFillPadding();
 	void SetFillPadding(float padding);
 
-	void SetPosition(const glm::vec2 &position);
+	void SetPosition(glm::vec2 position);
 	glm::vec2 GetPosition();
 	void SetX(float x);
 	void SetY(float y);

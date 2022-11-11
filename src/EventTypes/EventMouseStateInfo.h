@@ -21,7 +21,7 @@ public:
 
     glm::vec2 GetMouseDelta();
 
-    EventMouseStateInfo(const glm::vec2 &position, const glm::vec2 &relativePosition, const glm::vec2 &delta, int key, MouseStateSubject* src);
+    EventMouseStateInfo(glm::vec2 position, glm::vec2 relativePosition, glm::vec2 delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative position is automatically calculated from the src component
@@ -30,7 +30,7 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(const glm::vec2 &position, int key, UiElement* src);
+	EventMouseStateInfo(glm::vec2 position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
@@ -43,7 +43,7 @@ public:
 	 * \param relativePosition the new relative position.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, const glm::vec2 &relativePosition, MouseStateSubject* src);
+	EventMouseStateInfo(EventMouseStateInfo e, glm::vec2 relativePosition, MouseStateSubject* src);
 
 	/**
 	 * \return returns the mouse position within the window at the time the event was called.

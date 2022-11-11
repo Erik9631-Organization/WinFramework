@@ -134,7 +134,7 @@ glm::vec2 CircleBorder::GetPosition()
     return position;
 }
 
-void CircleBorder::SetPosition(const glm::vec2 &point)
+void CircleBorder::SetPosition(glm::vec2 point)
 {
     this->position = point;
 }

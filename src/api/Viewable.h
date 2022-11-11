@@ -27,7 +27,7 @@ class Viewable
 
 	virtual void SetViewportXOffset(int x) = 0;
 	virtual void SetViewportYOffset(int y) = 0;
-	virtual void SetViewportOffset(const glm::vec2 &offset) = 0;
+	virtual void SetViewportOffset(glm::vec2 offset) = 0;
 	virtual int GetViewportAbsoluteX() = 0;
 	virtual int GetViewportAbsoluteY() = 0;
 	virtual glm::vec2 GetViewportAbsolutePosition() = 0;
@@ -41,7 +41,7 @@ class Viewable
 
 	virtual int GetViewportWidth() = 0;
 	virtual int GetViewportHeight() = 0;
-	virtual void SetViewportSize(const glm::vec2 size) = 0;
+	virtual void SetViewportSize(glm::vec2 size) = 0;
 	virtual void SetViewportSize(int width, int height) = 0;
 	virtual void SetViewportWidth(int width) = 0;
 	virtual void SetViewportHeight(int height) = 0;

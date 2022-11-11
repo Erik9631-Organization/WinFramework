@@ -18,7 +18,7 @@ void OpenGLRenderer::DrawEllipse(float x, float y, float width, float height)
 
 }
 
-void OpenGLRenderer::DrawEllipse(float x, float y, const glm::vec2 &vector2)
+void OpenGLRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
 {
 
 }
@@ -28,12 +28,12 @@ void OpenGLRenderer::DrawLine(float x1, float y1, float x2, float y2)
 
 }
 
-void OpenGLRenderer::DrawLine(const glm::vec2 &pos, const glm::vec2 &size)
+void OpenGLRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
 {
 
 }
 
-void OpenGLRenderer::DrawRectangle(const glm::vec2 &pos, const glm::vec2 &size)
+void OpenGLRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
@@ -53,7 +53,7 @@ void OpenGLRenderer::DrawRectangle(float x, float y, float width, float height)
     DrawRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderer::DrawString(const std::wstring &string, const glm::vec2 &position, const FontFormat &format, int len)
+void OpenGLRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
 {
 
 }
@@ -63,7 +63,7 @@ void OpenGLRenderer::FillEllipse(float x, float y, float width, float height)
 
 }
 
-void OpenGLRenderer::FillEllipse(const glm::vec2 &pos, const glm::vec2 &size)
+void OpenGLRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
 {
 
 }
@@ -73,7 +73,7 @@ void OpenGLRenderer::FillRectangle(float x, float y, float width, float height)
     //FillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderer::FillRectangle(const glm::vec2 &pos, const glm::vec2 &size)
+void OpenGLRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
@@ -134,7 +134,7 @@ void OpenGLRenderer::OnResize(EventResizeInfo e)
     CreateViewMatrix(e.GetSize().x, e.GetSize().y, *viewMatrix);
 }
 
-void OpenGLRenderer::Translate(const glm::vec2 &translation)
+void OpenGLRenderer::Translate(glm::vec2 translation)
 {
     this->translation = translation;
 }

@@ -46,7 +46,7 @@ std::wstring Text::GetText()
     return this->text;
 }
 
-void Text::SetPosition(const glm::vec2 &position)
+void Text::SetPosition(glm::vec2 position)
 {
     this->position = position;
 }

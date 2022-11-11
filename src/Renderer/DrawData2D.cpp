@@ -9,7 +9,7 @@ int DrawData2D::GetDataType() const
     return DataType::drawData2D;
 }
 
-DrawData2D::DrawData2D(const glm::vec2 &position, const glm::vec2 &size) : position(position), size(size)
+DrawData2D::DrawData2D(glm::vec2 position, glm::vec2 size) : position(position), size(size)
 {
     this->position = position;
     this->size = size;

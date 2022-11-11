@@ -143,12 +143,12 @@ void SimpleBorder::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-void SimpleBorder::SetSize(const glm::vec2 &size)
+void SimpleBorder::SetSize(glm::vec2 size)
 {
     this->size = size;
 }
 
-void SimpleBorder::SetPosition(const glm::vec2 &point)
+void SimpleBorder::SetPosition(glm::vec2 point)
 {
     this->position = point;
 }

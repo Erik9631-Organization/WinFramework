@@ -13,7 +13,7 @@ Resizable* EventResizeInfo::GetSrc() const
 }
 
 
-EventResizeInfo::EventResizeInfo(const glm::vec2 &size, Resizable* src) : src(src)
+EventResizeInfo::EventResizeInfo(glm::vec2 size, Resizable* src) : src(src)
 {
 	this->size = size;
 	this->src = src;

@@ -20,7 +20,7 @@ void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
     graphics.DrawEllipse(pen, x, y, width, height);
 }
 
-void GdiRenderer::DrawEllipse(float x, float y, const glm::vec2 &vector2)
+void GdiRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
 {
     graphics.DrawEllipse(pen, x, y, vector2.x, vector2.y);
 }
@@ -30,12 +30,12 @@ void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
     graphics.DrawLine(pen, x1, y1, x2, y2);
 }
 
-void GdiRenderer::DrawLine(const glm::vec2 &pos, const glm::vec2 &size)
+void GdiRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
 {
     graphics.DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiRenderer::DrawRectangle(const glm::vec2 &pos, const glm::vec2 &size)
+void GdiRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
 {
     graphics.DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
@@ -45,7 +45,7 @@ void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
     graphics.DrawRectangle(pen, x, y, width, height);
 }
 
-void GdiRenderer::DrawString(const std::wstring &string, const glm::vec2 &position, const FontFormat &format, int len)
+void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
 {
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
@@ -62,7 +62,7 @@ void GdiRenderer::FillEllipse(float x, float y, float width, float height)
     graphics.FillEllipse(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillEllipse(const glm::vec2 &pos, const glm::vec2 &size)
+void GdiRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
 {
     graphics.FillEllipse(brush, pos.x, pos.y, size.x, size.y);
 }
@@ -72,7 +72,7 @@ void GdiRenderer::FillRectangle(float x, float y, float width, float height)
     graphics.FillRectangle(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillRectangle(const glm::vec2 &pos, const glm::vec2 &size)
+void GdiRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
 {
     graphics.FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
@@ -129,7 +129,7 @@ GdiRenderer::~GdiRenderer()
     delete fontFamily;
 }
 
-void GdiRenderer::Translate(const glm::vec2 &translation)
+void GdiRenderer::Translate(glm::vec2 translation)
 {
     graphics.TranslateTransform(translation.x, translation.y);
 }

@@ -13,7 +13,7 @@ Movable* EventMoveInfo::GetSrc() const
 	return src;
 }
 
-EventMoveInfo::EventMoveInfo(const glm::vec2 &position, Movable* src) : src(src)
+EventMoveInfo::EventMoveInfo(glm::vec2 position, Movable* src) : src(src)
 {
 	this->position = position;
 	this->src = src;

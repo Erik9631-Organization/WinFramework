@@ -13,7 +13,7 @@ public:
     DrawData2D(const DrawData2D& data);
     DrawData2D();
 
-    DrawData2D(const glm::vec2 &position, const glm::vec2 &size);
+    DrawData2D(glm::vec2 position, glm::vec2 size);
     int GetDataType() const override;
     glm::vec2 GetPosition() const;
     glm::vec2 GetSize() const;

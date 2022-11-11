@@ -37,8 +37,8 @@ public:
 	Vector4 GetColorRGBA();
 	void SetWidth(float width);
 	void SetHeight(float height);
-	void SetPosition(const glm::vec2 &position);
-	void SetSize(const glm::vec2 &size);
+	void SetPosition(glm::vec2 position);
+	void SetSize(glm::vec2 size);
 
 	GraphicsScaling GetScalingTypeX() const;
 	void SetScalingTypeX(GraphicsScaling scalingTypeX);

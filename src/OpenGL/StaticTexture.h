@@ -28,7 +28,7 @@ namespace OpenGL
     public:
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
-        void SetSize(const glm::vec2 size, bool emit) override;
+        void SetSize(glm::vec2 size, bool emit) override;
         void SetSize(float width, float height, bool emit) override;
         void SetWidth(float width, bool emit) override;
         void SetHeight(float height, bool emit) override;
