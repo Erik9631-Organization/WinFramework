@@ -29,6 +29,7 @@ public:
     virtual RenderingProvider* GetRenderingProvider() = 0;
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
+    virtual ~Core() = default;
 };
 
 

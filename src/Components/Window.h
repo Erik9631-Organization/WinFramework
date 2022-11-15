@@ -29,10 +29,10 @@ private:
     CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	std::unique_ptr<Core> coreFrame;
+	std::unique_ptr<Core> core;
 	Background background;
 	void CreateCoreWindow(LONG style);
-	std::shared_ptr<RenderingProvider> renderingProvider;
+	std::unique_ptr<RenderingProvider> renderingProvider;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
@@ -49,9 +49,9 @@ public:
     Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName, LONG style);
-    std::unique_ptr<Window> Create(std::string windowName);
-    std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName);
-    std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName, LONG style);
+    static std::unique_ptr<Window> Create(const string &windowName);
+    static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName);
+    static std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName, LONG style);
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;

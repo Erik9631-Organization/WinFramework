@@ -116,7 +116,6 @@ void GdiRenderingProvider::OnDestroy(Core &coreWindow)
     startRenderingLoop = false;
     //CoreWindow::ConsoleWrite("Render thread ending!");
     fpsTimer.Stop();
-    renderingThread->join();
     //CoreWindow::ConsoleWrite("Render thread ended!");
 }
 

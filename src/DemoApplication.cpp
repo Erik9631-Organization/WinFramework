@@ -38,6 +38,7 @@
 #include "Components/ComboBox/ComboElement.h"
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
+std::unique_ptr<Window> frame;
 
 class SimpleCalculator : public MouseStateSubscriber
 {
@@ -529,7 +530,7 @@ void DemoApplication::LaunchDemoApp()
 
 	input->SetMultiline(true);
 
-	Window* frame = new Window(800, 600, 800, 600, "testFrame");
+	frame = Window::Create(800, 600, 800, 600, "testFrame");
 	frame->Add(std::move(input));
 	frame->Add(std::move(checkbox));
 

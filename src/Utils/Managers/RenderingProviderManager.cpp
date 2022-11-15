@@ -48,3 +48,8 @@ void RenderingProviderManager::SetDefaultRenderingProvider(const std::string &ta
 {
     defaultRenderingManager = tag;
 }
+
+RenderingProviderManager *RenderingProviderManager::GetRenderingProviderManager()
+{
+    return renderingProviderManager.get();
+}

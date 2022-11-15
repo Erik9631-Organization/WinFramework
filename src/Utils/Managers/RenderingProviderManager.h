@@ -23,6 +23,7 @@ public:
     void RegisterRenderingProviderFactory(std::unique_ptr<RenderingProviderFactory> renderingProviderFactory);
     void UnRegisterRenderingProviderFactory(const std::string &tag);
     void SetDefaultRenderingProvider(const std::string &tag);
+    static RenderingProviderManager* GetRenderingProviderManager();
 };
 
 
