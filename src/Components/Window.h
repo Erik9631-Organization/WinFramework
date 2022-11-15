@@ -20,7 +20,7 @@ class RenderingProvider;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
- * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
+ * All the components that are to be displayed within the window should be added via the UiElement::CreateElement function which this class inherits.
  */
 
 class Window : public UiElement, public virtual PresenterSubject
@@ -30,9 +30,6 @@ private:
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
 	std::unique_ptr<Core> coreFrame;
-	thread* windowThread = nullptr;
-	condition_variable* initWait = nullptr;
-	bool initNotified = false;
 	Background background;
 	void CreateCoreWindow(LONG style);
 	std::shared_ptr<RenderingProvider> renderingProvider;
@@ -49,6 +46,12 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
+    Window(std::string windowName);
+    Window(int x, int y, int width, int height, std::string windowName);
+    Window(int x, int y, int width, int height, std::string windowName, LONG style);
+    std::unique_ptr<Window> Create(std::string windowName);
+    std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName);
+    std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName, LONG style);
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
@@ -93,11 +96,7 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-	Window(std::string windowName);
-	Window(int x, int y, int width, int height, std::string windowName);
-	Window(int x, int y, int width, int height, std::string windowName, LONG style);
 	virtual void Add(unique_ptr<UiElement> component) override;
-	~Window() override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
@@ -109,7 +108,7 @@ public:
     void WaitForSync();
     void Add(unique_ptr<Element3d> element);
     template<typename type, typename ...Args>
-    type& Create(Args ... args)
+    type& CreateElement(Args ... args)
     {
         std::unique_ptr<type> objPtr = std::make_unique<type>(std::forward<Args>(args) ...);
         auto& objRef = *objPtr;

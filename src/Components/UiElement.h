@@ -158,7 +158,7 @@ public:
 	virtual void Add(std::unique_ptr<UiElement> uiElement);
 	
 	template <typename type, typename ... Args>
-	type& Create(Args  ... args)
+	type& CreateElement(Args  ... args)
 	{
 		std::unique_ptr<type> instance = std::make_unique(args ...);
 		auto ref = instance;

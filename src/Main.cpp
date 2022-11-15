@@ -151,24 +151,24 @@ int LiiEntry()
 //    std::unique_ptr<OpenGL::Model> rectangle = builder2D.CreateFillRectangle(50, 50, 100, 100);
 //    rectangle->SetTranslation({0, 0, -10.0f});
 //
-//    ModeledElement& wallBlockElement = frame->Create<ModeledElement>(std::move(wallBlock));
+//    ModeledElement& wallBlockElement = frame->CreateElement<ModeledElement>(std::move(wallBlock));
 //
-//    ModeledElement& blockElement = frame->Create<ModeledElement>(std::move(block));
+//    ModeledElement& blockElement = frame->CreateElement<ModeledElement>(std::move(block));
 //    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 //
 //    rectangle->SetCamera(nullptr);
 //    rectangle->CustomCameraEnabled(true);
-//    auto& rectangleElement = frame->Create<ModeledElement>(std::move(rectangle));
+//    auto& rectangleElement = frame->CreateElement<ModeledElement>(std::move(rectangle));
 //    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 //    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
 //
 //    wallBlockElement.GetModel()->SetTexture("WallTexture");
 //
-//    DirectionalLight& light = frame->Create<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
+//    DirectionalLight& light = frame->CreateElement<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
 //    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
 //
 //    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
-//    auto& pointLight = frame->Create<PointLight>(std::move(pointLightModel));
+//    auto& pointLight = frame->CreateElement<PointLight>(std::move(pointLightModel));
 //    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
 //    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 //    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});

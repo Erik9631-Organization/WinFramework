@@ -126,7 +126,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
 
 void OpenGLRenderingProvider::GetGlExtensions()
 {
-    //Create dummy window
+    //CreateElement dummy window
     WNDCLASSA dummyWindowClass;
     ZeroMemory(&dummyWindowClass, sizeof(WNDCLASSA));
     dummyWindowClass.hInstance = ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance;
@@ -287,7 +287,7 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiEleme
 
 void OpenGLRenderingProvider::GraphicsInit()
 {
-    //Create default shaders
+    //CreateElement default shaders
     ShaderProgram& program = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<ShaderManager>("shader")->
         CreateShaderProgram<OpenGL::DefaultShaderProgram>("default");
 

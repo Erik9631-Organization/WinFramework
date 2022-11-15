@@ -8,12 +8,13 @@
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
 #include "WindowsCoreArgs.h"
+#include "RenderingProviderManager.h"
 
 using namespace std;
 
 void Window::CreateCoreWindow(LONG style)
 {
-    //coreFrame = WindowsCore::Create(this, name, style);
+    //coreFrame = WindowsCore::CreateElement(this, name, style);
     coreFrame = WindowsCore::Create(this, WindowsCoreArgs::Create(name, style));
     SetRenderingProvider(make_shared<GdiRenderingProvider>());
 }
@@ -142,7 +143,6 @@ Window::Window(int x, int y, int width, int height, string windowName) : Window(
 
 Window::Window(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
 {
-	initWait = new condition_variable();
 	componentType = "Window";
 	CreateCoreWindow(style);
     coreFrame->Redraw();
@@ -161,11 +161,6 @@ void Window::Add(unique_ptr<UiElement> component)
 	UiElement::Add(std::move(component));
 }
 
-Window::~Window()
-{
-    renderingProvider->OnDestroy(*coreFrame);
-	delete initWait;
-}
 
 void Window::NotifyOnMouseHover(EventMouseStateInfo e)
 {
@@ -300,4 +295,19 @@ void Window::RemovePresetnerSubscriber(PresenterSubscriber *subscriber)
     for(auto it = presenterSubscribers.begin(); it != presenterSubscribers.end(); it++)
         if(*it == subscriber)
             presenterSubscribers.erase(it);
+}
+
+std::unique_ptr<Window> Window::Create(std::string windowName)
+{
+    return std::unique_ptr<Window>();
+}
+
+std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, std::string windowName)
+{
+    return std::unique_ptr<Window>();
+}
+
+std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, std::string windowName, LONG style)
+{
+    return std::unique_ptr<Window>();
 }

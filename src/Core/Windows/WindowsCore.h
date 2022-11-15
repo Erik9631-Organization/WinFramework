@@ -76,7 +76,7 @@ public:
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
-//    std::unique_ptr<WindowsCore> static Create(Window *wrapperFrame, const string &windowName, LONG style);
+//    std::unique_ptr<WindowsCore> static CreateElement(Window *wrapperFrame, const string &windowName, LONG style);
 	/**
 	 * Updates the scale of the window
 	 */

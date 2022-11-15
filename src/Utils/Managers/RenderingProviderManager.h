@@ -14,7 +14,7 @@ class RenderingProviderManager
 {
 private:
     static std::unique_ptr<RenderingProviderManager> renderingProviderManager;
-    std::string defaultRenderingManager = "";
+    std::string defaultRenderingManager = "GdiRenderingProvider";
 public:
     RenderingProviderManager();
     std::unique_ptr<RenderingProvider> Create(const std::string& tag);

@@ -46,7 +46,6 @@ void WindowsCore::WindowsMessageLoop()
 //		    fpsTimer.Wait();
 		//CoreWindow::ConsoleWrite(to_string(current - start));
 	}
-    delete wrapperFrame;
 }
 void WindowsCore::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -107,6 +106,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         if(!UnregisterClassA(wrapperFrame->GetComponentName().c_str(), hInstance))
             ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
         processMessages = false;
+        renderingProvider->OnDestroy(*this);
         return;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -515,7 +515,7 @@ void WindowsCore::Start()
     initCondition->wait(lock, [&]{return initSignal;});
 }
 //
-//std::unique_ptr<WindowsCore> WindowsCore::Create(Window *wrapperFrame, const string& windowName, LONG style)
+//std::unique_ptr<WindowsCore> WindowsCore::CreateElement(Window *wrapperFrame, const string& windowName, LONG style)
 //{
 //    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
 //    auto window = std::unique_ptr<WindowsCore>(coreInstance);
