@@ -4,7 +4,6 @@
 
 #ifndef LII_OPENGLRENDERINGPROVIDER_H
 #define LII_OPENGLRENDERINGPROVIDER_H
-#include <Windows.h>
 #include "RenderingProvider.h"
 #include <memory>
 #include <thread>
@@ -36,7 +35,7 @@ private:
     HDC windowDc;
     void InternalRender();
     bool startRenderingLoop = true;
-    WindowsCore* coreWindow;
+    WindowsCore* windowsCore;
     std::thread* renderingThread;
     bool performRender = false;
     std::condition_variable performRenderSignal;

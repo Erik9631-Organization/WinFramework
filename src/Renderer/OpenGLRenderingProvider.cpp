@@ -34,11 +34,16 @@ void OpenGLRenderingProvider::Render()
 void OpenGLRenderingProvider::OnInit(Core &coreWindowFrame)
 {
     ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
     GetGlExtensions();
     //now create openGlWindow
-    PrepareWindowRenderer(coreWindowFrame);
-    coreWindow = &coreWindowFrame;
-    renderingPool = std::make_unique<OpenGLRenderingPool>(*coreWindow->GetWrapperFrame(), manager);
+    PrepareWindowRenderer(*windowsCore);
+    renderingPool = std::make_unique<OpenGLRenderingPool>(*windowsCore->GetWrapperFrame(), manager);
     element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
     GraphicsInit();
     renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{InternalRender();}, to_string((long long)this)+"renderThread");
@@ -201,7 +206,13 @@ void OpenGLRenderingProvider::GetGlExtensions()
 
 void OpenGLRenderingProvider::OnDestroy(Core &coreWindow)
 {
-    ReleaseDC(coreWindow.GetWindowHandle(), GetDC(coreWindow.GetWindowHandle()));
+    auto* core = dynamic_cast<WindowsCore*>(&coreWindow);
+    if(core == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    ReleaseDC(core->GetWindowHandle(), GetDC(core->GetWindowHandle()));
     startRenderingLoop = false;
     renderingThread->join();
 
@@ -223,7 +234,7 @@ void OpenGLRenderingProvider::InternalRender()
 {
     ApplicationController::GetApplicationController()->WaitForEntryToFinish();
     wglMakeCurrent(windowDc, openGlContext);
-    Window* window = coreWindow->GetWrapperFrame();
+    Window* window = windowsCore->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
     while(startRenderingLoop)
     {
@@ -235,15 +246,15 @@ void OpenGLRenderingProvider::InternalRender()
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         ///TODO Thread sync problem
         //Wait for update could finish and another cycle could start before uiSyncer sends a signal. Mutex is requried here.
-        coreWindow->WaitForUpdateToFinish();
-        uiSyncer.SyncData(coreWindow->GetWrapperFrame()->GetUiElementNode());
-        element3dSyncer->SyncData(coreWindow->GetWrapperFrame()->Get3dScene().GetElementNode());
+        windowsCore->WaitForUpdateToFinish();
+        uiSyncer.SyncData(windowsCore->GetWrapperFrame()->GetUiElementNode());
+        element3dSyncer->SyncData(windowsCore->GetWrapperFrame()->Get3dScene().GetElementNode());
         if(window == nullptr)
             continue;
         glViewport(0, 0, window->GetWidth(), window->GetHeight()); // Update the viewport
         AssignRendererToNodes();
         manager.Render();
-        performRender = !coreWindow->IsEventBased();
+        performRender = !windowsCore->IsEventBased();
         SwapBuffers(windowDc);
     }
 }
@@ -251,7 +262,7 @@ void OpenGLRenderingProvider::InternalRender()
 
 void OpenGLRenderingProvider::AssignRendererToNodes()
 {
-    Window* wrapperFrame = coreWindow->GetWrapperFrame();
+    Window* wrapperFrame = windowsCore->GetWrapperFrame();
     if(wrapperFrame == nullptr)
         return;
     AssignGraphicsToNodes(wrapperFrame->GetUiElementNode());

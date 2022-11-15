@@ -16,6 +16,7 @@ public:
     virtual void OnDestroy(Core &coreWindow) = 0;
     virtual void OnRemove(Core &coreWindow) = 0;
     virtual void WaitForSyncToFinish() = 0;
+    virtual ~RenderingProvider() = default;
 };
 
 

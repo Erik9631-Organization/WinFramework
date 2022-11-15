@@ -7,6 +7,8 @@
 #include "RenderingProvider.h"
 #include "Vector2.h"
 #include "CoreSubject.h"
+#include "ResizeSubscriber.h"
+class RenderingProvider;
 
 class Window;
 
@@ -25,6 +27,8 @@ public:
     virtual void LockCursor(const bool& lockState) = 0;
     virtual const bool& IsCursorLocked() const = 0;
     virtual RenderingProvider* GetRenderingProvider() = 0;
+    virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
+    virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
 };
 
 

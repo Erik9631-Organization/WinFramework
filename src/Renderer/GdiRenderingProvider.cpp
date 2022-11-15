@@ -68,7 +68,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
 {
-    Window* wrapperFrame = coreWindowframe->GetWrapperFrame();
+    Window* wrapperFrame = windowsCore->GetWrapperFrame();
     if(wrapperFrame == nullptr)
         return;
     Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame->GetWidth() + 1, wrapperFrame->GetHeight() + 1);
@@ -91,14 +91,19 @@ void GdiRenderingProvider::OnResize(EventResizeInfo e)
 
 void GdiRenderingProvider::OnInit(Core &coreWindowFrame)
 {
-    this->coreWindowframe = &coreWindowFrame;
-    windowHandle = coreWindowframe->GetWindowHandle();
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    windowHandle = windowsCore->GetWindowHandle();
     windowHdc = GetDC(windowHandle);
-    coreWindowframe->AddOnResizePreProcessSubsriber(*this);
+    windowsCore->AddOnResizePreProcessSubsriber(*this);
 
-    secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame()->GetWidth(),
-                                             coreWindowframe->GetWrapperFrame()->GetHeight());
-    performRender = !coreWindowframe->IsEventBased();
+    secondaryBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
+                                             windowsCore->GetWrapperFrame()->GetHeight());
+    performRender = !windowsCore->IsEventBased();
     fpsTimer.Start();
 
     if(renderingThread == nullptr)
@@ -138,21 +143,21 @@ void GdiRenderingProvider::OnRemove(Core &coreWindow)
 
         //CoreWindow::ConsoleWrite("Waiting for render");
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
-        if(coreWindowframe == nullptr)
+        if(windowsCore == nullptr)
             continue;
         //OnSync
         //Sync only if updating is finished.
-        coreWindowframe->WaitForUpdateToFinish();
+        windowsCore->WaitForUpdateToFinish();
         //CoreWindow::ConsoleWrite("Syncing data");
-        syncer.SyncData(coreWindowframe->GetWrapperFrame()->GetUiElementNode());
+        syncer.SyncData(windowsCore->GetWrapperFrame()->GetUiElementNode());
         //CoreWindow::ConsoleWrite("Syncing finished");
 
         //CoreWindow::ConsoleWrite("Rendering data");
         GetSecondaryDC();
         AssignGraphicsToNodes(); //This is where components draw on the buffer
-        BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame()->GetWidth(), coreWindowframe->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+        BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
         CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
-        performRender = !coreWindowframe->IsEventBased();
+        performRender = !windowsCore->IsEventBased();
         //fpsTimer.Wait();
         long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         //CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));

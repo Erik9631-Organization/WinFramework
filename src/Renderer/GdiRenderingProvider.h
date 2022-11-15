@@ -43,7 +43,7 @@ public:
     std::thread* renderingThread;
 private:
     UiTreeDataSyncer syncer;
-    Core* coreWindowframe;
+    WindowsCore* windowsCore;
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();

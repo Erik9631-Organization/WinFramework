@@ -271,10 +271,8 @@ void WindowsCore::CreateWinApiWindow()
 
     ShowWindow(windowHandle, SW_SHOW);
     UpdateWindow(windowHandle);
-
     //Critical Section end
 }
-
 
 
 HWND WindowsCore::GetWindowHandle()

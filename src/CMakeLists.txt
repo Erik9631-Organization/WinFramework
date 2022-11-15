@@ -144,7 +144,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/RenderingProviderFactory.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -356,9 +356,26 @@ set(Lii_Utils
     Utils/ValueConverter.cpp
     Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
-        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h)
-
+        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h Utils/WindowBuilder.cpp Utils/WindowBuilder.h Utils/Managers/RenderingProviderManager.cpp Utils/Managers/RenderingProviderManager.h)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
+
+set(Lii_Utils_Managers
+        "Utils/Managers/RenderingProviderManager.cpp"
+        "Utils/Managers/RenderingProviderManager.h"
+)
+
+source_group("Lii\\Utils\\Managers" FILES ${Lii_Utils_Managers})
+
+set(Lii_Utils_Factories
+        Utils/Factories/GdiRenderingProviderFactory.cpp
+        Utils/Factories/GdiRenderingProviderFactory.h
+        Utils/Factories/OpenGLRenderingProviderFactory.cpp
+        Utils/Factories/OpenGLRenderingProviderFactory.h
+    )
+source_group("Lii\\Utils\\Factory" FILES ${Lii_Utils_Factories}
+
+)
+
 
 set(Lii_OpenGL
         OpenGL/Shader.h 
@@ -380,7 +397,7 @@ set(Lii_OpenGL
         OpenGL/VertexArrayObjectPool.h
         OpenGL/DefaultGpuMemoryAllocator.cpp
         OpenGL/DefaultGpuMemoryAllocator.h
-        OpenGL/Taggable.h
+        api/Taggable.h
         OpenGL/GpuMemoryAllocator.h
         OpenGL/MemoryAllocatorManager.cpp
         OpenGL/MemoryAllocatorManager.h
@@ -461,6 +478,8 @@ set(ALL_FILES
     ${Lii_Api}
     ${Lii/Managers}
     ${Lii_Components_3d}
+    ${Lii_Utils_Managers}
+    ${Lii_Utils_Factories}
         Events/EntryStateSubscriber.h api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
 
 ################################################################################
@@ -494,6 +513,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Components/3d"
         "../libs/PhysX-4.1/physx/include/"
         "Core/Windows"
+        "Utils/Managers"
+        "Utils/Factories"
         )
 
 target_link_libraries(${PROJECT_NAME}
