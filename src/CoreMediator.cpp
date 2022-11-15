@@ -160,7 +160,12 @@ void CoreMediator::SetPresenter(Presenter *presenter)
     this->window = presenter;
 }
 
-void CoreMediator::SetCore(Core *core)
+void CoreMediator::SetCore(unique_ptr<Core> core)
 {
-    this->core = core;
+    this->core = std::move(core);
+}
+
+void CoreMediator::WaitForRenderingSyncToFinish()
+{
+    core->WaitForRenderingSyncToFinish();
 }

@@ -40,7 +40,6 @@ private:
     };
     vector<CoreSubscriber*> coreSubscribers;
     MsgSubject preProcessSubject;
-    CoreMediator coreAdapter;
 	HWND windowHandle;
 	void CreateConsole();
 	Window* wrapperFrame = nullptr;
@@ -58,7 +57,7 @@ private:
     Vector2 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
-	RenderingProvider* renderingProvider = nullptr;
+	std::unique_ptr<RenderingProvider> renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;
@@ -174,7 +173,7 @@ public:
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
-	void SetRenderingProvider(RenderingProvider& provider);
+	void SetRenderingProvider(unique_ptr<RenderingProvider> provider);
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
@@ -200,5 +199,7 @@ public:
     static unique_ptr<Core> Create(Window *window, std::any args);
 
     void SetWindow(Window *window) override;
+
+    void WaitForRenderingSyncToFinish() override;
 };
 

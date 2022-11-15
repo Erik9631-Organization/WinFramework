@@ -11,12 +11,6 @@
 #include "RenderingProviderManager.h"
 using namespace std;
 
-void Window::CreateCoreWindow(LONG style)
-{
-    core = WindowsCore::Create(this, WindowsCoreArgs::Create(name, style));
-    SetRenderingProvider(make_shared<GdiRenderingProvider>());
-}
-
 void Window::AddWindowStyle(LONG styleFlags)
 {
     EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
@@ -167,54 +161,11 @@ void Window::NotifyOnMouseUp(EventMouseStateInfo e)
     currentCapture = nullptr;
 }
 
-void Window::SetRenderingProvider(RenderingProvider &provider)
-{
-    if(core == nullptr)
-        return;
-    renderingProvider->OnRemove(*core);
-    core->SetRenderingProvider(provider);
-}
-
-RenderingProvider *Window::GetRenderingProvider()
-{
-    if(core != nullptr)
-        return core->GetRenderingProvider();
-    return nullptr;
-}
-
-void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider)
-{
-//    if(core == nullptr)
-//        return;
-//    if(this->renderingProvider != nullptr)
-//    {
-//        this->renderingProvider->OnRemove(*core);
-//    }
-//
-//    core->SetRenderingProvider(*renderingProvider);
-//    this->renderingProvider = renderingProvider;
-//    renderingProvider->OnInit(*core);
-}
-
 void Window::WaitForSync()
 {
-    renderingProvider->WaitForSyncToFinish();
+    coreMediator->WaitForRenderingSyncToFinish();
 }
 
-void Window::SetLockCursorSize(const Vector2 &size)
-{
-    core->SetLockCursorSize(size);
-}
-
-void Window::LockCursor(const bool &lockState)
-{
-    core->LockCursor(lockState);
-}
-
-const bool &Window::IsCursorLocked() const
-{
-    return core->IsCursorLocked();
-}
 
 void Window::Add(unique_ptr<Element3d> element)
 {
@@ -296,23 +247,27 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     return Create(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW);
 }
 
-std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, std::string windowName, LONG style)
+std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName, LONG style)
 {
     auto* window = new Window(x, y, width, height, windowName, style);
     window->AddOnTickSubscriber(&window->scene3d);
     window->AddRenderCommander(window->background);
+
+    //Create all window dependencies
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    window->renderingProvider = std::move(renderingProvider);
+    auto core = WindowsCore::Create(window, WindowsCoreArgs::Create(window->name, style));
+    auto coreMediator = std::make_unique<CoreMediator>();
+    core->SetRenderingProvider(std::move(renderingProvider));
 
-    window->core = WindowsCore::Create(window, WindowsCoreArgs::Create(window->name, style));
-    window->core->SetRenderingProvider(*window->renderingProvider);
-    window->renderingProvider->OnInit(*window->core);
+    //Setup mediator dependencies
+    coreMediator->SetPresenter(window);
+    core->AddCoreSubscriber(coreMediator.get());
+    coreMediator->SetCore(std::move(core));
+    window->AddPresenterSubscriber(coreMediator.get());
 
-    window->coreMediator = new CoreMediator();
-    window->AddPresenterSubscriber(window->coreMediator);
-    window->core->AddCoreSubscriber(window->coreMediator);
-    window->coreMediator->SetCore(window->core.get());
-    window->coreMediator->SetPresenter(window);
-    window->core->Redraw();
+    //Setup window dependencies
+    window->coreMediator = std::move(coreMediator);
+    window->NotifyOnRedraw(std::make_any<Window*>(window));
+
     return std::unique_ptr<Window>(window);
 }

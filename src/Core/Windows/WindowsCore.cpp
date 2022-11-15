@@ -267,8 +267,6 @@ void WindowsCore::CreateWinApiWindow()
     SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
     fpsTimer.SetInterval(1000/targetFps);
     fpsTimer.SetPeriodic(false);
-    coreSubscribers.emplace_back(&coreAdapter);
-
     ShowWindow(windowHandle, SW_SHOW);
     UpdateWindow(windowHandle);
     //Critical Section end
@@ -322,12 +320,13 @@ void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
 
 RenderingProvider *WindowsCore::GetRenderingProvider()
 {
-    return renderingProvider;
+    return renderingProvider.get();
 }
 
-void WindowsCore::SetRenderingProvider(RenderingProvider& provider)
+void WindowsCore::SetRenderingProvider(unique_ptr<RenderingProvider> provider)
 {
-    this->renderingProvider = &provider;
+    renderingProvider = std::move(provider);
+    renderingProvider->OnInit(*this);
 }
 
 void WindowsCore::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -535,6 +534,11 @@ unique_ptr<Core> WindowsCore::Create(Window *window, std::any args)
 void WindowsCore::SetWindow(Window *window)
 {
     this->wrapperFrame = window;
+}
+
+void WindowsCore::WaitForRenderingSyncToFinish()
+{
+    renderingProvider->WaitForSyncToFinish();
 }
 
 

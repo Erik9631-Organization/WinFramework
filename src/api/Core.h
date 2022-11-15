@@ -8,6 +8,7 @@
 #include "Vector2.h"
 #include "CoreSubject.h"
 #include "ResizeSubscriber.h"
+#include <memory>
 class RenderingProvider;
 
 class Window;
@@ -15,7 +16,7 @@ class Window;
 class Core : public CoreSubject
 {
 public:
-    virtual void SetRenderingProvider(RenderingProvider& provider) = 0;
+    virtual void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider) = 0;
     virtual long long int SetAttributes(int index, long long int parameter) = 0;
     virtual long long int RemoveAttribute(int index, long long int parameter) = 0;
     virtual void UpdateScale() = 0;
@@ -29,6 +30,7 @@ public:
     virtual RenderingProvider* GetRenderingProvider() = 0;
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
+    virtual void WaitForRenderingSyncToFinish() = 0;
     virtual ~Core() = default;
 };
 

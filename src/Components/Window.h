@@ -26,13 +26,10 @@ class RenderingProvider;
 class Window : public UiElement, public virtual PresenterSubject
 {
 private:
-    CoreMediator* coreMediator = nullptr;
+    std::unique_ptr<CoreMediator> coreMediator;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	std::unique_ptr<Core> core;
 	Background background;
-	void CreateCoreWindow(LONG style);
-	std::unique_ptr<RenderingProvider> renderingProvider;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
@@ -51,10 +48,9 @@ public:
     Window(int x, int y, int width, int height, std::string windowName, LONG style);
     static std::unique_ptr<Window> Create(const string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName);
-    static std::unique_ptr<Window> Create(int x, int y, int width, int height, std::string windowName, LONG style);
+    static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName, LONG style);
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
-    const bool& IsCursorLocked() const;
 
 	/**
 	 * Adds a new flag to the window style. Some of these styles can not be changed at runtime. Please refer to <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">MSDN</a>
@@ -96,7 +92,7 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-	virtual void Add(unique_ptr<UiElement> component) override;
+    void Add(unique_ptr<UiElement> component) override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
