@@ -4,9 +4,9 @@
 
 #ifndef LII_GDIRENDERINGPROVIDERFACTORY_H
 #define LII_GDIRENDERINGPROVIDERFACTORY_H
-#include "RenderingProviderFactory.h"
+#include "Factory.h"
 
-class GdiRenderingProviderFactory : public RenderingProviderFactory
+class GdiRenderingProviderFactory : public Factory<RenderingProvider>
 {
 private:
     std::string tag = "GdiRenderingProvider";

@@ -144,7 +144,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/RenderingProviderFactory.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -362,7 +362,7 @@ source_group("Lii\\Utils" FILES ${Lii_Utils})
 set(Lii_Utils_Managers
         "Utils/Managers/RenderingProviderManager.cpp"
         "Utils/Managers/RenderingProviderManager.h"
-)
+        Utils/Managers/CoreManager.cpp Utils/Managers/CoreManager.h)
 
 source_group("Lii\\Utils\\Managers" FILES ${Lii_Utils_Managers})
 
@@ -371,7 +371,7 @@ set(Lii_Utils_Factories
         Utils/Factories/GdiRenderingProviderFactory.h
         Utils/Factories/OpenGLRenderingProviderFactory.cpp
         Utils/Factories/OpenGLRenderingProviderFactory.h
-    )
+        Utils/Factories/WindowsCoreFactory.cpp Utils/Factories/WindowsCoreFactory.h)
 source_group("Lii\\Utils\\Factory" FILES ${Lii_Utils_Factories}
 
 )

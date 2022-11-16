@@ -4,9 +4,9 @@
 
 #ifndef LII_OPENGLRENDERINGPROVIDERFACTORY_H
 #define LII_OPENGLRENDERINGPROVIDERFACTORY_H
-#include "RenderingProviderFactory.h"
+#include "Factory.h"
 
-class OpenGLRenderingProviderFactory : public RenderingProviderFactory
+class OpenGLRenderingProviderFactory : public Factory<RenderingProvider>
 {
 private:
     std::string tag = "OpenGLRenderingProvider";

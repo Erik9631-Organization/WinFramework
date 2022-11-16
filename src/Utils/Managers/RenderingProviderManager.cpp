@@ -16,7 +16,7 @@ std::unique_ptr<RenderingProvider> RenderingProviderManager::Create(const std::s
     return iter->second->Create();
 }
 
-void RenderingProviderManager::RegisterRenderingProviderFactory(std::unique_ptr<RenderingProviderFactory> renderingProviderFactory)
+void RenderingProviderManager::RegisterRenderingProviderFactory(std::unique_ptr<Factory<RenderingProvider>> renderingProviderFactory)
 {
     renderingProviderFactories.try_emplace(renderingProviderFactory->GetTag(), std::move(renderingProviderFactory));
 }

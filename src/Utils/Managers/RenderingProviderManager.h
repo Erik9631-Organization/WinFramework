@@ -6,7 +6,7 @@
 #define LII_RENDERINGPROVIDERMANAGER_H
 #include <memory>
 #include "RenderingProvider.h"
-#include "RenderingProviderFactory.h"
+#include "Factory.h"
 #include <string>
 #include <unordered_map>
 
@@ -19,8 +19,8 @@ public:
     RenderingProviderManager();
     std::unique_ptr<RenderingProvider> Create(const std::string& tag);
     std::unique_ptr<RenderingProvider> Create();
-    std::unordered_map<std::string, std::unique_ptr<RenderingProviderFactory>> renderingProviderFactories;
-    void RegisterRenderingProviderFactory(std::unique_ptr<RenderingProviderFactory> renderingProviderFactory);
+    std::unordered_map<std::string, std::unique_ptr<Factory<RenderingProvider>>> renderingProviderFactories;
+    void RegisterRenderingProviderFactory(std::unique_ptr<Factory<RenderingProvider>> renderingProviderFactory);
     void UnRegisterRenderingProviderFactory(const std::string &tag);
     void SetDefaultRenderingProvider(const std::string &tag);
     static RenderingProviderManager* GetRenderingProviderManager();
