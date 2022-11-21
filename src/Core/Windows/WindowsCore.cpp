@@ -219,6 +219,8 @@ void WindowsCore::UnicodeConsoleWrite(std::wstring output)
 
 void WindowsCore::UpdateScale()
 {
+    if(wrapperFrame == nullptr)
+        return;
 	SetWindowPos(windowHandle, NULL, wrapperFrame->GetX(), wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
@@ -388,6 +390,8 @@ void WindowsCore::SetLockCursorSize(const Vector2& size)
 void WindowsCore::UpdateLockCursor()
 {
     if (cursorLocked == false)
+        return;
+    if(wrapperFrame == nullptr)
         return;
 
     //Calculate the center of the wrapper frame

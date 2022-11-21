@@ -42,8 +42,7 @@ class UiElement : virtual public Adjustable,
     public virtual MouseInteractable,
     public virtual KeyStateSubject,
     public virtual AddSubject<std::unique_ptr<UiElement>>,
-    public virtual TickSubject,
-    public virtual Presenter
+    public virtual TickSubject
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);

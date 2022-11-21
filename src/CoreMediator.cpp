@@ -157,12 +157,12 @@ RenderingProvider * CoreMediator::GetRenderingProvider()
 
 void CoreMediator::SetPresenter(Presenter *presenter)
 {
-    this->presenter = presenter;
+    SetupPresenter(presenter);
 }
 
 void CoreMediator::SetCore(unique_ptr<Core> core)
 {
-    this->core = std::move(core);
+    SetupCore(std::move(core));
 }
 
 void CoreMediator::WaitForRenderingSyncToFinish()
@@ -172,11 +172,23 @@ void CoreMediator::WaitForRenderingSyncToFinish()
 
 CoreMediator::CoreMediator(Presenter* presenter, std::unique_ptr<Core> core)
 {
-    this->presenter = presenter;
-    this->core = std::move(core);
+    SetupCore(std::move(core));
+    SetupPresenter(presenter);
 }
 
 CoreMediator::CoreMediator()
 {
 
+}
+
+void CoreMediator::SetupPresenter(Presenter *presenter)
+{
+    this->presenter = presenter;
+    presenter->AddPresenterSubscriber(this);
+}
+
+void CoreMediator::SetupCore(std::unique_ptr<Core> core)
+{
+    this->core = std::move(core);
+    this->core->AddCoreSubscriber(this);
 }

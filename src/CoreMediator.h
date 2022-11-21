@@ -19,6 +19,8 @@ class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 private:
     Presenter* presenter = nullptr;
     std::unique_ptr<Core> core = nullptr;
+    void SetupPresenter(Presenter* presenter);
+    void SetupCore(std::unique_ptr<Core> core);
 public:
     CoreMediator();
     CoreMediator(Presenter* presenter, std::unique_ptr<Core> core);

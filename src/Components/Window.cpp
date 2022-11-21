@@ -257,14 +257,10 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     //Create all window dependencies
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
     auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, style, window));
-    auto coreMediator = std::make_unique<CoreMediator>();
     core->SetRenderingProvider(std::move(renderingProvider));
 
-    //Setup mediator dependencies
-    coreMediator->SetPresenter(window);
-    core->AddCoreSubscriber(coreMediator.get());
-    coreMediator->SetCore(std::move(core));
-    window->AddPresenterSubscriber(coreMediator.get());
+    //Create core mediator
+    auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
 
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);

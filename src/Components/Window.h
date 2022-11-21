@@ -23,7 +23,7 @@ class RenderingProvider;
  * All the components that are to be displayed within the window should be added via the UiElement::CreateElement function which this class inherits.
  */
 
-class Window : public UiElement, public virtual PresenterSubject
+class Window : public UiElement, public virtual Presenter
 {
 private:
     std::unique_ptr<CoreMediator> coreMediator;

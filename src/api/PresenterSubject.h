@@ -13,6 +13,7 @@
 
 class PresenterSubject
 {
+public:
     virtual void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo& e) = 0;
     virtual void NotifyOnAttributesChanged(EventAttributeInfo& e) = 0;
     virtual void NotifyOnAttributesRemoved(EventAttributeInfo& e) = 0;
