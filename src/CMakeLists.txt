@@ -182,7 +182,7 @@ source_group("Lii\\Components" FILES ${Lii_Components})
 Set(Lii_Core_Windows
         "Core/Windows/WindowsCore.h"
         "Core/Windows/WindowsCore.cpp"
-        Core/Windows/WindowsCoreArgs.cpp Core/Windows/WindowsCoreArgs.h)
+        Core/Windows/CoreArgs.cpp Core/Windows/CoreArgs.h)
 source_group("Lii\\Core\\Windows" FILES ${Lii_Core_Windows})
 
 set(Lii_Components_3d
@@ -371,7 +371,7 @@ set(Lii_Utils_Factories
         Utils/Factories/GdiRenderingProviderFactory.h
         Utils/Factories/OpenGLRenderingProviderFactory.cpp
         Utils/Factories/OpenGLRenderingProviderFactory.h
-        Utils/Factories/WindowsCoreFactory.cpp Utils/Factories/WindowsCoreFactory.h)
+        Utils/Factories/CoreFactory.cpp Utils/Factories/CoreFactory.h)
 source_group("Lii\\Utils\\Factory" FILES ${Lii_Utils_Factories}
 
 )

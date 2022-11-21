@@ -17,9 +17,11 @@ class Window;
 class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 {
 private:
-    Presenter* window = nullptr;
+    Presenter* presenter = nullptr;
     std::unique_ptr<Core> core = nullptr;
 public:
+    CoreMediator();
+    CoreMediator(Presenter* presenter, std::unique_ptr<Core> core);
     void SetPresenter(Presenter* presenter);
     void SetCore(std::unique_ptr<Core> core);
     void CoreOnDestroy(std::any src) override;

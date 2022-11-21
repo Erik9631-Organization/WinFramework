@@ -7,8 +7,9 @@
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "GdiRenderingProvider.h"
-#include "WindowsCoreArgs.h"
+#include "CoreArgs.h"
 #include "RenderingProviderManager.h"
+#include "CoreManager.h"
 using namespace std;
 
 void Window::AddWindowStyle(LONG styleFlags)
@@ -255,7 +256,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     //Create all window dependencies
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    auto core = WindowsCore::Create(window, WindowsCoreArgs::Create(window->name, style));
+    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, style, window));
     auto coreMediator = std::make_unique<CoreMediator>();
     core->SetRenderingProvider(std::move(renderingProvider));
 

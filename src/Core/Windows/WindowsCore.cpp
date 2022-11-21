@@ -11,7 +11,7 @@
 #include <processthreadsapi.h>
 #include "Messages.h"
 #include <chrono>
-#include "WindowsCoreArgs.h"
+#include "CoreArgs.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -103,7 +103,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CLOSE:
         DestroyWindow(windowHandle);
-        if(!UnregisterClassA(wrapperFrame->GetComponentName().c_str(), hInstance))
+        if(!UnregisterClassA(this->windowName.c_str(), hInstance))
             ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
         processMessages = false;
         renderingProvider->OnDestroy(*this);
@@ -255,8 +255,19 @@ void WindowsCore::CreateWinApiWindow()
         system("PAUSE");
         exit(0);
     }
-    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame->GetX(),
-                                wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), NULL, NULL, hInstance, NULL);
+    int x = 0;
+    int y = 0;
+    int width = 0;
+    int height = 0;
+    if(wrapperFrame != nullptr)
+    {
+        x = (int)wrapperFrame->GetX();
+        y = (int)wrapperFrame->GetY();
+        width = (int)wrapperFrame->GetWidth();
+        height = (int)wrapperFrame->GetHeight();
+    }
+    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, x,
+                                y, width, height, NULL, NULL, hInstance, NULL);
 
     if (!windowHandle)
     {
@@ -513,19 +524,11 @@ void WindowsCore::Start()
     std::unique_lock<mutex> lock{initLock};
     initCondition->wait(lock, [&]{return initSignal;});
 }
-//
-//std::unique_ptr<WindowsCore> WindowsCore::CreateElement(Window *wrapperFrame, const string& windowName, LONG style)
-//{
-//    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
-//    auto window = std::unique_ptr<WindowsCore>(coreInstance);
-//    window->Start();
-//    return std::move(window);
-//}
 
-unique_ptr<Core> WindowsCore::Create(Window *window, std::any args)
+unique_ptr<Core> WindowsCore::Create(std::any args)
 {
-    auto inputArgs = std::any_cast<WindowsCoreArgs>(args);
-    auto core = new WindowsCore(window, inputArgs.name, inputArgs.style);
+    auto inputArgs = std::any_cast<CoreArgs>(args);
+    auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, inputArgs.style);
     auto corePtr = std::unique_ptr<WindowsCore>(core);
     corePtr->Start();
     return std::move(corePtr);

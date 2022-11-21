@@ -13,6 +13,7 @@ class Factory : public Taggable
 {
 public:
     virtual std::unique_ptr<T> Create() = 0;
+    virtual std::unique_ptr<T> Create(std::any args) = 0;
     virtual ~Factory() = default;
 };
 

@@ -49,8 +49,6 @@ public:
     static std::unique_ptr<Window> Create(const string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName, LONG style);
-    void SetLockCursorSize(const Vector2& size);
-    void LockCursor(const bool& lockState);
 
 	/**
 	 * Adds a new flag to the window style. Some of these styles can not be changed at runtime. Please refer to <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">MSDN</a>
@@ -81,14 +79,14 @@ public:
 	void SetSize(float width, float height, bool emit) override;
 	void SetSize(Vector2 size, bool emit) override;
 	void Repaint() override;
-	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
+    void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(float x, float y, bool emit) override;
 	void SetPosition(Vector2 point, bool emit) override;
 
-	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
+    void NotifyOnKeyDown(EventKeyStateInfo e) override;
+    void NotifyOnKeyUp(EventKeyStateInfo e) override;
+    void NotifyOnKeyPressed(EventKeyStateInfo e) override;
 	void CloseWindow();
 
 	void UpdateWindow();
@@ -97,10 +95,6 @@ public:
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
-
-    void SetRenderingProvider(RenderingProvider& provider);
-    RenderingProvider* GetRenderingProvider();
-    void SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider);
     void WaitForSync();
     void Add(unique_ptr<Element3d> element);
     template<typename type, typename ...Args>

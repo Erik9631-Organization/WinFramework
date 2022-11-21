@@ -15,6 +15,8 @@ public:
     void SetTag(const std::string &tag) override;
     std::unique_ptr<RenderingProvider> Create() override;
 
+    std::unique_ptr<RenderingProvider> Create(std::any args) override;
+
 };
 
 

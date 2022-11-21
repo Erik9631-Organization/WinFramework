@@ -21,3 +21,8 @@ void OpenGLRenderingProviderFactory::SetTag(const std::string &tag)
 {
     this->tag = tag;
 }
+
+unique_ptr<RenderingProvider> OpenGLRenderingProviderFactory::Create(std::any args)
+{
+    return Create();
+}

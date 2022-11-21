@@ -3,45 +3,55 @@
 //
 
 #include "CoreManager.h"
-std::unique_ptr<CoreManager> CoreManager::renderingProviderManager = std::make_unique<CoreManager>();
+#include "CoreFactory.h"
 
-CoreManager::CoreManager()
+
+std::unique_ptr<CoreManager> CoreManager::coreManager = std::make_unique<CoreManager>();
+
+std::unique_ptr<Core> CoreManager::Create(const std::string &tag, std::optional<std::any> args = std::nullopt)
 {
-
-}
-
-std::unique_ptr<Core> CoreManager::Create(const std::string &tag)
-{
-    auto it = renderingProviderFactories.find(tag);
-    if(it == renderingProviderFactories.end())
+    auto it = coreFactories.find(tag);
+    if(it == coreFactories.end())
         return nullptr;
-    return it->second->Create();
+    std::unique_ptr<Core> corePtr;
+    if(args->has_value())
+        corePtr = it->second->Create(args.value());
+    else
+        corePtr = it->second->Create();
+    return corePtr;
 }
 
-std::unique_ptr<Core> CoreManager::Create()
+std::unique_ptr<Core> CoreManager::Create(std::optional<std::any> args)
 {
-    return Create(defaultCoreFactory);
+    return Create(defaultCoreFactory, std::move(args));
 }
 
-CoreManager *CoreManager::GetRenderingProviderManager()
+
+CoreManager *CoreManager::GetCoreManager()
 {
-    return renderingProviderManager.get();
+    return coreManager.get();
 }
 
-void CoreManager::RegisterRenderingProviderFactory(std::unique_ptr<Factory<Core>> coreFactory)
+void CoreManager::RegisterCoreFactory(std::unique_ptr<Factory<Core>> coreFactory)
 {
-    renderingProviderFactories.try_emplace(coreFactory->GetTag(), std::move(coreFactory));
+    coreFactories.try_emplace(coreFactory->GetTag(), std::move(coreFactory));
 }
 
-void CoreManager::UnRegisterRenderingProviderFactory(const std::string &tag)
+void CoreManager::UnRegisterCoreFactory(const std::string &tag)
 {
-    auto it = renderingProviderFactories.find(tag);
-    if(it == renderingProviderFactories.end())
+    auto it = coreFactories.find(tag);
+    if(it == coreFactories.end())
         return;
-    renderingProviderFactories.erase(it);
+    coreFactories.erase(it);
 }
 
-void CoreManager::SetDefaultRenderingProvider(const std::string &tag)
+void CoreManager::SetDefaultCoreFactory(const std::string &tag)
 {
     defaultCoreFactory = tag;
 }
+
+CoreManager::CoreManager()
+{
+    RegisterCoreFactory(std::make_unique<CoreFactory>());
+}
+

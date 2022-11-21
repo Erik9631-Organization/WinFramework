@@ -196,7 +196,7 @@ public:
 
     void Start() override;
 
-    static unique_ptr<Core> Create(Window *window, std::any args);
+    static unique_ptr<Core> Create(std::any args);
 
     void SetWindow(Window *window) override;
 

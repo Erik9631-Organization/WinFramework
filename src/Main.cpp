@@ -68,11 +68,6 @@ public:
             OpenGL::CameraManager::GetActiveCamera()->Right(speed);
         }
 
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::Escape))
-        {
-            window.LockCursor(false);
-            window.SetActive(false);
-        }
 
         if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
         {
@@ -85,11 +80,7 @@ public:
 
     void OnActiveStateChanged(EventOnActivateInfo info) override
     {
-        if(info.IsActive() == true)
-        {
-            //window.SetLockCursorSize({2, 2});
-            //window.LockCursor(true);
-        }
+
     }
 
 };
