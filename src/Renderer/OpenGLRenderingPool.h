@@ -8,7 +8,7 @@
 #include <memory>
 #include "RenderingPool.h"
 #include "OpenGLRenderer.h"
-#include "Vector2.h"
+
 class Window;
 class RenderCommander;
 
@@ -21,10 +21,10 @@ private:
     OpenGL::RenderingManager& renderingManager;
     std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderer>> renderers;
     Window& window;
-    Vector2 translation;
+    glm::vec2 translation;
 public:
-    const Vector2 &GetTranslation() const;
-    void SetTranslation(const Vector2 &translation);
+    const glm::vec2 & GetTranslation() const;
+    void SetTranslation(const glm::vec2 &translation);
 };
 
 

@@ -3,7 +3,7 @@
 #include <gdiplus.h>
 #include "EventInfo.h"
 #include "GenericObj.h"
-#include "Vector2.h"
+#include <glm.hpp>
 
 class UiElement;
 class Movable;
@@ -13,13 +13,13 @@ class Movable;
 class EventMoveInfo
 {
 private:
-	Vector2 position;
+	glm::vec2 position;
 	Movable* src;
 public:
 	/**
 	 * \return Returns the position of the source object at the point this event was called.
 	 */
-    Vector2 GetPosition() const;
+    glm::vec2 GetPosition() const;
 
 	/**
 	 * \return returns the source object that called the event.
@@ -30,7 +30,7 @@ public:
 	 * \param position the position of the source object.
 	 * \param src the source object that called the event. 
 	 */
-	EventMoveInfo(Vector2 position, Movable* src);
+	EventMoveInfo(glm::vec2 position, Movable* src);
 	~EventMoveInfo();
 };
 

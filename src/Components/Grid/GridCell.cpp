@@ -1,6 +1,7 @@
 #include "GridCell.h"
 #include "Grid.h"
 #include "EventTypes/EventUpdateInfo.h"
+#include "vec2.hpp"
 
 Vector2Int GridCell::CalculatePixelPosition()
 {
@@ -26,8 +27,8 @@ Vector2Int GridCell::GetSpanSize()
     if (GetSpanCorner() == nullptr)
         return spanSize;
 
-    int spanX = GetSpanCorner()->GetPixelPosition().GetX();
-    int spanParentX = GetSpanParent()->GetPixelPosition().GetY();
+    int spanX = GetSpanCorner()->GetPixelPosition().x;
+    int spanParentX = GetSpanParent()->GetPixelPosition().y;
 
     GridCell* cornerCell = GetSpanCorner();
     GridCell* parentCell = GetSpanParent();
@@ -35,8 +36,8 @@ Vector2Int GridCell::GetSpanSize()
     int columnGapSum = (span.GetGridColumnEnd() - span.GetGridColumnStart()) * parentGrid.GetColumnGap();
     int rowGapSum = (span.GetGridRowEnd() - span.GetGridRowStart()) * parentGrid.GetRowGap();
 
-    spanSize.SetX(cornerCell->GetPixelPosition().GetX() - parentCell->GetPixelPosition().GetY() + cornerCell->GetSize().GetX() + columnGapSum);
-    spanSize.SetY(cornerCell->GetPixelPosition().GetY() - parentCell->GetPixelPosition().GetY() + cornerCell->GetSize().GetY() + rowGapSum);
+    spanSize.SetX(cornerCell->GetPixelPosition().x - parentCell->GetPixelPosition().x + cornerCell->GetSize().x + columnGapSum);
+    spanSize.SetY(cornerCell->GetPixelPosition().y - parentCell->GetPixelPosition().y + cornerCell->GetSize().y + rowGapSum);
     return spanSize;
 }
 
@@ -106,7 +107,7 @@ bool GridCell::IsSpanParent()
     if (!span.isSet())
         return false;
 
-    if (position.GetX() == span.GetGridColumnStart() && position.GetY() == span.GetGridRowStart())
+    if (position.x == span.GetGridColumnStart() && position.y == span.GetGridRowStart())
         return true;
 
 }
@@ -132,29 +133,29 @@ void GridCell::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     associatedAdjustable->RemoveOnResizeSubscriber(subscriber);
 }
 
-Vector2 GridCell::GetSize()
+glm::vec2 GridCell::GetSize()
 {
     return cellSize;
 }
 
 float GridCell::GetWidth()
 {
-    return cellSize.GetX();
+    return cellSize.x;
 }
 
 float GridCell::GetHeight()
 {
-    return cellSize.GetY();
+    return cellSize.y;
 }
 
-void GridCell::SetSize(Vector2 size, bool emit)
+void GridCell::SetSize(glm::vec2 size, bool emit)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)
         return;
 
     if (span.isSet())
-        GetControlledAdjustable()->SetSize(GetSpanSize(), emit);
+        GetControlledAdjustable()->SetSize(glm::vec2(GetSpanSize().GetX(), GetSpanSize().GetY()), emit);
     else
         GetControlledAdjustable()->SetSize(size, emit);
 }
@@ -166,12 +167,12 @@ void GridCell::SetSize(float width, float height, bool emit)
 
 void GridCell::SetWidth(float width, bool emit)
 {
-    SetSize(width, cellSize.GetY(), emit);
+    SetSize(width, cellSize.y, emit);
 }
 
 void GridCell::SetHeight(float height, bool emit)
 {
-    SetSize(cellSize.GetX(), height, emit);
+    SetSize(cellSize.x, height, emit);
 }
 
 void GridCell::AddOnMoveSubscriber(MoveSubscriber& subscriber)
@@ -195,9 +196,9 @@ void GridCell::NotifyOnMoveSubscribers(EventMoveInfo event)
     associatedAdjustable->NotifyOnMoveSubscribers(event);
 }
 
-Vector2 GridCell::GetPosition()
+glm::vec2 GridCell::GetPosition()
 {
-    return indexPos;
+    return glm::vec2(indexPos.GetX(), indexPos.GetY());
 }
 
 float GridCell::GetX()
@@ -220,15 +221,15 @@ float GridCell::GetAbsoluteY()
     return indexPos.GetY() + parentGrid.GetAbsoluteY();
 }
 
-Vector2 GridCell::GetAbsolutePosition()
+glm::vec2 GridCell::GetAbsolutePosition()
 {
     return {indexPos.GetX() + parentGrid.GetAbsoluteX(), indexPos.GetY() + parentGrid.GetAbsoluteY()};
 }
 
-void GridCell::SetPosition(Vector2 position, bool emit)
+void GridCell::SetPosition(glm::vec2 position, bool emit)
 {
     this->indexPos = position;
-    this->position = CalculatePixelPosition();
+    this->position = glm::vec2(CalculatePixelPosition().GetX(), CalculatePixelPosition().GetY());
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetPosition(this->position, emit);
@@ -249,7 +250,7 @@ void GridCell::SetY(float y, bool emit)
     SetPosition(indexPos.GetX(), y, emit);
 }
 
-void GridCell::SetTranslate(Vector2 offset, bool emit)
+void GridCell::SetTranslate(glm::vec2 offset, bool emit)
 {
     if (associatedAdjustable == nullptr)
         return;
@@ -270,7 +271,7 @@ void GridCell::SetTranslateY(float y, bool emit)
     associatedAdjustable->SetTranslateY(y, emit);
 }
 
-Vector2 GridCell::GetTranslate()
+glm::vec2 GridCell::GetTranslate()
 {
     if (associatedAdjustable == nullptr)
         return {0, 0};
@@ -298,8 +299,11 @@ void GridCell::OnUpdate(EventUpdateInfo e)
     {
         Vector2Int pixelPos = CalculatePixelPosition(); //Update
         if(associatedAdjustable != nullptr)
-            associatedAdjustable->SetPosition(CalculatePixelPosition(), false);
-        this->position = pixelPos;
+        {
+            auto pixelPos = CalculatePixelPosition();
+            associatedAdjustable->SetPosition(glm::vec2(pixelPos.GetX(), pixelPos.GetY()), false);
+        }
+        this->position = glm::vec2(pixelPos.GetX(), pixelPos.GetY());
     }
 
     if (e.HasFlag(EventUpdateFlags::Resize))
@@ -315,20 +319,20 @@ void GridCell::OnUpdate(EventUpdateInfo e)
 
 int GridCell::GetPixelX()
 {
-    return position.GetX();
+    return position.x;
 }
 
 int GridCell::GetPixelY()
 {
-    return position.GetY();
+    return position.y;
 }
 
-Vector2 GridCell::GetPixelPosition()
+glm::vec2 GridCell::GetPixelPosition()
 {
     return position;
 }
 
-void GridCell::SetPosition(Vector2 position)
+void GridCell::SetPosition(glm::vec2 position)
 {
     SetPosition(position, true);
 }
@@ -348,7 +352,7 @@ void GridCell::SetY(float y)
     SetY(y, true);
 }
 
-void GridCell::SetTranslate(Vector2 offset)
+void GridCell::SetTranslate(glm::vec2 offset)
 {
     SetTranslate(offset, true);
 }
@@ -363,7 +367,7 @@ void GridCell::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void GridCell::SetSize(Vector2 size)
+void GridCell::SetSize(glm::vec2 size)
 {
     SetSize(size, true);
 }

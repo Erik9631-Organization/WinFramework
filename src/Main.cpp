@@ -20,6 +20,10 @@
 #include "StaticTexture.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
+#include "Button.h"
+#include "Label.h"
+#include "Panel.h"
+#include "ScrollBar.h"
 
 using namespace std;
 
@@ -76,9 +80,9 @@ public:
 
         if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
         {
-            const Vector2& mousePos = InputManager::GetGlobalInput().GetMouseDelta();
-            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.GetX() * sensitivity);
-            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.GetY() * sensitivity);
+            const glm::vec2& mousePos = InputManager::GetGlobalInput().GetMouseDelta();
+            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.x * sensitivity);
+            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.y * sensitivity);
         }
 
     }
@@ -127,7 +131,6 @@ private:
 int LiiEntry()
 {
     DemoApplication::LaunchDemoApp();
-//    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
 //    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
 //    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
 //

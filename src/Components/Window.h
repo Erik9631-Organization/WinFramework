@@ -13,6 +13,7 @@
 #include "PresenterSubject.h"
 #include "Presenter.h"
 #include "CoreMediator.h"
+
 using namespace std;
 class WindowsCore;
 class RenderingProvider;
@@ -21,13 +22,14 @@ class RenderingProvider;
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
  * All the components that are to be displayed within the window should be added via the UiElement::Create function which this class inherits.
  */
+
 class Window : public UiElement, public virtual PresenterSubject
 {
 private:
     CoreMediator* coreMediator = nullptr;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	WindowsCore* coreFrame = nullptr;
+	std::unique_ptr<WindowsCore> coreFrame;
 	thread* windowThread = nullptr;
 	condition_variable* initWait = nullptr;
 	bool initNotified = false;
@@ -36,7 +38,6 @@ private:
 	std::shared_ptr<RenderingProvider> renderingProvider;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
-    void InitCoreWindow(LONG style);
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
     void NotifyOnAttributesChanged(EventAttributeInfo &e) override;
     void NotifyOnAttributesRemoved(EventAttributeInfo &e) override;
@@ -48,7 +49,7 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
-    void SetLockCursorSize(const Vector2& size);
+    void SetLockCursorSize(const glm::vec2 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
 
@@ -79,12 +80,12 @@ public:
 	bool initDone = false;
 
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(Vector2 size, bool emit) override;
+	void SetSize(glm::vec2 size, bool emit) override;
 	void Repaint() override;
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(float x, float y, bool emit) override;
-	void SetPosition(Vector2 point, bool emit) override;
+	void SetPosition(glm::vec2 point, bool emit) override;
 
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
 	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;

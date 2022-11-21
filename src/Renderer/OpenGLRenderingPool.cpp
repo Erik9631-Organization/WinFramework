@@ -29,12 +29,12 @@ OpenGLRenderingPool::OpenGLRenderingPool(Window &window, OpenGL::RenderingManage
 {
 }
 
-const Vector2 &OpenGLRenderingPool::GetTranslation() const
+const glm::vec2 & OpenGLRenderingPool::GetTranslation() const
 {
     return translation;
 }
 
-void OpenGLRenderingPool::SetTranslation(const Vector2 &translation)
+void OpenGLRenderingPool::SetTranslation(const glm::vec2 &translation)
 {
     this->translation = translation;
 }

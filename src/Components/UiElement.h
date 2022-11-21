@@ -67,7 +67,7 @@ protected:
     bool deletedElementNode = false;
 public:
 	UiElement();
-	UiElement(string name);
+    explicit UiElement(string name);
 	UiElement(float x, float y, float width, float height, string name);
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
@@ -104,8 +104,8 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	Vector2 GetSize() override;
-	Vector2 GetPosition() override;
+	glm::vec2 GetSize() override;
+	glm::vec2 GetPosition() override;
 	float GetWidth() override;
 	float GetHeight() override;
 	float GetX() override;
@@ -123,7 +123,7 @@ public:
 	 */
 	UiElement * GetParent();
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(Vector2 size, bool emit) override;
+	void SetSize(glm::vec2 size, bool emit) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -148,8 +148,8 @@ public:
 	 */
 	void SetComponentName(string name);
 
-	virtual void SetPosition(float x, float y, bool emit);
-	virtual void SetPosition(Vector2 pos, bool emit);
+	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetPosition(glm::vec2 pos, bool emit) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -178,7 +178,7 @@ public:
 	virtual void SetY(float y, bool emit) override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual Vector2 GetAbsolutePosition() override;
+	virtual glm::vec2 GetAbsolutePosition() override;
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;
@@ -210,28 +210,28 @@ public:
 	virtual float GetViewportHeightMultiplier() override;
 	virtual void SetViewportXOffset(int x) override;
 	virtual void SetViewportYOffset(int y) override;
-	virtual void SetViewportOffset(Vector2 offset) override;
+	virtual void SetViewportOffset(glm::vec2 offset) override;
 	virtual int GetViewportAbsoluteX() override;
 	virtual int GetViewportAbsoluteY() override;
-	virtual Vector2 GetViewportAbsolutePosition() override;
+	virtual glm::vec2 GetViewportAbsolutePosition() override;
 	virtual int GetViewportX() override;
 	virtual int GetViewportY() override;
-	virtual Vector2 GetViewportPosition() override;
+	virtual glm::vec2 GetViewportPosition() override;
 	virtual void NotifyOnViewportResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual int GetViewportWidth() override;
 	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(Vector2 size) override;
+	virtual void SetViewportSize(glm::vec2 size) override;
 	virtual void SetViewportSize(int width, int height) override;
 	virtual void SetViewportWidth(int width) override;
 	virtual void SetViewportHeight(int height) override;
-	virtual Vector2 GetViewportSize() override;
+	virtual glm::vec2 GetViewportSize() override;
 
 	// Inherited via Viewable
 	virtual int GetViewportAbsoluteWidth() override;
 	virtual int GetViewportAbsoluteHeight() override;
-	virtual Vector2 GetViewportAbsoluteSize() override;
+	virtual glm::vec2 GetViewportAbsoluteSize() override;
 
 	// Inherited via UpdateSubscriber
 	virtual void OnUpdate(EventUpdateInfo e) override;
@@ -252,7 +252,7 @@ public:
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(Vector2 point) override;
+	virtual bool ColidesWithPoint(glm::vec2 point) override;
 
 	// Inherited via MouseStateSubject
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
@@ -294,7 +294,7 @@ public:
 	}
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(Vector2 point) override;
+	virtual std::any ColidesWithUpmost(glm::vec2 point) override;
 
 	// Inherited via KeyStateSubject
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
@@ -310,12 +310,12 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(Vector2 offset, bool emit) override;
+	virtual void SetTranslate(glm::vec2 offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float Y, bool emit) override;
 
 	// Inherited via Adjustable
-	virtual Vector2 GetTranslate() override;
+	virtual glm::vec2 GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 	
@@ -323,13 +323,13 @@ public:
 	 * Gets the internal position of the child components
 	 * \return returns the point that contains X and Y of the internal position.
 	 */
-    Vector2 GetChildrenTranslate();
+    glm::vec2 GetChildrenTranslate();
 	
 	/**
 	 * Sets the position of all the subcomponents that are owned by this component at once
 	 * \param internalOffset the position
 	 */
-	void SetChildrenTranslate(Vector2 internalOffset);
+	void SetChildrenTranslate(glm::vec2 internalOffset);
 
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 
@@ -341,7 +341,7 @@ public:
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
 
-    void SetPosition(Vector2 position) override;
+    void SetPosition(glm::vec2 position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -349,13 +349,13 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(Vector2 offset) override;
+    void SetTranslate(glm::vec2 offset) override;
 
     void SetTranslateX(float x) override;
 
     void SetTranslateY(float y) override;
 
-    void SetSize(Vector2 size) override;
+    void SetSize(glm::vec2 size) override;
 
     void SetSize(float width, float height) override;
 

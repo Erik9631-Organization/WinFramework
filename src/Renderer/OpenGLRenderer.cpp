@@ -3,7 +3,6 @@
 //
 
 #include "OpenGLRenderer.h"
-#include "Vector2.h"
 #include <memory>
 #include "FontFormat.h"
 #include "Model.h"
@@ -19,7 +18,7 @@ void OpenGLRenderer::DrawEllipse(float x, float y, float width, float height)
 
 }
 
-void OpenGLRenderer::DrawEllipse(float x, float y, Vector2 vector2)
+void OpenGLRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
 {
 
 }
@@ -29,17 +28,17 @@ void OpenGLRenderer::DrawLine(float x1, float y1, float x2, float y2)
 
 }
 
-void OpenGLRenderer::DrawLine(Vector2 pos, Vector2 size)
+void OpenGLRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
 {
 
 }
 
-void OpenGLRenderer::DrawRectangle(Vector2 pos, Vector2 size)
+void OpenGLRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
-        lastShape = builder.CreateRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(),
-                                                size.GetX(), size.GetY());
+        lastShape = builder.CreateRectangle(pos.x + translation.x, pos.y + translation.y,
+                                                size.x, size.y);
         originalData = {pos, size};
         lastShapeType = ShapeType::Rectangle;
     }
@@ -54,7 +53,7 @@ void OpenGLRenderer::DrawRectangle(float x, float y, float width, float height)
     DrawRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderer::DrawString(const std::wstring &string, Vector2 position, const FontFormat &format, int len)
+void OpenGLRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
 {
 
 }
@@ -64,7 +63,7 @@ void OpenGLRenderer::FillEllipse(float x, float y, float width, float height)
 
 }
 
-void OpenGLRenderer::FillEllipse(Vector2 pos, Vector2 size)
+void OpenGLRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
 {
 
 }
@@ -74,12 +73,12 @@ void OpenGLRenderer::FillRectangle(float x, float y, float width, float height)
     //FillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderer::FillRectangle(Vector2 pos, Vector2 size)
+void OpenGLRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
-        lastShape = builder.CreateFillRectangle(pos.GetX() + translation.GetX(), pos.GetY() + translation.GetX(),
-                                                size.GetX(), size.GetY());
+        lastShape = builder.CreateFillRectangle(pos.x + translation.x, pos.y + translation.y,
+                                                size.x, size.y);
         originalData = {pos, size};
         lastShapeType = ShapeType::FillRectangle;
     }
@@ -132,10 +131,10 @@ OpenGLRenderer::OpenGLRenderer(Window &window, OpenGL::RenderingManager& manager
 
 void OpenGLRenderer::OnResize(EventResizeInfo e)
 {
-    CreateViewMatrix(e.GetSize().GetX(), e.GetSize().GetY(), *viewMatrix);
+    CreateViewMatrix(e.GetSize().x, e.GetSize().y, *viewMatrix);
 }
 
-void OpenGLRenderer::Translate(Vector2 translation)
+void OpenGLRenderer::Translate(glm::vec2 translation)
 {
     this->translation = translation;
 }
@@ -152,15 +151,15 @@ void OpenGLRenderer::CreateViewMatrix(float width, float height, glm::mat4 &view
     viewMatrix = glm::transpose(viewMatrix);
 }
 
-void OpenGLRenderer::TransformModel(OpenGL::Model &model, const Vector2 &pos, const Vector2 &size)
+void OpenGLRenderer::TransformModel(OpenGL::Model &model, const glm::vec2 &pos, const glm::vec2 &size)
 {
-    float sizeXDelta = size.GetX() / originalData.GetSize().GetX();
-    float sizeYDelta = size.GetY() / originalData.GetSize().GetY();
+    float sizeXDelta = size.x / originalData.GetSize().x;
+    float sizeYDelta = size.y / originalData.GetSize().y;
 
     model.ResetTransform();
     model.Scale({sizeXDelta, sizeYDelta, 1.0f});
-    model.Translate({translation.GetX(), translation.GetY(), 0.0f});
-    model.Translate({pos.GetX(), pos.GetY(), 0.0f});
+    model.Translate({translation.x, translation.y, 0.0f});
+    model.Translate({pos.x, pos.y, 0.0f});
 }
 
 void OpenGLRenderer::DrawModel(const OpenGL::Model &model)

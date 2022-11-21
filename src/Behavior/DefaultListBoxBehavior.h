@@ -12,7 +12,6 @@
 class ListBox;
 class TableElement;
 
-
 class DefaultListBoxBehavior : public KeyStateSubscriber, public MouseStateSubscriber, public Draggable, public DropSubscriber
 {
 private:

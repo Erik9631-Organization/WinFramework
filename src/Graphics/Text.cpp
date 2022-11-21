@@ -46,12 +46,12 @@ std::wstring Text::GetText()
     return this->text;
 }
 
-void Text::SetPosition(Vector2 position)
+void Text::SetPosition(glm::vec2 position)
 {
     this->position = position;
 }
 
-Vector2 Text::GetPosition()
+glm::vec2 Text::GetPosition()
 {
     return position;
 }
@@ -130,22 +130,22 @@ void Text::SetScalingTypeY(GraphicsScaling scalingTypeY)
 
 void Text::SetX(float x)
 {
-    position.SetX(x);
+    position.x = x;
 }
 
 void Text::SetY(float y)
 {
-    position.SetY(y);
+    position.y = y;
 }
 
 float Text::GetX()
 {
-    return position.GetX();
+    return position.x;
 }
 
 float Text::GetY()
 {
-    return position.GetY();
+    return position.y;
 }
 
 void Text::OnSync(const DrawData &data)

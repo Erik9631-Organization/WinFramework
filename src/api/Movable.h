@@ -2,7 +2,6 @@
 #include "Events/MoveSubject.h"
 #include <Windows.h>
 #include <gdiplus.h>
-#include "Vector2.h"
 
 /**
  * The interface should be implemented by all classes which should be able to move
@@ -14,7 +13,7 @@ public:
 	 * Returns position
 	 * \return returns Point object that specifies the X position and the Y position
 	 */
-	virtual Vector2 GetPosition() = 0;
+	virtual glm::vec2 GetPosition() = 0;
 
 	/**
 	 * Gets the X position of the object
@@ -44,14 +43,14 @@ public:
 	 * Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent.
 	 * \return returns absolute position as a point which specifies the X and Y position.
 	 */
-	virtual Vector2 GetAbsolutePosition() = 0;
+	virtual glm::vec2 GetAbsolutePosition() = 0;
 
 	/**
 	 * Sets the position of the object.
 	 * \param position Sets the position as a point which specifies the X and Y position.
 	 */
-	virtual void SetPosition(Vector2 position, bool emit) = 0;
-    virtual void SetPosition(Vector2 position) = 0;
+	virtual void SetPosition(glm::vec2 position, bool emit) = 0;
+    virtual void SetPosition(glm::vec2 position) = 0;
 
 	/**
 	 * Sets the position of the object. 
@@ -80,8 +79,8 @@ public:
 	 * Sets position from the current position
 	 * \param offset sets the position via a point object which specifies the X and Y position.
 	 */
-	virtual void SetTranslate(Vector2 offset, bool emit) = 0;
-    virtual void SetTranslate(Vector2 offset) = 0;
+	virtual void SetTranslate(glm::vec2 offset, bool emit) = 0;
+    virtual void SetTranslate(glm::vec2 offset) = 0;
 
 	/**
 	 * Sets position from the current position
@@ -102,7 +101,7 @@ public:
 	 * Gets the element position dependent on the current position.
 	 * \return returns the point which specifies the X and Y position.
 	 */
-	virtual Vector2 GetTranslate() = 0;
+	virtual glm::vec2 GetTranslate() = 0;
 
 	/**
 	 * Gets the element X position dependent on the current position.

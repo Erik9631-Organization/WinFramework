@@ -1,7 +1,6 @@
 #pragma once
 #include <Windows.h>
 #include <gdiplus.h>
-#include <Vector2.h>
 
 class MoveSubscriber;
 class EventResizeInfo;
@@ -28,13 +27,13 @@ class Viewable
 
 	virtual void SetViewportXOffset(int x) = 0;
 	virtual void SetViewportYOffset(int y) = 0;
-	virtual void SetViewportOffset(Vector2 offset) = 0;
+	virtual void SetViewportOffset(glm::vec2 offset) = 0;
 	virtual int GetViewportAbsoluteX() = 0;
 	virtual int GetViewportAbsoluteY() = 0;
-	virtual Vector2 GetViewportAbsolutePosition() = 0;
+	virtual glm::vec2 GetViewportAbsolutePosition() = 0;
 	virtual int GetViewportX() = 0;
 	virtual int GetViewportY() = 0;
-	virtual Vector2 GetViewportPosition() = 0;
+	virtual glm::vec2 GetViewportPosition() = 0;
 
 	virtual void NotifyOnViewportResizeSubscribers(EventResizeInfo event) = 0;
 	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) = 0;
@@ -42,13 +41,13 @@ class Viewable
 
 	virtual int GetViewportWidth() = 0;
 	virtual int GetViewportHeight() = 0;
-	virtual void SetViewportSize(Vector2 size) = 0;
+	virtual void SetViewportSize(glm::vec2 size) = 0;
 	virtual void SetViewportSize(int width, int height) = 0;
 	virtual void SetViewportWidth(int width) = 0;
 	virtual void SetViewportHeight(int height) = 0;
 	virtual int GetViewportAbsoluteWidth() = 0;
 	virtual int GetViewportAbsoluteHeight() = 0;
-	virtual Vector2 GetViewportAbsoluteSize() = 0;
-	virtual Vector2 GetViewportSize() = 0;
+	virtual glm::vec2 GetViewportAbsoluteSize() = 0;
+	virtual glm::vec2 GetViewportSize() = 0;
 };
 

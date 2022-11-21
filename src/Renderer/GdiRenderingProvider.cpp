@@ -42,9 +42,9 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
 
     if(!node.IsRoot())
     {
-        Vector2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
-        Vector2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
-        RectF viewport = RectF(viewPortAbsPos.GetX(), viewPortAbsPos.GetY(), viewPortAbsSize.GetX(), viewPortAbsSize.GetY());
+        glm::vec2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
+        glm::vec2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
+        RectF viewport = RectF(viewPortAbsPos.x, viewPortAbsPos.y, viewPortAbsSize.x, viewPortAbsSize.y);
         graphics.SetClip(viewport);
         clippingRegion.Intersect(viewport);
         graphics.IntersectClip(&clippingRegion);
@@ -68,7 +68,7 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
 {
-    Window& wrapperFrame = coreWindowframe->GetWrapperFrame();
+    auto& wrapperFrame = coreWindowframe->GetWrapperFrame();
     Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
     Gdiplus::Region clippingRegion = Gdiplus::Region(rootViewport);
     AssignGraphicsToNodes(wrapperFrame.GetUiElementNode(), clippingRegion);
@@ -83,7 +83,7 @@ HDC GdiRenderingProvider::GetSecondaryDC()
 
 void GdiRenderingProvider::OnResize(EventResizeInfo e)
 {
-    Size size = {(int)e.GetSize().GetX(), (int)e.GetSize().GetY()};
+    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
