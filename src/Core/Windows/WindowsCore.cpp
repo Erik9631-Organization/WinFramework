@@ -531,7 +531,10 @@ void WindowsCore::Start()
 
 unique_ptr<Core> WindowsCore::Create(std::any args)
 {
-    auto inputArgs = std::any_cast<CoreArgs>(args);
+    CoreArgs inputArgs{"window", WS_OVERLAPPEDWINDOW, nullptr};
+    if(args.type() == typeid(CoreArgs))
+        inputArgs = std::any_cast<CoreArgs>(args);
+
     auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, inputArgs.style);
     auto corePtr = std::unique_ptr<WindowsCore>(core);
     corePtr->Start();
@@ -547,7 +550,6 @@ void WindowsCore::WaitForRenderingSyncToFinish()
 {
     renderingProvider->WaitForSyncToFinish();
 }
-
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
