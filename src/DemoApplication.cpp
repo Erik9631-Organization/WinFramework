@@ -32,7 +32,8 @@
 #include "Events/OnAddSubscriber.h"
 #include "Components/Panel.h"
 #include "Components/Grid/Grid.h"
-#include "Components/FileBrowser.h"
+#include "Components/FileBrowser/FileBrowser.h"
+#include "Components/FileBrowser/FileBrowserFactory.h"
 #include "Components/ComboBox/ComboSelection.h"
 #include "Components/ComboBox/ComboBox.h"
 #include "Components/ComboBox/ComboElement.h"
@@ -61,14 +62,16 @@ private:
 	}
 
 public:
-	SimpleCalculator(Label& label) : outputLabel(label)
+	SimpleCalculator(Label& label)  : outputLabel(label)
 	{
 
 	}
+
 	virtual void OnMouseDown(EventMouseStateInfo e) override
 	{
 
 	}
+
 	virtual void OnMouseUp(EventMouseStateInfo e) override
 	{
 		Button* button = dynamic_cast<Button*>(e.GetSrc());
@@ -87,18 +90,22 @@ public:
 		currentValue = (currentValue * 10) + value;
 		outputLabel.SetText(outputLabel.GetText() + button->GetText());
 	}
+
 	virtual void OnMousePressed(EventMouseStateInfo e) override
 	{
 
 	}
+
 	virtual void OnMouseMove(EventMouseStateInfo e) override
 	{
 
 	}
+
 	virtual void OnMouseEntered(EventMouseStateInfo e) override
 	{
 
 	}
+
 	virtual void OnMouseLeft(EventMouseStateInfo e) override
 	{
 
@@ -113,7 +120,7 @@ public:
 class InputTester : public KeyStateSubscriber
 {
 	// Inherited via KeyStateSubscriber
-	virtual void OnKeyDown(EventKeyStateInfo e) override
+	void OnKeyDown(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 
@@ -122,13 +129,13 @@ class InputTester : public KeyStateSubscriber
 		WindowsCore::ConsoleWrite(src->GetComponentName());
 
 	}
-	virtual void OnKeyUp(EventKeyStateInfo e) override
+	void OnKeyUp(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 		WindowsCore::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
 		WindowsCore::ConsoleWrite(src->GetComponentName());
 	}
-	virtual void OnKeyPressed(EventKeyStateInfo e) override
+	void OnKeyPressed(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
 		WindowsCore::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
@@ -210,12 +217,12 @@ public:
 class FileBrowserTester : public MouseStateSubscriber
 {
 private:
-	FileBrowser browser;
+	std::unique_ptr<FileBrowser> browser;
 	TextInput& outputField;
 	void ReadFile()
 	{
-		browser.Open(); //Lock
-		std::wfstream* fileStream = browser.GetFileStream(std::ios::in);
+		browser->Open(); //Lock
+		std::wfstream* fileStream = browser->GetFileStream(std::ios::in);
 		if (fileStream == nullptr)
 			return;
 		std::wstring output;
@@ -231,8 +238,8 @@ private:
 
 	void SaveToFile()
 	{
-		browser.Save();
-		std::wfstream* fileStream = browser.GetFileStream(std::ios::out);
+		browser->Save();
+		std::wfstream* fileStream = browser->GetFileStream(std::ios::out);
 		if (fileStream == nullptr)
 			return;
 		outputField.GetText();
@@ -243,10 +250,11 @@ private:
 public:
 	FileBrowserTester(TextInput& outputField) : outputField(outputField)
 	{
-		browser.SetTitle("Test file browser");
-		browser.AddFilter("TextFiles (*.txt)", "*.txt");
-		browser.AddFilter("All Files (*)", "*.*");
-		browser.AddFilter("Dat files (*.dat)", "*.dat");
+        browser = FileBrowserFactory::Create();
+		browser->SetTitle("Test file browser");
+		browser->AddFilter("TextFiles (*.txt)", "*.txt");
+		browser->AddFilter("All Files (*)", "*.*");
+		browser->AddFilter("Dat files (*.dat)", "*.dat");
 	}
 
 	virtual void OnMouseDown(EventMouseStateInfo e) override
