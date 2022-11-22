@@ -4,6 +4,7 @@
 
 #include "Core/Windows/WindowsCore.h"
 #include "DefaultRenderingManager.h"
+#include <iostream>
 using namespace OpenGL;
 
 void DefaultRenderingManager::Render()
@@ -28,7 +29,7 @@ void DefaultRenderingManager::AddModel(const Model &model)
     Model* internalModel = model.Clone();
     auto inserted = renderingScene.try_emplace(internalModel, internalModel);
     if(inserted.second == false)
-        WindowsCore::ConsoleWrite("Insertion failed!!");
+        std::cout << "Insertion failed!!" << std::endl;
 }
 
 void DefaultRenderingManager::RemoveModel(OpenGL::Model &model)

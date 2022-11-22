@@ -1,24 +1,23 @@
 //
 // Created by Erik on 22/01/24.
 //
-#include <windows.h>
-#include <gdiplus.h>
 #include "GdiRenderingProvider.h"
 #include "Core/Windows/WindowsCore.h"
 #include "Window.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
 #include "GdiRenderer.h"
-#include <algorithm>
 #include <execution>
 #include <future>
 #include <chrono>
 #include "GdiRenderingPool.h"
 #include "ApplicationController.h"
-
 using namespace std::chrono;
-
 using namespace Gdiplus;
+
+ULONG GdiRenderingProvider::token = 0;
+Gdiplus::GdiplusStartupOutput GdiRenderingProvider::output = {};
+
 void GdiRenderingProvider::Render()
 {
     //Change the rendering bit
@@ -183,6 +182,7 @@ void GdiRenderingProvider::SetTargetFps(int targetFps)
 
 GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
 {
+    GdiStartup();
     fpsTimer.SetPeriodic(false);
     int interval = 1000/targetFps;
     fpsTimer.SetInterval(interval);
@@ -197,4 +197,17 @@ void GdiRenderingProvider::OnEntryStart()
 void GdiRenderingProvider::OnEntryEnd()
 {
 
+}
+
+void GdiRenderingProvider::GdiStartup()
+{
+    if(token != 0)
+        return;
+
+    //Startup GDI
+    GdiplusStartupInput input;
+    input.GdiplusVersion = 1;
+    input.SuppressBackgroundThread = FALSE;
+    input.DebugEventCallback = NULL;
+    GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }

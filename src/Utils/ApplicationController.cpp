@@ -1,7 +1,5 @@
 #include "ApplicationController.h"
-#include "Core/Windows/WindowsCore.h"
 #include <thread>
-#include <functional>
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
 #else
@@ -11,29 +9,9 @@
 
 ApplicationController* ApplicationController::applicationController = nullptr;
 
-ApplicationController::ApplicationController(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+ApplicationController::ApplicationController()
 {
-	this->args.hInstance = hInstance;
-	this->args.hPrevInstance = hPrevInstance;
-	this->args.lpCmdLine = lpCmdLine;
-	this->args.nCmdShow = nCmdShow;
 
-	//GDIPlus
-	GdiplusStartupInput input;
-	input.GdiplusVersion = 1; 
-	input.SuppressBackgroundThread = FALSE;
-	input.DebugEventCallback = NULL;
-	GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
-}
-
-const ApplicationController::WinEntryArgs & ApplicationController::GetWinEntryArgs()
-{
-	return args;
-}
-
-const GdiplusStartupOutput & ApplicationController::GetGdiOutput()
-{
-	return output;
 }
 
 void ApplicationController::JoinThreads()
@@ -45,25 +23,16 @@ void ApplicationController::JoinThreads()
 	}
 }
 
-LRESULT ApplicationController::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    WindowsCore* frame = reinterpret_cast<WindowsCore*>(GetWindowLongPtr(hwnd, USER_DATA));
-	if (frame != nullptr)
-		frame->ProcessMessage(uMsg, wParam, lParam);
-
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
-
 ApplicationController::~ApplicationController()
 {
-	GdiplusShutdown(token);
+
 }
 
-void ApplicationController::Create(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+void ApplicationController::Create()
 {
     if(ApplicationController::applicationController != nullptr)
         return;
-    ApplicationController::applicationController = new ApplicationController(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    ApplicationController::applicationController = new ApplicationController();
 }
 
 void ApplicationController::NotifyOnEntryStart()

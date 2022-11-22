@@ -69,6 +69,7 @@ private:
     void UpdateLockCursor();
     void CreateWinApiWindow();
     WindowsCore(Window *wrapperFrame, const string &windowName, LONG style);
+    static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
     void SetLockCursorSize(const Vector2& size);
     void LockCursor(const bool& lockState);
@@ -120,12 +121,6 @@ public:
 	 * Output to console
 	 * /param output text to output.
 	 */
-	static void ConsoleWrite(string output);
-	/**
-	 * Output to console as unicode.
-	 * /param output unicode text to output.
-	 */
-	static void UnicodeConsoleWrite(std::wstring output);
 	~WindowsCore();
 
 	// Inherited via Renderable

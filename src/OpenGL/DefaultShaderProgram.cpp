@@ -6,6 +6,7 @@
 #include "Core/Windows/WindowsCore.h"
 #include "Shader.h"
 #include "UniformProperties.h"
+#include <iostream>
 
 
 OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Shader> shader)
@@ -15,7 +16,7 @@ OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Sha
     //Make sure that the shaderProgram source is loaded and compiled
     if(!LoadAndCompile(shaderObjRef))
     {
-        WindowsCore::ConsoleWrite("Error, Shader load and compile failed!");
+        std::cout << "Error, Shader load and compile failed!" << endl;
         return shaderObjRef;
     }
 
@@ -24,7 +25,7 @@ OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Sha
     glAttachShader(programId, shaderObjRef.GetId());
     std::string error = to_string(glGetError());
     if(error != "0")
-        WindowsCore::ConsoleWrite("attach failed: " + error);
+        std::cout << "attach failed: " + error << std::endl;
     return shaderObjRef;
 }
 
@@ -86,10 +87,10 @@ bool OpenGL::DefaultShaderProgram::Link()
     glGetProgramInfoLog(programId, errorLogSize, NULL, errorLog);
     if(status == GL_FALSE)
     {
-        WindowsCore::ConsoleWrite("Error\n: " + to_string(error) + " " + std::string(errorLog));
+        std::cout << "Error\n: " << error << " " << std::string(errorLog) << std::endl;
         return false;
     }
-    WindowsCore::ConsoleWrite(to_string(error) + " " + std::string(errorLog));
+    std::cout << error << " " << std::string(errorLog) << std::endl;
 
     DeleteShaders();
     return true;

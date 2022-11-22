@@ -1,5 +1,5 @@
 #pragma once
-#include <Windows.h>
+#include <windows.h>
 #include <condition_variable>
 #include <string>
 #include "Components/UiElement.h"
@@ -7,7 +7,6 @@
 #include "Events/MoveSubscriber.h"
 #include "Events/ResizeSubscriber.h"
 #include "Graphics/Background.h"
-#include "GdiRenderingProvider.h"
 #include "Scene.h"
 #include <utility>
 #include "PresenterSubject.h"

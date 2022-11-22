@@ -1,4 +1,5 @@
 #include "DragManager.h"
+#include <iostream>
 #include "api/Draggable.h"
 #include "EventTypes/EventMouseStateInfo.h"
 #include "Events/MouseStateSubject.h"
@@ -13,7 +14,7 @@ DragManager* DragManager::srcManager = nullptr;
 
 void DragManager::OnDragStart()
 {
-	WindowsCore::ConsoleWrite("Drag started!");
+	std::cout << "Drag started!" << std::endl;
 	isDragging = true;
 	currentDragObj = associatedDraggable;
 	srcManager = this;
@@ -22,7 +23,7 @@ void DragManager::OnDragStart()
 
 void DragManager::OnDragEnd()
 {
-	WindowsCore::ConsoleWrite("Drag ended!");
+	std::cout<< "Drag ended!" << endl;
 	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
 		// Reset states

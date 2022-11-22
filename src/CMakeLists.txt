@@ -486,7 +486,7 @@ set(ALL_FILES
 # Target
 ################################################################################
 
-add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES})
+add_executable(${PROJECT_NAME} ${ALL_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE
         .
         "Behavior/"

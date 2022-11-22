@@ -5,7 +5,7 @@
 #include "GdiRenderer.h"
 #include "Vector4.h"
 #include "Vector3.h"
-#include <windows.h>
+#include <Windows.h>
 #include <gdiplus.h>
 #include "Core/Windows/WindowsCore.h"
 #include "FontFormat.h"

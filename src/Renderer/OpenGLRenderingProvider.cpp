@@ -22,6 +22,7 @@
 #include "GlobalResourceManager.h"
 #include "Window.h"
 #include "Core/Windows/WindowsCore.h"
+#include <iostream>
 
 
 
@@ -74,7 +75,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
     bool pWglChoosePixelFormatARBStatus = wglChoosePixelFormatARB(windowDc, pixelFormat, NULL, 1, &matchingIndex, &matchingSize);
     if(!pWglChoosePixelFormatARBStatus || !matchingSize)
     {
-        WindowsCore::ConsoleWrite("wglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
+        std::cout << "wglChoosePixelFormatARB failed with error: " << GetLastError() << endl;
         system("PAUSE");
         exit(0);
     }
@@ -82,16 +83,16 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
     PIXELFORMATDESCRIPTOR  formatDescription;
     if(!DescribePixelFormat(windowDc, matchingIndex, sizeof(PIXELFORMATDESCRIPTOR), &formatDescription))
     {
-        WindowsCore::ConsoleWrite("Failed to describe pixel format!" + to_string(GetLastError()));
+        std::cout << "Failed to describe pixel format!" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowDc, matchingIndex, &formatDescription))
     {
-        WindowsCore::ConsoleWrite("Failed to set pixel format!" + to_string(GetLastError()));
-        system("PAUSE");
-        exit(0);
+       std::cout << "Failed to set pixel format!" << to_string(GetLastError()) << std::endl;
+       system("PAUSE");
+       exit(0);
     }
 
 
@@ -106,14 +107,14 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
 
     if(!openGlContext)
     {
-        WindowsCore::ConsoleWrite("Failed creating GL context with error: " + to_string(GetLastError()));
+        std::cout << "Failed creating GL context with error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowDc, openGlContext))
     {
-        WindowsCore::ConsoleWrite("Error selecting gl context");
+        std::cout << "Error selecting gl context" << std::endl;
         exit(0);
     }
     std::string test{(LPCSTR)glGetString(GL_VERSION)};
@@ -129,7 +130,7 @@ void OpenGLRenderingProvider::GetGlExtensions()
     //CreateElement dummy window
     WNDCLASSA dummyWindowClass;
     ZeroMemory(&dummyWindowClass, sizeof(WNDCLASSA));
-    dummyWindowClass.hInstance = ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance;
+    dummyWindowClass.hInstance = GetModuleHandleA(NULL);
     dummyWindowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     dummyWindowClass.lpfnWndProc = DefWindowProcA;
     dummyWindowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -138,17 +139,16 @@ void OpenGLRenderingProvider::GetGlExtensions()
 
     if(!RegisterClass(&dummyWindowClass))
     {
-        WindowsCore::ConsoleWrite("Register dummy Class error: " + to_string(GetLastError()));
+        std::cout << "Register dummy Class error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     HWND dummyHandle = CreateWindow("Dummy window", NULL, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-                                    CW_USEDEFAULT, NULL, NULL,
-                                    ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance, NULL);
+                                    CW_USEDEFAULT, NULL, NULL, GetModuleHandleA(NULL), NULL);
     if(!dummyHandle)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy window handle" + to_string(GetLastError()));
+        std::cout << "Error creating dummy window handle" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
@@ -164,14 +164,14 @@ void OpenGLRenderingProvider::GetGlExtensions()
     int pixelFormatIndex = ChoosePixelFormat(windowHdc, &pixelDescription);
     if(!pixelFormatIndex)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy pixel format index" + to_string(GetLastError()));
+        std::cout << "Error creating dummy pixel format index" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowHdc, pixelFormatIndex, &pixelDescription))
     {
-        WindowsCore::ConsoleWrite("Error setting dummy pixel format index" + to_string(GetLastError()));
+        std::cout << "Error setting dummy pixel format index" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
@@ -179,21 +179,21 @@ void OpenGLRenderingProvider::GetGlExtensions()
     HGLRC glContext = wglCreateContext(windowHdc);
     if(!glContext)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy openGL rendering context" + to_string(GetLastError()));
+        std::cout << "Error creating dummy openGL rendering context" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowHdc, glContext))
     {
-        WindowsCore::ConsoleWrite("Error selecting dummy gl context");
+        std::cout << "Error selecting dummy gl context" << std::endl;
         exit(0);
     }
 
     GLenum result = glewInit();
     if(result != GLEW_OK)
     {
-        WindowsCore::ConsoleWrite("Error loading extentions");
+        std::cout << "Error loading extentions" << std::endl;
         exit(0);
     }
 

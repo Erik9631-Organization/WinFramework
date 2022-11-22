@@ -4,11 +4,14 @@
 
 #ifndef LII_GDIRENDERINGPROVIDER_H
 #define LII_GDIRENDERINGPROVIDER_H
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment (lib, "Gdiplus.lib")
 #include "RenderingProvider.h"
 #include "ResizeSubscriber.h"
 #include "DrawData2D.h"
 #include <functional>
-#include <thread>
+#include <thread>S
 #include "Timer.h"
 #include <mutex>
 #include <condition_variable>
@@ -42,6 +45,10 @@ public:
     void OnEntryEnd() override;
     std::thread* renderingThread;
 private:
+    static void GdiStartup();
+    static Gdiplus::GdiplusStartupOutput output;
+    static ULONG token;
+
     UiTreeDataSyncer syncer;
     WindowsCore* windowsCore;
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
@@ -57,7 +64,6 @@ private:
     int targetFps = 60;
     bool startRenderingLoop = true;
     Timer fpsTimer;
-
     bool performRender = false;
     std::condition_variable performRenderSignal;
 

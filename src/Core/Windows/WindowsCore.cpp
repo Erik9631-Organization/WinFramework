@@ -23,6 +23,17 @@ HDC windowHdc;
 using namespace std;
 using namespace chrono;
 
+
+LRESULT WindowsCore::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    WindowsCore* frame = reinterpret_cast<WindowsCore*>(GetWindowLongPtr(hwnd, USER_DATA));
+    if (frame != nullptr)
+        frame->ProcessMessage(uMsg, wParam, lParam);
+
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
+
 void WindowsCore::WindowsMessageLoop()
 {
 	MSG currentMsg;
@@ -104,7 +115,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
         DestroyWindow(windowHandle);
         if(!UnregisterClassA(this->windowName.c_str(), hInstance))
-            ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
+            cout << "UnRegister Class error: " << GetLastError() << endl;
         processMessages = false;
         renderingProvider->OnDestroy(*this);
         return;
@@ -203,20 +214,6 @@ void WindowsCore::CreateConsole()
 	AllocConsole();
 }
 
-void WindowsCore::ConsoleWrite(string output)
-{
-	DWORD succWritten;
-	output.append("\n");
-	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
-}
-
-void WindowsCore::UnicodeConsoleWrite(std::wstring output)
-{
-	DWORD succWritten;
-	output.append(L"\n");
-	WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
-}
-
 void WindowsCore::UpdateScale()
 {
     if(wrapperFrame == nullptr)
@@ -239,7 +236,7 @@ void WindowsCore::CreateWinApiWindow()
     WNDCLASS* windowInfo = new WNDCLASS;
     memset(windowInfo, 0, sizeof(WNDCLASS));
     windowInfo->style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    windowInfo->lpfnWndProc = (WNDPROC)ApplicationController::WindowProc;
+    windowInfo->lpfnWndProc = (WNDPROC)WindowsCore::WindowProc;
     windowInfo->cbClsExtra = NULL;
     windowInfo->cbWndExtra = NULL;
     windowInfo->hInstance = hInstance;
@@ -253,7 +250,7 @@ void WindowsCore::CreateWinApiWindow()
 
     if (!RegisterClass(windowInfo))
     {
-        ConsoleWrite("Register Class error: " + to_string(GetLastError()));
+        std::cout << "Register Class error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
@@ -273,7 +270,7 @@ void WindowsCore::CreateWinApiWindow()
 
     if (!windowHandle)
     {
-        ConsoleWrite("Error creating window handle " + to_string(GetLastError()));
+        std::cout << "Error creating window handle " << GetLastError() << endl;
         system("PAUSE");
         exit(0);
     }

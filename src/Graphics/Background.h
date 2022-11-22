@@ -1,7 +1,5 @@
 #pragma once
 #include "api/RenderCommander.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
 #include "ScalingUtil.h"

@@ -4,7 +4,7 @@
 
 #ifndef LII_VALUECONVERTER_H
 #define LII_VALUECONVERTER_H
-#include <windows.h>
+#include <Windows.h>
 #include <gdiplus.h>
 
 class ValueConverter

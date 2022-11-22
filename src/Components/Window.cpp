@@ -6,7 +6,6 @@
 #include <string>
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
-#include "GdiRenderingProvider.h"
 #include "CoreArgs.h"
 #include "RenderingProviderManager.h"
 #include "CoreManager.h"

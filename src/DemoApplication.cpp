@@ -1,24 +1,17 @@
 ﻿#include "DemoApplication.h"
 #include <codecvt>
 
-#include "Components/Window.h" // Needed
+#include "Window.h" // Needed
 #include "Utils/ApplicationController.h"
 #include "Utils/WinWrapper.h" // Needed
 #include "Components/Button.h"
-#include <Windows.h>
 
 #include <string>
 #include "Core/Windows/WindowsCore.h"
-#include <gdiplus.h>
-#include "DataTypes/DefaultMultiTree.h"
-#include "Events/MoveSubscriber.h"
 #include "EventTypes/EventUpdateInfo.h"
-#include "api/MouseInteractable.h"
 #include "Events/MouseStateSubscriber.h"
 #include "EventTypes/EventMouseStateInfo.h"
 #include "Components/Label.h"
-#include "Graphics/SimpleBorder.h"
-#include "Events/ActivateSubscriber.h"
 #include "EventTypes/EventOnActivateInfo.h"
 #include "EventTypes/EventKeyStateInfo.h"
 #include "Components/TextInput.h"
@@ -29,7 +22,6 @@
 #include "Events/RadioButtonStateSubscriber.h"
 #include "EventTypes/EventRadioButtonStateInfo.h"
 #include "Components/PasswordField.h"
-#include "Events/OnAddSubscriber.h"
 #include "Components/Panel.h"
 #include "Components/Grid/Grid.h"
 #include "Components/FileBrowser.h"
@@ -38,6 +30,8 @@
 #include "Components/ComboBox/ComboElement.h"
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
+#include <iostream>
+
 std::unique_ptr<Window> frame;
 
 class SimpleCalculator : public MouseStateSubscriber
@@ -117,23 +111,18 @@ class InputTester : public KeyStateSubscriber
 	virtual void OnKeyDown(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-
-		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
-			WindowsCore::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+        std::cout << src->GetComponentName() << endl;
 
 	}
 	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		WindowsCore::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+		std::cout << src->GetComponentName() << std::endl;
 	}
 	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		WindowsCore::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+        std::cout << src->GetComponentName() << std::endl;
 	}
 };
 
@@ -144,9 +133,9 @@ class CheckboxTester : public CheckboxStateSubscriber
 	{
 		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
 		if (e.GetState())
-			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
+            std::cout << "Checkbox: " << src->GetComponentName() << " checked!" << std::endl;
 		else
-			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
+            std::cout <<"Checkbox: " << src->GetComponentName() << " unchecked!" << std::endl;
 	}
 };
 
@@ -157,10 +146,10 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	{
 		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
 		if (e.IsSelected())
-			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
+            std::cout << "RadioButton: " + src->GetComponentName() + " checked!" << std::endl;
 		else
-			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
-	}
+            std::cout << "RadioButton: " + src->GetComponentName() + " unchecked!" << std::endl;
+    }
 };
 
 class FormSubmiter : public MouseStateSubscriber
@@ -300,13 +289,13 @@ public:
 	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
+		std::cout << comboBox.GetComponentName() << "Has changed state to opened" << std::endl;
 	}
 
 	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
 	{
 		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
+        std::cout << comboBox.GetComponentName() << "Has changed state to closed" << std::endl;
 	}
 
 	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
@@ -315,8 +304,6 @@ public:
 		if (e.GetElement() == nullptr)
 			return;
 		ComboElement& element = *e.GetElement();
-		WindowsCore::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
-		WindowsCore::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
 	}
 
 };
@@ -590,5 +577,4 @@ void DemoApplication::LaunchDemoApp()
 
     frame->Add(std::move(calculatorGridPtr));
     auto& UiElementNode = frame->GetUiElementNode().GetNode(0);
-    WindowsCore::ConsoleWrite(UiElementNode.GetValue()->GetComponentName() + " nodeCount: " + to_string(UiElementNode.GetNodeCount()));
 }

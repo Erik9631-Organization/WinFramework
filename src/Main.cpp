@@ -1,13 +1,12 @@
 ﻿#include "ApplicationController.h"
-#include "WinWrapper.h" // Needed
-#include <Windows.h>
-#include "DemoApplication.h"
 #include "Window.h"
+#include "WinWrapper.h" // Needed
+#include "DemoApplication.h"
 #include "OpenGLRenderingProvider.h"
 #include "GraphicsShader.h"
 #include "OnTickSubscriber.h"
 #include "CameraManager.h"
-#include "InputManager.h"
+//#include "InputManager.h"
 #include "ActivateSubscriber.h"
 #include "EventOnActivateInfo.h"
 #include <iostream>
@@ -20,13 +19,12 @@
 #include "StaticTexture.h"
 #include "DirectionalLight.h"
 #include "PointLight.h"
-
 using namespace std;
 
 
-int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int main()
 {
-	ApplicationController::Create(hInstance, hPrevInstance, lpCmdLine, nCmdShow);
+    ApplicationController::Create();
 
     ApplicationController::GetApplicationController()->NotifyOnEntryStart();
 	int returnVal = LiiEntry();
@@ -34,7 +32,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 	//Thread cleanup
     ApplicationController::GetApplicationController()->JoinThreads();
-	return returnVal;
+	return 0;
 }
 
 

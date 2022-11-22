@@ -51,6 +51,14 @@ namespace OpenGL
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
         const unsigned long long int &GetId() const override;
+
+        void SetSize(Vector2 size) override;
+
+        void SetSize(float width, float height) override;
+
+        void SetWidth(float width) override;
+
+        void SetHeight(float height) override;
     };
 }
 
