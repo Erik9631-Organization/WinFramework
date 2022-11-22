@@ -4,9 +4,7 @@
 
 #ifndef GRAPHICS_TESTGRAPHICS_H
 #define GRAPHICS_TESTGRAPHICS_H
-#include "api/RenderCommander.h"
-#include <Windows.h>
-#include <gdiplus.h>
+#include "RenderCommander.h"
 #include <Renderer.h>
 
 

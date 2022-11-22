@@ -32,7 +32,7 @@ public:
 
 	RadioButton();
 	RadioButton(std::string name);
-	RadioButton(int x, int y, int width, int height, string componentName);
+	RadioButton(int x, int y, int width, int height, std::string componentName);
 
 	// Inherited via RadioButtonStateSubject
 	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;

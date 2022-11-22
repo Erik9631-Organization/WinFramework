@@ -1,7 +1,5 @@
 #pragma once
 #include "Events/ResizeSubject.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include <Vector2.h>
 /**
  * An interface for all the classes that can be resized.

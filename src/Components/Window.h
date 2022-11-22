@@ -1,5 +1,4 @@
 #pragma once
-#include <windows.h>
 #include <condition_variable>
 #include <string>
 #include "Components/UiElement.h"
@@ -13,7 +12,6 @@
 #include "Presenter.h"
 #include "CoreMediator.h"
 
-using namespace std;
 class WindowsCore;
 class RenderingProvider;
 /**
@@ -44,34 +42,8 @@ private:
 public:
     Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
-    Window(int x, int y, int width, int height, std::string windowName, LONG style);
-    static std::unique_ptr<Window> Create(const string &windowName);
-    static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName);
-    static std::unique_ptr<Window> Create(int x, int y, int width, int height, const string &windowName, LONG style);
-
-	/**
-	 * Adds a new flag to the window style. Some of these styles can not be changed at runtime. Please refer to <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">MSDN</a>
-	 * \param styleFlags the flag of the style you would like to add. List of flags are available here: <a href="https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles">MSDN</a>
-	 */
-	void AddWindowStyle(LONG styleFlags);
-	/**
-	 * Removes a flag to the window style. Some of these styles can not be changed at runtime. Please refer to <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setwindowlonga">MSDN</a>
-	 * \param styleFlags the flag of the style you would like to remove. List of flags are available here: <a href="https://docs.microsoft.com/en-us/windows/win32/winmsg/window-styles">MSDN</a>
-	 */
-	void RemoveWindowStyle(LONG styleFlags);
-
-	/**
-	 * Adds a new flag to the window style.
-	 * \param styleFlags the flag of the style you would like to add. List of flags are available here: <a href="https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles">MSDN</a>
-	 */
-	void AddWindowExtendedStyle(LONG styleFlags);
-
-	/**
-	 * Removes a flag to the window style.
-	 * \param styleFlags the flag of the style you would like to remove. List of flags are available here: <a href="https://docs.microsoft.com/en-us/windows/win32/winmsg/extended-window-styles">MSDN</a>
-	 */
-	void RemoveWindowExtendedStyle(LONG styleFlags);
-
+    static std::unique_ptr<Window> Create(const std::string &windowName);
+    static std::unique_ptr<Window> Create(int x, int y, int width, int height, const std::string &windowName);
 	
 	bool initDone = false;
 
@@ -89,13 +61,13 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-    void Add(unique_ptr<UiElement> component) override;
+    void Add(std::unique_ptr<UiElement> component) override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
     void WaitForSync();
-    void Add(unique_ptr<Element3d> element);
+    void Add(std::unique_ptr<Element3d> element);
     template<typename type, typename ...Args>
     type& CreateElement(Args ... args)
     {

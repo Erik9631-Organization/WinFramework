@@ -56,8 +56,7 @@ source_group("Lii" FILES ${Lii})
 
 set(Lii_Behavior
     "Behavior/DefaultActivate.h"
-    "Behavior/DefaultComboBoxBehavior.h"
-    "Behavior/DefaultKeyStateBehavior.h"
+        "Behavior/DefaultKeyStateBehavior.h"
     "Behavior/DefaultMouseBehavior.h"
     "Behavior/DefaultMove.h"
     "Behavior/DefaultRender.h"
@@ -65,11 +64,8 @@ set(Lii_Behavior
     "Behavior/RadioButtonBehavior.h"
     "Behavior/TextInputBehavior.h"
     "Behavior/Viewport.h"
-    "Components/ComboBox/ComboBox.cpp"
-    "Components/ComboBox/ComboElement.cpp"
     "Behavior/DefaultActivate.cpp"
-    "Behavior/DefaultComboBoxBehavior.cpp"
-    "Behavior/DefaultKeyStateBehavior.cpp"
+        "Behavior/DefaultKeyStateBehavior.cpp"
     "Behavior/DefaultMouseBehavior.cpp"
     "Behavior/DefaultMove.cpp"
     "Behavior/DefaultRender.cpp"
@@ -191,10 +187,7 @@ set(Lii_Components_3d
 source_group("Lii\\Components\\3d" FILES ${Lii_Components_3d})
 
 set(Lii_Components_ComboBox
-    Components/ComboBox/ComboBox.h
-    Components/ComboBox/ComboElement.h
-    Components/ComboBox/ComboSelection.h
-    Components/ComboBox/ComboSelection.cpp
+
 )
 source_group("Lii\\Components\\ComboBox" FILES ${Lii_Components_ComboBox})
 
@@ -349,12 +342,9 @@ set(Lii_Utils
     DataTypes/Vector2.cpp DataTypes/Vector2.h
     Utils/ScalingUtil.cpp
     Utils/ScalingUtil.h
-    Utils/ValueConverter.cpp
-    Utils/ValueConverter.h
-    Utils/Timer.cpp
+        Utils/Timer.cpp
     Utils/Timer.h
-    Utils/ValueConverter.cpp
-    Events/TimerSubscriber.cpp
+        Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
         Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h Utils/WindowBuilder.cpp Utils/WindowBuilder.h Utils/Managers/RenderingProviderManager.cpp Utils/Managers/RenderingProviderManager.h)
 source_group("Lii\\Utils" FILES ${Lii_Utils})

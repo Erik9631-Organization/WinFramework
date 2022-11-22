@@ -2,6 +2,7 @@
 #include "DirectionalLight.h"
 #include "RenderingPriorities.h"
 #include "CameraManager.h"
+using namespace std;
 
 //DEFINED IN THE FRAGMENT SHADER AS WELL
 IdManager DirectionalLight::idManager = IdManager(maxDirectionalLights);

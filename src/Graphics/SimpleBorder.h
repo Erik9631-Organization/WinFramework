@@ -1,8 +1,6 @@
 #pragma once
-#include "api/RenderCommander.h"
+#include "RenderCommander.h"
 #include "DefaultRender.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "ClassMethod.h"
 #include <unordered_map>
 #include "Reflectable.h"

@@ -21,7 +21,7 @@ void CoreFactory::SetTag(const std::string &tag)
     this->tag = tag;
 }
 
-unique_ptr<Core> CoreFactory::Create(std::any args)
+std::unique_ptr<Core> CoreFactory::Create(std::any args)
 {
     return CreateWindowsCore(args);
 }

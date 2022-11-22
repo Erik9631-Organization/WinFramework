@@ -26,7 +26,7 @@ public:
 	 * \param unicodeKey the unicode key of the thumbTrack that was interacted with when the event was sent.
 	 * \param keyboardState a pointer to an array containing a snapshot of the current state of the keyboard. Check <a href="https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeyboardstate">MSDN</a> for more info 
 	 */
-	EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState);
+	EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, unsigned char *keyboardState);
 
 	EventKeyStateInfo(KeyStateSubject* source, EventKeyStateInfo info);
 

@@ -52,7 +52,7 @@ public:
 	 * Creates a new checkbox with 0 width and height and 0 x position and y position.
 	 * \param name the name used to identify the checkbox. This is not a display value.
 	*/
-	Checkbox(string name);
+	Checkbox(std::string name);
 
 	/**
 	 * \param x the x position where the checkbox should be located
@@ -61,7 +61,7 @@ public:
 	 * \param height the height of the checkbox
 	 * \param name the name used to identify the checkbox. This is not a display value.
 	*/
-	Checkbox(int x, int y, int width, int height, string name);
+	Checkbox(int x, int y, int width, int height, std::string name);
 
 	// Inherited via CheckboxStateSubject
 	virtual void AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber) override;

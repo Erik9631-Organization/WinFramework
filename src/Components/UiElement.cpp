@@ -9,6 +9,7 @@
 #include <future>
 #include <algorithm>
 #include "Core/Windows/WindowsCore.h"
+using namespace std;
 
 void UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {

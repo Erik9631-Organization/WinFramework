@@ -5,6 +5,8 @@
 #include "CoreMediator.h"
 #include "Window.h"
 #include "RenderingProvider.h"
+using namespace std;
+
 void CoreMediator::CoreOnDestroy(std::any src)
 {
 

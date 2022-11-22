@@ -12,7 +12,8 @@
 #include <chrono>
 #include "GdiRenderingPool.h"
 #include "ApplicationController.h"
-using namespace std::chrono;
+using namespace std;
+using namespace chrono;
 using namespace Gdiplus;
 
 ULONG GdiRenderingProvider::token = 0;

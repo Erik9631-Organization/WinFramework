@@ -3,13 +3,12 @@
 //
 
 #include "UiTreeDataSyncer.h"
-#include <algorithm>
 #include <execution>
 #include <future>
 #include "UiElement.h"
 #include "DrawData2D.h"
 #include "MultiTree.h"
-#include "Core/Windows/WindowsCore.h"
+#include "WindowsCore.h"
 
 void UiTreeDataSyncer::InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &node)
 {
@@ -25,15 +24,15 @@ void UiTreeDataSyncer::InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &n
 
 void UiTreeDataSyncer::WaitForSync()
 {
-    std::unique_lock<mutex>syncFinishedGuard{syncFinishedMutex};
+    std::unique_lock<std::mutex>syncFinishedGuard{syncFinishedMutex};
     syncFinishedSignal.wait(syncFinishedGuard, [=]{return syncFinished;});
 }
 
-void UiTreeDataSyncer::SyncData(MultiTree<unique_ptr<UiElement>> &node)
+void UiTreeDataSyncer::SyncData(MultiTree<std::unique_ptr<UiElement>> &node)
 {
     syncFinished = false;
     InternalSyncData(node);
-    std::lock_guard<mutex>syncFinishedGuard{syncFinishedMutex};
+    std::lock_guard<std::mutex>syncFinishedGuard{syncFinishedMutex};
     syncFinished = true;
     syncFinishedSignal.notify_all();
 }

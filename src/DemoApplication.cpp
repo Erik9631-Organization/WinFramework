@@ -2,8 +2,6 @@
 #include <codecvt>
 
 #include "Window.h" // Needed
-#include "Utils/ApplicationController.h"
-#include "Utils/WinWrapper.h" // Needed
 #include "Components/Button.h"
 
 #include <string>
@@ -25,12 +23,10 @@
 #include "Components/Panel.h"
 #include "Components/Grid/Grid.h"
 #include "Components/FileBrowser.h"
-#include "Components/ComboBox/ComboSelection.h"
-#include "Components/ComboBox/ComboBox.h"
-#include "Components/ComboBox/ComboElement.h"
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
 #include <iostream>
+using namespace std;
 
 std::unique_ptr<Window> frame;
 
@@ -275,40 +271,6 @@ public:
 };
 
 
-class ComboBoxTester : public ComboBoxStateSubscriber
-{
-private:
-	ComboBox& testedComboBox;
-
-public:
-	ComboBoxTester(ComboBox& comboBox) : testedComboBox(comboBox)
-	{
-
-	}
-	// Inherited via ComboBoxStateSubscriber
-	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		std::cout << comboBox.GetComponentName() << "Has changed state to opened" << std::endl;
-	}
-
-	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-        std::cout << comboBox.GetComponentName() << "Has changed state to closed" << std::endl;
-	}
-
-	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		if (e.GetElement() == nullptr)
-			return;
-		ComboElement& element = *e.GetElement();
-	}
-
-};
-
-
 void DemoApplication::LaunchDemoApp()
 {
 	/*ComboSelection selections = ComboSelection();
@@ -352,25 +314,6 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* Listbox test end
 	*/
-
-	/*
-	* ComboBox test start
-	*/
-
-	auto comboBox = std::make_unique<ComboBox>(490, 20, 100, 30, "ComboBox");
-	comboBox->SetText(L"Combo Box");
-	comboBox->CreateComboElement(L"First", std::make_any<int>(1));
-	comboBox->CreateComboElement(L"Second", std::make_any<int>(2));
-	comboBox->CreateComboElement(L"Third", std::make_any<int>(3));
-	comboBox->CreateComboElement(L"Fourth", std::make_any<int>(4));
-	comboBox->CreateComboElement(L"Fifth", std::make_any<int>(5));
-	auto comboBoxTester = new ComboBoxTester(*comboBox);
-	comboBox->AddComboBoxStateSubscriber(*comboBoxTester);
-
-	/*
-	* ComboBox test end
-	*/
-
 
 	/*
 	* Grid Test Start
@@ -539,7 +482,6 @@ void DemoApplication::LaunchDemoApp()
 	frame->Add(std::move(fileOutput));
 	frame->Add(std::move(fileSaveButton));
 	frame->Add(std::move(clearButton));
-	frame->Add(std::move(comboBox));
 	frame->Add(std::move(listBox));
 	frame->Add(std::move(listBoxDragTest));
 

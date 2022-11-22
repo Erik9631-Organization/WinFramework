@@ -1,7 +1,5 @@
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
-#include "api/RenderCommander.h"
+#include "RenderCommander.h"
 #include "DefaultRender.h"
 #include "CircleBackground.h"
 #include "CircleBorder.h"

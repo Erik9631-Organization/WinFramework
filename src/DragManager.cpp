@@ -23,7 +23,7 @@ void DragManager::OnDragStart()
 
 void DragManager::OnDragEnd()
 {
-	std::cout<< "Drag ended!" << endl;
+	std::cout<< "Drag ended!" << std::endl;
 	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
 		// Reset states

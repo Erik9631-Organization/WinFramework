@@ -7,8 +7,6 @@
 #include <vector>
 #include <memory>
 #include "RenderObjectSubscriber.h"
-#include <windows.h>
-#include <glew.h>
 #include "DefaultVertexAttribute.h"
 #include "Taggable.h"
 #include "GpuMemoryAllocator.h"

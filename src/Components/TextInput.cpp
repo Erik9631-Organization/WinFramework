@@ -1,4 +1,5 @@
 #include "TextInput.h"
+using namespace std;
 
 TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
 {

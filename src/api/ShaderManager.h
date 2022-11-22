@@ -9,6 +9,7 @@
 #include <unordered_map>
 #include "ResourceManager.h"
 #include "DefaultShaderProgram.h"
+using namespace std;
 
 class ShaderManager : public ResourceManager
 {

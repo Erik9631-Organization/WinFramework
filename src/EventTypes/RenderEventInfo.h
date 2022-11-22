@@ -1,6 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
 #include "api/RenderCommander.h"
 #include "Vector2.h"
 

@@ -14,8 +14,8 @@ class MouseStateSubscriber;
 class ScrollBar : public Panel
 {
 public:
-    ScrollBar(int x, int y, int width, int height, const string &name);
-    ScrollBar(const string &name);
+    ScrollBar(int x, int y, int width, int height, const std::string &name);
+    ScrollBar(const std::string &name);
     ScrollBar();
     /**
      * \remark If control is called, the controlled component will also become owner of the scrollbar.

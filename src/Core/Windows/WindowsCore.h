@@ -1,7 +1,7 @@
 #pragma once
 #include "Window.h"
-#include <Windows.h>
 #include <string>
+#include <windows.h>
 #include <gdiplus.h>
 #include "Utils/ApplicationController.h"
 #include "Events/ResizeSubscriber.h"
@@ -17,8 +17,6 @@
 #include "CoreMediator.h"
 #include "CoreSubject.h"
 #include "Core.h"
-
-using namespace Gdiplus;
 class RenderingProvider;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
@@ -36,9 +34,9 @@ private:
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
     private:
-        vector<reference_wrapper<ResizeSubscriber>> resizeSubscribers;
+        std::vector<std::reference_wrapper<ResizeSubscriber>> resizeSubscribers;
     };
-    vector<CoreSubscriber*> coreSubscribers;
+    std::vector<CoreSubscriber*> coreSubscribers;
     MsgSubject preProcessSubject;
 	HWND windowHandle;
 	void CreateConsole();
@@ -63,12 +61,12 @@ private:
 	int targetFps = 60;
 	Timer fpsTimer;
 	bool eventBased = false;
-    mutex updateMutex;
+    std::mutex updateMutex;
     bool processMessages = true;
     void UpdateGlobalInputState();
     void UpdateLockCursor();
     void CreateWinApiWindow();
-    WindowsCore(Window *wrapperFrame, const string &windowName, LONG style);
+    WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
     void SetLockCursorSize(const Vector2& size);
@@ -168,7 +166,7 @@ public:
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
-	void SetRenderingProvider(unique_ptr<RenderingProvider> provider);
+	void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider);
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
@@ -191,7 +189,7 @@ public:
 
     void Start() override;
 
-    static unique_ptr<Core> Create(std::any args);
+    static std::unique_ptr<Core> Create(std::any args);
 
     void SetWindow(Window *window) override;
 

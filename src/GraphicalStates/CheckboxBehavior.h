@@ -1,8 +1,6 @@
 #pragma once
 #include "Events/MouseStateSubscriber.h"
-#include <Windows.h>
 #include <vector>
-#include <gdiplus.h>
 #include "Events/CheckboxStateSubject.h"
 #include "Vector4.h"
 

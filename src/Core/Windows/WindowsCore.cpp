@@ -1,10 +1,7 @@
 #include "WindowsCore.h"
-#include <Windows.h>
 #include <iostream>
-#include "api/Resizable.h"
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
-#include <stack>
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "RenderingProvider.h"
@@ -532,7 +529,7 @@ unique_ptr<Core> WindowsCore::Create(std::any args)
     if(args.type() == typeid(CoreArgs))
         inputArgs = std::any_cast<CoreArgs>(args);
 
-    auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, inputArgs.style);
+    auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, WS_OVERLAPPEDWINDOW);
     auto corePtr = std::unique_ptr<WindowsCore>(core);
     corePtr->Start();
     return std::move(corePtr);

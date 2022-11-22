@@ -5,14 +5,7 @@
 #ifndef LII_OPENGLRENDERINGPROVIDER_H
 #define LII_OPENGLRENDERINGPROVIDER_H
 #include "RenderingProvider.h"
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <DefaultShaderProgram.h>
 #include "UiTreeDataSyncer.h"
-#include "Model.h"
-#include "OpenGLRenderingPool.h"
-#include "DefaultRenderingManager.h"
 #include "Element3dDataSyncer.h"
 
 class OpenGLRenderingProvider : public RenderingProvider

@@ -11,30 +11,6 @@
 #include "CoreManager.h"
 using namespace std;
 
-void Window::AddWindowStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesChanged(e);
-}
-
-void Window::RemoveWindowStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesRemoved(e);
-}
-
-void Window::AddWindowExtendedStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesChanged(e);
-}
-
-void Window::RemoveWindowExtendedStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesRemoved(e);
-}
-
 void Window::SetSize(float width, float height, bool emit)
 {
     UiElement::SetSize(width, height, emit);
@@ -128,12 +104,7 @@ Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
 
 }
 
-Window::Window(int x, int y, int width, int height, string windowName) : Window(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW)
-{
-
-}
-
-Window::Window(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
+Window::Window(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName)
 {
 	componentType = "Window";
 	background.SetColor({255, 255, 255});
@@ -244,18 +215,13 @@ std::unique_ptr<Window> Window::Create(const string &windowName)
 
 std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName)
 {
-    return Create(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW);
-}
-
-std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName, LONG style)
-{
-    auto* window = new Window(x, y, width, height, windowName, style);
+    auto* window = new Window(x, y, width, height, windowName);
     window->AddOnTickSubscriber(&window->scene3d);
     window->AddRenderCommander(window->background);
 
-    //Create all window dependencies
+    //Create all window DEPENDENCIES
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, style, window));
+    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
     core->SetRenderingProvider(std::move(renderingProvider));
 
     //Create core mediator

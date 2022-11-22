@@ -1,7 +1,5 @@
 #pragma once
-#include "Events/MoveSubject.h"
-#include <Windows.h>
-#include <gdiplus.h>
+#include "MoveSubject.h"
 #include "Vector2.h"
 
 /**

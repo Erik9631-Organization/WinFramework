@@ -1,8 +1,6 @@
 #pragma once
 #include "Components/Label.h"
 #include <any>
-#include <Windows.h>
-#include <gdiplus.h>
 
 class TableElement : public Label
 {

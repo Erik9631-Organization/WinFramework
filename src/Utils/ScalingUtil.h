@@ -4,8 +4,6 @@
 
 #ifndef GRAPHICS_GRAPHICS2DUTIL_H
 #define GRAPHICS_GRAPHICS2DUTIL_H
-#include <Windows.h>
-#include <gdiplus.h>
 #include "GraphicsScaling.h"
 #include "api/RenderCommander.h"
 #include "Vector2.h"

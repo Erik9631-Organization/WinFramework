@@ -1,7 +1,5 @@
 #pragma once
 #include "Events/MoveSubscriber.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "EventTypes/EventMoveInfo.h"
 #include <vector>
 #include "DataTypes/MultiTree.h"

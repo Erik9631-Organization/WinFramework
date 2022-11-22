@@ -1,7 +1,7 @@
 #include "Button.h"
 #include "Core/Windows/WindowsCore.h"
-#include "EventTypes/RenderEventInfo.h"
 #include "FontAlignment.h"
+
 void Button::SetBorderColor(Vector3 color)
 {
 	border.SetColor(color);

@@ -7,7 +7,7 @@
 #include "Shader.h"
 #include "UniformProperties.h"
 #include <iostream>
-
+using namespace std;
 
 OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Shader> shader)
 {
@@ -16,7 +16,7 @@ OpenGL::Shader &OpenGL::DefaultShaderProgram::AssembleShader(std::unique_ptr<Sha
     //Make sure that the shaderProgram source is loaded and compiled
     if(!LoadAndCompile(shaderObjRef))
     {
-        std::cout << "Error, Shader load and compile failed!" << endl;
+        std::cout << "Error, Shader load and compile failed!" << std::endl;
         return shaderObjRef;
     }
 

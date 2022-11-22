@@ -11,7 +11,7 @@
 #include "ResizeSubscriber.h"
 #include "DrawData2D.h"
 #include <functional>
-#include <thread>S
+#include <thread>
 #include "Timer.h"
 #include <mutex>
 #include <condition_variable>

@@ -7,7 +7,7 @@ class PasswordField : public UiElement
 {
 private:
 	Text text;
-	wstring realText;
+    std::wstring realText;
 	Background background;
 	SimpleBorder border;
 	TextInputBehavior behavior;
@@ -22,16 +22,16 @@ public:
 	 * \param height the height of the grid.
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	PasswordField(int x, int y, int width, int height, string windowName);
+	PasswordField(int x, int y, int width, int height, std::string windowName);
 
 	/**
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	PasswordField(string name);
+	PasswordField(std::string name);
 
 	
-	void SetText(wstring text) override;
-	wstring GetText() override;
+	void SetText(std::wstring text) override;
+    std::wstring GetText() override;
 
 	/**
 	 * \return returns the background color.

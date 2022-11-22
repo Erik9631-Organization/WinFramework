@@ -1,5 +1,6 @@
 ﻿#include "Checkbox.h"
 #include "EventTypes/EventCheckboxStateInfo.h"
+using namespace std;
 
 void Checkbox::SetText(std::wstring text)
 {
@@ -68,15 +69,15 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
     checkboxBorder.SetX(0.02f);
     checkboxBorder.SetY(0.5f);
 
-	checkBoxChar.SetLineAlignment(StringAlignment::StringAlignmentCenter);
-	checkBoxChar.SetAlignment(StringAlignment::StringAlignmentCenter);
+	checkBoxChar.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
+	checkBoxChar.SetAlignment(FontAlingnment::FontAlignmentCenter);
 	checkBoxChar.SetScalingTypeY(Percentual);
 	checkBoxChar.SetScalingTypeX(Decimal);
 	checkBoxChar.SetPosition({10.0f, 0.51f});
 	checkBoxChar.SetText(L"");
 	checkBoxChar.SetColor({0, 0, 0});
 
-	text.SetLineAlignment(StringAlignment::StringAlignmentCenter);
+	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
 	text.SetColor({0, 0, 0});
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeX(Decimal);

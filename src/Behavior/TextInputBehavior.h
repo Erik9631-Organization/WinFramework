@@ -1,8 +1,6 @@
 #pragma once
 #include "Events/ActivateSubscriber.h"
 #include "Events/KeyStateSubscriber.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "Vector4.h"
 
 class UiElement;

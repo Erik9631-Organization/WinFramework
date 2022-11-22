@@ -2,26 +2,14 @@
 // Created by Erik on 01/02/22.
 //
 
-#include <Windows.h>
-#include <gdiplus.h>
 #include "OpenGLRenderingProvider.h"
-#include <glew.h>
-#include <wglew.h>
-#include "ApplicationController.h"
 #include <string>
 #include "RenderEventInfo.h"
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include "ModelBuilder.h"
-#include "StaticTexture.h"
 #include "CameraManager.h"
-#include "Model.h"
 #include "EventUpdateInfo.h"
 #include "ShaderManager.h"
 #include "GraphicsShader.h"
 #include "GlobalResourceManager.h"
-#include "Window.h"
-#include "Core/Windows/WindowsCore.h"
 #include <iostream>
 
 

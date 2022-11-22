@@ -1,12 +1,6 @@
 #pragma once
 #include <any>
 #include <Vector2.h>
-
-namespace Gdiplus
-{
-	class Point;
-}
-
 /**
  * This interface is implemented by all the classes which support collision check.
  */

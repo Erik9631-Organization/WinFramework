@@ -1,12 +1,11 @@
 #include "EventKeyStateInfo.h"
-#include <Windows.h>
 
 EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey) : EventKeyStateInfo(source, virtualKey, unicodeKey, nullptr)
 {
 
 }
 
-EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, BYTE* keyboardState)
+EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, unsigned char *keyboardState)
 {
 	this->source = source;
 	this->virtualKey = virtualKey;

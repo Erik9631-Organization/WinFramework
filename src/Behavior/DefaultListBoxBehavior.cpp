@@ -2,7 +2,7 @@
 #include "../TableElement.h"
 #include "Components/ListBox.h"
 #include "EventTypes/EventKeyStateInfo.h"
-
+using namespace std;
 
 void DefaultListBoxBehavior::SelectClickAction(TableElement* element)
 {
@@ -54,7 +54,7 @@ DefaultListBoxBehavior::DefaultListBoxBehavior(ListBox& associatedListBox) : ass
 
 void DefaultListBoxBehavior::CreateListElement(std::wstring text, std::any value)
 {
-	auto element = std::make_unique<TableElement>(0, 0, 0, 0, "element"+to_string(listElements.size()));
+	auto element = std::make_unique<TableElement>(0, 0, 0, 0, "element"+ to_string(listElements.size()));
 	element->SetText(text);
 	element->AddKeyStateSubscriber(*this);
 	element->AddMouseStateSubscriber(*this);

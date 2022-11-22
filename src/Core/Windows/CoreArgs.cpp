@@ -5,6 +5,7 @@
 #include "CoreArgs.h"
 #include <memory>
 #include "Window.h"
+using namespace std;
 
 any CoreArgs::Create(std::string name, long style, Window *associatedWindow)
 {
