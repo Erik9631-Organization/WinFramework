@@ -181,7 +181,6 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 	if(renderingProvider != nullptr)
 	    renderingProvider->Render();
-
 	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");

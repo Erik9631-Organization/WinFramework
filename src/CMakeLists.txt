@@ -193,11 +193,9 @@ source_group("Lii\\Components\\ComboBox" FILES ${Lii_Components_ComboBox})
 
 
 set(Lii_DataTypes
-    DataTypes/CastableTree.h
-    DataTypes/DefaultMultiTree.h
+        DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
-    DataTypes/CastableTree.cpp
-    DataTypes/DefaultMultiTree.cpp
+        DataTypes/DefaultMultiTree.cpp
     DataTypes/MultiTree.cpp
     DataTypes/Vector3.cpp
     DataTypes/Vector3.h
