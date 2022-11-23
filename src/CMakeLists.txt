@@ -333,8 +333,7 @@ set(Lii_Utils
     "Utils/AccessTools.h"
     "Utils/ApplicationController.h"
     "Utils/InputManager.h"
-    "Utils/WinWrapper.h"
-    "Utils/AccessTools.cpp"
+        "Utils/AccessTools.cpp"
     "Utils/ApplicationController.cpp"
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
@@ -470,7 +469,7 @@ set(ALL_FILES
     ${Lii_Components_3d}
     ${Lii_Utils_Managers}
     ${Lii_Utils_Factories}
-        Events/EntryStateSubscriber.h api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
 
 ################################################################################
 # Target

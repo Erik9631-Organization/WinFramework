@@ -41,8 +41,6 @@ public:
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
-    void OnEntryStart() override;
-    void OnEntryEnd() override;
     std::thread* renderingThread;
 private:
     static void GdiStartup();

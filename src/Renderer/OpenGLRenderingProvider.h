@@ -16,8 +16,6 @@ public:
     void OnDestroy(Core &coreWindow) override;
     void OnRemove(Core &coreWindow) override;
     void WaitForSyncToFinish() override;
-    void OnEntryStart() override;
-    void OnEntryEnd() override;
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
     void GraphicsInit();

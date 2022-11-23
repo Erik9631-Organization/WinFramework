@@ -3,8 +3,10 @@
 //
 
 #include "RenderingProviderManager.h"
+#ifdef windows
 #include "GdiRenderingProviderFactory.h"
 #include "OpenGLRenderingProviderFactory.h"
+#endif
 
 std::unique_ptr<RenderingProviderManager> RenderingProviderManager::renderingProviderManager = std::make_unique<RenderingProviderManager>();
 
@@ -31,10 +33,13 @@ void RenderingProviderManager::UnRegisterRenderingProviderFactory(const std::str
 
 RenderingProviderManager::RenderingProviderManager()
 {
+#ifdef windows
     auto gdiRenderingProviderFactory = std::make_unique<GdiRenderingProviderFactory>();
-    auto openGLRenderingProviderFactory = std::make_unique<OpenGLRenderingProviderFactory>();
     RegisterRenderingProviderFactory(std::move(gdiRenderingProviderFactory));
+
+    auto openGLRenderingProviderFactory = std::make_unique<OpenGLRenderingProviderFactory>();
     RegisterRenderingProviderFactory(std::move(openGLRenderingProviderFactory));
+#endif
 }
 
 std::unique_ptr<RenderingProvider> RenderingProviderManager::Create()

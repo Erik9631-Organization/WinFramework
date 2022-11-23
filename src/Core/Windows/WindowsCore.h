@@ -11,7 +11,6 @@
 #include "EventTypes/EventMoveInfo.h"
 #include "TimerSubscriber.h"
 #include "Timer.h"
-#include "EntryStateSubscriber.h"
 #include "RenderEventInfo.h"
 #include <functional>
 #include "CoreMediator.h"

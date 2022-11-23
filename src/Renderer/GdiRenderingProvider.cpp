@@ -190,16 +190,6 @@ GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
     renderingThread = nullptr;
 }
 
-void GdiRenderingProvider::OnEntryStart()
-{
-
-}
-
-void GdiRenderingProvider::OnEntryEnd()
-{
-
-}
-
 void GdiRenderingProvider::GdiStartup()
 {
     if(token != 0)

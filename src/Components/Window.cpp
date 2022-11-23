@@ -9,6 +9,7 @@
 #include "CoreArgs.h"
 #include "RenderingProviderManager.h"
 #include "CoreManager.h"
+#include <iostream>
 using namespace std;
 
 void Window::SetSize(float width, float height, bool emit)
@@ -220,7 +221,14 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     window->AddRenderCommander(window->background);
 
     //Create all window DEPENDENCIES
+    //TODO use try and catch here
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    if(renderingProvider == nullptr)
+    {
+        cout << "Error, failed to create window" << endl;
+        return nullptr;
+    }
+
     auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
     core->SetRenderingProvider(std::move(renderingProvider));
 

@@ -5,10 +5,9 @@
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
 class WindowsCore;
-#include "EntryStateSubscriber.h"
 #include "Core.h"
 
-class RenderingProvider : public EntryStateSubscriber
+class RenderingProvider
 {
 public:
     virtual void Render() = 0;

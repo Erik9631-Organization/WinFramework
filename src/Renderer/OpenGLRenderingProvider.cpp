@@ -22,7 +22,6 @@ void OpenGLRenderingProvider::Render()
 
 void OpenGLRenderingProvider::OnInit(Core &coreWindowFrame)
 {
-    ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
     this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
     if(this->windowsCore == nullptr)
     {
@@ -220,7 +219,7 @@ void OpenGLRenderingProvider::WaitForSyncToFinish()
 
 void OpenGLRenderingProvider::InternalRender()
 {
-    ApplicationController::GetApplicationController()->WaitForEntryToFinish();
+    //ApplicationController::GetApplicationController()->WaitForEntryToFinish();
     wglMakeCurrent(windowDc, openGlContext);
     Window* window = windowsCore->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
@@ -245,6 +244,7 @@ void OpenGLRenderingProvider::InternalRender()
         performRender = !windowsCore->IsEventBased();
         SwapBuffers(windowDc);
     }
+    wglMakeCurrent(nullptr, nullptr);
 }
 
 
@@ -318,15 +318,5 @@ void OpenGLRenderingProvider::GraphicsInit()
 //    models.emplace_back(std::move(block));
 //    models.emplace_back(std::move(wallBlock));
 //    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-}
-
-void OpenGLRenderingProvider::OnEntryStart()
-{
-
-}
-
-void OpenGLRenderingProvider::OnEntryEnd()
-{
-    wglMakeCurrent(nullptr, nullptr);
 }
 

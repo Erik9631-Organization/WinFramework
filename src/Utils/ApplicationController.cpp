@@ -7,12 +7,7 @@
 #endif
 
 
-ApplicationController* ApplicationController::applicationController = nullptr;
-
-ApplicationController::ApplicationController()
-{
-
-}
+ApplicationController* ApplicationController::applicationController = new ApplicationController();;
 
 void ApplicationController::JoinThreads()
 {
@@ -22,58 +17,7 @@ void ApplicationController::JoinThreads()
             i.second->join();
 	}
 }
-
-ApplicationController::~ApplicationController()
-{
-
-}
-
-void ApplicationController::Create()
-{
-    if(ApplicationController::applicationController != nullptr)
-        return;
-    ApplicationController::applicationController = new ApplicationController();
-}
-
-void ApplicationController::NotifyOnEntryStart()
-{
-    for(EntryStateSubscriber* subscriber : subscribers)
-        subscriber->OnEntryStart();
-}
-
-void ApplicationController::NotifyOnEntryEnd()
-{
-    for(EntryStateSubscriber* subscriber : subscribers)
-        subscriber->OnEntryEnd();
-    std::unique_lock<std::mutex> entryFinishedLock{(entryFinishedMutex)};
-    entryFinishedSignaled = true;
-    entryFinished.notify_all();
-}
-
 ApplicationController *ApplicationController::GetApplicationController()
 {
     return applicationController;
-}
-
-void ApplicationController::AddEntryStateSubscriber(EntryStateSubscriber *subscriber)
-{
-    subscribers.push_back(subscriber);
-}
-
-void ApplicationController::RemoveEntryStateSubscriber(EntryStateSubscriber *subscriber)
-{
-    for(auto it = subscribers.begin(); it != subscribers.end(); it++)
-    {
-        if(*it == subscriber)
-        {
-            subscribers.erase(it);
-            return;
-        }
-    }
-}
-
-void ApplicationController::WaitForEntryToFinish()
-{
-    std::unique_lock<std::mutex> entryFinishedLock{(entryFinishedMutex)};
-    entryFinished.wait(entryFinishedLock, [=]{return entryFinishedSignaled;});
 }
