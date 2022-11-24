@@ -32,25 +32,20 @@ class EventMoveInfo;
 class EventResizeInfo;
 class EventHoverInfo;
 
-using namespace std;
-using namespace Gdiplus;
-
-
 class UiElement : virtual public Adjustable,
     public virtual RenderCommander,
     public virtual Viewable,
     public virtual MouseInteractable,
     public virtual KeyStateSubject,
     public virtual AddSubject<std::unique_ptr<UiElement>>,
-    public virtual TickSubject,
-    public virtual Presenter
+    public virtual TickSubject
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
     std::mutex addToContainerMutex;
 protected:
-	string componentType;
-	string name;
+	std::string componentType;
+	std::string name;
 	DefaultMultiTree<std::unique_ptr<UiElement>>* uiElementNode;
 	DefaultRender renderBehavior;
 	DefaultMove<std::unique_ptr<UiElement>> moveBehavior;
@@ -67,8 +62,8 @@ protected:
     bool deletedElementNode = false;
 public:
 	UiElement();
-    explicit UiElement(string name);
-	UiElement(float x, float y, float width, float height, string name);
+	UiElement(std::string name);
+	UiElement(float x, float y, float width, float height, std::string name);
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
@@ -134,19 +129,19 @@ public:
 	 * Returns meta information about the component type
 	 * \return returns string containing the information about the type of the component. 
 	 */
-	string GetComponentType();
+    std::string GetComponentType();
 	
 	/**
 	 * Returns the name of the component.
 	 * \return returns string containing the name of the component
 	 */
-	string GetComponentName();
+    std::string GetComponentName();
 
 	/**
 	 * Sets the name of the component
 	 * \param name string containing the name of the component
 	 */
-	void SetComponentName(string name);
+	void SetComponentName(std::string name);
 
 	virtual void SetPosition(float x, float y, bool emit) override;
 	virtual void SetPosition(glm::vec2 pos, bool emit) override;
@@ -305,7 +300,7 @@ public:
 
 
 	// Inherited via AddSubject
-	virtual void NotifyOnAddInfo(EventOnAddInfo<unique_ptr<UiElement>> e) override;
+	virtual void NotifyOnAddInfo(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
 	virtual void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 

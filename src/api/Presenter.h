@@ -9,8 +9,9 @@
 #include "MouseStateSubject.h"
 #include "KeyStateSubject.h"
 #include "Resizable.h"
+#include "PresenterSubject.h"
 
-class Presenter : public virtual Movable, public virtual Resizable, public virtual MouseStateSubject, public virtual KeyStateSubject
+class Presenter : public virtual Movable, public virtual Resizable, public virtual MouseStateSubject, public virtual KeyStateSubject, public virtual PresenterSubject
 {
 
 };

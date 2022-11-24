@@ -21,16 +21,16 @@ public:
 	 * \param height the height of the grid.
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	TextInput(int x, int y, int width, int height, string windowName);
+	TextInput(int x, int y, int width, int height, std::string windowName);
 
 	/**
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	TextInput(string name);
+	TextInput(std::string name);
 
 
-	void SetText(wstring text) override;
-	wstring GetText() override;
+	void SetText(std::wstring text) override;
+    std::wstring GetText() override;
 	/**
 	 * \return returns the background color.
 	 */

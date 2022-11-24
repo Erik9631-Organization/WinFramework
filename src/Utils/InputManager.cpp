@@ -1,9 +1,9 @@
 #include "InputManager.h"
-#include "Components/WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 std::unique_ptr<InputManager> InputManager::globalInput = std::make_unique<InputManager>();
 
 
-InputManager::InputManager(BYTE* keyboardState)
+InputManager::InputManager(unsigned char *keyboardState)
 {
     memcpy(this->keyboardState, keyboardState, 256);
 }
@@ -13,7 +13,7 @@ InputManager::InputManager()
     memset(keyboardState, 0, 256);
 }
 
-void InputManager::SetKeyboardState(BYTE* keyboardState)
+void InputManager::SetKeyboardState(unsigned char *keyboardState)
 {
     memcpy(this->keyboardState, keyboardState, 256);
 }

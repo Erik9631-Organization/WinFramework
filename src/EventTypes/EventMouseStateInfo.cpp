@@ -70,14 +70,13 @@ int EventMouseStateInfo::GetKey()
 
 MouseStateSubject* EventMouseStateInfo::GetSrc()
 {
-	if (src == nullptr && mouseSrc == nullptr)
-		return nullptr;
-
 	if (src == nullptr)
 		return mouseSrc;
 
 	if(mouseSrc == nullptr)
 		return src;
+
+    return nullptr;
 }
 
 void EventMouseStateInfo::SetRecursive(bool state)

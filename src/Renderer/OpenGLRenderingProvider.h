@@ -4,28 +4,18 @@
 
 #ifndef LII_OPENGLRENDERINGPROVIDER_H
 #define LII_OPENGLRENDERINGPROVIDER_H
-#include <Windows.h>
 #include "RenderingProvider.h"
-#include <memory>
-#include <thread>
-#include <mutex>
-#include <DefaultShaderProgram.h>
 #include "UiTreeDataSyncer.h"
-#include "Model.h"
-#include "OpenGLRenderingPool.h"
-#include "DefaultRenderingManager.h"
 #include "Element3dDataSyncer.h"
 
 class OpenGLRenderingProvider : public RenderingProvider
 {
 public:
     void Render() override;
-    void OnInit(WindowsCore &coreWindowFrame) override;
-    void OnDestroy(WindowsCore &coreWindow) override;
-    void OnRemove(WindowsCore &coreWindow) override;
+    void OnInit(Core &coreWindowFrame) override;
+    void OnDestroy(Core &coreWindow) override;
+    void OnRemove(Core &coreWindow) override;
     void WaitForSyncToFinish() override;
-    void OnEntryStart() override;
-    void OnEntryEnd() override;
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
     void GraphicsInit();
@@ -36,7 +26,7 @@ private:
     HDC windowDc;
     void InternalRender();
     bool startRenderingLoop = true;
-    WindowsCore* coreWindow;
+    WindowsCore* windowsCore;
     std::thread* renderingThread;
     bool performRender = false;
     std::condition_variable performRenderSignal;

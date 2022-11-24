@@ -1,7 +1,5 @@
 #pragma once
 #include "api/Adjustable.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "Behavior/DefaultMove.h"
 #include "Behavior/DefaultResize.h"
 #include "DataTypes/DefaultMultiTree.h"

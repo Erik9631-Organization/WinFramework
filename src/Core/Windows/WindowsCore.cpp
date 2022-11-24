@@ -1,16 +1,14 @@
 #include "WindowsCore.h"
-#include <Windows.h>
 #include <iostream>
-#include "api/Resizable.h"
 #include "EventResizeInfo.h"
 #include "RenderEventInfo.h"
-#include <stack>
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "RenderingProvider.h"
 #include <processthreadsapi.h>
 #include "Messages.h"
 #include <chrono>
+#include "CoreArgs.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -21,6 +19,17 @@
 HDC windowHdc;
 using namespace std;
 using namespace chrono;
+
+
+LRESULT WindowsCore::WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    WindowsCore* frame = reinterpret_cast<WindowsCore*>(GetWindowLongPtr(hwnd, USER_DATA));
+    if (frame != nullptr)
+        frame->ProcessMessage(uMsg, wParam, lParam);
+
+    return DefWindowProc(hwnd, uMsg, wParam, lParam);
+}
+
 
 void WindowsCore::WindowsMessageLoop()
 {
@@ -45,7 +54,6 @@ void WindowsCore::WindowsMessageLoop()
 //		    fpsTimer.Wait();
 		//CoreWindow::ConsoleWrite(to_string(current - start));
 	}
-    delete &wrapperFrame;
 }
 void WindowsCore::ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam)
 {
@@ -103,9 +111,10 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CLOSE:
         DestroyWindow(windowHandle);
-        if(!UnregisterClassA(wrapperFrame.GetComponentName().c_str(), hInstance))
-            ConsoleWrite("UnRegister Class error: " + to_string(GetLastError()));
+        if(!UnregisterClassA(this->windowName.c_str(), hInstance))
+            cout << "UnRegister Class error: " << GetLastError() << endl;
         processMessages = false;
+        renderingProvider->OnDestroy(*this);
         return;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -137,16 +146,16 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
         mouseDelta = mousePos - prevMousePos;
         //relativePos = mousePos - wrapperFrame.GetPosition();
-        NotifyCoreOnMouseMove(EventMouseStateInfo(mousePos, mousePos, mouseDelta, 0, &wrapperFrame));
+        NotifyCoreOnMouseMove(EventMouseStateInfo(mousePos, mousePos, mouseDelta, 0, wrapperFrame));
 		break;
 	case WM_LBUTTONDOWN:
-        NotifyCoreOnMouseLButtonDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+        NotifyCoreOnMouseLButtonDown(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_LBUTTONUP:
-        NotifyCoreOnMouseLButtonUp(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+        NotifyCoreOnMouseLButtonUp(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_LBUTTONDBLCLK:
-	    NotifyCoreOnMousePressed(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, &wrapperFrame));
+	    NotifyCoreOnMousePressed(EventMouseStateInfo(mousePos, relativePos, mouseDelta, wParam, wrapperFrame));
 		break;
 	case WM_KEYDOWN:
 		ProcessKeyState(msg, wParam, lParam);
@@ -167,12 +176,11 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
     UpdateGlobalInputState();
     //Notify that update happened
-    wrapperFrame.NotifyOnTick();
+    wrapperFrame->NotifyOnTick();
 
 
 	if(renderingProvider != nullptr)
 	    renderingProvider->Render();
-
 	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
@@ -195,7 +203,7 @@ void WindowsCore::Close()
 	PostMessage(windowHandle, WM_CLOSE, NULL, NULL);
 }
 
-Window& WindowsCore::GetWrapperFrame()
+Window * WindowsCore::GetWrapperFrame()
 {
 	return wrapperFrame;
 }
@@ -205,26 +213,14 @@ void WindowsCore::CreateConsole()
 	AllocConsole();
 }
 
-void WindowsCore::ConsoleWrite(string output)
-{
-	DWORD succWritten;
-	output.append("\n");
-	WriteConsole(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
-}
-
-void WindowsCore::UnicodeConsoleWrite(std::wstring output)
-{
-	DWORD succWritten;
-	output.append(L"\n");
-	WriteConsoleW(GetStdHandle(STD_OUTPUT_HANDLE), output.c_str(), output.size(), &succWritten, NULL);
-}
-
 void WindowsCore::UpdateScale()
 {
-	SetWindowPos(windowHandle, NULL, wrapperFrame.GetX(), wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+    if(wrapperFrame == nullptr)
+        return;
+	SetWindowPos(windowHandle, NULL, wrapperFrame->GetX(), wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-WindowsCore::WindowsCore(Window &wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
 {
     this->windowName = windowName;
     this->style = style;
@@ -239,7 +235,7 @@ void WindowsCore::CreateWinApiWindow()
     WNDCLASS* windowInfo = new WNDCLASS;
     memset(windowInfo, 0, sizeof(WNDCLASS));
     windowInfo->style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
-    windowInfo->lpfnWndProc = (WNDPROC)ApplicationController::WindowProc;
+    windowInfo->lpfnWndProc = (WNDPROC)WindowsCore::WindowProc;
     windowInfo->cbClsExtra = NULL;
     windowInfo->cbWndExtra = NULL;
     windowInfo->hInstance = hInstance;
@@ -253,30 +249,37 @@ void WindowsCore::CreateWinApiWindow()
 
     if (!RegisterClass(windowInfo))
     {
-        ConsoleWrite("Register Class error: " + to_string(GetLastError()));
+        std::cout << "Register Class error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
-    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, wrapperFrame.GetX(),
-                                wrapperFrame.GetY(), wrapperFrame.GetWidth(), wrapperFrame.GetHeight(), NULL, NULL, hInstance, NULL);
+    int x = 0;
+    int y = 0;
+    int width = 0;
+    int height = 0;
+    if(wrapperFrame != nullptr)
+    {
+        x = (int)wrapperFrame->GetX();
+        y = (int)wrapperFrame->GetY();
+        width = (int)wrapperFrame->GetWidth();
+        height = (int)wrapperFrame->GetHeight();
+    }
+    windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, x,
+                                y, width, height, NULL, NULL, hInstance, NULL);
 
     if (!windowHandle)
     {
-        ConsoleWrite("Error creating window handle " + to_string(GetLastError()));
+        std::cout << "Error creating window handle " << GetLastError() << endl;
         system("PAUSE");
         exit(0);
     }
     SetWindowLongPtr(windowHandle, USER_DATA, (LONG_PTR)this);
     fpsTimer.SetInterval(1000/targetFps);
     fpsTimer.SetPeriodic(false);
-    coreSubscribers.emplace_back(&coreAdapter);
-
     ShowWindow(windowHandle, SW_SHOW);
     UpdateWindow(windowHandle);
-
     //Critical Section end
 }
-
 
 
 HWND WindowsCore::GetWindowHandle()
@@ -326,12 +329,13 @@ void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
 
 RenderingProvider *WindowsCore::GetRenderingProvider()
 {
-    return renderingProvider;
+    return renderingProvider.get();
 }
 
-void WindowsCore::SetRenderingProvider(RenderingProvider& provider)
+void WindowsCore::SetRenderingProvider(unique_ptr<RenderingProvider> provider)
 {
-    this->renderingProvider = &provider;
+    renderingProvider = std::move(provider);
+    renderingProvider->OnInit(*this);
 }
 
 void WindowsCore::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -383,12 +387,14 @@ void WindowsCore::UpdateLockCursor()
 {
     if (cursorLocked == false)
         return;
+    if(wrapperFrame == nullptr)
+        return;
 
     //Calculate the center of the wrapper frame
-    lockCursorRegion.left = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
-    lockCursorRegion.top = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
-    lockCursorRegion.right = (wrapperFrame.GetX() + wrapperFrame.GetWidth() / 2);
-    lockCursorRegion.bottom = (wrapperFrame.GetY() + wrapperFrame.GetHeight() / 2);
+    lockCursorRegion.left = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.top = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.right = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.bottom = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
 
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.
@@ -519,14 +525,27 @@ void WindowsCore::Start()
     initCondition->wait(lock, [&]{return initSignal;});
 }
 
-std::unique_ptr<WindowsCore> WindowsCore::Create(Window &wrapperFrame, string windowName, LONG style)
+unique_ptr<Core> WindowsCore::Create(std::any args)
 {
-    auto coreInstance = new WindowsCore(wrapperFrame, windowName, style);
-    auto window = std::unique_ptr<WindowsCore>(coreInstance);
-    window->Start();
-    return std::move(window);
+    CoreArgs inputArgs{"window", WS_OVERLAPPEDWINDOW, nullptr};
+    if(args.type() == typeid(CoreArgs))
+        inputArgs = std::any_cast<CoreArgs>(args);
+
+    auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, WS_OVERLAPPEDWINDOW);
+    auto corePtr = std::unique_ptr<WindowsCore>(core);
+    corePtr->Start();
+    return std::move(corePtr);
 }
 
+void WindowsCore::SetWindow(Window *window)
+{
+    this->wrapperFrame = window;
+}
+
+void WindowsCore::WaitForRenderingSyncToFinish()
+{
+    renderingProvider->WaitForSyncToFinish();
+}
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {

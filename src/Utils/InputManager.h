@@ -1,5 +1,4 @@
 #pragma once
-#include <Windows.h>
 #include <memory>
 #include <vec2.hpp>
 
@@ -9,7 +8,7 @@ class InputManager
 {
     friend WindowsCore;
 private:
-	BYTE keyboardState[256];
+	unsigned char keyboardState[256];
     static std::unique_ptr<InputManager> globalInput;
     glm::vec2 mousePosition{0};
     glm::vec2 mouseScreenPosition{0};
@@ -17,9 +16,9 @@ private:
 public:
     static const InputManager& GetGlobalInput();
 
-	InputManager(BYTE* keyboardState);
+	InputManager(unsigned char *keyboardState);
 	InputManager();
-	void SetKeyboardState(BYTE* keyboardState);
+	void SetKeyboardState(unsigned char *keyboardState);
 	const bool& IsKeyDown(unsigned int key) const;
 	const bool& IsKeyUp(unsigned int key) const;
     const glm::vec2 & GetMouseDelta() const;

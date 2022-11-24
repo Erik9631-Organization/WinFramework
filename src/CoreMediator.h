@@ -17,11 +17,15 @@ class Window;
 class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 {
 private:
-    Presenter* window = nullptr;
-    Core* core = nullptr;
+    Presenter* presenter = nullptr;
+    std::unique_ptr<Core> core = nullptr;
+    void SetupPresenter(Presenter* presenter);
+    void SetupCore(std::unique_ptr<Core> core);
 public:
+    CoreMediator();
+    CoreMediator(Presenter* presenter, std::unique_ptr<Core> core);
     void SetPresenter(Presenter* presenter);
-    void SetCore(Core* core);
+    void SetCore(std::unique_ptr<Core> core);
     void CoreOnDestroy(std::any src) override;
     void CoreOnClose(std::any src) override;
     void CoreOnMove(EventMoveInfo e) override;
@@ -42,6 +46,7 @@ public:
     void OnClose(std::any src) override;
     void OnLockCursorSizeChanged(EventResizeInfo &e) override;
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;
+    void WaitForRenderingSyncToFinish();
     const bool IsCursorLocked() override;
     RenderingProvider * GetRenderingProvider() override;
 };

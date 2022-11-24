@@ -5,6 +5,8 @@
 #include "CoreMediator.h"
 #include "Window.h"
 #include "RenderingProvider.h"
+using namespace std;
+
 void CoreMediator::CoreOnDestroy(std::any src)
 {
 
@@ -17,65 +19,65 @@ void CoreMediator::CoreOnClose(std::any src)
 
 void CoreMediator::CoreOnMove(EventMoveInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->SetPosition(e.GetPosition(), false);
+    presenter->SetPosition(e.GetPosition(), false);
 }
 
 void CoreMediator::CoreOnResize(EventResizeInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->SetSize(e.GetSize(), false);
+    presenter->SetSize(e.GetSize(), false);
 }
 
 void CoreMediator::CoreOnMouseMove(EventMouseStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnMouseHover(e);
+    presenter->NotifyOnMouseHover(e);
 }
 
 void CoreMediator::CoreOnMouseLButtonDown(EventMouseStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnMouseDown(e);
+    presenter->NotifyOnMouseDown(e);
 }
 
 void CoreMediator::CoreOnMouseLButtonUp(EventMouseStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnMouseUp(e);
+    presenter->NotifyOnMouseUp(e);
 }
 
 void CoreMediator::CoreOnMousePressed(EventMouseStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnMousePressed(e);
+    presenter->NotifyOnMousePressed(e);
 }
 
 
 void CoreMediator::CoreOnKeyUp(EventKeyStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnKeyUp(e);
+    presenter->NotifyOnKeyUp(e);
 }
 
 void CoreMediator::CoreOnKeyDown(EventKeyStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnKeyDown(e);
+    presenter->NotifyOnKeyDown(e);
 }
 void CoreMediator::CoreOnKeyPressed(EventKeyStateInfo e)
 {
-    if(window == nullptr)
+    if(presenter == nullptr)
         return;
-    window->NotifyOnKeyPressed(e);
+    presenter->NotifyOnKeyPressed(e);
 }
 
 
@@ -157,10 +159,38 @@ RenderingProvider * CoreMediator::GetRenderingProvider()
 
 void CoreMediator::SetPresenter(Presenter *presenter)
 {
-    this->window = presenter;
+    SetupPresenter(presenter);
 }
 
-void CoreMediator::SetCore(Core *core)
+void CoreMediator::SetCore(unique_ptr<Core> core)
 {
-    this->core = core;
+    SetupCore(std::move(core));
+}
+
+void CoreMediator::WaitForRenderingSyncToFinish()
+{
+    core->WaitForRenderingSyncToFinish();
+}
+
+CoreMediator::CoreMediator(Presenter* presenter, std::unique_ptr<Core> core)
+{
+    SetupCore(std::move(core));
+    SetupPresenter(presenter);
+}
+
+CoreMediator::CoreMediator()
+{
+
+}
+
+void CoreMediator::SetupPresenter(Presenter *presenter)
+{
+    this->presenter = presenter;
+    presenter->AddPresenterSubscriber(this);
+}
+
+void CoreMediator::SetupCore(std::unique_ptr<Core> core)
+{
+    this->core = std::move(core);
+    this->core->AddCoreSubscriber(this);
 }

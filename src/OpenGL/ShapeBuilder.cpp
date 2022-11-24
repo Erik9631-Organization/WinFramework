@@ -84,7 +84,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(float x, 
     std::vector<float> vertices;
     std::vector<unsigned int> drawOrder;
 
-    //Create the ellipse vector shape
+    //CreateElement the ellipse vector shape
     for(int degrees = 0; degrees < 360; degrees++)
     {
         float rads = (M_PI / 180 ) * degrees;
@@ -166,7 +166,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(float x, floa
     std::vector<float> vertices;
     std::vector<unsigned int> drawOrder;
 
-    //Create the ellipse vector shape
+    //CreateElement the ellipse vector shape
     for(int degrees = 0; degrees < 360; degrees++)
     {
         float rads = (M_PI / 180 ) * degrees;

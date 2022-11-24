@@ -10,8 +10,6 @@
 #include <windows.h>
 #include <glew.h>
 #include <wglew.h>
-#include <WindowsCore.h>
-#include "WindowsCore.h"
 #include "UniformProperties.h"
 
 namespace OpenGL

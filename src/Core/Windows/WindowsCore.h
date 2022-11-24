@@ -1,7 +1,7 @@
 #pragma once
 #include "Window.h"
-#include <Windows.h>
 #include <string>
+#include <windows.h>
 #include <gdiplus.h>
 #include "Utils/ApplicationController.h"
 #include "Events/ResizeSubscriber.h"
@@ -11,20 +11,17 @@
 #include "EventTypes/EventMoveInfo.h"
 #include "TimerSubscriber.h"
 #include "Timer.h"
-#include "EntryStateSubscriber.h"
 #include "RenderEventInfo.h"
 #include <functional>
 #include "CoreMediator.h"
 #include "CoreSubject.h"
 #include "Core.h"
-
-using namespace Gdiplus;
 class RenderingProvider;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
-class WindowsCore : public RenderCommander, public CoreSubject, public Core
+class WindowsCore : public RenderCommander, public Core
 {
 
 
@@ -36,14 +33,13 @@ private:
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
     private:
-        vector<reference_wrapper<ResizeSubscriber>> resizeSubscribers;
+        std::vector<std::reference_wrapper<ResizeSubscriber>> resizeSubscribers;
     };
-    vector<CoreSubscriber*> coreSubscribers;
+    std::vector<CoreSubscriber*> coreSubscribers;
     MsgSubject preProcessSubject;
-    CoreMediator coreAdapter;
 	HWND windowHandle;
 	void CreateConsole();
-	Window& wrapperFrame;
+	Window* wrapperFrame = nullptr;
 	void ProcessKeyState(UINT msg, WPARAM wParam, LPARAM lParam);
     DefaultRender renderBehavior;
 	HINSTANCE hInstance;
@@ -58,25 +54,26 @@ private:
     glm::vec2 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
-	RenderingProvider* renderingProvider = nullptr;
+	std::unique_ptr<RenderingProvider> renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;
 	Timer fpsTimer;
 	bool eventBased = false;
-    mutex updateMutex;
+    std::mutex updateMutex;
     bool processMessages = true;
     void UpdateGlobalInputState();
     void UpdateLockCursor();
     void CreateWinApiWindow();
-    WindowsCore(Window &wrapperFrame, const string &windowName, LONG style);
+    WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
+    static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
     void SetLockCursorSize(const glm::vec2 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
     void SetEventBased(bool eventBased);
-    std::unique_ptr<WindowsCore> static Create(Window &wrapperFrame, string windowName, LONG style);
+//    std::unique_ptr<WindowsCore> static CreateElement(Window *wrapperFrame, const string &windowName, LONG style);
 	/**
 	 * Updates the scale of the window
 	 */
@@ -108,7 +105,7 @@ public:
 	/**
 	 * Gets the wrapper frame of this class.
 	 */
-	Window& GetWrapperFrame();
+    Window * GetWrapperFrame();
 	/**
 	 * Gets the hardware context of the current window.
 	 */
@@ -121,12 +118,6 @@ public:
 	 * Output to console
 	 * /param output text to output.
 	 */
-	static void ConsoleWrite(string output);
-	/**
-	 * Output to console as unicode.
-	 * /param output unicode text to output.
-	 */
-	static void UnicodeConsoleWrite(std::wstring output);
 	~WindowsCore();
 
 	// Inherited via Renderable
@@ -174,7 +165,7 @@ public:
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
-	void SetRenderingProvider(RenderingProvider& provider);
+	void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider);
 	RenderingProvider* GetRenderingProvider();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
@@ -196,5 +187,11 @@ public:
     long long int RemoveAttribute(int index, long long int parameter) override;
 
     void Start() override;
+
+    static std::unique_ptr<Core> Create(std::any args);
+
+    void SetWindow(Window *window) override;
+
+    void WaitForRenderingSyncToFinish() override;
 };
 

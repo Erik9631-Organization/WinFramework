@@ -5,7 +5,6 @@
 #ifndef LII_ELEMENT3DDATASYNCER_H
 #define LII_ELEMENT3DDATASYNCER_H
 #include <mutex>
-
 #include "MultiTree.h"
 #include "OpenGLRenderingPool.h"
 

@@ -1,44 +1,51 @@
 ﻿#include "DemoApplication.h"
-#include <codecvt>
-
-#include "Components/Window.h" // Needed
-#include "Utils/ApplicationController.h"
-#include "Utils/WinWrapper.h" // Needed
+#include "Window.h"
 #include "Components/Button.h"
-#include <Windows.h>
 
 #include <string>
-#include "Components/WindowsCore.h"
-#include <gdiplus.h>
-#include "DataTypes/DefaultMultiTree.h"
-#include "Events/MoveSubscriber.h"
-#include "EventTypes/EventUpdateInfo.h"
-#include "api/MouseInteractable.h"
-#include "Events/MouseStateSubscriber.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Components/Label.h"
-#include "Graphics/SimpleBorder.h"
-#include "Events/ActivateSubscriber.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "EventTypes/EventKeyStateInfo.h"
-#include "Components/TextInput.h"
-#include "Events/CheckboxStateSubscriber.h"
-#include "Components/Checkbox.h"
-#include "EventTypes/EventCheckboxStateInfo.h"
-#include "Components/RadioButton.h"
-#include "Events/RadioButtonStateSubscriber.h"
-#include "EventTypes/EventRadioButtonStateInfo.h"
-#include "Components/PasswordField.h"
-#include "Events/OnAddSubscriber.h"
-#include "Components/Panel.h"
-#include "Components/Grid/Grid.h"
-#include "Components/FileBrowser/FileBrowser.h"
-#include "Components/FileBrowser/FileBrowserFactory.h"
-#include "Components/ComboBox/ComboSelection.h"
-#include "Components/ComboBox/ComboBox.h"
-#include "Components/ComboBox/ComboElement.h"
+#include "WindowsCore.h"
+#include "EventUpdateInfo.h"
+#include "MouseStateSubscriber.h"
+#include "EventMouseStateInfo.h"
+#include "Label.h"
+#include "EventOnActivateInfo.h"
+#include "EventKeyStateInfo.h"
+#include "TextInput.h"
+#include "CheckboxStateSubscriber.h"
+#include "Checkbox.h"
+#include "EventCheckboxStateInfo.h"
+#include "RadioButton.h"
+#include "RadioButtonStateSubscriber.h"
+#include "EventRadioButtonStateInfo.h"
+#include "PasswordField.h"
+#include "Panel.h"
+#include "Grid.h"
+#include "FileBrowser.h"
+#include "FileBrowserFactory.h"
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
+#include <iostream>
+#include "OpenGLRenderingProvider.h"
+#include "GraphicsShader.h"
+#include "OnTickSubscriber.h"
+#include "CameraManager.h"
+//#include "InputManager.h"
+#include "ActivateSubscriber.h"
+#include "EventOnActivateInfo.h"
+#include <iostream>
+#include "ModelBuilder.h"
+#include "Model.h"
+#include <glm.hpp>
+#include "GlobalResourceManager.h"
+#include "ModeledElement.h"
+#include "TextureManager.h"
+#include "StaticTexture.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+
+using namespace std;
+
+std::unique_ptr<Window> frame;
 
 class SimpleCalculator : public MouseStateSubscriber
 {
@@ -90,22 +97,18 @@ public:
 		currentValue = (currentValue * 10) + value;
 		outputLabel.SetText(outputLabel.GetText() + button->GetText());
 	}
-
 	virtual void OnMousePressed(EventMouseStateInfo e) override
 	{
 
 	}
-
 	virtual void OnMouseMove(EventMouseStateInfo e) override
 	{
 
 	}
-
 	virtual void OnMouseEntered(EventMouseStateInfo e) override
 	{
 
 	}
-
 	virtual void OnMouseLeft(EventMouseStateInfo e) override
 	{
 
@@ -120,26 +123,21 @@ public:
 class InputTester : public KeyStateSubscriber
 {
 	// Inherited via KeyStateSubscriber
-	void OnKeyDown(EventKeyStateInfo e) override
+	virtual void OnKeyDown(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-
-		if (e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::F) && e.GetInputManager().IsKeyDown(InputManager::VirtualKeys::E))
-			WindowsCore::UnicodeConsoleWrite(L"OnKeyDown: F + E: ");
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+        std::cout << src->GetComponentName() << endl;
 
 	}
-	void OnKeyUp(EventKeyStateInfo e) override
+	virtual void OnKeyUp(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		WindowsCore::UnicodeConsoleWrite(L"OnKeyUp +: " + std::wstring(1, e.GetUnicodeKey()));
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+		std::cout << src->GetComponentName() << std::endl;
 	}
-	void OnKeyPressed(EventKeyStateInfo e) override
+	virtual void OnKeyPressed(EventKeyStateInfo e) override
 	{
 		UiElement* src = dynamic_cast<UiElement*>(e.GetSource());
-		WindowsCore::UnicodeConsoleWrite(L"OnKeyPressed +: " + std::wstring(1, e.GetUnicodeKey()));
-		WindowsCore::ConsoleWrite(src->GetComponentName());
+        std::cout << src->GetComponentName() << std::endl;
 	}
 };
 
@@ -150,9 +148,9 @@ class CheckboxTester : public CheckboxStateSubscriber
 	{
 		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
 		if (e.GetState())
-			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " checked!");
+            std::cout << "Checkbox: " << src->GetComponentName() << " checked!" << std::endl;
 		else
-			WindowsCore::ConsoleWrite("Checkbox: " + src->GetComponentName() + " unchecked!");
+            std::cout <<"Checkbox: " << src->GetComponentName() << " unchecked!" << std::endl;
 	}
 };
 
@@ -163,10 +161,10 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	{
 		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
 		if (e.IsSelected())
-			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " checked!");
+            std::cout << "RadioButton: " + src->GetComponentName() + " checked!" << std::endl;
 		else
-			WindowsCore::ConsoleWrite("RadioButton: " + src->GetComponentName() + " unchecked!");
-	}
+            std::cout << "RadioButton: " + src->GetComponentName() + " unchecked!" << std::endl;
+    }
 };
 
 class FormSubmiter : public MouseStateSubscriber
@@ -293,42 +291,6 @@ public:
 };
 
 
-class ComboBoxTester : public ComboBoxStateSubscriber
-{
-private:
-	ComboBox& testedComboBox;
-
-public:
-	ComboBoxTester(ComboBox& comboBox) : testedComboBox(comboBox)
-	{
-
-	}
-	// Inherited via ComboBoxStateSubscriber
-	virtual void OnComboBoxOpened(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to opened");
-	}
-
-	virtual void OnComboBoxClosed(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		WindowsCore::ConsoleWrite(comboBox.GetComponentName() + "Has changed state to closed");
-	}
-
-	virtual void OnSelectionChanged(EventComboBoxStateInfo e) override
-	{
-		ComboBox& comboBox = dynamic_cast<ComboBox&>(e.GetSrc());
-		if (e.GetElement() == nullptr)
-			return;
-		ComboElement& element = *e.GetElement();
-		WindowsCore::UnicodeConsoleWrite(L"Selection changed to: " + element.GetText() + L" With value: " + to_wstring(std::any_cast<int>(element.GetValue())));
-		WindowsCore::UnicodeConsoleWrite(L"Curret selection: " + testedComboBox.GetSelectedElement().GetText());
-	}
-
-};
-
-
 void DemoApplication::LaunchDemoApp()
 {
 	/*ComboSelection selections = ComboSelection();
@@ -372,25 +334,6 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* Listbox test end
 	*/
-
-	/*
-	* ComboBox test start
-	*/
-
-	auto comboBox = std::make_unique<ComboBox>(490, 20, 100, 30, "ComboBox");
-	comboBox->SetText(L"Combo Box");
-	comboBox->CreateComboElement(L"First", std::make_any<int>(1));
-	comboBox->CreateComboElement(L"Second", std::make_any<int>(2));
-	comboBox->CreateComboElement(L"Third", std::make_any<int>(3));
-	comboBox->CreateComboElement(L"Fourth", std::make_any<int>(4));
-	comboBox->CreateComboElement(L"Fifth", std::make_any<int>(5));
-	auto comboBoxTester = new ComboBoxTester(*comboBox);
-	comboBox->AddComboBoxStateSubscriber(*comboBoxTester);
-
-	/*
-	* ComboBox test end
-	*/
-
 
 	/*
 	* Grid Test Start
@@ -537,7 +480,7 @@ void DemoApplication::LaunchDemoApp()
 
 	input->SetMultiline(true);
 
-	Window* frame = new Window(800, 600, 800, 600, "testFrame");
+	frame = Window::Create(800, 600, 800, 600, "testFrame");
 	frame->Add(std::move(input));
 	frame->Add(std::move(checkbox));
 
@@ -559,7 +502,6 @@ void DemoApplication::LaunchDemoApp()
 	frame->Add(std::move(fileOutput));
 	frame->Add(std::move(fileSaveButton));
 	frame->Add(std::move(clearButton));
-	frame->Add(std::move(comboBox));
 	frame->Add(std::move(listBox));
 	frame->Add(std::move(listBoxDragTest));
 
@@ -597,5 +539,141 @@ void DemoApplication::LaunchDemoApp()
 
     frame->Add(std::move(calculatorGridPtr));
     auto& UiElementNode = frame->GetUiElementNode().GetNode(0);
-    WindowsCore::ConsoleWrite(UiElementNode.GetValue()->GetComponentName() + " nodeCount: " + to_string(UiElementNode.GetNodeCount()));
+}
+
+
+//class CameraController : public OnTickSubscriber, public ActivateSubscriber
+//{
+//
+//public:
+//    CameraController(Window& window) : window(window){}
+//    Window& window;
+//    const float speed = 0.001f;
+//    const float sensitivity = 0.15f;
+//    void OnTick() override
+//    {
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::W))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Foward(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::S))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Backward(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::A))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Left(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::D))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Right(speed);
+//        }
+//
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
+//        {
+//            const glm::vec2 & mousePos = InputManager::GetGlobalInput().GetMouseDelta();
+//            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.x * sensitivity);
+//            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.y * sensitivity);
+//        }
+//
+//    }
+//
+//    void OnActiveStateChanged(EventOnActivateInfo info) override
+//    {
+//
+//    }
+//
+//};
+//
+//class LightController : public OnTickSubscriber
+//{
+//public:
+//
+//    LightController(PointLight& pointLight) : light(pointLight)
+//    {
+//
+//    }
+//    void OnTick() override
+//    {
+//        glm::vec3 translation = light.GetTranslation();
+//        translation.z = currentTranslation;
+//        light.SetTranslation(translation);
+//
+//
+//        currentTranslation += translationValue;
+//
+//        if(currentTranslation > translationMax)
+//            translationValue *= -1;
+//        if(currentTranslation < translationMax * -1)
+//            translationValue *= -1;
+//    }
+//private:
+//    float currentTranslation = 0.0f;
+//    float translationValue = 0.0005f;
+//    float translationMax = 100.0f;
+//    PointLight& light;
+//
+//};
+
+void DemoApplication::LaunchOpenGLApp()
+{
+    //    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
+//    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
+//    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+//
+//
+//
+//    auto* manager = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<TextureManager>("texture");
+//    auto& texture = manager->CreateTexture<OpenGL::StaticTexture>("WallTexture", "Textures\\wall.jpg", GL_RGB);
+//    manager->LoadResource("WallTexture");
+//    OpenGL::ModelBuilder builder3D{};
+//    OpenGL::ModelBuilder builder2D{};
+//    glm::mat4* projectionMatrix = new glm::mat4(glm::perspective(glm::radians(45.0f), 800.0f/600.0f, 0.1f, 1000.0f));
+//    glm::mat4* orthographicMatrix = new glm::mat4(glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, 0.0f, 100.0f));
+//    builder3D.SetProjectionMatrix(projectionMatrix);
+//    builder2D.SetProjectionMatrix(orthographicMatrix);
+//
+//
+//
+//    std::unique_ptr<OpenGL::Model> wallBlock = builder3D.CreateBlock(0, 0, -50, 20.0f, 20.0f, 20.0f);
+//    std::unique_ptr<OpenGL::Model> block = builder3D.CreateBlock(40, 40, -50, 10.0f, 10.0f, 10.0f);
+//    block->GetMaterial().SetSpecular({0.5f, 0.5f, 0.5f});
+//    std::unique_ptr<OpenGL::Model> rectangle = builder2D.CreateFillRectangle(50, 50, 100, 100);
+//    rectangle->SetTranslation({0, 0, -10.0f});
+//
+//    ModeledElement& wallBlockElement = frame->CreateElement<ModeledElement>(std::move(wallBlock));
+//
+//    ModeledElement& blockElement = frame->CreateElement<ModeledElement>(std::move(block));
+//    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//
+//    rectangle->SetCamera(nullptr);
+//    rectangle->CustomCameraEnabled(true);
+//    auto& rectangleElement = frame->CreateElement<ModeledElement>(std::move(rectangle));
+//    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
+//
+//    wallBlockElement.GetModel()->SetTexture("WallTexture");
+//
+//    DirectionalLight& light = frame->CreateElement<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
+//    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
+//
+//    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
+//    auto& pointLight = frame->CreateElement<PointLight>(std::move(pointLightModel));
+//    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
+//    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
+//    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
+//
+//
+//    CameraController* controller = new CameraController{*frame};
+//    frame->AddOnTickSubscriber(controller);
+//    frame->AddOnActivateSubscriber(*controller);
+//
+//    LightController* lightController = new LightController(pointLight);
+//
+//    frame->AddOnTickSubscriber(lightController);
 }

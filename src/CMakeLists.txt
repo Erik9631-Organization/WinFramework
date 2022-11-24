@@ -11,7 +11,6 @@ source_group("Lii\\Enums" FILES ${Enums})
 
 set(Lii
     "AddSubject.h"
-    "Events/ComboBoxStateSubject.h"
     "Behavior/DefaultListBoxBehavior.h"
     "DemoApplication.h"
     "api/Draggable.h"
@@ -30,7 +29,6 @@ set(Lii
     "TableElement.h"
     "Graphics/TrackbarGraphics.h"
     "AddSubject.cpp"
-    "Events/ComboBoxStateSubject.cpp"
     "Behavior/DefaultListBoxBehavior.cpp"
     "DemoApplication.cpp"
     "DragManager.cpp"
@@ -56,7 +54,6 @@ source_group("Lii" FILES ${Lii})
 
 set(Lii_Behavior
     "Behavior/DefaultActivate.h"
-    "Behavior/DefaultComboBoxBehavior.h"
     "Behavior/DefaultKeyStateBehavior.h"
     "Behavior/DefaultMouseBehavior.h"
     "Behavior/DefaultMove.h"
@@ -65,10 +62,7 @@ set(Lii_Behavior
     "Behavior/RadioButtonBehavior.h"
     "Behavior/TextInputBehavior.h"
     "Behavior/Viewport.h"
-    "Components/ComboBox/ComboBox.cpp"
-    "Components/ComboBox/ComboElement.cpp"
     "Behavior/DefaultActivate.cpp"
-    "Behavior/DefaultComboBoxBehavior.cpp"
     "Behavior/DefaultKeyStateBehavior.cpp"
     "Behavior/DefaultMouseBehavior.cpp"
     "Behavior/DefaultMove.cpp"
@@ -146,7 +140,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -158,7 +152,7 @@ set(Lii_Components
     "Components/FileBrowser/LinuxFileBrowser.h"
     "Components/FileBrowser/WindowsFileBrowser.h"
     "Components/UiElement.h"
-    "Components/WindowsCore.h"
+    "Core/Windows/WindowsCore.h"
     "Components/Grid/Grid.h"
     "Components/Label.h"
     "Components/ListBox.h"
@@ -172,7 +166,7 @@ set(Lii_Components
     "Components/Button.cpp"
     "Components/Checkbox.cpp"
     "Components/UiElement.cpp"
-    "Components/WindowsCore.cpp"
+    "Core/Windows/WindowsCore.cpp"
     "Components/Label.cpp"
     "Components/PasswordField.cpp"
     "Components/RadioButton.cpp"
@@ -186,26 +180,27 @@ set(Lii_Components
         )
 source_group("Lii\\Components" FILES ${Lii_Components})
 
+Set(Lii_Core_Windows
+        "Core/Windows/WindowsCore.h"
+        "Core/Windows/WindowsCore.cpp"
+        Core/Windows/CoreArgs.cpp Core/Windows/CoreArgs.h)
+source_group("Lii\\Core\\Windows" FILES ${Lii_Core_Windows})
+
 set(Lii_Components_3d
 
         Components/3d/ModeledElement.cpp Components/3d/ModeledElement.h Components/3d/Element3d.h Components/3d/Scene.cpp Components/3d/Scene.h Components/3d/PointLight.cpp Components/3d/PointLight.h Components/3d/DirectionalLight.h Components/3d/DirectionalLight.cpp)
 source_group("Lii\\Components\\3d" FILES ${Lii_Components_3d})
 
 set(Lii_Components_ComboBox
-    Components/ComboBox/ComboBox.h
-    Components/ComboBox/ComboElement.h
-    Components/ComboBox/ComboSelection.h
-    Components/ComboBox/ComboSelection.cpp
+
 )
 source_group("Lii\\Components\\ComboBox" FILES ${Lii_Components_ComboBox})
 
 
 set(Lii_DataTypes
-    DataTypes/CastableTree.h
-    DataTypes/DefaultMultiTree.h
+        DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
-    DataTypes/CastableTree.cpp
-    DataTypes/DefaultMultiTree.cpp
+        DataTypes/DefaultMultiTree.cpp
     DataTypes/MultiTree.cpp
     DataTypes/Vector3.cpp
     DataTypes/Vector3.h
@@ -341,25 +336,37 @@ set(Lii_Utils
     "Utils/AccessTools.h"
     "Utils/ApplicationController.h"
     "Utils/InputManager.h"
-    "Utils/WinWrapper.h"
-    "Utils/AccessTools.cpp"
+        "Utils/AccessTools.cpp"
     "Utils/ApplicationController.cpp"
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
-    DataTypes/Vector2.cpp DataTypes/Vector2.h
-    Utils/ScalingUtil.cpp
+        Utils/ScalingUtil.cpp
     Utils/ScalingUtil.h
-    Utils/ValueConverter.cpp
-    Utils/ValueConverter.h
-    Utils/Timer.cpp
+        Utils/Timer.cpp
     Utils/Timer.h
-    Utils/ValueConverter.cpp
-    Events/TimerSubscriber.cpp
+        Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
-        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h)
-
+        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h Utils/WindowBuilder.cpp Utils/WindowBuilder.h Utils/Managers/RenderingProviderManager.cpp Utils/Managers/RenderingProviderManager.h)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
+
+set(Lii_Utils_Managers
+        "Utils/Managers/RenderingProviderManager.cpp"
+        "Utils/Managers/RenderingProviderManager.h"
+        Utils/Managers/CoreManager.cpp Utils/Managers/CoreManager.h)
+
+source_group("Lii\\Utils\\Managers" FILES ${Lii_Utils_Managers})
+
+set(Lii_Utils_Factories
+        Utils/Factories/GdiRenderingProviderFactory.cpp
+        Utils/Factories/GdiRenderingProviderFactory.h
+        Utils/Factories/OpenGLRenderingProviderFactory.cpp
+        Utils/Factories/OpenGLRenderingProviderFactory.h
+        Utils/Factories/CoreFactory.cpp Utils/Factories/CoreFactory.h)
+source_group("Lii\\Utils\\Factory" FILES ${Lii_Utils_Factories}
+
+)
+
 
 set(Lii_OpenGL
         OpenGL/Shader.h 
@@ -381,7 +388,7 @@ set(Lii_OpenGL
         OpenGL/VertexArrayObjectPool.h
         OpenGL/DefaultGpuMemoryAllocator.cpp
         OpenGL/DefaultGpuMemoryAllocator.h
-        OpenGL/Taggable.h
+        api/Taggable.h
         OpenGL/GpuMemoryAllocator.h
         OpenGL/MemoryAllocatorManager.cpp
         OpenGL/MemoryAllocatorManager.h
@@ -446,6 +453,7 @@ set(ALL_FILES
     ${Lii_Behavior}
     ${Lii_Components}
     ${Lii_Components_ComboBox}
+    ${Lii_Core_Windows}
     ${Lii_DataTypes}
     ${Lii_Events}
     ${Lii_EventTypes}
@@ -461,18 +469,22 @@ set(ALL_FILES
     ${Lii_Api}
     ${Lii/Managers}
     ${Lii_Components_3d}
-        Events/EntryStateSubscriber.h api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
+    ${Lii_Utils_Managers}
+    ${Lii_Utils_Factories}
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
 
 ################################################################################
 # Target
 ################################################################################
 
-add_executable(${PROJECT_NAME} WIN32 ${ALL_FILES})
+add_executable(${PROJECT_NAME} ${ALL_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE
         .
         "Behavior/"
         "api/"
         "Components/"
+        "Components/Grid"
+        "Components/FileBrowser/"
         "DataTypes/"
         "Events/"
         "EventTypes/"
@@ -493,6 +505,9 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Managers/"
         "Components/3d"
         "../libs/PhysX-4.1/physx/include/"
+        "Core/Windows"
+        "Utils/Managers"
+        "Utils/Factories"
         )
 
 target_link_libraries(${PROJECT_NAME}

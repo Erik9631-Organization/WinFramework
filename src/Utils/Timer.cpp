@@ -2,8 +2,7 @@
 #include <chrono>
 #include <iostream>
 #include "TimerSubscriber.h"
-#include "WindowsCore.h"
-#include <Windows.h>
+#include "Core/Windows/WindowsCore.h"
 #include <processthreadsapi.h>
 using namespace std::chrono;
 

@@ -1,5 +1,6 @@
 #include "RadioButton.h"
 #include "EventTypes/EventRadioButtonStateInfo.h"
+using namespace std;
 
 void RadioButton::Check()
 {
@@ -77,7 +78,7 @@ RadioButton::RadioButton(int x, int y, int width, int height, string componentNa
 
 	text.SetColor({0, 0, 0});
 	text.SetFontSize(12.0f);
-	text.SetLineAlignment(Gdiplus::StringAlignment::StringAlignmentCenter);
+	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
 	text.SetScalingTypeX(Percentual);
 	text.SetScalingTypeY(Percentual);
 	text.SetPosition({0.23f, 0.52f});

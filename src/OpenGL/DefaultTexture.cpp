@@ -163,3 +163,23 @@ const unsigned long long int &StaticTexture::GetId() const
 {
     return textureId;
 }
+
+void StaticTexture::SetSize(glm::vec2 size)
+{
+
+}
+
+void StaticTexture::SetSize(float width, float height)
+{
+
+}
+
+void StaticTexture::SetWidth(float width)
+{
+
+}
+
+void StaticTexture::SetHeight(float height)
+{
+
+}

@@ -37,9 +37,9 @@ namespace OpenGL
         virtual void SetProjectionMatrix(glm::mat4 *projection) = 0;
         virtual void SetViewMatrix(glm::mat4 *view) = 0;
         virtual void SetTexture(Texture *texture) = 0;
-        virtual void SetTexture(const string &textureTag) = 0;
-        virtual void SetMesh(const string &meshTag) = 0;
-        virtual void SetShaderProgram(const string shaderTag) = 0;
+        virtual void SetTexture(const std::string &textureTag) = 0;
+        virtual void SetMesh(const std::string &meshTag) = 0;
+        virtual void SetShaderProgram(const std::string shaderTag) = 0;
         virtual const Texture* GetTexture() const = 0;
         virtual void SetMesh(Mesh *mesh) = 0;
         virtual const Mesh * GetMesh() const = 0;

@@ -1,44 +1,16 @@
 #include "Window.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include <thread>
 #include <mutex>
 #include "ApplicationController.h"
 #include <string>
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
-#include "GdiRenderingProvider.h"
-
+#include "CoreArgs.h"
+#include "RenderingProviderManager.h"
+#include "CoreManager.h"
+#include <iostream>
 using namespace std;
-
-void Window::CreateCoreWindow(LONG style)
-{
-    coreFrame = WindowsCore::Create(*this, name, style);
-    SetRenderingProvider(make_shared<GdiRenderingProvider>());
-}
-
-void Window::AddWindowStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesChanged(e);
-}
-
-void Window::RemoveWindowStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_STYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesRemoved(e);
-}
-
-void Window::AddWindowExtendedStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesChanged(e);
-}
-
-void Window::RemoveWindowExtendedStyle(LONG styleFlags)
-{
-    EventAttributeInfo e = {GWL_EXSTYLE, styleFlags, std::make_any<Presenter*>(this)};
-    NotifyOnAttributesRemoved(e);
-}
 
 void Window::SetSize(float width, float height, bool emit)
 {
@@ -133,25 +105,10 @@ Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
 
 }
 
-Window::Window(int x, int y, int width, int height, string windowName) : Window(x, y, width, height, windowName, WS_OVERLAPPEDWINDOW)
+Window::Window(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName)
 {
-
-}
-
-Window::Window(int x, int y, int width, int height, string windowName, LONG style) : UiElement(x, y, width, height, windowName)
-{
-	initWait = new condition_variable();
 	componentType = "Window";
-	CreateCoreWindow(style);
-    coreFrame->Redraw();
 	background.SetColor({255, 255, 255});
-    AddOnTickSubscriber(&scene3d);
-    AddRenderCommander(background);
-    coreMediator = new CoreMediator();
-    AddPresenterSubscriber(coreMediator);
-    coreFrame->AddCoreSubscriber(coreMediator);
-    coreMediator->SetCore(coreFrame.get());
-    coreMediator->SetPresenter(this);
 }
 
 void Window::Add(unique_ptr<UiElement> component)
@@ -159,11 +116,6 @@ void Window::Add(unique_ptr<UiElement> component)
 	UiElement::Add(std::move(component));
 }
 
-Window::~Window()
-{
-    renderingProvider->OnDestroy(*coreFrame);
-	delete initWait;
-}
 
 void Window::NotifyOnMouseHover(EventMouseStateInfo e)
 {
@@ -181,54 +133,11 @@ void Window::NotifyOnMouseUp(EventMouseStateInfo e)
     currentCapture = nullptr;
 }
 
-void Window::SetRenderingProvider(RenderingProvider &provider)
-{
-    if(coreFrame == nullptr)
-        return;
-    renderingProvider->OnRemove(*coreFrame);
-    coreFrame->SetRenderingProvider(provider);
-}
-
-RenderingProvider *Window::GetRenderingProvider()
-{
-    if(coreFrame != nullptr)
-        return coreFrame->GetRenderingProvider();
-    return nullptr;
-}
-
-void Window::SetRenderingProvider(std::shared_ptr<RenderingProvider> renderingProvider)
-{
-    if(coreFrame == nullptr)
-        return;
-    if(this->renderingProvider != nullptr)
-    {
-        this->renderingProvider->OnRemove(*coreFrame);
-    }
-
-    coreFrame->SetRenderingProvider(*renderingProvider);
-    this->renderingProvider = renderingProvider;
-    renderingProvider->OnInit(*coreFrame);
-}
-
 void Window::WaitForSync()
 {
-    renderingProvider->WaitForSyncToFinish();
+    coreMediator->WaitForRenderingSyncToFinish();
 }
 
-void Window::SetLockCursorSize(const glm::vec2 &size)
-{
-    coreFrame->SetLockCursorSize(size);
-}
-
-void Window::LockCursor(const bool &lockState)
-{
-    coreFrame->LockCursor(lockState);
-}
-
-const bool &Window::IsCursorLocked() const
-{
-    return coreFrame->IsCursorLocked();
-}
 
 void Window::Add(unique_ptr<Element3d> element)
 {
@@ -298,4 +207,37 @@ void Window::RemovePresetnerSubscriber(PresenterSubscriber *subscriber)
     for(auto it = presenterSubscribers.begin(); it != presenterSubscribers.end(); it++)
         if(*it == subscriber)
             presenterSubscribers.erase(it);
+}
+
+std::unique_ptr<Window> Window::Create(const string &windowName)
+{
+    return Create(0, 0, 0, 0, windowName);
+}
+
+std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName)
+{
+    auto* window = new Window(x, y, width, height, windowName);
+    window->AddOnTickSubscriber(&window->scene3d);
+    window->AddRenderCommander(window->background);
+
+    //Create all window DEPENDENCIES
+    //TODO use try and catch here
+    auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    if(renderingProvider == nullptr)
+    {
+        cout << "Error, failed to create window" << endl;
+        return nullptr;
+    }
+
+    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
+    core->SetRenderingProvider(std::move(renderingProvider));
+
+    //Create core mediator
+    auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
+
+    //Setup window dependencies
+    window->coreMediator = std::move(coreMediator);
+    window->NotifyOnRedraw(std::make_any<Window*>(window));
+
+    return std::unique_ptr<Window>(window);
 }

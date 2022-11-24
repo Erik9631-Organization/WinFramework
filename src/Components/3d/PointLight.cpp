@@ -6,6 +6,7 @@
 #include "ModelBuilder.h"
 #include "RenderEventInfo.h"
 #include "RenderingPriorities.h"
+using namespace std;
 
 IdManager PointLight::idManager = IdManager(maxLights);
 

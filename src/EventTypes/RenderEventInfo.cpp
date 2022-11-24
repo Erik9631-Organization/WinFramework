@@ -1,5 +1,5 @@
 #include "RenderEventInfo.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "RenderingPool.h"
 
 RenderingPool * RenderEventInfo::GetRenderer() const

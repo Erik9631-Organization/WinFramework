@@ -1,6 +1,4 @@
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
 #include "EventInfo.h"
 #include "GenericObj.h"
 #include <glm.hpp>

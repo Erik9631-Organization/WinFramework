@@ -37,7 +37,7 @@ MemoryAllocatorManager::MemoryAllocatorManager()
     defaultVertexAttributes->AddVertexAttribute(std::make_unique<DefaultVertexAttribute>(2, 8, 3));
     //Normal
     defaultVertexAttributes->AddVertexAttribute(std::make_unique<DefaultVertexAttribute>(3, 8, 5));
-    //Create default allocator
+    //CreateElement default allocator
     std::unique_ptr<GpuMemoryAllocator> allocator = std::make_unique<DefaultGpuMemoryAllocator>(std::move(defaultVertexAttributes));
     allocator->SetTag("static");
     memoryMap.try_emplace(allocator->GetTag(), std::move(allocator));

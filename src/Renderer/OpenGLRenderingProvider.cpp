@@ -2,26 +2,15 @@
 // Created by Erik on 01/02/22.
 //
 
-#include <Windows.h>
-#include <gdiplus.h>
 #include "OpenGLRenderingProvider.h"
-#include <glew.h>
-#include <wglew.h>
-#include "ApplicationController.h"
 #include <string>
 #include "RenderEventInfo.h"
-#include <glm.hpp>
-#include <gtc/matrix_transform.hpp>
-#include "ModelBuilder.h"
-#include "StaticTexture.h"
 #include "CameraManager.h"
-#include "Model.h"
 #include "EventUpdateInfo.h"
 #include "ShaderManager.h"
 #include "GraphicsShader.h"
 #include "GlobalResourceManager.h"
-#include "Window.h"
-#include "WindowsCore.h"
+#include <iostream>
 
 
 
@@ -31,14 +20,18 @@ void OpenGLRenderingProvider::Render()
     performRenderSignal.notify_one();
 }
 
-void OpenGLRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
+void OpenGLRenderingProvider::OnInit(Core &coreWindowFrame)
 {
-    ApplicationController::GetApplicationController()->AddEntryStateSubscriber(this);
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
     GetGlExtensions();
     //now create openGlWindow
-    PrepareWindowRenderer(coreWindowFrame);
-    coreWindow = &coreWindowFrame;
-    renderingPool = std::make_unique<OpenGLRenderingPool>(coreWindow->GetWrapperFrame(), manager);
+    PrepareWindowRenderer(*windowsCore);
+    renderingPool = std::make_unique<OpenGLRenderingPool>(*windowsCore->GetWrapperFrame(), manager);
     element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
     GraphicsInit();
     renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{InternalRender();}, to_string((long long)this)+"renderThread");
@@ -69,7 +62,7 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
     bool pWglChoosePixelFormatARBStatus = wglChoosePixelFormatARB(windowDc, pixelFormat, NULL, 1, &matchingIndex, &matchingSize);
     if(!pWglChoosePixelFormatARBStatus || !matchingSize)
     {
-        WindowsCore::ConsoleWrite("wglChoosePixelFormatARB failed with error: " + to_string(GetLastError()));
+        std::cout << "wglChoosePixelFormatARB failed with error: " << GetLastError() << endl;
         system("PAUSE");
         exit(0);
     }
@@ -77,16 +70,16 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
     PIXELFORMATDESCRIPTOR  formatDescription;
     if(!DescribePixelFormat(windowDc, matchingIndex, sizeof(PIXELFORMATDESCRIPTOR), &formatDescription))
     {
-        WindowsCore::ConsoleWrite("Failed to describe pixel format!" + to_string(GetLastError()));
+        std::cout << "Failed to describe pixel format!" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowDc, matchingIndex, &formatDescription))
     {
-        WindowsCore::ConsoleWrite("Failed to set pixel format!" + to_string(GetLastError()));
-        system("PAUSE");
-        exit(0);
+       std::cout << "Failed to set pixel format!" << to_string(GetLastError()) << std::endl;
+       system("PAUSE");
+       exit(0);
     }
 
 
@@ -101,14 +94,14 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
 
     if(!openGlContext)
     {
-        WindowsCore::ConsoleWrite("Failed creating GL context with error: " + to_string(GetLastError()));
+        std::cout << "Failed creating GL context with error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowDc, openGlContext))
     {
-        WindowsCore::ConsoleWrite("Error selecting gl context");
+        std::cout << "Error selecting gl context" << std::endl;
         exit(0);
     }
     std::string test{(LPCSTR)glGetString(GL_VERSION)};
@@ -121,10 +114,10 @@ void OpenGLRenderingProvider::PrepareWindowRenderer(WindowsCore& window)
 
 void OpenGLRenderingProvider::GetGlExtensions()
 {
-    //Create dummy window
+    //CreateElement dummy window
     WNDCLASSA dummyWindowClass;
     ZeroMemory(&dummyWindowClass, sizeof(WNDCLASSA));
-    dummyWindowClass.hInstance = ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance;
+    dummyWindowClass.hInstance = GetModuleHandleA(NULL);
     dummyWindowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     dummyWindowClass.lpfnWndProc = DefWindowProcA;
     dummyWindowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
@@ -133,17 +126,16 @@ void OpenGLRenderingProvider::GetGlExtensions()
 
     if(!RegisterClass(&dummyWindowClass))
     {
-        WindowsCore::ConsoleWrite("Register dummy Class error: " + to_string(GetLastError()));
+        std::cout << "Register dummy Class error: " << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     HWND dummyHandle = CreateWindow("Dummy window", NULL, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
-                                    CW_USEDEFAULT, NULL, NULL,
-                                    ApplicationController::GetApplicationController()->GetWinEntryArgs().hInstance, NULL);
+                                    CW_USEDEFAULT, NULL, NULL, GetModuleHandleA(NULL), NULL);
     if(!dummyHandle)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy window handle" + to_string(GetLastError()));
+        std::cout << "Error creating dummy window handle" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
@@ -159,14 +151,14 @@ void OpenGLRenderingProvider::GetGlExtensions()
     int pixelFormatIndex = ChoosePixelFormat(windowHdc, &pixelDescription);
     if(!pixelFormatIndex)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy pixel format index" + to_string(GetLastError()));
+        std::cout << "Error creating dummy pixel format index" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!SetPixelFormat(windowHdc, pixelFormatIndex, &pixelDescription))
     {
-        WindowsCore::ConsoleWrite("Error setting dummy pixel format index" + to_string(GetLastError()));
+        std::cout << "Error setting dummy pixel format index" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
@@ -174,21 +166,21 @@ void OpenGLRenderingProvider::GetGlExtensions()
     HGLRC glContext = wglCreateContext(windowHdc);
     if(!glContext)
     {
-        WindowsCore::ConsoleWrite("Error creating dummy openGL rendering context" + to_string(GetLastError()));
+        std::cout << "Error creating dummy openGL rendering context" << GetLastError() << std::endl;
         system("PAUSE");
         exit(0);
     }
 
     if(!wglMakeCurrent(windowHdc, glContext))
     {
-        WindowsCore::ConsoleWrite("Error selecting dummy gl context");
+        std::cout << "Error selecting dummy gl context" << std::endl;
         exit(0);
     }
 
     GLenum result = glewInit();
     if(result != GLEW_OK)
     {
-        WindowsCore::ConsoleWrite("Error loading extentions");
+        std::cout << "Error loading extentions" << std::endl;
         exit(0);
     }
 
@@ -199,15 +191,21 @@ void OpenGLRenderingProvider::GetGlExtensions()
     DestroyWindow(dummyHandle);
 }
 
-void OpenGLRenderingProvider::OnDestroy(WindowsCore &coreWindow)
+void OpenGLRenderingProvider::OnDestroy(Core &coreWindow)
 {
-    ReleaseDC(coreWindow.GetWindowHandle(), GetDC(coreWindow.GetWindowHandle()));
+    auto* core = dynamic_cast<WindowsCore*>(&coreWindow);
+    if(core == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    ReleaseDC(core->GetWindowHandle(), GetDC(core->GetWindowHandle()));
     startRenderingLoop = false;
     renderingThread->join();
 
 }
 
-void OpenGLRenderingProvider::OnRemove(WindowsCore &coreWindow)
+void OpenGLRenderingProvider::OnRemove(Core &coreWindow)
 {
 
 }
@@ -221,9 +219,9 @@ void OpenGLRenderingProvider::WaitForSyncToFinish()
 
 void OpenGLRenderingProvider::InternalRender()
 {
-    ApplicationController::GetApplicationController()->WaitForEntryToFinish();
+    //ApplicationController::GetApplicationController()->WaitForEntryToFinish();
     wglMakeCurrent(windowDc, openGlContext);
-    Window& window = coreWindow->GetWrapperFrame();
+    Window* window = windowsCore->GetWrapperFrame();
     glEnable(GL_DEPTH_TEST);
     while(startRenderingLoop)
     {
@@ -235,22 +233,27 @@ void OpenGLRenderingProvider::InternalRender()
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
         ///TODO Thread sync problem
         //Wait for update could finish and another cycle could start before uiSyncer sends a signal. Mutex is requried here.
-        coreWindow->WaitForUpdateToFinish();
-        uiSyncer.SyncData(coreWindow->GetWrapperFrame().GetUiElementNode());
-        element3dSyncer->SyncData(coreWindow->GetWrapperFrame().Get3dScene().GetElementNode());
-        glViewport(0, 0, window.GetWidth(), window.GetHeight()); // Update the viewport
+        windowsCore->WaitForUpdateToFinish();
+        uiSyncer.SyncData(windowsCore->GetWrapperFrame()->GetUiElementNode());
+        element3dSyncer->SyncData(windowsCore->GetWrapperFrame()->Get3dScene().GetElementNode());
+        if(window == nullptr)
+            continue;
+        glViewport(0, 0, window->GetWidth(), window->GetHeight()); // Update the viewport
         AssignRendererToNodes();
         manager.Render();
-        performRender = !coreWindow->IsEventBased();
+        performRender = !windowsCore->IsEventBased();
         SwapBuffers(windowDc);
     }
+    wglMakeCurrent(nullptr, nullptr);
 }
 
 
 void OpenGLRenderingProvider::AssignRendererToNodes()
 {
-    Window& wrapperFrame = coreWindow->GetWrapperFrame();
-    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode());
+    Window* wrapperFrame = windowsCore->GetWrapperFrame();
+    if(wrapperFrame == nullptr)
+        return;
+    AssignGraphicsToNodes(wrapperFrame->GetUiElementNode());
 }
 
 void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiElement>> &node)
@@ -272,7 +275,7 @@ void OpenGLRenderingProvider::AssignGraphicsToNodes(MultiTree<unique_ptr<UiEleme
 
 void OpenGLRenderingProvider::GraphicsInit()
 {
-    //Create default shaders
+    //CreateElement default shaders
     ShaderProgram& program = GlobalResourceManager::GetGlobalResourceManager().GetResourceManager<ShaderManager>("shader")->
         CreateShaderProgram<OpenGL::DefaultShaderProgram>("default");
 
@@ -315,15 +318,5 @@ void OpenGLRenderingProvider::GraphicsInit()
 //    models.emplace_back(std::move(block));
 //    models.emplace_back(std::move(wallBlock));
 //    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-}
-
-void OpenGLRenderingProvider::OnEntryStart()
-{
-
-}
-
-void OpenGLRenderingProvider::OnEntryEnd()
-{
-    wglMakeCurrent(nullptr, nullptr);
 }
 

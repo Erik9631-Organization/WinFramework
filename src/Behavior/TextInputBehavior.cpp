@@ -3,7 +3,7 @@
 #include "Components/TextInput.h"
 #include "EventTypes/EventOnActivateInfo.h"
 #include "Components/UiElement.h"
-
+using namespace std;
 
 void TextInputBehavior::InsertCharacter(EventKeyStateInfo e)
 {

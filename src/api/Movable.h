@@ -1,7 +1,5 @@
 #pragma once
-#include "Events/MoveSubject.h"
-#include <Windows.h>
-#include <gdiplus.h>
+#include "MoveSubject.h"
 
 /**
  * The interface should be implemented by all classes which should be able to move

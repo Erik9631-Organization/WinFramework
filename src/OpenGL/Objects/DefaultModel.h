@@ -87,9 +87,9 @@ namespace OpenGL
         const bool &IsCustomCameraEnabled() override;
         void SetCamera(const Camera *camera) override;
         const Camera * GetCamera() override;
-        void SetTexture(const string &textureTag) override;
-        void SetMesh(const string &meshTag) override;
-        void SetShaderProgram(const string shaderTag) override;
+        void SetTexture(const std::string &textureTag) override;
+        void SetMesh(const std::string &meshTag) override;
+        void SetShaderProgram(const std::string shaderTag) override;
     };
 }
 

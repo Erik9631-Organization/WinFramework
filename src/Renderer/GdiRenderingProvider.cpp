@@ -1,24 +1,24 @@
 //
 // Created by Erik on 22/01/24.
 //
-#include <windows.h>
-#include <gdiplus.h>
 #include "GdiRenderingProvider.h"
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
 #include "Window.h"
 #include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
 #include "GdiRenderer.h"
-#include <algorithm>
 #include <execution>
 #include <future>
 #include <chrono>
 #include "GdiRenderingPool.h"
 #include "ApplicationController.h"
-
-using namespace std::chrono;
-
+using namespace std;
+using namespace chrono;
 using namespace Gdiplus;
+
+ULONG GdiRenderingProvider::token = 0;
+Gdiplus::GdiplusStartupOutput GdiRenderingProvider::output = {};
+
 void GdiRenderingProvider::Render()
 {
     //Change the rendering bit
@@ -68,10 +68,12 @@ void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiEle
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
 {
-    auto& wrapperFrame = coreWindowframe->GetWrapperFrame();
-    Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame.GetWidth() + 1, wrapperFrame.GetHeight() + 1);
+    Window* wrapperFrame = windowsCore->GetWrapperFrame();
+    if(wrapperFrame == nullptr)
+        return;
+    Gdiplus::Rect rootViewport = Rect(0, 0, wrapperFrame->GetWidth() + 1, wrapperFrame->GetHeight() + 1);
     Gdiplus::Region clippingRegion = Gdiplus::Region(rootViewport);
-    AssignGraphicsToNodes(wrapperFrame.GetUiElementNode(), clippingRegion);
+    AssignGraphicsToNodes(wrapperFrame->GetUiElementNode(), clippingRegion);
 }
 
 HDC GdiRenderingProvider::GetSecondaryDC()
@@ -87,32 +89,37 @@ void GdiRenderingProvider::OnResize(EventResizeInfo e)
     secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
-void GdiRenderingProvider::OnInit(WindowsCore &coreWindowFrame)
+void GdiRenderingProvider::OnInit(Core &coreWindowFrame)
 {
-    this->coreWindowframe = &coreWindowFrame;
-    windowHandle = coreWindowframe->GetWindowHandle();
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    windowHandle = windowsCore->GetWindowHandle();
     windowHdc = GetDC(windowHandle);
-    coreWindowframe->AddOnResizePreProcessSubsriber(*this);
-    secondaryBitmap = CreateCompatibleBitmap(windowHdc, coreWindowframe->GetWrapperFrame().GetWidth(),
-                                             coreWindowframe->GetWrapperFrame().GetHeight());
-    performRender = !coreWindowframe->IsEventBased();
+    windowsCore->AddOnResizePreProcessSubsriber(*this);
+
+    secondaryBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
+                                             windowsCore->GetWrapperFrame()->GetHeight());
+    performRender = !windowsCore->IsEventBased();
     fpsTimer.Start();
 
     if(renderingThread == nullptr)
         renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
 }
 
-void GdiRenderingProvider::OnDestroy(WindowsCore &coreWindow)
+void GdiRenderingProvider::OnDestroy(Core &coreWindow)
 {
     CleanBackBuffer();
     startRenderingLoop = false;
     //CoreWindow::ConsoleWrite("Render thread ending!");
     fpsTimer.Stop();
-    renderingThread->join();
     //CoreWindow::ConsoleWrite("Render thread ended!");
 }
 
-void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
+void GdiRenderingProvider::OnRemove(Core &coreWindow)
 {
     coreWindow.RemoveOnResizePreProcessSubsriber(*this);
     CleanBackBuffer();
@@ -127,7 +134,6 @@ void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
 
     while(startRenderingLoop)
     {
-
         long long start = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         //fpsTimer.Start();
         //Render only if the rendering was requested
@@ -136,19 +142,21 @@ void GdiRenderingProvider::OnRemove(WindowsCore &coreWindow)
 
         //CoreWindow::ConsoleWrite("Waiting for render");
         performRenderSignal.wait(performRenderLock, [=]{return performRender;});
+        if(windowsCore == nullptr)
+            continue;
         //OnSync
         //Sync only if updating is finished.
-        coreWindowframe->WaitForUpdateToFinish();
+        windowsCore->WaitForUpdateToFinish();
         //CoreWindow::ConsoleWrite("Syncing data");
-        syncer.SyncData(coreWindowframe->GetWrapperFrame().GetUiElementNode());
+        syncer.SyncData(windowsCore->GetWrapperFrame()->GetUiElementNode());
         //CoreWindow::ConsoleWrite("Syncing finished");
 
         //CoreWindow::ConsoleWrite("Rendering data");
         GetSecondaryDC();
         AssignGraphicsToNodes(); //This is where components draw on the buffer
-        BitBlt(windowHdc, 0, 0, coreWindowframe->GetWrapperFrame().GetWidth(), coreWindowframe->GetWrapperFrame().GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+        BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
         CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
-        performRender = !coreWindowframe->IsEventBased();
+        performRender = !windowsCore->IsEventBased();
         //fpsTimer.Wait();
         long long end = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         //CoreWindow::ConsoleWrite("FPS: " + to_string(1000/(end - start)));
@@ -175,18 +183,22 @@ void GdiRenderingProvider::SetTargetFps(int targetFps)
 
 GdiRenderingProvider::GdiRenderingProvider() : fpsTimer(0)
 {
+    GdiStartup();
     fpsTimer.SetPeriodic(false);
     int interval = 1000/targetFps;
     fpsTimer.SetInterval(interval);
     renderingThread = nullptr;
 }
 
-void GdiRenderingProvider::OnEntryStart()
+void GdiRenderingProvider::GdiStartup()
 {
+    if(token != 0)
+        return;
 
-}
-
-void GdiRenderingProvider::OnEntryEnd()
-{
-
+    //Startup GDI
+    GdiplusStartupInput input;
+    input.GdiplusVersion = 1;
+    input.SuppressBackgroundThread = FALSE;
+    input.DebugEventCallback = NULL;
+    GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }

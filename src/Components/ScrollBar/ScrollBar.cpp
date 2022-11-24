@@ -4,6 +4,7 @@
 
 #include "ScrollBar.h"
 #include "MouseStateSubscriber.h"
+using namespace std;
 
 ScrollBar::ScrollBar(int x, int y, int width, int height, const string &name) :
         Panel(x, y, width, height, name)

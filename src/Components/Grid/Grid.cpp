@@ -1,4 +1,5 @@
 #include "Grid.h"
+using namespace std;
 
 void Grid::AddRow()
 {
@@ -12,14 +13,14 @@ void Grid::AddRow()
 	if (gridArray.size() > 1)
 		lastRowIndex = gridArray.size() - 1;
 
-	for (int i = 0; i < columnWidths.size(); i++) //Create new row
+	for (int i = 0; i < columnWidths.size(); i++) //CreateElement new row
 	{
 		GridCell* cell = new GridCell(*this);
 		//Check if current index is spanning and capture the index of the span
 
 		//If == -1 then cell.SetSpan(spanVector[returnVal])
 		//Get spans Y find the different between current row and preemtivly add rows till the last span, use recursion
-		//Create last assigned row variable which keeps track of which row was the last gridCell assigned to.
+		//CreateElement last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
         cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex), false); // First position
         cell->SetPosition(i, lastRowIndex, false); // Then size since position is dependent on size

@@ -5,7 +5,9 @@
 #include "GraphicsShader.h"
 #include <fstream>
 #include <glew.h>
-#include "WindowsCore.h"
+#include "Core/Windows/WindowsCore.h"
+#include <iostream>
+
 unsigned int OpenGL::GraphicsShader::GetId()
 {
     return shaderId;
@@ -20,7 +22,7 @@ bool OpenGL::GraphicsShader::Compile()
     {
         compiled = false;
         glGetShaderInfoLog(shaderId, errorLogSize, NULL, lastError);
-        WindowsCore::ConsoleWrite(std::string(lastError));
+        std::cout << std::string(lastError) << std::endl;
 
     }
     else

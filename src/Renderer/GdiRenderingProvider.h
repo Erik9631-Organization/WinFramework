@@ -4,6 +4,9 @@
 
 #ifndef LII_GDIRENDERINGPROVIDER_H
 #define LII_GDIRENDERINGPROVIDER_H
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment (lib, "Gdiplus.lib")
 #include "RenderingProvider.h"
 #include "ResizeSubscriber.h"
 #include "DrawData2D.h"
@@ -13,6 +16,7 @@
 #include <mutex>
 #include <condition_variable>
 #include "UiTreeDataSyncer.h"
+#include "Core.h"
 
 class Timer;
 class WindowsCore;
@@ -31,18 +35,20 @@ public:
     GdiRenderingProvider();
     void Render() override;
     void OnResize(EventResizeInfo e) override;
-    void OnInit(WindowsCore &coreWindowFrame) override;
-    void OnDestroy(WindowsCore &coreWindow) override;
-    void OnRemove(WindowsCore &coreWindow) override;
+    void OnInit(Core &coreWindowFrame) override;
+    void OnDestroy(Core &coreWindow) override;
+    void OnRemove(Core &coreWindow) override;
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
-    void OnEntryStart() override;
-    void OnEntryEnd() override;
     std::thread* renderingThread;
 private:
+    static void GdiStartup();
+    static Gdiplus::GdiplusStartupOutput output;
+    static ULONG token;
+
     UiTreeDataSyncer syncer;
-    WindowsCore* coreWindowframe;
+    WindowsCore* windowsCore;
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     void CleanBackBuffer();
     void AssignGraphicsToNodes();
@@ -56,7 +62,6 @@ private:
     int targetFps = 60;
     bool startRenderingLoop = true;
     Timer fpsTimer;
-
     bool performRender = false;
     std::condition_variable performRenderSignal;
 

@@ -3,13 +3,8 @@
 #include "Graphics/Background.h"
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Text.h"
-#include "GraphicalStates/DefaultButtonBehavior.h"
+#include "DefaultButtonBehavior.h"
 
-class Animation;
-
-/**
- * 
- */
 class Button : public UiElement
 {
 

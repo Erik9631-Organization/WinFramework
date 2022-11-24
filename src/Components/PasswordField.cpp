@@ -1,5 +1,6 @@
 #include "PasswordField.h"
 #include "Graphics/Text.h"
+using namespace std;
 
 PasswordField::PasswordField() : PasswordField("")
 {

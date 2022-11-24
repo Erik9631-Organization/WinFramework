@@ -44,7 +44,7 @@ public:
 	*/
 	void CreateListElement(std::wstring name, std::any value);
 
-	void Add(unique_ptr<UiElement> component) override;
+	void Add(std::unique_ptr<UiElement> component) override;
 
 	// Inherited via Draggable
 	virtual std::any GetDragContent() override;

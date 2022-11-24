@@ -1,7 +1,5 @@
 #pragma once
 #include "Events/MouseStateSubscriber.h"
-#include <Windows.h>
-#include <gdiplus.h>
 
 class Button;
 class DefaultButtonBehavior : public MouseStateSubscriber

@@ -1,5 +1,6 @@
 #include "ListBox.h"
 #include <string>
+using namespace std;
 
 ListBox::ListBox() : ListBox("")
 {
