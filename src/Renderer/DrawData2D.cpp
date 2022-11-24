@@ -3,25 +3,24 @@
 //
 
 #include "DrawData2D.h"
-#include "Vector2.h"
 
 int DrawData2D::GetDataType() const
 {
     return DataType::drawData2D;
 }
 
-DrawData2D::DrawData2D(Vector2 position, Vector2 size) : position(position), size(size)
+DrawData2D::DrawData2D(glm::vec2 position, glm::vec2 size) : position(position), size(size)
 {
     this->position = position;
     this->size = size;
 }
 
-Vector2 DrawData2D::GetPosition() const
+glm::vec2 DrawData2D::GetPosition() const
 {
     return position;
 }
 
-Vector2 DrawData2D::GetSize() const
+glm::vec2 DrawData2D::GetSize() const
 {
     return size;
 }

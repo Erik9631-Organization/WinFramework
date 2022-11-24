@@ -1,12 +1,13 @@
 #pragma once
 #include <Windows.h>
-#include <string>
-#include <fstream>
+#include "FileBrowser.h"
+
 class MouseInteractable;
 /**
  * A filebrwoser class. If FileBrowser::Open is called, a file browser window is openned, allowing the user to select the file to save / load.
 */
-class FileBrowser
+
+class WindowsFileBrowser : public FileBrowser
 {
 private:
 	int fileNameSize = 16384;
@@ -19,12 +20,11 @@ private:
 	DWORD flags;
 
 public:
-	FileBrowser();
 	/**
 	 * The title that will appear at the top of the filebrowser window
 	 * \param title the string that will be displayed as a title
 	 */
-	FileBrowser(std::string title);
+	WindowsFileBrowser(std::string title = std::string(""));
 
 	/**
 	 * Opens a file browser window designed for saving files.
@@ -71,28 +71,28 @@ public:
 	/**
 	 * Allows multi selecting files in the window.
 	 */
-	FileBrowser& AllowMultiSelect();
+    FileBrowser & AllowMultiSelect();
 
 	/**
 	 * Sets the create prompt flag.
 	 */
-	FileBrowser& CreatePrompt();
+    FileBrowser & CreatePrompt();
 	
 	/**
 	 * Enables or disables resizing of the file browswer.
 	 */
-	FileBrowser& EnableResizing();
-	FileBrowser& FileMustExist();
+    FileBrowser & EnableResizing();
+	FileBrowser & FileMustExist();
 
 	/**
 	 * Shows hidden files.
 	 */
-	FileBrowser& ShowHiddenFiles();
+    FileBrowser & ShowHiddenFiles();
 
 	/**
 	 * \param Flags sets the flags of the file browser. Check <a href="https://docs.microsoft.com/en-us/windows/win32/api/commdlg/ns-commdlg-openfilenamea">MSDN</a> for more information..
 	 */
-	FileBrowser& SetFlags(DWORD Flags);
+    FileBrowser & SetFlags(unsigned int Flags);
 
 	/**
 	 * \return returns the selected path.

@@ -4,7 +4,6 @@
 #include "ReflectionContainer.h"
 #include "ScalingUtil.h"
 #include "Vector3.h"
-#include "Vector2.h"
 #include "Vector4.h"
 #include "DrawData2D.h"
 
@@ -21,9 +20,9 @@ private:
 	DefaultRender renderBehavior;
 	Vector4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;
-	Vector2 position;
+    glm::vec2 position;
 	ScalingUtil graphicsUtil;
-	Vector2 size;
+    glm::vec2 size;
 	DrawData2D drawData;
 
 public:
@@ -36,8 +35,8 @@ public:
 	Vector4 GetColorRGBA();
 	void SetWidth(float width);
 	void SetHeight(float height);
-	void SetPosition(Vector2 position);
-	void SetSize(Vector2 size);
+	void SetPosition(glm::vec2 position);
+	void SetSize(glm::vec2 size);
 
 	GraphicsScaling GetScalingTypeX() const;
 	void SetScalingTypeX(GraphicsScaling scalingTypeX);
@@ -56,8 +55,8 @@ public:
 	float GetX();
 	float GetY();
 
-	Vector2 GetSize();
-	Vector2 GetPosition();
+	glm::vec2 GetSize();
+	glm::vec2 GetPosition();
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;

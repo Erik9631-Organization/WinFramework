@@ -4,6 +4,7 @@
 
 #ifndef GRAPHICS_VECTOR2D_H
 #define GRAPHICS_VECTOR2D_H
+/*
 class Vector2Int;
 
 class Vector2
@@ -30,5 +31,5 @@ private:
     float y;
 };
 
-
+*/
 #endif //GRAPHICS_VECTOR2D_H

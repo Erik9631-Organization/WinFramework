@@ -47,33 +47,34 @@ const bool& InputManager::IsKeyUp(unsigned int key) const
     return false;
 }
 
-const Vector2 & InputManager::GetMouseDelta() const
+const glm::vec2 & InputManager::GetMouseDelta() const
 {
     return mouseDelta;
 }
 
-const Vector2 & InputManager::GetMouseScreenPosition() const
+const glm::vec2 & InputManager::GetMouseScreenPosition() const
 {
     return mouseScreenPosition;
 }
 
-const Vector2 & InputManager::GetMousePosition() const
+const glm::vec2 & InputManager::GetMousePosition() const
 {
     return mousePosition;
 }
 
-void InputManager::SetMousePosition(const Vector2 &mousePosition)
+void InputManager::SetMousePosition(const glm::vec2 &mousePosition)
 {
     this->mousePosition = mousePosition;
 }
 
-void InputManager::SetMouseScreenPosition(const Vector2 &mousePosition)
+void InputManager::SetMouseScreenPosition(const glm::vec2 &mousePosition)
 {
     this->mouseScreenPosition = mousePosition;
 }
 
-void InputManager::SetMouseDeltaPosition(const Vector2 &mousePosition)
+void InputManager::SetMouseDeltaPosition(const glm::vec2 &mousePosition)
 {
     this->mouseDelta = mousePosition;
-    mouseDelta.Normalize();
+
+    mouseDelta = glm::normalize(mouseDelta);
 }

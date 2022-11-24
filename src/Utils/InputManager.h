@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
-#include <Vector2.h>
+#include <vec2.hpp>
+
 class WindowsCore;
 
 class InputManager
@@ -9,9 +10,9 @@ class InputManager
 private:
 	unsigned char keyboardState[256];
     static std::unique_ptr<InputManager> globalInput;
-    Vector2 mousePosition;
-    Vector2 mouseScreenPosition;
-    Vector2 mouseDelta;
+    glm::vec2 mousePosition{0};
+    glm::vec2 mouseScreenPosition{0};
+    glm::vec2 mouseDelta{0};
 public:
     static const InputManager& GetGlobalInput();
 
@@ -20,12 +21,12 @@ public:
 	void SetKeyboardState(unsigned char *keyboardState);
 	const bool& IsKeyDown(unsigned int key) const;
 	const bool& IsKeyUp(unsigned int key) const;
-    const Vector2& GetMouseDelta() const;
-    const Vector2& GetMouseScreenPosition() const;
-    const Vector2& GetMousePosition() const;
-    void SetMousePosition(const Vector2& mousePosition);
-    void SetMouseScreenPosition(const Vector2& mousePosition);
-    void SetMouseDeltaPosition(const Vector2& mousePosition);
+    const glm::vec2 & GetMouseDelta() const;
+    const glm::vec2 & GetMouseScreenPosition() const;
+    const glm::vec2 & GetMousePosition() const;
+    void SetMousePosition(const glm::vec2 &mousePosition);
+    void SetMouseScreenPosition(const glm::vec2 &mousePosition);
+    void SetMouseDeltaPosition(const glm::vec2 &mousePosition);
 
 
     enum class VirtualKeys : unsigned int

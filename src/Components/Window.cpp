@@ -19,9 +19,9 @@ void Window::SetSize(float width, float height, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetSize(Vector2 size, bool emit)
+void Window::SetSize(glm::vec2 size, bool emit)
 {
-    SetSize(size.GetX(), size.GetY(), emit);
+    SetSize(size.x, size.y, emit);
 }
 
 void Window::Repaint()
@@ -64,9 +64,9 @@ void Window::SetPosition(float x, float y, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetPosition(Vector2 position, bool emit)
+void Window::SetPosition(glm::vec2 point, bool emit)
 {
-    SetPosition(position.GetX(), position.GetY(), emit);
+    SetPosition(point.x, point.y, emit);
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)
@@ -207,37 +207,4 @@ void Window::RemovePresetnerSubscriber(PresenterSubscriber *subscriber)
     for(auto it = presenterSubscribers.begin(); it != presenterSubscribers.end(); it++)
         if(*it == subscriber)
             presenterSubscribers.erase(it);
-}
-
-std::unique_ptr<Window> Window::Create(const string &windowName)
-{
-    return Create(0, 0, 0, 0, windowName);
-}
-
-std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName)
-{
-    auto* window = new Window(x, y, width, height, windowName);
-    window->AddOnTickSubscriber(&window->scene3d);
-    window->AddRenderCommander(window->background);
-
-    //Create all window DEPENDENCIES
-    //TODO use try and catch here
-    auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    if(renderingProvider == nullptr)
-    {
-        cout << "Error, failed to create window" << endl;
-        return nullptr;
-    }
-
-    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
-    core->SetRenderingProvider(std::move(renderingProvider));
-
-    //Create core mediator
-    auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
-
-    //Setup window dependencies
-    window->coreMediator = std::move(coreMediator);
-    window->NotifyOnRedraw(std::make_any<Window*>(window));
-
-    return std::unique_ptr<Window>(window);
 }

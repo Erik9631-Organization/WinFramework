@@ -30,42 +30,42 @@ Vector3 Background::GetColor()
 
 void Background::SetWidth(float width)
 {
-    size.SetX(width);
+    size.x = width;
 }
 
 void Background::SetHeight(float height)
 {
-    size.SetY(height);
+    size.y = height;
 }
 
 void Background::SetX (float x)
 {
-    position.SetX(x);
+    position.x = x;
 }
 
 void Background::SetY(float y)
 {
-    position.SetY(y);
+    position.y = y;
 }
 
 float Background::GetWidth()
 {
-    return size.GetX();
+    return size.x;
 }
 
 float Background::GetHeight()
 {
-    return size.GetY();
+    return size.y;
 }
 
 float Background::GetX()
 {
-    return position.GetX();
+    return position.x;
 }
 
 float Background::GetY()
 {
-    return position.GetY();
+    return position.y;
 }
 
 void Background::OnRenderSync(RenderEventInfo e)
@@ -146,22 +146,22 @@ void Background::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-Vector2 Background::GetSize()
+glm::vec2 Background::GetSize()
 {
     return size;
 }
 
-Vector2 Background::GetPosition()
+glm::vec2 Background::GetPosition()
 {
     return position;
 }
 
-void Background::SetPosition(Vector2 position)
+void Background::SetPosition(glm::vec2 position)
 {
     this->position = position;
 }
 
-void Background::SetSize(Vector2 size)
+void Background::SetSize(glm::vec2 size)
 {
     this->size = size;
 }

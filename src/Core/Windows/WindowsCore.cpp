@@ -121,7 +121,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_MOVE:
     {
-        Vector2 pos = {(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]};
+        auto pos = glm::vec2((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]);
         EventMoveInfo e = {pos, nullptr};
         NotifyCoreOnMove(e);
         //wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
@@ -141,8 +141,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 	case WM_MOUSEMOVE:
 	    prevMousePos = mousePos;
-        mousePos.SetX(((unsigned short*)&lParam)[0]);
-        mousePos.SetY(((unsigned short*)&lParam)[1]);
+        mousePos.x = ((unsigned short*)&lParam)[0];
+        mousePos.y = ((unsigned short*)&lParam)[1];
 
         mouseDelta = mousePos - prevMousePos;
         //relativePos = mousePos - wrapperFrame.GetPosition();
@@ -185,7 +185,10 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
-    mouseDelta.SetValue(0, 0); //Reset the delta as it is 0
+
+    //Reset the delta as it is 0
+    mouseDelta.x = 0;
+    mouseDelta.y = 0;
 }
 
 void WindowsCore::Redraw()
@@ -375,7 +378,7 @@ void WindowsCore::UpdateGlobalInputState()
     InputManager::globalInput->SetMouseDeltaPosition(mouseDelta);
 }
 
-void WindowsCore::SetLockCursorSize(const Vector2& size)
+void WindowsCore::SetLockCursorSize(const glm::vec2 &size)
 {
     lockCursorSize = size;
 }
@@ -396,10 +399,10 @@ void WindowsCore::UpdateLockCursor()
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.
     //Also create a strategy for various mouse inputs.
-    lockCursorRegion.left -= lockCursorSize.GetX() / 2;
-    lockCursorRegion.top -= lockCursorSize.GetY() / 2;
-    lockCursorRegion.right += lockCursorSize.GetX() / 2;
-    lockCursorRegion.bottom += lockCursorSize.GetY() / 2;
+    lockCursorRegion.left -= lockCursorSize.x / 2;
+    lockCursorRegion.top -= lockCursorSize.y / 2;
+    lockCursorRegion.right += lockCursorSize.x / 2;
+    lockCursorRegion.bottom += lockCursorSize.y / 2;
 }
 
 void WindowsCore::LockCursor(const bool &lockState)

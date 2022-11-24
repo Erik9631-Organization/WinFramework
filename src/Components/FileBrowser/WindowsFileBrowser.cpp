@@ -1,11 +1,6 @@
-#include "FileBrowser.h"
+#include "WindowsFileBrowser.h"
 
-FileBrowser::FileBrowser() : FileBrowser("")
-{
-
-}
-
-FileBrowser::FileBrowser(std::string title)
+WindowsFileBrowser::WindowsFileBrowser(std::string title)
 {
 	filePath = new char[fileNameSize];
 	fileName = new char[fileTitleSize];
@@ -21,38 +16,37 @@ FileBrowser::FileBrowser(std::string title)
 	flags = 0;
 }
 
-
-void FileBrowser::SetTitle(std::string title)
+void WindowsFileBrowser::SetTitle(std::string title)
 {
 	this->title = title;
 	browserStructure.lpstrTitle = this->title.c_str();
 }
 
-bool FileBrowser::Save()
+bool WindowsFileBrowser::Save()
 {
 	browserStructure.Flags = flags;
 	browserStructure.lpstrFilter = filters.c_str();
 	return GetSaveFileNameA(&browserStructure);
 }
 
-bool FileBrowser::Open()
+bool WindowsFileBrowser::Open()
 {
 	browserStructure.Flags = flags;
 	browserStructure.lpstrFilter = filters.c_str();
 	return GetOpenFileNameA(&browserStructure);
 }
 
-void FileBrowser::SetSelectedFilter(int index)
+void WindowsFileBrowser::SetSelectedFilter(int index)
 {
 	browserStructure.nFilterIndex = index;
 }
 
-void FileBrowser::SetDefaultExtention(std::string extention)
+void WindowsFileBrowser::SetDefaultExtention(std::string extention)
 {
 	browserStructure.lpstrDefExt = extention.c_str();
 }
 
-void FileBrowser::AddFilter(std::string filterName ,std::string pattern)
+void WindowsFileBrowser::AddFilter(std::string filterName , std::string pattern)
 {
 	filters += filterName;
 	filters.push_back('\0');
@@ -61,57 +55,58 @@ void FileBrowser::AddFilter(std::string filterName ,std::string pattern)
 	//filters = ("All\0*.*\0Text\0*.TXT\0");
 }
 
+void WindowsFileBrowser::SetDefaultDirectory(std::string initialDir)
+{
 
+}
 
-FileBrowser& FileBrowser::AllowMultiSelect()
+FileBrowser & WindowsFileBrowser::AllowMultiSelect()
 {
 	flags |= OFN_ALLOWMULTISELECT;
 	return *this;
 }
 
-FileBrowser& FileBrowser::CreatePrompt()
+FileBrowser & WindowsFileBrowser::CreatePrompt()
 {
 	flags |= OFN_CREATEPROMPT;
 	return *this;
 }
 
-FileBrowser& FileBrowser::EnableResizing()
+FileBrowser & WindowsFileBrowser::EnableResizing()
 {
 	flags |= OFN_ENABLESIZING;
 	return *this;
 }
 
-FileBrowser& FileBrowser::FileMustExist()
+FileBrowser & WindowsFileBrowser::FileMustExist()
 {
 	flags |= OFN_FILEMUSTEXIST;
 	return *this;
 }
 
-FileBrowser& FileBrowser::ShowHiddenFiles()
+FileBrowser & WindowsFileBrowser::ShowHiddenFiles()
 {
 	flags |= OFN_FORCESHOWHIDDEN;
 	return *this;
 }
 
-FileBrowser& FileBrowser::SetFlags(DWORD Flags)
+FileBrowser & WindowsFileBrowser::SetFlags(unsigned int Flags)
 {
 	flags = flags;
 	return *this;
 }
 
-
-
-std::string FileBrowser::GetPath()
+std::string WindowsFileBrowser::GetPath()
 {
 	return std::string(filePath);
 }
 
-std::string FileBrowser::GetFileName()
+std::string WindowsFileBrowser::GetFileName()
 {
 	return std::string(fileName);
 }
 
-std::wfstream* FileBrowser::GetFileStream(std::ios_base::openmode mode)
+std::wfstream* WindowsFileBrowser::GetFileStream(std::ios_base::openmode mode)
 {
 	if (strlen(filePath) <= 0)
 		return nullptr;

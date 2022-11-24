@@ -4,16 +4,16 @@
 #include "Components/UiElement.h"
 #include "EventTypes/EventUpdateInfo.h"
 
-void Viewport::CalculateAbsolutePosition(Vector2 relative)
+void Viewport::CalculateAbsolutePosition(glm::vec2 relative)
 {
-    absolutePosition.SetX((relative.GetX() + associatedAdjustable.GetAbsoluteX()) * xMultiplier);
-    absolutePosition.SetY((relative.GetY() + associatedAdjustable.GetAbsoluteY()) * yMultiplier);
+    absolutePosition.x = (relative.x + associatedAdjustable.GetAbsoluteX()) * xMultiplier;
+    absolutePosition.y = (relative.y + associatedAdjustable.GetAbsoluteY()) * yMultiplier;
 }
 
-void Viewport::CalculateAbsoluteSize(Vector2 size)
+void Viewport::CalculateAbsoluteSize(glm::vec2 size)
 {
-    absoluteSize.SetX((size.GetX() + associatedAdjustable.GetWidth() + 1) * widthMultiplier);
-    absoluteSize.SetY((size.GetY() + associatedAdjustable.GetHeight() + 1) * heightMultiplier);
+    absoluteSize.x = (size.x+ associatedAdjustable.GetWidth() + 1) * widthMultiplier;
+    absoluteSize.y = (size.y + associatedAdjustable.GetHeight() + 1) * heightMultiplier;
 }
 
 Viewport::Viewport(Adjustable& adjustable) : associatedAdjustable(adjustable), viewportNode((Adjustable*)this), moveBehavior(viewportNode), resizeBehavior(*this)
@@ -67,15 +67,15 @@ float Viewport::GetViewportHeightMultiplier()
 
 int Viewport::GetViewportAbsoluteWidth()
 {
-    return absoluteSize.GetX();
+    return absoluteSize.x;
 }
 
 int Viewport::GetViewportAbsoluteHeight()
 {
-    return absoluteSize.GetY();
+    return absoluteSize.y;
 }
 
-Vector2 Viewport::GetViewportAbsoluteSize()
+glm::vec2 Viewport::GetViewportAbsoluteSize()
 {
     return absoluteSize;
 }
@@ -95,7 +95,7 @@ void Viewport::NotifyOnMoveSubscribers(EventMoveInfo event)
     moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-Vector2 Viewport::GetPosition()
+glm::vec2 Viewport::GetPosition()
 {
     return moveBehavior.GetPosition();
 }
@@ -112,22 +112,22 @@ float Viewport::GetY()
 
 float Viewport::GetAbsoluteX()
 {
-    return absolutePosition.GetX();
+    return absolutePosition.x;
 }
 
 float Viewport::GetAbsoluteY()
 {
-    return absolutePosition.GetY();
+    return absolutePosition.y;
 }
 
-Vector2 Viewport::GetAbsolutePosition()
+glm::vec2 Viewport::GetAbsolutePosition()
 {
     return absolutePosition;
 }
 
-void Viewport::SetPosition(Vector2 position, bool emit)
+void Viewport::SetPosition(glm::vec2 pos, bool emit)
 {
-    moveBehavior.SetPosition(position, emit);
+    moveBehavior.SetPosition(pos, emit);
 }
 
 void Viewport::SetPosition(float x, float y, bool emit)
@@ -160,7 +160,7 @@ void Viewport::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-Vector2 Viewport::GetSize()
+glm::vec2 Viewport::GetSize()
 {
     return resizeBehavior.GetSize();
 }
@@ -175,7 +175,7 @@ float Viewport::GetHeight()
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(Vector2 size, bool emit)
+void Viewport::SetSize(glm::vec2 size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 }
@@ -201,7 +201,7 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize(resizeBehavior.GetSize());
 }
 
-void Viewport::SetTranslate(Vector2 offset, bool emit)
+void Viewport::SetTranslate(glm::vec2 offset, bool emit)
 {
     moveBehavior.SetTranslate(offset, emit);
 }
@@ -216,7 +216,7 @@ void Viewport::SetTranslateY(float y, bool emit)
     moveBehavior.SetTranslateY(y, emit);
 }
 
-Vector2 Viewport::GetTranslate()
+glm::vec2 Viewport::GetTranslate()
 {
     return moveBehavior.GetTranslate();
 }
@@ -231,7 +231,7 @@ float Viewport::GetTranslateY()
     return moveBehavior.GetTranslateY();
 }
 
-void Viewport::SetPosition(Vector2 position)
+void Viewport::SetPosition(glm::vec2 position)
 {
     SetPosition(position, true);
 }
@@ -251,7 +251,7 @@ void Viewport::SetY(float y)
     SetY(y, true);
 }
 
-void Viewport::SetTranslate(Vector2 offset)
+void Viewport::SetTranslate(glm::vec2 offset)
 {
     SetTranslate(offset, true);
 }
@@ -266,7 +266,7 @@ void Viewport::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void Viewport::SetSize(Vector2 size)
+void Viewport::SetSize(glm::vec2 size)
 {
     SetSize(size, true);
 }

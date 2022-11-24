@@ -48,12 +48,12 @@ public:
 	bool initDone = false;
 
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(Vector2 size, bool emit) override;
+	void SetSize(glm::vec2 size, bool emit) override;
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
 	void SetPosition(float x, float y, bool emit) override;
-	void SetPosition(Vector2 point, bool emit) override;
+	void SetPosition(glm::vec2 point, bool emit) override;
 
     void NotifyOnKeyDown(EventKeyStateInfo e) override;
     void NotifyOnKeyUp(EventKeyStateInfo e) override;

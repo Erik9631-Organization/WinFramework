@@ -1,6 +1,9 @@
 #pragma once
 #include "Events/ResizeSubject.h"
-#include <Vector2.h>
+#include "vec2.hpp"
+#include <Windows.h>
+#include <gdiplus.h>
+
 /**
  * An interface for all the classes that can be resized.
  * The interface also defines that every resizable has to support an event stream (Byt enforcing the ResizeSubject interface)
@@ -12,7 +15,7 @@ public:
 	 * Returns the size of the object.
 	 * \return returns a size object which specifies the width and height
 	 */
-	virtual Vector2 GetSize() = 0;
+	virtual glm::vec2 GetSize() = 0;
 
 	/**
 	 * Returns the width of the object
@@ -30,8 +33,8 @@ public:
 	 * Sets the size of the object
 	 * \param size the size object which specifies the width and height of the target object.
 	 */
-	virtual void SetSize(Vector2 size, bool emit) = 0;
-    virtual void SetSize(Vector2 size) = 0;
+	virtual void SetSize(glm::vec2 size, bool emit) = 0;
+    virtual void SetSize(glm::vec2 size) = 0;
 	
 	/**
 	 * Sets the Size of the object

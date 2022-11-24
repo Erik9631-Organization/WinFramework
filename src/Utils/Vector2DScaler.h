@@ -4,18 +4,18 @@
 
 #ifndef GRAPHICS_VECTOR2DSCALER_H
 #define GRAPHICS_VECTOR2DSCALER_H
-#include "Vector2.h"
+#include <glm.hpp>
 #include "GraphicsScaling.h"
 
 class Vector2DScaler
 {
 private:
-    Vector2 parentVector;
+    glm::vec2 parentVector{0};
     GraphicsScaling scalingTypeX;
     GraphicsScaling scalingTypeY;
 public:
-    Vector2DScaler(Vector2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
-    Vector2DScaler(Vector2 parentVector);
+    Vector2DScaler(glm::vec2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
+    Vector2DScaler(glm::vec2 parentVector);
 
     GraphicsScaling GetScalingTypeX() const;
 
@@ -24,7 +24,7 @@ public:
     GraphicsScaling GetScalingTypeY() const;
 
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    Vector2 GetScaledValues(Vector2 input);
+    glm::vec2 GetScaledValues(glm::vec2 input);
 
 
 };

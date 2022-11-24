@@ -19,8 +19,8 @@ protected:
 	DrawData2D drawData;
 
 public:
-	Vector2 position;
-	Vector2 size;
+    glm::vec2 position{0};
+    glm::vec2 size{0};
 
 	CircleBorder();
 	~CircleBorder();
@@ -29,8 +29,8 @@ public:
 	void SetColor(Vector3 color);
 	void SetColor(Vector4 color);
 
-	Vector2 GetPosition();
-	void SetPosition(Vector2 point);
+	glm::vec2 GetPosition();
+	void SetPosition(glm::vec2 point);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

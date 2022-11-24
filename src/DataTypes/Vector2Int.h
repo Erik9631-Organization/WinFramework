@@ -5,13 +5,13 @@
 #ifndef LII_VECTOR2INT_H
 #define LII_VECTOR2INT_H
 
-class Vector2;
+#include <glm.hpp>
 
 class Vector2Int
 {
 public:
     Vector2Int(const Vector2Int& vector);
-    Vector2Int(const Vector2& vector);
+    Vector2Int(const glm::vec2 & vector);
     Vector2Int(int x, int y);
     Vector2Int();
 

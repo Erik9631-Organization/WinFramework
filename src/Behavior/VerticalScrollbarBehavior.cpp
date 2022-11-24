@@ -49,13 +49,13 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
 {
     //Set position
     //Check if scrollbar can be moved
-    if(e.GetMouseDelta().GetY() + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
+    if(e.GetMouseDelta().y + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
         return;
 
-    if(e.GetMouseDelta().GetY() + associatedTrackBar.GetY() < 0)
+    if(e.GetMouseDelta().y + associatedTrackBar.GetY() < 0)
         return;
     //Set the trackbar
-    associatedTrackBar.SetY(e.GetMouseDelta().GetY() + associatedTrackBar.GetY(), false);
+    associatedTrackBar.SetY(e.GetMouseDelta().y + associatedTrackBar.GetY(), false);
 
     //Set the components
     UiElement* parent = associatedScrollbar.GetParent();
@@ -168,16 +168,14 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
-        Vector2 size = e.GetSize();
-        associatedScrollbar.SetPosition(size.GetX() - associatedScrollbar.GetWidth(), 0, false);
-        associatedScrollbar.SetHeight(size.GetY(), false);
+        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, false);
+        associatedScrollbar.SetHeight(e.GetSize().y, false);
     }
     else
     {
-        Adjustable* src = dynamic_cast<Adjustable*>(e.GetSrc());
-        if(src == nullptr)
+        if(e.GetSrc() == nullptr)
             return;
-        bottomComponent = GetBottomComponent(src);
+        bottomComponent = GetBottomComponent(dynamic_cast<Adjustable*>(e.GetSrc()));
     }
 
 

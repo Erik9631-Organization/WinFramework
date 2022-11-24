@@ -4,13 +4,13 @@
 
 #include "Vector2DScaler.h"
 
-Vector2DScaler::Vector2DScaler(Vector2 parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
+Vector2DScaler::Vector2DScaler(glm::vec2 parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
 {
 
 }
 
 
-Vector2DScaler::Vector2DScaler(Vector2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY)
+Vector2DScaler::Vector2DScaler(glm::vec2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY)
 {
     this->scalingTypeX = scalingTypeX;
     this->scalingTypeY = scalingTypeY;
@@ -18,19 +18,19 @@ Vector2DScaler::Vector2DScaler(Vector2 parentVector, GraphicsScaling scalingType
 }
 
 
-Vector2 Vector2DScaler::GetScaledValues(Vector2 input)
+glm::vec2 Vector2DScaler::GetScaledValues(glm::vec2 input)
 {
-    float calculatedX = input.GetX();
-    float calculatedY = input.GetY();
+    float calculatedX = input.x;
+    float calculatedY = input.y;
 
     if(scalingTypeX == Percentual)
     {
-        calculatedX = input.GetX() * parentVector.GetX();
+        calculatedX = input.x * parentVector.x;
     }
 
     if(scalingTypeY == Percentual)
     {
-        calculatedY = input.GetY() * parentVector.GetY();
+        calculatedY = input.y * parentVector.y;
     }
     return {calculatedX, calculatedY};
 }

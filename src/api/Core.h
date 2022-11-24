@@ -24,7 +24,7 @@ public:
     virtual void Close() = 0;
     virtual void SetWindow(Window* window) = 0;
     virtual void Start() = 0;
-    virtual void SetLockCursorSize(const Vector2& size) = 0;
+    virtual void SetLockCursorSize(const glm::vec2 &size) = 0;
     virtual void LockCursor(const bool& lockState) = 0;
     virtual const bool& IsCursorLocked() const = 0;
     virtual RenderingProvider* GetRenderingProvider() = 0;

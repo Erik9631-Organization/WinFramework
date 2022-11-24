@@ -38,7 +38,7 @@ void RadioButtonGraphics::SetDiameter(float Diameter)
 }
 
 
-void RadioButtonGraphics::SetPosition(Vector2 position)
+void RadioButtonGraphics::SetPosition(glm::vec2 position)
 {
 	border.position = position;
 	fill.position = position;
@@ -97,7 +97,7 @@ std::vector<std::reference_wrapper<RenderCommander>> RadioButtonGraphics::GetRen
 	return renderBehavior.GetRenderables();
 }
 
-Vector2 RadioButtonGraphics::GetPosition()
+glm::vec2 RadioButtonGraphics::GetPosition()
 {
     return border.GetPosition();
 }
@@ -116,12 +116,12 @@ void RadioButtonGraphics::SetY(float y)
 
 float RadioButtonGraphics::GetX()
 {
-    return border.position.GetX();
+    return border.position.x;
 }
 
 float RadioButtonGraphics::GetY()
 {
-    return border.position.GetY();
+    return border.position.y;
 }
 
 GraphicsScaling RadioButtonGraphics::GetScalingTypeX() const

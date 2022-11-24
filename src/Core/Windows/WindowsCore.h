@@ -47,11 +47,11 @@ private:
     std::string windowName;
     LONG style;
 
-	Vector2 mousePos;
-	Vector2 prevMousePos;
-	Vector2 mouseDelta;
-	Vector2 relativePos;
-    Vector2 lockCursorSize;
+    glm::vec2 mousePos;
+    glm::vec2 prevMousePos;
+    glm::vec2 mouseDelta;
+    glm::vec2 relativePos;
+    glm::vec2 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
 	std::unique_ptr<RenderingProvider> renderingProvider = nullptr;
@@ -68,7 +68,7 @@ private:
     WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
-    void SetLockCursorSize(const Vector2& size);
+    void SetLockCursorSize(const glm::vec2 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;

@@ -1,7 +1,7 @@
 //
 // Created by Erik on 1/12/2022.
 //
-
+/*
 #include "Vector2.h"
 #include "Vector2Int.h"
 #include "Core/Windows/WindowsCore.h"
@@ -85,3 +85,4 @@ void Vector2::Normalize()
     x /= magnitude;
     y /= magnitude;
 }
+ */

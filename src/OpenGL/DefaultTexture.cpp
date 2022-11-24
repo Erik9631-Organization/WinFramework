@@ -7,11 +7,13 @@
 #include <stb_image.h>
 #include <stb_image_resize.h>
 #include "glew.h"
+#include "vec2.hpp"
+
 using namespace OpenGL;
 
-Vector2 StaticTexture::GetSize()
+glm::vec2 StaticTexture::GetSize()
 {
-    return Vector2();
+    return glm::vec2();
 }
 
 float StaticTexture::GetWidth()
@@ -24,13 +26,13 @@ float StaticTexture::GetHeight()
     return size.GetY();
 }
 
-void StaticTexture::SetSize(Vector2 size, bool emit)
+void StaticTexture::SetSize(glm::vec2 size, bool emit)
 {
     if(imageData == nullptr)
         return;
     unsigned char *output;
     stbir_resize_uint8(imageData, this->size.GetX(), this->size.GetY(),
-                       0, output, size.GetX(), size.GetY(), 0, 0);
+                       0, output, size.x, size.y, 0, 0);
     this->size = size;
     imageData = output;
 }
