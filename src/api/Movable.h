@@ -1,6 +1,5 @@
 #pragma once
 #include "MoveSubject.h"
-#include "Vector2.h"
 
 /**
  * The interface should be implemented by all classes which should be able to move

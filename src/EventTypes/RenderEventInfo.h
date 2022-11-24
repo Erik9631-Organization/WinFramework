@@ -1,6 +1,5 @@
 #pragma once
 #include "api/RenderCommander.h"
-#include "Vector2.h"
 
 class RenderingPool;
 

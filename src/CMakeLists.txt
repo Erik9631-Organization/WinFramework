@@ -341,8 +341,7 @@ set(Lii_Utils
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
-    DataTypes/Vector2.cpp DataTypes/Vector2.h
-    Utils/ScalingUtil.cpp
+        Utils/ScalingUtil.cpp
     Utils/ScalingUtil.h
         Utils/Timer.cpp
     Utils/Timer.h

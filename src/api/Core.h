@@ -5,7 +5,6 @@
 #ifndef LII_CORE_H
 #define LII_CORE_H
 #include "RenderingProvider.h"
-#include "Vector2.h"
 #include "CoreSubject.h"
 #include "ResizeSubscriber.h"
 #include <memory>
