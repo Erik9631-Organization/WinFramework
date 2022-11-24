@@ -164,7 +164,7 @@ const unsigned long long int &StaticTexture::GetId() const
     return textureId;
 }
 
-void StaticTexture::SetSize(Vector2 size)
+void StaticTexture::SetSize(glm::vec2 size)
 {
 
 }

@@ -208,3 +208,36 @@ void Window::RemovePresetnerSubscriber(PresenterSubscriber *subscriber)
         if(*it == subscriber)
             presenterSubscribers.erase(it);
 }
+
+std::unique_ptr<Window> Window::Create(const string &windowName)
+{
+    return Create(0, 0, 0, 0, windowName);
+}
+
+std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, const string &windowName)
+{
+    auto* window = new Window(x, y, width, height, windowName);
+    window->AddOnTickSubscriber(&window->scene3d);
+    window->AddRenderCommander(window->background);
+
+    //Create all window DEPENDENCIES
+    //TODO use try and catch here
+    auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    if(renderingProvider == nullptr)
+    {
+        cout << "Error, failed to create window" << endl;
+        return nullptr;
+    }
+
+    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
+    core->SetRenderingProvider(std::move(renderingProvider));
+
+    //Create core mediator
+    auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
+
+    //Setup window dependencies
+    window->coreMediator = std::move(coreMediator);
+    window->NotifyOnRedraw(std::make_any<Window*>(window));
+
+    return std::unique_ptr<Window>(window);
+}

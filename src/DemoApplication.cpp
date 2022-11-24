@@ -1,32 +1,27 @@
 ﻿#include "DemoApplication.h"
-#include <codecvt>
-
-#include "Window.h" // Needed
+#include "Window.h"
 #include "Components/Button.h"
 
 #include <string>
-#include "Core/Windows/WindowsCore.h"
-#include "EventTypes/EventUpdateInfo.h"
-#include "Events/MouseStateSubscriber.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Components/Label.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "EventTypes/EventKeyStateInfo.h"
-#include "Components/TextInput.h"
-#include "Events/CheckboxStateSubscriber.h"
-#include "Components/Checkbox.h"
-#include "EventTypes/EventCheckboxStateInfo.h"
-#include "Components/RadioButton.h"
-#include "Events/RadioButtonStateSubscriber.h"
-#include "EventTypes/EventRadioButtonStateInfo.h"
-#include "Components/PasswordField.h"
-#include "Components/Panel.h"
-#include "Components/Grid/Grid.h"
-#include "Components/FileBrowser/FileBrowser.h"
-#include "Components/FileBrowser/FileBrowserFactory.h"
-#include "Components/ComboBox/ComboSelection.h"
-#include "Components/ComboBox/ComboBox.h"
-#include "Components/ComboBox/ComboElement.h"
+#include "WindowsCore.h"
+#include "EventUpdateInfo.h"
+#include "MouseStateSubscriber.h"
+#include "EventMouseStateInfo.h"
+#include "Label.h"
+#include "EventOnActivateInfo.h"
+#include "EventKeyStateInfo.h"
+#include "TextInput.h"
+#include "CheckboxStateSubscriber.h"
+#include "Checkbox.h"
+#include "EventCheckboxStateInfo.h"
+#include "RadioButton.h"
+#include "RadioButtonStateSubscriber.h"
+#include "EventRadioButtonStateInfo.h"
+#include "PasswordField.h"
+#include "Panel.h"
+#include "Grid.h"
+#include "FileBrowser.h"
+#include "FileBrowserFactory.h"
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
 #include <iostream>
@@ -547,82 +542,82 @@ void DemoApplication::LaunchDemoApp()
 }
 
 
-class CameraController : public OnTickSubscriber, public ActivateSubscriber
-{
-
-public:
-    CameraController(Window& window) : window(window){}
-    Window& window;
-    const float speed = 0.001f;
-    const float sensitivity = 0.15f;
-    void OnTick() override
-    {
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::W))
-        {
-            OpenGL::CameraManager::GetActiveCamera()->Foward(speed);
-        }
-
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::S))
-        {
-            OpenGL::CameraManager::GetActiveCamera()->Backward(speed);
-        }
-
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::A))
-        {
-            OpenGL::CameraManager::GetActiveCamera()->Left(speed);
-        }
-
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::D))
-        {
-            OpenGL::CameraManager::GetActiveCamera()->Right(speed);
-        }
-
-
-        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
-        {
-            const glm::vec2 & mousePos = InputManager::GetGlobalInput().GetMouseDelta();
-            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.GetX() * sensitivity);
-            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.GetY() * sensitivity);
-        }
-
-    }
-
-    void OnActiveStateChanged(EventOnActivateInfo info) override
-    {
-
-    }
-
-};
-
-class LightController : public OnTickSubscriber
-{
-public:
-
-    LightController(PointLight& pointLight) : light(pointLight)
-    {
-
-    }
-    void OnTick() override
-    {
-        glm::vec3 translation = light.GetTranslation();
-        translation.z = currentTranslation;
-        light.SetTranslation(translation);
-
-
-        currentTranslation += translationValue;
-
-        if(currentTranslation > translationMax)
-            translationValue *= -1;
-        if(currentTranslation < translationMax * -1)
-            translationValue *= -1;
-    }
-private:
-    float currentTranslation = 0.0f;
-    float translationValue = 0.0005f;
-    float translationMax = 100.0f;
-    PointLight& light;
-
-};
+//class CameraController : public OnTickSubscriber, public ActivateSubscriber
+//{
+//
+//public:
+//    CameraController(Window& window) : window(window){}
+//    Window& window;
+//    const float speed = 0.001f;
+//    const float sensitivity = 0.15f;
+//    void OnTick() override
+//    {
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::W))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Foward(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::S))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Backward(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::A))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Left(speed);
+//        }
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::D))
+//        {
+//            OpenGL::CameraManager::GetActiveCamera()->Right(speed);
+//        }
+//
+//
+//        if(InputManager::GetGlobalInput().IsKeyDown(InputManager::VirtualKeys::LeftButton))
+//        {
+//            const glm::vec2 & mousePos = InputManager::GetGlobalInput().GetMouseDelta();
+//            OpenGL::CameraManager::GetActiveCamera()->AddYaw(mousePos.x * sensitivity);
+//            OpenGL::CameraManager::GetActiveCamera()->AddPitch(mousePos.y * sensitivity);
+//        }
+//
+//    }
+//
+//    void OnActiveStateChanged(EventOnActivateInfo info) override
+//    {
+//
+//    }
+//
+//};
+//
+//class LightController : public OnTickSubscriber
+//{
+//public:
+//
+//    LightController(PointLight& pointLight) : light(pointLight)
+//    {
+//
+//    }
+//    void OnTick() override
+//    {
+//        glm::vec3 translation = light.GetTranslation();
+//        translation.z = currentTranslation;
+//        light.SetTranslation(translation);
+//
+//
+//        currentTranslation += translationValue;
+//
+//        if(currentTranslation > translationMax)
+//            translationValue *= -1;
+//        if(currentTranslation < translationMax * -1)
+//            translationValue *= -1;
+//    }
+//private:
+//    float currentTranslation = 0.0f;
+//    float translationValue = 0.0005f;
+//    float translationMax = 100.0f;
+//    PointLight& light;
+//
+//};
 
 void DemoApplication::LaunchOpenGLApp()
 {
