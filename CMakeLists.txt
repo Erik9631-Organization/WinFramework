@@ -22,10 +22,14 @@ else()
 endif()
 message("Runtime directory is: ${outputDir}")
 
+#Global libs that need to be compiled / included
 add_subdirectory(libs/stb EXCLUDE_FROM_ALL)
 add_subdirectory(libs/PhysX-4.1/physx/compiler/public EXCLUDE_FROM_ALL)
 add_subdirectory(libs/MemoryManager)
+add_subdirectory(libs/catch2)
+include_directories(libs/catch2)
 add_subdirectory(src)
+
 
 #File installations
 message("current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")

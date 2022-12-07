@@ -1,10 +1,8 @@
-﻿#include "ApplicationController.h"
-#include "DemoApplication.h"
-using namespace std;
+﻿#include "catch_amalgamated.hpp"
+#include "DemoAppTest.hpp"
 
-int main()
+int main( int argc, char* argv[] )
 {
-    DemoApplication::LaunchDemoApp();
-    ApplicationController::GetApplicationController()->JoinThreads();
-    return 0;
+    int result = Catch::Session().run(argc, argv);
+    return result;
 }

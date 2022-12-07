@@ -140,7 +140,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -438,11 +438,15 @@ set (Lii_Materials
 source_group("Lii/Materials" FILES ${Lii_Materials})
 
 
-set (Lii/Managers
+set (Lii_Managers
         Managers/GlobalResourceManager.cpp
         Managers/GlobalResourceManager.h)
 source_group("Lii/Managers" FILES ${Lii/Managers})
 
+set(Lii_Tests
+        Tests/OnMountedTest.hpp
+)
+source_group("Lii/Tests" FILES ${Lii/Tests})
 
 
 
@@ -467,11 +471,12 @@ set(ALL_FILES
     ${Lii_Shaders}
     ${Lii_Materials}
     ${Lii_Api}
-    ${Lii/Managers}
+    ${Lii_Managers}
     ${Lii_Components_3d}
     ${Lii_Utils_Managers}
     ${Lii_Utils_Factories}
-        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h)
+    ${Lii_Tests}
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp)
 
 ################################################################################
 # Target
@@ -508,12 +513,14 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Core/Windows"
         "Utils/Managers"
         "Utils/Factories"
+        "Tests"
         )
 
 target_link_libraries(${PROJECT_NAME}
         stb
         opengl32
         PhysXSDK
+        catch2Lib
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
         "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
         MemoryManagerLib

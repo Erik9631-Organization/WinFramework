@@ -24,6 +24,7 @@
 #include "OnTickSubscriber.h"
 #include "Presenter.h"
 #include "KeyStateSubject.h"
+#include "MountedSubject.h"
 
 
 class EventInfo;
@@ -38,7 +39,9 @@ class UiElement : virtual public Adjustable,
     public virtual MouseInteractable,
     public virtual KeyStateSubject,
     public virtual AddSubject<std::unique_ptr<UiElement>>,
-    public virtual TickSubject
+    public virtual TickSubject,
+    public virtual MountedSubject,
+    public virtual MountedSubscriber
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -50,6 +53,7 @@ protected:
 	DefaultRender renderBehavior;
 	DefaultMove<std::unique_ptr<UiElement>> moveBehavior;
 	DefaultMouseBehavior<MultiTree<std::unique_ptr<UiElement>> &> mouseHandler;
+    std::vector<MountedSubscriber*>mountedSubscribers;
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
@@ -64,6 +68,8 @@ public:
 	UiElement();
 	UiElement(std::string name);
 	UiElement(float x, float y, float width, float height, std::string name);
+
+
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
@@ -357,4 +363,15 @@ public:
     void SetWidth(float width) override;
 
     void SetHeight(float height) override;
+
+    void AddOnMountedSubscriber(MountedSubscriber *subscriber) override;
+
+    void RemoveOnMountedSubscriber(MountedSubscriber *subscriber) override;
+
+    void NotifyOnMounted(Presenter &presenter) override;
+
+    /**
+    * Called by the TopMost component added to the Presenter to notify the others that they have a presenter.
+    */
+    void OnMounted(Presenter &presenter) override;
 };
