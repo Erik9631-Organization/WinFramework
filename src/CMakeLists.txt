@@ -140,7 +140,7 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderer.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
