@@ -182,7 +182,7 @@ void Window::NotifyOnRedraw(std::any src)
 void Window::NotifyOnClose(std::any src)
 {
     for(auto subscriber : presenterSubscribers)
-        subscriber->OnRedraw(src);
+        subscriber->OnClose(src);
 }
 
 void Window::NotifyOnLockCursorSizeChanged(EventResizeInfo &e)
@@ -220,7 +220,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     window->AddOnTickSubscriber(&window->scene3d);
     window->AddRenderCommander(window->background);
 
-    //Create all window DEPENDENCIES
+    //CreateElement all window DEPENDENCIES
     //TODO use try and catch here
     auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
     if(renderingProvider == nullptr)
@@ -232,7 +232,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
     core->SetRenderingProvider(std::move(renderingProvider));
 
-    //Create core mediator
+    //CreateElement core mediator
     auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
 
     //Setup window dependencies

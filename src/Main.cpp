@@ -1,5 +1,6 @@
 ﻿#include "catch_amalgamated.hpp"
 #include "DemoAppTest.hpp"
+#include "OnMountedTest.hpp"
 
 int main( int argc, char* argv[] )
 {

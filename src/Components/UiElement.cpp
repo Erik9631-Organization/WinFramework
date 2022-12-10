@@ -21,10 +21,12 @@ void UiElement::Add(std::unique_ptr<UiElement> uiElement)
     std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};
     uiElementNode->AddNode(std::move(nodeToBeAdded));
 
+    if(root != nullptr)
+        uiElement->NotifyOnMounted(static_cast<Presenter&>(*root));
+
     uiElement.release();
     addToContainerMutex.unlock();
-    if(root != nullptr)
-        NotifyOnMounted(static_cast<Presenter&>(*root));
+
 
     //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
@@ -788,13 +790,22 @@ void UiElement::NotifyOnMounted(Presenter &presenter)
 {
     for(auto subscriber : mountedSubscribers)
         subscriber->OnMounted(presenter);
-    OnMounted(presenter);
-}
 
-void UiElement::OnMounted(Presenter &presenter)
-{
     for(auto& element : GetUiElementNode().GetNodes())
     {
         element->GetValue()->NotifyOnMounted(presenter);
     }
+    this->presenter = &presenter;
+    OnMounted(presenter);
+}
+
+Presenter *UiElement::GetPresenter()
+{
+    return presenter;
+}
+
+
+void UiElement::OnMounted(Presenter &presenter)
+{
+    this->presenter = &presenter;
 }

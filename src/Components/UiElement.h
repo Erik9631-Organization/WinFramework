@@ -61,6 +61,7 @@ protected:
 	std::wstring text;
 	bool ignoreTranslate = false;
 	std::vector<OnTickSubscriber*> tickSubscribers;
+    Presenter* presenter = nullptr;
     //Used to check for a special case where there is no parent and UiElementNode was already deleted to prevent cyclic
     //Deletion
     bool deletedElementNode = false;
@@ -68,6 +69,7 @@ public:
 	UiElement();
 	UiElement(std::string name);
 	UiElement(float x, float y, float width, float height, std::string name);
+    Presenter* GetPresenter();
 
 
 	/**
@@ -159,11 +161,11 @@ public:
 	virtual void Add(std::unique_ptr<UiElement> uiElement);
 	
 	template <typename type, typename ... Args>
-	type& Create(Args  ... args)
+	type& CreateElement(Args  ... args)
 	{
-		std::unique_ptr<type> instance = std::make_unique(args ...);
-		auto ref = instance;
-		uiElementNode->Add(instance);
+		std::unique_ptr<type> instance = std::make_unique<type>(std::forward<Args>(args) ...);
+		auto& ref = *instance;
+		Add(std::move(instance));
 		return ref;
 	}
 
