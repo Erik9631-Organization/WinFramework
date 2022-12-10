@@ -36,9 +36,11 @@ void ListBox::CreateListElement(std::wstring name, std::any value)
 	behavior.CreateListElement(name, value);
 }
 
-void ListBox::Add(unique_ptr<UiElement> component)
+UiElement & ListBox::Add(unique_ptr<UiElement> component)
 {
+    auto& componentRef = *component;
 	layout->Add(std::move(component));
+    return componentRef;
 }
 
 std::any ListBox::GetDragContent()

@@ -216,7 +216,7 @@ void Grid::SetGridRows(std::initializer_list<int> rows)
 	rowHeights.assign(rows);
 }
 
-void Grid::Add(unique_ptr<UiElement> component)
+UiElement & Grid::Add(unique_ptr<UiElement> component)
 {
     UiElement& componentRef = *component;
 	Panel::Add(std::move(component)); //Super
@@ -231,7 +231,7 @@ void Grid::Add(unique_ptr<UiElement> component)
 				if (cell->GetControlledAdjustable() == nullptr)
 				{
 					cell->ControlAdjustable(&static_cast<Adjustable&>(componentRef));
-					return; //Successfully added
+					return componentRef; //Successfully added
 				}
 			}
 		}
@@ -243,6 +243,6 @@ void Grid::Add(unique_ptr<UiElement> component)
 	if (gridArray.size() > 1)
 		currentRowIndex++;
 	if(gridArray.at(currentRowIndex)->size() == 0)
-	    return;
+	    return componentRef;
 	gridArray.at(currentRowIndex)->at(0)->ControlAdjustable(&static_cast<Adjustable&>(componentRef));
 }

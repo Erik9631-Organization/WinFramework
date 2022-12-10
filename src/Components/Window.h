@@ -61,7 +61,7 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-    void Add(std::unique_ptr<UiElement> component) override;
+    UiElement & Add(std::unique_ptr<UiElement> component) override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 

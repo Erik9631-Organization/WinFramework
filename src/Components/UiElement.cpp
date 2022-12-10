@@ -11,8 +11,9 @@
 #include "Core/Windows/WindowsCore.h"
 using namespace std;
 
-void UiElement::Add(std::unique_ptr<UiElement> uiElement)
+UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
+    auto& elementRef = *uiElement;
     auto root = dynamic_cast<Window*>(&GetRoot());
     if(root != nullptr)
         root->WaitForSync();
@@ -30,6 +31,8 @@ void UiElement::Add(std::unique_ptr<UiElement> uiElement)
 
     //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
+
+    return elementRef;
 }
 
 UiElement::UiElement() : UiElement(0, 0, 0, 0, "")

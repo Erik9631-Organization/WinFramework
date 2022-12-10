@@ -24,7 +24,7 @@ public:
 
 
 
-TEST_CASE("Mounted event one component", "[mountedEvent1]")
+TEST_CASE("Mounted event one component", "[mountedEvent1][mountedEvents]")
 {
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
     auto& testElement1 = window->CreateElement<TestComponent>("component1");
@@ -33,7 +33,7 @@ TEST_CASE("Mounted event one component", "[mountedEvent1]")
     ApplicationController::GetApplicationController()->JoinThreads();
 }
 
-TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2]")
+TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2][mountedEvents]")
 {
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
     auto& testElement1 = window->CreateElement<TestComponent>("component1");
@@ -44,6 +44,29 @@ TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2]")
     SECTION("Multiple components test")
     {
         REQUIRE(testElement1.GetNumberOfOnMountedCalls() == 1);
+        REQUIRE(testElement2.GetNumberOfOnMountedCalls() == 1);
+        REQUIRE(testElement3.GetNumberOfOnMountedCalls() == 1);
+        REQUIRE(testElement4.GetNumberOfOnMountedCalls() == 1);
+    }
+
+    window->CloseWindow();
+    ApplicationController::GetApplicationController()->JoinThreads();
+
+}
+
+TEST_CASE("Mounted event multiple components, added last", "[mountedEvent3][mountedEvents]")
+{
+    auto window = Window::Create(0, 0, 800, 600, "testWindow");
+    auto testElement1 = std::make_unique<TestComponent>("component1");
+    auto& testElement2 = testElement1->CreateElement<TestComponent>("Component2");
+    auto& testElement3 = testElement1->CreateElement<TestComponent>("component3");
+    auto& testElement4 = testElement2.CreateElement<TestComponent>("component4");
+
+    auto& testElementRef = static_cast<TestComponent&>(window->Add(std::move(testElement1)));
+
+    SECTION("Multiple components test")
+    {
+        REQUIRE(testElementRef.GetNumberOfOnMountedCalls() == 1);
         REQUIRE(testElement2.GetNumberOfOnMountedCalls() == 1);
         REQUIRE(testElement3.GetNumberOfOnMountedCalls() == 1);
         REQUIRE(testElement4.GetNumberOfOnMountedCalls() == 1);

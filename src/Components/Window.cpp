@@ -111,9 +111,11 @@ Window::Window(int x, int y, int width, int height, string windowName) : UiEleme
 	background.SetColor({255, 255, 255});
 }
 
-void Window::Add(unique_ptr<UiElement> component)
+UiElement & Window::Add(unique_ptr<UiElement> component)
 {
+    auto& element = *component;
 	UiElement::Add(std::move(component));
+    return element;
 }
 
 

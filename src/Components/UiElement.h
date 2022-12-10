@@ -158,7 +158,7 @@ public:
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
 	 * \param uiElement the uiElement to be added
 	 */
-	virtual void Add(std::unique_ptr<UiElement> uiElement);
+	virtual UiElement & Add(std::unique_ptr<UiElement> uiElement);
 	
 	template <typename type, typename ... Args>
 	type& CreateElement(Args  ... args)

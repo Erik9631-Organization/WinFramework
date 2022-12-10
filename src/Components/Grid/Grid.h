@@ -177,6 +177,6 @@ public:
 	 * \return returns the auto extention state.
 	 */
 	bool IsAutoextending();
-	void Add(std::unique_ptr<UiElement> component) override;
+	UiElement & Add(std::unique_ptr<UiElement> component) override;
 };
 
