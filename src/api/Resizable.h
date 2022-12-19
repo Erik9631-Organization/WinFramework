@@ -1,8 +1,6 @@
 #pragma once
 #include "Events/ResizeSubject.h"
-#include "vec2.hpp"
-#include <Windows.h>
-#include <gdiplus.h>
+#include "glm.hpp"
 
 /**
  * An interface for all the classes that can be resized.

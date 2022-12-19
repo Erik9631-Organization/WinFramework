@@ -62,7 +62,7 @@ TEST_CASE("Mounted event multiple components, added last", "[mountedEvent3][moun
     auto& testElement3 = testElement1->CreateElement<TestComponent>("component3");
     auto& testElement4 = testElement2.CreateElement<TestComponent>("component4");
 
-    auto& testElementRef = static_cast<TestComponent&>(window->Add(std::move(testElement1)));
+    auto& testElementRef = dynamic_cast<TestComponent&>(window->Add(std::move(testElement1)));
 
     SECTION("Multiple components test")
     {
@@ -74,5 +74,4 @@ TEST_CASE("Mounted event multiple components, added last", "[mountedEvent3][moun
 
     window->CloseWindow();
     ApplicationController::GetApplicationController()->JoinThreads();
-
 }

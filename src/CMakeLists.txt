@@ -84,7 +84,6 @@ set(Lii_Behavior
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
 set(Lii_Renderer
-        Renderer/RenderingProvider.cpp
         Renderer/RenderingProvider.h
         Renderer/GdiRenderingProvider.cpp
         Renderer/Renderer.cpp
@@ -110,7 +109,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-)
+        Renderer/AsyncRenderer.cpp Renderer/AsyncRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
@@ -140,7 +139,8 @@ set(Lii_Api
         api/ShaderManager.h
         api/ResourceManager.h
         api/ShaderManager.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderer.h)
+        api/RendererProxy.h
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderingProvider.h api/RenderingConsumer.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -446,8 +446,26 @@ source_group("Lii/Managers" FILES ${Lii/Managers})
 set(Lii_Tests
         Tests/OnMountedTest.hpp
 )
-source_group("Lii/Tests" FILES ${Lii/Tests})
+source_group("Lii/Tests" FILES ${Lii_Tests})
 
+set(Lii_Renderer_Renderers
+        Renderer/Renderers/EllipseProxy.cpp
+        Renderer/Renderers/EllipseProxy.h Renderer/Renderers/RectangleProxy.cpp Renderer/Renderers/RectangleProxy.h Renderer/Renderers/LineProxy.cpp Renderer/Renderers/LineProxy.h Renderer/Renderers/TextProxy.cpp Renderer/Renderers/TextProxy.h)
+source_group(Lii/Renderer/Renderers FILES ${Lii_Renderer_Renderers})
+
+set(Lii_Renderer_Messaging
+
+        Renderer/Messaging/RenderMessage.h Renderer/Messaging/MessageIds.h)
+source_group(Lii/Renderer/Messaging FILES ${Lii_Renderer_Messaging})
+
+set(Lii_Renderer_Models
+        Renderer/Messaging/RenderMessage.h
+        Renderer/Models/RectangleModel.cpp Renderer/Models/RectangleModel.h Renderer/Models/Model.h)
+source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
+
+set(Lii_Renderer_Models_Behavior
+        Renderer/Models/Behavior/MovableModelBehavior.cpp Renderer/Models/Behavior/MovableModelBehavior.h Renderer/Models/Behavior/ResizableModelBehavior.cpp Renderer/Models/Behavior/ResizableModelBehavior.h)
+source_group(Lii/Renderer/Models/Behavior FILES ${Lii_Renderer_Models_Behavior})
 
 
 set(ALL_FILES
@@ -476,6 +494,10 @@ set(ALL_FILES
     ${Lii_Utils_Managers}
     ${Lii_Utils_Factories}
     ${Lii_Tests}
+    ${Lii_Renderer_Renderers}
+    ${Lii_Renderer_Messaging}
+    ${Lii_Renderer_Models}
+    ${Lii_Renderer_Models_Behavior}
         api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp)
 
 ################################################################################
@@ -500,6 +522,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Enums/"
         "Components/ScrollBar"
         "Renderer"
+        "Renderer/Renderers"
         "OpenGL/"
         "Sync/"
         "OpenGL/Objects"
@@ -514,6 +537,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Utils/Managers"
         "Utils/Factories"
         "Tests"
+        "Renderer/Messaging"
+        "Renderer/Models/Behavior"
         )
 
 target_link_libraries(${PROJECT_NAME}

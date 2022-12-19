@@ -1,5 +1,6 @@
 #pragma once
 #include "MoveSubject.h"
+#include "glm.hpp"
 
 /**
  * The interface should be implemented by all classes which should be able to move
