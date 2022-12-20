@@ -3,6 +3,11 @@
 //
 
 #include "AsyncRenderer.h"
+#include "MessageIds.h"
+#include "RectangleModel.h"
+#include "RenderingProviderManager.h"
+#include <future>
+#include "RenderMessage.h"
 
 std::future<EllipseProxy *> AsyncRenderer::RequestEllipseProxy()
 {
@@ -24,9 +29,14 @@ std::future<TextProxy *> AsyncRenderer::RequestTextProxy()
     return std::future<TextProxy *>();
 }
 
-std::future<RectangleProxy> AsyncRenderer::RequestRectangleProxy()
+std::future<RectangleProxy *> AsyncRenderer::RequestRectangleProxy()
 {
-    return std::future<RectangleProxy>();
+    auto rectangleProxyPromise = new std::promise<RectangleProxy*>();
+    //TODO FIND A SAFE WAY
+    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
+    auto message = RenderMessage::Create(CommandIds::RequestRectangle, rectangleProxyPromise);
+    this->ReceiveCommand(std::move(message));
+    return rectangleProxyPromise->get_future();
 }
 
 void AsyncRenderer::RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction)
@@ -66,18 +76,28 @@ void AsyncRenderer::Render()
     {
         std::unique_ptr<RenderMessage> message;
         messageQueue.wait_dequeue(message);
-        std::future<void> futureResult = std::async(std::launch::async, [&]{ PerformRenderCommand(std::move(message));});
-        renderWorkers.push_back(std::move(futureResult));
+        //std::future<void> futureResult = std::async(std::launch::async, [&]{ PerformRenderCommand(std::move(message));});
+        PerformRenderCommand(std::move(message));
+//        renderWorkers.push_back(std::move(futureResult));
     }
 
-    for(auto& workers : renderWorkers)
-        workers.wait()
+//    for(auto& workers : renderWorkers)
+//        workers.wait()
 
 }
 
 void AsyncRenderer::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
+    switch (message->GetId())
+    {
+        case CommandIds::RequestRectangle:
+            auto rectangleModel = std::make_unique<RectangleModel>();
+            auto promise = message->GetData<std::promise<RectangleProxy*>*>();
+            //rectangleModel->SetRenderer() We need a manager that contains the renderer
+            renderingModels.push_back(std::move(rectangleModel));
+            break;
 
+    }
 }
 
 

@@ -2,7 +2,7 @@
 // Created by Erik on 20/02/22.
 //
 
-#ifndef LII_MODEL_H
+#ifndef LII_RENDERINGMODEL_H
 #define LII_MODEL_H
 #include <memory>
 #include <glm.hpp>
@@ -56,4 +56,4 @@ namespace OpenGL
 }
 
 
-#endif //LII_MODEL_H
+#endif //LII_RENDERINGMODEL_H

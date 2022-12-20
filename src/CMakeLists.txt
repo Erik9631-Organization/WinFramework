@@ -460,7 +460,9 @@ source_group(Lii/Renderer/Messaging FILES ${Lii_Renderer_Messaging})
 
 set(Lii_Renderer_Models
         Renderer/Messaging/RenderMessage.h
-        Renderer/Models/RectangleModel.cpp Renderer/Models/RectangleModel.h Renderer/Models/Model.h)
+        Renderer/Models/RectangleModel.cpp
+        Renderer/Models/RectangleModel.h
+        Renderer/Models/RenderingModel.h)
 source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
 
 set(Lii_Renderer_Models_Behavior
@@ -521,8 +523,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Utils/"
         "Enums/"
         "Components/ScrollBar"
-        "Renderer"
-        "Renderer/Renderers"
         "OpenGL/"
         "Sync/"
         "OpenGL/Objects"
@@ -538,7 +538,10 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Utils/Factories"
         "Tests"
         "Renderer/Messaging"
+        "Renderer/Models"
         "Renderer/Models/Behavior"
+        "Renderer"
+        "Renderer/Renderers"
         )
 
 target_link_libraries(${PROJECT_NAME}

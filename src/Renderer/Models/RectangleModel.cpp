@@ -204,3 +204,13 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     resizableBehavior.RemoveOnResizeSubscriber(subscriber);
 }
+
+void RectangleModel::Redraw()
+{
+
+}
+
+void RectangleModel::SetRenderer(Renderer *renderer)
+{
+    this->renderer = renderer
+}

@@ -12,9 +12,13 @@ enum CommandIds
    RequestProxy,
    RequestEllipse,
    RequestLine,
+   RectangleProperty,
+   ModelProperty,
+   EllipseProperty,
+   LineProperty,
 };
 
-enum SubCommandIds
+enum PropertyCommandIds
 {
     None,
     SetSize,
@@ -26,6 +30,7 @@ enum SubCommandIds
     SetY,
     TransformX,
     TransformY,
+    SetColor,
 };
 
 #endif //LII_MESSAGEIDS_H

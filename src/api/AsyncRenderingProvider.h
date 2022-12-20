@@ -22,7 +22,7 @@ public:
     virtual std::future<ModelProxy*> RequestModelProxy() = 0;
     virtual std::future<LineProxy*>  RequestLineProxy() = 0;
     virtual std::future<TextProxy*> RequestTextProxy() = 0;
-    virtual std::future<RectangleProxy> RequestRectangleProxy() = 0;
+    virtual std::future<RectangleProxy *> RequestRectangleProxy() = 0;
 
     virtual void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
     virtual void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;

@@ -7,6 +7,7 @@
 #include "AsyncRenderingProvider.h"
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
+#include "RenderingModel.h"
 
 class AsyncRenderer : public AsyncRenderingProvider
 {
@@ -14,12 +15,14 @@ private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
     bool render = false;
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
+    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
+    std::vector<std::unique_ptr<RendererProxy>> proxies;
 public:
     std::future<EllipseProxy *> RequestEllipseProxy() override;
     std::future<ModelProxy *> RequestModelProxy() override;
     std::future<LineProxy *> RequestLineProxy() override;
     std::future<TextProxy *> RequestTextProxy() override;
-    std::future<RectangleProxy> RequestRectangleProxy() override;
+    std::future<RectangleProxy *> RequestRectangleProxy() override;
     void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
     void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
     void RequestLineProxy(std::function<void(RendererProxy &)> onCreatedAction) override;

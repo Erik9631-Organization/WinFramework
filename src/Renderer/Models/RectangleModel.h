@@ -9,8 +9,9 @@
 #include "MovableModelBehavior.h"
 #include "ResizableModelBehavior.h"
 #include "Renderer.h"
+#include "RenderingModel.h"
 
-class RectangleModel : public Movable, public Resizable
+class RectangleModel : public Movable, public Resizable, public RenderingModel
 {
 private:
     MovableModelBehavior movableBehavior;
@@ -96,6 +97,10 @@ public:
     void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+
+    void Redraw() override;
+
+    void SetRenderer(Renderer *renderer) override;
 };
 
 

@@ -22,7 +22,8 @@ public:
     template<class dataType>
     static std::unique_ptr<RenderMessage> Create(const long long messageId, dataType data)
     {
-        return std::make_unique<RenderMessage>(messageId, data);
+        auto renderMessage = new RenderMessage(messageId, data);
+        return std::unique_ptr<RenderMessage>(renderMessage);
     }
 
     template<class dataType>
@@ -30,5 +31,11 @@ public:
     {
         return std::any_cast<dataType>(data);
     }
+
+    const unsigned long long& GetId() const
+    {
+        return messageId;
+    }
+
 };
 #endif //LII_RENDERMESSAGE_H
