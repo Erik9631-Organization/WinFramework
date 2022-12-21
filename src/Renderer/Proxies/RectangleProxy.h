@@ -6,6 +6,7 @@
 #define LII_RECTANGLEPROXY_H
 #include "Movable.h"
 #include "Resizable.h"
+#include <vector>
 class RenderingConsumer;
 class RectangleModel;
 
@@ -14,6 +15,8 @@ class RectangleProxy : public Movable, public Resizable
 private:
     RenderingConsumer* renderingConsumer = nullptr;
     RectangleModel* const model = nullptr;
+    std::vector<MoveSubscriber*>moveSubscribers;
+    std::vector<ResizeSubscriber*>resizeSubscribers;
 public:
     void SetRenderingConsumer(RenderingConsumer* consumer);
 

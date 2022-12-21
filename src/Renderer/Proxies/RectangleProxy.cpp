@@ -6,6 +6,7 @@
 #include "RenderingConsumer.h"
 #include "Commands.h"
 #include "RectangleModel.h"
+#include "EventMoveInfo.h"
 
 glm::vec2 RectangleProxy::GetPosition()
 {
@@ -184,32 +185,54 @@ void RectangleProxy::SetHeight(float height)
 
 void RectangleProxy::AddOnMoveSubscriber(MoveSubscriber &subscriber)
 {
-
+    moveSubscribers.push_back(&subscriber);
 }
 
 void RectangleProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
 {
+    for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
+    {
+        if (*it == &subscriber)
+        {
+            moveSubscribers.erase(it);
+            break;
+        }
+    }
 
 }
 
+
 void RectangleProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
 {
-
+    for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
+    {
+        (*it)->OnMove(e);
+    }
 }
 
 void RectangleProxy::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
-
+    for (auto* subscriber : resizeSubscribers)
+    {
+        subscriber->OnResize(event);
+    }
 }
 
 void RectangleProxy::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
-
+    resizeSubscribers.push_back(&subscriber);
 }
 
 void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
-
+    for (auto it = resizeSubscribers.begin(); it != resizeSubscribers.end(); it++)
+    {
+        if (*it == &subscriber)
+        {
+            resizeSubscribers.erase(it);
+            break;
+        }
+    }
 }
 
 void RectangleProxy::SetRenderingConsumer(RenderingConsumer *consumer)
