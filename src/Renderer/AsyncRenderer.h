@@ -17,12 +17,13 @@ private:
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
     std::vector<std::unique_ptr<RendererProxy>> proxies;
+    std::unique_ptr<std::thread> renderThread;
 public:
-    std::future<EllipseProxy *> RequestEllipseProxy() override;
-    std::future<ModelProxy *> RequestModelProxy() override;
-    std::future<LineProxy *> RequestLineProxy() override;
-    std::future<TextProxy *> RequestTextProxy() override;
-    std::future<RectangleProxy *> RequestRectangleProxy() override;
+    std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
+    std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;
+    std::future<std::unique_ptr<LineProxy>> RequestLineProxy() override;
+    std::future<std::unique_ptr<TextProxy>> RequestTextProxy() override;
+    std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() override;
     void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
     void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
     void RequestLineProxy(std::function<void(RendererProxy &)> onCreatedAction) override;

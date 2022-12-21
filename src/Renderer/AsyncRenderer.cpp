@@ -3,38 +3,44 @@
 //
 
 #include "AsyncRenderer.h"
-#include "MessageIds.h"
+#include "Commands.h"
 #include "RectangleModel.h"
+#include "LineModel.h"
 #include "RenderingProviderManager.h"
 #include <future>
 #include "RenderMessage.h"
 
-std::future<EllipseProxy *> AsyncRenderer::RequestEllipseProxy()
+std::future<std::unique_ptr<EllipseProxy>> AsyncRenderer::RequestEllipseProxy()
 {
-    return std::future<EllipseProxy *>();
+    return std::future<std::unique_ptr<EllipseProxy>>();
 }
 
-std::future<ModelProxy *> AsyncRenderer::RequestModelProxy()
+std::future<std::unique_ptr<ModelProxy>> AsyncRenderer::RequestModelProxy()
 {
-    return std::future<ModelProxy *>();
+    return std::future<std::unique_ptr<ModelProxy>>();
 }
 
-std::future<LineProxy *> AsyncRenderer::RequestLineProxy()
+std::future<std::unique_ptr<LineProxy>> AsyncRenderer::RequestLineProxy()
 {
-    return std::future<LineProxy *>();
-}
-
-std::future<TextProxy *> AsyncRenderer::RequestTextProxy()
-{
-    return std::future<TextProxy *>();
-}
-
-std::future<RectangleProxy *> AsyncRenderer::RequestRectangleProxy()
-{
-    auto rectangleProxyPromise = new std::promise<RectangleProxy*>();
+    auto lineProxyPromise = new std::promise<std::unique_ptr<LineProxy>>();
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(CommandIds::RequestRectangle, rectangleProxyPromise);
+    auto message = RenderMessage::Create(Commands::RequestLine, lineProxyPromise);
+    this->ReceiveCommand(std::move(message));
+    return lineProxyPromise->get_future();
+}
+
+std::future<std::unique_ptr<TextProxy>> AsyncRenderer::RequestTextProxy()
+{
+    return std::future<std::unique_ptr<TextProxy>>();
+}
+
+std::future<std::unique_ptr<RectangleProxy>> AsyncRenderer::RequestRectangleProxy()
+{
+    auto rectangleProxyPromise = new std::promise<std::unique_ptr<RectangleProxy>>();
+    //TODO FIND A SAFE WAY
+    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
+    auto message = RenderMessage::Create(Commands::RequestRectangle, rectangleProxyPromise);
     this->ReceiveCommand(std::move(message));
     return rectangleProxyPromise->get_future();
 }
@@ -76,13 +82,8 @@ void AsyncRenderer::Render()
     {
         std::unique_ptr<RenderMessage> message;
         messageQueue.wait_dequeue(message);
-        //std::future<void> futureResult = std::async(std::launch::async, [&]{ PerformRenderCommand(std::move(message));});
         PerformRenderCommand(std::move(message));
-//        renderWorkers.push_back(std::move(futureResult));
     }
-
-//    for(auto& workers : renderWorkers)
-//        workers.wait()
 
 }
 
@@ -90,12 +91,28 @@ void AsyncRenderer::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
     switch (message->GetId())
     {
-        case CommandIds::RequestRectangle:
+        case Commands::RequestRectangle:
+        {
             auto rectangleModel = std::make_unique<RectangleModel>();
-            auto promise = message->GetData<std::promise<RectangleProxy*>*>();
+            auto rectanglePromise = message->GetData<std::promise<std::unique_ptr<RectangleProxy>>*>();
+            auto rectangleProxy = std::make_unique<RectangleProxy>();
             //rectangleModel->SetRenderer() We need a manager that contains the renderer
+            rectanglePromise->set_value(std::move(rectangleProxy));
             renderingModels.push_back(std::move(rectangleModel));
             break;
+        }
+
+        case Commands::RequestLine:
+        {
+            auto lineModel = std::make_unique<LineModel>();
+            auto linePromise = message->GetData<std::promise<std::unique_ptr<LineProxy>>*>();
+            auto proxy = std::make_unique<LineProxy>();
+            linePromise->set_value(std::move(proxy));
+            //rectangleModel->SetRenderer() We need a manager that contains the renderer
+            renderingModels.push_back(std::move(lineModel));
+        }
+        break;
+
 
     }
 }
@@ -104,11 +121,12 @@ void AsyncRenderer::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 void AsyncRenderer::OnInit(Core &coreWindow)
 {
     render = true;
+    renderThread = std::make_unique<std::thread>([&]{Render();});
 }
 
 void AsyncRenderer::OnDestroy(Core &coreWindow)
 {
-
+    renderThread->join();
 }
 
 void AsyncRenderer::OnRemove(Core &coreWindow)

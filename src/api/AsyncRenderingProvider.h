@@ -13,16 +13,16 @@
 #include "TextProxy.h"
 #include "RenderingConsumer.h"
 #include "RenderingProvider.h"
-class ModelProxy;
+#include "ModelProxy.h"
 
 class AsyncRenderingProvider : virtual public RenderingConsumer, virtual public RenderingProvider
 {
 public:
-    virtual std::future<EllipseProxy*> RequestEllipseProxy() = 0;
-    virtual std::future<ModelProxy*> RequestModelProxy() = 0;
-    virtual std::future<LineProxy*>  RequestLineProxy() = 0;
-    virtual std::future<TextProxy*> RequestTextProxy() = 0;
-    virtual std::future<RectangleProxy *> RequestRectangleProxy() = 0;
+    virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;
+    virtual std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() = 0;
+    virtual std::future<std::unique_ptr<LineProxy>> RequestLineProxy() = 0;
+    virtual std::future<std::unique_ptr<TextProxy>> RequestTextProxy() = 0;
+    virtual std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() = 0;
 
     virtual void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
     virtual void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;

@@ -2,10 +2,10 @@
 // Created by erik9 on 12/19/2022.
 //
 
-#ifndef LII_MESSAGEIDS_H
-#define LII_MESSAGEIDS_H
+#ifndef LII_COMMANDS_H
+#define LII_COMMANDS_H
 
-enum CommandIds
+enum Commands
 {
    RequestRectangle,
    RequestModel,
@@ -23,14 +23,16 @@ enum PropertyCommandIds
     None,
     SetSize,
     SetPosition,
-    SetTransform,
+    SetTranslate,
     SetWidth,
     SetHeight,
     SetX,
     SetY,
-    TransformX,
-    TransformY,
+    TranslateX,
+    TranslateY,
     SetColor,
+    SetStartPoint,
+    SetEndPoint,
 };
 
-#endif //LII_MESSAGEIDS_H
+#endif //LII_COMMANDS_H

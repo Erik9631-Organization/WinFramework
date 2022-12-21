@@ -449,20 +449,20 @@ set(Lii_Tests
 source_group("Lii/Tests" FILES ${Lii_Tests})
 
 set(Lii_Renderer_Renderers
-        Renderer/Renderers/EllipseProxy.cpp
-        Renderer/Renderers/EllipseProxy.h Renderer/Renderers/RectangleProxy.cpp Renderer/Renderers/RectangleProxy.h Renderer/Renderers/LineProxy.cpp Renderer/Renderers/LineProxy.h Renderer/Renderers/TextProxy.cpp Renderer/Renderers/TextProxy.h)
+        Renderer/Proxies/EllipseProxy.cpp
+        Renderer/Proxies/EllipseProxy.h Renderer/Proxies/RectangleProxy.cpp Renderer/Proxies/RectangleProxy.h Renderer/Proxies/LineProxy.cpp Renderer/Proxies/LineProxy.h Renderer/Proxies/TextProxy.cpp Renderer/Proxies/TextProxy.h Renderer/Proxies/ModelProxy.cpp Renderer/Proxies/ModelProxy.h)
 source_group(Lii/Renderer/Renderers FILES ${Lii_Renderer_Renderers})
 
 set(Lii_Renderer_Messaging
 
-        Renderer/Messaging/RenderMessage.h Renderer/Messaging/MessageIds.h)
+        Renderer/Messaging/RenderMessage.h Renderer/Messaging/Commands.h)
 source_group(Lii/Renderer/Messaging FILES ${Lii_Renderer_Messaging})
 
 set(Lii_Renderer_Models
         Renderer/Messaging/RenderMessage.h
         Renderer/Models/RectangleModel.cpp
         Renderer/Models/RectangleModel.h
-        Renderer/Models/RenderingModel.h)
+        Renderer/Models/RenderingModel.h Renderer/Models/LineModel.cpp Renderer/Models/LineModel.h)
 source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
 
 set(Lii_Renderer_Models_Behavior
@@ -541,7 +541,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Models"
         "Renderer/Models/Behavior"
         "Renderer"
-        "Renderer/Renderers"
+        "Renderer/Proxies"
         )
 
 target_link_libraries(${PROJECT_NAME}

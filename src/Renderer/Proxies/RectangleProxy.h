@@ -1,29 +1,21 @@
 //
-// Created by erik9 on 12/12/2022.
+// Created by erik9 on 12/11/2022.
 //
 
-#ifndef LII_RECTANGLEMODEL_H
-#define LII_RECTANGLEMODEL_H
+#ifndef LII_RECTANGLEPROXY_H
+#define LII_RECTANGLEPROXY_H
 #include "Movable.h"
 #include "Resizable.h"
-#include "MovableModelBehavior.h"
-#include "ResizableModelBehavior.h"
-#include "Renderer.h"
-#include "RenderingModel.h"
-#include "Vector4.h"
+class RenderingConsumer;
+class RectangleModel;
 
-class RectangleModel : public Movable, public Resizable, public RenderingModel
+class RectangleProxy : public Movable, public Resizable
 {
 private:
-    MovableModelBehavior movableBehavior;
-    ResizableModelBehavior resizableBehavior;
-    Renderer* renderer;
-    Vector4 color;
-
+    RenderingConsumer* renderingConsumer = nullptr;
+    RectangleModel* const model = nullptr;
 public:
-
-    void SetColor(const Vector4& color );
-    const Vector4& GetColor() const;
+    void SetRenderingConsumer(RenderingConsumer* consumer);
 
     glm::vec2 GetPosition() override;
 
@@ -105,10 +97,7 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    void Redraw() override;
-
-    void SetRenderer(Renderer *renderer) override;
 };
 
 
-#endif //LII_RECTANGLEMODEL_H
+#endif //LII_RECTANGLEPROXY_H

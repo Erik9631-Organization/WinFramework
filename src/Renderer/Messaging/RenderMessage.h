@@ -12,6 +12,7 @@ class RenderMessage
 private:
     std::any data;
     unsigned long long messageId;
+    unsigned long long subMessageId;
     template<class dataType>
     RenderMessage(const long long messageId, dataType data)
     {
@@ -26,15 +27,25 @@ public:
         return std::unique_ptr<RenderMessage>(renderMessage);
     }
 
+    void SetSubMessageId(const long long subMessageId)
+    {
+        this->subMessageId = subMessageId;
+    }
+
     template<class dataType>
     dataType GetData()
     {
         return std::any_cast<dataType>(data);
     }
 
-    const unsigned long long& GetId() const
+    unsigned long long GetId() const
     {
         return messageId;
+    }
+
+    const unsigned long long GetSubId() const
+    {
+        return subMessageId;
     }
 
 };

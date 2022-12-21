@@ -207,10 +207,21 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 void RectangleModel::Redraw()
 {
-
+    renderer->SetColor(color);
+    renderer->DrawRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
 }
 
 void RectangleModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer
+}
+
+void RectangleModel::SetColor(const Vector4 &color)
+{
+    this->color = color;
+}
+
+const Vector4 &RectangleModel::GetColor() const
+{
+    return color;
 }
