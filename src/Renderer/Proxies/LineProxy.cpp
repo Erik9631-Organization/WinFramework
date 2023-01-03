@@ -20,8 +20,9 @@ void LineProxy::SetEndPosition(const glm::vec3& position)
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
-void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer)
+void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer, unsigned long long associatedModelId)
 {
+    this->associatedModelId = associatedModelId;
     renderingConsumer = consumer;
 }
 
@@ -45,4 +46,9 @@ const glm::vec2 &LineProxy::GetEndPoint()
 const float &LineProxy::GetWidth()
 {
     return lineModel->GetWidth();
+}
+
+unsigned long long int &LineProxy::GetAssociatedModelId()
+{
+    return associatedModelId;
 }

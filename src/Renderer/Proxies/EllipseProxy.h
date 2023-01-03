@@ -11,7 +11,7 @@
 class EllipseProxy : public virtual Movable, public virtual RendererProxy
 {
 private:
-
+    unsigned long long associatedModelId;
 public:
     glm::vec2 GetPosition() override;
 
@@ -58,6 +58,14 @@ public:
     float GetTranslateX() override;
 
     float GetTranslateY() override;
+
+    unsigned long long int &GetAssociatedModelId() override;
+
+    void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
 };
 
 

@@ -134,6 +134,10 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             modelPtr->Redraw();
             break;
         }
+        case Commands::Property:
+        {
+            break;
+        }
     }
 }
 

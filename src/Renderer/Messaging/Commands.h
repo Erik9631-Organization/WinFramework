@@ -12,6 +12,7 @@ enum Commands
    RequestProxy,
    RequestEllipse,
    RequestLine,
+   Property,
    RectangleProperty,
    ModelProperty,
    EllipseProperty,

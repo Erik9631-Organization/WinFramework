@@ -7,6 +7,7 @@
 class RendererProxy
 {
 public:
+    virtual unsigned long long& GetAssociatedModelId() = 0;
     virtual ~RendererProxy() = 0;
 };
 

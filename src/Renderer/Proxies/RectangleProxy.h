@@ -18,8 +18,9 @@ private:
     RectangleModel* const model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
+    unsigned long long associatedModelId;
 public:
-    void SetRenderingConsumer(RenderingConsumer* consumer);
+    void SetRenderingConsumer(RenderingConsumer* consumer, unsigned long long associatedModelId);
 
     glm::vec2 GetPosition() override;
 
@@ -100,6 +101,8 @@ public:
     void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+
+    unsigned long long int &GetAssociatedModelId() override;
 
 };
 

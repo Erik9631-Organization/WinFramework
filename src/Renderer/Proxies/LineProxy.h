@@ -16,8 +16,9 @@ class LineProxy : public RendererProxy
 private:
     LineModel *lineModel;
     RenderingConsumer *renderingConsumer;
+    unsigned long long associatedModelId;
 public:
-    void SetRenderingConsumer(RenderingConsumer *consumer);
+    void SetRenderingConsumer(RenderingConsumer *consumer, unsigned long long associatedModelId);
 
     /**
      * Sets position of the starting point of the line
@@ -36,6 +37,8 @@ public:
 
     const glm::vec2& GetStartPoint();
     const glm::vec2& GetEndPoint();
+
+    unsigned long long int &GetAssociatedModelId() override;
 
 };
 

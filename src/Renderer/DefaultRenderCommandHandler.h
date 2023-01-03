@@ -8,7 +8,7 @@
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
 #include "RenderingModel.h"
-
+#include "CreateMessage.h"
 class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
 {
 private:
@@ -19,6 +19,22 @@ private:
     std::vector<std::unique_ptr<RendererProxy>> proxies;
     std::unique_ptr<std::thread> renderThread;
     std::unique_ptr<RenderingProvider> provider;
+    template<typename ModelType, typename ProxyType>
+    void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
+    {
+        auto rectangleModel = std::make_unique<ModelType>();
+        auto createData = message->GetData<CreateMessage<ProxyType>*>();
+        auto proxy = std::make_unique<ProxyType>();
+        rectangleModel->SetRenderingProvider(provider.get());
+        auto modelPtr = rectangleModel.get();
+        renderingModels.push_back(std::move(rectangleModel));
+        if(createData->GetRendererProxyPromise() != nullptr)
+            createData->GetRendererProxyPromise()->set_value(std::move(proxy));
+        else
+            createData->GetFutureCallback()->operator()(std::move(proxy));
+        modelPtr->Redraw();
+    }
+
 public:
     std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
     std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;

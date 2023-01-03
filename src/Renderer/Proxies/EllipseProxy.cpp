@@ -118,3 +118,23 @@ float EllipseProxy::GetTranslateY()
 {
     return 0;
 }
+
+unsigned long long int &EllipseProxy::GetAssociatedModelId()
+{
+    return associatedModelId;
+}
+
+void EllipseProxy::AddOnMoveSubscriber(MoveSubscriber &subscriber)
+{
+
+}
+
+void EllipseProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
+{
+
+}
+
+void EllipseProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
+{
+
+}
