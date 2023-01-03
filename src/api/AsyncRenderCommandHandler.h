@@ -2,8 +2,8 @@
 // Created by erik9 on 12/10/2022.
 //
 
-#ifndef LII_ASYNCRENDERINGPROVIDER_H
-#define LII_ASYNCRENDERINGPROVIDER_H
+#ifndef LII_ASYNCRENDERCOMMANDHANDLER_H
+#define LII_ASYNCRENDERCOMMANDHANDLER_H
 #include <future>
 #include <functional>
 #include "RendererProxy.h"
@@ -15,7 +15,7 @@
 #include "RenderingProvider.h"
 #include "ModelProxy.h"
 
-class AsyncRenderingProvider : virtual public RenderingConsumer, virtual public RenderingProvider
+class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public RenderingProvider
 {
 public:
     virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;
@@ -26,9 +26,9 @@ public:
 
     virtual void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
     virtual void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
-    virtual void RequestLineProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
+    virtual void RequestLineProxy(std::function<void(std::unique_ptr<RendererProxy>)> onCreatedAction) = 0;
     virtual void RequestTextProxy(std::function<void(RendererProxy &)> onCreatedAction) = 0;
-    virtual void RequestRectangleProxy(std::function<void(RendererProxy &)>) = 0;
+    virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RendererProxy>)>) = 0;
 
 };
-#endif //LII_ASYNCRENDERINGPROVIDER_H
+#endif //LII_ASYNCRENDERCOMMANDHANDLER_H

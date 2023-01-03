@@ -4,6 +4,7 @@
 
 #include "LineProxy.h"
 #include "Commands.h"
+#include "LineModel.h"
 
 void LineProxy::SetStartPosition(const glm::vec3& position)
 {
@@ -17,4 +18,31 @@ void LineProxy::SetEndPosition(const glm::vec3& position)
     auto renderMessage = RenderMessage::Create(Commands::LineProperty, position);
     renderMessage->SetSubMessageId(PropertyCommandIds::SetEndPoint);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}
+
+void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer)
+{
+    renderingConsumer = consumer;
+}
+
+void LineProxy::SetWidth(float width)
+{
+    auto renderMessage = RenderMessage::Create(Commands::LineProperty, width);
+    renderMessage->SetSubMessageId(PropertyCommandIds::SetWidth);
+    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}
+
+const glm::vec2 &LineProxy::GetStartPoint()
+{
+    return lineModel->GetStartPoint();
+}
+
+const glm::vec2 &LineProxy::GetEndPoint()
+{
+    return lineModel->GetEndPoint();
+}
+
+const float &LineProxy::GetWidth()
+{
+    return lineModel->GetWidth();
 }

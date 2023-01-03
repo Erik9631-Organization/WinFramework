@@ -225,3 +225,13 @@ const Vector4 &RectangleModel::GetColor() const
 {
     return color;
 }
+
+void RectangleModel::SetFill(bool fill)
+{
+    this->fill = fill;
+}
+
+const bool &RectangleModel::GetFill()
+{
+    return fill;
+}

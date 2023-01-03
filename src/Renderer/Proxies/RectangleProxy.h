@@ -7,10 +7,11 @@
 #include "Movable.h"
 #include "Resizable.h"
 #include <vector>
+#include "RendererProxy.h"
 class RenderingConsumer;
 class RectangleModel;
 
-class RectangleProxy : public Movable, public Resizable
+class RectangleProxy : public Movable, public Resizable, public RendererProxy
 {
 private:
     RenderingConsumer* renderingConsumer = nullptr;

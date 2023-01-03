@@ -43,3 +43,13 @@ void LineModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
 }
+
+void LineModel::SetWidth(float width)
+{
+    this->width = width;
+}
+
+const float &LineModel::GetWidth()
+{
+    return width;
+}

@@ -31,6 +31,12 @@ public:
     */
     void SetEndPosition(const glm::vec3& position);
 
+    void SetWidth(float width);
+    const float& GetWidth();
+
+    const glm::vec2& GetStartPoint();
+    const glm::vec2& GetEndPoint();
+
 };
 
 

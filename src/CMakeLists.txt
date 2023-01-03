@@ -109,7 +109,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/AsyncRenderer.cpp Renderer/AsyncRenderer.h)
+        Renderer/DefaultRenderCommandHandler.cpp Renderer/DefaultRenderCommandHandler.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
@@ -140,7 +140,7 @@ set(Lii_Api
         api/ResourceManager.h
         api/ShaderManager.h
         api/RendererProxy.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderingProvider.h api/RenderingConsumer.h)
+        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderCommandHandler.h api/RenderingConsumer.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
 
@@ -455,7 +455,7 @@ source_group(Lii/Renderer/Renderers FILES ${Lii_Renderer_Renderers})
 
 set(Lii_Renderer_Messaging
 
-        Renderer/Messaging/RenderMessage.h Renderer/Messaging/Commands.h)
+        Renderer/Messaging/RenderMessage.h Renderer/Messaging/Commands.h Renderer/Messaging/CreateMessage.h)
 source_group(Lii/Renderer/Messaging FILES ${Lii_Renderer_Messaging})
 
 set(Lii_Renderer_Models

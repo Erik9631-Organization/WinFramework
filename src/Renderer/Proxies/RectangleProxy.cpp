@@ -10,32 +10,17 @@
 
 glm::vec2 RectangleProxy::GetPosition()
 {
-    return glm::vec2();
+    return model->GetPosition();
 }
 
 float RectangleProxy::GetX()
 {
-    return 0;
+    return model->GetX();
 }
 
 float RectangleProxy::GetY()
 {
-    return 0;
-}
-
-float RectangleProxy::GetAbsoluteX()
-{
-    return 0;
-}
-
-float RectangleProxy::GetAbsoluteY()
-{
-    return 0;
-}
-
-glm::vec2 RectangleProxy::GetAbsolutePosition()
-{
-    return glm::vec2();
+    return model->GetY();
 }
 
 void RectangleProxy::SetPosition(glm::vec2 position, bool emit)
@@ -238,4 +223,19 @@ void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 void RectangleProxy::SetRenderingConsumer(RenderingConsumer *consumer)
 {
     this->renderingConsumer = consumer;
+}
+
+float RectangleProxy::GetAbsoluteX()
+{
+    return 0;
+}
+
+float RectangleProxy::GetAbsoluteY()
+{
+    return 0;
+}
+
+glm::vec2 RectangleProxy::GetAbsolutePosition()
+{
+    return glm::vec2(0);
 }

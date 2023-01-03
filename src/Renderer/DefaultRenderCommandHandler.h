@@ -2,14 +2,14 @@
 // Created by erik9 on 12/19/2022.
 //
 
-#ifndef LII_ASYNCRENDERER_H
-#define LII_ASYNCRENDERER_H
-#include "AsyncRenderingProvider.h"
+#ifndef LII_DEFAULTRENDERCOMMANDHANDLER_H
+#define LII_DEFAULTRENDERCOMMANDHANDLER_H
+#include "AsyncRenderCommandHandler.h"
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
 #include "RenderingModel.h"
 
-class AsyncRenderer : public AsyncRenderingProvider
+class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
 {
 private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
@@ -26,9 +26,9 @@ public:
     std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() override;
     void RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
     void RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
-    void RequestLineProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
+    void RequestLineProxy(std::function<void(std::unique_ptr<RendererProxy>)> onCreatedAction) override;
     void RequestTextProxy(std::function<void(RendererProxy &)> onCreatedAction) override;
-    void RequestRectangleProxy(std::function<void(RendererProxy &)> function) override;
+    void RequestRectangleProxy(std::function<void(std::unique_ptr<RendererProxy>)> function) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     void Render() override;
@@ -44,4 +44,4 @@ public:
 };
 
 
-#endif //LII_ASYNCRENDERER_H
+#endif //LII_DEFAULTRENDERCOMMANDHANDLER_H

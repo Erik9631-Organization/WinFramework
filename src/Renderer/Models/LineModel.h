@@ -15,6 +15,7 @@ private:
     glm::vec2 startPoint;
     glm::vec2 endPoint;
     Renderer* renderer;
+    float width;
 public:
     void SetStartPont(const glm::vec2& pos);
     void SetEndPoint(const glm::vec2& pos);
@@ -22,6 +23,8 @@ public:
     const glm::vec2& GetEndPoint();
     void SetColor(const Vector4& color);
     const Vector4& GetColor();
+    void SetWidth(float width);
+    const float& GetWidth();
 
     void Redraw() override;
 

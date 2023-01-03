@@ -19,8 +19,11 @@ private:
     ResizableModelBehavior resizableBehavior;
     Renderer* renderer;
     Vector4 color;
+    bool fill = false;
 
 public:
+    void SetFill(bool fill);
+    const bool &GetFill();
 
     void SetColor(const Vector4& color );
     const Vector4& GetColor() const;
