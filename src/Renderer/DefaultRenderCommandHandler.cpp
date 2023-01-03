@@ -97,7 +97,7 @@ void DefaultRenderCommandHandler::Render()
     }
 
 }
-
+//TODO: Refactor simplify
 void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
     switch (message->GetId())
@@ -107,18 +107,14 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             auto rectangleModel = std::make_unique<RectangleModel>();
             auto createData = message->GetData<CreateMessage<RectangleProxy>*>();
             auto proxy = std::make_unique<RectangleProxy>();
-            //rectangleModel->SetRenderer() We need a manager that contains the renderer
+            rectangleModel->SetRenderingProvider(provider.get());
+            auto modelPtr = rectangleModel.get();
             renderingModels.push_back(std::move(rectangleModel));
             if(createData->GetRendererProxyPromise() != nullptr)
-            {
                 createData->GetRendererProxyPromise()->set_value(std::move(proxy));
-                break;
-            }
-
-            if(createData->GetFutureCallback() != nullptr)
-            {
+            else
                 createData->GetFutureCallback()->operator()(std::move(proxy));
-            }
+            modelPtr->Redraw();
             break;
         }
 
@@ -127,21 +123,17 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             auto lineModel = std::make_unique<LineModel>();
             auto createData = message->GetData<CreateMessage<LineProxy>*>();
             auto proxy = std::make_unique<LineProxy>();
-            //rectangleModel->SetRenderer() We need a manager that contains the renderer
+            lineModel->SetRenderingProvider(provider.get());
+            auto modelPtr = lineModel.get();
             renderingModels.push_back(std::move(lineModel));
             if(createData->GetRendererProxyPromise() != nullptr)
-            {
                 createData->GetRendererProxyPromise()->set_value(std::move(proxy));
-                break;
-            }
-
-            if(createData->GetFutureCallback() != nullptr)
-            {
+            else
                 createData->GetFutureCallback()->operator()(std::move(proxy));
-            }
+
+            modelPtr->Redraw();
             break;
         }
-
     }
 }
 
@@ -149,6 +141,7 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
 void DefaultRenderCommandHandler::OnInit(Core &coreWindow)
 {
     render = true;
+    provider = RenderingProviderManager::GetRenderingProviderManager()->GetRenderingProviderManager()->Create();
     renderThread = std::make_unique<std::thread>([&]{Render();});
 }
 

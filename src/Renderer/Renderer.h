@@ -32,10 +32,10 @@ public:
     virtual void DrawRectangle(glm::vec2 pos, glm::vec2 size) = 0;
     virtual void DrawRectangle(float x, float y, float width, float height) = 0;
     virtual void DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len) = 0;
-    virtual void FillEllipse(float x, float y, float width, float height) = 0;
-    virtual void FillEllipse(glm::vec2 pos, glm::vec2 size) = 0;
-    virtual void FillRectangle(float x, float y, float width, float height) = 0;
-    virtual void FillRectangle(glm::vec2 pos, glm::vec2 size) = 0;
+    virtual void DrawFillEllipse(float x, float y, float width, float height) = 0;
+    virtual void DrawFillEllipse(glm::vec2 pos, glm::vec2 size) = 0;
+    virtual void DrawFillRectangle(float x, float y, float width, float height) = 0;
+    virtual void DrawFillRectangle(glm::vec2 pos, glm::vec2 size) = 0;
     virtual void SetColor(const Vector4 &color) = 0;
     virtual void SetColor(const Vector3 &color) = 0;
     virtual void SetThickness(float thickness) = 0;
@@ -43,6 +43,7 @@ public:
     virtual void SetFontSize(float fontSize) = 0;
     virtual std::unique_ptr<FontFormat> CreateFontFormat() = 0;
     virtual void Translate(glm::vec2 translation) = 0;
+    virtual ~Renderer() = default;
 };
 
 

@@ -3,6 +3,8 @@
 //
 
 #include "LineModel.h"
+#include "RenderingProvider.h"
+#include "Renderer.h"
 
 void LineModel::SetStartPont(const glm::vec2 &pos)
 {
@@ -36,12 +38,14 @@ const Vector4 &LineModel::GetColor()
 
 void LineModel::Redraw()
 {
+    auto renderer = renderingProvider->AcquireRenderer();
+    renderer->SetColor(color);
     renderer->DrawLine(startPoint, endPoint);
 }
 
-void LineModel::SetRenderer(Renderer *renderer)
+void LineModel::SetRenderingProvider(RenderingProvider *renderer)
 {
-    this->renderer = renderer;
+    this->renderingProvider = renderer;
 }
 
 void LineModel::SetWidth(float width)

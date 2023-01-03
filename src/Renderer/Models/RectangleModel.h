@@ -8,7 +8,6 @@
 #include "Resizable.h"
 #include "MovableModelBehavior.h"
 #include "ResizableModelBehavior.h"
-#include "Renderer.h"
 #include "RenderingModel.h"
 #include "Vector4.h"
 
@@ -17,7 +16,7 @@ class RectangleModel : public Movable, public Resizable, public RenderingModel
 private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
-    Renderer* renderer;
+    RenderingProvider* rendereringProvider;
     Vector4 color;
     bool fill = false;
 
@@ -110,7 +109,7 @@ public:
 
     void Redraw() override;
 
-    void SetRenderer(Renderer *renderer) override;
+    void SetRenderingProvider(RenderingProvider *renderer) override;
 };
 
 

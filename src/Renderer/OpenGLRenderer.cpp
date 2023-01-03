@@ -58,22 +58,22 @@ void OpenGLRenderer::DrawString(const std::wstring &string, glm::vec2 position, 
 
 }
 
-void OpenGLRenderer::FillEllipse(float x, float y, float width, float height)
+void OpenGLRenderer::DrawFillEllipse(float x, float y, float width, float height)
 {
 
 }
 
-void OpenGLRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderer::DrawFillEllipse(glm::vec2 pos, glm::vec2 size)
 {
 
 }
 
-void OpenGLRenderer::FillRectangle(float x, float y, float width, float height)
+void OpenGLRenderer::DrawFillRectangle(float x, float y, float width, float height)
 {
-    //FillRectangle({x, y}, {width, height});
+    //DrawFillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderer::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {

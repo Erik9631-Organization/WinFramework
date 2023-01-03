@@ -3,13 +3,13 @@
 
 #ifndef LII_RENDERINGMODEL_H
 #define LII_RENDERINGMODEL_H
-#include "Renderer.h"
+#include "RenderingProvider.h"
 
 class RenderingModel
 {
 public:
     virtual void Redraw() = 0;
-    virtual void SetRenderer(Renderer* renderer) = 0;
+    virtual void SetRenderingProvider(RenderingProvider *renderer) = 0;
     virtual ~RenderingModel() = default;
 };
 

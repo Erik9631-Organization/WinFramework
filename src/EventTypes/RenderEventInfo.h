@@ -12,12 +12,12 @@ class RenderEventInfo
 public:
 	/**
 	 * The parent size is set ti 0,0 by default.
-	 * \param g pointer to a renderer object associated with a HDC on which it is possible to perform a drawing operation.
+	 * \param g pointer to a rendereringProvider object associated with a HDC on which it is possible to perform a drawing operation.
 	 */
 	RenderEventInfo(RenderingPool *g);
 
 	/**
-	 * \return Returns a pointer to renderer object to which it is possible to perform a drawing operation.
+	 * \return Returns a pointer to rendereringProvider object to which it is possible to perform a drawing operation.
 	 */
 	RenderingPool * GetRenderer() const;
 private:

@@ -57,22 +57,22 @@ void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, con
     delete font;
 }
 
-void GdiRenderer::FillEllipse(float x, float y, float width, float height)
+void GdiRenderer::DrawFillEllipse(float x, float y, float width, float height)
 {
     graphics.FillEllipse(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::DrawFillEllipse(glm::vec2 pos, glm::vec2 size)
 {
     graphics.FillEllipse(brush, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiRenderer::FillRectangle(float x, float y, float width, float height)
+void GdiRenderer::DrawFillRectangle(float x, float y, float width, float height)
 {
     graphics.FillRectangle(brush, x, y, width, height);
 }
 
-void GdiRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
 {
     graphics.FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }

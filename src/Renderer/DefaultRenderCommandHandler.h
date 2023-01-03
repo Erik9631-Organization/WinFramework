@@ -18,6 +18,7 @@ private:
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
     std::vector<std::unique_ptr<RendererProxy>> proxies;
     std::unique_ptr<std::thread> renderThread;
+    std::unique_ptr<RenderingProvider> provider;
 public:
     std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
     std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;

@@ -207,13 +207,12 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 void RectangleModel::Redraw()
 {
+    auto renderer = this->rendereringProvider->AcquireRenderer();
     renderer->SetColor(color);
-    renderer->DrawRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
-}
-
-void RectangleModel::SetRenderer(Renderer *renderer)
-{
-    this->renderer = renderer
+    if(fill)
+        renderer->DrawFillRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+    else
+        renderer->DrawRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
 }
 
 void RectangleModel::SetColor(const Vector4 &color)
@@ -234,4 +233,9 @@ void RectangleModel::SetFill(bool fill)
 const bool &RectangleModel::GetFill()
 {
     return fill;
+}
+
+void RectangleModel::SetRenderingProvider(RenderingProvider *renderer)
+{
+    this->rendereringProvider = renderer;
 }

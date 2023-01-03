@@ -202,3 +202,9 @@ void GdiRenderingProvider::GdiStartup()
     input.DebugEventCallback = NULL;
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
+
+std::unique_ptr<Renderer> GdiRenderingProvider::AcquireRenderer()
+{
+    Graphics graphics(secondaryDc);
+    return std::unique_ptr<Renderer>(new GdiRenderer(graphics));
+}

@@ -73,7 +73,8 @@ void Background::OnRenderSync(RenderEventInfo e)
     Renderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
     renderer.SetColor(currentColor);
-    renderer.FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.DrawFillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(),
+                               graphicsUtil.GetHeight());
 }
 
 void Background::Repaint()

@@ -14,7 +14,7 @@ private:
     Vector4 color;
     glm::vec2 startPoint;
     glm::vec2 endPoint;
-    Renderer* renderer;
+    RenderingProvider* renderingProvider;
     float width;
 public:
     void SetStartPont(const glm::vec2& pos);
@@ -28,7 +28,7 @@ public:
 
     void Redraw() override;
 
-    void SetRenderer(Renderer *renderer) override;
+    void SetRenderingProvider(RenderingProvider *renderer) override;
 };
 
 

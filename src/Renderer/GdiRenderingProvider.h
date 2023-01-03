@@ -41,6 +41,9 @@ public:
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
+
+    std::unique_ptr<Renderer> AcquireRenderer() override;
+
     std::thread* renderingThread;
 private:
     static void GdiStartup();

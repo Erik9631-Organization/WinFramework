@@ -53,10 +53,10 @@ public:
     void DrawRectangle(glm::vec2 pos, glm::vec2 size) override;
     void DrawRectangle(float x, float y, float width, float height) override;
     void DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len) override;
-    void FillEllipse(float x, float y, float width, float height) override;
-    void FillEllipse(glm::vec2 pos, glm::vec2 size) override;
-    void FillRectangle(float x, float y, float width, float height) override;
-    void FillRectangle(glm::vec2 pos, glm::vec2 size) override;
+    void DrawFillEllipse(float x, float y, float width, float height) override;
+    void DrawFillEllipse(glm::vec2 pos, glm::vec2 size) override;
+    void DrawFillRectangle(float x, float y, float width, float height) override;
+    void DrawFillRectangle(glm::vec2 pos, glm::vec2 size) override;
     void SetColor(const Vector4 &color) override;
     void SetColor(const Vector3 &color) override;
     void SetThickness(float thickness) override;
