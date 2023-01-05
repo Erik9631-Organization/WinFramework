@@ -23,21 +23,21 @@ std::future<std::unique_ptr<ModelProxy>> DefaultRenderCommandHandler::RequestMod
 
 std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLineProxy()
 {
-    auto linePromise = std::make_unique<std::promise<std::unique_ptr<LineProxy>>>();
+    auto linePromise = std::promise<std::unique_ptr<LineProxy>>();
     auto createMessage = new CreateMessage(std::move(linePromise));
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
     this->ReceiveCommand(std::move(message));
-    return createMessage->GetRendererProxyPromise()->get_future();
+    return createMessage->GetRendererProxyPromise().get_future();
 }
 
 void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<RenderProxy>)> onCreatedAction)
 {
-    auto lineProxyPromise = new std::promise<std::unique_ptr<LineProxy>>();
+    auto createMessage = new CreateMessage(onCreatedAction);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestLine, lineProxyPromise);
+    auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
     this->ReceiveCommand(std::move(message));
 }
 
@@ -49,18 +49,22 @@ std::future<std::unique_ptr<TextProxy>> DefaultRenderCommandHandler::RequestText
 
 std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::RequestRectangleProxy()
 {
-    auto rectanglePromise = std::make_unique<std::promise<std::unique_ptr<RectangleProxy>>>();
+    auto rectanglePromise = std::promise<std::unique_ptr<RectangleProxy>>();
     auto createMessage = new CreateMessage(std::move(rectanglePromise));
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
     this->ReceiveCommand(std::move(message));
-    return createMessage->GetRendererProxyPromise()->get_future();
+    return createMessage->GetRendererProxyPromise().get_future();
 }
 
 void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RenderProxy>)> function)
 {
-
+    auto createMessage = new CreateMessage(function);
+    //TODO FIND A SAFE WAY
+    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
+    auto message = RenderMessage::Create(Commands::RequestProxy, createMessage);
+    this->ReceiveCommand(std::move(message));
 }
 
 
@@ -104,7 +108,7 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
     {
         case Commands::RequestRectangle:
         {
-            CreateModelFromMessage<RectangleModel, RectangleModel>(std::move(message));
+            CreateModelFromMessage<RectangleModel, RectangleProxy>(std::move(message));
             break;
         }
         case Commands::RequestLine:

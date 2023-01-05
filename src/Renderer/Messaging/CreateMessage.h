@@ -12,25 +12,25 @@ template<class T>
 class CreateMessage
 {
 private:
-    std::unique_ptr<std::promise<std::unique_ptr<T>>> rendererProxyPromise;
-    std::unique_ptr<std::function<void(std::unique_ptr<T>)>> futureCallback;
+    std::promise<T> rendererProxyPromise;
+    std::function<void(T)> futureCallback;
 public:
-    CreateMessage(std::unique_ptr<std::promise<std::unique_ptr<T>>> renderProxyParam)
+    CreateMessage(std::promise<T> renderProxyParam)
     {
         rendererProxyPromise = std::move(renderProxyParam);
     }
-    CreateMessage(std::unique_ptr<std::function<void(std::unique_ptr<T>)>> futureCallbackParam)
+    CreateMessage(std::function<void(T)> futureCallbackParam)
     {
         futureCallback = std::move(futureCallbackParam);
     }
 
-    std::promise<std::unique_ptr<T>>* GetRendererProxyPromise()
+    std::promise<T>& GetRendererProxyPromise()
     {
-        return rendererProxyPromise.get();
+        return rendererProxyPromise;
     }
-    std::function<void(std::unique_ptr<T>)>* GetFutureCallback()
+    std::function<void(T)>& GetFutureCallback()
     {
-        return futureCallback.get();
+        return rendererProxyPromise;
     }
 
 };
