@@ -57,3 +57,13 @@ const float &LineModel::GetWidth()
 {
     return width;
 }
+
+void LineModel::SetAssociatedModelId(unsigned long long int id)
+{
+    this->id = id;
+}
+
+unsigned long long int &LineModel::GetAssociatedModelId()
+{
+    return id;
+}

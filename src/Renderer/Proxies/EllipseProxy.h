@@ -4,14 +4,15 @@
 
 #ifndef LII_ELLIPSEPROXY_H
 #define LII_ELLIPSEPROXY_H
-#include "RendererProxy.h"
+#include "RenderProxy.h"
 #include "Movable.h"
 #include "vec2.hpp"
+#include "RenderingModel.h"
 
-class EllipseProxy : public virtual Movable, public virtual RendererProxy
+class EllipseProxy : public virtual Movable, public virtual RenderProxy
 {
 private:
-    unsigned long long associatedModelId;
+    RenderingModel *renderingModel;
 public:
     glm::vec2 GetPosition() override;
 
@@ -66,6 +67,8 @@ public:
     void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
     void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+
+    ~EllipseProxy() override;
 };
 
 

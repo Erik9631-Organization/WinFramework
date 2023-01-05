@@ -4,14 +4,14 @@
 
 #ifndef LII_LINEPROXY_H
 #define LII_LINEPROXY_H
-#include "RendererProxy.h"
+#include "RenderProxy.h"
 #include "RenderingConsumer.h"
 #include "glm.hpp"
 
 class RenderingConsumer;
 class LineModel;
 
-class LineProxy : public RendererProxy
+class LineProxy : public RenderProxy
 {
 private:
     LineModel *lineModel;
@@ -39,6 +39,8 @@ public:
     const glm::vec2& GetEndPoint();
 
     unsigned long long int &GetAssociatedModelId() override;
+
+    void SetAssociatedModel(RenderingModel *model) override;
 
 };
 

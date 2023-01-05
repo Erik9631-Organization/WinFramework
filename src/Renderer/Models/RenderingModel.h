@@ -10,6 +10,8 @@ class RenderingModel
 public:
     virtual void Redraw() = 0;
     virtual void SetRenderingProvider(RenderingProvider *renderer) = 0;
+    virtual void SetAssociatedModelId(unsigned long long id) = 0;
+    virtual unsigned long long& GetAssociatedModelId() = 0;
     virtual ~RenderingModel() = default;
 };
 

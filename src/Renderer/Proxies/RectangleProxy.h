@@ -7,18 +7,17 @@
 #include "Movable.h"
 #include "Resizable.h"
 #include <vector>
-#include "RendererProxy.h"
+#include "RenderProxy.h"
 class RenderingConsumer;
 class RectangleModel;
 
-class RectangleProxy : public Movable, public Resizable, public RendererProxy
+class RectangleProxy : public Movable, public Resizable, public RenderProxy
 {
 private:
     RenderingConsumer* renderingConsumer = nullptr;
-    RectangleModel* const model = nullptr;
+    RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
-    unsigned long long associatedModelId;
 public:
     void SetRenderingConsumer(RenderingConsumer* consumer, unsigned long long associatedModelId);
 
@@ -103,6 +102,8 @@ public:
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
     unsigned long long int &GetAssociatedModelId() override;
+
+    void SetAssociatedModel(RenderingModel *model) override;
 
 };
 

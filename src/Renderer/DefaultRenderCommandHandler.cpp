@@ -32,7 +32,7 @@ std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLine
     return createMessage->GetRendererProxyPromise()->get_future();
 }
 
-void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<RendererProxy>)> onCreatedAction)
+void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<RenderProxy>)> onCreatedAction)
 {
     auto lineProxyPromise = new std::promise<std::unique_ptr<LineProxy>>();
     //TODO FIND A SAFE WAY
@@ -58,24 +58,24 @@ std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::Reques
     return createMessage->GetRendererProxyPromise()->get_future();
 }
 
-void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RendererProxy>)> function)
+void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RenderProxy>)> function)
 {
 
 }
 
 
-void DefaultRenderCommandHandler::RequestEllipseProxy(std::function<void(RendererProxy &)> onCreatedAction)
+void DefaultRenderCommandHandler::RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
 
-void DefaultRenderCommandHandler::RequestModelProxy(std::function<void(RendererProxy &)> onCreatedAction)
+void DefaultRenderCommandHandler::RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
 
 
-void DefaultRenderCommandHandler::RequestTextProxy(std::function<void(RendererProxy &)> onCreatedAction)
+void DefaultRenderCommandHandler::RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
@@ -104,35 +104,12 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
     {
         case Commands::RequestRectangle:
         {
-            auto rectangleModel = std::make_unique<RectangleModel>();
-            auto createData = message->GetData<CreateMessage<RectangleProxy>*>();
-            auto proxy = std::make_unique<RectangleProxy>();
-            rectangleModel->SetRenderingProvider(provider.get());
-            auto modelPtr = rectangleModel.get();
-            renderingModels.push_back(std::move(rectangleModel));
-            if(createData->GetRendererProxyPromise() != nullptr)
-                createData->GetRendererProxyPromise()->set_value(std::move(proxy));
-            else
-                createData->GetFutureCallback()->operator()(std::move(proxy));
-            modelPtr->Redraw();
+            CreateModelFromMessage<RectangleModel, RectangleModel>(std::move(message));
             break;
         }
-
         case Commands::RequestLine:
         {
-            auto lineModel = std::make_unique<LineModel>();
-            auto createData = message->GetData<CreateMessage<LineProxy>*>();
-            auto proxy = std::make_unique<LineProxy>();
-            lineModel->SetRenderingProvider(provider.get());
-            auto modelPtr = lineModel.get();
-            renderingModels.push_back(std::move(lineModel));
-            if(createData->GetRendererProxyPromise() != nullptr)
-                createData->GetRendererProxyPromise()->set_value(std::move(proxy));
-            else
-                createData->GetFutureCallback()->operator()(std::move(proxy));
-
-            modelPtr->Redraw();
-            break;
+            CreateModelFromMessage<LineModel, LineProxy>(std::move(message));
         }
         case Commands::Property:
         {

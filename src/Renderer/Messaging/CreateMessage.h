@@ -6,7 +6,7 @@
 #define LII_CREATEMESSAGE_H
 #include <future>
 #include <functional>
-#include "RendererProxy.h"
+#include "RenderProxy.h"
 
 template<class T>
 class CreateMessage

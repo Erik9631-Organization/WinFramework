@@ -245,3 +245,8 @@ unsigned long long int &RectangleProxy::GetAssociatedModelId()
 {
     return associatedModelId;
 }
+
+void RectangleProxy::SetAssociatedModel(RenderingModel *model)
+{
+    this->model = dynamic_cast<RectangleModel*>(model);
+}

@@ -52,3 +52,8 @@ unsigned long long int &LineProxy::GetAssociatedModelId()
 {
     return associatedModelId;
 }
+
+void LineProxy::SetAssociatedModel(RenderingModel *model)
+{
+    this->lineModel = dynamic_cast<LineModel*>(model);
+}

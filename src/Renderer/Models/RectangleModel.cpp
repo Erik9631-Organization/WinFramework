@@ -4,6 +4,7 @@
 
 #include "RectangleModel.h"
 #include "EventMoveInfo.h"
+#include "Renderer.h"
 
 glm::vec2 RectangleModel::GetPosition()
 {
@@ -238,4 +239,14 @@ const bool &RectangleModel::GetFill()
 void RectangleModel::SetRenderingProvider(RenderingProvider *renderer)
 {
     this->rendereringProvider = renderer;
+}
+
+void RectangleModel::SetAssociatedModelId(unsigned long long int id)
+{
+    this->id = id;
+}
+
+unsigned long long int &RectangleModel::GetAssociatedModelId()
+{
+    return id;
 }

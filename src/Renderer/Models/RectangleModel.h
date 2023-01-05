@@ -19,6 +19,7 @@ private:
     RenderingProvider* rendereringProvider;
     Vector4 color;
     bool fill = false;
+    unsigned long long id = 0;
 
 public:
     void SetFill(bool fill);
@@ -110,6 +111,10 @@ public:
     void Redraw() override;
 
     void SetRenderingProvider(RenderingProvider *renderer) override;
+
+    void SetAssociatedModelId(unsigned long long int id) override;
+
+    unsigned long long int &GetAssociatedModelId() override;
 };
 
 

@@ -3,10 +3,11 @@
 //
 
 #include "EllipseProxy.h"
+#include "EventMoveInfo.h"
 
 glm::vec2 EllipseProxy::GetPosition()
 {
-    return nullptr;
+    return glm::vec2{0};
 }
 
 float EllipseProxy::GetX()
@@ -31,7 +32,7 @@ float EllipseProxy::GetAbsoluteY()
 
 glm::vec2 EllipseProxy::GetAbsolutePosition()
 {
-    return nullptr;
+    return glm::vec2{0};
 }
 
 void EllipseProxy::SetPosition(glm::vec2 position, bool emit)
@@ -106,7 +107,7 @@ void EllipseProxy::SetTranslateY(float y)
 
 glm::vec2 EllipseProxy::GetTranslate()
 {
-    return nullptr;
+    return glm::vec2{0};;
 }
 
 float EllipseProxy::GetTranslateX()
@@ -117,11 +118,6 @@ float EllipseProxy::GetTranslateX()
 float EllipseProxy::GetTranslateY()
 {
     return 0;
-}
-
-unsigned long long int &EllipseProxy::GetAssociatedModelId()
-{
-    return associatedModelId;
 }
 
 void EllipseProxy::AddOnMoveSubscriber(MoveSubscriber &subscriber)
@@ -137,4 +133,14 @@ void EllipseProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
 void EllipseProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
 {
 
+}
+
+EllipseProxy::~EllipseProxy()
+{
+
+}
+
+unsigned long long int &EllipseProxy::GetAssociatedModelId()
+{
+    return renderingModel->GetAssociatedModelId();
 }
