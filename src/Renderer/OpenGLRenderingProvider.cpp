@@ -320,3 +320,9 @@ void OpenGLRenderingProvider::GraphicsInit()
 //    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
 }
 
+//TODO Finish Acquire Renderer for opengl
+unique_ptr<Renderer> OpenGLRenderingProvider::AcquireRenderer()
+{
+    return nullptr;
+}
+

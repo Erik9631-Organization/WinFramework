@@ -54,7 +54,7 @@ private:
     glm::vec2 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
-	std::unique_ptr<RenderingProvider> renderingProvider = nullptr;
+	std::unique_ptr<AsyncRenderCommandHandler> renderingProvider = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;
@@ -165,8 +165,8 @@ public:
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
-	void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider);
-	RenderingProvider* GetRenderingProvider();
+	void SetRenderer(std::unique_ptr<AsyncRenderCommandHandler> provider);
+	AsyncRenderCommandHandler * GetRenderer();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
     void NotifyCoreOnDestroy(std::any src) override;

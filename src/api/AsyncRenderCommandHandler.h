@@ -15,7 +15,7 @@
 #include "RenderingProvider.h"
 #include "ModelProxy.h"
 
-class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public RenderingProvider
+class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public Renderingrovider
 {
 public:
     virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;
@@ -26,9 +26,9 @@ public:
 
     virtual void RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
     virtual void RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
-    virtual void RequestLineProxy(std::function<void(std::unique_ptr<RenderProxy>)> onCreatedAction) = 0;
+    virtual void RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction) = 0;
     virtual void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
-    virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RenderProxy>)>) = 0;
+    virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)>) = 0;
 
 };
 #endif //LII_ASYNCRENDERCOMMANDHANDLER_H

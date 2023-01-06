@@ -9,11 +9,14 @@
 #include "RenderMessage.h"
 #include "RenderingModel.h"
 #include "CreateMessage.h"
+#include <future>
 class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
 {
 private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
     bool render = false;
+    void RedrawScene();
+
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
     std::vector<std::unique_ptr<RenderProxy>> proxies;
@@ -23,21 +26,20 @@ private:
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
     {
         auto rectangleModel = std::make_unique<ModelType>();
-        auto createData = message->GetData<CreateMessage<ProxyType>*>();
+        auto createData = message->GetData<CreateMessage<std::unique_ptr<ProxyType>>*>();
         auto proxy = std::make_unique<ProxyType>();
         rectangleModel->SetRenderingProvider(provider.get());
         auto modelPtr = rectangleModel.get();
         renderingModels.push_back(std::move(rectangleModel));
-        unsigned long long id = renderingModels.size() - 1;
+        long long int id = renderingModels.size() - 1;
         modelPtr->SetAssociatedModelId(id);
         proxy->SetAssociatedModel(modelPtr);
-        if(createData->GetRendererProxyPromise() != nullptr)
-            createData->GetRendererProxyPromise()->set_value(std::move(proxy));
+        if(createData->IsCallbackSet() == false)
+            createData->GetRendererProxyPromise().set_value(std::move(proxy));
         else
-            createData->GetFutureCallback()->operator()(std::move(proxy));
-        modelPtr->Redraw();
+            createData->GetFutureCallback().operator()(std::move(proxy));
+        delete createData;
     }
-
 public:
     std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
     std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;
@@ -46,9 +48,9 @@ public:
     std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() override;
     void RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
     void RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
-    void RequestLineProxy(std::function<void(std::unique_ptr<RenderProxy>)> onCreatedAction) override;
+    void RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction) override;
     void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
-    void RequestRectangleProxy(std::function<void(std::unique_ptr<RenderProxy>)> function) override;
+    void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     void Render() override;
@@ -60,6 +62,10 @@ public:
     void OnRemove(Core &coreWindow) override;
 
     void WaitForSyncToFinish() override;
+
+    void SwapBuffers() override;
+
+    std::unique_ptr<Renderer> AcquireRenderer() override;
 
 };
 

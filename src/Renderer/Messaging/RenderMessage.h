@@ -12,14 +12,27 @@ class RenderMessage
 private:
     std::any data;
     unsigned long long messageId;
+    long long int receiverId;
     unsigned long long subMessageId;
+
+public:
+    long long int GetReceiverId() const
+    {
+        return receiverId;
+    }
+
+    void SetReceiverId(long long int receiverId)
+    {
+        RenderMessage::receiverId = receiverId;
+    }
+
     template<class dataType>
     RenderMessage(const long long messageId, dataType data)
     {
         this->messageId = messageId;
         this->data = std::make_any<dataType>(data);
     }
-public:
+
     template<class dataType>
     static std::unique_ptr<RenderMessage> Create(const long long messageId, dataType data)
     {

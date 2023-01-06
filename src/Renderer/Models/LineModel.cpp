@@ -5,6 +5,7 @@
 #include "LineModel.h"
 #include "RenderingProvider.h"
 #include "Renderer.h"
+#include "Commands.h"
 
 void LineModel::SetStartPont(const glm::vec2 &pos)
 {
@@ -63,7 +64,37 @@ void LineModel::SetAssociatedModelId(unsigned long long int id)
     this->id = id;
 }
 
-unsigned long long int &LineModel::GetAssociatedModelId()
+long long int & LineModel::GetModelId()
 {
     return id;
+}
+
+void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
+{
+    if(message->GetReceiverId() != id)
+        return;
+
+    if(message->GetId() != Commands::Property)
+        return;
+
+    if(message->GetSubId() == PropertyCommandIds::SetWidth)
+    {
+        auto width = message->GetData<float>();
+        SetWidth(width);
+    }
+    else if(message->GetSubId() == PropertyCommandIds::SetStartPoint)
+    {
+        auto point = message->GetData<glm::vec2>();
+        SetStartPont(point);
+    }
+    else if(message->GetSubId() == PropertyCommandIds::SetEndPoint)
+    {
+        auto point = message->GetData<glm::vec2>();
+        SetEndPoint(point);
+    }
+    else if(message->GetSubId() == PropertyCommandIds::SetColor)
+    {
+        auto color = message->GetData<Vector4>();
+        SetColor(color);
+    }
 }

@@ -8,6 +8,7 @@
 #include "PresenterSubscriber.h"
 #include "Presenter.h"
 #include "Core.h"
+#include "AsyncRenderCommandHandler.h"
 class Window;
 
 /**
@@ -48,7 +49,7 @@ public:
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;
     void WaitForRenderingSyncToFinish();
     const bool IsCursorLocked() override;
-    RenderingProvider * GetRenderingProvider() override;
+    AsyncRenderCommandHandler * GetRenderer();
 };
 
 

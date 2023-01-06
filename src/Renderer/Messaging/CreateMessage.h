@@ -14,6 +14,7 @@ class CreateMessage
 private:
     std::promise<T> rendererProxyPromise;
     std::function<void(T)> futureCallback;
+    bool isCallbackSet = false;
 public:
     CreateMessage(std::promise<T> renderProxyParam)
     {
@@ -22,6 +23,12 @@ public:
     CreateMessage(std::function<void(T)> futureCallbackParam)
     {
         futureCallback = std::move(futureCallbackParam);
+        isCallbackSet = true;
+    }
+
+    const bool& IsCallbackSet() const
+    {
+        return isCallbackSet;
     }
 
     std::promise<T>& GetRendererProxyPromise()
@@ -30,7 +37,7 @@ public:
     }
     std::function<void(T)>& GetFutureCallback()
     {
-        return rendererProxyPromise;
+        return futureCallback;
     }
 
 };

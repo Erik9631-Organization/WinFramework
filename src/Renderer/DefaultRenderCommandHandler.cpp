@@ -7,9 +7,10 @@
 #include "RectangleModel.h"
 #include "LineModel.h"
 #include "RenderingProviderManager.h"
-#include <future>
 #include "RenderMessage.h"
 #include "CreateMessage.h"
+#include <algorithm>
+#include <execution>
 
 std::future<std::unique_ptr<EllipseProxy>> DefaultRenderCommandHandler::RequestEllipseProxy()
 {
@@ -32,7 +33,7 @@ std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLine
     return createMessage->GetRendererProxyPromise().get_future();
 }
 
-void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<RenderProxy>)> onCreatedAction)
+void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction)
 {
     auto createMessage = new CreateMessage(onCreatedAction);
     //TODO FIND A SAFE WAY
@@ -58,7 +59,7 @@ std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::Reques
     return createMessage->GetRendererProxyPromise().get_future();
 }
 
-void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RenderProxy>)> function)
+void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function)
 {
     auto createMessage = new CreateMessage(function);
     //TODO FIND A SAFE WAY
@@ -78,12 +79,10 @@ void DefaultRenderCommandHandler::RequestModelProxy(std::function<void(RenderPro
 
 }
 
-
 void DefaultRenderCommandHandler::RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
-
 
 void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
@@ -92,7 +91,6 @@ void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> 
 
 void DefaultRenderCommandHandler::Render()
 {
-    std::vector<std::future<void>> renderWorkers;
     while(render)
     {
         std::unique_ptr<RenderMessage> message;
@@ -114,9 +112,12 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
         case Commands::RequestLine:
         {
             CreateModelFromMessage<LineModel, LineProxy>(std::move(message));
+            break;
         }
         case Commands::Property:
         {
+            const auto id = message->GetReceiverId();
+            renderingModels.at(id)->ReceiveCommand(std::move(message));
             break;
         }
     }
@@ -126,12 +127,14 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
 void DefaultRenderCommandHandler::OnInit(Core &coreWindow)
 {
     render = true;
-    provider = RenderingProviderManager::GetRenderingProviderManager()->GetRenderingProviderManager()->Create();
+    provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    provider->OnInit(coreWindow);
     renderThread = std::make_unique<std::thread>([&]{Render();});
 }
 
 void DefaultRenderCommandHandler::OnDestroy(Core &coreWindow)
 {
+    provider->OnDestroy(coreWindow);
     renderThread->join();
 }
 
@@ -143,5 +146,26 @@ void DefaultRenderCommandHandler::OnRemove(Core &coreWindow)
 void DefaultRenderCommandHandler::WaitForSyncToFinish()
 {
 
+}
+
+void DefaultRenderCommandHandler::SwapBuffers()
+{
+    //For now redraw the entire scene whenever change is made
+    RedrawScene();
+    provider->SwapBuffers();
+}
+
+//TODO Clean up this unused interface
+std::unique_ptr<Renderer> DefaultRenderCommandHandler::AcquireRenderer()
+{
+    return nullptr;
+}
+
+void DefaultRenderCommandHandler::RedrawScene()
+{
+    std::for_each(std::execution::par, renderingModels.begin(), renderingModels.end(), [&](auto& model)
+    {
+        model->Redraw();
+    });
 }
 

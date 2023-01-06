@@ -103,11 +103,12 @@ void GdiRenderingProvider::OnInit(Core &coreWindowFrame)
 
     secondaryBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
                                              windowsCore->GetWrapperFrame()->GetHeight());
-    performRender = !windowsCore->IsEventBased();
-    fpsTimer.Start();
+    GetSecondaryDC();
+//    performRender = !windowsCore->IsEventBased();
+//    fpsTimer.Start();
 
-    if(renderingThread == nullptr)
-        renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
+//    if(renderingThread == nullptr)
+//        renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{ InternalRender();}, to_string((long long)this)+"renderingThread");
 }
 
 void GdiRenderingProvider::OnDestroy(Core &coreWindow)
@@ -207,4 +208,11 @@ std::unique_ptr<Renderer> GdiRenderingProvider::AcquireRenderer()
 {
     Graphics graphics(secondaryDc);
     return std::unique_ptr<Renderer>(new GdiRenderer(graphics));
+}
+
+void GdiRenderingProvider::SwapBuffers()
+{
+    BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+    CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
+    GetSecondaryDC();
 }

@@ -142,5 +142,5 @@ EllipseProxy::~EllipseProxy()
 
 unsigned long long int &EllipseProxy::GetAssociatedModelId()
 {
-    return renderingModel->GetAssociatedModelId();
+    return renderingModel->GetModelId();
 }

@@ -5,6 +5,8 @@
 #include "RectangleModel.h"
 #include "EventMoveInfo.h"
 #include "Renderer.h"
+#include "Commands.h"
+#include "RenderingProvider.h"
 
 glm::vec2 RectangleModel::GetPosition()
 {
@@ -231,7 +233,7 @@ void RectangleModel::SetFill(bool fill)
     this->fill = fill;
 }
 
-const bool &RectangleModel::GetFill()
+const bool &RectangleModel::GetFill() const
 {
     return fill;
 }
@@ -246,7 +248,46 @@ void RectangleModel::SetAssociatedModelId(unsigned long long int id)
     this->id = id;
 }
 
-unsigned long long int &RectangleModel::GetAssociatedModelId()
+long long int & RectangleModel::GetModelId()
 {
     return id;
+}
+
+void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
+{
+    if(message->GetReceiverId() != id)
+        return;
+
+    if(message->GetId() != Commands::Property)
+        return;
+
+    switch (message->GetSubId())
+    {
+        case PropertyCommandIds::SetWidth:
+            SetWidth(message->GetData<float>());
+            break;
+        case PropertyCommandIds::SetHeight:
+            SetHeight(message->GetData<float>());
+            break;
+        case PropertyCommandIds::SetSize:
+            SetSize(message->GetData<glm::vec2>());
+            break;
+        case PropertyCommandIds::SetX:
+            SetX(message->GetData<float>());
+            break;
+        case PropertyCommandIds::SetY:
+            SetY(message->GetData<float>());
+            break;
+        case PropertyCommandIds::SetTranslate:
+            SetTranslate(message->GetData<glm::vec2>());
+            break;
+        case PropertyCommandIds::SetColor:
+            SetColor(message->GetData<Vector4>());
+            break;
+        case PropertyCommandIds::SetFill:
+            SetFill(message->GetData<bool>());
+            break;
+        default:
+            break;
+    }
 }

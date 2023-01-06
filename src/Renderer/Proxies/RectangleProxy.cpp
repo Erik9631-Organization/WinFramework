@@ -220,9 +220,8 @@ void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
     }
 }
 
-void RectangleProxy::SetRenderingConsumer(RenderingConsumer *consumer, unsigned long long associatedModelId)
+void RectangleProxy::SetRenderingConsumer(RenderingConsumer *consumer)
 {
-    this->associatedModelId = associatedModelId;
     this->renderingConsumer = consumer;
 }
 
@@ -243,7 +242,7 @@ glm::vec2 RectangleProxy::GetAbsolutePosition()
 
 unsigned long long int &RectangleProxy::GetAssociatedModelId()
 {
-    return associatedModelId;
+    return model->GetModelId();
 }
 
 void RectangleProxy::SetAssociatedModel(RenderingModel *model)

@@ -44,6 +44,8 @@ public:
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
 
+    void SwapBuffers() override;
+
     std::thread* renderingThread;
 private:
     static void GdiStartup();

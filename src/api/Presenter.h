@@ -10,10 +10,12 @@
 #include "KeyStateSubject.h"
 #include "Resizable.h"
 #include "PresenterSubject.h"
+#include "AsyncRenderCommandHandler.h"
 
 class Presenter : public virtual Movable, public virtual Resizable, public virtual MouseStateSubject, public virtual KeyStateSubject, public virtual PresenterSubject
 {
-
+public:
+    virtual AsyncRenderCommandHandler* GetRenderer() = 0;
 };
 
 

@@ -19,7 +19,7 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
 public:
-    void SetRenderingConsumer(RenderingConsumer* consumer, unsigned long long associatedModelId);
+    void SetRenderingConsumer(RenderingConsumer *consumer);
 
     glm::vec2 GetPosition() override;
 

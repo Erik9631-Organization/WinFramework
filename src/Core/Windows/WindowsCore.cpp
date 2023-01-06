@@ -178,14 +178,12 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     //Notify that update happened
     wrapperFrame->NotifyOnTick();
 
-
-	if(renderingProvider != nullptr)
-	    renderingProvider->Render();
 	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
 
+    renderingProvider->SwapBuffers();
     //Reset the delta as it is 0
     mouseDelta.x = 0;
     mouseDelta.y = 0;
@@ -194,7 +192,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 void WindowsCore::Redraw()
 {
     if(renderingProvider != nullptr)
-        renderingProvider->Render();
+        renderingProvider->SwapBuffers();
 	UpdateWindow(windowHandle);
 }
 
@@ -327,12 +325,12 @@ void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
     preProcessSubject.AddOnResizeSubscriber(subscriber);
 }
 
-RenderingProvider *WindowsCore::GetRenderingProvider()
+AsyncRenderCommandHandler * WindowsCore::GetRenderer()
 {
     return renderingProvider.get();
 }
 
-void WindowsCore::SetRenderingProvider(unique_ptr<RenderingProvider> provider)
+void WindowsCore::SetRenderer(unique_ptr<AsyncRenderCommandHandler> provider)
 {
     renderingProvider = std::move(provider);
     renderingProvider->OnInit(*this);

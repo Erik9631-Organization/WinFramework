@@ -39,6 +39,8 @@ private:
     void NotifyOnCursorLockStateChanged(EventCursorLockInfo &e) override;
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
+    std::unique_ptr<RectangleProxy> backgroundProxy;
+
 public:
     Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
@@ -77,5 +79,6 @@ public:
         return objRef;
     }
     Scene& Get3dScene();
+    AsyncRenderCommandHandler *GetRenderer() override;
 };
 

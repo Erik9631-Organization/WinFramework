@@ -10,6 +10,8 @@
 #include "RenderingProviderManager.h"
 #include "CoreManager.h"
 #include <iostream>
+#include "DefaultRenderCommandHandler.h"
+
 using namespace std;
 
 void Window::SetSize(float width, float height, bool emit)
@@ -220,11 +222,12 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 {
     auto* window = new Window(x, y, width, height, windowName);
     window->AddOnTickSubscriber(&window->scene3d);
-    window->AddRenderCommander(window->background);
+    //window->AddRenderCommander(window->background);
 
     //CreateElement all window DEPENDENCIES
     //TODO use try and catch here
-    auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    auto renderer = new DefaultRenderCommandHandler();
+    auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(renderer);
     if(renderingProvider == nullptr)
     {
         cout << "Error, failed to create window" << endl;
@@ -232,7 +235,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     }
 
     auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
-    core->SetRenderingProvider(std::move(renderingProvider));
+    core->SetRenderer(std::move(renderingProvider));
 
     //CreateElement core mediator
     auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
@@ -241,5 +244,17 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     window->coreMediator = std::move(coreMediator);
     window->NotifyOnRedraw(std::make_any<Window*>(window));
 
+    //Handle graphics
+    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+        window->backgroundProxy = std::move(rectangleProxy);
+        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth()});
+        window->backgroundProxy->SetPosition({0, 0});
+    });
+
     return std::unique_ptr<Window>(window);
+}
+
+AsyncRenderCommandHandler *Window::GetRenderer()
+{
+    return coreMediator->GetRenderer();
 }

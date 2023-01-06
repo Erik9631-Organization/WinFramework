@@ -4,18 +4,17 @@
 
 #ifndef LII_CORE_H
 #define LII_CORE_H
-#include "RenderingProvider.h"
+#include "AsyncRenderCommandHandler.h"
 #include "CoreSubject.h"
 #include "ResizeSubscriber.h"
 #include <memory>
-class RenderingProvider;
 
 class Window;
 
 class Core : public CoreSubject
 {
 public:
-    virtual void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider) = 0;
+    virtual void SetRenderer(std::unique_ptr<AsyncRenderCommandHandler> provider) = 0;
     virtual long long int SetAttributes(int index, long long int parameter) = 0;
     virtual long long int RemoveAttribute(int index, long long int parameter) = 0;
     virtual void UpdateScale() = 0;
@@ -26,7 +25,7 @@ public:
     virtual void SetLockCursorSize(const glm::vec2 &size) = 0;
     virtual void LockCursor(const bool& lockState) = 0;
     virtual const bool& IsCursorLocked() const = 0;
-    virtual RenderingProvider* GetRenderingProvider() = 0;
+    virtual AsyncRenderCommandHandler * GetRenderer() = 0;
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void WaitForRenderingSyncToFinish() = 0;

@@ -22,7 +22,6 @@ public:
     virtual void OnLockCursorSizeChanged(EventResizeInfo& e) = 0;
     virtual void OnCursorLockStateChanged(EventCursorLockInfo& e) = 0;
     virtual const bool IsCursorLocked() = 0;
-    virtual RenderingProvider * GetRenderingProvider() = 0;
 };
 
 

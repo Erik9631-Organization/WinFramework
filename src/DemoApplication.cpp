@@ -623,7 +623,7 @@ void DemoApplication::LaunchOpenGLApp()
 {
     //    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
 //    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-//    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+//    frame->SetRenderer(static_pointer_cast<RenderingProvider>(glProvider));
 //
 //
 //

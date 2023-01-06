@@ -150,11 +150,11 @@ const bool CoreMediator::IsCursorLocked()
     return core->IsCursorLocked();
 }
 
-RenderingProvider * CoreMediator::GetRenderingProvider()
+AsyncRenderCommandHandler * CoreMediator::GetRenderer()
 {
     if(core == nullptr)
         return nullptr;
-    return core->GetRenderingProvider();
+    return core->GetRenderer();
 }
 
 void CoreMediator::SetPresenter(Presenter *presenter)

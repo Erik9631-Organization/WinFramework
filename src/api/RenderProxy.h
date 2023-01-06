@@ -10,7 +10,7 @@ class RenderProxy
 public:
     virtual unsigned long long& GetAssociatedModelId() = 0;
     virtual void SetAssociatedModel(RenderingModel *model) = 0;
-    virtual ~RenderProxy() = 0;
+    virtual ~RenderProxy() = default;
 };
 
 

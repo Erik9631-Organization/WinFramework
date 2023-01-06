@@ -17,13 +17,13 @@ private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
     RenderingProvider* rendereringProvider;
-    Vector4 color;
-    bool fill = false;
-    unsigned long long id = 0;
+    Vector4 color{255, 0, 0, 255};
+    bool fill = true;
+    long long int id = -1;
 
 public:
     void SetFill(bool fill);
-    const bool &GetFill();
+    const bool &GetFill() const;
 
     void SetColor(const Vector4& color );
     const Vector4& GetColor() const;
@@ -114,7 +114,9 @@ public:
 
     void SetAssociatedModelId(unsigned long long int id) override;
 
-    unsigned long long int &GetAssociatedModelId() override;
+    long long int & GetModelId() override;
+
+    void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 };
 
 

@@ -34,6 +34,7 @@ enum PropertyCommandIds
     SetColor,
     SetStartPoint,
     SetEndPoint,
+    SetFill,
 };
 
 #endif //LII_COMMANDS_H
