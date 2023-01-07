@@ -5,11 +5,13 @@
 #ifndef LII_RENDERPROXY_H
 #define LII_RENDERPROXY_H
 class RenderingModel;
+class RenderingConsumer;
 class RenderProxy
 {
 public:
-    virtual unsigned long long& GetAssociatedModelId() = 0;
+    virtual long long int & GetAssociatedModelId() = 0;
     virtual void SetAssociatedModel(RenderingModel *model) = 0;
+    virtual void SetRenderingConsumer(RenderingConsumer *consumer) = 0;
     virtual ~RenderProxy() = default;
 };
 

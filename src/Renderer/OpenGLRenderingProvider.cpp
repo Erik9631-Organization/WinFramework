@@ -326,3 +326,8 @@ unique_ptr<Renderer> OpenGLRenderingProvider::AcquireRenderer()
     return nullptr;
 }
 
+void OpenGLRenderingProvider::SwapScreenBuffer()
+{
+    SwapBuffers(windowDc);
+}
+

@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Commands.h"
 #include "RenderingProvider.h"
+#include "Vector3.h"
 
 glm::vec2 RectangleModel::GetPosition()
 {
@@ -211,7 +212,9 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 void RectangleModel::Redraw()
 {
     auto renderer = this->rendereringProvider->AcquireRenderer();
-    renderer->SetColor(color);
+    if(renderer == nullptr)
+        return;
+    renderer->SetColor(Vector3{255, 0, 0});
     if(fill)
         renderer->DrawFillRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
@@ -277,6 +280,9 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             break;
         case PropertyCommandIds::SetY:
             SetY(message->GetData<float>());
+            break;
+        case PropertyCommandIds::SetPosition:
+            SetPosition(message->GetData<glm::vec2>());
             break;
         case PropertyCommandIds::SetTranslate:
             SetTranslate(message->GetData<glm::vec2>());

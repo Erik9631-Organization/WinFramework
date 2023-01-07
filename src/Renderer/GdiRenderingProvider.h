@@ -44,7 +44,7 @@ public:
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
 
-    void SwapBuffers() override;
+    void SwapScreenBuffer() override;
 
     std::thread* renderingThread;
 private:

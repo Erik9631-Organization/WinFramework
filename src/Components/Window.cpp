@@ -242,13 +242,13 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);
-    window->NotifyOnRedraw(std::make_any<Window*>(window));
 
     //Handle graphics
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
         window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth()});
         window->backgroundProxy->SetPosition({0, 0});
+        window->NotifyOnRedraw(std::make_any<Window*>(window));
     });
 
     return std::unique_ptr<Window>(window);

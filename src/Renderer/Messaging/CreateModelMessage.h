@@ -2,25 +2,25 @@
 // Created by erik9 on 1/3/2023.
 //
 
-#ifndef LII_CREATEMESSAGE_H
-#define LII_CREATEMESSAGE_H
+#ifndef LII_CREATEMODELMESSAGE_H
+#define LII_CREATEMODELMESSAGE_H
 #include <future>
 #include <functional>
 #include "RenderProxy.h"
 
 template<class T>
-class CreateMessage
+class CreateModelMessage
 {
 private:
     std::promise<T> rendererProxyPromise;
     std::function<void(T)> futureCallback;
     bool isCallbackSet = false;
 public:
-    CreateMessage(std::promise<T> renderProxyParam)
+    CreateModelMessage(std::promise<T> renderProxyParam)
     {
         rendererProxyPromise = std::move(renderProxyParam);
     }
-    CreateMessage(std::function<void(T)> futureCallbackParam)
+    CreateModelMessage(std::function<void(T)> futureCallbackParam)
     {
         futureCallback = std::move(futureCallbackParam);
         isCallbackSet = true;
@@ -43,4 +43,4 @@ public:
 };
 
 
-#endif //LII_CREATEMESSAGE_H
+#endif //LII_CREATEMODELMESSAGE_H

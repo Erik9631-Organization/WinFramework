@@ -15,7 +15,7 @@
 #include "RenderingProvider.h"
 #include "ModelProxy.h"
 
-class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public Renderingrovider
+class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public RenderingProvider
 {
 public:
     virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;

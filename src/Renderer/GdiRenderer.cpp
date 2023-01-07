@@ -17,32 +17,32 @@ unsigned int fpsfuckingcounter = 0;
 
 void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
 {
-    graphics.DrawEllipse(pen, x, y, width, height);
+    graphics->DrawEllipse(pen, x, y, width, height);
 }
 
 void GdiRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
 {
-    graphics.DrawEllipse(pen, x, y, vector2.x, vector2.y);
+    graphics->DrawEllipse(pen, x, y, vector2.x, vector2.y);
 }
 
 void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
 {
-    graphics.DrawLine(pen, x1, y1, x2, y2);
+    graphics->DrawLine(pen, x1, y1, x2, y2);
 }
 
 void GdiRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
 {
-    graphics.DrawLine(pen, pos.x, pos.y, size.x, size.y);
+    graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
 {
-    graphics.DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
+    graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
 {
-    graphics.DrawRectangle(pen, x, y, width, height);
+    graphics->DrawRectangle(pen, x, y, width, height);
 }
 
 void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
@@ -52,33 +52,34 @@ void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, con
     stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    graphics.DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
+    graphics->DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
     fpsfuckingcounter++;
     delete font;
 }
 
 void GdiRenderer::DrawFillEllipse(float x, float y, float width, float height)
 {
-    graphics.FillEllipse(brush, x, y, width, height);
+    graphics->FillEllipse(brush, x, y, width, height);
 }
 
 void GdiRenderer::DrawFillEllipse(glm::vec2 pos, glm::vec2 size)
 {
-    graphics.FillEllipse(brush, pos.x, pos.y, size.x, size.y);
+    graphics->FillEllipse(brush, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiRenderer::DrawFillRectangle(float x, float y, float width, float height)
 {
-    graphics.FillRectangle(brush, x, y, width, height);
+    graphics->FillRectangle(brush, x, y, width, height);
 }
 
 void GdiRenderer::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
 {
-    graphics.FillRectangle(brush, pos.x, pos.y, size.x, size.y);
+    graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
 
-GdiRenderer::GdiRenderer(Gdiplus::Graphics &graphics) : graphics(graphics)
+GdiRenderer::GdiRenderer(std::unique_ptr<Graphics> graphics)
 {
+    this->graphics = std::move(graphics);
     pen = new Gdiplus::Pen(Gdiplus::Color::Black, 1.0f);
     brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
 }
@@ -131,7 +132,7 @@ GdiRenderer::~GdiRenderer()
 
 void GdiRenderer::Translate(glm::vec2 translation)
 {
-    graphics.TranslateTransform(translation.x, translation.y);
+    graphics->TranslateTransform(translation.x, translation.y);
 }
 
 void GdiRenderer::DrawModel(const OpenGL::Model &model)

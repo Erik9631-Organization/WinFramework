@@ -8,7 +8,7 @@
 #include "LineModel.h"
 #include "RenderingProviderManager.h"
 #include "RenderMessage.h"
-#include "CreateMessage.h"
+#include "CreateModelMessage.h"
 #include <algorithm>
 #include <execution>
 
@@ -25,7 +25,7 @@ std::future<std::unique_ptr<ModelProxy>> DefaultRenderCommandHandler::RequestMod
 std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLineProxy()
 {
     auto linePromise = std::promise<std::unique_ptr<LineProxy>>();
-    auto createMessage = new CreateMessage(std::move(linePromise));
+    auto createMessage = new CreateModelMessage(std::move(linePromise));
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
@@ -35,7 +35,7 @@ std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLine
 
 void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction)
 {
-    auto createMessage = new CreateMessage(onCreatedAction);
+    auto createMessage = new CreateModelMessage(onCreatedAction);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
@@ -51,7 +51,7 @@ std::future<std::unique_ptr<TextProxy>> DefaultRenderCommandHandler::RequestText
 std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::RequestRectangleProxy()
 {
     auto rectanglePromise = std::promise<std::unique_ptr<RectangleProxy>>();
-    auto createMessage = new CreateMessage(std::move(rectanglePromise));
+    auto createMessage = new CreateModelMessage(std::move(rectanglePromise));
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
@@ -61,10 +61,10 @@ std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::Reques
 
 void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function)
 {
-    auto createMessage = new CreateMessage(function);
+    auto createMessage = new CreateModelMessage(function);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestProxy, createMessage);
+    auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
     this->ReceiveCommand(std::move(message));
 }
 
@@ -91,12 +91,7 @@ void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> 
 
 void DefaultRenderCommandHandler::Render()
 {
-    while(render)
-    {
-        std::unique_ptr<RenderMessage> message;
-        messageQueue.wait_dequeue(message);
-        PerformRenderCommand(std::move(message));
-    }
+
 
 }
 //TODO: Refactor simplify
@@ -129,7 +124,7 @@ void DefaultRenderCommandHandler::OnInit(Core &coreWindow)
     render = true;
     provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
     provider->OnInit(coreWindow);
-    renderThread = std::make_unique<std::thread>([&]{Render();});
+    renderThread = std::make_unique<std::thread>([&]{RenderLoop();});
 }
 
 void DefaultRenderCommandHandler::OnDestroy(Core &coreWindow)
@@ -148,11 +143,13 @@ void DefaultRenderCommandHandler::WaitForSyncToFinish()
 
 }
 
-void DefaultRenderCommandHandler::SwapBuffers()
+void DefaultRenderCommandHandler::SwapScreenBuffer()
 {
+    if(provider == nullptr)
+        return;
     //For now redraw the entire scene whenever change is made
     RedrawScene();
-    provider->SwapBuffers();
+    provider->SwapScreenBuffer();
 }
 
 //TODO Clean up this unused interface
@@ -167,5 +164,15 @@ void DefaultRenderCommandHandler::RedrawScene()
     {
         model->Redraw();
     });
+}
+
+void DefaultRenderCommandHandler::RenderLoop()
+{
+    while(render)
+    {
+        std::unique_ptr<RenderMessage> message;
+        messageQueue.wait_dequeue(message);
+        PerformRenderCommand(std::move(message));
+    }
 }
 

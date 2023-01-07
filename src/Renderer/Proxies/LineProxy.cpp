@@ -8,27 +8,21 @@
 
 void LineProxy::SetStartPosition(const glm::vec3& position)
 {
-    auto renderMessage = RenderMessage::Create(Commands::LineProperty, position);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), position);
     renderMessage->SetSubMessageId(PropertyCommandIds::SetStartPoint);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void LineProxy::SetEndPosition(const glm::vec3& position)
 {
-    auto renderMessage = RenderMessage::Create(Commands::LineProperty, position);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), position);
     renderMessage->SetSubMessageId(PropertyCommandIds::SetEndPoint);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
-void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer, unsigned long long associatedModelId)
-{
-    this->associatedModelId = associatedModelId;
-    renderingConsumer = consumer;
-}
-
 void LineProxy::SetWidth(float width)
 {
-    auto renderMessage = RenderMessage::Create(Commands::LineProperty, width);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), width);
     renderMessage->SetSubMessageId(PropertyCommandIds::SetWidth);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
@@ -48,12 +42,17 @@ const float &LineProxy::GetWidth()
     return lineModel->GetWidth();
 }
 
-unsigned long long int &LineProxy::GetAssociatedModelId()
+long long int & LineProxy::GetAssociatedModelId()
 {
-    return associatedModelId;
+    return lineModel->GetModelId();
 }
 
 void LineProxy::SetAssociatedModel(RenderingModel *model)
 {
     this->lineModel = dynamic_cast<LineModel*>(model);
+}
+
+void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer)
+{
+    renderingConsumer = consumer;
 }

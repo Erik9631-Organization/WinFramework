@@ -4,7 +4,7 @@
 
 #ifndef LII_RENDERINGPROVIDER_H
 #define LII_RENDERINGPROVIDER_H
-class Renderer;
+#include "Renderer.h"
 class Core;
 
 class RenderingProvider
@@ -15,7 +15,7 @@ public:
     virtual void OnDestroy(Core &coreWindow) = 0;
     virtual void OnRemove(Core &coreWindow) = 0;
     virtual void WaitForSyncToFinish() = 0;
-    virtual void SwapBuffers() = 0;
+    virtual void SwapScreenBuffer() = 0;
     virtual std::unique_ptr<Renderer> AcquireRenderer() = 0;
     virtual ~RenderingProvider() = default;
 };

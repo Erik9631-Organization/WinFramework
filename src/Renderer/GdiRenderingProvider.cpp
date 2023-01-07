@@ -35,35 +35,35 @@ void GdiRenderingProvider::CleanBackBuffer()
 
 void GdiRenderingProvider::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion)
 {
-    Graphics graphics(secondaryDc);
-    GdiRenderer renderer{graphics};
-    GdiRenderingPool gdiRenderingPool{&renderer};
-    graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
-
-    if(!node.IsRoot())
-    {
-        glm::vec2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
-        glm::vec2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
-        RectF viewport = RectF(viewPortAbsPos.x, viewPortAbsPos.y, viewPortAbsSize.x, viewPortAbsSize.y);
-        graphics.SetClip(viewport);
-        clippingRegion.Intersect(viewport);
-        graphics.IntersectClip(&clippingRegion);
-
-        //translate
-        Matrix transformMatrix;
-        transformMatrix.Translate(node.GetValue()->GetAbsoluteX(), node.GetValue()->GetAbsoluteY());
-        graphics.SetTransform(&transformMatrix);
-    }
-    RenderEventInfo renderEvent{&gdiRenderingPool};
-
-    node.GetValue()->OnRenderSync(renderEvent);
-
-    for (int i = 0; i < node.GetNodeCount(); i++)
-    {
-        Region* newRegion = clippingRegion.Clone();
-        AssignGraphicsToNodes(node.GetNode(i), *newRegion);
-        delete newRegion;
-    }
+//    Graphics graphics(secondaryDc);
+//    GdiRenderer renderer{graphics};
+//    GdiRenderingPool gdiRenderingPool{&renderer};
+//    graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+//
+//    if(!node.IsRoot())
+//    {
+//        glm::vec2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
+//        glm::vec2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
+//        RectF viewport = RectF(viewPortAbsPos.x, viewPortAbsPos.y, viewPortAbsSize.x, viewPortAbsSize.y);
+//        graphics.SetClip(viewport);
+//        clippingRegion.Intersect(viewport);
+//        graphics.IntersectClip(&clippingRegion);
+//
+//        //translate
+//        Matrix transformMatrix;
+//        transformMatrix.Translate(node.GetValue()->GetAbsoluteX(), node.GetValue()->GetAbsoluteY());
+//        graphics.SetTransform(&transformMatrix);
+//    }
+//    RenderEventInfo renderEvent{&gdiRenderingPool};
+//
+//    node.GetValue()->OnRenderSync(renderEvent);
+//
+//    for (int i = 0; i < node.GetNodeCount(); i++)
+//    {
+//        Region* newRegion = clippingRegion.Clone();
+//        AssignGraphicsToNodes(node.GetNode(i), *newRegion);
+//        delete newRegion;
+//    }
 }
 
 void GdiRenderingProvider::AssignGraphicsToNodes()
@@ -206,11 +206,12 @@ void GdiRenderingProvider::GdiStartup()
 
 std::unique_ptr<Renderer> GdiRenderingProvider::AcquireRenderer()
 {
-    Graphics graphics(secondaryDc);
-    return std::unique_ptr<Renderer>(new GdiRenderer(graphics));
+    auto graphics = std::make_unique<Graphics>(secondaryDc);
+    auto renderer = new GdiRenderer(std::move(graphics));
+    return std::unique_ptr<Renderer>(renderer);
 }
 
-void GdiRenderingProvider::SwapBuffers()
+void GdiRenderingProvider::SwapScreenBuffer()
 {
     BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
     CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC

@@ -350,7 +350,7 @@ void UiElement::OnUpdate(EventUpdateInfo e)
 	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
-	//Repaint();
+	Repaint();
 }
 
 void UiElement::AddOnActivateSubscriber(ActivateSubscriber& subscriber)

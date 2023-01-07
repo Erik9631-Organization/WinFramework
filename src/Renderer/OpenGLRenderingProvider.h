@@ -19,6 +19,8 @@ public:
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
 
+    void SwapScreenBuffer() override;
+
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
     void GraphicsInit();

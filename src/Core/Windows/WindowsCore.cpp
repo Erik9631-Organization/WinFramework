@@ -182,8 +182,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
-
-    renderingProvider->SwapBuffers();
+//    if(renderingProvider != nullptr)
+//        renderingProvider->SwapScreenBuffer();
     //Reset the delta as it is 0
     mouseDelta.x = 0;
     mouseDelta.y = 0;
@@ -192,7 +192,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 void WindowsCore::Redraw()
 {
     if(renderingProvider != nullptr)
-        renderingProvider->SwapBuffers();
+        renderingProvider->SwapScreenBuffer();
 	UpdateWindow(windowHandle);
 }
 

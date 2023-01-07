@@ -15,14 +15,13 @@ namespace Gdiplus
 }
 class Vector3;
 class Vector4;
-
 #include "Renderer.h"
 
 class GdiRenderer : public Renderer
 {
 public:
-    Gdiplus::Graphics& graphics;
-    GdiRenderer(Gdiplus::Graphics& graphics);
+    std::unique_ptr<Gdiplus::Graphics> graphics;
+    GdiRenderer(std::unique_ptr<Gdiplus::Graphics> graphics);
     ~GdiRenderer();
     void SetColor(const Vector4& color) override;
     void SetColor(const Vector3& color) override;

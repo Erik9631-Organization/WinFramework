@@ -8,7 +8,7 @@
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
 #include "RenderingModel.h"
-#include "CreateMessage.h"
+#include "CreateModelMessage.h"
 #include <future>
 class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
 {
@@ -26,8 +26,9 @@ private:
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
     {
         auto rectangleModel = std::make_unique<ModelType>();
-        auto createData = message->GetData<CreateMessage<std::unique_ptr<ProxyType>>*>();
+        auto createData = message->GetData<CreateModelMessage<std::unique_ptr<ProxyType>>*>();
         auto proxy = std::make_unique<ProxyType>();
+        proxy->SetRenderingConsumer(this);
         rectangleModel->SetRenderingProvider(provider.get());
         auto modelPtr = rectangleModel.get();
         renderingModels.push_back(std::move(rectangleModel));
@@ -40,6 +41,9 @@ private:
             createData->GetFutureCallback().operator()(std::move(proxy));
         delete createData;
     }
+
+    void RenderLoop();
+
 public:
     std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
     std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;
@@ -53,6 +57,7 @@ public:
     void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
+
     void Render() override;
 
     void OnInit(Core &coreWindow) override;
@@ -63,7 +68,7 @@ public:
 
     void WaitForSyncToFinish() override;
 
-    void SwapBuffers() override;
+    void SwapScreenBuffer() override;
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
 

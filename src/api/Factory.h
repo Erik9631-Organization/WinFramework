@@ -7,7 +7,9 @@
 #include "RenderingProvider.h"
 #include <memory>
 #include <string>
+#include <any>
 #include "Taggable.h"
+
 template<class T>
 class Factory : public Taggable
 {

@@ -6,14 +6,15 @@
 #define LII_RENDERMESSAGE_H
 #include <any>
 #include <memory>
+#include "Commands.h"
 
 class RenderMessage
 {
 private:
     std::any data;
-    unsigned long long messageId;
-    long long int receiverId;
-    unsigned long long subMessageId;
+    unsigned long long messageId = 0;
+    long long int receiverId = -1;
+    unsigned long long subMessageId = 0;
 
 public:
     long long int GetReceiverId() const
@@ -37,6 +38,14 @@ public:
     static std::unique_ptr<RenderMessage> Create(const long long messageId, dataType data)
     {
         auto renderMessage = new RenderMessage(messageId, data);
+        return std::unique_ptr<RenderMessage>(renderMessage);
+    }
+
+    template<class dataType>
+    static std::unique_ptr<RenderMessage> CreatePropertyMessage(long long int receiverId, dataType data)
+    {
+        auto renderMessage = new RenderMessage(Commands::Property, data);
+        renderMessage->receiverId = receiverId;
         return std::unique_ptr<RenderMessage>(renderMessage);
     }
 

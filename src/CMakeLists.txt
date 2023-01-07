@@ -455,7 +455,7 @@ source_group(Lii/Renderer/Renderers FILES ${Lii_Renderer_Renderers})
 
 set(Lii_Renderer_Messaging
 
-        Renderer/Messaging/RenderMessage.h Renderer/Messaging/Commands.h Renderer/Messaging/CreateMessage.h)
+        Renderer/Messaging/RenderMessage.h Renderer/Messaging/Commands.h Renderer/Messaging/CreateModelMessage.h)
 source_group(Lii/Renderer/Messaging FILES ${Lii_Renderer_Messaging})
 
 set(Lii_Renderer_Models

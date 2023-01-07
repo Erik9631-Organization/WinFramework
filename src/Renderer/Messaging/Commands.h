@@ -9,14 +9,9 @@ enum Commands
 {
    RequestRectangle,
    RequestModel,
-   RequestProxy,
    RequestEllipse,
    RequestLine,
    Property,
-   RectangleProperty,
-   ModelProperty,
-   EllipseProperty,
-   LineProperty,
 };
 
 enum PropertyCommandIds
