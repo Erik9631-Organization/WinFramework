@@ -30,5 +30,8 @@ public:
     virtual void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
     virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)>) = 0;
 
+    virtual void SetAsyncDraw(bool drawAsync) = 0;
+    virtual bool IsAsyncDrawing() = 0;
+
 };
 #endif //LII_ASYNCRENDERCOMMANDHANDLER_H

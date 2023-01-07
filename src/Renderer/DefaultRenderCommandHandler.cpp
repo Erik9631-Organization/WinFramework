@@ -148,7 +148,11 @@ void DefaultRenderCommandHandler::SwapScreenBuffer()
     if(provider == nullptr)
         return;
     //For now redraw the entire scene whenever change is made
-    RedrawScene();
+    if(drawAsync)
+        AsyncRedrawScene();
+    else
+        RedrawScene();
+
     provider->SwapScreenBuffer();
 }
 
@@ -158,7 +162,7 @@ std::unique_ptr<Renderer> DefaultRenderCommandHandler::AcquireRenderer()
     return nullptr;
 }
 
-void DefaultRenderCommandHandler::RedrawScene()
+void DefaultRenderCommandHandler::AsyncRedrawScene()
 {
     std::for_each(std::execution::par, renderingModels.begin(), renderingModels.end(), [&](auto& model)
     {
@@ -174,5 +178,24 @@ void DefaultRenderCommandHandler::RenderLoop()
         messageQueue.wait_dequeue(message);
         PerformRenderCommand(std::move(message));
     }
+}
+
+void DefaultRenderCommandHandler::RedrawScene()
+{
+    //Iterate over the models and redraw them using a for loop
+    for(auto& model : renderingModels)
+        model->Redraw();
+
+}
+
+void DefaultRenderCommandHandler::SetAsyncDraw(bool drawAsync)
+{
+    this->drawAsync = drawAsync;
+}
+
+
+bool DefaultRenderCommandHandler::IsAsyncDrawing()
+{
+    return drawAsync;
 }
 

@@ -15,7 +15,9 @@ class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
 private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
     bool render = false;
+    bool drawAsync = false;
     void RedrawScene();
+    void AsyncRedrawScene();
 
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
@@ -57,7 +59,6 @@ public:
     void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
-
     void Render() override;
 
     void OnInit(Core &coreWindow) override;
@@ -71,6 +72,10 @@ public:
     void SwapScreenBuffer() override;
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
+
+    void SetAsyncDraw(bool drawAsync) override;
+
+    bool IsAsyncDrawing() override;
 
 };
 
