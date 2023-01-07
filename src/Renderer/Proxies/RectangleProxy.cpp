@@ -250,3 +250,17 @@ void RectangleProxy::SetAssociatedModel(RenderingModel *model)
 {
     this->model = dynamic_cast<RectangleModel*>(model);
 }
+
+void RectangleProxy::SetColor(const Vector4 &color)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color);
+    renderMessage->SetSubMessageId(PropertyCommandIds::SetColor);
+    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}
+
+void RectangleProxy::SetFill(bool fill)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill);
+    renderMessage->SetSubMessageId(PropertyCommandIds::SetFill);
+    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}

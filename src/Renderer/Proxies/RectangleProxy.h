@@ -8,6 +8,8 @@
 #include "Resizable.h"
 #include <vector>
 #include "RenderProxy.h"
+#include "Vector4.h"
+
 class RenderingConsumer;
 class RectangleModel;
 
@@ -19,7 +21,12 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
 public:
+
+    void SetFill(bool fill);
+
     void SetRenderingConsumer(RenderingConsumer *consumer) override;
+
+    void SetColor(const Vector4& color);
 
     glm::vec2 GetPosition() override;
 

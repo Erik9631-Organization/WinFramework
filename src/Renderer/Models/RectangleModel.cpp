@@ -214,7 +214,7 @@ void RectangleModel::Redraw()
     auto renderer = this->rendereringProvider->AcquireRenderer();
     if(renderer == nullptr)
         return;
-    renderer->SetColor(Vector3{255, 0, 0});
+    renderer->SetColor(color);
     if(fill)
         renderer->DrawFillRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else

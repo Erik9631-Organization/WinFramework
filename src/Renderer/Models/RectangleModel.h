@@ -17,7 +17,7 @@ private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
     RenderingProvider* rendereringProvider;
-    Vector4 color{255, 0, 0, 255};
+    Vector4 color{255, 255, 255, 255};
     bool fill = true;
     long long int id = -1;
 

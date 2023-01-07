@@ -82,3 +82,11 @@ void Vector4::SetW(float z)
 {
     this->z = z;
 }
+
+Vector4::Vector4(const Vector4 &vector)
+{
+    this->x = vector.GetX();
+    this->y = vector.GetY();
+    this->z = vector.GetZ();
+    this->w = vector.GetW();
+}

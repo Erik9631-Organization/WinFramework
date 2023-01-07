@@ -10,6 +10,7 @@ class Vector4
 {
 public:
     Vector4(Vector4& vector);
+    Vector4(const Vector4& vector);
     Vector4(float x, float y, float z, float w);
     Vector4();
 

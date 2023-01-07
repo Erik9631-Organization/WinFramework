@@ -248,6 +248,16 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         window->backgroundProxy = std::move(rectangleProxy);
         window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth()});
         window->backgroundProxy->SetPosition({0, 0});
+        window->backgroundProxy->SetColor({255, 255, 255, 255});
+        window->backgroundProxy->SetFill(true);
+    });
+
+    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+        window->backgroundProxy = std::move(rectangleProxy);
+        window->backgroundProxy->SetSize({100, 100});
+        window->backgroundProxy->SetPosition({50, 100});
+        window->backgroundProxy->SetColor({100, 100, 100, 255});
+        window->backgroundProxy->SetFill(false);
         window->NotifyOnRedraw(std::make_any<Window*>(window));
     });
 
