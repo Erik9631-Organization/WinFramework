@@ -83,10 +83,11 @@ HDC GdiRenderingProvider::GetSecondaryDC()
     return secondaryDc;
 }
 
+//TODO should be handled by redraw
 void GdiRenderingProvider::OnResize(EventResizeInfo e)
 {
-    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
-    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
+//    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
+//    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
 void GdiRenderingProvider::OnInit(Core &coreWindowFrame)

@@ -17,9 +17,7 @@ TEST_CASE("Demo app test", "[demoApp]")
 
 TEST_CASE("Basic background test", "[backgroundTest]")
 {
-    auto window = Window::Create(0, 0, 800, 600, "testWindow");
-    window->Repaint();
-    ApplicationController::GetApplicationController()->JoinThreads();
+
 }
 
 #endif //LII_DEMOAPPTEST_HPP

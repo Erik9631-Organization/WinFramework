@@ -166,6 +166,12 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PRINT:
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
+    case repaint_message:
+    if(renderingProvider != nullptr)
+        renderingProvider->SwapScreenBuffer();
+    cout << "Got repaint" << endl;
+    windowInvalidated = false;
+    break;
 	}
     if(cursorLocked)
     {
@@ -191,9 +197,13 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 void WindowsCore::Redraw()
 {
-    if(renderingProvider != nullptr)
-        renderingProvider->SwapScreenBuffer();
-	UpdateWindow(windowHandle);
+//    if(renderingProvider != nullptr)
+//        renderingProvider->SwapScreenBuffer();
+    if (!windowInvalidated)
+    {
+        PostMessage(windowHandle, repaint_message, NULL, NULL);
+        windowInvalidated = true;
+    }
 }
 
 void WindowsCore::Close()
