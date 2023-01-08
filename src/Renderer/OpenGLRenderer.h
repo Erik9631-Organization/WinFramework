@@ -29,8 +29,7 @@ private:
     void PrepareWindowRenderer(WindowsCore& window);
     HGLRC openGlContext;
     HDC windowDc;
-    void InternalRender();
-    bool startRenderingLoop = true;
+    void InternalRender();    bool startRenderingLoop = true;
     WindowsCore* windowsCore;
     std::thread* renderingThread;
     bool performRender = false;

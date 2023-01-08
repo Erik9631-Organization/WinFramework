@@ -11,10 +11,6 @@
 #include "AsyncRenderCommandHandler.h"
 class Window;
 
-/**
- * TODO refactor so it meets names of existing interfaces
- */
-
 class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 {
 private:
