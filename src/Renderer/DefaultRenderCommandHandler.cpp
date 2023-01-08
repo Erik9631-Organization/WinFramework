@@ -112,7 +112,7 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
         case Commands::Property:
         {
             const auto id = message->GetReceiverId();
-            renderingModels.at(id)->ReceiveCommand(std::move(message));
+            provider->GetModel(id)->ReceiveCommand(std::move(message));
             break;
         }
     }
@@ -147,11 +147,7 @@ void DefaultRenderCommandHandler::SwapScreenBuffer()
 {
     if(provider == nullptr)
         return;
-    //For now redraw the entire scene whenever change is made
-    if(drawAsync)
-        AsyncRedrawScene();
-    else
-        RedrawScene();
+    RedrawScene();
 
     provider->SwapScreenBuffer();
 }
@@ -160,14 +156,6 @@ void DefaultRenderCommandHandler::SwapScreenBuffer()
 std::unique_ptr<Renderer> DefaultRenderCommandHandler::AcquireRenderer()
 {
     return nullptr;
-}
-
-void DefaultRenderCommandHandler::AsyncRedrawScene()
-{
-    std::for_each(std::execution::par, renderingModels.begin(), renderingModels.end(), [&](auto& model)
-    {
-        model->Redraw();
-    });
 }
 
 void DefaultRenderCommandHandler::RenderLoop()
@@ -179,23 +167,25 @@ void DefaultRenderCommandHandler::RenderLoop()
         PerformRenderCommand(std::move(message));
     }
 }
-
+//TODO TODAY Move the Redraw into the Renderer.
+//The renderer should keep track of the scene and when it is valid.
 void DefaultRenderCommandHandler::RedrawScene()
 {
-    //Iterate over the models and redraw them using a for loop
-    for(auto& model : renderingModels)
-        model->Redraw();
-
+    provider->Render();
 }
 
-void DefaultRenderCommandHandler::SetAsyncDraw(bool drawAsync)
+void DefaultRenderCommandHandler::AddModel(std::unique_ptr<RenderingModel> renderingModel)
 {
-    this->drawAsync = drawAsync;
+    provider->AddModel(std::move(renderingModel));
 }
 
-
-bool DefaultRenderCommandHandler::IsAsyncDrawing()
+RenderingModel *DefaultRenderCommandHandler::GetModel(size_t index)
 {
-    return drawAsync;
+    return provider->GetModel(index);
+}
+
+const std::vector<std::unique_ptr<RenderingModel>>& DefaultRenderCommandHandler::GetRenderingModels()
+{
+    return provider->GetRenderingModels();
 }
 

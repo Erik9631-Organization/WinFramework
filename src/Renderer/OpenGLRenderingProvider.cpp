@@ -331,3 +331,19 @@ void OpenGLRenderingProvider::SwapScreenBuffer()
     SwapBuffers(windowDc);
 }
 
+void OpenGLRenderingProvider::AddModel(std::unique_ptr<RenderingModel> renderingModel)
+{
+
+}
+
+RenderingModel *OpenGLRenderingProvider::GetModel(size_t index)
+{
+    return nullptr;
+}
+
+const vector<std::unique_ptr<RenderingModel>> &OpenGLRenderingProvider::GetRenderingModels()
+{
+    vector<std::unique_ptr<RenderingModel>> vec{};
+    return vec;
+}
+

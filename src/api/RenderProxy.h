@@ -9,7 +9,7 @@ class RenderingConsumer;
 class RenderProxy
 {
 public:
-    virtual long long int & GetAssociatedModelId() = 0;
+    virtual size_t & GetAssociatedModelId() = 0;
     virtual void SetAssociatedModel(RenderingModel *model) = 0;
     virtual void SetRenderingConsumer(RenderingConsumer *consumer) = 0;
     virtual ~RenderProxy() = default;

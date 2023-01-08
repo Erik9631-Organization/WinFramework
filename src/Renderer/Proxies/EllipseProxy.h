@@ -60,7 +60,7 @@ public:
 
     float GetTranslateY() override;
 
-    long long int & GetAssociatedModelId() override;
+    size_t & GetAssociatedModelId() override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 

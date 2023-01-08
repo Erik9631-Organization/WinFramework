@@ -17,10 +17,8 @@ private:
     bool render = false;
     bool drawAsync = false;
     void RedrawScene();
-    void AsyncRedrawScene();
 
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
-    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
     std::vector<std::unique_ptr<RenderProxy>> proxies;
     std::unique_ptr<std::thread> renderThread;
     std::unique_ptr<RenderingProvider> provider;
@@ -33,8 +31,8 @@ private:
         proxy->SetRenderingConsumer(this);
         rectangleModel->SetRenderingProvider(provider.get());
         auto modelPtr = rectangleModel.get();
-        renderingModels.push_back(std::move(rectangleModel));
-        long long int id = renderingModels.size() - 1;
+        provider->AddModel(std::move(rectangleModel));
+        size_t id = provider->GetRenderingModels().size() - 1;
         modelPtr->SetAssociatedModelId(id);
         proxy->SetAssociatedModel(modelPtr);
         if(createData->IsCallbackSet() == false)
@@ -73,9 +71,11 @@ public:
 
     std::unique_ptr<Renderer> AcquireRenderer() override;
 
-    void SetAsyncDraw(bool drawAsync) override;
+    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
 
-    bool IsAsyncDrawing() override;
+    RenderingModel *GetModel(size_t index) override;
+
+    const std::vector<std::unique_ptr<RenderingModel>>& GetRenderingModels() override;
 
 };
 

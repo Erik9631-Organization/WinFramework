@@ -140,7 +140,7 @@ EllipseProxy::~EllipseProxy()
 
 }
 
-long long int & EllipseProxy::GetAssociatedModelId()
+size_t & EllipseProxy::GetAssociatedModelId()
 {
     return renderingModel->GetModelId();
 }

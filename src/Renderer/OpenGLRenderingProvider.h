@@ -21,6 +21,12 @@ public:
 
     void SwapScreenBuffer() override;
 
+    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
+
+    RenderingModel *GetModel(size_t index) override;
+
+    const std::vector<std::unique_ptr<RenderingModel>> &GetRenderingModels() override;
+
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
     void GraphicsInit();

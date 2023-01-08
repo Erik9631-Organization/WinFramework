@@ -16,7 +16,7 @@ private:
     glm::vec2 endPoint;
     RenderingProvider* renderingProvider;
     float width;
-    long long int id = -1;
+    size_t id = -1;
 public:
     void SetStartPont(const glm::vec2& pos);
     void SetEndPoint(const glm::vec2& pos);
@@ -33,9 +33,11 @@ public:
 
     void SetAssociatedModelId(unsigned long long int id) override;
 
-    long long int & GetModelId() override;
+    size_t & GetModelId() override;
 
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
+
+    float GetZIndex() override;
 };
 
 

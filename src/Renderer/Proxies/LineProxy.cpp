@@ -42,7 +42,7 @@ const float &LineProxy::GetWidth()
     return lineModel->GetWidth();
 }
 
-long long int & LineProxy::GetAssociatedModelId()
+size_t & LineProxy::GetAssociatedModelId()
 {
     return lineModel->GetModelId();
 }

@@ -21,10 +21,8 @@ Gdiplus::GdiplusStartupOutput GdiRenderingProvider::output = {};
 
 void GdiRenderingProvider::Render()
 {
-    //Change the rendering bit
-    //CoreWindow::ConsoleWrite("Render requested");
-    performRender = true;
-    performRenderSignal.notify_one();
+    for (auto& model : modelZIndexMap)
+        model.second->Redraw();
 }
 
 void GdiRenderingProvider::CleanBackBuffer()
@@ -217,4 +215,20 @@ void GdiRenderingProvider::SwapScreenBuffer()
     BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
     CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
     GetSecondaryDC();
+}
+
+void GdiRenderingProvider::AddModel(std::unique_ptr<RenderingModel> renderingModel)
+{
+    modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
+    renderingModels.push_back(std::move(renderingModel));
+}
+
+RenderingModel *GdiRenderingProvider::GetModel(size_t index)
+{
+    return renderingModels[index].get();
+}
+
+const vector<std::unique_ptr<RenderingModel>> & GdiRenderingProvider::GetRenderingModels()
+{
+    return renderingModels;
 }

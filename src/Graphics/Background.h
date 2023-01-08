@@ -16,7 +16,6 @@
 class Background : public RenderCommander, public Reflectable<Background>
 {
 private:
-
 	DefaultRender renderBehavior;
 	Vector4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;

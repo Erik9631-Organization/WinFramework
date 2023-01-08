@@ -251,7 +251,7 @@ void RectangleModel::SetAssociatedModelId(unsigned long long int id)
     this->id = id;
 }
 
-long long int & RectangleModel::GetModelId()
+size_t & RectangleModel::GetModelId()
 {
     return id;
 }
@@ -296,4 +296,9 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         default:
             break;
     }
+}
+
+float RectangleModel::GetZIndex()
+{
+    return 10000;
 }

@@ -36,7 +36,7 @@ public:
     const glm::vec2& GetStartPoint();
     const glm::vec2& GetEndPoint();
 
-    long long int & GetAssociatedModelId() override;
+    size_t & GetAssociatedModelId() override;
 
     void SetAssociatedModel(RenderingModel *model) override;
 

@@ -19,7 +19,7 @@ private:
     RenderingProvider* rendereringProvider;
     Vector4 color{255, 255, 255, 255};
     bool fill = true;
-    long long int id = -1;
+    size_t id = -1;
 
 public:
     void SetFill(bool fill);
@@ -114,9 +114,11 @@ public:
 
     void SetAssociatedModelId(unsigned long long int id) override;
 
-    long long int & GetModelId() override;
+    size_t & GetModelId() override;
 
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
+
+    float GetZIndex() override;
 };
 
 

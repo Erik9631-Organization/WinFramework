@@ -241,7 +241,7 @@ glm::vec2 RectangleProxy::GetAbsolutePosition()
     return glm::vec2(0);
 }
 
-long long int & RectangleProxy::GetAssociatedModelId()
+size_t & RectangleProxy::GetAssociatedModelId()
 {
     return model->GetModelId();
 }

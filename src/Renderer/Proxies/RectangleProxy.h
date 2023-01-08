@@ -108,7 +108,7 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    long long int & GetAssociatedModelId() override;
+    size_t & GetAssociatedModelId() override;
 
     void SetAssociatedModel(RenderingModel *model) override;
 

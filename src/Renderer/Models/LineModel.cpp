@@ -64,7 +64,7 @@ void LineModel::SetAssociatedModelId(unsigned long long int id)
     this->id = id;
 }
 
-long long int & LineModel::GetModelId()
+size_t & LineModel::GetModelId()
 {
     return id;
 }
@@ -97,4 +97,9 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         auto color = message->GetData<Vector4>();
         SetColor(color);
     }
+}
+
+float LineModel::GetZIndex()
+{
+    return 100000;
 }

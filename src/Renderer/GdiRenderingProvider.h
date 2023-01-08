@@ -17,6 +17,8 @@
 #include <condition_variable>
 #include "UiTreeDataSyncer.h"
 #include "Core.h"
+#include "RenderingModel.h"
+#include <map>
 
 class Timer;
 class WindowsCore;
@@ -41,12 +43,19 @@ public:
     void WaitForSyncToFinish() override;
     int GetTargetFps() const;
     void SetTargetFps(int targetFps);
-
     std::unique_ptr<Renderer> AcquireRenderer() override;
-
     void SwapScreenBuffer() override;
 
+    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
+
+    RenderingModel *GetModel(size_t index) override;
+
+    const std::vector<std::unique_ptr<RenderingModel>> &GetRenderingModels() override;
+
     std::thread* renderingThread;
+    std::multimap<float, RenderingModel*> modelZIndexMap;
+    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
+
 private:
     static void GdiStartup();
     static Gdiplus::GdiplusStartupOutput output;
