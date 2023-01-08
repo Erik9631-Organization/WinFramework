@@ -4,7 +4,7 @@
 
 #ifndef LII_PRESENTERSUBSCRIBER_H
 #define LII_PRESENTERSUBSCRIBER_H
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include "EventRenderingProviderInfo.h"
 #include "EventAttributeInfo.h"
 #include "EventResizeInfo.h"

@@ -3,8 +3,8 @@
 //
 
 #include "LineModel.h"
-#include "RenderingProvider.h"
 #include "Renderer.h"
+#include "RenderingApi.h"
 #include "Commands.h"
 
 void LineModel::SetStartPont(const glm::vec2 &pos)
@@ -44,7 +44,7 @@ void LineModel::Redraw()
     renderer->DrawLine(startPoint, endPoint);
 }
 
-void LineModel::SetRenderingProvider(RenderingProvider *renderer)
+void LineModel::SetRenderingProvider(Renderer *renderer)
 {
     this->renderingProvider = renderer;
 }

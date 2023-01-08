@@ -89,12 +89,6 @@ void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> 
     messageQueue.enqueue(std::move(message));
 }
 
-void DefaultRenderCommandHandler::Render()
-{
-
-
-}
-//TODO: Refactor simplify
 void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
     switch (message->GetId())
@@ -119,44 +113,13 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
 }
 
 
-void DefaultRenderCommandHandler::OnInit(Core &coreWindow)
-{
-    render = true;
-    provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    provider->OnInit(coreWindow);
-    renderThread = std::make_unique<std::thread>([&]{RenderLoop();});
-}
-
-void DefaultRenderCommandHandler::OnDestroy(Core &coreWindow)
-{
-    provider->OnDestroy(coreWindow);
-    renderThread->join();
-}
-
-void DefaultRenderCommandHandler::OnRemove(Core &coreWindow)
-{
-
-}
-
-void DefaultRenderCommandHandler::WaitForSyncToFinish()
-{
-
-}
-
 void DefaultRenderCommandHandler::SwapScreenBuffer()
 {
     if(provider == nullptr)
         return;
     RedrawScene();
-
-    provider->SwapScreenBuffer();
 }
 
-//TODO Clean up this unused interface
-std::unique_ptr<Renderer> DefaultRenderCommandHandler::AcquireRenderer()
-{
-    return nullptr;
-}
 
 void DefaultRenderCommandHandler::RenderLoop()
 {
@@ -167,25 +130,23 @@ void DefaultRenderCommandHandler::RenderLoop()
         PerformRenderCommand(std::move(message));
     }
 }
-//TODO TODAY Move the Redraw into the Renderer.
-//The renderer should keep track of the scene and when it is valid.
+
 void DefaultRenderCommandHandler::RedrawScene()
 {
     provider->Render();
+    provider->SwapScreenBuffer();
 }
 
-void DefaultRenderCommandHandler::AddModel(std::unique_ptr<RenderingModel> renderingModel)
+void DefaultRenderCommandHandler::OnInit(Core &core)
 {
-    provider->AddModel(std::move(renderingModel));
+    render = true;
+    provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    provider->OnInit(core);
+    renderThread = std::make_unique<std::thread>([&]{RenderLoop();});
 }
 
-RenderingModel *DefaultRenderCommandHandler::GetModel(size_t index)
+void DefaultRenderCommandHandler::OnDestroy(Core &core)
 {
-    return provider->GetModel(index);
+    provider->OnDestroy(core);
+    renderThread->join();
 }
-
-const std::vector<std::unique_ptr<RenderingModel>>& DefaultRenderCommandHandler::GetRenderingModels()
-{
-    return provider->GetRenderingModels();
-}
-

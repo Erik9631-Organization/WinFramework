@@ -6,7 +6,7 @@
 #define LII_PRESENTERSUBJECT_H
 #include "EventAttributeInfo.h"
 #include "EventRenderingProviderInfo.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include "EventResizeInfo.h"
 #include "EventCursorLockInfo.h"
 #include "PresenterSubscriber.h"

@@ -4,7 +4,7 @@
 
 #include "CoreMediator.h"
 #include "Window.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 using namespace std;
 
 void CoreMediator::CoreOnDestroy(std::any src)
@@ -165,11 +165,6 @@ void CoreMediator::SetPresenter(Presenter *presenter)
 void CoreMediator::SetCore(unique_ptr<Core> core)
 {
     SetupCore(std::move(core));
-}
-
-void CoreMediator::WaitForRenderingSyncToFinish()
-{
-    core->WaitForRenderingSyncToFinish();
 }
 
 CoreMediator::CoreMediator(Presenter* presenter, std::unique_ptr<Core> core)

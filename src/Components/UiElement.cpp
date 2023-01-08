@@ -15,8 +15,6 @@ UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
     auto& elementRef = *uiElement;
     auto root = dynamic_cast<Window*>(&GetRoot());
-    if(root != nullptr)
-        root->WaitForSync();
 
     addToContainerMutex.lock();
     std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};

@@ -14,7 +14,7 @@ private:
     Vector4 color;
     glm::vec2 startPoint;
     glm::vec2 endPoint;
-    RenderingProvider* renderingProvider;
+    Renderer* renderingProvider;
     float width;
     size_t id = -1;
 public:
@@ -29,7 +29,7 @@ public:
 
     void Redraw() override;
 
-    void SetRenderingProvider(RenderingProvider *renderer) override;
+    void SetRenderingProvider(Renderer *renderer) override;
 
     void SetAssociatedModelId(unsigned long long int id) override;
 

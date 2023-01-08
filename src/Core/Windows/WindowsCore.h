@@ -16,7 +16,7 @@
 #include "CoreMediator.h"
 #include "CoreSubject.h"
 #include "Core.h"
-class RenderingProvider;
+class Renderer;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
@@ -192,7 +192,5 @@ public:
     static std::unique_ptr<Core> Create(std::any args);
 
     void SetWindow(Window *window) override;
-
-    void WaitForRenderingSyncToFinish() override;
 };
 

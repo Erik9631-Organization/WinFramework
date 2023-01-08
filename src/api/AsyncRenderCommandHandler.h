@@ -12,10 +12,10 @@
 #include "RectangleProxy.h"
 #include "TextProxy.h"
 #include "RenderingConsumer.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include "ModelProxy.h"
 
-class AsyncRenderCommandHandler : virtual public RenderingConsumer, virtual public RenderingProvider
+class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {
 public:
     virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;
@@ -29,6 +29,11 @@ public:
     virtual void RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction) = 0;
     virtual void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
     virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)>) = 0;
+
+    virtual void OnInit(Core& core) = 0;
+    virtual void OnDestroy(Core& core) = 0;
+
+    virtual void SwapScreenBuffer() = 0;
 
 };
 #endif //LII_ASYNCRENDERCOMMANDHANDLER_H

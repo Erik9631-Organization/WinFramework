@@ -4,7 +4,7 @@
 #include "RenderEventInfo.h"
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include <processthreadsapi.h>
 #include "Messages.h"
 #include <chrono>
@@ -96,16 +96,8 @@ long long int WindowsCore::RemoveAttribute(int index, long long int parameter)
 void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
     updateFinished = false;
-    //CoreWindow::ConsoleWrite("Update started");
 	PAINTSTRUCT paintInfo;
 
-	//Wait for sync to finish.
-	if(renderingProvider != nullptr)
-	{
-	    //CoreWindow::ConsoleWrite("Waiting for sync to finish...");
-	    renderingProvider->WaitForSyncToFinish();
-	    //CoreWindow::ConsoleWrite("Sync finished, continuing update");
-	}
 
 	switch (msg)
 	{
@@ -548,11 +540,6 @@ unique_ptr<Core> WindowsCore::Create(std::any args)
 void WindowsCore::SetWindow(Window *window)
 {
     this->wrapperFrame = window;
-}
-
-void WindowsCore::WaitForRenderingSyncToFinish()
-{
-    renderingProvider->WaitForSyncToFinish();
 }
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

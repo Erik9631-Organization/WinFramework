@@ -31,7 +31,7 @@
 #include "RenderMaterial.h"
 #include "RenderTexture.h"
 #include "RendererMaterialDesc.h"
-#include "Renderer.h"
+#include RenderingApi.h
 #include "RendererMaterial.h"
 #include "RendererMaterialInstance.h"
 #include "RendererMemoryMacros.h"

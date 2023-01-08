@@ -5,13 +5,13 @@
 #define LII_RENDERINGMODEL_H
 #include "RenderingConsumer.h"
 
-class RenderingProvider;
+class Renderer;
 class RenderingModel : public RenderingConsumer
 {
 public:
     virtual float GetZIndex() = 0;
     virtual void Redraw() = 0;
-    virtual void SetRenderingProvider(RenderingProvider *renderer) = 0;
+    virtual void SetRenderingProvider(Renderer *renderer) = 0;
     virtual void SetAssociatedModelId(unsigned long long id) = 0;
     virtual size_t & GetModelId() = 0;
     virtual ~RenderingModel() = default;

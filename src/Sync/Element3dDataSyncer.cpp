@@ -30,12 +30,6 @@ void Element3dDataSyncer::SyncData(MultiTree<std::unique_ptr<Element3d>> &node)
     syncFinishedSignal.notify_all();
 }
 
-void Element3dDataSyncer::WaitForSync()
-{
-    std::unique_lock<std::mutex>syncFinishedGuard{syncFinishedMutex};
-    syncFinishedSignal.wait(syncFinishedGuard, [=]{return syncFinished;});
-}
-
 Element3dDataSyncer::Element3dDataSyncer(OpenGLRenderingPool &renderingPool) : renderingPool(renderingPool)
 {
 

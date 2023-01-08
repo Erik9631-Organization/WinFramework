@@ -28,7 +28,7 @@
 #ifndef SAMPLE_APPLICATION_H
 #define SAMPLE_APPLICATION_H
 
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererWindow.h>
 #include <RendererDesc.h>
 

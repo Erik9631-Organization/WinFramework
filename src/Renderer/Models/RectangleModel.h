@@ -16,7 +16,7 @@ class RectangleModel : public Movable, public Resizable, public RenderingModel
 private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
-    RenderingProvider* rendereringProvider;
+    Renderer* rendereringProvider;
     Vector4 color{255, 255, 255, 255};
     bool fill = true;
     size_t id = -1;
@@ -110,7 +110,7 @@ public:
 
     void Redraw() override;
 
-    void SetRenderingProvider(RenderingProvider *renderer) override;
+    void SetRenderingProvider(Renderer *renderer) override;
 
     void SetAssociatedModelId(unsigned long long int id) override;
 

@@ -4,9 +4,9 @@
 
 #include "RectangleModel.h"
 #include "EventMoveInfo.h"
-#include "Renderer.h"
+#include "RenderingApi.h"
 #include "Commands.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include "Vector3.h"
 
 glm::vec2 RectangleModel::GetPosition()
@@ -241,7 +241,7 @@ const bool &RectangleModel::GetFill() const
     return fill;
 }
 
-void RectangleModel::SetRenderingProvider(RenderingProvider *renderer)
+void RectangleModel::SetRenderingProvider(Renderer *renderer)
 {
     this->rendereringProvider = renderer;
 }

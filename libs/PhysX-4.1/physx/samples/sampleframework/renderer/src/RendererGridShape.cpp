@@ -29,7 +29,7 @@
 //
 #include <RendererGridShape.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 
 #include <RendererVertexBuffer.h>
 #include <RendererVertexBufferDesc.h>

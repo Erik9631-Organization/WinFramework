@@ -28,7 +28,6 @@ public:
     virtual AsyncRenderCommandHandler * GetRenderer() = 0;
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
-    virtual void WaitForRenderingSyncToFinish() = 0;
     virtual ~Core() = default;
 };
 

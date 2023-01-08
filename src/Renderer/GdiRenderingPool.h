@@ -10,10 +10,10 @@
 class GdiRenderingPool : public RenderingPool
 {
 public:
-    GdiRenderingPool(Renderer* renderer);
-    Renderer &Acquire(const RenderCommander &target) override;
+    GdiRenderingPool(RenderingApi* renderer);
+    RenderingApi &Acquire(const RenderCommander &target) override;
 private:
-    Renderer* renderer = nullptr;
+    RenderingApi* renderer = nullptr;
 };
 
 

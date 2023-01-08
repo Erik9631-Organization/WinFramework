@@ -13,7 +13,7 @@
 #include "CoreMediator.h"
 
 class WindowsCore;
-class RenderingProvider;
+class Renderer;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
@@ -68,7 +68,6 @@ public:
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
-    void WaitForSync();
     void Add(std::unique_ptr<Element3d> element);
     template<typename type, typename ...Args>
     type& CreateElement(Args ... args)

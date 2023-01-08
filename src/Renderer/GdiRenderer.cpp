@@ -1,141 +1,150 @@
 //
-// Created by Erik on 22/01/27.
+// Created by Erik on 22/01/24.
 //
-
 #include "GdiRenderer.h"
-#include "Vector4.h"
-#include "Vector3.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "Core/Windows/WindowsCore.h"
-#include "FontFormat.h"
-#include "GdiFontFormat.h"
-#include "Core/Windows/WindowsCore.h"
-
+#include "Window.h"
+#include "RenderEventInfo.h"
+#include "EventResizeInfo.h"
+#include "GdiRenderingApi.h"
+#include <execution>
+#include <future>
+#include <chrono>
+#include "GdiRenderingPool.h"
+#include "ApplicationController.h"
+using namespace std;
+using namespace chrono;
 using namespace Gdiplus;
-unsigned int fpsfuckingcounter = 0;
 
-void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
+ULONG GdiRenderer::token = 0;
+Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
+
+void GdiRenderer::Render()
 {
-    graphics->DrawEllipse(pen, x, y, width, height);
+    for (auto& model : modelZIndexMap)
+        model.second->Redraw();
 }
 
-void GdiRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
+void GdiRenderer::CleanBackBuffer()
 {
-    graphics->DrawEllipse(pen, x, y, vector2.x, vector2.y);
+    ReleaseDC(windowHandle, secondaryDc);
+    DeleteDC(secondaryDc);
 }
 
-void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
+void GdiRenderer::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion)
 {
-    graphics->DrawLine(pen, x1, y1, x2, y2);
+//    Graphics graphics(secondaryDc);
+//    GdiRenderer renderer{graphics};
+//    GdiRenderingPool gdiRenderingPool{&renderer};
+//    graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
+//
+//    if(!node.IsRoot())
+//    {
+//        glm::vec2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
+//        glm::vec2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
+//        RectF viewport = RectF(viewPortAbsPos.x, viewPortAbsPos.y, viewPortAbsSize.x, viewPortAbsSize.y);
+//        graphics.SetClip(viewport);
+//        clippingRegion.Intersect(viewport);
+//        graphics.IntersectClip(&clippingRegion);
+//
+//        //translate
+//        Matrix transformMatrix;
+//        transformMatrix.Translate(node.GetValue()->GetAbsoluteX(), node.GetValue()->GetAbsoluteY());
+//        graphics.SetTransform(&transformMatrix);
+//    }
+//    RenderEventInfo renderEvent{&gdiRenderingPool};
+//
+//    node.GetValue()->OnRenderSync(renderEvent);
+//
+//    for (int i = 0; i < node.GetNodeCount(); i++)
+//    {
+//        Region* newRegion = clippingRegion.Clone();
+//        AssignGraphicsToNodes(node.GetNode(i), *newRegion);
+//        delete newRegion;
+//    }
 }
 
-void GdiRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
+
+HDC GdiRenderer::GetSecondaryDC()
 {
-    graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
+    secondaryDc = CreateCompatibleDC(windowHdc);
+    SelectObject(secondaryDc, secondaryBitmap);
+    return secondaryDc;
 }
 
-void GdiRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
+//TODO should be handled by redraw
+void GdiRenderer::OnResize(EventResizeInfo e)
 {
-    graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
+//    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
+//    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
-void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
+void GdiRenderer::OnInit(Core &coreWindowFrame)
 {
-    graphics->DrawRectangle(pen, x, y, width, height);
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    windowHandle = windowsCore->GetWindowHandle();
+    windowHdc = GetDC(windowHandle);
+    windowsCore->AddOnResizePreProcessSubsriber(*this);
+
+    secondaryBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
+                                             windowsCore->GetWrapperFrame()->GetHeight());
+    GetSecondaryDC();
 }
 
-void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
+void GdiRenderer::OnDestroy(Core &coreWindow)
 {
-    StringFormat stringFormat{};
-    stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
-    stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
-
-    font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    graphics->DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
-    fpsfuckingcounter++;
-    delete font;
+    CleanBackBuffer();
 }
 
-void GdiRenderer::DrawFillEllipse(float x, float y, float width, float height)
+GdiRenderer::GdiRenderer()
 {
-    graphics->FillEllipse(brush, x, y, width, height);
+    GdiStartup();
 }
 
-void GdiRenderer::DrawFillEllipse(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::GdiStartup()
 {
-    graphics->FillEllipse(brush, pos.x, pos.y, size.x, size.y);
+    if(token != 0)
+        return;
+
+    //Startup GDI
+    GdiplusStartupInput input;
+    input.GdiplusVersion = 1;
+    input.SuppressBackgroundThread = FALSE;
+    input.DebugEventCallback = NULL;
+    GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
 
-void GdiRenderer::DrawFillRectangle(float x, float y, float width, float height)
+std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderer()
 {
-    graphics->FillRectangle(brush, x, y, width, height);
+    auto graphics = std::make_unique<Graphics>(secondaryDc);
+    auto renderer = new GdiRenderingApi(std::move(graphics));
+    return std::unique_ptr<RenderingApi>(renderer);
 }
 
-void GdiRenderer::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::SwapScreenBuffer()
 {
-    graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
+    BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
+    CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
+    GetSecondaryDC();
 }
 
-GdiRenderer::GdiRenderer(std::unique_ptr<Graphics> graphics)
+void GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
 {
-    this->graphics = std::move(graphics);
-    pen = new Gdiplus::Pen(Gdiplus::Color::Black, 1.0f);
-    brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
+    modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
+    renderingModels.push_back(std::move(renderingModel));
 }
 
-void GdiRenderer::SetColor(const Vector4 &color)
+RenderingModel *GdiRenderer::GetModel(size_t index)
 {
-    BYTE a = (BYTE)color.GetW();
-    BYTE r = (BYTE)color.GetX();
-    BYTE g = (BYTE)color.GetY();
-    BYTE b = (BYTE)color.GetZ();
-    Color inputColor{a, r, g, b};
-    brush->SetColor(inputColor);
-    pen->SetColor(inputColor);
+    return renderingModels[index].get();
 }
 
-void GdiRenderer::SetColor(const Vector3 &color)
+const vector<std::unique_ptr<RenderingModel>> & GdiRenderer::GetRenderingModels()
 {
-    Color inputColor {(BYTE)color.GetX(), (BYTE)color.GetY(), (BYTE)color.GetZ()};
-    brush->SetColor(inputColor);
-    pen->SetColor(inputColor);
-}
-
-void GdiRenderer::SetThickness(float thickness)
-{
-    pen->SetWidth(thickness);
-}
-
-void GdiRenderer::SetFontFamily(std::wstring fontFamily)
-{
-    delete this->fontFamily;
-    this->fontFamily = new Gdiplus::FontFamily(L"Arial");
-}
-
-void GdiRenderer::SetFontSize(float fontSize)
-{
-    this->fontSize = fontSize;
-}
-
-std::unique_ptr<FontFormat> GdiRenderer::CreateFontFormat()
-{
-    return std::make_unique<GdiFontFormat>();
-}
-
-GdiRenderer::~GdiRenderer()
-{
-    delete pen;
-    delete brush;
-    delete fontFamily;
-}
-
-void GdiRenderer::Translate(glm::vec2 translation)
-{
-    graphics->TranslateTransform(translation.x, translation.y);
-}
-
-void GdiRenderer::DrawModel(const OpenGL::Model &model)
-{
-
+    return renderingModels;
 }

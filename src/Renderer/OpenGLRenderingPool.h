@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <memory>
 #include "RenderingPool.h"
-#include "OpenGLRenderer.h"
+#include "OpenGLRenderingApi.h"
 
 class Window;
 class RenderCommander;
@@ -15,11 +15,11 @@ class RenderCommander;
 class OpenGLRenderingPool : public RenderingPool
 {
 public:
-    Renderer &Acquire(const RenderCommander &target) override;
+    RenderingApi &Acquire(const RenderCommander &target) override;
     OpenGLRenderingPool(Window &window, OpenGL::RenderingManager &manager);
 private:
     OpenGL::RenderingManager& renderingManager;
-    std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderer>> renderers;
+    std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderingApi>> renderers;
     Window& window;
     glm::vec2 translation;
 public:

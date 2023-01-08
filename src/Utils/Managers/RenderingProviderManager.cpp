@@ -10,7 +10,7 @@
 
 std::unique_ptr<RenderingProviderManager> RenderingProviderManager::renderingProviderManager = std::make_unique<RenderingProviderManager>();
 
-std::unique_ptr<RenderingProvider> RenderingProviderManager::Create(const std::string& tag)
+std::unique_ptr<Renderer> RenderingProviderManager::Create(const std::string& tag)
 {
     auto iter = renderingProviderFactories.find(tag);
     if (iter == renderingProviderFactories.end())
@@ -18,7 +18,7 @@ std::unique_ptr<RenderingProvider> RenderingProviderManager::Create(const std::s
     return iter->second->Create();
 }
 
-void RenderingProviderManager::RegisterRenderingProviderFactory(std::unique_ptr<Factory<RenderingProvider>> renderingProviderFactory)
+void RenderingProviderManager::RegisterRenderingProviderFactory(std::unique_ptr<Factory<Renderer>> renderingProviderFactory)
 {
     renderingProviderFactories.try_emplace(renderingProviderFactory->GetTag(), std::move(renderingProviderFactory));
 }
@@ -42,7 +42,7 @@ RenderingProviderManager::RenderingProviderManager()
 #endif
 }
 
-std::unique_ptr<RenderingProvider> RenderingProviderManager::Create()
+std::unique_ptr<Renderer> RenderingProviderManager::Create()
 {
     if (defaultRenderingManager.empty())
         return nullptr;

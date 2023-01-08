@@ -20,7 +20,6 @@ private:
 public:
     Element3dDataSyncer(OpenGLRenderingPool& renderingPool);
     void SyncData(MultiTree<std::unique_ptr<Element3d>> &node);
-    void WaitForSync();
 };
 
 

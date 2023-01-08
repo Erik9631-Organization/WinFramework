@@ -30,7 +30,7 @@
 #include <SampleTextureAsset.h>
 #include <SampleInputAsset.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 
 #include <stdio.h>
 #include "SamplePlatform.h"

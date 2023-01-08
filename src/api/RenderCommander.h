@@ -1,7 +1,7 @@
 #pragma once
 #include "RenderSubscriber.h"
 #include <vector>
-#include <Renderer.h>
+#include <RenderingApi.h>
 #include <functional>
 
 /**

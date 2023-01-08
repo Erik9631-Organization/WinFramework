@@ -4,7 +4,7 @@
 
 #ifndef LII_FACTORY_H
 #define LII_FACTORY_H
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include <memory>
 #include <string>
 #include <any>

@@ -21,7 +21,7 @@ private:
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderProxy>> proxies;
     std::unique_ptr<std::thread> renderThread;
-    std::unique_ptr<RenderingProvider> provider;
+    std::unique_ptr<Renderer> provider;
     template<typename ModelType, typename ProxyType>
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
     {
@@ -56,26 +56,11 @@ public:
     void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
     void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
-
-    void Render() override;
-
-    void OnInit(Core &coreWindow) override;
-
-    void OnDestroy(Core &coreWindow) override;
-
-    void OnRemove(Core &coreWindow) override;
-
-    void WaitForSyncToFinish() override;
-
     void SwapScreenBuffer() override;
 
-    std::unique_ptr<Renderer> AcquireRenderer() override;
+    void OnInit(Core &core) override;
 
-    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
-
-    RenderingModel *GetModel(size_t index) override;
-
-    const std::vector<std::unique_ptr<RenderingModel>>& GetRenderingModels() override;
+    void OnDestroy(Core &core) override;
 
 };
 

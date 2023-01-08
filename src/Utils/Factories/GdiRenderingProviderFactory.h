@@ -6,15 +6,15 @@
 #define LII_GDIRENDERINGPROVIDERFACTORY_H
 #include "Factory.h"
 
-class GdiRenderingProviderFactory : public Factory<RenderingProvider>
+class GdiRenderingProviderFactory : public Factory<Renderer>
 {
 private:
-    std::string tag = "GdiRenderingProvider";
+    std::string tag = "GdiRenderer";
 public:
     const std::string &GetTag() override;
     void SetTag(const std::string &tag) override;
-    std::unique_ptr<RenderingProvider> Create() override;
-    std::unique_ptr<RenderingProvider> Create(std::any args) override;
+    std::unique_ptr<Renderer> Create() override;
+    std::unique_ptr<Renderer> Create(std::any args) override;
 };
 
 

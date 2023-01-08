@@ -84,21 +84,21 @@ set(Lii_Behavior
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
 set(Lii_Renderer
-        Renderer/RenderingProvider.h
-        Renderer/GdiRenderingProvider.cpp
-        Renderer/Renderer.cpp
         Renderer/Renderer.h
-        Renderer/GdiRenderingProvider.h
+        Renderer/GdiRenderer.cpp
+        Renderer/RenderingApi.cpp
+        Renderer/RenderingApi.h
+        Renderer/GdiRenderer.h
         Renderer/FontFormat.cpp
         Renderer/FontFormat.h
-        Renderer/GdiRenderer.cpp
-        Renderer/GdiRenderer.h
+        Renderer/GdiRenderingApi.cpp
+        Renderer/GdiRenderingApi.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
-        Renderer/OpenGLRenderingProvider.cpp
-        Renderer/OpenGLRenderingProvider.h
         Renderer/OpenGLRenderer.cpp
-        Renderer/OpenGLRenderer.h 
+        Renderer/OpenGLRenderer.h
+        Renderer/OpenGLRenderingApi.cpp
+        Renderer/OpenGLRenderingApi.h
         Renderer/DrawData.cpp
         Renderer/DrawData.h
         Renderer/DrawData2D.cpp

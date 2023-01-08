@@ -25,7 +25,7 @@
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
 #include <iostream>
-#include "OpenGLRenderingProvider.h"
+#include "OpenGLRenderer.h"
 #include "GraphicsShader.h"
 #include "OnTickSubscriber.h"
 #include "CameraManager.h"
@@ -623,7 +623,7 @@ void DemoApplication::LaunchOpenGLApp()
 {
     //    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
 //    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-//    frame->SetRenderer(static_pointer_cast<RenderingProvider>(glProvider));
+//    frame->SetRenderer(static_pointer_cast<Renderer>(glProvider));
 //
 //
 //

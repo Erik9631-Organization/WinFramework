@@ -137,11 +137,6 @@ void Window::NotifyOnMouseUp(EventMouseStateInfo e)
     currentCapture = nullptr;
 }
 
-void Window::WaitForSync()
-{
-    coreMediator->WaitForRenderingSyncToFinish();
-}
-
 
 void Window::Add(unique_ptr<Element3d> element)
 {

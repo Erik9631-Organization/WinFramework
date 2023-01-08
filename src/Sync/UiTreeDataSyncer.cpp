@@ -22,11 +22,6 @@ void UiTreeDataSyncer::InternalSyncData(MultiTree<std::unique_ptr<UiElement>> &n
     syncResult.wait();
 }
 
-void UiTreeDataSyncer::WaitForSync()
-{
-    std::unique_lock<std::mutex>syncFinishedGuard{syncFinishedMutex};
-    syncFinishedSignal.wait(syncFinishedGuard, [=]{return syncFinished;});
-}
 
 void UiTreeDataSyncer::SyncData(MultiTree<std::unique_ptr<UiElement>> &node)
 {

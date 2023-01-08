@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2021 NVIDIA Corporation. All rights reserved.
 #include "RendererFoundation.h"
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererDesc.h>
 #include "ogl/OGLRenderer.h"
 #include "d3d9/D3D9Renderer.h"
