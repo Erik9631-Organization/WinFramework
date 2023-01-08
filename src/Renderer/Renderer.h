@@ -19,7 +19,7 @@ public:
     virtual void OnInit(Core &coreWindow) = 0;
     virtual void OnDestroy(Core &coreWindow) = 0;
     virtual void SwapScreenBuffer() = 0;
-    virtual std::unique_ptr<RenderingApi> AcquireRenderer() = 0;
+    virtual std::unique_ptr<RenderingApi> AcquireRenderingApi() = 0;
     virtual ~Renderer() = default;
 };
 

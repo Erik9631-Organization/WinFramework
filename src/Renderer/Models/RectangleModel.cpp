@@ -211,7 +211,7 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 void RectangleModel::Redraw()
 {
-    auto renderer = this->rendereringProvider->AcquireRenderer();
+    auto renderer = this->rendereringProvider->AcquireRenderingApi();
     if(renderer == nullptr)
         return;
     renderer->SetColor(color);

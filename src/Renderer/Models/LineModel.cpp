@@ -39,7 +39,7 @@ const Vector4 &LineModel::GetColor()
 
 void LineModel::Redraw()
 {
-    auto renderer = renderingProvider->AcquireRenderer();
+    auto renderer = renderingProvider->AcquireRenderingApi();
     renderer->SetColor(color);
     renderer->DrawLine(startPoint, endPoint);
 }

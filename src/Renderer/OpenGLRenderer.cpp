@@ -308,7 +308,7 @@ void OpenGLRenderer::GraphicsInit()
 }
 
 //TODO Finish Acquire Renderer for opengl
-unique_ptr<RenderingApi> OpenGLRenderer::AcquireRenderer()
+unique_ptr<RenderingApi> OpenGLRenderer::AcquireRenderingApi()
 {
     return nullptr;
 }

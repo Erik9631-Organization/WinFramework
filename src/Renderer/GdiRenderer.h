@@ -39,7 +39,7 @@ public:
     void OnResize(EventResizeInfo e) override;
     void OnInit(Core &coreWindowFrame) override;
     void OnDestroy(Core &coreWindow) override;
-    std::unique_ptr<RenderingApi> AcquireRenderer() override;
+    std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
     void SwapScreenBuffer() override;
     void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
     RenderingModel *GetModel(size_t index) override;

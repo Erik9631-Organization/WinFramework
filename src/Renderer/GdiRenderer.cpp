@@ -119,7 +119,7 @@ void GdiRenderer::GdiStartup()
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
 
-std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderer()
+std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
 {
     auto graphics = std::make_unique<Graphics>(secondaryDc);
     auto renderer = new GdiRenderingApi(std::move(graphics));
