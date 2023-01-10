@@ -5,7 +5,7 @@
 #include <unordered_map>
 #include "Reflectable.h"
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "Vector4.h"
 #include "DrawData2D.h"
 
@@ -25,7 +25,7 @@ private:
 	DefaultRender renderBehavior;
 	Vector4 color;
 
-	ScalingUtil graphicsUtil;
+	ScalingUtil2D graphicsUtil;
 	float thickness;
     glm::vec2 position{0};
     glm::vec2 size{0};

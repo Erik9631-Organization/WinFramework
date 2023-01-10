@@ -46,6 +46,8 @@ private:
     HDC windowHdc;
     HDC secondaryDc;
     HBITMAP secondaryBitmap;
+    std::multimap<float, RenderingModel*> modelZIndexMap;
+    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
 
     template<typename T>
     RenderingModel* CreateModel()
@@ -65,14 +67,7 @@ public:
     std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
-
     RenderingModel * CreateModel(Commands createCommand) override;
-
-    std::multimap<float, RenderingModel*> modelZIndexMap;
-    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
-
-
-
 };
 
 

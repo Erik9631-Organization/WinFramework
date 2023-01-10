@@ -5,7 +5,7 @@
 #include "Reflectable.h"
 #include <unordered_map>
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "FontFormat.h"
 #include "Vector4.h"
 #include "Vector3.h"
@@ -25,7 +25,7 @@ private:
 	std::wstring fontFamily;
     glm::vec2 position;
 	Vector4 color;
-	ScalingUtil graphicsUtil;
+	ScalingUtil2D graphicsUtil;
 
 	ReflectionContainer<Text> reflectionContainer;
 	float fontSize = 12.0f;

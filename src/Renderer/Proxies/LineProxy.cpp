@@ -56,3 +56,8 @@ void LineProxy::SetRenderingConsumer(RenderingConsumer *consumer)
 {
     renderingConsumer = consumer;
 }
+
+void LineProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
+{
+
+}

@@ -7,6 +7,7 @@
 #include <any>
 #include <memory>
 #include "Commands.h"
+#include "RenderMessageSender.h"
 
 class RenderMessage
 {
@@ -15,8 +16,14 @@ private:
     Commands messageId = Commands::None;
     long long int receiverId = -1;
     SubCommands subMessageId = SubCommands::None;
-
+    RenderMessageSender *sender = nullptr;
 public:
+
+    RenderMessageSender* GetRenderMessageSender()
+    {
+        return sender;
+    }
+
     const long long int & GetReceiverId() const
     {
         return receiverId;
@@ -28,23 +35,24 @@ public:
     }
 
     template<class dataType>
-    RenderMessage(Commands messageId, dataType data)
+    RenderMessage(Commands messageId, dataType data, RenderMessageSender* sender = nullptr)
     {
+        this->sender = sender;
         this->messageId = messageId;
         this->data = std::make_any<dataType>(data);
     }
 
     template<class dataType>
-    static std::unique_ptr<RenderMessage> Create(Commands messageId, dataType data)
+    static std::unique_ptr<RenderMessage> Create(Commands messageId, dataType data, RenderMessageSender* sender = nullptr)
     {
-        auto renderMessage = new RenderMessage(messageId, data);
+        auto renderMessage = new RenderMessage(messageId, data, sender);
         return std::unique_ptr<RenderMessage>(renderMessage);
     }
 
     template<class dataType>
-    static std::unique_ptr<RenderMessage> CreatePropertyMessage(long long int receiverId, dataType data)
+    static std::unique_ptr<RenderMessage> CreatePropertyMessage(long long int receiverId, dataType data, RenderMessageSender* sender = nullptr)
     {
-        auto renderMessage = new RenderMessage(Commands::Property, data);
+        auto renderMessage = new RenderMessage(Commands::Property, data, sender);
         renderMessage->receiverId = receiverId;
         return std::unique_ptr<RenderMessage>(renderMessage);
     }
@@ -60,12 +68,12 @@ public:
         return std::any_cast<dataType>(data);
     }
 
-    const Commands & GetId() const
+    const Commands & GetMessageId() const
     {
         return messageId;
     }
 
-    const SubCommands & GetSubId() const
+    const SubCommands & GetSubMessageId() const
     {
         return subMessageId;
     }

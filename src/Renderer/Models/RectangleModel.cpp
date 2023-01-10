@@ -215,6 +215,11 @@ void RectangleModel::Redraw()
     if(renderer == nullptr)
         return;
     renderer->SetColor(color);
+    if(viewPortSet)
+        renderer->SetClippingRectangle(viewPortPosition, viewPortSize);
+    else
+        renderer->SetClippingRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
+
     if(fill)
         renderer->DrawFillRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
@@ -261,10 +266,10 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     if(message->GetReceiverId() != id)
         return;
 
-    if(message->GetId() != Commands::Property)
+    if(message->GetMessageId() != Commands::Property)
         return;
 
-    switch (message->GetSubId())
+    switch (message->GetSubMessageId())
     {
         case SubCommands::SetWidth:
             SetWidth(message->GetData<float>());
@@ -293,6 +298,13 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
             break;
+        case SubCommands::SetViewPortSize:
+        {
+            auto data = message->GetData<glm::vec2*>();
+            SetViewPort(data[0], data[1]);
+            delete data;
+            break;
+        }
         default:
             break;
     }
@@ -301,4 +313,26 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 float RectangleModel::GetZIndex()
 {
     return 10000;
+}
+
+void RectangleModel::SetViewPort(const glm::vec2 position, const glm::vec2 &size)
+{
+    viewPortSet = true;
+    this->viewPortSize = size;
+    this->viewPortPosition = position;
+}
+
+const glm::vec2 & RectangleModel::ViewPortSize()
+{
+    return viewPortSize;
+}
+
+bool RectangleModel::IsViewPortSet()
+{
+    return viewPortSet;
+}
+
+void RectangleModel::ResetViewport()
+{
+    viewPortSet = false;
 }

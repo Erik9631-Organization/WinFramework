@@ -38,6 +38,8 @@ public:
     virtual void DrawFillRectangle(glm::vec2 pos, glm::vec2 size) = 0;
     virtual void SetColor(const Vector4 &color) = 0;
     virtual void SetColor(const Vector3 &color) = 0;
+    virtual void SetClippingRectangle(float x, float y, float width, float height) = 0;
+    virtual void SetClippingRectangle(glm::vec2 pos, glm::vec2 size) = 0;
     virtual void SetThickness(float thickness) = 0;
     virtual void SetFontFamily(std::wstring fontFamily) = 0;
     virtual void SetFontSize(float fontSize) = 0;

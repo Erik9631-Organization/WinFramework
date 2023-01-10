@@ -2,7 +2,7 @@
 #include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "GraphicsScaling.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "DrawData2D.h"
@@ -13,7 +13,7 @@ protected:
 	float diameter = 1;
 	float thickness = 12;
 
-    ScalingUtil graphicsUtil;
+    ScalingUtil2D graphicsUtil;
 	DefaultRender renderBehavior;
 	Vector4 color;
 	DrawData2D drawData;

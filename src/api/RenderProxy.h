@@ -4,9 +4,12 @@
 
 #ifndef LII_RENDERPROXY_H
 #define LII_RENDERPROXY_H
+#include "RenderMessageSender.h"
 class RenderingModel;
 class RenderingConsumer;
-class RenderProxy
+
+
+class RenderProxy : public RenderMessageSender
 {
 public:
     virtual size_t & GetAssociatedModelId() = 0;

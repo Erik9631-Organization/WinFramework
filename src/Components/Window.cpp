@@ -252,10 +252,14 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         window->backgroundProxy->SetSize({100, 100});
         window->backgroundProxy->SetPosition({50, 100});
         window->backgroundProxy->SetColor({100, 100, 100, 255});
-        window->backgroundProxy->SetFill(false);
+        window->backgroundProxy->SetFill(true);
+        glm::vec2 halfSize;
+        halfSize.x = window->backgroundProxy->GetSize().x / 2.0f;
+        halfSize.y = window->backgroundProxy->GetSize().y;
+
+        window->backgroundProxy->SetViewPort(glm::vec2{50, 100}, halfSize);
         window->NotifyOnRedraw(std::make_any<Window*>(window));
     });
-
     return std::unique_ptr<Window>(window);
 }
 

@@ -28,7 +28,7 @@ private:
         auto createData = message->GetData<CreateModelMessage<std::unique_ptr<ProxyType>>*>();
         auto proxy = std::make_unique<ProxyType>();
         proxy->SetRenderingConsumer(this);
-        auto modelPtr = provider->CreateModel(message->GetId());
+        auto modelPtr = provider->CreateModel(message->GetMessageId());
         proxy->SetAssociatedModel(modelPtr);
         if(createData->IsCallbackSet() == false)
             createData->GetRendererProxyPromise().set_value(std::move(proxy));

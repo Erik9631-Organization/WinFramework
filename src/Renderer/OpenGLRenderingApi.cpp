@@ -170,3 +170,13 @@ void OpenGLRenderingApi::DrawModel(const OpenGL::Model &model)
     //Updates the model in the manager
     renderingManager.Move(model);
 }
+
+void OpenGLRenderingApi::SetClippingRectangle(float x, float y, float width, float height)
+{
+
+}
+
+void OpenGLRenderingApi::SetClippingRectangle(glm::vec2 pos, glm::vec2 size)
+{
+
+}

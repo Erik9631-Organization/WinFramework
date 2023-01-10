@@ -18,10 +18,22 @@ private:
     ResizableModelBehavior resizableBehavior;
     Renderer* rendereringProvider;
     Vector4 color{255, 255, 255, 255};
+    bool viewPortSet = false;
+    glm::vec2 viewPortSize;
+    glm::vec2 viewPortPosition;
     bool fill = true;
     size_t id = -1;
 
 public:
+
+    void SetViewPort(const glm::vec2 position, const glm::vec2 &size);
+
+    const glm::vec2 & ViewPortSize();
+
+    bool IsViewPortSet();
+
+    void ResetViewport();
+
     void SetFill(bool fill);
     const bool &GetFill() const;
 

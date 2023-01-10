@@ -65,6 +65,11 @@ public:
     std::unique_ptr<FontFormat> CreateFontFormat() override;
     void Translate(glm::vec2 translation) override;
     void CreateViewMatrix(float width, float height, glm::mat4& viewMatrix);
+
+    void SetClippingRectangle(float x, float y, float width, float height) override;
+
+    void SetClippingRectangle(glm::vec2 pos, glm::vec2 size) override;
+
 private:
     void OnResize(EventResizeInfo e) override;
 

@@ -140,6 +140,7 @@ set(Lii_Api
         api/ResourceManager.h
         api/ShaderManager.h
         api/RenderProxy.h
+        api/RenderMessageSender.h
         api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderCommandHandler.h api/RenderingConsumer.h)
 source_group("Lii/api" FILES ${Lii_Api})
 
@@ -341,8 +342,8 @@ set(Lii_Utils
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
-        Utils/ScalingUtil.cpp
-    Utils/ScalingUtil.h
+        Utils/ScalingUtil2D.cpp
+        Utils/ScalingUtil2D.h
         Utils/Timer.cpp
     Utils/Timer.h
         Events/TimerSubscriber.cpp

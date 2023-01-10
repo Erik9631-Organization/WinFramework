@@ -101,9 +101,6 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 		return;
 	}
 
-
-
-
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes
 	{

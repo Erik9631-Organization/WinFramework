@@ -8,11 +8,11 @@
 #include "api/RenderCommander.h"
 #include "vec2.hpp"
 
-class ScalingUtil
+class ScalingUtil2D
 {
 public:
-    ScalingUtil(glm::vec2 &associatedPosition);
-    ScalingUtil(glm::vec2 &associatedPosition, glm::vec2 &associatedSize);
+    ScalingUtil2D(glm::vec2 &associatedPosition);
+    ScalingUtil2D(glm::vec2 &associatedPosition, glm::vec2 &associatedSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);
@@ -28,7 +28,7 @@ public:
     GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void CreateRatio(glm::vec2 parentPosition, glm::vec2 parentSize);
+    void CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize);
 
     glm::vec2 GetSize();
     glm::vec2 GetPosition();

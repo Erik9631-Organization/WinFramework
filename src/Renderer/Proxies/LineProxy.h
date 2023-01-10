@@ -42,6 +42,8 @@ public:
 
     void SetRenderingConsumer(RenderingConsumer *consumer) override;
 
+    void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
+
 };
 
 

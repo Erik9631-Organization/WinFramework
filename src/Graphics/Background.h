@@ -2,7 +2,7 @@
 #include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "DrawData2D.h"
@@ -20,7 +20,7 @@ private:
 	Vector4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;
     glm::vec2 position;
-	ScalingUtil graphicsUtil;
+	ScalingUtil2D graphicsUtil;
     glm::vec2 size;
 	DrawData2D drawData;
 

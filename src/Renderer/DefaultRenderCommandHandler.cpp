@@ -92,7 +92,7 @@ void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> 
 
 void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
-    switch (message->GetId())
+    switch (message->GetMessageId())
     {
         case Commands::RequestRectangle:
         {
@@ -107,7 +107,11 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
         case Commands::Property:
         {
             const auto id = message->GetReceiverId();
+            auto sender = message->GetRenderMessageSender();
+            auto messageSubId = message->GetSubMessageId();
             provider->GetModel(id)->ReceiveCommand(std::move(message));
+            if(sender!= nullptr)
+                sender->OnRenderMessageProcessed(messageSubId);
             break;
         }
         case Commands::Quit:

@@ -139,3 +139,13 @@ void GdiRenderingApi::DrawModel(const OpenGL::Model &model)
 {
 
 }
+
+void GdiRenderingApi::SetClippingRectangle(float x, float y, float width, float height)
+{
+    graphics->SetClip(RectF(x, y, width, height), CombineModeReplace);
+}
+
+void GdiRenderingApi::SetClippingRectangle(glm::vec2 pos, glm::vec2 size)
+{
+    SetClippingRectangle(pos.x, pos.y, size.x, size.y);
+}
