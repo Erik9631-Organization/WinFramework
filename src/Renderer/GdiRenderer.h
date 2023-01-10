@@ -20,6 +20,7 @@
 #include "RenderingModel.h"
 #include <map>
 
+
 class Timer;
 class WindowsCore;
 class UiElement;
@@ -33,7 +34,29 @@ template<typename T> class MultiTree;
 
 class GdiRenderer : public Renderer, public ResizeSubscriber
 {
+private:
+    static void GdiStartup();
+    static Gdiplus::GdiplusStartupOutput output;
+    static ULONG token;
+
+    WindowsCore* windowsCore;
+    void CleanBackBuffer();
+    HDC GetSecondaryDC();
+    HWND windowHandle;
+    HDC windowHdc;
+    HDC secondaryDc;
+    HBITMAP secondaryBitmap;
+
+    template<typename T>
+    RenderingModel* CreateModel()
+    {
+        auto model = std::make_unique<T>();
+        model->SetRenderingProvider(this);
+        return AddModel(std::move(model));;
+    }
+    RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
 public:
+    void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     GdiRenderer();
     void Render() override;
     void OnResize(EventResizeInfo e) override;
@@ -41,26 +64,14 @@ public:
     void OnDestroy(Core &coreWindow) override;
     std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
     void SwapScreenBuffer() override;
-    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
     RenderingModel *GetModel(size_t index) override;
-    const std::vector<std::unique_ptr<RenderingModel>> &GetRenderingModels() override;
+
+    RenderingModel * CreateModel(Commands createCommand) override;
+
     std::multimap<float, RenderingModel*> modelZIndexMap;
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
 
-private:
-    static void GdiStartup();
-    static Gdiplus::GdiplusStartupOutput output;
-    static ULONG token;
 
-    WindowsCore* windowsCore;
-    void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
-    void CleanBackBuffer();
-    HDC GetSecondaryDC();
-    HWND windowHandle;
-    HDC windowHdc;
-    HDC secondaryDc;
-    HBITMAP secondaryBitmap;
-    std::condition_variable performRenderSignal;
 
 };
 

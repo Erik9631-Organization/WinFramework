@@ -5,16 +5,18 @@
 #ifndef LII_COMMANDS_H
 #define LII_COMMANDS_H
 
-enum Commands
+enum class Commands
 {
+    None,
    RequestRectangle,
    RequestModel,
    RequestEllipse,
    RequestLine,
    Property,
+   Quit,
 };
 
-enum PropertyCommandIds
+enum class SubCommands
 {
     None,
     SetSize,

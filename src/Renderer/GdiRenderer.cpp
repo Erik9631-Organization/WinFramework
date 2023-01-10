@@ -12,6 +12,7 @@
 #include <chrono>
 #include "GdiRenderingPool.h"
 #include "ApplicationController.h"
+#include "RectangleModel.h"
 using namespace std;
 using namespace chrono;
 using namespace Gdiplus;
@@ -133,10 +134,13 @@ void GdiRenderer::SwapScreenBuffer()
     GetSecondaryDC();
 }
 
-void GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
+RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
 {
     modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
+    auto modelPtr = renderingModel.get();
     renderingModels.push_back(std::move(renderingModel));
+    modelPtr->SetAssociatedModelId(renderingModels.size() - 1);
+    return modelPtr;
 }
 
 RenderingModel *GdiRenderer::GetModel(size_t index)
@@ -144,7 +148,16 @@ RenderingModel *GdiRenderer::GetModel(size_t index)
     return renderingModels[index].get();
 }
 
-const vector<std::unique_ptr<RenderingModel>> & GdiRenderer::GetRenderingModels()
+
+RenderingModel * GdiRenderer::CreateModel(Commands createCommand)
 {
-    return renderingModels;
+    switch (createCommand)
+    {
+        case Commands::RequestRectangle:
+        {
+            return CreateModel<RectangleModel>();
+        }
+        default:
+            return nullptr;
+    }
 }

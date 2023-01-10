@@ -106,7 +106,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         if(!UnregisterClassA(this->windowName.c_str(), hInstance))
             cout << "UnRegister Class error: " << GetLastError() << endl;
         processMessages = false;
-        renderingProvider->OnDestroy(*this);
+        renderer->OnDestroy(*this);
         return;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -159,8 +159,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
     case repaint_message:
-    if(renderingProvider != nullptr)
-        renderingProvider->SwapScreenBuffer();
+    if(renderer != nullptr)
+        renderer->SwapScreenBuffer();
     cout << "Got repaint" << endl;
     windowInvalidated = false;
     break;
@@ -180,8 +180,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
-//    if(renderingProvider != nullptr)
-//        renderingProvider->SwapScreenBuffer();
+//    if(renderer != nullptr)
+//        renderer->SwapScreenBuffer();
     //Reset the delta as it is 0
     mouseDelta.x = 0;
     mouseDelta.y = 0;
@@ -189,8 +189,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 void WindowsCore::Redraw()
 {
-//    if(renderingProvider != nullptr)
-//        renderingProvider->SwapScreenBuffer();
+//    if(renderer != nullptr)
+//        renderer->SwapScreenBuffer();
     if (!windowInvalidated)
     {
         PostMessage(windowHandle, repaint_message, NULL, NULL);
@@ -318,8 +318,8 @@ void WindowsCore::OnRenderSync(RenderEventInfo e)
     //Wait for on sync to finish before returning the call.
     //The reason why is because we want to capture the current snapshot of the draw state and then draw the complete data.
     //During the sync we can't end up in a case where the data is changed.
-    /*if(renderingProvider != nullptr)
-        renderingProvider->Render();*/
+    /*if(renderer != nullptr)
+        renderer->Render();*/
 }
 
 void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -329,13 +329,13 @@ void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
 
 AsyncRenderCommandHandler * WindowsCore::GetRenderer()
 {
-    return renderingProvider.get();
+    return renderer.get();
 }
 
 void WindowsCore::SetRenderer(unique_ptr<AsyncRenderCommandHandler> provider)
 {
-    renderingProvider = std::move(provider);
-    renderingProvider->OnInit(*this);
+    renderer = std::move(provider);
+    renderer->OnInit(*this);
 }
 
 void WindowsCore::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)

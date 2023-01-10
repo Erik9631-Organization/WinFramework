@@ -11,6 +11,7 @@
 #include "CreateModelMessage.h"
 #include <algorithm>
 #include <execution>
+#include "ApplicationController.h"
 
 std::future<std::unique_ptr<EllipseProxy>> DefaultRenderCommandHandler::RequestEllipseProxy()
 {
@@ -109,6 +110,11 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             provider->GetModel(id)->ReceiveCommand(std::move(message));
             break;
         }
+        case Commands::Quit:
+        {
+            render = false;
+            break;
+        }
     }
 }
 
@@ -142,11 +148,12 @@ void DefaultRenderCommandHandler::OnInit(Core &core)
     render = true;
     provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
     provider->OnInit(core);
-    renderThread = std::make_unique<std::thread>([&]{RenderLoop();});
+    renderThread = &ApplicationController::GetApplicationController()->CreateThread([&]{RenderLoop();}, "RenderThread");
 }
 
 void DefaultRenderCommandHandler::OnDestroy(Core &core)
 {
     provider->OnDestroy(core);
-    renderThread->join();
+    auto quitMessage = RenderMessage::Create(Commands::Quit, nullptr);
+    this->ReceiveCommand(std::move(quitMessage));
 }

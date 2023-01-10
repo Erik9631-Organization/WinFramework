@@ -17,9 +17,9 @@ public:
 
     std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
     void SwapScreenBuffer() override;
-    void AddModel(std::unique_ptr<RenderingModel> renderingModel) override;
     RenderingModel *GetModel(size_t index) override;
-    const std::vector<std::unique_ptr<RenderingModel>> &GetRenderingModels() override;
+
+    RenderingModel *CreateModel(Commands createCommand) override;
 
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);
@@ -41,7 +41,7 @@ private:
     std::unique_ptr<OpenGL::DefaultShaderProgram> defaultProgram;
     unsigned int shaderProgram;
 
-    ///TestPurpose --- DELETE
+    ///TODO TestPurpose --- DELETE
     std::vector<std::unique_ptr<OpenGL::Model>> models;
     OpenGL::DefaultRenderingManager manager;
 };

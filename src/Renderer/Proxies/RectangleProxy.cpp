@@ -26,7 +26,7 @@ float RectangleProxy::GetY()
 void RectangleProxy::SetPosition(glm::vec2 position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetPosition);
+    renderMessage->SetSubMessageId(SubCommands::SetPosition);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -68,7 +68,7 @@ void RectangleProxy::SetY(float y)
 void RectangleProxy::SetTranslate(glm::vec2 offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), offset);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetTranslate);
+    renderMessage->SetSubMessageId(SubCommands::SetTranslate);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -130,7 +130,7 @@ float RectangleProxy::GetHeight()
 void RectangleProxy::SetSize(glm::vec2 size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetSize);
+    renderMessage->SetSubMessageId(SubCommands::SetSize);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -254,13 +254,13 @@ void RectangleProxy::SetAssociatedModel(RenderingModel *model)
 void RectangleProxy::SetColor(const Vector4 &color)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetColor);
+    renderMessage->SetSubMessageId(SubCommands::SetColor);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void RectangleProxy::SetFill(bool fill)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetFill);
+    renderMessage->SetSubMessageId(SubCommands::SetFill);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }

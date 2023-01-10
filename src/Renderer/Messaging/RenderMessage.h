@@ -12,12 +12,12 @@ class RenderMessage
 {
 private:
     std::any data;
-    unsigned long long messageId = 0;
+    Commands messageId = Commands::None;
     long long int receiverId = -1;
-    unsigned long long subMessageId = 0;
+    SubCommands subMessageId = SubCommands::None;
 
 public:
-    long long int GetReceiverId() const
+    const long long int & GetReceiverId() const
     {
         return receiverId;
     }
@@ -28,14 +28,14 @@ public:
     }
 
     template<class dataType>
-    RenderMessage(const long long messageId, dataType data)
+    RenderMessage(Commands messageId, dataType data)
     {
         this->messageId = messageId;
         this->data = std::make_any<dataType>(data);
     }
 
     template<class dataType>
-    static std::unique_ptr<RenderMessage> Create(const long long messageId, dataType data)
+    static std::unique_ptr<RenderMessage> Create(Commands messageId, dataType data)
     {
         auto renderMessage = new RenderMessage(messageId, data);
         return std::unique_ptr<RenderMessage>(renderMessage);
@@ -49,7 +49,7 @@ public:
         return std::unique_ptr<RenderMessage>(renderMessage);
     }
 
-    void SetSubMessageId(const long long subMessageId)
+    void SetSubMessageId(SubCommands subMessageId)
     {
         this->subMessageId = subMessageId;
     }
@@ -60,12 +60,12 @@ public:
         return std::any_cast<dataType>(data);
     }
 
-    unsigned long long GetId() const
+    const Commands & GetId() const
     {
         return messageId;
     }
 
-    const unsigned long long GetSubId() const
+    const SubCommands & GetSubId() const
     {
         return subMessageId;
     }

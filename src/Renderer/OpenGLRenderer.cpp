@@ -318,19 +318,15 @@ void OpenGLRenderer::SwapScreenBuffer()
     SwapBuffers(windowDc);
 }
 
-void OpenGLRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
-{
 
-}
 
 RenderingModel *OpenGLRenderer::GetModel(size_t index)
 {
     return nullptr;
 }
 
-const vector<std::unique_ptr<RenderingModel>> &OpenGLRenderer::GetRenderingModels()
+RenderingModel *OpenGLRenderer::CreateModel(Commands createCommand)
 {
-    vector<std::unique_ptr<RenderingModel>> vec{};
-    return vec;
+    return nullptr;
 }
 

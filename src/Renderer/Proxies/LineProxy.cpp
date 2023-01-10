@@ -9,21 +9,21 @@
 void LineProxy::SetStartPosition(const glm::vec3& position)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), position);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetStartPoint);
+    renderMessage->SetSubMessageId(SubCommands::SetStartPoint);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void LineProxy::SetEndPosition(const glm::vec3& position)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), position);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetEndPoint);
+    renderMessage->SetSubMessageId(SubCommands::SetEndPoint);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void LineProxy::SetWidth(float width)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(lineModel->GetModelId(), width);
-    renderMessage->SetSubMessageId(PropertyCommandIds::SetWidth);
+    renderMessage->SetSubMessageId(SubCommands::SetWidth);
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 

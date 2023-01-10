@@ -266,31 +266,31 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 
     switch (message->GetSubId())
     {
-        case PropertyCommandIds::SetWidth:
+        case SubCommands::SetWidth:
             SetWidth(message->GetData<float>());
             break;
-        case PropertyCommandIds::SetHeight:
+        case SubCommands::SetHeight:
             SetHeight(message->GetData<float>());
             break;
-        case PropertyCommandIds::SetSize:
+        case SubCommands::SetSize:
             SetSize(message->GetData<glm::vec2>());
             break;
-        case PropertyCommandIds::SetX:
+        case SubCommands::SetX:
             SetX(message->GetData<float>());
             break;
-        case PropertyCommandIds::SetY:
+        case SubCommands::SetY:
             SetY(message->GetData<float>());
             break;
-        case PropertyCommandIds::SetPosition:
+        case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec2>());
             break;
-        case PropertyCommandIds::SetTranslate:
+        case SubCommands::SetTranslate:
             SetTranslate(message->GetData<glm::vec2>());
             break;
-        case PropertyCommandIds::SetColor:
+        case SubCommands::SetColor:
             SetColor(message->GetData<Vector4>());
             break;
-        case PropertyCommandIds::SetFill:
+        case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
             break;
         default:

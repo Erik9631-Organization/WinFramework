@@ -53,7 +53,7 @@ private:
     glm::vec2 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
-	std::unique_ptr<AsyncRenderCommandHandler> renderingProvider = nullptr;
+	std::unique_ptr<AsyncRenderCommandHandler> renderer = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;

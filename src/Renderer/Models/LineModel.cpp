@@ -77,22 +77,22 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     if(message->GetId() != Commands::Property)
         return;
 
-    if(message->GetSubId() == PropertyCommandIds::SetWidth)
+    if(message->GetSubId() == SubCommands::SetWidth)
     {
         auto width = message->GetData<float>();
         SetWidth(width);
     }
-    else if(message->GetSubId() == PropertyCommandIds::SetStartPoint)
+    else if(message->GetSubId() == SubCommands::SetStartPoint)
     {
         auto point = message->GetData<glm::vec2>();
         SetStartPont(point);
     }
-    else if(message->GetSubId() == PropertyCommandIds::SetEndPoint)
+    else if(message->GetSubId() == SubCommands::SetEndPoint)
     {
         auto point = message->GetData<glm::vec2>();
         SetEndPoint(point);
     }
-    else if(message->GetSubId() == PropertyCommandIds::SetColor)
+    else if(message->GetSubId() == SubCommands::SetColor)
     {
         auto color = message->GetData<Vector4>();
         SetColor(color);
