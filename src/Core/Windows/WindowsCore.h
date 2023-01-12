@@ -46,11 +46,11 @@ private:
     std::thread* updateThread;
     std::string windowName;
     LONG style;
-    glm::vec2 mousePos;
-    glm::vec2 prevMousePos;
-    glm::vec2 mouseDelta;
-    glm::vec2 relativePos;
-    glm::vec2 lockCursorSize;
+    glm::vec4 mousePos;
+    glm::vec4 prevMousePos;
+    glm::vec4 mouseDelta;
+    glm::vec4 relativePos;
+    glm::vec4 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
 	std::unique_ptr<AsyncRenderCommandHandler> renderer = nullptr;
@@ -69,7 +69,7 @@ private:
     static constexpr unsigned int repaint_message = 0x2210;
     bool windowInvalidated = false;
 public:
-    void SetLockCursorSize(const glm::vec2 &size);
+    void SetLockCursorSize(const glm::vec4 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;

@@ -6,13 +6,13 @@
 #include "Vector2DScaler.h"
 
 
-ScalingUtil2D::ScalingUtil2D(glm::vec2 &associatedPosition) : ScalingUtil2D(associatedPosition, defaultSize)
+ScalingUtil2D::ScalingUtil2D(glm::vec4 &associatedPosition) : ScalingUtil2D(associatedPosition, defaultSize)
 {
 
 }
 
 
-ScalingUtil2D::ScalingUtil2D(glm::vec2 &associatedPosition, glm::vec2 &associatedSize) :
+ScalingUtil2D::ScalingUtil2D(glm::vec4 &associatedPosition, glm::vec4 &associatedSize) :
     associatedPosition(associatedPosition),
     associatedSize(associatedSize)
 {
@@ -79,7 +79,7 @@ void ScalingUtil2D::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil2D::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil2D::CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize)
+void ScalingUtil2D::CreateRatio(const glm::vec4 &parentPosition, const glm::vec4 &parentSize)
 {
     Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
     Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
@@ -100,12 +100,12 @@ void ScalingUtil2D::CreateRatio(const glm::vec2 &parentPosition, const glm::vec2
     calculatedPosition.y = scaledPosition.y;
 }
 
-glm::vec2 ScalingUtil2D::GetSize()
+glm::vec4 ScalingUtil2D::GetSize()
 {
     return calculatedSize;
 }
 
-glm::vec2 ScalingUtil2D::GetPosition()
+glm::vec4 ScalingUtil2D::GetPosition()
 {
     return calculatedPosition;
 }

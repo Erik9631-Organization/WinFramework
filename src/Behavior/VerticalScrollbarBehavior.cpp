@@ -66,7 +66,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     //That is why we need to subtract
     float offset = (percentualPos * (pageHeight - associatedScrollbar.GetControlledComponent()->GetHeight()));
 
-    parent->SetChildrenTranslate({0, -offset});
+    parent->SetChildrenTranslate({0, -offset, 0, 0});
 }
 
 void VerticalScrollbarBehavior::SetPadding(int padding)

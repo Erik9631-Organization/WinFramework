@@ -2,7 +2,7 @@
 #include "Events/MouseStateSubject.h"
 #include "Components/UiElement.h"
 
-EventMouseStateInfo::EventMouseStateInfo(glm::vec2 position, int key, UiElement* src) : src(src)
+EventMouseStateInfo::EventMouseStateInfo(glm::vec4 position, int key, UiElement* src) : src(src)
 {
 	this->position = position;
 	this->relativePosition = position - src->GetAbsolutePosition();
@@ -18,7 +18,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* sourc
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec2 relativePosition, MouseStateSubject* src) : mouseSrc(src)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relativePosition, MouseStateSubject* src) : mouseSrc(src)
 {
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
@@ -27,16 +27,16 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec2 relati
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-glm::vec2 EventMouseStateInfo::GetMouseAbsolutePosition()
+glm::vec4 EventMouseStateInfo::GetMouseAbsolutePosition()
 {
 	return position;
 }
 
-glm::vec2 EventMouseStateInfo::GetMousePosition()
+glm::vec4 EventMouseStateInfo::GetMousePosition()
 {
 	if (src == nullptr)
 		return GetMouseAbsolutePosition();
-	return {GetMouseX(), GetMouseY()};
+	return {GetMouseX(), GetMouseY(), 0, 0};
 }
 
 float EventMouseStateInfo::GetAbsoluteMouseX()
@@ -89,7 +89,7 @@ bool EventMouseStateInfo::IsRecursive()
 	return recursive;
 }
 
-EventMouseStateInfo::EventMouseStateInfo(glm::vec2 position, glm::vec2 relativePosition, glm::vec2 delta,
+EventMouseStateInfo::EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta,
                                          int key, MouseStateSubject *src)
 {
     this->position = position;
@@ -99,7 +99,7 @@ EventMouseStateInfo::EventMouseStateInfo(glm::vec2 position, glm::vec2 relativeP
     this->key = key;
 }
 
-glm::vec2 EventMouseStateInfo::GetMouseDelta()
+glm::vec4 EventMouseStateInfo::GetMouseDelta()
 {
     return mouseDelta;
 }

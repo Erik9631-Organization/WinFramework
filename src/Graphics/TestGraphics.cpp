@@ -4,7 +4,6 @@
 
 #include "TestGraphics.h"
 #include "RenderEventInfo.h"
-#include "Vector3.h"
 #include "RenderingPool.h"
 
 void TestGraphics::Repaint()

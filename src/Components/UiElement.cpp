@@ -116,16 +116,17 @@ void UiElement::OnRenderSync(RenderEventInfo e)
 
 void UiElement::OnSync(const DrawData &data)
 {
-    auto parentPos = glm::vec2(0, 0);
-    if( !IsRoot())
+    auto parentPos = glm::vec4(0, 0, 0, 0);
+
+    if(!IsRoot())
     {
         parentPos.x = GetX();
         parentPos.y = GetY();
     }
+
     DrawData2D drawData{parentPos, GetSize()};
     renderBehavior.OnSync(drawData);
 }
-
 
 void UiElement::Repaint()
 {
@@ -241,7 +242,7 @@ void UiElement::SetViewportYOffset(int y)
     viewport.SetY(y, false);
 }
 
-void UiElement::SetViewportOffset(glm::vec2 offset)
+void UiElement::SetViewportOffset(glm::vec4 offset)
 {
     viewport.SetPosition(offset, false);
 }
@@ -256,7 +257,7 @@ int UiElement::GetViewportAbsoluteY()
 	return viewport.GetAbsoluteY();
 }
 
-glm::vec2 UiElement::GetViewportAbsolutePosition()
+glm::vec4 UiElement::GetViewportAbsolutePosition()
 {
 	return viewport.GetAbsolutePosition();
 }
@@ -271,7 +272,7 @@ int UiElement::GetViewportY()
 	return viewport.GetY();
 }
 
-glm::vec2 UiElement::GetViewportPosition()
+glm::vec4 UiElement::GetViewportPosition()
 {
 	return viewport.GetPosition();
 }
@@ -301,7 +302,7 @@ int UiElement::GetViewportHeight()
 	return viewport.GetHeight();
 }
 
-void UiElement::SetViewportSize(glm::vec2 size)
+void UiElement::SetViewportSize(glm::vec4 size)
 {
     viewport.SetSize(size, false);
 }
@@ -321,7 +322,7 @@ void UiElement::SetViewportHeight(int height)
     viewport.SetHeight(height, false);
 }
 
-glm::vec2 UiElement::GetViewportSize()
+glm::vec4 UiElement::GetViewportSize()
 {
 	return viewport.GetSize();
 }
@@ -336,7 +337,7 @@ int UiElement::GetViewportAbsoluteHeight()
 	return viewport.GetViewportAbsoluteHeight();
 }
 
-glm::vec2 UiElement::GetViewportAbsoluteSize()
+glm::vec4 UiElement::GetViewportAbsoluteSize()
 {
 	return viewport.GetViewportAbsoluteSize();
 }
@@ -406,7 +407,7 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 	mouseHandler.RemoveMouseStateSubscriber(subscriber);
 }
 
-bool UiElement::ColidesWithPoint(glm::vec2 point)
+bool UiElement::ColidesWithPoint(glm::vec4 point)
 {
 	if ( !(point.x >= GetAbsoluteX() && point.x <= GetAbsoluteX() + GetWidth()) )
 		return false;
@@ -430,7 +431,7 @@ bool UiElement::HasMouseEntered()
 	return mouseHandler.HasMouseEntered();
 }
 
-std::any UiElement::ColidesWithUpmost(glm::vec2 point)
+std::any UiElement::ColidesWithUpmost(glm::vec4 point)
 {
 	for (int i = 0; i < uiElementNode->GetNodeCount(); i++)
 	{
@@ -480,7 +481,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(glm::vec2 offset, bool emit)
+void UiElement::SetTranslate(glm::vec4 offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
@@ -503,7 +504,7 @@ void UiElement::SetTranslateY(float y, bool emit)
     moveBehavior.SetTranslateY(y, emit);
 }
 
-glm::vec2 UiElement::GetTranslate()
+glm::vec4 UiElement::GetTranslate()
 {
 	return moveBehavior.GetTranslate();
 }
@@ -518,12 +519,12 @@ float UiElement::GetTranslateY()
 	return moveBehavior.GetTranslateY();
 }
 
-glm::vec2 UiElement::GetChildrenTranslate()
+glm::vec4 UiElement::GetChildrenTranslate()
 {
 	return moveBehavior.GetChildrenTranslate();
 }
 
-void UiElement::SetChildrenTranslate(glm::vec2 internalOffset)
+void UiElement::SetChildrenTranslate(glm::vec4 internalOffset)
 {
 	if (ignoreTranslate)
 		return;
@@ -554,7 +555,7 @@ float UiElement::GetAbsoluteY()
 	return moveBehavior.GetAbsoluteY();
 }
 
-glm::vec2 UiElement::GetAbsolutePosition()
+glm::vec4 UiElement::GetAbsolutePosition()
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -584,12 +585,12 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-glm::vec2 UiElement::GetSize()
+glm::vec4 UiElement::GetSize()
 {
 	return resizeBehavior.GetSize();
 }
 
-glm::vec2 UiElement::GetPosition()
+glm::vec4 UiElement::GetPosition()
 {
 	return moveBehavior.GetPosition();
 }
@@ -635,7 +636,7 @@ void UiElement::SetSize(float width, float height, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(glm::vec2 size, bool emit)
+void UiElement::SetSize(glm::vec4 size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -652,7 +653,7 @@ void UiElement::SetPosition(float x, float y, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(glm::vec2 pos, bool emit)
+void UiElement::SetPosition(glm::vec4 pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -715,7 +716,7 @@ UiElement::~UiElement()
     }
 }
 
-void UiElement::SetPosition(glm::vec2 position)
+void UiElement::SetPosition(glm::vec4 position)
 {
     SetPosition(position, true);
 }
@@ -735,7 +736,7 @@ void UiElement::SetY(float y)
     SetY(y, true);
 }
 
-void UiElement::SetTranslate(glm::vec2 offset)
+void UiElement::SetTranslate(glm::vec4 offset)
 {
     SetTranslate(offset, true);
 }
@@ -750,7 +751,7 @@ void UiElement::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-void UiElement::SetSize(glm::vec2 size)
+void UiElement::SetSize(glm::vec4 size)
 {
     SetSize(size, true);
 }

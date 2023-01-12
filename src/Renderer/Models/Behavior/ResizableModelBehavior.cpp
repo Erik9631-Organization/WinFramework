@@ -4,7 +4,7 @@
 
 #include "ResizableModelBehavior.h"
 
-glm::vec2 ResizableModelBehavior::GetSize()
+glm::vec4 ResizableModelBehavior::GetSize()
 {
     return size;
 }
@@ -19,29 +19,29 @@ float ResizableModelBehavior::GetHeight()
     return size.y;
 }
 
-void ResizableModelBehavior::SetSize(glm::vec2 size, bool emit)
+void ResizableModelBehavior::SetSize(glm::vec4 size, bool emit)
 {
     this->size = size;
 }
 
-void ResizableModelBehavior::SetSize(glm::vec2 size)
+void ResizableModelBehavior::SetSize(glm::vec4 size)
 {
     SetSize(size, false);
 }
 
 void ResizableModelBehavior::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height}, emit);
+    SetSize({width, height, 0, 0}, emit);
 }
 
 void ResizableModelBehavior::SetSize(float width, float height)
 {
-    SetSize({width, height});
+    SetSize({width, height, 0, 0});
 }
 
 void ResizableModelBehavior::SetWidth(float width, bool emit)
 {
-    SetSize({width, size.y}, emit);
+    SetSize({width, size.y, 0, 0}, emit);
 }
 
 void ResizableModelBehavior::SetWidth(float width)
@@ -51,7 +51,7 @@ void ResizableModelBehavior::SetWidth(float width)
 
 void ResizableModelBehavior::SetHeight(float height, bool emit)
 {
-    SetSize({size.x, height}, emit);
+    SetSize({size.x, height, 0, 0}, emit);
 }
 
 void ResizableModelBehavior::SetHeight(float height)

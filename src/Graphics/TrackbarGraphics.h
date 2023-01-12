@@ -26,8 +26,8 @@ public:
 	float GetPercentualHeight();
 	void SetPercentualPosition(float posY);
 	float GetPercentualPosition();
-	void SetTrackerColor(Vector3 color);
-	Vector3 GetTrackerColor();
+	void SetTrackerColor(glm::vec3 color);
+	glm::vec3 GetTrackerColor();
 
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	virtual void Repaint() override;

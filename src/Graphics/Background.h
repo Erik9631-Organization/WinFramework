@@ -3,8 +3,6 @@
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
 #include "ScalingUtil2D.h"
-#include "Vector3.h"
-#include "Vector4.h"
 #include "DrawData2D.h"
 
 /**
@@ -17,25 +15,25 @@ class Background : public RenderCommander, public Reflectable<Background>
 {
 private:
 	DefaultRender renderBehavior;
-	Vector4 currentColor;
+	glm::vec4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;
-    glm::vec2 position;
+    glm::vec4 position;
 	ScalingUtil2D graphicsUtil;
-    glm::vec2 size;
+    glm::vec4 size;
 	DrawData2D drawData;
 
 public:
 	Background();
 	~Background();
 
-	void SetColor(Vector3 color);
-	void SetColor(Vector4 color);
-	Vector3 GetColor();
-	Vector4 GetColorRGBA();
+	void SetColor(glm::vec3 color);
+	void SetColor(glm::vec4 color);
+	glm::vec3 GetColor();
+	glm::vec3 GetColorRGBA();
 	void SetWidth(float width);
 	void SetHeight(float height);
-	void SetPosition(glm::vec2 position);
-	void SetSize(glm::vec2 size);
+	void SetPosition(glm::vec4 position);
+	void SetSize(glm::vec4 size);
 
 	GraphicsScaling GetScalingTypeX() const;
 	void SetScalingTypeX(GraphicsScaling scalingTypeX);
@@ -54,8 +52,8 @@ public:
 	float GetX();
 	float GetY();
 
-	glm::vec2 GetSize();
-	glm::vec2 GetPosition();
+	glm::vec4 GetSize();
+	glm::vec4 GetPosition();
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;
@@ -69,4 +67,3 @@ public:
 	virtual ReflectionContainer<Background>& GetReflectionContainer();
     void OnSync(const DrawData &data) override;
 };
-

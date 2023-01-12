@@ -21,7 +21,7 @@ void Window::SetSize(float width, float height, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetSize(glm::vec2 size, bool emit)
+void Window::SetSize(glm::vec4 size, bool emit)
 {
     SetSize(size.x, size.y, emit);
 }
@@ -66,9 +66,9 @@ void Window::SetPosition(float x, float y, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetPosition(glm::vec2 point, bool emit)
+void Window::SetPosition(glm::vec4 position, bool emit)
 {
-    SetPosition(point.x, point.y, emit);
+    SetPosition(position.x, position.y, emit);
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)
@@ -241,23 +241,23 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     //Handle graphics
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
-        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth()});
-        window->backgroundProxy->SetPosition({0, 0});
+        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
+        window->backgroundProxy->SetPosition({0, 0, 0, 0});
         window->backgroundProxy->SetColor({255, 255, 255, 255});
         window->backgroundProxy->SetFill(true);
     });
 
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
-        window->backgroundProxy->SetSize({100, 100});
-        window->backgroundProxy->SetPosition({50, 100});
+        window->backgroundProxy->SetSize({100, 100, 0, 0});
+        window->backgroundProxy->SetPosition({50, 100, 0, 0});
         window->backgroundProxy->SetColor({100, 100, 100, 255});
         window->backgroundProxy->SetFill(true);
-        glm::vec2 halfSize;
+        glm::vec4 halfSize;
         halfSize.x = window->backgroundProxy->GetSize().x / 2.0f;
         halfSize.y = window->backgroundProxy->GetSize().y;
 
-        window->backgroundProxy->SetViewPort(glm::vec2{50, 100}, halfSize);
+        window->backgroundProxy->SetViewPort(glm::vec4{50, 100, 0, 0}, halfSize);
         window->NotifyOnRedraw(std::make_any<Window*>(window));
     });
     return std::unique_ptr<Window>(window);

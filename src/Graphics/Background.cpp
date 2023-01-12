@@ -6,11 +6,11 @@
 
 Background::Background() : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, size)
 {
-    position = {0.0f, 0.0f};
-    size = {1.0f, 1.0f};
+    position = glm::vec4();
+    size = {1.0f, 1.0f, 0, 0};
 
-    reflectionContainer.RegisterMethod<Vector3>("background-color", "SetColor", &Background::SetColor);
-    reflectionContainer.RegisterMethod<Vector4>("background-colorRGBA", "SetColor", &Background::SetColor);
+    reflectionContainer.RegisterMethod<glm::vec3>("background-color", "SetColor", &Background::SetColor);
+    reflectionContainer.RegisterMethod<glm::vec4>("background-colorRGBA", "SetColor", &Background::SetColor);
     reflectionContainer.RegisterMethod("get-background-color", "SetColor", &Background::GetColor);
 }
 
@@ -18,14 +18,14 @@ Background::~Background()
 {
 }
 
-void Background::SetColor(Vector3 color)
+void Background::SetColor(glm::vec3 color)
 {
-    currentColor = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    currentColor = {color.x, color.y, color.z, 255};
 }
 
-Vector3 Background::GetColor()
+glm::vec3 Background::GetColor()
 {
-    return {currentColor.GetX(), currentColor.GetY(), currentColor.GetZ()};
+    return {currentColor.x, currentColor.y, currentColor.z};
 }
 
 void Background::SetWidth(float width)
@@ -147,32 +147,32 @@ void Background::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-glm::vec2 Background::GetSize()
+glm::vec4 Background::GetSize()
 {
     return size;
 }
 
-glm::vec2 Background::GetPosition()
+glm::vec4 Background::GetPosition()
 {
     return position;
 }
 
-void Background::SetPosition(glm::vec2 position)
+void Background::SetPosition(glm::vec4 position)
 {
     this->position = position;
 }
 
-void Background::SetSize(glm::vec2 size)
+void Background::SetSize(glm::vec4 size)
 {
     this->size = size;
 }
 
-void Background::SetColor(Vector4 color)
+void Background::SetColor(glm::vec4 color)
 {
     this->currentColor = color;
 }
 
-Vector4 Background::GetColorRGBA()
+glm::vec3 Background::GetColorRGBA()
 {
     return currentColor;
 }

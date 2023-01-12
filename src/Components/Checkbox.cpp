@@ -73,7 +73,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 	checkBoxChar.SetAlignment(FontAlingnment::FontAlignmentCenter);
 	checkBoxChar.SetScalingTypeY(Percentual);
 	checkBoxChar.SetScalingTypeX(Decimal);
-	checkBoxChar.SetPosition({10.0f, 0.51f});
+	checkBoxChar.SetPosition({10.0f, 0.51f, 0, 0});
 	checkBoxChar.SetText(L"");
 	checkBoxChar.SetColor({0, 0, 0});
 
@@ -82,7 +82,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeX(Decimal);
 
-	text.SetPosition({20.0f, 0.51f});
+	text.SetPosition({20.0f, 0.51f, 0, 0});
 
     AddRenderCommander(background);
     AddRenderCommander(border);

@@ -31,7 +31,7 @@ void TextInputBehavior::SetActiveBackground()
 {
 	//originalColor = associatedTextInput.GetBackgroundColor();
 
-	originalColor = associatedTextInput.GetPropery<Vector4>("get-background-color");
+	originalColor = associatedTextInput.GetPropery<glm::vec4>("get-background-color");
 	associatedTextInput.SetProperty("background-color", activeColor);
 	//associatedTextInput.SetBackgroundColor(activeColor);
 }

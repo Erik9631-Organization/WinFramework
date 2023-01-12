@@ -9,18 +9,18 @@ int DrawData2D::GetDataType() const
     return DataType::drawData2D;
 }
 
-DrawData2D::DrawData2D(glm::vec2 position, glm::vec2 size) : position(position), size(size)
+DrawData2D::DrawData2D(glm::vec4 position, glm::vec4 size) : position(position), size(size)
 {
     this->position = position;
     this->size = size;
 }
 
-glm::vec2 DrawData2D::GetPosition() const
+glm::vec4 DrawData2D::GetPosition() const
 {
     return position;
 }
 
-glm::vec2 DrawData2D::GetSize() const
+glm::vec4 DrawData2D::GetSize() const
 {
     return size;
 }
@@ -33,6 +33,6 @@ DrawData2D::DrawData2D(const DrawData2D& data)
 
 DrawData2D::DrawData2D()
 {
-    this->position = {0, 0};
-    this->size = {0, 0};
+    this->position = {0, 0, 0, 0};
+    this->size = {0, 0, 0, 0};
 }

@@ -40,12 +40,12 @@ wstring PasswordField::GetText()
 }
 
 
-Vector3 PasswordField::GetBackgroundColor()
+glm::vec3 PasswordField::GetBackgroundColor()
 {
 	return background.GetColor();
 }
 
-void PasswordField::SetBackgroundColor(Vector3 color)
+void PasswordField::SetBackgroundColor(glm::vec3 color)
 {
 	background.SetColor(color);
 	//Repaint();

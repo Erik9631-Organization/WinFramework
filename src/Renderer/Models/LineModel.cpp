@@ -7,32 +7,32 @@
 #include "RenderingApi.h"
 #include "Commands.h"
 
-void LineModel::SetStartPont(const glm::vec2 &pos)
+void LineModel::SetStartPont(const glm::vec4 &pos)
 {
     startPoint = pos;
 }
 
-void LineModel::SetEndPoint(const glm::vec2 &pos)
+void LineModel::SetEndPoint(const glm::vec4 &pos)
 {
     endPoint = pos;
 }
 
-const glm::vec2 &LineModel::GetStartPoint()
+const glm::vec4 & LineModel::GetStartPoint()
 {
     return startPoint;
 }
 
-const glm::vec2 &LineModel::GetEndPoint()
+const glm::vec4 & LineModel::GetEndPoint()
 {
     return endPoint;
 }
 
-void LineModel::SetColor(const Vector4 &color)
+void LineModel::SetColor(const glm::vec4 &color)
 {
     this->color = color;
 }
 
-const Vector4 &LineModel::GetColor()
+const glm::vec4 & LineModel::GetColor()
 {
     return color;
 }
@@ -84,17 +84,17 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     }
     else if(message->GetSubMessageId() == SubCommands::SetStartPoint)
     {
-        auto point = message->GetData<glm::vec2>();
+        auto point = message->GetData<glm::vec4>();
         SetStartPont(point);
     }
     else if(message->GetSubMessageId() == SubCommands::SetEndPoint)
     {
-        auto point = message->GetData<glm::vec2>();
+        auto point = message->GetData<glm::vec4>();
         SetEndPoint(point);
     }
     else if(message->GetSubMessageId() == SubCommands::SetColor)
     {
-        auto color = message->GetData<Vector4>();
+        auto color = message->GetData<glm::vec4>();
         SetColor(color);
     }
 }

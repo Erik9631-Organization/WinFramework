@@ -41,7 +41,7 @@ void CircleBorder::RemoveRenderCommander(RenderCommander& renderable)
 
 void CircleBorder::SetDiameter(float diameter)
 {
-    this->size = {diameter, diameter};
+    this->size = {diameter, diameter, 0, 0};
     this->diameter = diameter;
 }
 
@@ -64,9 +64,9 @@ float CircleBorder::GetThickness()
     return thickness;
 }
 
-void CircleBorder::SetColor(Vector3 color)
+void CircleBorder::SetColor(glm::vec3 color)
 {
-    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    this->color = {color.x, color.y, color.z, 255};
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeX() const
@@ -129,12 +129,12 @@ void CircleBorder::SetDrawFromCenterX(bool drawFromCenterX)
     graphicsUtil.SetCalculateFromCenterX(drawFromCenterX);
 }
 
-glm::vec2 CircleBorder::GetPosition()
+glm::vec4 CircleBorder::GetPosition()
 {
     return position;
 }
 
-void CircleBorder::SetPosition(glm::vec2 point)
+void CircleBorder::SetPosition(glm::vec4 point)
 {
     this->position = point;
 }
@@ -159,7 +159,7 @@ float CircleBorder::GetY()
     return position.y;
 }
 
-void CircleBorder::SetColor(Vector4 color)
+void CircleBorder::SetColor(glm::vec4 color)
 {
     this->color = color;
 }

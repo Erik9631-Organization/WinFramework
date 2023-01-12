@@ -6,24 +6,23 @@
 #define LII_LINEMODEL_H
 #include "RenderingModel.h"
 #include "glm.hpp"
-#include "Vector4.h"
 
 class LineModel : public RenderingModel
 {
 private:
-    Vector4 color;
-    glm::vec2 startPoint;
-    glm::vec2 endPoint;
+    glm::vec4 color;
+    glm::vec4 startPoint;
+    glm::vec4 endPoint;
     Renderer* renderingProvider;
     float width;
     size_t id = -1;
 public:
-    void SetStartPont(const glm::vec2& pos);
-    void SetEndPoint(const glm::vec2& pos);
-    const glm::vec2& GetStartPoint();
-    const glm::vec2& GetEndPoint();
-    void SetColor(const Vector4& color);
-    const Vector4& GetColor();
+    void SetStartPont(const glm::vec4 &pos);
+    void SetEndPoint(const glm::vec4 &pos);
+    const glm::vec4 & GetStartPoint();
+    const glm::vec4 & GetEndPoint();
+    void SetColor(const glm::vec4 &color);
+    const glm::vec4 & GetColor();
     void SetWidth(float width);
     const float& GetWidth();
 

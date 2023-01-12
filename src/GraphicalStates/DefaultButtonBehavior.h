@@ -6,14 +6,14 @@ class DefaultButtonBehavior : public MouseStateSubscriber
 {
 private:
 	Button& associatedButton;
-	Vector3 standardColor;
-	Vector3  onClickColor;
-	Vector3  onHoverColor;
+	glm::vec3 standardColor;
+    glm::vec3 onClickColor;
+    glm::vec3 onHoverColor;
 public:
 	DefaultButtonBehavior(Button& button);
-	void SetOnHoverColor(Vector3 color);
-	void SetOnClickColor(Vector3 color);
-	void SetStatelessColor(Vector3 statelessColor);
+	void SetOnHoverColor(glm::vec3 color);
+	void SetOnClickColor(glm::vec3 color);
+	void SetStatelessColor(glm::vec3 statelessColor);
 
 	// Inherited via MouseStateSubscriber
 	virtual void OnMouseDown(EventMouseStateInfo e) override;
@@ -24,9 +24,9 @@ public:
 	virtual void OnMouseLeft(EventMouseStateInfo e) override;
     void OnMouseCaptured(EventMouseStateInfo e) override;
 
-    Vector3 GetStandardColor();
-    Vector3 GetOnClickColor();
-    Vector3 GetOnHoverColor();
+    glm::vec3 GetStandardColor();
+    glm::vec3 GetOnClickColor();
+    glm::vec3 GetOnHoverColor();
 
 };
 

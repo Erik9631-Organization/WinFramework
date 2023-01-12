@@ -49,7 +49,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x
 
 
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(glm::vec4 position, glm::vec4 size)
 {
     return CreateFillRectangle(position.x, position.y, size.x, size.y);
 }
@@ -59,12 +59,12 @@ void OpenGL::ModelBuilder::SetProjectionMatrix(glm::mat4 *projection)
     projectionMatrix = projection;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(std::initializer_list<glm::vec2> vertices)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(initializer_list<glm::vec4> vertices)
 {
     return std::unique_ptr<Model>();
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(glm::vec2 a1, glm::vec2 a2, glm::vec2 a3)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateTriangle(glm::vec4 a1, glm::vec4 a2, glm::vec4 a3)
 {
 
     Mesh& shape = meshManager->CreateMesh<OpenGL::StaticMesh>("", std::vector<float>
@@ -112,12 +112,12 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(float x, 
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillEllipse(glm::vec4 position, glm::vec4 size)
 {
     return CreateFillEllipse(position.x, position.y, size.x, size.y);
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(glm::vec4 position, glm::vec4 size)
 {
     return CreateRectangle(position.x, position.y, size.x, size.y);
 }
@@ -156,7 +156,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateRectangle(float x, fl
     return model;
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(glm::vec2 position, glm::vec2 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateEllipse(glm::vec4 position, glm::vec4 size)
 {
     return CreateEllipse(position.x, position.y, size.x, size.y);
 }
@@ -260,7 +260,7 @@ std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(float x, float 
 
 }
 
-std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(glm::vec3 position, glm::vec3 size)
+std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateBlock(glm::vec4 position, glm::vec4 size)
 {
     return CreateBlock(position.x, position.y, position.z, size.x, size.y, size.z);
 }

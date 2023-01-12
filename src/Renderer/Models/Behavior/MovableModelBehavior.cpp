@@ -5,7 +5,7 @@
 #include "MovableModelBehavior.h"
 #include "EventMoveInfo.h"
 
-glm::vec2 MovableModelBehavior::GetPosition()
+glm::vec4 MovableModelBehavior::GetPosition()
 {
     return position;
 }
@@ -30,57 +30,57 @@ float MovableModelBehavior::GetAbsoluteY()
     return position.y;
 }
 
-glm::vec2 MovableModelBehavior::GetAbsolutePosition()
+glm::vec4 MovableModelBehavior::GetAbsolutePosition()
 {
     return position;
 }
 
-void MovableModelBehavior::SetPosition(glm::vec2 position, bool emit)
+void MovableModelBehavior::SetPosition(glm::vec4 position, bool emit)
 {
     this->position = position;
 }
 
-void MovableModelBehavior::SetPosition(glm::vec2 position)
+void MovableModelBehavior::SetPosition(glm::vec4 position)
 {
     SetPosition(position, true);
 }
 
 void MovableModelBehavior::SetPosition(float x, float y, bool emit)
 {
-    SetPosition({x, y}, emit);
+    SetPosition({x, y, 0, 0}, emit);
 }
 
 void MovableModelBehavior::SetPosition(float x, float y)
 {
-    SetPosition({x, y});
+    SetPosition({x, y, 0, 0});
 }
 
 void MovableModelBehavior::SetX(float x, bool emit)
 {
-    SetPosition({x, position.x}, emit);
+    SetPosition({x, position.x, 0, 0}, emit);
 }
 
 void MovableModelBehavior::SetX(float x)
 {
-    SetPosition({x, position.x});
+    SetPosition({x, position.x, 0, 0});
 }
 
 void MovableModelBehavior::SetY(float y, bool emit)
 {
-    SetPosition({position.x, y}, emit);
+    SetPosition({position.x, y, 0, 0}, emit);
 }
 
 void MovableModelBehavior::SetY(float y)
 {
-    SetPosition({position.x, y});
+    SetPosition({position.x, y, 0, 0});
 }
 
-void MovableModelBehavior::SetTranslate(glm::vec2 offset, bool emit)
+void MovableModelBehavior::SetTranslate(glm::vec4 offset, bool emit)
 {
     translation = offset;
 }
 
-void MovableModelBehavior::SetTranslate(glm::vec2 offset)
+void MovableModelBehavior::SetTranslate(glm::vec4 offset)
 {
     translation = offset;
 }
@@ -105,7 +105,7 @@ void MovableModelBehavior::SetTranslateY(float y)
     translation.y = y;
 }
 
-glm::vec2 MovableModelBehavior::GetTranslate()
+glm::vec4 MovableModelBehavior::GetTranslate()
 {
     return translation;
 }

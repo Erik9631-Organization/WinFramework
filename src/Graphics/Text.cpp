@@ -33,7 +33,7 @@ Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(
     std::wstring family = std::wstring(fontFamily.begin(), fontFamily.end());
     this->fontFamily = family;
     this->color = {255, 255, 255, 255};
-    position = {0, 0};
+    position = {0, 0, 0, 0};
 }
 
 void Text::SetText(std::wstring text)
@@ -46,19 +46,19 @@ std::wstring Text::GetText()
     return this->text;
 }
 
-void Text::SetPosition(glm::vec2 position)
+void Text::SetPosition(glm::vec4 position)
 {
     this->position = position;
 }
 
-glm::vec2 Text::GetPosition()
+glm::vec4 Text::GetPosition()
 {
     return position;
 }
 
-void Text::SetColor(Vector3 color)
+void Text::SetColor(glm::vec3 color)
 {
-    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    this->color = {color.x, color.y, color.z, 255};
 }
 
 void Text::SetFontSize(float fontSize)

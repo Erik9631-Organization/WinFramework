@@ -10,18 +10,18 @@ class MouseStateSubject;
 class EventMouseStateInfo
 {
 private:
-    glm::vec2 position;
-    glm::vec2 relativePosition;
+    glm::vec4 position;
+    glm::vec4 relativePosition;
 	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
-    glm::vec2 mouseDelta;
+    glm::vec4 mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
 	int key;
 public:
 
-    glm::vec2 GetMouseDelta();
+    glm::vec4 GetMouseDelta();
 
-    EventMouseStateInfo(glm::vec2 position, glm::vec2 relativePosition, glm::vec2 delta, int key, MouseStateSubject* src);
+    EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative position is automatically calculated from the src component
@@ -30,7 +30,7 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(glm::vec2 position, int key, UiElement* src);
+	EventMouseStateInfo(glm::vec4 position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
@@ -43,17 +43,17 @@ public:
 	 * \param relativePosition the new relative position.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, glm::vec2 relativePosition, MouseStateSubject* src);
+	EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relativePosition, MouseStateSubject* src);
 
 	/**
 	 * \return returns the mouse position within the window at the time the event was called.
 	 */
-    glm::vec2 GetMouseAbsolutePosition();
+    glm::vec4 GetMouseAbsolutePosition();
 
 	/**
 	 * \return returns the mouse position within the component at the time the event was called.
 	 */
-    glm::vec2 GetMousePosition();
+    glm::vec4 GetMousePosition();
 
 	/**
 	 * \return returns the X position of the mouse within the window.

@@ -3,7 +3,6 @@
 #include "Components/Checkbox.h"
 #include "EventTypes/EventCheckboxStateInfo.h"
 #include "Events/CheckboxStateSubscriber.h"
-#include "Vector3.h"
 
 CheckBoxBehavior::CheckBoxBehavior(Checkbox& checkbox) : associatedCheckbox(checkbox)
 {
@@ -19,7 +18,7 @@ void CheckBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 
 void CheckBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<Vector3>("background-color", {100, 100, 100});
+	associatedCheckbox.SetProperty<glm::vec3>("background-color", {100, 100, 100});
 }
 
 void CheckBoxBehavior::OnMousePressed(EventMouseStateInfo e)
@@ -32,12 +31,12 @@ void CheckBoxBehavior::OnMouseMove(EventMouseStateInfo e)
 
 void CheckBoxBehavior::OnMouseEntered(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<Vector3>("background-color", {100, 100, 100});
+	associatedCheckbox.SetProperty<glm::vec3>("background-color", {100, 100, 100});
 }
 
 void CheckBoxBehavior::OnMouseLeft(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<Vector4>("background-colorRGBA", {0, 0, 0, 0});
+	associatedCheckbox.SetProperty<glm::vec4>("background-colorRGBA", {0, 0, 0, 0});
 }
 
 void CheckBoxBehavior::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)

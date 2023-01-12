@@ -14,10 +14,10 @@ class DefaultMove : public Movable
 {
 private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
-    glm::vec2 absolutePosition{0};
-    glm::vec2 relativePosition{0};
-    glm::vec2 translate{0}; // Defines the position within the viewport
-    glm::vec2 childrenTranslate{0};
+    glm::vec4 absolutePosition{0};
+    glm::vec4 relativePosition{0};
+    glm::vec4 translate{0}; // Defines the position within the viewport
+    glm::vec4 childrenTranslate{0};
 	MultiTree<T>& associatedAdjustableNode;
 
 public:
@@ -26,29 +26,29 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual glm::vec2 GetPosition() override;
+	virtual glm::vec4 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
-	virtual void SetPosition(glm::vec2 position, bool emit) override;
+	virtual void SetPosition(glm::vec4 position, bool emit) override;
 	virtual void SetPosition(float x, float y, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual glm::vec2 GetAbsolutePosition() override;
+	virtual glm::vec4 GetAbsolutePosition() override;
 
-	virtual void SetTranslate(glm::vec2 offset, bool emit) override;
+	virtual void SetTranslate(glm::vec4 offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float Y, bool emit) override;
 
-	virtual glm::vec2 GetTranslate() override;
+	virtual glm::vec4 GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 
-	glm::vec2 GetChildrenTranslate() const;
-	void TranslateChildren(glm::vec2 translate);
+	glm::vec4 GetChildrenTranslate() const;
+	void TranslateChildren(glm::vec4 translate);
 
-    void SetPosition(glm::vec2 position) override;
+    void SetPosition(glm::vec4 position) override;
 
     void SetPosition(float x, float y) override;
 
@@ -56,7 +56,7 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(glm::vec2 offset) override;
+    void SetTranslate(glm::vec4 offset) override;
 
     void SetTranslateX(float x) override;
 
@@ -65,13 +65,13 @@ public:
 
 
 template<class T>
-glm::vec2 DefaultMove<T>::GetChildrenTranslate() const
+glm::vec4 DefaultMove<T>::GetChildrenTranslate() const
 {
 	return childrenTranslate;
 }
 
 template<class T>
-void DefaultMove<T>::TranslateChildren(glm::vec2 translate)
+void DefaultMove<T>::TranslateChildren(glm::vec4 translate)
 {
 	this->childrenTranslate = translate;
 	for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
@@ -80,7 +80,7 @@ void DefaultMove<T>::TranslateChildren(glm::vec2 translate)
 
 
 template<class T>
-void DefaultMove<T>::SetTranslate(glm::vec2 offset, bool emit)
+void DefaultMove<T>::SetTranslate(glm::vec4 offset, bool emit)
 {
 	this->translate = offset;
 }
@@ -96,7 +96,7 @@ void DefaultMove<T>::SetTranslateY(float y, bool emit)
 }
 
 template<class T>
-glm::vec2 DefaultMove<T>::GetTranslate()
+glm::vec4 DefaultMove<T>::GetTranslate()
 {
 	return translate;
 }
@@ -116,9 +116,9 @@ float DefaultMove<T>::GetTranslateY()
 template<class T>
 DefaultMove<T>::DefaultMove(MultiTree<T>& adjustable) : associatedAdjustableNode(adjustable)
 {
-	absolutePosition = {0, 0};
-	translate = {0, 0};
-	childrenTranslate = {0, 0};
+	absolutePosition = {0, 0, 0, 0};
+	translate = {0, 0, 0, 0};
+	childrenTranslate = {0, 0, 0, 0};
 }
 
 template<class T>
@@ -162,7 +162,7 @@ void DefaultMove<T>::NotifyOnMoveSubscribers(EventMoveInfo event)
 }
 
 template<class T>
-glm::vec2 DefaultMove<T>::GetPosition()
+glm::vec4 DefaultMove<T>::GetPosition()
 {
 	return relativePosition;
 }
@@ -180,7 +180,7 @@ float DefaultMove<T>::GetY()
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(glm::vec2 position, bool emit)
+void DefaultMove<T>::SetPosition(glm::vec4 position, bool emit)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();
@@ -191,7 +191,7 @@ void DefaultMove<T>::SetPosition(glm::vec2 position, bool emit)
 template<class T>
 void DefaultMove<T>::SetPosition(float x, float y, bool emit)
 {
-    SetPosition(glm::vec2(x, y), emit);
+    SetPosition(glm::vec4(x, y, 0, 0), emit);
 }
 
 template<class T>
@@ -225,13 +225,13 @@ float DefaultMove<T>::GetAbsoluteY()
 }
 
 template<class T>
-glm::vec2 DefaultMove<T>::GetAbsolutePosition()
+glm::vec4 DefaultMove<T>::GetAbsolutePosition()
 {
 	return absolutePosition;
 }
 
 template<class T>
-void DefaultMove<T>::SetPosition(glm::vec2 position)
+void DefaultMove<T>::SetPosition(glm::vec4 position)
 {
     SetPosition(position, true);
 }
@@ -255,7 +255,7 @@ void DefaultMove<T>::SetY(float y)
 }
 
 template<class T>
-void DefaultMove<T>::SetTranslate(glm::vec2 offset)
+void DefaultMove<T>::SetTranslate(glm::vec4 offset)
 {
     SetTranslate(offset, true);
 }

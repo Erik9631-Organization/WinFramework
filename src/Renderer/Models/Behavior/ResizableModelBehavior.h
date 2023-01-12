@@ -11,19 +11,19 @@
 class ResizableModelBehavior : public Resizable
 {
 private:
-    glm::vec2 size;
+    glm::vec4 size;
     std::vector<ResizeSubscriber*> resizeSubscribers;
 
 public:
-    glm::vec2 GetSize() override;
+    glm::vec4 GetSize() override;
 
     float GetWidth() override;
 
     float GetHeight() override;
 
-    void SetSize(glm::vec2 size, bool emit) override;
+    void SetSize(glm::vec4 size, bool emit) override;
 
-    void SetSize(glm::vec2 size) override;
+    void SetSize(glm::vec4 size) override;
 
     void SetSize(float width, float height, bool emit) override;
 

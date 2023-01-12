@@ -18,7 +18,7 @@ void OpenGLRenderingApi::DrawEllipse(float x, float y, float width, float height
 
 }
 
-void OpenGLRenderingApi::DrawEllipse(float x, float y, glm::vec2 vector2)
+void OpenGLRenderingApi::DrawEllipse(float x, float y, glm::vec4 vector4)
 {
 
 }
@@ -28,12 +28,12 @@ void OpenGLRenderingApi::DrawLine(float x1, float y1, float x2, float y2)
 
 }
 
-void OpenGLRenderingApi::DrawLine(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderingApi::DrawLine(glm::vec4 pos, glm::vec4 size)
 {
 
 }
 
-void OpenGLRenderingApi::DrawRectangle(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderingApi::DrawRectangle(glm::vec4 pos, glm::vec4 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
@@ -44,16 +44,16 @@ void OpenGLRenderingApi::DrawRectangle(glm::vec2 pos, glm::vec2 size)
     }
     else
         TransformModel(*lastShape, pos, size);
-    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.x, lastColor.y, lastColor.z, 1.0f);
     //lastShape->UpdateUniform();
 }
 
 void OpenGLRenderingApi::DrawRectangle(float x, float y, float width, float height)
 {
-    DrawRectangle({x, y}, {width, height});
+    DrawRectangle({x, y, 0, 0}, {width, height, 0, 0});
 }
 
-void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
+void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len)
 {
 
 }
@@ -63,7 +63,7 @@ void OpenGLRenderingApi::DrawFillEllipse(float x, float y, float width, float he
 
 }
 
-void OpenGLRenderingApi::DrawFillEllipse(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderingApi::DrawFillEllipse(glm::vec4 pos, glm::vec4 size)
 {
 
 }
@@ -73,7 +73,7 @@ void OpenGLRenderingApi::DrawFillRectangle(float x, float y, float width, float 
     //DrawFillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderingApi::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderingApi::DrawFillRectangle(glm::vec4 pos, glm::vec4 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
@@ -85,18 +85,18 @@ void OpenGLRenderingApi::DrawFillRectangle(glm::vec2 pos, glm::vec2 size)
     else
         TransformModel(*lastShape, pos, size);
 
-    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.GetX(), lastColor.GetY(), lastColor.GetZ(), 1.0f);
+    lastShape->GetShaderProgram().GetUniformProperties().SetProperty("color", lastColor.x, lastColor.y, lastColor.z, 1.0f);
     //lastShape->UpdateUniform();
 }
 
-void OpenGLRenderingApi::SetColor(const Vector4 &color)
+void OpenGLRenderingApi::SetColor(const glm::vec4 &color)
 {
-    lastColor = {color.GetX()/255, color.GetY()/255, color.GetZ()/255, color.GetW()/255};
+    lastColor = {color.x/255, color.y/255, color.z/255, color.w/255};
 }
 
-void OpenGLRenderingApi::SetColor(const Vector3 &color)
+void OpenGLRenderingApi::SetColor(const glm::vec3 &color)
 {
-    lastColor = {color.GetX()/255, color.GetY()/255, color.GetZ()/255, 1.0f};
+    lastColor = {color.x/255, color.y/255, color.z/255, 1.0f};
 
 }
 
@@ -134,7 +134,7 @@ void OpenGLRenderingApi::OnResize(EventResizeInfo e)
     CreateViewMatrix(e.GetSize().x, e.GetSize().y, *viewMatrix);
 }
 
-void OpenGLRenderingApi::Translate(glm::vec2 translation)
+void OpenGLRenderingApi::Translate(glm::vec4 translation)
 {
     this->translation = translation;
 }
@@ -176,7 +176,7 @@ void OpenGLRenderingApi::SetClippingRectangle(float x, float y, float width, flo
 
 }
 
-void OpenGLRenderingApi::SetClippingRectangle(glm::vec2 pos, glm::vec2 size)
+void OpenGLRenderingApi::SetClippingRectangle(glm::vec4 pos, glm::vec4 size)
 {
 
 }

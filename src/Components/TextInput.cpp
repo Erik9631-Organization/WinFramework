@@ -37,7 +37,7 @@ wstring TextInput::GetText()
 	return text.GetText();
 }
 
-Vector3 TextInput::GetBackgroundColor()
+glm::vec3 TextInput::GetBackgroundColor()
 {
 	return background.GetColor();
 }
@@ -52,7 +52,7 @@ bool TextInput::IsMultiLine()
 	return inputBehavior.IsMultiLine();
 }
 
-void TextInput::SetBackgroundColor(Vector3 color)
+void TextInput::SetBackgroundColor(glm::vec3 color)
 {
 	background.SetColor(color);
 	//Repaint();

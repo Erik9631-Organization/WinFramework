@@ -3,8 +3,6 @@
 #include "DefaultRender.h"
 #include "GraphicsScaling.h"
 #include "ScalingUtil2D.h"
-#include "Vector3.h"
-#include "Vector4.h"
 #include "DrawData2D.h"
 
 class CircleBorder : public RenderCommander
@@ -15,22 +13,22 @@ protected:
 
     ScalingUtil2D graphicsUtil;
 	DefaultRender renderBehavior;
-	Vector4 color;
+	glm::vec4 color;
 	DrawData2D drawData;
 
 public:
-    glm::vec2 position{0};
-    glm::vec2 size{0};
+    glm::vec4 position{0};
+    glm::vec4 size{0};
 
 	CircleBorder();
 	~CircleBorder();
 	void SetDiameter(float diameter);
 	void SetThickness(float thickness);
-	void SetColor(Vector3 color);
-	void SetColor(Vector4 color);
+	void SetColor(glm::vec3 color);
+	void SetColor(glm::vec4 color);
 
-	glm::vec2 GetPosition();
-	void SetPosition(glm::vec2 point);
+	glm::vec4 GetPosition();
+	void SetPosition(glm::vec4 point);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

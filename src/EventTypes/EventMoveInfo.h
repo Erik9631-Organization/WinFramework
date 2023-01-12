@@ -11,13 +11,13 @@ class Movable;
 class EventMoveInfo
 {
 private:
-	glm::vec2 position;
+	glm::vec4 position;
 	Movable* src;
 public:
 	/**
 	 * \return Returns the position of the source object at the point this event was called.
 	 */
-    glm::vec2 GetPosition() const;
+    glm::vec4 GetPosition() const;
 
 	/**
 	 * \return returns the source object that called the event.
@@ -28,7 +28,7 @@ public:
 	 * \param position the position of the source object.
 	 * \param src the source object that called the event. 
 	 */
-	EventMoveInfo(glm::vec2 position, Movable* src);
+	EventMoveInfo(glm::vec4 position, Movable* src);
 	~EventMoveInfo();
 };
 

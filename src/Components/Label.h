@@ -29,12 +29,12 @@ public:
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackground(Vector3 color);
+	void SetBackground(glm::vec3 color);
 
 	/**
 	 * \return gets the color of the background.
 	 */
-    Vector3 GetBackground();
+    glm::vec3 GetBackground();
 
 	/**
 	 * \param str sets the display value of the label.

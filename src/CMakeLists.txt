@@ -203,13 +203,7 @@ set(Lii_DataTypes
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
     DataTypes/MultiTree.cpp
-    DataTypes/Vector3.cpp
-    DataTypes/Vector3.h
-    DataTypes/Vector4.cpp
-    DataTypes/Vector4.h
-    DataTypes/Vector2Int.cpp
-    DataTypes/Vector2Int.h
-)
+        )
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 

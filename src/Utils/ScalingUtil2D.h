@@ -11,8 +11,8 @@
 class ScalingUtil2D
 {
 public:
-    ScalingUtil2D(glm::vec2 &associatedPosition);
-    ScalingUtil2D(glm::vec2 &associatedPosition, glm::vec2 &associatedSize);
+    ScalingUtil2D(glm::vec4 &associatedPosition);
+    ScalingUtil2D(glm::vec4 &associatedPosition, glm::vec4 &associatedSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);
@@ -28,10 +28,10 @@ public:
     GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void CreateRatio(const glm::vec2 &parentPosition, const glm::vec2 &parentSize);
+    void CreateRatio(const glm::vec4 &parentPosition, const glm::vec4 &parentSize);
 
-    glm::vec2 GetSize();
-    glm::vec2 GetPosition();
+    glm::vec4 GetSize();
+    glm::vec4 GetPosition();
     float GetX();
     float GetY();
     float GetWidth();
@@ -46,13 +46,13 @@ private:
     GraphicsScaling scalingTypeWidth = Percentual;
     GraphicsScaling scalingTypeHeight = Percentual;
 
-    glm::vec2& associatedSize;
-    glm::vec2& associatedPosition;
+    glm::vec4& associatedSize;
+    glm::vec4& associatedPosition;
 
-    glm::vec2 calculatedSize{0};
-    glm::vec2 calculatedPosition{0};
+    glm::vec4 calculatedSize{0};
+    glm::vec4 calculatedPosition{0};
 
-    glm::vec2 defaultSize{0};
+    glm::vec4 defaultSize{0};
 };
 
 

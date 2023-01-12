@@ -1,7 +1,7 @@
 #pragma once
 #include "Events/ActivateSubscriber.h"
 #include "Events/KeyStateSubscriber.h"
-#include "Vector4.h"
+#include "glm.hpp"
 
 class UiElement;
 
@@ -12,8 +12,8 @@ class TextInputBehavior : public KeyStateSubscriber, public ActivateSubscriber
 private:
 	bool multiLineEnabled = false;
 	UiElement& associatedTextInput;
-	Vector4 originalColor;
-	Vector4 activeColor;
+	glm::vec4 originalColor;
+	glm::vec4 activeColor;
 	void InsertCharacter(EventKeyStateInfo e);
 	void SetActiveBackground();
 	void SetInactiveBackground();

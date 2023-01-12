@@ -11,45 +11,46 @@
 
 using namespace OpenGL;
 
-glm::vec2 StaticTexture::GetSize()
+glm::vec4 StaticTexture::GetSize()
 {
-    return glm::vec2();
+    return glm::vec4();
 }
 
 float StaticTexture::GetWidth()
 {
-    return size.GetX();
+    return size.x;
 }
 
 float StaticTexture::GetHeight()
 {
-    return size.GetY();
+    return size.y;
 }
 
-void StaticTexture::SetSize(glm::vec2 size, bool emit)
+void StaticTexture::SetSize(glm::vec4 size, bool emit)
 {
     if(imageData == nullptr)
         return;
     unsigned char *output;
-    stbir_resize_uint8(imageData, this->size.GetX(), this->size.GetY(),
+    stbir_resize_uint8(imageData, this->size.x, this->size.y,
                        0, output, size.x, size.y, 0, 0);
-    this->size = size;
+    this->size.x = size.x;
+    this->size.y = size.y;
     imageData = output;
 }
 
 void StaticTexture::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height}, emit);
+    SetSize({width, height, 0, 0}, emit);
 }
 
 void StaticTexture::SetWidth(float width, bool emit)
 {
-    SetSize(width, size.GetY(), emit);
+    SetSize(width, size.y, emit);
 }
 
 void StaticTexture::SetHeight(float height, bool emit)
 {
-    SetSize(size.GetX(), height, emit);
+    SetSize(size.x, height, emit);
 }
 
 void StaticTexture::NotifyOnResizeSubscribers(EventResizeInfo event)
@@ -100,10 +101,14 @@ const bool &OpenGL::StaticTexture::LoadFromFile()
     int width = 0;
     int height = 0;
     int n = 0;
+
     imageData = stbi_load(path.c_str(), &width, &height, &n, 0);
+
     if(imageData == nullptr)
         return false;
-    this->size.SetValue(width, height);
+
+    this->size.x = width;
+    this->size.y = height;
 
     return true;
 }
@@ -117,7 +122,7 @@ void OpenGL::StaticTexture::Load()
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, format, size.GetX(), size.GetY(), 0, format, GL_UNSIGNED_BYTE, imageData);
+    glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, imageData);
     glGenerateMipmap(GL_TEXTURE_2D);
     loaded = true;
     stbi_image_free(imageData);
@@ -164,7 +169,7 @@ const unsigned long long int &StaticTexture::GetId() const
     return textureId;
 }
 
-void StaticTexture::SetSize(glm::vec2 size)
+void StaticTexture::SetSize(glm::vec4 size)
 {
 
 }

@@ -9,7 +9,6 @@
 #include "LiiImage.h"
 #include "DefaultResize.h"
 #include <string>
-#include "Vector2Int.h"
 #include "Texture.h"
 
 namespace OpenGL
@@ -20,7 +19,7 @@ namespace OpenGL
         DefaultResize resizeBehavior;
         std::string path;
         unsigned char* imageData;
-        Vector2Int size;
+        glm::ivec4 size;
         unsigned int textureId = 0;
         int format = 0;
         bool loaded = false;
@@ -28,7 +27,7 @@ namespace OpenGL
     public:
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
-        void SetSize(glm::vec2 size, bool emit) override;
+        void SetSize(glm::vec4 size, bool emit) override;
         void SetSize(float width, float height, bool emit) override;
         void SetWidth(float width, bool emit) override;
         void SetHeight(float height, bool emit) override;
@@ -45,14 +44,14 @@ namespace OpenGL
         void Bind() const override;
         void Unbind() const override;
         float GetHeight() override;
-        glm::vec2 GetSize() override;
+        glm::vec4 GetSize() override;
         float GetWidth() override;
         void Unload() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
         const unsigned long long int &GetId() const override;
 
-        void SetSize(glm::vec2 size) override;
+        void SetSize(glm::vec4 size) override;
 
         void SetSize(float width, float height) override;
 

@@ -2,13 +2,13 @@
 #include "Core/Windows/WindowsCore.h"
 #include "FontAlignment.h"
 
-void Button::SetBorderColor(Vector3 color)
+void Button::SetBorderColor(glm::vec3 color)
 {
 	border.SetColor(color);
 	//Repaint();
 }
 
-void Button::SetBackgroundColor(Vector3 color)
+void Button::SetBackgroundColor(glm::vec3 color)
 {
 	background.SetColor(color);
 	buttonBehavior.SetStatelessColor(color);
@@ -16,12 +16,12 @@ void Button::SetBackgroundColor(Vector3 color)
 }
 
 
-Vector3 Button::GetBackgroundColor()
+glm::vec3 Button::GetBackgroundColor()
 {
     return buttonBehavior.GetStandardColor();
 }
 
-Vector3 Button::GetBorderColor()
+glm::vec3 Button::GetBorderColor()
 {
 	return border.GetColor();
 }
@@ -47,7 +47,7 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeY(Percentual);
 
-	text.SetPosition({0.5f, 0.5f});
+	text.SetPosition({0.5f, 0.5f, 0, 0});
 	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
 	text.SetAlignment(FontAlingnment::FontAlignmentCenter);
 
@@ -73,34 +73,34 @@ Button::~Button()
 
 }
 
-void Button::SetOnHoverColor(Vector3 color)
+void Button::SetOnHoverColor(glm::vec3 color)
 {
     buttonBehavior.SetOnHoverColor(color);
 }
 
-void Button::SetOnClickColor(Vector3 color)
+void Button::SetOnClickColor(glm::vec3 color)
 {
     buttonBehavior.SetOnClickColor(color);
 }
 
 
-void Button::SetColor(Vector3 color)
+void Button::SetColor(glm::vec3 color)
 {
     background.SetColor(color);
     //Repaint();
 }
 
-Vector3 Button::GetOnClickColor()
+glm::vec3 Button::GetOnClickColor()
 {
     return buttonBehavior.GetOnClickColor();
 }
 
-Vector3 Button::GetOnHoverColor()
+glm::vec3 Button::GetOnHoverColor()
 {
     return buttonBehavior.GetOnHoverColor();
 }
 
-Vector3 Button::GetColor()
+glm::vec3 Button::GetColor()
 {
     return background.GetColor();
 }

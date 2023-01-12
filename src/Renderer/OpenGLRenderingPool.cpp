@@ -34,7 +34,7 @@ const glm::vec2 & OpenGLRenderingPool::GetTranslation() const
     return translation;
 }
 
-void OpenGLRenderingPool::SetTranslation(const glm::vec2 &translation)
+void OpenGLRenderingPool::SetTranslation(const glm::vec4 &translation)
 {
     this->translation = translation;
 }

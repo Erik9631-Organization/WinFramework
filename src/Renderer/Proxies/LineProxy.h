@@ -33,8 +33,8 @@ public:
     void SetWidth(float width);
     const float& GetWidth();
 
-    const glm::vec2& GetStartPoint();
-    const glm::vec2& GetEndPoint();
+    const glm::vec4 & GetStartPoint();
+    const glm::vec4 & GetEndPoint();
 
     size_t & GetAssociatedModelId() override;
 

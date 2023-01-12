@@ -7,12 +7,12 @@ DefaultButtonBehavior::DefaultButtonBehavior(Button& button) : associatedButton(
 	onClickColor = {60, 60, 60};
 }
 
-void DefaultButtonBehavior::SetOnHoverColor(Vector3 color)
+void DefaultButtonBehavior::SetOnHoverColor(glm::vec3 color)
 {
 	onHoverColor = color;
 }
 
-void DefaultButtonBehavior::SetOnClickColor(Vector3 color)
+void DefaultButtonBehavior::SetOnClickColor(glm::vec3 color)
 {
 	onClickColor = color;
 }
@@ -58,22 +58,22 @@ void DefaultButtonBehavior::OnMouseCaptured(EventMouseStateInfo e)
 
 }
 
-Vector3 DefaultButtonBehavior::GetStandardColor()
+glm::vec3 DefaultButtonBehavior::GetStandardColor()
 {
     return standardColor;
 }
 
-void DefaultButtonBehavior::SetStatelessColor(Vector3 statelessColor)
+void DefaultButtonBehavior::SetStatelessColor(glm::vec3 statelessColor)
 {
     DefaultButtonBehavior::standardColor = statelessColor;
 }
 
-Vector3 DefaultButtonBehavior::GetOnClickColor()
+glm::vec3 DefaultButtonBehavior::GetOnClickColor()
 {
     return onClickColor;
 }
 
-Vector3 DefaultButtonBehavior::GetOnHoverColor()
+glm::vec3 DefaultButtonBehavior::GetOnHoverColor()
 {
     return onHoverColor;
 }

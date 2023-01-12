@@ -7,9 +7,8 @@
 #include "RenderingApi.h"
 #include "Commands.h"
 #include "Renderer.h"
-#include "Vector3.h"
 
-glm::vec2 RectangleModel::GetPosition()
+glm::vec4 RectangleModel::GetPosition()
 {
     return movableBehavior.GetPosition();
 }
@@ -34,17 +33,17 @@ float RectangleModel::GetAbsoluteY()
     return movableBehavior.GetAbsoluteY();
 }
 
-glm::vec2 RectangleModel::GetAbsolutePosition()
+glm::vec4 RectangleModel::GetAbsolutePosition()
 {
     return movableBehavior.GetAbsolutePosition();
 }
 
-void RectangleModel::SetPosition(glm::vec2 position, bool emit)
+void RectangleModel::SetPosition(glm::vec4 position, bool emit)
 {
     movableBehavior.SetPosition(position, emit);
 }
 
-void RectangleModel::SetPosition(glm::vec2 position)
+void RectangleModel::SetPosition(glm::vec4 position)
 {
     movableBehavior.SetPosition(position);
 }
@@ -79,12 +78,12 @@ void RectangleModel::SetY(float y)
     movableBehavior.SetY(y);
 }
 
-void RectangleModel::SetTranslate(glm::vec2 offset, bool emit)
+void RectangleModel::SetTranslate(glm::vec4 offset, bool emit)
 {
     movableBehavior.SetTranslate(offset, emit);
 }
 
-void RectangleModel::SetTranslate(glm::vec2 offset)
+void RectangleModel::SetTranslate(glm::vec4 offset)
 {
     movableBehavior.SetTranslate(offset);
 }
@@ -109,7 +108,7 @@ void RectangleModel::SetTranslateY(float y)
     movableBehavior.SetTranslateY(y);
 }
 
-glm::vec2 RectangleModel::GetTranslate()
+glm::vec4 RectangleModel::GetTranslate()
 {
     return movableBehavior.GetTranslate();
 }
@@ -124,7 +123,7 @@ float RectangleModel::GetTranslateY()
     return movableBehavior.GetTranslateY();
 }
 
-glm::vec2 RectangleModel::GetSize()
+glm::vec4 RectangleModel::GetSize()
 {
     return resizableBehavior.GetSize();
 }
@@ -139,12 +138,12 @@ float RectangleModel::GetHeight()
     return resizableBehavior.GetHeight();
 }
 
-void RectangleModel::SetSize(glm::vec2 size, bool emit)
+void RectangleModel::SetSize(glm::vec4 size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
 }
 
-void RectangleModel::SetSize(glm::vec2 size)
+void RectangleModel::SetSize(glm::vec4 size)
 {
     resizableBehavior.SetSize(size);
 }
@@ -226,12 +225,12 @@ void RectangleModel::Redraw()
         renderer->DrawRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
 }
 
-void RectangleModel::SetColor(const Vector4 &color)
+void RectangleModel::SetColor(const glm::vec4 &color)
 {
     this->color = color;
 }
 
-const Vector4 &RectangleModel::GetColor() const
+const glm::vec4 & RectangleModel::GetColor() const
 {
     return color;
 }
@@ -278,7 +277,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetHeight(message->GetData<float>());
             break;
         case SubCommands::SetSize:
-            SetSize(message->GetData<glm::vec2>());
+            SetSize(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetX:
             SetX(message->GetData<float>());
@@ -287,20 +286,20 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetY(message->GetData<float>());
             break;
         case SubCommands::SetPosition:
-            SetPosition(message->GetData<glm::vec2>());
+            SetPosition(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetTranslate:
-            SetTranslate(message->GetData<glm::vec2>());
+            SetTranslate(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetColor:
-            SetColor(message->GetData<Vector4>());
+            SetColor(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
             break;
         case SubCommands::SetViewPortSize:
         {
-            auto data = message->GetData<glm::vec2*>();
+            auto data = message->GetData<glm::vec4*>();
             SetViewPort(data[0], data[1]);
             delete data;
             break;
@@ -315,14 +314,14 @@ float RectangleModel::GetZIndex()
     return 10000;
 }
 
-void RectangleModel::SetViewPort(const glm::vec2 position, const glm::vec2 &size)
+void RectangleModel::SetViewPort(const glm::vec4 position, const glm::vec4 &size)
 {
     viewPortSet = true;
     this->viewPortSize = size;
     this->viewPortPosition = position;
 }
 
-const glm::vec2 & RectangleModel::ViewPortSize()
+const glm::vec4 & RectangleModel::ViewPortSize()
 {
     return viewPortSize;
 }

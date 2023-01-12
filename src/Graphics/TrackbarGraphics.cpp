@@ -41,12 +41,12 @@ float TrackbarGraphics::GetPercentualPosition()
     return tracker.GetY();
 }
 
-void TrackbarGraphics::SetTrackerColor(Vector3 color)
+void TrackbarGraphics::SetTrackerColor(glm::vec3 color)
 {
     tracker.SetColor(color);
 }
 
-Vector3 TrackbarGraphics::GetTrackerColor()
+glm::vec3 TrackbarGraphics::GetTrackerColor()
 {
     return tracker.GetColor();
 }

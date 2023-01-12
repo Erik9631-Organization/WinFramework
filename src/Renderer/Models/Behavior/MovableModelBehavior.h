@@ -11,11 +11,11 @@
 class MovableModelBehavior : public Movable
 {
 private:
-    glm::vec2 position;
-    glm::vec2 translation;
+    glm::vec4 position;
+    glm::vec4 translation;
     std::vector<MoveSubscriber*> moveSubscribers;
 public:
-    glm::vec2 GetPosition() override;
+    glm::vec4 GetPosition() override;
 
     float GetX() override;
 
@@ -25,11 +25,11 @@ public:
 
     float GetAbsoluteY() override;
 
-    glm::vec2 GetAbsolutePosition() override;
+    glm::vec4 GetAbsolutePosition() override;
 
-    void SetPosition(glm::vec2 position, bool emit) override;
+    void SetPosition(glm::vec4 position, bool emit) override;
 
-    void SetPosition(glm::vec2 position) override;
+    void SetPosition(glm::vec4 position) override;
 
     void SetPosition(float x, float y, bool emit) override;
 
@@ -43,9 +43,9 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(glm::vec2 offset, bool emit) override;
+    void SetTranslate(glm::vec4 offset, bool emit) override;
 
-    void SetTranslate(glm::vec2 offset) override;
+    void SetTranslate(glm::vec4 offset) override;
 
     void SetTranslateX(float x, bool emit) override;
 
@@ -55,7 +55,7 @@ public:
 
     void SetTranslateY(float y) override;
 
-    glm::vec2 GetTranslate() override;
+    glm::vec4 GetTranslate() override;
 
     float GetTranslateX() override;
 

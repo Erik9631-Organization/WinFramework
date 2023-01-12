@@ -9,7 +9,6 @@
 #include "MovableModelBehavior.h"
 #include "ResizableModelBehavior.h"
 #include "RenderingModel.h"
-#include "Vector4.h"
 
 class RectangleModel : public Movable, public Resizable, public RenderingModel
 {
@@ -17,18 +16,18 @@ private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
     Renderer* rendereringProvider;
-    Vector4 color{255, 255, 255, 255};
+    glm::vec4 color{255, 255, 255, 255};
     bool viewPortSet = false;
-    glm::vec2 viewPortSize;
-    glm::vec2 viewPortPosition;
+    glm::vec4 viewPortSize;
+    glm::vec4 viewPortPosition;
     bool fill = true;
     size_t id = -1;
 
 public:
 
-    void SetViewPort(const glm::vec2 position, const glm::vec2 &size);
+    void SetViewPort(const glm::vec4 position, const glm::vec4 &size);
 
-    const glm::vec2 & ViewPortSize();
+    const glm::vec4 & ViewPortSize();
 
     bool IsViewPortSet();
 
@@ -37,10 +36,10 @@ public:
     void SetFill(bool fill);
     const bool &GetFill() const;
 
-    void SetColor(const Vector4& color );
-    const Vector4& GetColor() const;
+    void SetColor(const glm::vec4 &color);
+    const glm::vec4 & GetColor() const;
 
-    glm::vec2 GetPosition() override;
+    glm::vec4 GetPosition() override;
 
     float GetX() override;
 
@@ -50,11 +49,11 @@ public:
 
     float GetAbsoluteY() override;
 
-    glm::vec2 GetAbsolutePosition() override;
+    glm::vec4 GetAbsolutePosition() override;
 
-    void SetPosition(glm::vec2 position, bool emit) override;
+    void SetPosition(glm::vec4 position, bool emit) override;
 
-    void SetPosition(glm::vec2 position) override;
+    void SetPosition(glm::vec4 position) override;
 
     void SetPosition(float x, float y, bool emit) override;
 
@@ -68,9 +67,9 @@ public:
 
     void SetY(float y) override;
 
-    void SetTranslate(glm::vec2 offset, bool emit) override;
+    void SetTranslate(glm::vec4 offset, bool emit) override;
 
-    void SetTranslate(glm::vec2 offset) override;
+    void SetTranslate(glm::vec4 offset) override;
 
     void SetTranslateX(float x, bool emit) override;
 
@@ -80,21 +79,21 @@ public:
 
     void SetTranslateY(float y) override;
 
-    glm::vec2 GetTranslate() override;
+    glm::vec4 GetTranslate() override;
 
     float GetTranslateX() override;
 
     float GetTranslateY() override;
 
-    glm::vec2 GetSize() override;
+    glm::vec4 GetSize() override;
 
     float GetWidth() override;
 
     float GetHeight() override;
 
-    void SetSize(glm::vec2 size, bool emit) override;
+    void SetSize(glm::vec4 size, bool emit) override;
 
-    void SetSize(glm::vec2 size) override;
+    void SetSize(glm::vec4 size) override;
 
     void SetSize(float width, float height, bool emit) override;
 

@@ -5,9 +5,9 @@
 #include "EllipseProxy.h"
 #include "EventMoveInfo.h"
 
-glm::vec2 EllipseProxy::GetPosition()
+glm::vec4 EllipseProxy::GetPosition()
 {
-    return glm::vec2{0};
+    return glm::vec4();
 }
 
 float EllipseProxy::GetX()
@@ -30,17 +30,17 @@ float EllipseProxy::GetAbsoluteY()
     return 0;
 }
 
-glm::vec2 EllipseProxy::GetAbsolutePosition()
+glm::vec4 EllipseProxy::GetAbsolutePosition()
 {
-    return glm::vec2{0};
+    return glm::vec4();
 }
 
-void EllipseProxy::SetPosition(glm::vec2 position, bool emit)
+void EllipseProxy::SetPosition(glm::vec4 position, bool emit)
 {
 
 }
 
-void EllipseProxy::SetPosition(glm::vec2 position)
+void EllipseProxy::SetPosition(glm::vec4 position)
 {
 
 }
@@ -75,12 +75,12 @@ void EllipseProxy::SetY(float y)
 
 }
 
-void EllipseProxy::SetTranslate(glm::vec2 offset, bool emit)
+void EllipseProxy::SetTranslate(glm::vec4 offset, bool emit)
 {
 
 }
 
-void EllipseProxy::SetTranslate(glm::vec2 offset)
+void EllipseProxy::SetTranslate(glm::vec4 offset)
 {
 
 }
@@ -105,9 +105,9 @@ void EllipseProxy::SetTranslateY(float y)
 
 }
 
-glm::vec2 EllipseProxy::GetTranslate()
+glm::vec4 EllipseProxy::GetTranslate()
 {
-    return glm::vec2{0};;
+    return glm::vec4();;
 }
 
 float EllipseProxy::GetTranslateX()

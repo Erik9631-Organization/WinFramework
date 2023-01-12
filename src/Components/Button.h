@@ -30,36 +30,36 @@ public:
 	/**
 	 * \param color sets the color of the border.
 	 */
-	void SetBorderColor(Vector3 color);
+	void SetBorderColor(glm::vec3 color);
 
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackgroundColor(Vector3 color);
+	void SetBackgroundColor(glm::vec3 color);
 
 
 	/**
 	 * \return returns the background color of the thumbTrack.
 	 */
-    Vector3 GetBackgroundColor();
+    glm::vec3 GetBackgroundColor();
 
 	/*
 	 * \return returns the border color of the thumbTrack.
 	 */
-    Vector3 GetBorderColor();
+    glm::vec3 GetBorderColor();
 
 
 	/**
 	 * \param thickness sets the border thickness of the thumbTrack.
 	 */
 	void SetBorderThickness(float thickness);
-	void SetOnHoverColor(Vector3 color);
-	void SetOnClickColor(Vector3 color);
-	void SetColor(Vector3 color);
-	Vector3 GetColor();
+	void SetOnHoverColor(glm::vec3 color);
+	void SetOnClickColor(glm::vec3 color);
+	void SetColor(glm::vec3 color);
+	glm::vec3 GetColor();
 
-	Vector3 GetOnClickColor();
-	Vector3 GetOnHoverColor();
+	glm::vec3 GetOnClickColor();
+	glm::vec3 GetOnHoverColor();
 	~Button();
 };
 

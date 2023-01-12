@@ -27,12 +27,12 @@ void LineProxy::SetWidth(float width)
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
-const glm::vec2 &LineProxy::GetStartPoint()
+const glm::vec4 & LineProxy::GetStartPoint()
 {
     return lineModel->GetStartPoint();
 }
 
-const glm::vec2 &LineProxy::GetEndPoint()
+const glm::vec4 & LineProxy::GetEndPoint()
 {
     return lineModel->GetEndPoint();
 }

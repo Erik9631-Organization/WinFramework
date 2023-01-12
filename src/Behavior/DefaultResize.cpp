@@ -2,7 +2,6 @@
 #include "EventTypes/EventResizeInfo.h"
 #include "Events/ResizeSubscriber.h"
 #include "../GenericObj.h"
-#include "vec2.hpp"
 
 DefaultResize::DefaultResize(Resizable& resizeComponent) : associatedResizable(resizeComponent)
 {
@@ -30,7 +29,7 @@ void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     }
 }
 
-glm::vec2 DefaultResize::GetSize()
+glm::vec4 DefaultResize::GetSize()
 {
     return size;
 }
@@ -45,7 +44,7 @@ float DefaultResize::GetHeight()
     return size.y;
 }
 
-void DefaultResize::SetSize(glm::vec2 size, bool emit)
+void DefaultResize::SetSize(glm::vec4 size, bool emit)
 {
     this->size = size;
     if(emit)
@@ -54,7 +53,7 @@ void DefaultResize::SetSize(glm::vec2 size, bool emit)
 
 void DefaultResize::SetSize(float width, float height, bool emit)
 {
-    SetSize({width, height}, emit);
+    SetSize({width, height, 0, 0}, emit);
 }
 
 void DefaultResize::SetWidth(float width, bool emit)
@@ -67,7 +66,7 @@ void DefaultResize::SetHeight(float height, bool emit)
     SetSize(size.x, height, emit);
 }
 
-void DefaultResize::SetSize(glm::vec2 size)
+void DefaultResize::SetSize(glm::vec4 size)
 {
     SetSize(size, true);
 }

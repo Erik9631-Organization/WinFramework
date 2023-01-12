@@ -113,7 +113,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_MOVE:
     {
-        auto pos = glm::vec2((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]);
+        auto pos = glm::vec4((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1], 0, 0);
         EventMoveInfo e = {pos, nullptr};
         NotifyCoreOnMove(e);
         //wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
@@ -124,7 +124,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
-        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height}, nullptr};
+        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
@@ -378,7 +378,7 @@ void WindowsCore::UpdateGlobalInputState()
     InputManager::globalInput->SetMouseDeltaPosition(mouseDelta);
 }
 
-void WindowsCore::SetLockCursorSize(const glm::vec2 &size)
+void WindowsCore::SetLockCursorSize(const glm::vec4 &size)
 {
     lockCursorSize = size;
 }

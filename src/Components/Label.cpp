@@ -15,13 +15,13 @@ Label::Label(int x, int y, int width, int height, std::string name) : UiElement(
     AddRenderCommander(text);
 }
 
-void Label::SetBackground(Vector3 color)
+void Label::SetBackground(glm::vec3 color)
 {
 	background.SetColor(color);
 	//Repaint();
 }
 
-Vector3 Label::GetBackground()
+glm::vec3 Label::GetBackground()
 {
 	return background.GetColor();
 }
