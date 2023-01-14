@@ -168,7 +168,7 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
-        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, false);
+        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, 0, 0, false);
         associatedScrollbar.SetHeight(e.GetSize().y, false);
     }
     else

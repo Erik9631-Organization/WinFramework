@@ -82,7 +82,7 @@ GdiRenderingApi::GdiRenderingApi(std::unique_ptr<Graphics> graphics)
     brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
 }
 
-void GdiRenderingApi::SetColor(const glm::vec4 &color)
+void GdiRenderingApi::SetColor(const glm::ivec4 &color)
 {
     BYTE a = (BYTE)color.w;
     BYTE r = (BYTE)color.x;
@@ -93,7 +93,7 @@ void GdiRenderingApi::SetColor(const glm::vec4 &color)
     pen->SetColor(inputColor);
 }
 
-void GdiRenderingApi::SetColor(const glm::vec3 &color)
+void GdiRenderingApi::SetColor(const glm::ivec3 &color)
 {
     Color inputColor {(BYTE)color.x, (BYTE)color.y, (BYTE)color.z};
     brush->SetColor(inputColor);

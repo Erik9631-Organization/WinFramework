@@ -23,7 +23,7 @@ void Grid::AddRow()
 		//CreateElement last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
         cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex), false); // First position
-        cell->SetPosition(i, lastRowIndex, false); // Then size since position is dependent on size
+        cell->SetPosition(i, lastRowIndex, 0, 0, false); // Then size since position is dependent on size
 	}
 	if (autoExtend == false)
 		return;

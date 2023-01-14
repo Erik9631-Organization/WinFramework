@@ -22,7 +22,7 @@ class SimpleBorder : public RenderCommander, public Reflectable<SimpleBorder>
 private:
 	//Field map
 	DefaultRender renderBehavior;
-	glm::vec4 color;
+	glm::ivec4 color;
 
 	ScalingUtil2D graphicsUtil;
 	float thickness;
@@ -34,10 +34,10 @@ public:
 	ReflectionContainer<SimpleBorder> reflectionContainer;
 	SimpleBorder(); 
 	~SimpleBorder();
-	void SetColor(glm::vec3 color);
-	void SetColor(glm::vec4 color);
-	glm::vec3 GetColor();
-	glm::vec4 GetColorRGBA();
+	void SetColor(glm::ivec3 color);
+	void SetColor(glm::ivec4 color);
+	glm::ivec3 GetColor();
+	glm::ivec4 GetColorRGBA();
 	void SetThickness(float thickness);
 	void DrawFromCenterY(bool state);
 	void DrawFromCenterX(bool state);

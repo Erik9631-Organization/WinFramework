@@ -36,6 +36,24 @@ float RectangleProxy::GetY()
     return it->second->GetData<glm::vec4>().y;
 }
 
+float RectangleProxy::GetZ()
+{
+    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
+    if(it == copyOnWriteMap.end())
+        return model->GetZ();
+
+    return it->second->GetData<glm::vec4>().z;
+}
+
+float RectangleProxy::GetW()
+{
+    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
+    if(it == copyOnWriteMap.end())
+        return model->GetW();
+
+    return it->second->GetData<glm::vec4>().w;
+}
+
 void RectangleProxy::SetPosition(glm::vec4 position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position);
@@ -49,34 +67,54 @@ void RectangleProxy::SetPosition(glm::vec4 position)
     SetPosition(position, true);
 }
 
-void RectangleProxy::SetPosition(float x, float y, bool emit)
+void RectangleProxy::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    SetPosition({x, y, 0, 0}, emit);
+    SetPosition({x, y, z, w}, emit);
 }
 
-void RectangleProxy::SetPosition(float x, float y)
+void RectangleProxy::SetPosition(float x, float y, float z, float w)
 {
-    SetPosition(x, y, true);
+    SetPosition(x, y, z, w, true);
 }
 
 void RectangleProxy::SetX(float x, bool emit)
 {
-    SetPosition(x, model->GetY(), emit);
+    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), emit);
 }
 
 void RectangleProxy::SetX(float x)
 {
-    SetPosition(x, false);
+    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), true);
 }
 
 void RectangleProxy::SetY(float y, bool emit)
 {
-    SetPosition(model->GetX(),y , emit);
+    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), emit);
 }
 
 void RectangleProxy::SetY(float y)
 {
-    SetPosition(model->GetX(), y, false);
+    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), true);
+}
+
+void RectangleProxy::SetZ(float z, bool emit)
+{
+    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), emit);
+}
+
+void RectangleProxy::SetZ(float z)
+{
+    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), true);
+}
+
+void RectangleProxy::SetW(float w, bool emit)
+{
+    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, emit);
+}
+
+void RectangleProxy::SetW(float w)
+{
+    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, true);
 }
 
 void RectangleProxy::SetTranslate(glm::vec4 offset, bool emit)
@@ -224,9 +262,7 @@ void RectangleProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
             break;
         }
     }
-
 }
-
 
 void RectangleProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
 {

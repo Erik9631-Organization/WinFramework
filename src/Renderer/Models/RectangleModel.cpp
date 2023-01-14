@@ -23,6 +23,14 @@ float RectangleModel::GetY()
     return movableBehavior.GetY();
 }
 
+float RectangleModel::GetZ() {
+    return movableBehavior.GetZ();
+}
+
+float RectangleModel::GetW() {
+    return movableBehavior.GetW();
+}
+
 float RectangleModel::GetAbsoluteX()
 {
     return movableBehavior.GetAbsoluteX();
@@ -48,14 +56,14 @@ void RectangleModel::SetPosition(glm::vec4 position)
     movableBehavior.SetPosition(position);
 }
 
-void RectangleModel::SetPosition(float x, float y, bool emit)
+void RectangleModel::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    movableBehavior.SetPosition(x, y, emit);
+    movableBehavior.SetPosition(x, y, z, w, emit);
 }
 
-void RectangleModel::SetPosition(float x, float y)
+void RectangleModel::SetPosition(float x, float y, float z, float w)
 {
-    movableBehavior.SetPosition(x, y);
+    movableBehavior.SetPosition(x, y, 0, 0);
 }
 
 void RectangleModel::SetX(float x, bool emit)
@@ -76,6 +84,26 @@ void RectangleModel::SetY(float y, bool emit)
 void RectangleModel::SetY(float y)
 {
     movableBehavior.SetY(y);
+}
+
+void RectangleModel::SetZ(float z, bool emit)
+{
+    movableBehavior.SetZ(z, emit);
+}
+
+void RectangleModel::SetZ(float z)
+{
+    movableBehavior.SetZ(z);
+}
+
+void RectangleModel::SetW(float w, bool emit)
+{
+    movableBehavior.SetW(w, emit);
+}
+
+void RectangleModel::SetW(float w)
+{
+    movableBehavior.SetW(w);
 }
 
 void RectangleModel::SetTranslate(glm::vec4 offset, bool emit)
@@ -230,7 +258,7 @@ void RectangleModel::SetColor(const glm::vec4 &color)
     this->color = color;
 }
 
-const glm::vec4 & RectangleModel::GetColor() const
+const glm::ivec4 & RectangleModel::GetColor() const
 {
     return color;
 }

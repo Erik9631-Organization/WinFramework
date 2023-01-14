@@ -26,6 +26,18 @@ public:
 	 */
 	virtual float GetY() = 0;
 
+    /**
+     * Gets the Z position of the object
+     * \return returns Z position of the object as an integer.
+     */
+    virtual float GetZ() = 0;
+
+    /**
+     * Gets the W position of the object
+     * \return returns W position of the object as an integer.
+     */
+    virtual float GetW() = 0;
+
 	/**
 	 * Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent.
 	 * \return returns X absolute position of the object as an integer.
@@ -56,8 +68,8 @@ public:
 	 * \param x sets the X position of the object.
 	 * \param y sets the Y position of the object.
 	 */
-	virtual void SetPosition(float x, float y, bool emit) = 0;
-    virtual void SetPosition(float x, float y) = 0;
+	virtual void SetPosition(float x, float y, float z, float w, bool emit) = 0;
+    virtual void SetPosition(float x, float y, float z, float w) = 0;
 
 	/**
 	 * Sets the position of the object.
@@ -73,6 +85,19 @@ public:
 	virtual void SetY(float y, bool emit) = 0;
     virtual void SetY(float y) = 0;
 
+    /**
+     * Sets the position of the object.
+     * \param z sets the Z position of the object.
+     */
+    virtual void SetZ(float z, bool emit) = 0;
+    virtual void SetZ(float z) = 0;
+
+    /**
+     * Sets the position of the object.
+     * \param w sets the W position of the object.
+     */
+    virtual void SetW(float w, bool emit) = 0;
+    virtual void SetW(float w) = 0;
 
 	/**
 	 * Sets position from the current position

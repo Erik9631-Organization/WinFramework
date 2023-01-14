@@ -20,6 +20,16 @@ float MovableModelBehavior::GetY()
     return position.y;
 }
 
+float MovableModelBehavior::GetZ()
+{
+    return position.z;
+}
+
+float MovableModelBehavior::GetW()
+{
+    return position.w;
+}
+
 float MovableModelBehavior::GetAbsoluteX()
 {
     return position.x;
@@ -45,34 +55,55 @@ void MovableModelBehavior::SetPosition(glm::vec4 position)
     SetPosition(position, true);
 }
 
-void MovableModelBehavior::SetPosition(float x, float y, bool emit)
+void MovableModelBehavior::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    SetPosition({x, y, 0, 0}, emit);
+    SetPosition({x, y, 0, 1}, emit);
 }
 
-void MovableModelBehavior::SetPosition(float x, float y)
+///TODO: add Z and W to params
+void MovableModelBehavior::SetPosition(float x, float y, float z, float w)
 {
-    SetPosition({x, y, 0, 0});
+    SetPosition({x, y, 0, 1});
 }
 
 void MovableModelBehavior::SetX(float x, bool emit)
 {
-    SetPosition({x, position.x, 0, 0}, emit);
+    SetPosition({x, position.x, position.z, position.w}, emit);
 }
 
 void MovableModelBehavior::SetX(float x)
 {
-    SetPosition({x, position.x, 0, 0});
+    SetPosition({x, position.x, position.z, position.w});
 }
 
 void MovableModelBehavior::SetY(float y, bool emit)
 {
-    SetPosition({position.x, y, 0, 0}, emit);
+    SetPosition({position.x, y, position.z, position.w}, emit);
 }
 
 void MovableModelBehavior::SetY(float y)
 {
-    SetPosition({position.x, y, 0, 0});
+    SetPosition({position.x, y, position.z, position.w});
+}
+
+void MovableModelBehavior::SetZ(float z, bool emit)
+{
+    SetPosition({position.x, position.y, z, position.w}, emit);
+}
+
+void MovableModelBehavior::SetZ(float z)
+{
+    SetPosition({position.x, position.y, z, position.w});
+}
+
+void MovableModelBehavior::SetW(float w, bool emit)
+{
+    SetPosition({position.x, position.y, position.z, w}, emit);
+}
+
+void MovableModelBehavior::SetW(float w)
+{
+    SetPosition({position.x, position.y, position.z, w});
 }
 
 void MovableModelBehavior::SetTranslate(glm::vec4 offset, bool emit)

@@ -22,7 +22,7 @@ private:
 	DefaultRender renderBehavior;
 	std::wstring fontFamily;
     glm::vec4 position;
-	glm::vec4 color;
+	glm::ivec4 color;
 	ScalingUtil2D graphicsUtil;
 
 	ReflectionContainer<Text> reflectionContainer;
@@ -44,7 +44,7 @@ public:
 	Text(std::string fontFamily);
 	void SetText(std::wstring text);
 	std::wstring GetText();
-	virtual void SetColor(glm::vec3 color);
+	virtual void SetColor(glm::ivec3 color);
 	virtual void SetFontSize(float fontSize);
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	virtual void Repaint() override;

@@ -7,8 +7,8 @@ class TableElement : public Label
 private:
 	bool selected = false;
 	std::any value;
-	glm::vec3 highlightColor;
-	glm::vec3 originalcolor;
+	glm::ivec3 highlightColor;
+	glm::ivec3 originalcolor;
 public:
 	TableElement();
 	TableElement(std::string name);

@@ -30,9 +30,9 @@ public:
 
     void SetPosition(glm::vec4 position) override;
 
-    void SetPosition(float x, float y, bool emit) override;
+    void SetPosition(float x, float y, float z, float w, bool emit) override;
 
-    void SetPosition(float x, float y) override;
+    void SetPosition(float x, float y, float z, float w) override;
 
     void SetX(float x, bool emit) override;
 

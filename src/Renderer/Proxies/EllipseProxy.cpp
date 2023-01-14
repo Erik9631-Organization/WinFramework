@@ -45,12 +45,12 @@ void EllipseProxy::SetPosition(glm::vec4 position)
 
 }
 
-void EllipseProxy::SetPosition(float x, float y, bool emit)
+void EllipseProxy::SetPosition(float x, float y, float z, float w, bool emit)
 {
 
 }
 
-void EllipseProxy::SetPosition(float x, float y)
+void EllipseProxy::SetPosition(float x, float y, float z, float w)
 {
 
 }

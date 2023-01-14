@@ -52,7 +52,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-    moveBehavior.SetPosition(x, y, false);
+    moveBehavior.SetPosition(x, y, 0, 0, false);
     resizeBehavior.SetSize(width, height, false);
 	this->name = name;
 }
@@ -116,7 +116,7 @@ void UiElement::OnRenderSync(RenderEventInfo e)
 
 void UiElement::OnSync(const DrawData &data)
 {
-    auto parentPos = glm::vec4(0, 0, 0, 0);
+    auto parentPos = glm::vec4(0, 0, 0, 1);
 
     if(!IsRoot())
     {
@@ -605,20 +605,27 @@ float UiElement::GetHeight()
 	return resizeBehavior.GetHeight();
 }
 
-float UiElement::GetX()
-{
-	return moveBehavior.GetX();
-}
-
 MultiTree<std::unique_ptr<UiElement>> & UiElement::GetUiElementNode()
 {
 	return *uiElementNode;
 }
 
+float UiElement::GetX()
+{
+    return moveBehavior.GetX();
+}
 
 float UiElement::GetY()
 {
 	return moveBehavior.GetY();
+}
+
+float UiElement::GetZ() {
+    return moveBehavior.GetZ();
+}
+
+float UiElement::GetW() {
+    return moveBehavior.GetW();
 }
 
 UiElement * UiElement::GetParent()
@@ -647,9 +654,9 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetPosition(float x, float y, bool emit)
+void UiElement::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    moveBehavior.SetPosition(x, y, emit);
+    moveBehavior.SetPosition(x, y, 0, 0, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -721,9 +728,9 @@ void UiElement::SetPosition(glm::vec4 position)
     SetPosition(position, true);
 }
 
-void UiElement::SetPosition(float x, float y)
+void UiElement::SetPosition(float x, float y, float z, float w)
 {
-    SetPosition(x, y, true);
+    SetPosition(x, y, 0, 0, true);
 }
 
 void UiElement::SetX(float x)
@@ -734,6 +741,26 @@ void UiElement::SetX(float x)
 void UiElement::SetY(float y)
 {
     SetY(y, true);
+}
+
+void UiElement::SetZ(float z, bool emit)
+{
+    SetZ(z, emit);
+}
+
+void UiElement::SetZ(float z)
+{
+    SetZ(z);
+}
+
+void UiElement::SetW(float w, bool emit)
+{
+    SetW(w, emit);
+}
+
+void UiElement::SetW(float w)
+{
+    SetZ(w);
 }
 
 void UiElement::SetTranslate(glm::vec4 offset)

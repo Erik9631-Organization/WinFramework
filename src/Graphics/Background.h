@@ -15,7 +15,7 @@ class Background : public RenderCommander, public Reflectable<Background>
 {
 private:
 	DefaultRender renderBehavior;
-	glm::vec4 currentColor;
+	glm::ivec4 currentColor;
 	ReflectionContainer<Background> reflectionContainer;
     glm::vec4 position;
 	ScalingUtil2D graphicsUtil;

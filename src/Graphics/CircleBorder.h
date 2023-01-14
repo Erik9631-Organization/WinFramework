@@ -13,7 +13,7 @@ protected:
 
     ScalingUtil2D graphicsUtil;
 	DefaultRender renderBehavior;
-	glm::vec4 color;
+	glm::ivec4 color;
 	DrawData2D drawData;
 
 public:
@@ -24,8 +24,8 @@ public:
 	~CircleBorder();
 	void SetDiameter(float diameter);
 	void SetThickness(float thickness);
-	void SetColor(glm::vec3 color);
-	void SetColor(glm::vec4 color);
+	void SetColor(glm::ivec3 color);
+	void SetColor(glm::ivec4 color);
 
 	glm::vec4 GetPosition();
 	void SetPosition(glm::vec4 point);

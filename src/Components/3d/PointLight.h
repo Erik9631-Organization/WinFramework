@@ -18,8 +18,8 @@ public:
     const bool & GetEnabled() const override;
     void OnRender(const RenderObjectEventInfo *renderObjectEventInfo) override;
     const int &GetPriority() override;
-    const glm::vec4 GetColor() const override;
-    void SetColor(const glm::vec4 &color) override;
+    const glm::ivec4 GetColor() const override;
+    void SetColor(const glm::ivec4 &color) override;
 private:
     glm::vec4 color;
     static IdManager idManager;

@@ -54,7 +54,7 @@ public:
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
 
-	void SetPosition(float x, float y, bool emit) override;
+	void SetPosition(float x, float y, float z, float w, bool emit) override;
 	void SetPosition(glm::vec4 point, bool emit) override;
 
     void NotifyOnKeyDown(EventKeyStateInfo e) override;

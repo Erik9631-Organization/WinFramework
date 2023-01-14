@@ -56,8 +56,8 @@ public:
     void DrawFillEllipse(glm::vec4 pos, glm::vec4 size) override;
     void DrawFillRectangle(float x, float y, float width, float height) override;
     void DrawFillRectangle(glm::vec4 pos, glm::vec4 size) override;
-    void SetColor(const glm::vec4 &color) override;
-    void SetColor(const glm::vec3 &color) override;
+    void SetColor(const glm::ivec4 &color) override;
+    void SetColor(const glm::ivec3 &color) override;
     void SetThickness(float thickness) override;
     void SetFontFamily(std::wstring fontFamily) override;
     void SetFontSize(float fontSize) override;

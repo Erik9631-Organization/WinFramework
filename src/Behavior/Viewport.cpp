@@ -110,6 +110,16 @@ float Viewport::GetY()
     return moveBehavior.GetY();
 }
 
+float Viewport::GetZ()
+{
+    return moveBehavior.GetZ();
+}
+
+float Viewport::GetW()
+{
+    return moveBehavior.GetW();
+}
+
 float Viewport::GetAbsoluteX()
 {
     return absolutePosition.x;
@@ -130,9 +140,9 @@ void Viewport::SetPosition(glm::vec4 position, bool emit)
     moveBehavior.SetPosition(position, emit);
 }
 
-void Viewport::SetPosition(float x, float y, bool emit)
+void Viewport::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    moveBehavior.SetPosition(x, y, emit);
+    moveBehavior.SetPosition(x, y, 0, 0, emit);
 }
 
 void Viewport::SetX(float x, bool emit)
@@ -198,7 +208,7 @@ void Viewport::SetHeight(float height, bool emit)
 void Viewport::OnUpdate(EventUpdateInfo e)
 {
     CalculateAbsolutePosition(moveBehavior.GetPosition());
-    CalculateAbsoluteSize(resizeBehavior.GetSize());
+    CalculateAbsoluteSize({resizeBehavior.GetSize().x, resizeBehavior.GetSize().y, 0, 1});
 }
 
 void Viewport::SetTranslate(glm::vec4 offset, bool emit)
@@ -236,9 +246,9 @@ void Viewport::SetPosition(glm::vec4 position)
     SetPosition(position, true);
 }
 
-void Viewport::SetPosition(float x, float y)
+void Viewport::SetPosition(float x, float y, float z, float w)
 {
-    SetPosition(x, y, true);
+    SetPosition(x, y, z,w , true);
 }
 
 void Viewport::SetX(float x)
@@ -249,6 +259,26 @@ void Viewport::SetX(float x)
 void Viewport::SetY(float y)
 {
     SetY(y, true);
+}
+
+void Viewport::SetZ(float z, bool emit)
+{
+    SetZ(z, emit);
+}
+
+void Viewport::SetZ(float z)
+{
+    SetZ(z, true);
+}
+
+void Viewport::SetW(float w, bool emit)
+{
+    SetW(w, emit);
+}
+
+void Viewport::SetW(float w)
+{
+    SetW(w, true);
 }
 
 void Viewport::SetTranslate(glm::vec4 offset)

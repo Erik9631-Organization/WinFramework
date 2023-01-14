@@ -55,7 +55,7 @@ public:
 	virtual float GetAbsoluteY() override;
 	virtual glm::vec4 GetAbsolutePosition() override;
 	virtual void SetPosition(glm::vec4 position, bool emit) override;
-	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
 
@@ -90,7 +90,7 @@ public:
 
     void SetPosition(glm::vec4 position) override;
 
-    void SetPosition(float x, float y) override;
+    void SetPosition(float x, float y, float z, float w) override;
 
     void SetX(float x) override;
 
@@ -109,6 +109,18 @@ public:
     void SetWidth(float width) override;
 
     void SetHeight(float height) override;
+
+    float GetZ() override;
+
+    float GetW() override;
+
+    void SetZ(float z, bool emit) override;
+
+    void SetZ(float z) override;
+
+    void SetW(float w, bool emit) override;
+
+    void SetW(float w) override;
 
 };
 

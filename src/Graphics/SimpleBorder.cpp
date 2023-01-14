@@ -11,8 +11,8 @@ SimpleBorder::SimpleBorder() :
     graphicsUtil(position, size)
 {
 	//Set up meta data
-	reflectionContainer.RegisterMethod<glm::vec3>("border-color", "SetColor", &SimpleBorder::SetColor);
-	reflectionContainer.RegisterMethod<glm::vec4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<glm::ivec3>("border-color", "SetColor", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<glm::ivec4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
 
 
@@ -26,12 +26,12 @@ SimpleBorder::~SimpleBorder()
 
 }
 
-void SimpleBorder::SetColor(glm::vec3 color)
+void SimpleBorder::SetColor(glm::ivec3 color)
 {
 	this->color = {color.x, color.y, color.z, 255};
 }
 
-glm::vec3 SimpleBorder::GetColor()
+glm::ivec3 SimpleBorder::GetColor()
 {
 	return {color.x, color.y, color.z};
 }
@@ -193,12 +193,12 @@ float SimpleBorder::GetHeight()
     return size.y;
 }
 
-void SimpleBorder::SetColor(glm::vec4 color)
+void SimpleBorder::SetColor(glm::ivec4 color)
 {
     this->color = color;
 }
 
-glm::vec4 SimpleBorder::GetColorRGBA()
+glm::ivec4 SimpleBorder::GetColorRGBA()
 {
     return color;
 }

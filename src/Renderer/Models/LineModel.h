@@ -10,7 +10,7 @@
 class LineModel : public RenderingModel
 {
 private:
-    glm::vec4 color;
+    glm::ivec4 color;
     glm::vec4 startPoint;
     glm::vec4 endPoint;
     Renderer* renderingProvider;

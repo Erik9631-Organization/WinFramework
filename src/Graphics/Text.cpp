@@ -56,7 +56,7 @@ glm::vec4 Text::GetPosition()
     return position;
 }
 
-void Text::SetColor(glm::vec3 color)
+void Text::SetColor(glm::ivec3 color)
 {
     this->color = {color.x, color.y, color.z, 255};
 }

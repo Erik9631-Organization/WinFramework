@@ -64,7 +64,7 @@ float CircleBorder::GetThickness()
     return thickness;
 }
 
-void CircleBorder::SetColor(glm::vec3 color)
+void CircleBorder::SetColor(glm::ivec3 color)
 {
     this->color = {color.x, color.y, color.z, 255};
 }
@@ -159,7 +159,7 @@ float CircleBorder::GetY()
     return position.y;
 }
 
-void CircleBorder::SetColor(glm::vec4 color)
+void CircleBorder::SetColor(glm::ivec4 color)
 {
     this->color = color;
 }

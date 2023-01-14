@@ -12,8 +12,8 @@ class TextInputBehavior : public KeyStateSubscriber, public ActivateSubscriber
 private:
 	bool multiLineEnabled = false;
 	UiElement& associatedTextInput;
-	glm::vec4 originalColor;
-	glm::vec4 activeColor;
+	glm::ivec4 originalColor;
+	glm::ivec4 activeColor;
 	void InsertCharacter(EventKeyStateInfo e);
 	void SetActiveBackground();
 	void SetInactiveBackground();

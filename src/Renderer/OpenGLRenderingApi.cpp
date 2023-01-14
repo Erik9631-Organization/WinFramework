@@ -89,12 +89,12 @@ void OpenGLRenderingApi::DrawFillRectangle(glm::vec4 pos, glm::vec4 size)
     //lastShape->UpdateUniform();
 }
 
-void OpenGLRenderingApi::SetColor(const glm::vec4 &color)
+void OpenGLRenderingApi::SetColor(const glm::ivec4 &color)
 {
     lastColor = {color.x/255, color.y/255, color.z/255, color.w/255};
 }
 
-void OpenGLRenderingApi::SetColor(const glm::vec3 &color)
+void OpenGLRenderingApi::SetColor(const glm::ivec3 &color)
 {
     lastColor = {color.x/255, color.y/255, color.z/255, 1.0f};
 

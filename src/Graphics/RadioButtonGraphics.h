@@ -11,7 +11,7 @@ private:
 	CircleBackground fill;
 	CircleBorder border;
 	bool fillEnabled = false;
-	glm::vec4 fillBackground;
+	glm::ivec4 fillBackground;
 	float fillPadding = 0;
 	void UpdateFill();
 
@@ -19,11 +19,11 @@ public:
 	RadioButtonGraphics();
 	void SetFillEnabled(bool state);
 	void SetThickness(float thickness);
-	void SetBorderColor(glm::vec3 borderColor);
-	void SetFillColor(glm::vec3 color);
+	void SetBorderColor(glm::ivec3 borderColor);
+	void SetFillColor(glm::ivec3 color);
 
-	void SetBorderColor(glm::vec4 borderColor);
-	void SetFillColor(glm::vec4 color);
+	void SetBorderColor(glm::ivec4 borderColor);
+	void SetFillColor(glm::ivec4 color);
 
 	void SetDiameter(float Diameter);
 	float GetFillPadding();

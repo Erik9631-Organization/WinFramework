@@ -3,7 +3,7 @@
 #include "EventTypes/EventResizeInfo.h"
 #include "EventTypes/EventMoveInfo.h"
 #include "GridSpan.h"
-#include "glm.hpp"
+#include "vec2.hpp"
 
 class Grid;
 
@@ -22,18 +22,18 @@ private:
 	Grid& parentGrid;
 	Adjustable* associatedAdjustable = nullptr;
 
-    glm::vec4 cellSize;
-	glm::ivec4 indexPos;
-    glm::vec4 position;
-	glm::ivec4 CalculatePixelPosition();;
+    glm::vec2 cellSize;
+	glm::ivec2 indexPos;
+    glm::vec2 position;
+    glm::ivec2 CalculatePixelPosition();;
 
 	GridSpan span;
 
-	glm::ivec4 GetSpanSize();
+	glm::ivec2 GetSpanSize();
 
     void SetPosition(glm::vec4 position) override;
 
-    void SetPosition(float x, float y) override;
+    void SetPosition(float x, float y, float z, float w) override;
 
     void SetX(float x) override;
 
@@ -69,38 +69,44 @@ public:
 	bool IsSpanParent();
 
 
-	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual glm::vec4 GetSize() override;
-	virtual float GetWidth() override;
-	virtual float GetHeight() override;
-	virtual void SetSize(glm::vec4 size, bool emit) override;
-	virtual void SetSize(float width, float height, bool emit) override;
-	virtual void SetWidth(float width, bool emit) override;
-	virtual void SetHeight(float height, bool emit) override;
-	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual glm::vec4 GetPosition() override;
-	virtual float GetX() override;
-	virtual float GetY() override;
-	virtual float GetAbsoluteX() override;
-	virtual float GetAbsoluteY() override;
-	virtual glm::vec4 GetAbsolutePosition() override;
-	virtual void SetPosition(glm::vec4 position, bool emit) override;
-	virtual void SetPosition(float x, float y, bool emit) override;
-	virtual void SetX(float x, bool emit) override;
-	virtual void SetY(float y, bool emit) override;
-	virtual void SetTranslate(glm::vec4 offset, bool emit) override;
-	virtual void SetTranslateX(float x, bool emit) override;
-	virtual void SetTranslateY(float y, bool emit) override;
-	virtual glm::vec4 GetTranslate() override;
-	virtual float GetTranslateX() override;
-	virtual float GetTranslateY() override;
-	virtual void OnUpdate(EventUpdateInfo e) override;
+	void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+	void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+	void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+	glm::vec4 GetSize() override;
+	float GetWidth() override;
+	float GetHeight() override;
+	void SetSize(glm::vec4 size, bool emit) override;
+	void SetSize(float width, float height, bool emit) override;
+	void SetWidth(float width, bool emit) override;
+	void SetHeight(float height, bool emit) override;
+	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
+	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
+	void NotifyOnMoveSubscribers(EventMoveInfo event) override;
+	glm::vec4 GetPosition() override;
+	float GetX() override;
+	float GetY() override;
+    float GetZ() override;
+    float GetW() override;
+	float GetAbsoluteX() override;
+	float GetAbsoluteY() override;
+	glm::vec4 GetAbsolutePosition() override;
+	void SetPosition(glm::vec4 position, bool emit) override;
+	void SetPosition(float x, float y, float z, float w, bool emit) override;
+	void SetX(float x, bool emit) override;
+	void SetY(float y, bool emit) override;
+    void SetZ(float z, bool emit) override;
+    void SetZ(float z) override;
+    void SetW(float w, bool emit) override;
+    void SetW(float w) override;
+	void SetTranslate(glm::vec4 offset, bool emit) override;
+	void SetTranslateX(float x, bool emit) override;
+	void SetTranslateY(float y, bool emit) override;
+	glm::vec4 GetTranslate() override;
+	float GetTranslateX() override;
+	float GetTranslateY() override;
+	void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();
-	glm::vec4 GetPixelPosition();
+	glm::vec2 GetPixelPosition();
 };
 

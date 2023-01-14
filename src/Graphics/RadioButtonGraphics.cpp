@@ -45,12 +45,12 @@ void RadioButtonGraphics::SetPosition(glm::vec4 position)
 }
 
 
-void RadioButtonGraphics::SetBorderColor(glm::vec3 borderColor)
+void RadioButtonGraphics::SetBorderColor(glm::ivec3 borderColor)
 {
 	border.SetColor(borderColor);
 }
 
-void RadioButtonGraphics::SetFillColor(glm::vec3 color)
+void RadioButtonGraphics::SetFillColor(glm::ivec3 color)
 {
 	fillBackground = {color.x, color.y, color.z, 0};
 	fill.SetColor(color);
@@ -185,12 +185,12 @@ void RadioButtonGraphics::SetDrawFromCenterX(bool drawFromCenterX)
     fill.SetDrawFromCenterX(drawFromCenterX);
 }
 
-void RadioButtonGraphics::SetBorderColor(glm::vec4 borderColor)
+void RadioButtonGraphics::SetBorderColor(glm::ivec4 borderColor)
 {
     border.SetColor(borderColor);
 }
 
-void RadioButtonGraphics::SetFillColor(glm::vec4 color)
+void RadioButtonGraphics::SetFillColor(glm::ivec4 color)
 {
     fill.SetColor(color);
 }

@@ -151,7 +151,7 @@ public:
 	 */
 	void SetComponentName(std::string name);
 
-	virtual void SetPosition(float x, float y, bool emit) override;
+	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
 	virtual void SetPosition(glm::vec4 pos, bool emit) override;
 
 	/**
@@ -346,7 +346,7 @@ public:
 
     void SetPosition(glm::vec4 position) override;
 
-    void SetPosition(float x, float y) override;
+    void SetPosition(float x, float y, float z, float w) override;
 
     void SetX(float x) override;
 
@@ -376,4 +376,16 @@ public:
     * Called by the TopMost component added to the Presenter to notify the others that they have a presenter.
     */
     void OnMounted(Presenter &presenter) override;
+
+    float GetZ() override;
+
+    float GetW() override;
+
+    void SetZ(float z, bool emit) override;
+
+    void SetZ(float z) override;
+
+    void SetW(float w, bool emit) override;
+
+    void SetW(float w) override;
 };

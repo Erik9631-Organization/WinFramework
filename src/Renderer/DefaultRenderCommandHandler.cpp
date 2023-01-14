@@ -69,7 +69,6 @@ void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::
     this->ReceiveCommand(std::move(message));
 }
 
-
 void DefaultRenderCommandHandler::RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
@@ -122,14 +121,12 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
     }
 }
 
-
 void DefaultRenderCommandHandler::SwapScreenBuffer()
 {
     if(provider == nullptr)
         return;
     RedrawScene();
 }
-
 
 void DefaultRenderCommandHandler::RenderLoop()
 {

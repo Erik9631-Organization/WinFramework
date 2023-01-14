@@ -10,8 +10,6 @@
 #include <glm.hpp>
 
 class FontFormat;
-class Vector4;
-class Vector3;
 class RenderCommander;
 
 namespace OpenGL
@@ -36,8 +34,8 @@ public:
     virtual void DrawFillEllipse(glm::vec4 pos, glm::vec4 size) = 0;
     virtual void DrawFillRectangle(float x, float y, float width, float height) = 0;
     virtual void DrawFillRectangle(glm::vec4 pos, glm::vec4 size) = 0;
-    virtual void SetColor(const glm::vec4 &color) = 0;
-    virtual void SetColor(const glm::vec3 &color) = 0;
+    virtual void SetColor(const glm::ivec4 &color) = 0;
+    virtual void SetColor(const glm::ivec3 &color) = 0;
     virtual void SetClippingRectangle(float x, float y, float width, float height) = 0;
     virtual void SetClippingRectangle(glm::vec4 pos, glm::vec4 size) = 0;
     virtual void SetThickness(float thickness) = 0;

@@ -23,8 +23,8 @@ public:
     std::unique_ptr<Gdiplus::Graphics> graphics;
     GdiRenderingApi(std::unique_ptr<Gdiplus::Graphics> graphics);
     ~GdiRenderingApi();
-    void SetColor(const glm::vec4 &color) override;
-    void SetColor(const glm::vec3 &color) override;
+    void SetColor(const glm::ivec4 &color) override;
+    void SetColor(const glm::ivec3 &color) override;
     void SetThickness(float thickness) override;
     void DrawEllipse(float x, float y, float width, float height) override;
     void DrawEllipse(float x, float y, glm::vec4 vector4) override;
