@@ -7,14 +7,18 @@
 #include "Movable.h"
 #include <vector>
 #include "MoveSubscriber.h"
+#include "Movable.h"
 
 class MovableModelBehavior : public Movable
 {
 private:
-    glm::vec4 position;
+    glm::vec4 position = {0, 0, 0, 0};
     glm::vec4 translation;
     std::vector<MoveSubscriber*> moveSubscribers;
+    Movable& owner;
 public:
+    MovableModelBehavior(Movable& associatedMovable);
+
     glm::vec4 GetPosition() override;
 
     float GetX() override;

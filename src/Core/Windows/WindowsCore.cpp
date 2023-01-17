@@ -158,12 +158,6 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PRINT:
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
-    case repaint_message:
-    if(renderer != nullptr)
-        renderer->SwapScreenBuffer();
-    cout << "Got repaint" << endl;
-    windowInvalidated = false;
-    break;
 	}
     if(cursorLocked)
     {
@@ -189,13 +183,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 
 void WindowsCore::Redraw()
 {
-//    if(renderer != nullptr)
-//        renderer->SwapScreenBuffer();
-    if (!windowInvalidated)
-    {
-        PostMessage(windowHandle, repaint_message, NULL, NULL);
-        windowInvalidated = true;
-    }
+    if(renderer != nullptr)
+        renderer->SwapScreenBuffer();
 }
 
 void WindowsCore::Close()
@@ -389,7 +378,7 @@ void WindowsCore::UpdateLockCursor()
         return;
     if(wrapperFrame == nullptr)
         return;
-
+    cout << "after for" << endl;
     //Calculate the center of the wrapper frame
     lockCursorRegion.left = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
     lockCursorRegion.top = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);

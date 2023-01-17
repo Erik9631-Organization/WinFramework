@@ -13,6 +13,7 @@
 #include "GdiRenderingPool.h"
 #include "ApplicationController.h"
 #include "RectangleModel.h"
+#include <iostream>
 using namespace std;
 using namespace chrono;
 using namespace Gdiplus;
@@ -155,9 +156,29 @@ RenderingModel * GdiRenderer::CreateModel(Commands createCommand)
     {
         case Commands::RequestRectangle:
         {
-            return CreateModel<RectangleModel>();
+            auto model = CreateModel<RectangleModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
         }
         default:
             return nullptr;
     }
+}
+
+void GdiRenderer::OnMove(EventMoveInfo e)
+{
+    auto matches = modelZIndexMap.equal_range(e.GetPrevPosition().z);
+    auto model = dynamic_cast<RenderingModel*>(e.GetSrc());
+    if (model == nullptr)
+        return;
+
+    for(auto it = matches.first; it != matches.second; ++it)
+    {
+        if(it->second == model)
+        {
+            modelZIndexMap.erase(it);
+            break;
+        }
+    }
+    modelZIndexMap.emplace(e.GetPosition().z, model);
 }

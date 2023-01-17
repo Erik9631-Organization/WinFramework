@@ -15,7 +15,7 @@ class RectangleModel : public Movable, public Resizable, public RenderingModel
 private:
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
-    Renderer* rendereringProvider;
+    Renderer* rendereringProvider = nullptr;
     glm::ivec4 color{255, 255, 255, 255};
     bool viewPortSet = false;
     glm::vec4 viewPortSize;
@@ -24,6 +24,8 @@ private:
     size_t id = -1;
 
 public:
+
+    RectangleModel();
 
     void SetViewPort(const glm::vec4 position, const glm::vec4 &size);
 

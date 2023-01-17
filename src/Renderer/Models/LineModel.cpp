@@ -101,5 +101,5 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 
 float LineModel::GetZIndex()
 {
-    return 100000;
+    return startPoint.z;
 }

@@ -16,6 +16,7 @@ private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
     bool render = false;
     bool drawAsync = false;
+    bool invalidated = false;
     void RedrawScene();
 
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);

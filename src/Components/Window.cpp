@@ -175,7 +175,7 @@ void Window::NotifyOnScaleUpdate(std::any src)
 void Window::NotifyOnRedraw(std::any src)
 {
     for(auto subscriber : presenterSubscribers)
-        subscriber->OnRedraw(src);
+        subscriber->Redraw(src);
 }
 
 void Window::NotifyOnClose(std::any src)
@@ -242,7 +242,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
         window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
-        window->backgroundProxy->SetPosition({0, 0, 0, 0});
+        window->backgroundProxy->SetPosition({0, 0, 0, 1});
         window->backgroundProxy->SetColor({255, 255, 255, 255});
         window->backgroundProxy->SetFill(true);
     });
@@ -250,7 +250,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
         window->backgroundProxy->SetSize({100, 100, 0, 0});
-        window->backgroundProxy->SetPosition({50, 100, 0, 0});
+        window->backgroundProxy->SetPosition({50, 100, 0, 1});
         window->backgroundProxy->SetColor({100, 100, 100, 255});
         window->backgroundProxy->SetFill(true);
         glm::vec4 halfSize;
@@ -258,7 +258,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         halfSize.y = window->backgroundProxy->GetSize().y;
 
         window->backgroundProxy->SetViewPort(glm::vec4{50, 100, 0, 0}, halfSize);
-        window->NotifyOnRedraw(std::make_any<Window*>(window));
+        window->coreMediator->Redraw(std::make_any<Presenter *>(window));
     });
     return std::unique_ptr<Window>(window);
 }

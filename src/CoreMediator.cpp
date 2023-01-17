@@ -115,7 +115,7 @@ void CoreMediator::OnScaleUpdate(std::any src)
     core->UpdateScale();
 }
 
-void CoreMediator::OnRedraw(std::any src)
+void CoreMediator::Redraw(std::any src)
 {
     if(core == nullptr)
         return;

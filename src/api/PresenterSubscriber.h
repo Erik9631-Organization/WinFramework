@@ -17,7 +17,7 @@ public:
     virtual void OnAttributesChanged(EventAttributeInfo& e) = 0;
     virtual void OnAttributesRemoved(EventAttributeInfo& e) = 0;
     virtual void OnScaleUpdate(std::any src) = 0;
-    virtual void OnRedraw(std::any src) = 0;
+    virtual void Redraw(std::any src) = 0;
     virtual void OnClose(std::any src) = 0;
     virtual void OnLockCursorSizeChanged(EventResizeInfo& e) = 0;
     virtual void OnCursorLockStateChanged(EventCursorLockInfo& e) = 0;

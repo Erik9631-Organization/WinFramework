@@ -11,6 +11,7 @@
 #include "CreateModelMessage.h"
 #include <algorithm>
 #include <execution>
+#include <iostream>
 #include "ApplicationController.h"
 
 std::future<std::unique_ptr<EllipseProxy>> DefaultRenderCommandHandler::RequestEllipseProxy()
@@ -109,8 +110,17 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
             provider->GetModel(id)->ReceiveCommand(std::move(message));
+
             if(sender!= nullptr)
                 sender->OnRenderMessageProcessed(messageSubId);
+            break;
+        }
+        case Commands::Redraw:
+        {
+            std::cout << "Redraw" << std::endl;
+            provider->Render();
+            provider->SwapScreenBuffer();
+            invalidated = false;
             break;
         }
         case Commands::Quit:
@@ -121,6 +131,7 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
     }
 }
 
+//TODO: MAKE THIS THREAD SAFE SHOULD BE A MESSAGE
 void DefaultRenderCommandHandler::SwapScreenBuffer()
 {
     if(provider == nullptr)
@@ -140,8 +151,11 @@ void DefaultRenderCommandHandler::RenderLoop()
 
 void DefaultRenderCommandHandler::RedrawScene()
 {
-    provider->Render();
-    provider->SwapScreenBuffer();
+    if(invalidated)
+        return;
+    auto message = RenderMessage::Create(Commands::Redraw, nullptr);
+    invalidated = true;
+    this->ReceiveCommand(std::move(message));
 }
 
 void DefaultRenderCommandHandler::OnInit(Core &core)

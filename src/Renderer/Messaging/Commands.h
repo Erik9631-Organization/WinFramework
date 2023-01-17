@@ -13,6 +13,7 @@ enum class Commands
    RequestEllipse,
    RequestLine,
    Property,
+   Redraw,
    Quit,
 };
 

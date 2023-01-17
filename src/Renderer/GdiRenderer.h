@@ -19,6 +19,7 @@
 #include "Core.h"
 #include "RenderingModel.h"
 #include <map>
+#include "MoveSubscriber.h"
 
 
 class Timer;
@@ -32,7 +33,7 @@ namespace Gdiplus
 template<typename T> class MultiTree;
 
 
-class GdiRenderer : public Renderer, public ResizeSubscriber
+class GdiRenderer : public Renderer, public ResizeSubscriber, public MoveSubscriber
 {
 private:
     static void GdiStartup();
@@ -50,11 +51,11 @@ private:
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
 
     template<typename T>
-    RenderingModel* CreateModel()
+    T* CreateModel()
     {
         auto model = std::make_unique<T>();
         model->SetRenderingProvider(this);
-        return AddModel(std::move(model));;
+        return static_cast<T*>(AddModel(std::move(model)));
     }
     RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
 public:
@@ -68,6 +69,8 @@ public:
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
     RenderingModel * CreateModel(Commands createCommand) override;
+
+    void OnMove(EventMoveInfo e) override;
 };
 
 

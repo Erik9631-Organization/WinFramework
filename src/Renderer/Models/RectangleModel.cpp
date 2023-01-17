@@ -7,6 +7,7 @@
 #include "RenderingApi.h"
 #include "Commands.h"
 #include "Renderer.h"
+#include <iostream>
 
 glm::vec4 RectangleModel::GetPosition()
 {
@@ -305,6 +306,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetHeight(message->GetData<float>());
             break;
         case SubCommands::SetSize:
+            std::cout << "Size" << std::endl;
             SetSize(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetX:
@@ -314,6 +316,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetY(message->GetData<float>());
             break;
         case SubCommands::SetPosition:
+            std::cout << "Position" << std::endl;
             SetPosition(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetTranslate:
@@ -321,12 +324,15 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             break;
         case SubCommands::SetColor:
             SetColor(message->GetData<glm::vec4>());
+            std::cout << "Color" << std::endl;
             break;
         case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
+            std::cout << "Fill" << std::endl;
             break;
         case SubCommands::SetViewPortSize:
         {
+            std::cout << "Viewport" << std::endl;
             auto data = message->GetData<glm::vec4*>();
             SetViewPort(data[0], data[1]);
             delete data;
@@ -339,7 +345,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 
 float RectangleModel::GetZIndex()
 {
-    return 10000;
+    return movableBehavior.GetZ();
 }
 
 void RectangleModel::SetViewPort(const glm::vec4 position, const glm::vec4 &size)
@@ -362,4 +368,10 @@ bool RectangleModel::IsViewPortSet()
 void RectangleModel::ResetViewport()
 {
     viewPortSet = false;
+}
+
+RectangleModel::RectangleModel() : movableBehavior(*this)
+{
+    viewPortSize = {0, 0, 0, 0};
+    viewPortPosition = {0, 0, 0, 0 };
 }

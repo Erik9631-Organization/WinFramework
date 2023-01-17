@@ -39,7 +39,7 @@ public:
     void OnAttributesChanged(EventAttributeInfo &e) override;
     void OnAttributesRemoved(EventAttributeInfo &e) override;
     void OnScaleUpdate(std::any src) override;
-    void OnRedraw(std::any src) override;
+    void Redraw(std::any src) override;
     void OnClose(std::any src) override;
     void OnLockCursorSizeChanged(EventResizeInfo &e) override;
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;

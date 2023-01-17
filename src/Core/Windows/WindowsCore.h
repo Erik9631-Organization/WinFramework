@@ -66,8 +66,6 @@ private:
     void CreateWinApiWindow();
     WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-    static constexpr unsigned int repaint_message = 0x2210;
-    bool windowInvalidated = false;
 public:
     void SetLockCursorSize(const glm::vec4 &size);
     void LockCursor(const bool& lockState);
