@@ -5,5 +5,6 @@ class MoveSubscriber
 {
 public:
 	virtual void OnMove(EventMoveInfo e) = 0;
+    virtual ~MoveSubscriber() = default;
 };
 

@@ -11,7 +11,6 @@
 #include "Core/Windows/WindowsCore.h"
 
 using namespace Gdiplus;
-unsigned int fpsfuckingcounter = 0;
 
 void GdiRenderingApi::DrawEllipse(float x, float y, float width, float height)
 {
@@ -51,7 +50,6 @@ void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position,
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
     graphics->DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
-    fpsfuckingcounter++;
     delete font;
 }
 
@@ -143,7 +141,7 @@ void GdiRenderingApi::SetClippingRectangle(float x, float y, float width, float 
     graphics->SetClip(RectF(x, y, width, height), CombineModeReplace);
 }
 
-void GdiRenderingApi::SetClippingRectangle(glm::vec4 pos, glm::vec4 size)
+void GdiRenderingApi::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
     SetClippingRectangle(pos.x, pos.y, size.x, size.y);
 }

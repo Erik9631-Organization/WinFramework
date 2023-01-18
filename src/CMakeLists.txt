@@ -460,9 +460,18 @@ set(Lii_Renderer_Models
 source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
 
 set(Lii_Renderer_Models_Behavior
-        Renderer/Models/Behavior/MovableModelBehavior.cpp Renderer/Models/Behavior/MovableModelBehavior.h Renderer/Models/Behavior/ResizableModelBehavior.cpp Renderer/Models/Behavior/ResizableModelBehavior.h)
+        Renderer/Models/Behavior/MovableModelBehavior.cpp
+        Renderer/Models/Behavior/MovableModelBehavior.h
+        Renderer/Models/Behavior/ResizableModelBehavior.cpp
+        Renderer/Models/Behavior/ResizableModelBehavior.h
+)
 source_group(Lii/Renderer/Models/Behavior FILES ${Lii_Renderer_Models_Behavior})
 
+set(Lii_Renderer_Models_Viewports
+        Renderer/Models/Viewports/ModelViewport.cpp
+        Renderer/Models/Viewports/ModelViewport.h
+)
+source_group(Lii/Renderer/Models/Viewports FILES ${Lii_Renderer_Models_Viewports})
 
 set(ALL_FILES
     ${Enums}
@@ -534,6 +543,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Messaging"
         "Renderer/Models"
         "Renderer/Models/Behavior"
+        "Renderer/Models/Viewports"
         "Renderer"
         "Renderer/Proxies"
         )

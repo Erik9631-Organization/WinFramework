@@ -23,8 +23,9 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 
 void GdiRenderer::Render()
 {
-    for (auto& model : modelZIndexMap)
-        model.second->Redraw();
+    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
+        it->second->Redraw();
+
 }
 
 void GdiRenderer::CleanBackBuffer()

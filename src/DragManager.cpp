@@ -26,7 +26,7 @@ void DragManager::OnDragEnd()
 	std::cout<< "Drag ended!" << std::endl;
 	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
-		// Reset states
+		// ResetSize states
 		srcManager = nullptr;
 		currentDragObj = nullptr;
 		isDragging = false;
@@ -36,7 +36,7 @@ void DragManager::OnDragEnd()
 	srcManager->NotifyOnDragEnd(EventOnDragInfo(*currentDragObj)); // Notify the original that the drag has ended
 	NotifyOnDrop(EventOnDragInfo(*currentDragObj)); // Then notify the current that drop happened
 
-	//Reset states
+	//ResetSize states
 	srcManager = nullptr; 
 	currentDragObj = nullptr;
 	isDragging = false;

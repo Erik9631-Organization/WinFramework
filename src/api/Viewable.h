@@ -1,17 +1,16 @@
 #pragma once
-#include <Windows.h>
-#include <gdiplus.h>
-
 class MoveSubscriber;
 class EventResizeInfo;
 class ResizeSubscriber;
 class EventMoveInfo;
+#include "glm.hpp"
 
 /**
  * Class which defines the viewport properties. This class will be deprecated and is subject to change, therefore not documented.
  */
 class Viewable
 {
+public:
 	virtual void AddOnViewportMoveSubscriber(MoveSubscriber& subscriber) = 0;
 	virtual void RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber) = 0;
 	virtual void NotifyOnViewportMoveSubscribers(EventMoveInfo event) = 0;

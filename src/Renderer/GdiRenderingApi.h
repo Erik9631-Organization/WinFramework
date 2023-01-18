@@ -45,7 +45,7 @@ public:
 
     void SetClippingRectangle(float x, float y, float width, float height) override;
 
-    void SetClippingRectangle(glm::vec4 pos, glm::vec4 size) override;
+    void SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size) override;
 
 private:
     Gdiplus::Pen* pen = nullptr;

@@ -9,6 +9,7 @@
 #include "MovableModelBehavior.h"
 #include "ResizableModelBehavior.h"
 #include "RenderingModel.h"
+#include "ModelViewport.h"
 
 class RectangleModel : public Movable, public Resizable, public RenderingModel
 {
@@ -18,8 +19,7 @@ private:
     Renderer* rendereringProvider = nullptr;
     glm::ivec4 color{255, 255, 255, 255};
     bool viewPortSet = false;
-    glm::vec4 viewPortSize;
-    glm::vec4 viewPortPosition;
+    ModelViewport viewPort;
     bool fill = true;
     size_t id = -1;
 
@@ -27,7 +27,7 @@ public:
 
     RectangleModel();
 
-    void SetViewPort(const glm::vec4 position, const glm::vec4 &size);
+    const ModelViewport& GetViewPort() const;
 
     const glm::vec4 & ViewPortSize();
 

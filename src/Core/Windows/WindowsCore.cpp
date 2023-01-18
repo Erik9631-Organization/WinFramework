@@ -176,7 +176,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	updateFinishedSignal.notify_all();
 //    if(renderer != nullptr)
 //        renderer->SwapScreenBuffer();
-    //Reset the delta as it is 0
+    //ResetSize the delta as it is 0
     mouseDelta.x = 0;
     mouseDelta.y = 0;
 }

@@ -244,14 +244,12 @@ void RectangleModel::Redraw()
         return;
     renderer->SetColor(color);
     if(viewPortSet)
-        renderer->SetClippingRectangle(viewPortPosition, viewPortSize);
-    else
-        renderer->SetClippingRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
+        renderer->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     if(fill)
-        renderer->DrawFillRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderer->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
-        renderer->DrawRectangle(movableBehavior.GetAbsoluteX(), movableBehavior.GetAbsoluteY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderer->DrawRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
 }
 
 void RectangleModel::SetColor(const glm::vec4 &color)
@@ -306,7 +304,6 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetHeight(message->GetData<float>());
             break;
         case SubCommands::SetSize:
-            std::cout << "Size" << std::endl;
             SetSize(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetX:
@@ -316,7 +313,6 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetY(message->GetData<float>());
             break;
         case SubCommands::SetPosition:
-            std::cout << "Position" << std::endl;
             SetPosition(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetTranslate:
@@ -324,18 +320,25 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             break;
         case SubCommands::SetColor:
             SetColor(message->GetData<glm::vec4>());
-            std::cout << "Color" << std::endl;
             break;
         case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
-            std::cout << "Fill" << std::endl;
             break;
         case SubCommands::SetViewPortSize:
         {
-            std::cout << "Viewport" << std::endl;
-            auto data = message->GetData<glm::vec4*>();
-            SetViewPort(data[0], data[1]);
-            delete data;
+            viewPort.SetViewPortSize(message->GetData<glm::vec2>());
+            viewPortSet = true;
+            break;
+        }
+        case SubCommands::SetViewPortPosition:
+        {
+            viewPort.SetViewPortPosition(message->GetData<glm::vec2>());
+            viewPortSet = true;
+            break;
+        }
+        case SubCommands::ResetViewPort:
+        {
+            ResetViewport();
             break;
         }
         default:
@@ -348,17 +351,6 @@ float RectangleModel::GetZIndex()
     return movableBehavior.GetZ();
 }
 
-void RectangleModel::SetViewPort(const glm::vec4 position, const glm::vec4 &size)
-{
-    viewPortSet = true;
-    this->viewPortSize = size;
-    this->viewPortPosition = position;
-}
-
-const glm::vec4 & RectangleModel::ViewPortSize()
-{
-    return viewPortSize;
-}
 
 bool RectangleModel::IsViewPortSet()
 {
@@ -370,8 +362,8 @@ void RectangleModel::ResetViewport()
     viewPortSet = false;
 }
 
-RectangleModel::RectangleModel() : movableBehavior(*this)
+const ModelViewport &RectangleModel::GetViewPort() const
 {
-    viewPortSize = {0, 0, 0, 0};
-    viewPortPosition = {0, 0, 0, 0 };
+    return viewPort;
+}
 }

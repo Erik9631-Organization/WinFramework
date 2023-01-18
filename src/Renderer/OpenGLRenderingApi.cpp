@@ -176,7 +176,7 @@ void OpenGLRenderingApi::SetClippingRectangle(float x, float y, float width, flo
 
 }
 
-void OpenGLRenderingApi::SetClippingRectangle(glm::vec4 pos, glm::vec4 size)
+void OpenGLRenderingApi::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
 
 }

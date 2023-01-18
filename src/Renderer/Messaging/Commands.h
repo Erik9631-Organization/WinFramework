@@ -30,6 +30,8 @@ enum class SubCommands
     TranslateX,
     TranslateY,
     SetViewPortSize,
+    SetViewPortPosition,
+    ResetViewPort,
     SetColor,
     SetStartPoint,
     SetEndPoint,

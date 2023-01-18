@@ -10,6 +10,7 @@
 #include "RenderProxy.h"
 #include <unordered_map>
 #include "Commands.h"
+#include "ModelViewport.h"
 
 class RenderingConsumer;
 class RectangleModel;
@@ -18,16 +19,18 @@ class RenderMessage;
 class RectangleProxy : public Movable, public Resizable, public RenderProxy
 {
 private:
-    static constexpr unsigned int numberOfCommands = 6;
     RenderingConsumer* renderingConsumer = nullptr;
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     std::unordered_map<SubCommands, RenderMessage*> copyOnWriteMap;
+    static constexpr int totalCommands = 9;
 public:
     RectangleProxy();
 
-    void SetViewPort(const glm::vec4 &position, const glm::vec4 &size);
+    void SetViewPortPosition(const glm::vec2& position);
+
+    void SetViewPortSize(const glm::vec2 &size);
 
     void SetFill(bool fill);
 
@@ -132,6 +135,9 @@ public:
     void SetAssociatedModel(RenderingModel *model) override;
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
+
+    const ModelViewport& GetViewport() const;
+
 };
 
 

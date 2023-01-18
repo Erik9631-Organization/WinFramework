@@ -242,24 +242,32 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         window->backgroundProxy = std::move(rectangleProxy);
         window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
-        window->backgroundProxy->SetPosition({0, 0, 0, 1});
+        window->backgroundProxy->SetPosition({0, 0, 100, 1});
         window->backgroundProxy->SetColor({255, 255, 255, 255});
         window->backgroundProxy->SetFill(true);
     });
 
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-        window->backgroundProxy = std::move(rectangleProxy);
-        window->backgroundProxy->SetSize({100, 100, 0, 0});
-        window->backgroundProxy->SetPosition({50, 100, 0, 1});
-        window->backgroundProxy->SetColor({100, 100, 100, 255});
-        window->backgroundProxy->SetFill(true);
+        rectangleProxy->SetSize({100, 100, 0, 0});
+        rectangleProxy->SetPosition({100, 150, 0, 1});
+        rectangleProxy->SetColor({255, 0, 0, 255});
+        rectangleProxy->SetFill(true);
         glm::vec4 halfSize;
-        halfSize.x = window->backgroundProxy->GetSize().x / 2.0f;
-        halfSize.y = window->backgroundProxy->GetSize().y;
+        halfSize.x = rectangleProxy->GetSize().x / 2.0f;
+        halfSize.y = rectangleProxy->GetSize().y;
 
-        window->backgroundProxy->SetViewPort(glm::vec4{50, 100, 0, 0}, halfSize);
+        rectangleProxy->SetViewPort(glm::vec4{50, 100, 0, 0}, halfSize);
+    });
+
+    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+        rectangleProxy->SetSize({100, 100, 0, 0});
+        rectangleProxy->SetPosition({50, 100, 10, 1});
+        rectangleProxy->SetColor({100, 100, 100, 255});
+        rectangleProxy->SetFill(true);
+
         window->coreMediator->Redraw(std::make_any<Presenter *>(window));
     });
+
     return std::unique_ptr<Window>(window);
 }
 
