@@ -32,6 +32,8 @@ public:
 
     void SetViewPortSize(const glm::vec2 &size);
 
+    void ResetViewPort();
+
     void SetFill(bool fill);
 
     void SetRenderingConsumer(RenderingConsumer *consumer) override;

@@ -56,7 +56,7 @@ float RectangleProxy::GetW()
 
 void RectangleProxy::SetPosition(glm::vec4 position, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -119,7 +119,7 @@ void RectangleProxy::SetW(float w)
 
 void RectangleProxy::SetTranslate(glm::vec4 offset, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), offset);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -206,7 +206,7 @@ float RectangleProxy::GetHeight()
 
 void RectangleProxy::SetSize(glm::vec4 size, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -329,7 +329,7 @@ void RectangleProxy::SetAssociatedModel(RenderingModel *model)
 
 void RectangleProxy::SetColor(const glm::vec4 &color)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color, this);
     renderMessage->SetSubMessageId(SubCommands::SetColor);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -337,7 +337,7 @@ void RectangleProxy::SetColor(const glm::vec4 &color)
 
 void RectangleProxy::SetFill(bool fill)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill, this);
     renderMessage->SetSubMessageId(SubCommands::SetFill);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -360,7 +360,7 @@ const ModelViewport& RectangleProxy::GetViewport() const
 
 void RectangleProxy::SetViewPortSize(const glm::vec2 &size)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
@@ -368,8 +368,16 @@ void RectangleProxy::SetViewPortSize(const glm::vec2 &size)
 
 void RectangleProxy::SetViewPortPosition(const glm::vec2& position)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
+    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}
+
+void RectangleProxy::ResetViewPort()
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), nullptr, this);
+    renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
