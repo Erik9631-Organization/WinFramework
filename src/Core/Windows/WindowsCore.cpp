@@ -193,8 +193,6 @@ void WindowsCore::ScheduleRedraw()
 {
     //If call comes from the same thread as the one that is processing messages then schedule a redraw else redraw immidiatelly
     PostMessageA(windowHandle, REDRAW_MESSAGE, 0, 0);
-//    if(renderer != nullptr)
-//        renderer->SwapScreenBuffer();
 }
 
 void WindowsCore::Close()

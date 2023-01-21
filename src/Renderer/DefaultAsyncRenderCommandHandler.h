@@ -35,6 +35,7 @@ private:
         else
             createData->GetFutureCallback().operator()(std::move(proxy));
         delete createData;
+        RedrawScene();
     }
 
     void RenderLoop();

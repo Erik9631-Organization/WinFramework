@@ -265,9 +265,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         rectangleProxy->SetColor({100, 100, 100, 255});
         rectangleProxy->SetFill(true);
         window->rectangle2 = std::move(rectangleProxy);
-        window->coreMediator->Redraw(std::make_any<Presenter *>(window));
     });
-
     return std::unique_ptr<Window>(window);
 }
 
