@@ -124,6 +124,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
+        if(renderer != nullptr)
+            renderer->SetViewportSize(width, height);
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);
@@ -158,12 +160,18 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PRINT:
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
+    case REDRAW_MESSAGE:
+        if(renderer != nullptr)
+            renderer->SwapScreenBuffer();
+
 	}
     if(cursorLocked)
     {
         UpdateLockCursor();
         ClipCursor(&lockCursorRegion);
     }
+
+    //If redraw falg is set then redraw
 
 
     UpdateGlobalInputState();
@@ -181,10 +189,12 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     mouseDelta.y = 0;
 }
 
-void WindowsCore::Redraw()
+void WindowsCore::ScheduleRedraw()
 {
-    if(renderer != nullptr)
-        renderer->SwapScreenBuffer();
+    //If call comes from the same thread as the one that is processing messages then schedule a redraw else redraw immidiatelly
+    PostMessageA(windowHandle, REDRAW_MESSAGE, 0, 0);
+//    if(renderer != nullptr)
+//        renderer->SwapScreenBuffer();
 }
 
 void WindowsCore::Close()
@@ -283,7 +293,7 @@ WindowsCore::~WindowsCore()
 
 void WindowsCore::Repaint()
 {
-    Redraw();
+    ScheduleRedraw();
 }
 
 void WindowsCore::AddRenderCommander(RenderCommander &renderable)
@@ -529,6 +539,11 @@ unique_ptr<Core> WindowsCore::Create(std::any args)
 void WindowsCore::SetWindow(Window *window)
 {
     this->wrapperFrame = window;
+}
+
+void WindowsCore::ForceRedraw()
+{
+
 }
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

@@ -8,6 +8,7 @@
 #include "RenderingModel.h"
 #include <vector>
 #include "RenderMessage.h"
+#include "glm.hpp"
 class Core;
 
 class Renderer
@@ -20,6 +21,8 @@ public:
     virtual void OnDestroy(Core &coreWindow) = 0;
     virtual void SwapScreenBuffer() = 0;
     virtual std::unique_ptr<RenderingApi> AcquireRenderingApi() = 0;
+    virtual void SetViewportSize(int width, int height) = 0;
+    virtual void SetViewportSize(const glm::ivec2& size) = 0;
     virtual ~Renderer() = default;
 };
 

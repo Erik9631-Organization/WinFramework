@@ -18,7 +18,8 @@ public:
     virtual long long int SetAttributes(int index, long long int parameter) = 0;
     virtual long long int RemoveAttribute(int index, long long int parameter) = 0;
     virtual void UpdateScale() = 0;
-    virtual void Redraw() = 0;
+    virtual void ScheduleRedraw() = 0;
+    virtual void ForceRedraw() = 0;
     virtual void Close() = 0;
     virtual void SetWindow(Window* window) = 0;
     virtual void Start() = 0;

@@ -10,7 +10,7 @@
 #include "RenderingProviderManager.h"
 #include "CoreManager.h"
 #include <iostream>
-#include "DefaultRenderCommandHandler.h"
+#include "DefaultAsyncRenderCommandHandler.h"
 
 using namespace std;
 
@@ -19,6 +19,9 @@ void Window::SetSize(float width, float height, bool emit)
     UiElement::SetSize(width, height, emit);
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
+
+    cout << "Sending setSize message" << endl;
+    backgroundProxy->SetSize({width, height, 0, 1});
 }
 
 void Window::SetSize(glm::vec4 size, bool emit)
@@ -221,7 +224,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     //CreateElement all window DEPENDENCIES
     //TODO use try and catch here
-    auto renderer = new DefaultRenderCommandHandler();
+    auto renderer = new DefaultAsyncRenderCommandHandler();
     auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(renderer);
     if(renderingProvider == nullptr)
     {
@@ -249,22 +252,19 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         rectangleProxy->SetSize({100, 100, 0, 0});
-        rectangleProxy->SetPosition({100, 150, 0, 1});
+        rectangleProxy->SetPosition({100, 150, 10, 1});
         rectangleProxy->SetColor({255, 0, 0, 255});
         rectangleProxy->SetFill(true);
-        glm::vec4 halfSize;
-        halfSize.x = rectangleProxy->GetSize().x / 2.0f;
-        halfSize.y = rectangleProxy->GetSize().y;
-
-        rectangleProxy->SetViewPort(glm::vec4{50, 100, 0, 0}, halfSize);
+        rectangleProxy->BindViewPortToResizable(*window);
+        window->rectangle1 = std::move(rectangleProxy);
     });
 
     renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
         rectangleProxy->SetSize({100, 100, 0, 0});
-        rectangleProxy->SetPosition({50, 100, 10, 1});
+        rectangleProxy->SetPosition({50, 100, 0, 1});
         rectangleProxy->SetColor({100, 100, 100, 255});
         rectangleProxy->SetFill(true);
-
+        window->rectangle2 = std::move(rectangleProxy);
         window->coreMediator->Redraw(std::make_any<Presenter *>(window));
     });
 

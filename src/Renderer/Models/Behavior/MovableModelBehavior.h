@@ -4,7 +4,6 @@
 
 #ifndef LII_MOVABLEMODELBEHAVIOR_H
 #define LII_MOVABLEMODELBEHAVIOR_H
-#include "Movable.h"
 #include <vector>
 #include "MoveSubscriber.h"
 #include "Movable.h"

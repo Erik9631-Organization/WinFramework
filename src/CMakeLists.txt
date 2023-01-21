@@ -108,7 +108,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/DefaultRenderCommandHandler.cpp Renderer/DefaultRenderCommandHandler.h)
+        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
@@ -503,7 +503,9 @@ set(ALL_FILES
     ${Lii_Renderer_Messaging}
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
+    ${Lii_Renderer_Models_Viewports}
         api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp)
+
 
 ################################################################################
 # Target

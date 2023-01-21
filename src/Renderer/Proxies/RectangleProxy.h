@@ -11,12 +11,14 @@
 #include <unordered_map>
 #include "Commands.h"
 #include "ModelViewport.h"
+#include "MoveSubscriber.h"
+#include "ResizeSubscriber.h"
 
 class RenderingConsumer;
 class RectangleModel;
 class RenderMessage;
 
-class RectangleProxy : public Movable, public Resizable, public RenderProxy
+class RectangleProxy : public Movable, public Resizable, public RenderProxy, public MoveSubscriber, public ResizeSubscriber
 {
 private:
     RenderingConsumer* renderingConsumer = nullptr;
@@ -25,6 +27,10 @@ private:
     std::vector<ResizeSubscriber*>resizeSubscribers;
     std::unordered_map<SubCommands, RenderMessage*> copyOnWriteMap;
     static constexpr int totalCommands = 9;
+
+    Movable* movableViewportBinding = nullptr;
+    Resizable* resizableViewportBinding = nullptr;
+
 public:
     RectangleProxy();
 
@@ -140,6 +146,17 @@ public:
 
     const ModelViewport& GetViewport() const;
 
+    void BindViewPortToMovable(Movable& movable);
+
+    void BindViewPortToResizable(Resizable& resizable);
+
+    void UnbindViewPortMovable();
+
+    void UnbindViewportResizable();
+
+    void OnMove(EventMoveInfo e) override;
+
+    void OnResize(EventResizeInfo e) override;
 };
 
 

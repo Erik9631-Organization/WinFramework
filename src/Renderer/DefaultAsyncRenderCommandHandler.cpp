@@ -2,7 +2,7 @@
 // Created by erik9 on 12/19/2022.
 //
 
-#include "DefaultRenderCommandHandler.h"
+#include "DefaultAsyncRenderCommandHandler.h"
 #include "Commands.h"
 #include "RectangleModel.h"
 #include "LineModel.h"
@@ -14,17 +14,17 @@
 #include <iostream>
 #include "ApplicationController.h"
 
-std::future<std::unique_ptr<EllipseProxy>> DefaultRenderCommandHandler::RequestEllipseProxy()
+std::future<std::unique_ptr<EllipseProxy>> DefaultAsyncRenderCommandHandler::RequestEllipseProxy()
 {
     return std::future<std::unique_ptr<EllipseProxy>>();
 }
 
-std::future<std::unique_ptr<ModelProxy>> DefaultRenderCommandHandler::RequestModelProxy()
+std::future<std::unique_ptr<ModelProxy>> DefaultAsyncRenderCommandHandler::RequestModelProxy()
 {
     return std::future<std::unique_ptr<ModelProxy>>();
 }
 
-std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLineProxy()
+std::future<std::unique_ptr<LineProxy>> DefaultAsyncRenderCommandHandler::RequestLineProxy()
 {
     auto linePromise = std::promise<std::unique_ptr<LineProxy>>();
     auto createMessage = new CreateModelMessage(std::move(linePromise));
@@ -35,7 +35,7 @@ std::future<std::unique_ptr<LineProxy>> DefaultRenderCommandHandler::RequestLine
     return createMessage->GetRendererProxyPromise().get_future();
 }
 
-void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction)
+void DefaultAsyncRenderCommandHandler::RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction)
 {
     auto createMessage = new CreateModelMessage(onCreatedAction);
     //TODO FIND A SAFE WAY
@@ -45,12 +45,12 @@ void DefaultRenderCommandHandler::RequestLineProxy(std::function<void(std::uniqu
 }
 
 
-std::future<std::unique_ptr<TextProxy>> DefaultRenderCommandHandler::RequestTextProxy()
+std::future<std::unique_ptr<TextProxy>> DefaultAsyncRenderCommandHandler::RequestTextProxy()
 {
     return std::future<std::unique_ptr<TextProxy>>();
 }
 
-std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::RequestRectangleProxy()
+std::future<std::unique_ptr<RectangleProxy>> DefaultAsyncRenderCommandHandler::RequestRectangleProxy()
 {
     auto rectanglePromise = std::promise<std::unique_ptr<RectangleProxy>>();
     auto createMessage = new CreateModelMessage(std::move(rectanglePromise));
@@ -61,7 +61,7 @@ std::future<std::unique_ptr<RectangleProxy>> DefaultRenderCommandHandler::Reques
     return createMessage->GetRendererProxyPromise().get_future();
 }
 
-void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function)
+void DefaultAsyncRenderCommandHandler::RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function)
 {
     auto createMessage = new CreateModelMessage(function);
     //TODO FIND A SAFE WAY
@@ -70,27 +70,27 @@ void DefaultRenderCommandHandler::RequestRectangleProxy(std::function<void(std::
     this->ReceiveCommand(std::move(message));
 }
 
-void DefaultRenderCommandHandler::RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction)
+void DefaultAsyncRenderCommandHandler::RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
 
-void DefaultRenderCommandHandler::RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction)
+void DefaultAsyncRenderCommandHandler::RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
 
-void DefaultRenderCommandHandler::RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction)
+void DefaultAsyncRenderCommandHandler::RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction)
 {
 
 }
 
-void DefaultRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
+void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
     messageQueue.enqueue(std::move(message));
 }
 
-void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
+void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
     switch (message->GetMessageId())
     {
@@ -109,7 +109,7 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
             const auto id = message->GetReceiverId();
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
-            provider->GetModel(id)->ReceiveCommand(std::move(message));
+            renderer->GetModel(id)->ReceiveCommand(std::move(message));
 
             if(sender!= nullptr)
                 sender->OnRenderMessageProcessed(messageSubId);
@@ -117,10 +117,9 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
         }
         case Commands::Redraw:
         {
-            std::cout << "Redraw" << std::endl;
-            provider->Render();
-            provider->SwapScreenBuffer();
             invalidated = false;
+            renderer->Render();
+            renderer->SwapScreenBuffer();
             break;
         }
         case Commands::Quit:
@@ -132,14 +131,14 @@ void DefaultRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMes
 }
 
 //TODO: MAKE THIS THREAD SAFE SHOULD BE A MESSAGE
-void DefaultRenderCommandHandler::SwapScreenBuffer()
+void DefaultAsyncRenderCommandHandler::SwapScreenBuffer()
 {
-    if(provider == nullptr)
+    if(renderer == nullptr)
         return;
     RedrawScene();
 }
 
-void DefaultRenderCommandHandler::RenderLoop()
+void DefaultAsyncRenderCommandHandler::RenderLoop()
 {
     while(render)
     {
@@ -149,7 +148,7 @@ void DefaultRenderCommandHandler::RenderLoop()
     }
 }
 
-void DefaultRenderCommandHandler::RedrawScene()
+void DefaultAsyncRenderCommandHandler::RedrawScene()
 {
     if(invalidated)
         return;
@@ -158,17 +157,27 @@ void DefaultRenderCommandHandler::RedrawScene()
     this->ReceiveCommand(std::move(message));
 }
 
-void DefaultRenderCommandHandler::OnInit(Core &core)
+void DefaultAsyncRenderCommandHandler::OnInit(Core &core)
 {
     render = true;
-    provider = RenderingProviderManager::GetRenderingProviderManager()->Create();
-    provider->OnInit(core);
+    renderer = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    renderer->OnInit(core);
     renderThread = &ApplicationController::GetApplicationController()->CreateThread([&]{RenderLoop();}, "RenderThread");
 }
 
-void DefaultRenderCommandHandler::OnDestroy(Core &core)
+void DefaultAsyncRenderCommandHandler::OnDestroy(Core &core)
 {
-    provider->OnDestroy(core);
+    renderer->OnDestroy(core);
     auto quitMessage = RenderMessage::Create(Commands::Quit, nullptr);
     this->ReceiveCommand(std::move(quitMessage));
+}
+
+void DefaultAsyncRenderCommandHandler::SetViewportSize(int width, int height)
+{
+    renderer->SetViewportSize(width, height);
+}
+
+void DefaultAsyncRenderCommandHandler::SetViewportSize(const glm::ivec2 &size)
+{
+    renderer->SetViewportSize(size);
 }

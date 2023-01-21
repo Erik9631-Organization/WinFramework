@@ -40,6 +40,8 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
     std::unique_ptr<RectangleProxy> backgroundProxy;
+    std::unique_ptr<RectangleProxy> rectangle1;
+    std::unique_ptr<RectangleProxy> rectangle2;
 
 public:
     Window(std::string windowName);

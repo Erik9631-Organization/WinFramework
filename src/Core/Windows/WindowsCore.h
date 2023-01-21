@@ -23,8 +23,6 @@ class Renderer;
  */
 class WindowsCore : public RenderCommander, public Core
 {
-
-
 private:
     class MsgSubject : ResizeSubject
     {
@@ -66,6 +64,7 @@ private:
     void CreateWinApiWindow();
     WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    static constexpr unsigned int REDRAW_MESSAGE = WM_USER + 1;
 public:
     void SetLockCursorSize(const glm::vec4 &size);
     void LockCursor(const bool& lockState);
@@ -96,7 +95,7 @@ public:
 	/**
 	 * Repaints the current window.
 	 */
-	void Redraw();
+	void ScheduleRedraw();
 	/**
 	 * Closes the current window.
 	 */
@@ -127,7 +126,7 @@ public:
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	
 	/**
-	 * Similar to Redraw, but also updates the position and scale.
+	 * Similar to ScheduleRedraw, but also updates the position and scale.
 	 * \param e event object to pass.
 	 */
 	virtual void Repaint() override;
@@ -190,5 +189,7 @@ public:
     static std::unique_ptr<Core> Create(std::any args);
 
     void SetWindow(Window *window) override;
+
+    void ForceRedraw() override;
 };
 

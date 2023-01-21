@@ -4,7 +4,7 @@
 
 #ifndef LII_MODELVIEWPORT_H
 #define LII_MODELVIEWPORT_H
-#include "vec2.hpp"
+#include "glm.hpp"
 
 class ModelViewport
 {
@@ -13,9 +13,6 @@ private:
     glm::vec2 viewPortPosition = {0,0};
 
 public:
-    void ResetPosition();
-    void ResetSize();
-
     void SetViewPortSize(const glm::vec2 &size);
     void SetViewPortPosition(const glm::vec2 &position);
     void SetViewPortX(float x);

@@ -4,16 +4,14 @@
 #include "GdiRenderer.h"
 #include "Core/Windows/WindowsCore.h"
 #include "Window.h"
-#include "RenderEventInfo.h"
 #include "EventResizeInfo.h"
 #include "GdiRenderingApi.h"
 #include <execution>
-#include <future>
 #include <chrono>
 #include "GdiRenderingPool.h"
-#include "ApplicationController.h"
 #include "RectangleModel.h"
 #include <iostream>
+
 using namespace std;
 using namespace chrono;
 using namespace Gdiplus;
@@ -23,15 +21,16 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 
 void GdiRenderer::Render()
 {
+    std::lock_guard<std::mutex> lock(setViewPortMutex);
+    cout << "Rendering" << endl;
     for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
         it->second->Redraw();
-
 }
 
-void GdiRenderer::CleanBackBuffer()
+void GdiRenderer::CleanDeviceContext()
 {
-    ReleaseDC(windowHandle, secondaryDc);
     DeleteDC(secondaryDc);
+    GetLastError();
 }
 
 void GdiRenderer::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion)
@@ -67,24 +66,26 @@ void GdiRenderer::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &n
 //    }
 }
 
-
-HDC GdiRenderer::GetSecondaryDC()
+void GdiRenderer::UpdateSecondaryDC()
 {
+    CleanDeviceContext();
+    cout <<"Width: " << GetDeviceCaps(windowHdc, HORZRES) << endl;
+    cout <<"Height: " << GetDeviceCaps(windowHdc, VERTRES) << endl;
     secondaryDc = CreateCompatibleDC(windowHdc);
-    SelectObject(secondaryDc, secondaryBitmap);
-    return secondaryDc;
+    SelectObject(secondaryDc, screenBitmap);
 }
 
 //TODO should be handled by redraw
 void GdiRenderer::OnResize(EventResizeInfo e)
 {
 //    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
-//    secondaryBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
+//    screenBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
 void GdiRenderer::OnInit(Core &coreWindowFrame)
 {
     this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    viewPortSize = this->windowsCore->GetWrapperFrame()->GetSize();
     if(this->windowsCore == nullptr)
     {
         /*TODO ADD LOGGING*/
@@ -94,14 +95,14 @@ void GdiRenderer::OnInit(Core &coreWindowFrame)
     windowHdc = GetDC(windowHandle);
     windowsCore->AddOnResizePreProcessSubsriber(*this);
 
-    secondaryBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
-                                             windowsCore->GetWrapperFrame()->GetHeight());
-    GetSecondaryDC();
+    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
+                                          windowsCore->GetWrapperFrame()->GetHeight());
+    UpdateSecondaryDC();
 }
 
 void GdiRenderer::OnDestroy(Core &coreWindow)
 {
-    CleanBackBuffer();
+    CleanDeviceContext();
 }
 
 GdiRenderer::GdiRenderer()
@@ -121,7 +122,7 @@ void GdiRenderer::GdiStartup()
     input.DebugEventCallback = NULL;
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
-
+///TODO This function should be removed and redraw should pass the rendering api though the ScheduleRedraw function as an event
 std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
 {
     auto graphics = std::make_unique<Graphics>(secondaryDc);
@@ -131,9 +132,9 @@ std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
 
 void GdiRenderer::SwapScreenBuffer()
 {
-    BitBlt(windowHdc, 0, 0, windowsCore->GetWrapperFrame()->GetWidth(), windowsCore->GetWrapperFrame()->GetHeight(), secondaryDc, 0, 0, MERGECOPY);
-    CleanBackBuffer(); // Cleans only the SecondaryDC, as the window has permanent DC
-    GetSecondaryDC();
+    std::lock_guard<std::mutex> viewPortLock{setViewPortMutex};
+    cout << "Swapping" << endl;
+    BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, MERGECOPY);
 }
 
 RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
@@ -149,7 +150,6 @@ RenderingModel *GdiRenderer::GetModel(size_t index)
 {
     return renderingModels[index].get();
 }
-
 
 RenderingModel * GdiRenderer::CreateModel(Commands createCommand)
 {
@@ -182,4 +182,26 @@ void GdiRenderer::OnMove(EventMoveInfo e)
         }
     }
     modelZIndexMap.emplace(e.GetPosition().z, model);
+}
+
+void GdiRenderer::SetViewportSize(int width, int height)
+{
+    SetViewportSize({width, height});
+}
+
+//Can be called from any thread---Has to be thread safe.
+void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
+{
+    std::lock_guard<std::mutex> lock(setViewPortMutex);
+    cout << "Viewport setting" << std::endl;
+    viewPortSize = size;
+    UpdateBitmap();
+    UpdateSecondaryDC();
+    cout << "Viewport set" << std::endl;
+}
+
+void GdiRenderer::UpdateBitmap()
+{
+    DeleteObject(screenBitmap);
+    screenBitmap = CreateCompatibleBitmap(windowHdc, viewPortSize.x, viewPortSize.y);
 }

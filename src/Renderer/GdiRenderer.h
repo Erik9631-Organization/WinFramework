@@ -20,6 +20,8 @@
 #include "RenderingModel.h"
 #include <map>
 #include "MoveSubscriber.h"
+#include <mutex>
+#include <condition_variable>
 
 
 class Timer;
@@ -39,16 +41,19 @@ private:
     static void GdiStartup();
     static Gdiplus::GdiplusStartupOutput output;
     static ULONG token;
+    std::mutex setViewPortMutex;
 
     WindowsCore* windowsCore;
-    void CleanBackBuffer();
-    HDC GetSecondaryDC();
+    void CleanDeviceContext();
+    void UpdateBitmap();
+    void UpdateSecondaryDC();
     HWND windowHandle;
     HDC windowHdc;
     HDC secondaryDc;
-    HBITMAP secondaryBitmap;
+    HBITMAP screenBitmap;
     std::multimap<float, RenderingModel*> modelZIndexMap;
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
+    glm::ivec2 viewPortSize;
 
     template<typename T>
     T* CreateModel()
@@ -71,6 +76,10 @@ public:
     RenderingModel * CreateModel(Commands createCommand) override;
 
     void OnMove(EventMoveInfo e) override;
+
+    void SetViewportSize(int width, int height) override;
+
+    void SetViewportSize(const glm::ivec2 &size) override;
 };
 
 

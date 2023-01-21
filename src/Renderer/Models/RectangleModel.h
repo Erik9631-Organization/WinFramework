@@ -10,6 +10,7 @@
 #include "ResizableModelBehavior.h"
 #include "RenderingModel.h"
 #include "ModelViewport.h"
+#include "Renderer.h"
 
 class RectangleModel : public Movable, public Resizable, public RenderingModel
 {
@@ -28,8 +29,6 @@ public:
     RectangleModel();
 
     const ModelViewport& GetViewPort() const;
-
-    const glm::vec4 & ViewPortSize();
 
     bool IsViewPortSet();
 

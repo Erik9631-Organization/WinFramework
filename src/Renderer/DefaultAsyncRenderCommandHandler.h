@@ -2,34 +2,33 @@
 // Created by erik9 on 12/19/2022.
 //
 
-#ifndef LII_DEFAULTRENDERCOMMANDHANDLER_H
-#define LII_DEFAULTRENDERCOMMANDHANDLER_H
+#ifndef LII_DEFAULTASYNCRENDERCOMMANDHANDLER_H
+#define LII_DEFAULTASYNCRENDERCOMMANDHANDLER_H
 #include "AsyncRenderCommandHandler.h"
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
 #include "RenderingModel.h"
 #include "CreateModelMessage.h"
 #include <future>
-class DefaultRenderCommandHandler : public AsyncRenderCommandHandler
+class DefaultAsyncRenderCommandHandler : public AsyncRenderCommandHandler
 {
 private:
     moodycamel::BlockingConcurrentQueue<std::unique_ptr<RenderMessage>> messageQueue;
     bool render = false;
-    bool drawAsync = false;
     bool invalidated = false;
     void RedrawScene();
 
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderProxy>> proxies;
     std::thread* renderThread;
-    std::unique_ptr<Renderer> provider;
+    std::unique_ptr<Renderer> renderer;
     template<typename ModelType, typename ProxyType>
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
     {
         auto createData = message->GetData<CreateModelMessage<std::unique_ptr<ProxyType>>*>();
         auto proxy = std::make_unique<ProxyType>();
         proxy->SetRenderingConsumer(this);
-        auto modelPtr = provider->CreateModel(message->GetMessageId());
+        auto modelPtr = renderer->CreateModel(message->GetMessageId());
         proxy->SetAssociatedModel(modelPtr);
         if(createData->IsCallbackSet() == false)
             createData->GetRendererProxyPromise().set_value(std::move(proxy));
@@ -58,7 +57,11 @@ public:
 
     void OnDestroy(Core &core) override;
 
+    void SetViewportSize(int width, int height) override;
+
+    void SetViewportSize(const glm::ivec2 &size) override;
+
 };
 
 
-#endif //LII_DEFAULTRENDERCOMMANDHANDLER_H
+#endif //LII_DEFAULTASYNCRENDERCOMMANDHANDLER_H

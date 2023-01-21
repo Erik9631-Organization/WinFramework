@@ -304,17 +304,17 @@ void RectangleProxy::SetRenderingConsumer(RenderingConsumer *consumer)
 
 float RectangleProxy::GetAbsoluteX()
 {
-    return 0;
+    return model->GetX();
 }
 
 float RectangleProxy::GetAbsoluteY()
 {
-    return 0;
+    return model->GetY();
 }
 
 glm::vec4 RectangleProxy::GetAbsolutePosition()
 {
-    return glm::vec4();
+    return model->GetAbsolutePosition();
 }
 
 size_t & RectangleProxy::GetAssociatedModelId()
@@ -380,4 +380,42 @@ void RectangleProxy::ResetViewPort()
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
     copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
+}
+
+void RectangleProxy::BindViewPortToMovable(Movable &movable)
+{
+    movableViewportBinding = &movable;
+    SetPosition(movable.GetAbsolutePosition());
+}
+
+void RectangleProxy::BindViewPortToResizable(Resizable &resizable)
+{
+    resizableViewportBinding = &resizable;
+    SetViewPortSize(resizable.GetSize());
+}
+
+void RectangleProxy::UnbindViewPortMovable()
+{
+    movableViewportBinding = nullptr;
+}
+
+void RectangleProxy::UnbindViewportResizable()
+{
+    resizableViewportBinding = nullptr;
+}
+
+void RectangleProxy::OnMove(EventMoveInfo e)
+{
+    if (e.GetSrc() != movableViewportBinding)
+        return;
+
+    SetViewPortPosition(e.GetPosition());
+}
+
+void RectangleProxy::OnResize(EventResizeInfo e)
+{
+    if (e.GetSrc() != resizableViewportBinding)
+        return;
+
+    SetViewPortSize(e.GetSize());
 }

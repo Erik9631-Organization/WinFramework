@@ -6,7 +6,7 @@
 
 void ModelViewport::SetViewPortSize(const glm::vec2 &size)
 {
-    viewPortPosition = size;
+     viewPortSize = size;
 }
 
 void ModelViewport::SetViewPortPosition(const glm::vec2 &position)

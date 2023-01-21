@@ -119,7 +119,7 @@ void CoreMediator::Redraw(std::any src)
 {
     if(core == nullptr)
         return;
-    core->Redraw();
+    core->ScheduleRedraw();
 }
 
 void CoreMediator::OnClose(std::any src)

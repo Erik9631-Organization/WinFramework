@@ -178,4 +178,5 @@ void MovableModelBehavior::NotifyOnMoveSubscribers(EventMoveInfo e)
 
 MovableModelBehavior::MovableModelBehavior(Movable &associatedMovable) : owner(associatedMovable)
 {
+
 }

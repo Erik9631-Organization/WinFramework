@@ -6,7 +6,6 @@
 #include "EventMoveInfo.h"
 #include "RenderingApi.h"
 #include "Commands.h"
-#include "Renderer.h"
 #include <iostream>
 
 glm::vec4 RectangleModel::GetPosition()
@@ -366,4 +365,8 @@ const ModelViewport &RectangleModel::GetViewPort() const
 {
     return viewPort;
 }
+
+RectangleModel::RectangleModel() : movableBehavior(*this)
+{
+
 }

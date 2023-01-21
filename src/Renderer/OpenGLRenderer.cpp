@@ -330,3 +330,13 @@ RenderingModel *OpenGLRenderer::CreateModel(Commands createCommand)
     return nullptr;
 }
 
+void OpenGLRenderer::SetViewportSize(int width, int height)
+{
+
+}
+
+void OpenGLRenderer::SetViewportSize(const glm::ivec2 &size)
+{
+
+}
+

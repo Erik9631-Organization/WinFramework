@@ -30,6 +30,9 @@ public:
     virtual void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
     virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)>) = 0;
 
+    virtual void SetViewportSize(int width, int height) = 0;
+    virtual void SetViewportSize(const glm::ivec2& size) = 0;
+
     virtual void OnInit(Core& core) = 0;
     virtual void OnDestroy(Core& core) = 0;
 
