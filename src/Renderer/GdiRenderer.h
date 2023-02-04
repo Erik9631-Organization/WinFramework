@@ -64,10 +64,8 @@ private:
     }
     RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
 public:
-    void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion);
     GdiRenderer();
     void Render() override;
-    void OnResize(EventResizeInfo e) override;
     void OnInit(Core &coreWindowFrame) override;
     void OnDestroy(Core &coreWindow) override;
     std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
@@ -80,6 +78,8 @@ public:
     void SetViewportSize(int width, int height) override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
+
+    void OnResize(EventResizeInfo e) override;
 };
 
 

@@ -22,7 +22,6 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 void GdiRenderer::Render()
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
-    cout << "Rendering" << endl;
     for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
         it->second->Redraw();
 }
@@ -33,53 +32,11 @@ void GdiRenderer::CleanDeviceContext()
     GetLastError();
 }
 
-void GdiRenderer::AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node, Gdiplus::Region& clippingRegion)
-{
-//    Graphics graphics(secondaryDc);
-//    GdiRenderer renderer{graphics};
-//    GdiRenderingPool gdiRenderingPool{&renderer};
-//    graphics.SetSmoothingMode(Gdiplus::SmoothingMode::SmoothingModeAntiAlias);
-//
-//    if(!node.IsRoot())
-//    {
-//        glm::vec2 viewPortAbsPos = node.GetValue()->GetViewportAbsolutePosition();
-//        glm::vec2 viewPortAbsSize = node.GetValue()->GetViewportAbsoluteSize();
-//        RectF viewport = RectF(viewPortAbsPos.x, viewPortAbsPos.y, viewPortAbsSize.x, viewPortAbsSize.y);
-//        graphics.SetClip(viewport);
-//        clippingRegion.Intersect(viewport);
-//        graphics.IntersectClip(&clippingRegion);
-//
-//        //translate
-//        Matrix transformMatrix;
-//        transformMatrix.Translate(node.GetValue()->GetAbsoluteX(), node.GetValue()->GetAbsoluteY());
-//        graphics.SetTransform(&transformMatrix);
-//    }
-//    RenderEventInfo renderEvent{&gdiRenderingPool};
-//
-//    node.GetValue()->OnRenderSync(renderEvent);
-//
-//    for (int i = 0; i < node.GetNodeCount(); i++)
-//    {
-//        Region* newRegion = clippingRegion.Clone();
-//        AssignGraphicsToNodes(node.GetNode(i), *newRegion);
-//        delete newRegion;
-//    }
-}
-
 void GdiRenderer::UpdateSecondaryDC()
 {
     CleanDeviceContext();
-    cout <<"Width: " << GetDeviceCaps(windowHdc, HORZRES) << endl;
-    cout <<"Height: " << GetDeviceCaps(windowHdc, VERTRES) << endl;
     secondaryDc = CreateCompatibleDC(windowHdc);
     SelectObject(secondaryDc, screenBitmap);
-}
-
-//TODO should be handled by redraw
-void GdiRenderer::OnResize(EventResizeInfo e)
-{
-//    auto size = Size((int)e.GetSize().x, (int)e.GetSize().y);
-//    screenBitmap = CreateCompatibleBitmap(GetWindowDC(windowHandle), size.Width, size.Height);
 }
 
 void GdiRenderer::OnInit(Core &coreWindowFrame)
@@ -133,7 +90,6 @@ std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
 void GdiRenderer::SwapScreenBuffer()
 {
     std::lock_guard<std::mutex> viewPortLock{setViewPortMutex};
-    cout << "Swapping" << endl;
     BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, MERGECOPY);
 }
 
@@ -189,19 +145,21 @@ void GdiRenderer::SetViewportSize(int width, int height)
     SetViewportSize({width, height});
 }
 
-//Can be called from any thread---Has to be thread safe.
 void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
-    cout << "Viewport setting" << std::endl;
     viewPortSize = size;
     UpdateBitmap();
     UpdateSecondaryDC();
-    cout << "Viewport set" << std::endl;
 }
 
 void GdiRenderer::UpdateBitmap()
 {
     DeleteObject(screenBitmap);
     screenBitmap = CreateCompatibleBitmap(windowHdc, viewPortSize.x, viewPortSize.y);
+}
+
+void GdiRenderer::OnResize(EventResizeInfo e)
+{
+
 }

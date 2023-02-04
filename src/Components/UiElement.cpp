@@ -798,9 +798,11 @@ void UiElement::SetHeight(float height)
     SetHeight(height, true);
 }
 
-void UiElement::AddOnMountedSubscriber(MountedSubscriber *subscriber)
+void UiElement::AddOnMountedSubscriber(MountedSubscriber &subscriber)
 {
-    mountedSubscribers.push_back(subscriber);
+    mountedSubscribers.push_back(&subscriber);
+    if(this->GetPresenter() != nullptr)
+        NotifyOnMounted(*this->GetPresenter());
 }
 
 void UiElement::RemoveOnMountedSubscriber(MountedSubscriber *subscriber)
@@ -818,14 +820,14 @@ void UiElement::RemoveOnMountedSubscriber(MountedSubscriber *subscriber)
 void UiElement::NotifyOnMounted(Presenter &presenter)
 {
     for(auto subscriber : mountedSubscribers)
-        subscriber->OnMounted(presenter);
+        subscriber->OnMounted(presenter, *this);
 
     for(auto& element : GetUiElementNode().GetNodes())
     {
         element->GetValue()->NotifyOnMounted(presenter);
     }
     this->presenter = &presenter;
-    OnMounted(presenter);
+    OnMounted(presenter, *this);
 }
 
 Presenter *UiElement::GetPresenter()
@@ -834,7 +836,7 @@ Presenter *UiElement::GetPresenter()
 }
 
 
-void UiElement::OnMounted(Presenter &presenter)
+void UiElement::OnMounted(Presenter &presenter, UiElement& element)
 {
     this->presenter = &presenter;
 }

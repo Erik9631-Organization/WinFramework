@@ -202,7 +202,7 @@ set(Lii_DataTypes
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
     DataTypes/MultiTree.cpp
-        )
+        DataTypes/CommandCopyOnWriteMap.cpp DataTypes/CommandCopyOnWriteMap.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 

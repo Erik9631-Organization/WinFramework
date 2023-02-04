@@ -13,6 +13,7 @@
 #include "ModelViewport.h"
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
+#include "CommandCopyOnWriteMap.h"
 
 class RenderingConsumer;
 class RectangleModel;
@@ -25,13 +26,16 @@ private:
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
-    std::unordered_map<SubCommands, RenderMessage*> copyOnWriteMap;
+    CommandCopyOnWriteMap copyOnWriteMap;
     static constexpr int totalCommands = 9;
 
     Movable* movableViewportBinding = nullptr;
     Resizable* resizableViewportBinding = nullptr;
 
 public:
+
+    ~RectangleProxy() override;
+
     RectangleProxy();
 
     void SetViewPortPosition(const glm::vec2& position);

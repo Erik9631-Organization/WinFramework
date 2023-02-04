@@ -17,7 +17,7 @@ private:
 	RadioButtonBehavior behavior;
 	Text text;
 	
-	Background background;
+	// Background background;
 	//radioButtonBehavior
 	bool checked = false;
 public:

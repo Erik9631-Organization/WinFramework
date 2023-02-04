@@ -1,5 +1,5 @@
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Components/Button.h"
+#include "EventMouseStateInfo.h"
+#include "Button.h"
 DefaultButtonBehavior::DefaultButtonBehavior(Button& button) : associatedButton(button)
 {
 	associatedButton.AddMouseStateSubscriber(*this);

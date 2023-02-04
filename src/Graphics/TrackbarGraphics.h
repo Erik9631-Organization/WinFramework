@@ -14,7 +14,7 @@ class TrackbarGraphics : public RenderCommander, public Reflectable<TrackbarGrap
 private:
 	DefaultRender renderBehavior;
 	SimpleBorder border;
-	Background tracker;
+	// Background tracker;
 	ReflectionContainer<TrackbarGraphics> reflectionContainer;
 
 

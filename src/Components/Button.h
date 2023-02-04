@@ -4,13 +4,14 @@
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Text.h"
 #include "DefaultButtonBehavior.h"
+#include "RectangleProxy.h"
 
 class Button : public UiElement
 {
 
 private:
 	SimpleBorder border;
-	Background background;
+//	Background background;
 	Text text;
 	DefaultButtonBehavior buttonBehavior;
 

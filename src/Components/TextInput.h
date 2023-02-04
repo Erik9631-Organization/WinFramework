@@ -7,7 +7,7 @@
 class TextInput : public UiElement
 {
 private:
-	Background background;
+	// Background background;
 	SimpleBorder border;
 	Text text;
 	TextInputBehavior inputBehavior;

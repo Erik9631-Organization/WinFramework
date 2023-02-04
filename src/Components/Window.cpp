@@ -16,12 +16,10 @@ using namespace std;
 
 void Window::SetSize(float width, float height, bool emit)
 {
-    UiElement::SetSize(width, height, emit);
+    UiElement::SetSize(width, height, true);
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 
-    cout << "Sending setSize message" << endl;
-    backgroundProxy->SetSize({width, height, 0, 1});
 }
 
 void Window::SetSize(glm::vec4 size, bool emit)
@@ -31,7 +29,7 @@ void Window::SetSize(glm::vec4 size, bool emit)
 
 void Window::Repaint()
 {
-    NotifyOnRedraw(std::make_any<Window*>(this));
+    coreMediator->Redraw(this);
 }
 
 void Window::NotifyOnMouseDown(EventMouseStateInfo e)
@@ -40,7 +38,6 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
     {
         currentFocus = nullptr;
     }
-
 
 	UiElement::NotifyOnMouseDown(e);
 	UiElement* result = std::any_cast<UiElement*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
@@ -110,10 +107,11 @@ Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
 
 }
 
-Window::Window(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName)
+Window::Window(int x, int y, int width, int height, string windowName) :
+    UiElement(x, y, width, height, windowName)
 {
+    UiElement::presenter = this;
 	componentType = "Window";
-	background.SetColor({255, 255, 255});
 }
 
 UiElement & Window::Add(unique_ptr<UiElement> component)
@@ -240,36 +238,42 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);
+    window->background = std::make_unique<Background>(*window);
 
     //Handle graphics
-    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-        window->backgroundProxy = std::move(rectangleProxy);
-        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
-        window->backgroundProxy->SetPosition({0, 0, 100, 1});
-        window->backgroundProxy->SetColor({255, 255, 255, 255});
-        window->backgroundProxy->SetFill(true);
-    });
-
-    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-        rectangleProxy->SetSize({100, 100, 0, 0});
-        rectangleProxy->SetPosition({100, 150, 10, 1});
-        rectangleProxy->SetColor({255, 0, 0, 255});
-        rectangleProxy->SetFill(true);
-        rectangleProxy->BindViewPortToResizable(*window);
-        window->rectangle1 = std::move(rectangleProxy);
-    });
-
-    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-        rectangleProxy->SetSize({100, 100, 0, 0});
-        rectangleProxy->SetPosition({50, 100, 0, 1});
-        rectangleProxy->SetColor({100, 100, 100, 255});
-        rectangleProxy->SetFill(true);
-        window->rectangle2 = std::move(rectangleProxy);
-    });
+//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+//        window->backgroundProxy = std::move(rectangleProxy);
+//        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
+//        window->backgroundProxy->SetPosition({0, 0, 100, 1});
+//        window->backgroundProxy->SetColor({255, 255, 255, 255});
+//        window->backgroundProxy->SetFill(true);
+//    });
+//
+//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+//        rectangleProxy->SetSize({100, 100, 0, 0});
+//        rectangleProxy->SetPosition({100, 150, 10, 1});
+//        rectangleProxy->SetColor({255, 0, 0, 255});
+//        rectangleProxy->SetFill(true);
+//        rectangleProxy->BindViewPortToResizable(*window);
+//        window->rectangle1 = std::move(rectangleProxy);
+//    });
+//
+//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
+//        rectangleProxy->SetSize({100, 100, 0, 0});
+//        rectangleProxy->SetPosition({50, 100, 0, 1});
+//        rectangleProxy->SetColor({100, 100, 100, 255});
+//        rectangleProxy->SetFill(true);
+//        window->rectangle2 = std::move(rectangleProxy);
+//    });
     return std::unique_ptr<Window>(window);
 }
 
 AsyncRenderCommandHandler *Window::GetRenderer()
 {
     return coreMediator->GetRenderer();
+}
+
+void Window::ScheduleRedraw()
+{
+    return Repaint();
 }

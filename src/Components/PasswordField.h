@@ -8,7 +8,7 @@ class PasswordField : public UiElement
 private:
 	Text text;
     std::wstring realText;
-	Background background;
+	//Background background;
 	SimpleBorder border;
 	TextInputBehavior behavior;
 

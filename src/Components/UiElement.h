@@ -366,7 +366,7 @@ public:
 
     void SetHeight(float height) override;
 
-    void AddOnMountedSubscriber(MountedSubscriber *subscriber) override;
+    void AddOnMountedSubscriber(MountedSubscriber &subscriber) override;
 
     void RemoveOnMountedSubscriber(MountedSubscriber *subscriber) override;
 
@@ -375,7 +375,7 @@ public:
     /**
     * Called by the TopMost component added to the Presenter to notify the others that they have a presenter.
     */
-    void OnMounted(Presenter &presenter) override;
+    void OnMounted(Presenter &presenter, UiElement& element) override;
 
     float GetZ() override;
 

@@ -7,58 +7,58 @@
 #include "Commands.h"
 #include "RectangleModel.h"
 #include "EventMoveInfo.h"
+#include <iostream>
 
 glm::vec4 RectangleProxy::GetPosition()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
-    if(it == copyOnWriteMap.end())
-        return model->GetPosition();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>();
 
-    return it->second->GetData<glm::vec4>();
+    return model->GetPosition();
 }
 
 float RectangleProxy::GetX()
 {
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().x;
 
-    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
-    if(it == copyOnWriteMap.end())
-        return model->GetX();
-
-    return it->second->GetData<glm::vec4>().x;
+    return model->GetX();
 }
 
 float RectangleProxy::GetY()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
-    if(it == copyOnWriteMap.end())
-        return model->GetY();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().y;
 
-    return it->second->GetData<glm::vec4>().y;
+    return model->GetY();
 }
 
 float RectangleProxy::GetZ()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
-    if(it == copyOnWriteMap.end())
-        return model->GetZ();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().z;
 
-    return it->second->GetData<glm::vec4>().z;
+    return model->GetZ();
 }
 
 float RectangleProxy::GetW()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetPosition);
-    if(it == copyOnWriteMap.end())
-        return model->GetW();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().w;
 
-    return it->second->GetData<glm::vec4>().w;
+    return model->GetW();
 }
 
 void RectangleProxy::SetPosition(glm::vec4 position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -121,7 +121,7 @@ void RectangleProxy::SetTranslate(glm::vec4 offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -152,63 +152,61 @@ void RectangleProxy::SetTranslateY(float y)
 
 glm::vec4 RectangleProxy::GetTranslate()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetTranslate);
-    if(it == copyOnWriteMap.end())
-        return model->GetTranslate();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetTranslate);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>();
 
-    return it->second->GetData<glm::vec4>();
+    return model->GetTranslate();
 }
 
 float RectangleProxy::GetTranslateX()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetTranslate);
-    if(it == copyOnWriteMap.end())
-        return model->GetTranslateX();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetTranslate);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().x;
 
-    return it->second->GetData<glm::vec4>().x;
+    return model->GetTranslateX();
 }
 
 float RectangleProxy::GetTranslateY()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetTranslate);
-    if(it == copyOnWriteMap.end())
-        return model->GetTranslateY();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetTranslate);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().y;
 
-    return it->second->GetData<glm::vec4>().y;
+    return model->GetTranslateY();
 }
 
 glm::vec4 RectangleProxy::GetSize()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetSize);
-    if(it == copyOnWriteMap.end())
-        return model->GetSize();
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>();
 
-    return it->second->GetData<glm::vec4>();
+    return model->GetSize();
 }
 
 float RectangleProxy::GetWidth()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetSize);
-    if(it == copyOnWriteMap.end())
-        return model->GetWidth();
-
-    return it->second->GetData<glm::vec4>().x;
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().x;
+    return model->GetWidth();
 }
 
 float RectangleProxy::GetHeight()
 {
-    auto it = copyOnWriteMap.find(SubCommands::SetSize);
-    if(it == copyOnWriteMap.end())
-        return model->GetHeight();
-
-    return it->second->GetData<glm::vec4>().y;
+    auto tempData = copyOnWriteMap.Get(SubCommands::SetSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4>().y;
+    return model->GetHeight();
 }
 
 void RectangleProxy::SetSize(glm::vec4 size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -331,7 +329,7 @@ void RectangleProxy::SetColor(const glm::vec4 &color)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color, this);
     renderMessage->SetSubMessageId(SubCommands::SetColor);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -339,18 +337,18 @@ void RectangleProxy::SetFill(bool fill)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill, this);
     renderMessage->SetSubMessageId(SubCommands::SetFill);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void RectangleProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
 {
-    copyOnWriteMap.erase(processedCommand);
+    copyOnWriteMap.Remove(processedCommand);
 }
 
-RectangleProxy::RectangleProxy()
+RectangleProxy::RectangleProxy() : copyOnWriteMap(totalCommands)
 {
-    copyOnWriteMap.reserve(totalCommands);
+
 }
 
 const ModelViewport& RectangleProxy::GetViewport() const
@@ -362,7 +360,7 @@ void RectangleProxy::SetViewPortSize(const glm::vec2 &size)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -370,7 +368,7 @@ void RectangleProxy::SetViewPortPosition(const glm::vec2& position)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
@@ -378,29 +376,33 @@ void RectangleProxy::ResetViewPort()
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), nullptr, this);
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
-    copyOnWriteMap.emplace(renderMessage->GetSubMessageId(), renderMessage.get());
+    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
     renderingConsumer->ReceiveCommand(std::move(renderMessage));
 }
 
 void RectangleProxy::BindViewPortToMovable(Movable &movable)
 {
     movableViewportBinding = &movable;
+    movable.AddOnMoveSubscriber(*this);
     SetPosition(movable.GetAbsolutePosition());
 }
 
 void RectangleProxy::BindViewPortToResizable(Resizable &resizable)
 {
     resizableViewportBinding = &resizable;
+    resizable.AddOnResizeSubscriber(*this);
     SetViewPortSize(resizable.GetSize());
 }
 
 void RectangleProxy::UnbindViewPortMovable()
 {
+    movableViewportBinding->RemoveOnMoveSubscriber(*this);
     movableViewportBinding = nullptr;
 }
 
 void RectangleProxy::UnbindViewportResizable()
 {
+    resizableViewportBinding->RemoveOnResizeSubscriber(*this);
     resizableViewportBinding = nullptr;
 }
 
@@ -418,4 +420,13 @@ void RectangleProxy::OnResize(EventResizeInfo e)
         return;
 
     SetViewPortSize(e.GetSize());
+}
+
+RectangleProxy::~RectangleProxy()
+{
+    if (movableViewportBinding)
+        UnbindViewPortMovable();
+
+    if (resizableViewportBinding)
+        UnbindViewportResizable();
 }

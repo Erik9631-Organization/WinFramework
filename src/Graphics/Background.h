@@ -4,6 +4,8 @@
 #include "ReflectionContainer.h"
 #include "ScalingUtil2D.h"
 #include "DrawData2D.h"
+#include "Appearance.h"
+#include "RectangleProxy.h"
 
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
@@ -11,59 +13,21 @@
  * background-color, args: Gdiplus::Color, return void
  * get-background-color, return Gdiplus::Color
  */
-class Background : public RenderCommander, public Reflectable<Background>
+class Background : public Appearance
 {
 private:
-	DefaultRender renderBehavior;
-	glm::ivec4 currentColor;
-	ReflectionContainer<Background> reflectionContainer;
-    glm::vec4 position;
-	ScalingUtil2D graphicsUtil;
-    glm::vec4 size;
-	DrawData2D drawData;
+    Presenter* presenter = nullptr;
+    std::unique_ptr<RectangleProxy> rectangleProxy;
 
 public:
-	Background();
-	~Background();
 
-	void SetColor(glm::vec3 color);
-	void SetColor(glm::vec4 color);
-	glm::vec3 GetColor();
-	glm::vec3 GetColorRGBA();
-	void SetWidth(float width);
-	void SetHeight(float height);
-	void SetPosition(glm::vec4 position);
-	void SetSize(glm::vec4 size);
+    void SetColor(glm::ivec4 color);
 
-	GraphicsScaling GetScalingTypeX() const;
-	void SetScalingTypeX(GraphicsScaling scalingTypeX);
-	GraphicsScaling GetScalingTypeY() const;
-	void SetScalingTypeY(GraphicsScaling scalingTypeY);
-	GraphicsScaling GetScalingTypeWidth() const;
-	void SetScalingTypeWidth(GraphicsScaling scalingTypeWidth);
-	GraphicsScaling GetScalingTypeHeight() const;
-	void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
+	Background(UiElement& element);
 
-	void SetX(float x);
-	void SetY(float y);
+    void OnMounted(Presenter &presenter, UiElement& element) override;
 
-	float GetWidth();
-	float GetHeight();
-	float GetX();
-	float GetY();
+    void OnMove(EventMoveInfo e) override;
 
-	glm::vec4 GetSize();
-	glm::vec4 GetPosition();
-
-	// Inherited via Renderable
-	virtual void OnRenderSync(RenderEventInfo e) override;
-	virtual void Repaint() override;
-	virtual void AddRenderCommander(RenderCommander &renderable) override;
-	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
-	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-
-	// Inherited via Reflectable
-	virtual bool HasMethod(std::string method) override;
-	virtual ReflectionContainer<Background>& GetReflectionContainer();
-    void OnSync(const DrawData &data) override;
+    void OnResize(EventResizeInfo e) override;
 };

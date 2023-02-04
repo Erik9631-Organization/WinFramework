@@ -10,7 +10,7 @@ class Checkbox : public UiElement, public CheckboxStateSubject
 private:
 	SimpleBorder border;
 	SimpleBorder checkboxBorder;
-	Background background;
+	//Background background;
 	CheckBoxBehavior checkboxBehavior;
 	bool checked = false;
 

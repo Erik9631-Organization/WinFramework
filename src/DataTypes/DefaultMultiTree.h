@@ -72,14 +72,14 @@ template <class T> void DefaultMultiTree<T>::Remove(int index)
     elementList.erase(elementIterator);
 }
 
-template <class T> MultiTree<T>& DefaultMultiTree<T>::GetRootNode()
+template <class T> MultiTree<T>& DefaultMultiTree<T>:: GetRootNode()
 {
     std::stack<MultiTree<T>*> treeStack = std::stack<MultiTree<T>*>();
     treeStack.push(this);
     while (treeStack.top() != nullptr)
         treeStack.push(treeStack.top()->GetParentNode());
 
-    treeStack.pop();
+    treeStack.pop(); //Remove the nullptr node
     return *treeStack.top();
 }
 

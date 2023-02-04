@@ -4,13 +4,15 @@
 #include "catch_amalgamated.hpp"
 #include "ApplicationController.h"
 #include "Window.h"
+#include "MountedSubscriber.h"
+
 class TestComponent : public UiElement
 {
 private:
     unsigned int onMountedCallCount = 0;
 public:
     using UiElement::UiElement;
-    void OnMounted(Presenter &presenter) override
+    void OnMounted(Presenter &presenter, UiElement& element) override
     {
         onMountedCallCount++;
     }
@@ -22,13 +24,55 @@ public:
 
 };
 
+class OnMountedSubscriber : public MountedSubscriber
+{
+private:
+    unsigned int onMountedCallCount = 0;
+public:
+    void OnMounted(Presenter &presenter, UiElement& element) override
+    {
+        onMountedCallCount++;
+    }
+
+    const unsigned int& GetNumberOfOnMountedCalls() const
+    {
+        return onMountedCallCount;
+    }
+};
+
+
+TEST_CASE("Mounted event test with subscriber and custom component", "[mountedEventSubscriber2][mountedEvents]")
+{
+    auto window = Window::Create(0, 0, 800, 600, "testWindow");
+    auto mountedComponent = std::make_unique<TestComponent>("testComponent1");
+    auto subscriber = OnMountedSubscriber{};
+    mountedComponent->AddOnMountedSubscriber(subscriber);
+
+    CHECK(subscriber.GetNumberOfOnMountedCalls() == 0);
+    window->Add(std::move(mountedComponent));
+    CHECK(subscriber.GetNumberOfOnMountedCalls() == 1);
+
+    window->CloseWindow();
+    ApplicationController::GetApplicationController()->JoinThreads();
+}
+
+
+TEST_CASE("Mounted event one subscriber test", "[mountedEventSubscriber1][mountedEvents]")
+{
+    auto window = Window::Create(0, 0, 800, 600, "testWindow");
+    auto subscriber = OnMountedSubscriber{};
+    window->AddOnMountedSubscriber(subscriber);
+    CHECK(subscriber.GetNumberOfOnMountedCalls() == 1);
+    window->CloseWindow();
+    ApplicationController::GetApplicationController()->JoinThreads();
+}
 
 
 TEST_CASE("Mounted event one component", "[mountedEvent1][mountedEvents]")
 {
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
     auto& testElement1 = window->CreateElement<TestComponent>("component1");
-    REQUIRE(testElement1.GetNumberOfOnMountedCalls() == 1);
+    CHECK(testElement1.GetNumberOfOnMountedCalls() == 1);
     window->CloseWindow();
     ApplicationController::GetApplicationController()->JoinThreads();
 }
@@ -43,10 +87,10 @@ TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2][mounte
 
     SECTION("Multiple components test")
     {
-        REQUIRE(testElement1.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement2.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement3.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement4.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement1.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement2.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement3.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement4.GetNumberOfOnMountedCalls() == 1);
     }
 
     window->CloseWindow();
@@ -66,10 +110,10 @@ TEST_CASE("Mounted event multiple components, added last", "[mountedEvent3][moun
 
     SECTION("Multiple components test")
     {
-        REQUIRE(testElementRef.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement2.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement3.GetNumberOfOnMountedCalls() == 1);
-        REQUIRE(testElement4.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElementRef.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement2.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement3.GetNumberOfOnMountedCalls() == 1);
+        CHECK(testElement4.GetNumberOfOnMountedCalls() == 1);
     }
 
     window->CloseWindow();

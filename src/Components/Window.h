@@ -26,7 +26,7 @@ private:
     std::unique_ptr<CoreMediator> coreMediator;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	Background background;
+    std::unique_ptr<Background> background;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
@@ -39,10 +39,6 @@ private:
     void NotifyOnCursorLockStateChanged(EventCursorLockInfo &e) override;
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
-    std::unique_ptr<RectangleProxy> backgroundProxy;
-    std::unique_ptr<RectangleProxy> rectangle1;
-    std::unique_ptr<RectangleProxy> rectangle2;
-
 public:
     Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
@@ -81,5 +77,7 @@ public:
     }
     Scene& Get3dScene();
     AsyncRenderCommandHandler *GetRenderer() override;
+
+    void ScheduleRedraw() override;
 };
 

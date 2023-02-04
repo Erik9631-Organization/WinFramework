@@ -55,7 +55,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 {
 	border.SetColor({0, 0, 0});
 	border.SetThickness(1.0f);
-	background.SetColor({0, 0, 0, 0});
+	//background.SetColor({0, 0, 0, 0});
 
 	checkboxBorder.SetColor({0, 0, 0});
 	checkboxBorder.SetScalingTypeWidth(Decimal);
@@ -84,7 +84,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 
 	text.SetPosition({20.0f, 0.51f, 0, 0});
 
-    AddRenderCommander(background);
+    //AddRenderCommander(background);
     AddRenderCommander(border);
     AddRenderCommander(checkboxBorder);
     AddRenderCommander(checkBoxChar);

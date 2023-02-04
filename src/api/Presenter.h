@@ -16,6 +16,7 @@ class Presenter : public virtual Movable, public virtual Resizable, public virtu
 {
 public:
     virtual AsyncRenderCommandHandler* GetRenderer() = 0;
+    virtual void ScheduleRedraw() = 0;
 };
 
 

@@ -9,7 +9,7 @@ class Presenter;
 class MountedSubscriber
 {
 public:
-    virtual void OnMounted(Presenter& presenter) = 0;
+    virtual void OnMounted(Presenter& presenter, UiElement& element) = 0;
 };
 
 

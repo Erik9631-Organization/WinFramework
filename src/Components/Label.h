@@ -8,7 +8,7 @@
 class Label : public UiElement
 {
 private:
-	Background background;
+	//Background background;
 	Text text;
 public:
 	/**
