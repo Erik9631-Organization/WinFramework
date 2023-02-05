@@ -38,7 +38,7 @@ public:
 
     size_t & GetAssociatedModelId() override;
 
-    void SetAssociatedModel(RenderingModel *model) override;
+    void OnModelCreated(RenderingModel *model) override;
 
     void SetRenderingConsumer(RenderingConsumer *consumer) override;
 

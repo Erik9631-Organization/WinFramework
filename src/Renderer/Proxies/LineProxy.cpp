@@ -47,7 +47,7 @@ size_t & LineProxy::GetAssociatedModelId()
     return lineModel->GetModelId();
 }
 
-void LineProxy::SetAssociatedModel(RenderingModel *model)
+void LineProxy::OnModelCreated(RenderingModel *model)
 {
     this->lineModel = dynamic_cast<LineModel*>(model);
 }

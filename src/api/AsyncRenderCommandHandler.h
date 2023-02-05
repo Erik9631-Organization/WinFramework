@@ -19,17 +19,11 @@
 class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {
 public:
-    virtual std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() = 0;
-    virtual std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() = 0;
-    virtual std::future<std::unique_ptr<LineProxy>> RequestLineProxy() = 0;
-    virtual std::future<std::unique_ptr<TextProxy>> RequestTextProxy() = 0;
-    virtual std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() = 0;
-
-    virtual void RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
-    virtual void RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
-    virtual void RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction) = 0;
-    virtual void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) = 0;
-    virtual void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)>) = 0;
+    virtual std::unique_ptr<RenderProxy> RequestEllipseProxy() = 0;
+    virtual std::unique_ptr<RenderProxy> RequestModelProxy() = 0;
+    virtual std::unique_ptr<LineProxy> RequestLineProxy() = 0;
+    virtual std::unique_ptr<RenderProxy> RequestTextProxy() = 0;
+    virtual std::unique_ptr<RectangleProxy> RequestRectangleProxy() = 0;
 
     virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;

@@ -36,7 +36,7 @@ public:
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackgroundColor(glm::vec3 color);
+	void SetBackgroundColor(const glm::vec4 &color);
 
 
 	/**
@@ -62,5 +62,7 @@ public:
 	glm::vec3 GetOnClickColor();
 	glm::vec3 GetOnHoverColor();
 	~Button();
+
+    void OnMounted(Presenter &presenter, UiElement &element) override;
 };
 

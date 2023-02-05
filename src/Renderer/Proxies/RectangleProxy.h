@@ -14,6 +14,7 @@
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "CommandCopyOnWriteMap.h"
+#include <concurrentqueue.h>
 
 class RenderingConsumer;
 class RectangleModel;
@@ -31,9 +32,10 @@ private:
 
     Movable* movableViewportBinding = nullptr;
     Resizable* resizableViewportBinding = nullptr;
-
+    moodycamel::ConcurrentQueue<std::unique_ptr<RenderMessage>>* preInitMessages = nullptr;
+    std::mutex modelSetMutex;
+    void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
 public:
-
     ~RectangleProxy() override;
 
     RectangleProxy();
@@ -144,7 +146,7 @@ public:
 
     size_t & GetAssociatedModelId() override;
 
-    void SetAssociatedModel(RenderingModel *model) override;
+    void OnModelCreated(RenderingModel *model) override;
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 

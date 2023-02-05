@@ -200,6 +200,7 @@ void DefaultMove<T>::SetPosition(glm::vec4 position, bool emit)
 {
 	relativePosition = position;
 	CalculateAbsolutePosition();
+    //TODO this is a hack, fix it as get is a unique_ptr
     if(emit)
 	    NotifyOnMoveSubscribers(EventMoveInfo(relativePosition, (Movable*)&associatedAdjustableNode.GetValue() ));
 }

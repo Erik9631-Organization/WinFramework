@@ -4,13 +4,10 @@
 
 void Background::OnMounted(Presenter &presenter, UiElement& element)
 {
-    presenter.GetRenderer()->RequestRectangleProxy([&](std::unique_ptr<RectangleProxy> proxy){
-        rectangleProxy = std::move(proxy);
-        rectangleProxy->SetPosition(element.GetAbsolutePosition());
-        rectangleProxy->SetSize(element.GetSize());
-        rectangleProxy->SetColor(glm::ivec4(255, 255, 255, 255));
-        rectangleProxy->BindViewPortToResizable(element);
-    });
+    rectangleProxy = std::move(presenter.GetRenderer()->RequestRectangleProxy());
+    rectangleProxy->SetSize(element.GetSize());
+    rectangleProxy->SetPosition(element.GetAbsolutePosition());
+    rectangleProxy->SetColor({255, 255, 255, 255});
     this->presenter = &presenter;
 }
 
@@ -18,7 +15,8 @@ void Background::OnMove(EventMoveInfo e)
 {
     if(rectangleProxy == nullptr)
         return;
-    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition());
+    auto pos = e.GetPosition();
+    rectangleProxy->SetPosition(pos);
     presenter->ScheduleRedraw();
 }
 
@@ -39,5 +37,7 @@ Background::Background(UiElement &element)
 
 void Background::SetColor(glm::ivec4 color)
 {
+    if(rectangleProxy == nullptr)
+        return;
     rectangleProxy->SetColor(color);
 }

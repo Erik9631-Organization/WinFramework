@@ -56,10 +56,9 @@ float RectangleProxy::GetW()
 
 void RectangleProxy::SetPosition(glm::vec4 position, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::SetPosition(glm::vec4 position)
@@ -119,10 +118,9 @@ void RectangleProxy::SetW(float w)
 
 void RectangleProxy::SetTranslate(glm::vec4 offset, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), offset, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::SetTranslate(glm::vec4 offset)
@@ -204,10 +202,9 @@ float RectangleProxy::GetHeight()
 
 void RectangleProxy::SetSize(glm::vec4 size, bool emit)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::SetSize(glm::vec4 size)
@@ -320,25 +317,57 @@ size_t & RectangleProxy::GetAssociatedModelId()
     return model->GetModelId();
 }
 
-void RectangleProxy::SetAssociatedModel(RenderingModel *model)
+void RectangleProxy::OnModelCreated(RenderingModel *model)
 {
+    if(preInitMessages == nullptr)
+        return;
+
+    //Send the messages before the model is assigned, to guarantee ordering
+    std::unique_ptr<RenderMessage> message;
+    while(preInitMessages->try_dequeue(message))
+    {
+        message->SetReceiverId(model->GetModelId());
+        renderingConsumer->ReceiveCommand(std::move(message));
+    }
+    std::lock_guard<std::mutex> lock(modelSetMutex);
     this->model = dynamic_cast<RectangleModel*>(model);
+
+    //Throw away the queue as it is no longer needed after we have the model
+    delete preInitMessages;
+    preInitMessages = nullptr;
+}
+
+void RectangleProxy::SendRenderingMessage(std::unique_ptr<RenderMessage> message)
+{
+    copyOnWriteMap.Add(message->GetSubMessageId(), message.get());
+    std::lock_guard<std::mutex> lock(modelSetMutex);
+    if(model == nullptr)
+    {
+        if(preInitMessages == nullptr)
+        {
+            std::cout << "preInitMessages is null!" << std::endl;
+            return;
+        }
+        preInitMessages->enqueue(std::move(message));
+        return;
+    }
+
+    message->SetReceiverId(model->GetModelId());
+    renderingConsumer->ReceiveCommand(std::move(message));
 }
 
 void RectangleProxy::SetColor(const glm::vec4 &color)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), color, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, color, this);
     renderMessage->SetSubMessageId(SubCommands::SetColor);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::SetFill(bool fill)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), fill, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, fill, this);
     renderMessage->SetSubMessageId(SubCommands::SetFill);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
@@ -348,7 +377,7 @@ void RectangleProxy::OnRenderMessageProcessed(const SubCommands &processedComman
 
 RectangleProxy::RectangleProxy() : copyOnWriteMap(totalCommands)
 {
-
+    preInitMessages = new moodycamel::ConcurrentQueue<std::unique_ptr<RenderMessage>>();
 }
 
 const ModelViewport& RectangleProxy::GetViewport() const
@@ -358,26 +387,23 @@ const ModelViewport& RectangleProxy::GetViewport() const
 
 void RectangleProxy::SetViewPortSize(const glm::vec2 &size)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), size, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, size, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::SetViewPortPosition(const glm::vec2& position)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), position, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, position, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::ResetViewPort()
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(model->GetModelId(), nullptr, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, nullptr, this);
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
-    copyOnWriteMap.Add(renderMessage->GetSubMessageId(), renderMessage.get());
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    SendRenderingMessage(std::move(renderMessage));
 }
 
 void RectangleProxy::BindViewPortToMovable(Movable &movable)
@@ -430,3 +456,4 @@ RectangleProxy::~RectangleProxy()
     if (resizableViewportBinding)
         UnbindViewportResizable();
 }
+

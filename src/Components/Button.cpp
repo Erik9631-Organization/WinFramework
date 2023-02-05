@@ -7,9 +7,9 @@ void Button::SetBorderColor(glm::vec3 color)
 	border.SetColor(color);
 }
 
-void Button::SetBackgroundColor(glm::vec3 color)
+void Button::SetBackgroundColor(const glm::vec4 &color)
 {
-	//background.SetColor(color);
+	background.SetColor(color);
 	buttonBehavior.SetStatelessColor(color);
 }
 
@@ -36,8 +36,6 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 
 	border.SetColor({0, 0, 0});
 	border.SetThickness(1.0f);
-
-	SetBackgroundColor({30, 30, 30});
 
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeY(Percentual);
@@ -89,4 +87,10 @@ glm::vec3 Button::GetOnHoverColor()
 void Button::SetColor(glm::vec3 color)
 {
     
+}
+
+void Button::OnMounted(Presenter &presenter, UiElement &element)
+{
+    UiElement::OnMounted(presenter, element);
+    SetBackgroundColor({30, 30, 30, 255});
 }

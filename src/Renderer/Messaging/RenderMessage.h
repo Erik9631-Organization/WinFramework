@@ -14,7 +14,7 @@ class RenderMessage
 private:
     std::any data;
     Commands messageId = Commands::None;
-    long long int receiverId = -1;
+    size_t receiverId = -1;
     SubCommands subMessageId = SubCommands::None;
     RenderMessageSender *sender = nullptr;
 public:
@@ -29,7 +29,7 @@ public:
         return receiverId;
     }
 
-    void SetReceiverId(long long int receiverId)
+    void SetReceiverId(size_t receiverId)
     {
         RenderMessage::receiverId = receiverId;
     }

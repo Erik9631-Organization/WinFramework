@@ -23,7 +23,7 @@ UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
     if(root != nullptr)
         uiElement->NotifyOnMounted(static_cast<Presenter&>(*root));
 
-    uiElement->SetZ(GetZ() + 1);
+    uiElement->SetZ(GetZ() - 1);
     uiElement.release();
 
 

@@ -8,8 +8,11 @@
 #include "blockingconcurrentqueue.h"
 #include "RenderMessage.h"
 #include "RenderingModel.h"
-#include "CreateModelMessage.h"
+#include "RectangleProxy.h"
+#include "MessageGenerateModel.h"
 #include <future>
+
+
 class DefaultAsyncRenderCommandHandler : public AsyncRenderCommandHandler
 {
 private:
@@ -22,18 +25,14 @@ private:
     std::vector<std::unique_ptr<RenderProxy>> proxies;
     std::thread* renderThread;
     std::unique_ptr<Renderer> renderer;
-    template<typename ModelType, typename ProxyType>
+    template<typename ProxyType>
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
     {
-        auto createData = message->GetData<CreateModelMessage<std::unique_ptr<ProxyType>>*>();
-        auto proxy = std::make_unique<ProxyType>();
+        auto createData = message->GetData<MessageGenerateModel<ProxyType*>*>();
+        auto proxy = createData->GetRendererProxy();
         proxy->SetRenderingConsumer(this);
         auto modelPtr = renderer->CreateModel(message->GetMessageId());
-        proxy->SetAssociatedModel(modelPtr);
-        if(createData->IsCallbackSet() == false)
-            createData->GetRendererProxyPromise().set_value(std::move(proxy));
-        else
-            createData->GetFutureCallback().operator()(std::move(proxy));
+        proxy->OnModelCreated(modelPtr);
         delete createData;
         RedrawScene();
     }
@@ -41,16 +40,11 @@ private:
     void RenderLoop();
 
 public:
-    std::future<std::unique_ptr<EllipseProxy>> RequestEllipseProxy() override;
-    std::future<std::unique_ptr<ModelProxy>> RequestModelProxy() override;
-    std::future<std::unique_ptr<LineProxy>> RequestLineProxy() override;
-    std::future<std::unique_ptr<TextProxy>> RequestTextProxy() override;
-    std::future<std::unique_ptr<RectangleProxy>> RequestRectangleProxy() override;
-    void RequestEllipseProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
-    void RequestModelProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
-    void RequestLineProxy(std::function<void(std::unique_ptr<LineProxy>)> onCreatedAction) override;
-    void RequestTextProxy(std::function<void(RenderProxy &)> onCreatedAction) override;
-    void RequestRectangleProxy(std::function<void(std::unique_ptr<RectangleProxy>)> function) override;
+    std::unique_ptr<RenderProxy> RequestEllipseProxy() override;
+    std::unique_ptr<RenderProxy> RequestModelProxy() override;
+    std::unique_ptr<LineProxy> RequestLineProxy() override;
+    std::unique_ptr<RenderProxy> RequestTextProxy() override;
+    std::unique_ptr<RectangleProxy> RequestRectangleProxy() override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
     void SwapScreenBuffer() override;
 
