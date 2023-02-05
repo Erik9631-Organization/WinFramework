@@ -12,7 +12,7 @@ CommandCopyOnWriteMap::CommandCopyOnWriteMap(size_t size)
 void CommandCopyOnWriteMap::Add(const SubCommands &subCommand, RenderMessage *message)
 {
     std::lock_guard<std::mutex>lock{mapLock};
-    copyOnWriteMap.try_emplace(subCommand, message);
+    copyOnWriteMap[subCommand] = message;
 }
 //Called from the rendering thread
 void CommandCopyOnWriteMap::Remove(const SubCommands &subCommand)
