@@ -15,16 +15,16 @@ UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
     auto& elementRef = *uiElement;
     auto root = dynamic_cast<Window*>(&GetRoot());
+    //We always draw the added element on top of the current element(The parent)
 
-    addToContainerMutex.lock();
     std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};
     uiElementNode->AddNode(std::move(nodeToBeAdded));
 
     if(root != nullptr)
         uiElement->NotifyOnMounted(static_cast<Presenter&>(*root));
 
+    uiElement->SetZ(GetZ() + 1);
     uiElement.release();
-    addToContainerMutex.unlock();
 
 
     //RegisterComponent to the memory manager
@@ -656,7 +656,7 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 
 void UiElement::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    moveBehavior.SetPosition(x, y, 0, 0, emit);
+    moveBehavior.SetPosition(x, y, z, w, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
@@ -745,17 +745,17 @@ void UiElement::SetY(float y)
 
 void UiElement::SetZ(float z, bool emit)
 {
-    SetZ(z, emit);
+    SetPosition(GetX(), GetY(), z, GetW(), emit);
 }
 
 void UiElement::SetZ(float z)
 {
-    SetZ(z);
+    SetZ(z, true);
 }
 
 void UiElement::SetW(float w, bool emit)
 {
-    SetW(w, emit);
+    SetPosition(GetX(), GetY(), GetZ(), w, emit);
 }
 
 void UiElement::SetW(float w)

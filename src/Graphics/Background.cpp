@@ -16,12 +16,16 @@ void Background::OnMounted(Presenter &presenter, UiElement& element)
 
 void Background::OnMove(EventMoveInfo e)
 {
+    if(rectangleProxy == nullptr)
+        return;
     rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition());
     presenter->ScheduleRedraw();
 }
 
 void Background::OnResize(EventResizeInfo e)
 {
+    if(rectangleProxy == nullptr)
+        return;
    rectangleProxy->SetSize(e.GetSrc()->GetSize());
    presenter->ScheduleRedraw();
 }

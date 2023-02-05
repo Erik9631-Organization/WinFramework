@@ -14,6 +14,7 @@
 #include "RenderingConsumer.h"
 #include "Renderer.h"
 #include "ModelProxy.h"
+#include <memory>
 
 class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {

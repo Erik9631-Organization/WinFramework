@@ -28,7 +28,7 @@ void Button::SetBorderThickness(float thickness)
 	border.SetThickness(thickness);
 }
 
-Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this)
+Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this), background(*this)
 {
     SetSize(width, height, false);
     SetPosition(x, y, 0, 0, false);

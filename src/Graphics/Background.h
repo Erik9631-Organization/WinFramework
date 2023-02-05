@@ -20,7 +20,6 @@ private:
     std::unique_ptr<RectangleProxy> rectangleProxy;
 
 public:
-
     void SetColor(glm::ivec4 color);
 
 	Background(UiElement& element);

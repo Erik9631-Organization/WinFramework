@@ -207,7 +207,7 @@ void DefaultMove<T>::SetPosition(glm::vec4 position, bool emit)
 template<class T>
 void DefaultMove<T>::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    SetPosition(glm::vec4(x, y, 0, 0), emit);
+    SetPosition({x, y, z, w}, emit);
 }
 
 template<class T>
