@@ -162,6 +162,7 @@ void UiMoveBehavior<T>::CalculateAbsolutePosition()
 	    absolutePosition.x = relativePosition.x + associatedAdjustableNode.GetParent()->GetAbsoluteX() + translate.x;
 	    absolutePosition.y = relativePosition.y + associatedAdjustableNode.GetParent()->GetAbsoluteY() + translate.y;
 	}
+    absolutePosition.z *= RelativeZIndex::Max;
 }
 
 template<class T>
@@ -211,7 +212,7 @@ float UiMoveBehavior<T>::GetY()
 template<class T>
 float UiMoveBehavior<T>::GetZ()
 {
-    return relativePosition.z / RelativeZIndex::Max;
+    return relativePosition.z;
 }
 
 template<class T>
@@ -223,7 +224,7 @@ float UiMoveBehavior<T>::GetW()
 template<class T>
 void UiMoveBehavior<T>::SetPosition(glm::vec4 position, bool emit)
 {
-	relativePosition = position * glm::vec4{1.0f, 1.0f, RelativeZIndex::Max, 1.0f};
+	relativePosition = position;
 	CalculateAbsolutePosition();
     //TODO this is a hack, fix it as get is a unique_ptr
     if(emit)
@@ -269,7 +270,7 @@ void UiMoveBehavior<T>::SetY(float y)
 template<class T>
 void UiMoveBehavior<T>::SetZ(float z, bool emit)
 {
-    relativePosition.z = z*RelativeZIndex::Max;
+    relativePosition.z = z;
     CalculateAbsolutePosition();
     if(emit)
         NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
