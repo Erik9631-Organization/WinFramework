@@ -1,17 +1,22 @@
-#include "Background.h"
-#include "Core/Windows/WindowsCore.h"
-#include "RenderingPool.h"
+//
+// Created by erik9 on 2/19/2023.
+//
 
-void Background::OnMounted(Presenter &presenter, UiElement& element)
+#include "Border.h"
+#include "Presenter.h"
+#include "UiElement.h"
+
+void Border::OnMounted(Presenter &presenter, UiElement &element)
 {
     rectangleProxy = std::move(presenter.GetRenderer()->RequestRectangleProxy());
+    rectangleProxy->SetFill(false);
     rectangleProxy->SetSize(element.GetSize());
     rectangleProxy->SetPosition(element.GetAbsolutePosition());
     rectangleProxy->SetColor({255, 255, 255, 255});
     this->presenter = &presenter;
 }
 
-void Background::OnMove(EventMoveInfo e)
+void Border::OnMove(EventMoveInfo e)
 {
     if(rectangleProxy == nullptr)
         return;
@@ -19,42 +24,34 @@ void Background::OnMove(EventMoveInfo e)
     presenter->ScheduleRedraw();
 }
 
-void Background::OnResize(EventResizeInfo e)
+void Border::OnResize(EventResizeInfo e)
 {
     if(rectangleProxy == nullptr)
         return;
-   rectangleProxy->SetSize(e.GetSrc()->GetSize());
-   presenter->ScheduleRedraw();
+    rectangleProxy->SetSize(e.GetSrc()->GetSize());
+    presenter->ScheduleRedraw();
 }
 
-Background::Background(UiElement &element) : associatedElement(element)
+Border::Border(UiElement &element) : associatedElement(element)
 {
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
 }
 
-void Background::SetColor(glm::ivec4 color)
-
+void Border::SetColor(glm::ivec4 color)
 {
     if(rectangleProxy == nullptr)
         return;
     rectangleProxy->SetColor(color);
 }
 
-Background::~Background()
-{
-    associatedElement.RemoveOnResizeSubscriber(*this);
-    associatedElement.RemoveOnMoveSubscriber(*this);
-    associatedElement.RemoveOnMountedSubscriber(*this);
-}
-
-int Background::GetRelativeZIndex()
+int Border::GetRelativeZIndex()
 {
     return relativeZIndex;
 }
 
-void Background::SetRelativeZIndex(int relativeZIndex)
+void Border::SetRelativeZIndex(int relativeZIndex)
 {
     this->relativeZIndex = relativeZIndex;
 }

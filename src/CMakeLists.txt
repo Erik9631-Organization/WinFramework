@@ -6,7 +6,7 @@ set(PROJECT_NAME Lii)
 set(Enums
     "Enums/EventUpdateFlags.h"
     "Enums/GraphicsScaling.h"
-        Enums/FontAlignment.h Enums/Messages.h)
+        Enums/FontAlignment.h Enums/Messages.h Enums/RelativeZIndex.h)
 source_group("Lii\\Enums" FILES ${Enums})
 
 set(Lii
@@ -56,7 +56,7 @@ set(Lii_Behavior
     "Behavior/DefaultActivate.h"
     "Behavior/DefaultKeyStateBehavior.h"
     "Behavior/DefaultMouseBehavior.h"
-    "Behavior/DefaultMove.h"
+    "Behavior/UiMoveBehavior.h"
     "Behavior/DefaultRender.h"
     "Behavior/DefaultResize.h"
     "Behavior/RadioButtonBehavior.h"
@@ -300,7 +300,7 @@ set(Lii_Graphics
     "Graphics/SimpleBorder.cpp"
     "Graphics/Text.cpp"
     "Graphics/TestGraphics.cpp"
-        )
+        Graphics/Border.cpp Graphics/Border.h)
 source_group("Lii\\Graphics" FILES ${Lii_Graphics})
 
 

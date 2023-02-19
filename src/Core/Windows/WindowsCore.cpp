@@ -98,7 +98,6 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     updateFinished = false;
 	PAINTSTRUCT paintInfo;
 
-
 	switch (msg)
 	{
 	case WM_CLOSE:

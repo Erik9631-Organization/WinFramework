@@ -6,7 +6,7 @@
 #include <vector>
 #include <string>
 #include "DefaultMultiTree.h"
-#include "DefaultMove.h"
+#include "UiMoveBehavior.h"
 #include "DefaultResize.h"
 #include "api/RenderCommander.h"
 #include "DefaultRender.h"
@@ -51,7 +51,7 @@ protected:
 	std::string name;
 	DefaultMultiTree<std::unique_ptr<UiElement>>* uiElementNode;
 	DefaultRender renderBehavior;
-	DefaultMove<std::unique_ptr<UiElement>> moveBehavior;
+	UiMoveBehavior<std::unique_ptr<UiElement>> moveBehavior;
 	DefaultMouseBehavior<MultiTree<std::unique_ptr<UiElement>> &> mouseHandler;
     std::vector<MountedSubscriber*>mountedSubscribers;
 	DefaultKeyStateBehavior keyStateBehavior;
@@ -368,7 +368,7 @@ public:
 
     void AddOnMountedSubscriber(MountedSubscriber &subscriber) override;
 
-    void RemoveOnMountedSubscriber(MountedSubscriber *subscriber) override;
+    void RemoveOnMountedSubscriber(MountedSubscriber &subscriber) override;
 
     void NotifyOnMounted(Presenter &presenter) override;
 

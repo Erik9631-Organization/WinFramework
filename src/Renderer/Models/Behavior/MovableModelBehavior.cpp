@@ -62,7 +62,6 @@ void MovableModelBehavior::SetPosition(float x, float y, float z, float w, bool 
     SetPosition({x, y, 0, 1}, emit);
 }
 
-///TODO: add Z and W to params
 void MovableModelBehavior::SetPosition(float x, float y, float z, float w)
 {
     SetPosition({x, y, 0, 1});

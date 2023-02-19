@@ -1,6 +1,6 @@
 #pragma once
 #include "api/Adjustable.h"
-#include "Behavior/DefaultMove.h"
+#include "Behavior/UiMoveBehavior.h"
 #include "Behavior/DefaultResize.h"
 #include "DataTypes/DefaultMultiTree.h"
 
@@ -12,7 +12,7 @@ private:
 	Adjustable& associatedAdjustable;
 	DefaultMultiTree<Adjustable*> viewportNode; //For the default behavior
 
-	DefaultMove<Adjustable*> moveBehavior;
+	UiMoveBehavior<Adjustable*> moveBehavior;
 	DefaultResize resizeBehavior;
 
     glm::vec4 absoluteSize{0};

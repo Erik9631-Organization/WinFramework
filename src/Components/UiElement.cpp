@@ -805,11 +805,11 @@ void UiElement::AddOnMountedSubscriber(MountedSubscriber &subscriber)
         NotifyOnMounted(*this->GetPresenter());
 }
 
-void UiElement::RemoveOnMountedSubscriber(MountedSubscriber *subscriber)
+void UiElement::RemoveOnMountedSubscriber(MountedSubscriber &subscriber)
 {
     for(auto it = mountedSubscribers.begin(); it != mountedSubscribers.end(); it++)
     {
-        if(*it == subscriber)
+        if(*it == &subscriber)
         {
             mountedSubscribers.erase(it);
             return;

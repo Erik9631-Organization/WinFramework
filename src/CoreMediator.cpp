@@ -59,7 +59,6 @@ void CoreMediator::CoreOnMousePressed(EventMouseStateInfo e)
     presenter->NotifyOnMousePressed(e);
 }
 
-
 void CoreMediator::CoreOnKeyUp(EventKeyStateInfo e)
 {
     if(presenter == nullptr)

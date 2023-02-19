@@ -1,5 +1,7 @@
 #include "EventMouseStateInfo.h"
 #include "Button.h"
+#include <iostream>
+
 DefaultButtonBehavior::DefaultButtonBehavior(Button& button) : associatedButton(button)
 {
 	associatedButton.AddMouseStateSubscriber(*this);
@@ -33,6 +35,7 @@ void DefaultButtonBehavior::OnMouseUp(EventMouseStateInfo e)
 
 void DefaultButtonBehavior::OnMousePressed(EventMouseStateInfo e)
 {
+
 }
 
 void DefaultButtonBehavior::OnMouseMove(EventMouseStateInfo e)

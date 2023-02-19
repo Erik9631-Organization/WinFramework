@@ -6,6 +6,7 @@
 #include "DrawData2D.h"
 #include "Appearance.h"
 #include "RectangleProxy.h"
+#include "RelativeZIndex.h"
 
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
@@ -18,15 +19,22 @@ class Background : public Appearance
 private:
     Presenter* presenter = nullptr;
     std::unique_ptr<RectangleProxy> rectangleProxy;
-
+    UiElement& associatedElement;
+    int relativeZIndex = RelativeZIndex::Background;
 public:
-    void SetColor(glm::ivec4 color);
+    Background(UiElement& element);
+    ~Background() override;
 
-	Background(UiElement& element);
+    void SetColor(glm::ivec4 color);
 
     void OnMounted(Presenter &presenter, UiElement& element) override;
 
     void OnMove(EventMoveInfo e) override;
 
     void OnResize(EventResizeInfo e) override;
+
+private:
+    int GetRelativeZIndex() override;
+
+    void SetRelativeZIndex(int relativeZIndex) override;
 };

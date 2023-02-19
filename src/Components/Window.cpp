@@ -16,7 +16,11 @@ using namespace std;
 
 void Window::SetSize(float width, float height, bool emit)
 {
+    //TODO This is a hack If emit is changed to false, it won't work.
+    //The issue is that if setsize comes from
     UiElement::SetSize(width, height, true);
+
+    //This emit can't be called if it comes from the core
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 
@@ -239,32 +243,6 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);
     window->background = std::make_unique<Background>(*window);
-
-    //Handle graphics
-//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-//        window->backgroundProxy = std::move(rectangleProxy);
-//        window->backgroundProxy->SetSize({window->GetWidth(), window->GetWidth(), 0, 0});
-//        window->backgroundProxy->SetPosition({0, 0, 100, 1});
-//        window->backgroundProxy->SetColor({255, 255, 255, 255});
-//        window->backgroundProxy->SetFill(true);
-//    });
-//
-//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-//        rectangleProxy->SetSize({100, 100, 0, 0});
-//        rectangleProxy->SetPosition({100, 150, 10, 1});
-//        rectangleProxy->SetColor({255, 0, 0, 255});
-//        rectangleProxy->SetFill(true);
-//        rectangleProxy->BindViewPortToResizable(*window);
-//        window->rectangle1 = std::move(rectangleProxy);
-//    });
-//
-//    renderer->RequestRectangleProxy([window](std::unique_ptr<RectangleProxy> rectangleProxy){
-//        rectangleProxy->SetSize({100, 100, 0, 0});
-//        rectangleProxy->SetPosition({50, 100, 0, 1});
-//        rectangleProxy->SetColor({100, 100, 100, 255});
-//        rectangleProxy->SetFill(true);
-//        window->rectangle2 = std::move(rectangleProxy);
-//    });
     return std::unique_ptr<Window>(window);
 }
 

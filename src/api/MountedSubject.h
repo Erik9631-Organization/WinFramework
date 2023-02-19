@@ -11,7 +11,7 @@ class MountedSubject
 {
 public:
     virtual void AddOnMountedSubscriber(MountedSubscriber &subscriber) = 0;
-    virtual void RemoveOnMountedSubscriber(MountedSubscriber* subscriber) = 0;
+    virtual void RemoveOnMountedSubscriber(MountedSubscriber &subscriber) = 0;
     virtual void NotifyOnMounted(Presenter& presenter) = 0;
 };
 
