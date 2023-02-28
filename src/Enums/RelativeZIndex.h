@@ -6,9 +6,9 @@
 #define LII_RELATIVEZINDEX_H
 enum RelativeZIndex
 {
-    Text = 0,
-    Border,
-    Background,
-    Max,
+    TextIndex = 0,
+    BorderIndex,
+    BackgroundIndex,
+    MaxIndex,
 };
 #endif //LII_RELATIVEZINDEX_H

@@ -23,9 +23,8 @@ private:
     ModelViewport viewPort;
     bool fill = true;
     size_t id = -1;
-
+    float thickness = 1.0f;
 public:
-
     RectangleModel();
 
     const ModelViewport& GetViewPort() const;
@@ -132,7 +131,7 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    void Redraw() override;
+    void Draw() override;
 
     void SetRenderingProvider(Renderer *renderer) override;
 
@@ -143,6 +142,9 @@ public:
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     float GetZIndex() override;
+
+    void SetThickness(float thickness);
+    float GetThickness();
 };
 
 

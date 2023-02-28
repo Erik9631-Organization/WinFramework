@@ -162,7 +162,7 @@ void UiMoveBehavior<T>::CalculateAbsolutePosition()
 	    absolutePosition.x = relativePosition.x + associatedAdjustableNode.GetParent()->GetAbsoluteX() + translate.x;
 	    absolutePosition.y = relativePosition.y + associatedAdjustableNode.GetParent()->GetAbsoluteY() + translate.y;
 	}
-    absolutePosition.z *= RelativeZIndex::Max;
+    absolutePosition.z *= RelativeZIndex::MaxIndex;
 }
 
 template<class T>

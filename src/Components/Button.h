@@ -5,12 +5,13 @@
 #include "Graphics/Text.h"
 #include "DefaultButtonBehavior.h"
 #include "RectangleProxy.h"
+#include "Border.h"
 
 class Button : public UiElement
 {
 
 private:
-	SimpleBorder border;
+    Border border;
     Background background;
 	Text text;
 	DefaultButtonBehavior buttonBehavior;

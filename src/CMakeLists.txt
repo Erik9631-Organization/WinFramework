@@ -456,7 +456,7 @@ set(Lii_Renderer_Models
         Renderer/Messaging/RenderMessage.h
         Renderer/Models/RectangleModel.cpp
         Renderer/Models/RectangleModel.h
-        Renderer/Models/RenderingModel.h Renderer/Models/LineModel.cpp Renderer/Models/LineModel.h)
+        Renderer/Models/RenderingModel.h Renderer/Models/LineModel.cpp Renderer/Models/LineModel.h Renderer/Models/TextModel.cpp Renderer/Models/TextModel.h)
 source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
 
 set(Lii_Renderer_Models_Behavior

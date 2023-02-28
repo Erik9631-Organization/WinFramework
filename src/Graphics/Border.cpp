@@ -11,8 +11,8 @@ void Border::OnMounted(Presenter &presenter, UiElement &element)
     rectangleProxy = std::move(presenter.GetRenderer()->RequestRectangleProxy());
     rectangleProxy->SetFill(false);
     rectangleProxy->SetSize(element.GetSize());
-    rectangleProxy->SetPosition(element.GetAbsolutePosition());
-    rectangleProxy->SetColor({255, 255, 255, 255});
+    rectangleProxy->SetPosition(element.GetAbsolutePosition() + relativeZIndex);
+    rectangleProxy->SetColor({0, 0, 0, 255});
     this->presenter = &presenter;
 }
 
@@ -20,7 +20,7 @@ void Border::OnMove(EventMoveInfo e)
 {
     if(rectangleProxy == nullptr)
         return;
-    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition());
+    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
     presenter->ScheduleRedraw();
 }
 
@@ -48,10 +48,10 @@ void Border::SetColor(glm::ivec4 color)
 
 int Border::GetRelativeZIndex()
 {
-    return relativeZIndex;
+    return relativeZIndex.z;
 }
 
 void Border::SetRelativeZIndex(int relativeZIndex)
 {
-    this->relativeZIndex = relativeZIndex;
+    this->relativeZIndex.z = relativeZIndex;
 }

@@ -4,7 +4,7 @@
 
 void Button::SetBorderColor(glm::vec3 color)
 {
-	border.SetColor(color);
+	border.SetColor(glm::vec4{color, 255});
 }
 
 void Button::SetBackgroundColor(const glm::vec4 &color)
@@ -20,22 +20,21 @@ glm::vec3 Button::GetBackgroundColor()
 
 glm::vec3 Button::GetBorderColor()
 {
-	return border.GetColor();
+	return glm::vec4{1};
 }
 
 void Button::SetBorderThickness(float thickness)
 {
-	border.SetThickness(thickness);
+
 }
 
-Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this), background(*this)
+Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this), background(*this), border(*this)
 {
     SetSize(width, height, false);
     SetPosition(x, y, 0, 0, false);
 	componentType = "Button";
 
-	border.SetColor({0, 0, 0});
-	border.SetThickness(1.0f);
+	border.SetColor({255, 0, 0, 255});
 
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeY(Percentual);
@@ -43,10 +42,6 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 	text.SetPosition({0.5f, 0.5f, 0, 0});
 	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
 	text.SetAlignment(FontAlingnment::FontAlignmentCenter);
-
-//    renderBehavior.AddRenderCommander(background);
-    renderBehavior.AddRenderCommander(border);
-    renderBehavior.AddRenderCommander(text);
 }
 
 void Button::SetText(std::wstring text)

@@ -23,11 +23,13 @@ float RectangleModel::GetY()
     return movableBehavior.GetY();
 }
 
-float RectangleModel::GetZ() {
+float RectangleModel::GetZ()
+{
     return movableBehavior.GetZ();
 }
 
-float RectangleModel::GetW() {
+float RectangleModel::GetW()
+{
     return movableBehavior.GetW();
 }
 
@@ -236,7 +238,7 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
     resizableBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void RectangleModel::Redraw()
+void RectangleModel::Draw()
 {
     auto renderer = this->rendereringProvider->AcquireRenderingApi();
     if(renderer == nullptr)
@@ -248,7 +250,11 @@ void RectangleModel::Redraw()
     if(fill)
         renderer->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
+    {
+        renderer->SetThickness(thickness);
         renderer->DrawRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+    }
+
 }
 
 void RectangleModel::SetColor(const glm::vec4 &color)
@@ -340,6 +346,11 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             ResetViewport();
             break;
         }
+        case SubCommands::SetThickness:
+        {
+            SetThickness(message->GetData<float>());
+            break;
+        }
         default:
             break;
     }
@@ -369,4 +380,14 @@ const ModelViewport &RectangleModel::GetViewPort() const
 RectangleModel::RectangleModel() : movableBehavior(*this)
 {
 
+}
+
+float RectangleModel::GetThickness()
+{
+    return thickness;
+}
+
+void RectangleModel::SetThickness(float thickness)
+{
+    this->thickness = thickness;
 }

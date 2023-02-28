@@ -6,7 +6,7 @@ void Background::OnMounted(Presenter &presenter, UiElement& element)
 {
     rectangleProxy = std::move(presenter.GetRenderer()->RequestRectangleProxy());
     rectangleProxy->SetSize(element.GetSize());
-    rectangleProxy->SetPosition(element.GetAbsolutePosition());
+    rectangleProxy->SetPosition(element.GetAbsolutePosition() + relativeZIndex);
     rectangleProxy->SetColor({255, 255, 255, 255});
     this->presenter = &presenter;
 }
@@ -15,7 +15,7 @@ void Background::OnMove(EventMoveInfo e)
 {
     if(rectangleProxy == nullptr)
         return;
-    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition());
+    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
     presenter->ScheduleRedraw();
 }
 
@@ -51,10 +51,10 @@ Background::~Background()
 
 int Background::GetRelativeZIndex()
 {
-    return relativeZIndex;
+    return relativeZIndex.z;
 }
 
 void Background::SetRelativeZIndex(int relativeZIndex)
 {
-    this->relativeZIndex = relativeZIndex;
+    this->relativeZIndex.z = relativeZIndex;
 }

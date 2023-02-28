@@ -26,7 +26,7 @@ public:
     void SetWidth(float width);
     const float& GetWidth();
 
-    void Redraw() override;
+    void Draw() override;
 
     void SetRenderingProvider(Renderer *renderer) override;
 

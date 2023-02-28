@@ -23,7 +23,7 @@ void GdiRenderer::Render()
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
     for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
-        it->second->Redraw();
+        it->second->Draw();
 }
 
 void GdiRenderer::CleanDeviceContext()

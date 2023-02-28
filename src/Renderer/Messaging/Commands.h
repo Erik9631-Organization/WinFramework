@@ -33,6 +33,7 @@ enum class SubCommands
     SetViewPortPosition,
     ResetViewPort,
     SetColor,
+    SetThickness,
     SetStartPoint,
     SetEndPoint,
     SetFill,

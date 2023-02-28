@@ -28,7 +28,7 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     CommandCopyOnWriteMap copyOnWriteMap;
-    static constexpr int totalCommands = 9;
+    static constexpr int totalCommands = 10;
 
     Movable* movableViewportBinding = nullptr;
     Resizable* resizableViewportBinding = nullptr;
@@ -39,6 +39,8 @@ public:
     ~RectangleProxy() override;
 
     RectangleProxy();
+
+    void SetThickness(float thickness);
 
     void SetViewPortPosition(const glm::vec2& position);
 

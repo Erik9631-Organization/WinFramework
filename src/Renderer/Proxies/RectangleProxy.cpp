@@ -457,3 +457,10 @@ RectangleProxy::~RectangleProxy()
         UnbindViewportResizable();
 }
 
+void RectangleProxy::SetThickness(float thickness)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(0, thickness, this);
+    renderMessage->SetSubMessageId(SubCommands::SetThickness);
+    SendRenderingMessage(std::move(renderMessage));
+}
+

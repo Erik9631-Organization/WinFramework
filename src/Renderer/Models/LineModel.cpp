@@ -37,7 +37,7 @@ const glm::vec4 & LineModel::GetColor()
     return color;
 }
 
-void LineModel::Redraw()
+void LineModel::Draw()
 {
     auto renderer = renderingProvider->AcquireRenderingApi();
     renderer->SetColor(color);
