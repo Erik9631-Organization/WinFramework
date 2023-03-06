@@ -209,7 +209,7 @@ void TextModel::Draw()
 
     auto api = renderer->AcquireRenderingApi();
     api->SetColor(color);
-    if(viewPort.IsSet());
+    if(viewPort.IsSet())
         api->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     api->SetFontSize(fontSize);
