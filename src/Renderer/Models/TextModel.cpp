@@ -3,6 +3,7 @@
 //
 
 #include "TextModel.h"
+#include "Renderer.h"
 
 glm::vec4 TextModel::GetPosition()
 {
@@ -151,7 +152,7 @@ float TextModel::GetTranslateY()
 
 void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
-    switch(message->GetSubCommand())
+    switch(message->GetSubMessageId())
     {
         case SubCommands::SetX:
             SetX(message->GetData<float>());
@@ -161,13 +162,27 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         break;
         case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec4>());
-        break;
+            break;
         case SubCommands::SetTranslate:
             SetTranslate(message->GetData<glm::vec4>());
+        case SubCommands::SetTranslateX:
+            SetTranslateX(message->GetData<float>());
+        case SubCommands::SetTranslateY:
+            SetTranslateY(message->GetData<float>());
         break;
+        case SubCommands::SetFontSize:
+            SetFontSize(message->GetData<float>());
+        break;
+        case SubCommands::SetFontAlignment:
+            SetFontAlignment(message->GetData<FontAlignment>());
+        break;
+        case SubCommands::SetFontLineAlignment:
+            SetFontLineAlignment(message->GetData<FontAlignment>());
         case SubCommands::SetColor:
             SetColor(message->GetData<glm::vec4>());
         break;
+        default:
+            break;
     }
 
 }
@@ -189,7 +204,18 @@ float TextModel::GetZIndex()
 
 void TextModel::Draw()
 {
+    if(renderer == nullptr)
+        return;
 
+    auto api = renderer->AcquireRenderingApi();
+    api->SetColor(color);
+    if(viewPort.IsSet());
+        api->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
+
+    api->SetFontSize(fontSize);
+    api->SetFontFamily(fontFamily);
+    api->SetFontFamily(fontFamily);
+    api->DrawString(text, movableModelBehavior.GetPosition(), );
 }
 
 void TextModel::SetRenderingProvider(Renderer *renderer)
@@ -212,7 +238,22 @@ void TextModel::SetColor(const glm::vec4 &color)
     this->color = color;
 }
 
-const glm::vec4 &TextModel::GetColor()
+const glm::ivec4 &TextModel::GetColor()
 {
     return this->color;
+}
+
+void TextModel::SetFontSize(float fontSize)
+{
+    this->fontSize = fontSize;
+}
+
+void TextModel::SetFontAlignment(FontAlignment alignment)
+{
+    this->fontAlignment = alignment;
+}
+
+void TextModel::SetFontLineAlignment(FontAlignment alignment)
+{
+    this->fontLineAlignment = alignment;
 }

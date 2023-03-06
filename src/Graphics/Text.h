@@ -29,8 +29,8 @@ private:
 	float fontSize = 12.0f;
 	std::wstring text;
 
-	int lineAlignment = FontAlingnment::FontAlignmentNear;
-	int alignment = FontAlingnment::FontAlignmentNear;
+	int lineAlignment = FontAlignment::FontAlignmentNear;
+	int alignment = FontAlignment::FontAlignmentNear;
 
 	DrawData2D drawData;
 

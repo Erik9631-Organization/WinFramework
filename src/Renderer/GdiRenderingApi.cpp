@@ -45,8 +45,8 @@ void GdiRenderingApi::DrawRectangle(float x, float y, float width, float height)
 void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len)
 {
     StringFormat stringFormat{};
-    stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
-    stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
+    stringFormat.SetAlignment((StringAlignment) format.GetAlignment());
+    stringFormat.SetLineAlignment((StringAlignment) format.GetLineAlignment());
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
     graphics->DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);

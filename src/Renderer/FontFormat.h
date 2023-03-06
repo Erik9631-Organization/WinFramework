@@ -5,14 +5,17 @@
 #ifndef LII_FONTFORMAT_H
 #define LII_FONTFORMAT_H
 #include <string>
+#include "FontAlignment.h"
 
 class FontFormat
 {
+    FontAlignment alignment = FontAlignment::FontAlignmentNear;
+    FontAlignment lineAlignment =  FontAlignment::FontAlignmentNear;
 public:
-    virtual void SetAlignment(int alignment) = 0;
-    virtual void SetLineAlignment(int lineAlignment) = 0;
-    virtual int GetAlingment() const = 0;
-    virtual int GetLineAlingment() const = 0;
+    void SetAlignment(FontAlignment alignment);
+    void SetLineAlignment(FontAlignment lineAlignment);
+    [[nodiscard]] FontAlignment GetAlignment() const;
+    [[nodiscard]] FontAlignment GetLineAlignment() const;
 };
 
 

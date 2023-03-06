@@ -7,6 +7,7 @@
 void ModelViewport::SetViewPortSize(const glm::vec2 &size)
 {
      viewPortSize = size;
+     isSet = true;
 }
 
 void ModelViewport::SetViewPortPosition(const glm::vec2 &position)
@@ -62,4 +63,14 @@ float ModelViewport::GetViewPortWidth() const
 float ModelViewport::GetViewPortHeight() const
 {
     return viewPortSize.y;
+}
+
+bool ModelViewport::IsSet() const
+{
+    return isSet;
+}
+
+void ModelViewport::ResetViewPort()
+{
+    this->isSet = false;
 }

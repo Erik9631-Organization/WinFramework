@@ -78,7 +78,7 @@ RadioButton::RadioButton(int x, int y, int width, int height, string componentNa
 
 	text.SetColor({0, 0, 0});
 	text.SetFontSize(12.0f);
-	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
+	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
 	text.SetScalingTypeX(Percentual);
 	text.SetScalingTypeY(Percentual);
 	text.SetPosition({0.23f, 0.52f, 0, 0});

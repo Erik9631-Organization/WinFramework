@@ -27,8 +27,8 @@ enum class SubCommands
     SetHeight,
     SetX,
     SetY,
-    TranslateX,
-    TranslateY,
+    SetTranslateX,
+    SetTranslateY,
     SetViewPortSize,
     SetViewPortPosition,
     ResetViewPort,
@@ -36,6 +36,9 @@ enum class SubCommands
     SetThickness,
     SetStartPoint,
     SetEndPoint,
+    SetFontSize,
+    SetFontLineAlignment,
+    SetFontAlignment,
     SetFill,
 };
 

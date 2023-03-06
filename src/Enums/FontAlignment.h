@@ -5,7 +5,7 @@
 #ifndef LII_FONTALIGNMENT_H
 #define LII_FONTALIGNMENT_H
 
-enum FontAlingnment
+enum FontAlignment
 {
     FontAlignmentNear,
     FontAlignmentCenter,

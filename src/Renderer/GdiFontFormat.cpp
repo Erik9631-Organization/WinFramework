@@ -3,6 +3,7 @@
 //
 
 #include "GdiFontFormat.h"
+using namespace Gdiplus;
 
 void GdiFontFormat::SetAlignment(int alignment)
 {
@@ -14,12 +15,24 @@ void GdiFontFormat::SetLineAlignment(int lineAlignment)
     this->lineAlignment = (Gdiplus::StringAlignment)lineAlignment;
 }
 
-int GdiFontFormat::GetAlingment() const
+int GdiFontFormat::GetAlignment() const
 {
     return alignment;
 }
 
-int GdiFontFormat::GetLineAlingment() const
+int GdiFontFormat::GetLineAlignment() const
 {
     return lineAlignment;
+}
+
+GdiFontFormat::GdiFontFormat()
+{
+    this->alignment = StringAlignment::StringAlignmentNear;
+    this->lineAlignment = StringAlignment::StringAlignmentNear;
+}
+
+GdiFontFormat::GdiFontFormat(const FontFormat &fontFormat)
+{
+    this->alignment = static_cast<Gdiplus::StringAlignment>(fontFormat.GetAlignment());
+    this->lineAlignment = static_cast<Gdiplus::StringAlignment>(fontFormat.GetLineAlignment());
 }

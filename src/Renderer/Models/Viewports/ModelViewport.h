@@ -11,6 +11,7 @@ class ModelViewport
 private:
     glm::vec2 viewPortSize = {0,0};
     glm::vec2 viewPortPosition = {0,0};
+    bool isSet = false;
 
 public:
     void SetViewPortSize(const glm::vec2 &size);
@@ -26,6 +27,8 @@ public:
     float GetViewPortY() const;
     float GetViewPortWidth() const;
     float GetViewPortHeight() const;
+    bool IsSet() const;
+    void ResetViewPort();
 
 };
 

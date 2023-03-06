@@ -40,8 +40,8 @@ Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehav
 	text.SetScalingTypeY(Percentual);
 
 	text.SetPosition({0.5f, 0.5f, 0, 0});
-	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
-	text.SetAlignment(FontAlingnment::FontAlignmentCenter);
+	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
+	text.SetAlignment(FontAlignment::FontAlignmentCenter);
 }
 
 void Button::SetText(std::wstring text)

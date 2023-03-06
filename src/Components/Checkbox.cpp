@@ -69,15 +69,15 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
     checkboxBorder.SetX(0.02f);
     checkboxBorder.SetY(0.5f);
 
-	checkBoxChar.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
-	checkBoxChar.SetAlignment(FontAlingnment::FontAlignmentCenter);
+	checkBoxChar.SetLineAlignment(FontAlignment::FontAlignmentCenter);
+	checkBoxChar.SetAlignment(FontAlignment::FontAlignmentCenter);
 	checkBoxChar.SetScalingTypeY(Percentual);
 	checkBoxChar.SetScalingTypeX(Decimal);
 	checkBoxChar.SetPosition({10.0f, 0.51f, 0, 0});
 	checkBoxChar.SetText(L"");
 	checkBoxChar.SetColor({0, 0, 0});
 
-	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
+	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
 	text.SetColor({0, 0, 0});
 	text.SetScalingTypeY(Percentual);
 	text.SetScalingTypeX(Decimal);

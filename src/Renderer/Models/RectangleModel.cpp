@@ -244,7 +244,7 @@ void RectangleModel::Draw()
     if(renderer == nullptr)
         return;
     renderer->SetColor(color);
-    if(viewPortSet)
+    if(viewPort.IsSet())
         renderer->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     if(fill)
@@ -332,13 +332,11 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetViewPortSize:
         {
             viewPort.SetViewPortSize(message->GetData<glm::vec2>());
-            viewPortSet = true;
             break;
         }
         case SubCommands::SetViewPortPosition:
         {
             viewPort.SetViewPortPosition(message->GetData<glm::vec2>());
-            viewPortSet = true;
             break;
         }
         case SubCommands::ResetViewPort:
@@ -364,12 +362,12 @@ float RectangleModel::GetZIndex()
 
 bool RectangleModel::IsViewPortSet()
 {
-    return viewPortSet;
+    return viewPort.IsSet();
 }
 
 void RectangleModel::ResetViewport()
 {
-    viewPortSet = false;
+    viewPort.ResetViewPort();
 }
 
 const ModelViewport &RectangleModel::GetViewPort() const

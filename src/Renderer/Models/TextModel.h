@@ -8,6 +8,10 @@
 #include "Resizable.h"
 #include "RenderingModel.h"
 #include "MovableModelBehavior.h"
+#include "FontAlignment.h"
+#include "ModelViewport.h"
+#include "FontFormat.h"
+#include <string>
 
 class TextModel : public Movable, public RenderingModel
 {
@@ -16,6 +20,14 @@ private:
     size_t modelId = 0;
     Renderer* renderer;
     glm::ivec4 color{255, 255, 255, 255};
+    float fontSize = 12.0f;
+    FontFormat format;
+    int fontAlignment = FontAlignment::FontAlignmentNear;
+    int fontLineAlignment = FontAlignment::FontAlignmentNear;
+    bool viewPortSet = false;
+    ModelViewport viewPort;
+    std::wstring fontFamily = L"Arial";
+    std::wstring text;
 public:
     glm::vec4 GetPosition() override;
 
@@ -93,7 +105,13 @@ public:
 
     void SetColor(const glm::vec4 &color);
 
-    const glm::vec4& GetColor();
+    const glm::ivec4& GetColor();
+
+    void SetFontSize(float fontSize);
+
+    void SetFontAlignment(FontAlignment alignment);
+
+    void SetFontLineAlignment(FontAlignment alignment);
 
 };
 

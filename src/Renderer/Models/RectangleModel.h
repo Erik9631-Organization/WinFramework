@@ -19,7 +19,6 @@ private:
     ResizableModelBehavior resizableBehavior;
     Renderer* rendereringProvider = nullptr;
     glm::ivec4 color{255, 255, 255, 255};
-    bool viewPortSet = false;
     ModelViewport viewPort;
     bool fill = true;
     size_t id = -1;
