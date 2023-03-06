@@ -53,7 +53,7 @@ void OpenGLRenderingApi::DrawRectangle(float x, float y, float width, float heig
     DrawRectangle({x, y, 0, 0}, {width, height, 0, 0});
 }
 
-void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len)
+void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format)
 {
 
 }

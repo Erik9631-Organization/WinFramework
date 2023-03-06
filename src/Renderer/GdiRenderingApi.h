@@ -32,7 +32,7 @@ public:
     void DrawLine(glm::vec4 pos, glm::vec4 size) override;
     void DrawRectangle(glm::vec4 pos, glm::vec4 size) override;
     void DrawRectangle(float x, float y, float width, float height) override;
-    void DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len) override;
+    void DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format) override;
     void DrawFillEllipse(float x, float y, float width, float height) override;
     void DrawFillEllipse(glm::vec4 pos, glm::vec4 size) override;
     void DrawFillRectangle(float x, float y, float width, float height) override;

@@ -29,7 +29,7 @@ public:
     virtual void DrawLine(glm::vec4 pos, glm::vec4 size) = 0;
     virtual void DrawRectangle(glm::vec4 pos, glm::vec4 size) = 0;
     virtual void DrawRectangle(float x, float y, float width, float height) = 0;
-    virtual void DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len) = 0;
+    virtual void DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format) = 0;
     virtual void DrawFillEllipse(float x, float y, float width, float height) = 0;
     virtual void DrawFillEllipse(glm::vec4 pos, glm::vec4 size) = 0;
     virtual void DrawFillRectangle(float x, float y, float width, float height) = 0;

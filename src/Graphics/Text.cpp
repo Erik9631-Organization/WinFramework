@@ -75,7 +75,7 @@ void Text::OnRenderSync(RenderEventInfo e)
     format->SetLineAlignment(lineAlignment);
     renderer.SetColor(color);
     renderer.SetFontFamily(fontFamily);
-    renderer.DrawString(text, graphicsUtil.GetPosition(), *format, text.size());
+    renderer.DrawString(text, graphicsUtil.GetPosition(), *format);
 }
 
 void Text::Repaint()

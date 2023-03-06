@@ -42,7 +42,7 @@ void GdiRenderingApi::DrawRectangle(float x, float y, float width, float height)
     graphics->DrawRectangle(pen, x, y, width, height);
 }
 
-void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format, int len)
+void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format)
 {
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment) format.GetAlignment());

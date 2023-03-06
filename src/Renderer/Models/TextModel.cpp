@@ -215,7 +215,7 @@ void TextModel::Draw()
     api->SetFontSize(fontSize);
     api->SetFontFamily(fontFamily);
     api->SetFontFamily(fontFamily);
-    api->DrawString(text, movableModelBehavior.GetPosition(), );
+    api->DrawString(text, movableModelBehavior.GetPosition(), format);
 }
 
 void TextModel::SetRenderingProvider(Renderer *renderer)
