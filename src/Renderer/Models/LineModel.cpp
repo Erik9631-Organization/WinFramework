@@ -44,7 +44,7 @@ void LineModel::Draw()
     renderer->DrawLine(startPoint, endPoint);
 }
 
-void LineModel::SetRenderingProvider(Renderer *renderer)
+void LineModel::SetRenderer(Renderer *renderer)
 {
     this->renderingProvider = renderer;
 }

@@ -215,12 +215,14 @@ void TextModel::Draw()
     api->SetFontSize(fontSize);
     api->SetFontFamily(fontFamily);
     api->SetFontFamily(fontFamily);
-    api->DrawString(text, movableModelBehavior.GetPosition(), format);
+    if(format != nullptr)
+        api->DrawString(text, movableModelBehavior.GetPosition(), *format);
 }
 
-void TextModel::SetRenderingProvider(Renderer *renderer)
+void TextModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
+    this->format  = this->renderer->AcquireRenderingApi()->CreateFontFormat();
 }
 
 void TextModel::SetAssociatedModelId(unsigned long long int id)

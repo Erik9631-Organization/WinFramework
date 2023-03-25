@@ -132,7 +132,7 @@ public:
 
     void Draw() override;
 
-    void SetRenderingProvider(Renderer *renderer) override;
+    void SetRenderer(Renderer *renderer) override;
 
     void SetAssociatedModelId(unsigned long long int id) override;
 

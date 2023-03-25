@@ -277,7 +277,7 @@ const bool &RectangleModel::GetFill() const
     return fill;
 }
 
-void RectangleModel::SetRenderingProvider(Renderer *renderer)
+void RectangleModel::SetRenderer(Renderer *renderer)
 {
     this->rendereringProvider = renderer;
 }

@@ -11,7 +11,7 @@ class RenderingModel : public RenderingConsumer
 public:
     virtual float GetZIndex() = 0;
     virtual void Draw() = 0;
-    virtual void SetRenderingProvider(Renderer *renderer) = 0;
+    virtual void SetRenderer(Renderer *renderer) = 0;
     virtual void SetAssociatedModelId(unsigned long long id) = 0;
     virtual size_t & GetModelId() = 0;
     virtual ~RenderingModel() = default;

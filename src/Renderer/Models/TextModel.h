@@ -21,7 +21,7 @@ private:
     Renderer* renderer;
     glm::ivec4 color{255, 255, 255, 255};
     float fontSize = 12.0f;
-    FontFormat format;
+    std::unique_ptr<FontFormat> format;
     int fontAlignment = FontAlignment::FontAlignmentNear;
     int fontLineAlignment = FontAlignment::FontAlignmentNear;
     bool viewPortSet = false;
@@ -97,7 +97,7 @@ public:
 
     void Draw() override;
 
-    void SetRenderingProvider(Renderer *renderer) override;
+    void SetRenderer(Renderer *renderer) override;
 
     void SetAssociatedModelId(unsigned long long int id) override;
 

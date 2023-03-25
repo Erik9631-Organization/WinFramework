@@ -71,8 +71,8 @@ void Text::OnRenderSync(RenderEventInfo e)
     RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
     std::unique_ptr<FontFormat> format = renderer.CreateFontFormat();
-    format->SetAlignment(alignment);
-    format->SetLineAlignment(lineAlignment);
+//    format->SetAlignment(alignment);
+//    format->SetLineAlignment(lineAlignment);
     renderer.SetColor(color);
     renderer.SetFontFamily(fontFamily);
     renderer.DrawString(text, graphicsUtil.GetPosition(), *format);

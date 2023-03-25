@@ -9,13 +9,12 @@
 
 class FontFormat
 {
-    FontAlignment alignment = FontAlignment::FontAlignmentNear;
-    FontAlignment lineAlignment =  FontAlignment::FontAlignmentNear;
 public:
-    void SetAlignment(FontAlignment alignment);
-    void SetLineAlignment(FontAlignment lineAlignment);
-    [[nodiscard]] FontAlignment GetAlignment() const;
-    [[nodiscard]] FontAlignment GetLineAlignment() const;
+    virtual void SetAlignment(int alignment) = 0;
+    virtual void SetLineAlignment(int lineAlignment) = 0;
+    [[nodiscard]] virtual int GetAlignment() const = 0;
+    [[nodiscard]] virtual int GetLineAlignment() const = 0;
+    virtual ~FontFormat() = default;
 };
 
 

@@ -10,16 +10,16 @@
 
 
 
-class GdiFontFormat
+class GdiFontFormat : public FontFormat
 {
 public:
     GdiFontFormat();
-    GdiFontFormat(const FontFormat& fontFormat);
+    explicit GdiFontFormat(const FontFormat& fontFormat);
 
-    void SetAlignment(int alignment);
-    void SetLineAlignment(int lineAlignment);
-    int GetAlignment() const;
-    int GetLineAlignment() const;
+    void SetAlignment(int alignment) override;
+    void SetLineAlignment(int lineAlignment) override;
+    [[nodiscard]] int GetAlignment() const override;
+    [[nodiscard]] int GetLineAlignment() const override;
 private:
     Gdiplus::StringAlignment alignment;
     Gdiplus::StringAlignment lineAlignment;

@@ -59,7 +59,7 @@ private:
     T* CreateModel()
     {
         auto model = std::make_unique<T>();
-        model->SetRenderingProvider(this);
+        model->SetRenderer(this);
         return static_cast<T*>(AddModel(std::move(model)));
     }
     RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
