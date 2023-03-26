@@ -13,7 +13,7 @@
 #include "ModelViewport.h"
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
-#include "CommandCopyOnWriteMap.h"
+#include "RenderingProxyMessageSender.h"
 #include <concurrentqueue.h>
 
 class RenderingConsumer;
@@ -27,18 +27,11 @@ private:
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
-    CommandCopyOnWriteMap copyOnWriteMap;
     static constexpr int totalCommands = 10;
+    RenderingProxyMessageSender messageSender{totalCommands};
 
-    Movable* movableViewportBinding = nullptr;
-    Resizable* resizableViewportBinding = nullptr;
-    moodycamel::ConcurrentQueue<std::unique_ptr<RenderMessage>>* preInitMessages = nullptr;
-    std::mutex modelSetMutex;
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
 public:
-    ~RectangleProxy() override;
-
-    RectangleProxy();
 
     void SetThickness(float thickness);
 
@@ -49,8 +42,6 @@ public:
     void ResetViewPort();
 
     void SetFill(bool fill);
-
-    void SetRenderingConsumer(RenderingConsumer *consumer) override;
 
     void SetColor(const glm::vec4 &color);
 
@@ -148,19 +139,11 @@ public:
 
     size_t & GetAssociatedModelId() override;
 
-    void OnModelCreated(RenderingModel *model) override;
+    void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 
-    const ModelViewport& GetViewport() const;
-
-    void BindViewPortToMovable(Movable& movable);
-
-    void BindViewPortToResizable(Resizable& resizable);
-
-    void UnbindViewPortMovable();
-
-    void UnbindViewportResizable();
+    [[nodiscard]] const ModelViewport& GetViewport() const;
 
     void OnMove(EventMoveInfo e) override;
 

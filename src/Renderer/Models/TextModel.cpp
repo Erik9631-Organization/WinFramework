@@ -184,7 +184,6 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         default:
             break;
     }
-
 }
 
 void TextModel::AddOnMoveSubscriber(MoveSubscriber &subscriber)
@@ -208,6 +207,9 @@ void TextModel::Draw()
         return;
 
     auto api = renderer->AcquireRenderingApi();
+    auto format = api->CreateFontFormat();
+    format->SetAlignment(fontAlignment);
+    format->SetLineAlignment(fontLineAlignment);
     api->SetColor(color);
     if(viewPort.IsSet())
         api->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
@@ -215,16 +217,13 @@ void TextModel::Draw()
     api->SetFontSize(fontSize);
     api->SetFontFamily(fontFamily);
     api->SetFontFamily(fontFamily);
-    if(format != nullptr)
-        api->DrawString(text, movableModelBehavior.GetPosition(), *format);
+    api->DrawString(text, movableModelBehavior.GetPosition(), *format);
 }
 
 void TextModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
-    this->format  = this->renderer->AcquireRenderingApi()->CreateFontFormat();
 }
-
 void TextModel::SetAssociatedModelId(unsigned long long int id)
 {
     this->modelId = id;

@@ -6,7 +6,7 @@ set(PROJECT_NAME Lii)
 set(Enums
     "Enums/EventUpdateFlags.h"
     "Enums/GraphicsScaling.h"
-        Enums/FontAlignment.h Enums/Messages.h Enums/RelativeZIndex.h)
+        Enums/FontAlignment.h Enums/Messages.h)
 source_group("Lii\\Enums" FILES ${Enums})
 
 set(Lii
@@ -201,8 +201,7 @@ set(Lii_DataTypes
         DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
-    DataTypes/MultiTree.cpp
-        DataTypes/CommandCopyOnWriteMap.cpp DataTypes/CommandCopyOnWriteMap.h)
+    DataTypes/MultiTree.cpp)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
@@ -300,7 +299,10 @@ set(Lii_Graphics
     "Graphics/SimpleBorder.cpp"
     "Graphics/Text.cpp"
     "Graphics/TestGraphics.cpp"
-        Graphics/Border.cpp Graphics/Border.h)
+    Graphics/Border.cpp
+    Graphics/Border.h
+    Graphics/RelativeZIndex.h
+    Graphics/RelativeZIndex.cpp)
 source_group("Lii\\Graphics" FILES ${Lii_Graphics})
 
 
@@ -341,7 +343,18 @@ set(Lii_Utils
     Utils/Timer.h
         Events/TimerSubscriber.cpp
     Events/TimerSubscriber.h
-        Utils/Hash.cpp Utils/Hash.h Utils/AutoId.cpp Utils/AutoId.h Utils/IdManager.cpp Utils/IdManager.h Utils/WindowBuilder.cpp Utils/WindowBuilder.h Utils/Managers/RenderingProviderManager.cpp Utils/Managers/RenderingProviderManager.h)
+        Utils/Hash.cpp Utils/Hash.h
+        Utils/AutoId.cpp
+        Utils/AutoId.h
+        Utils/IdManager.cpp
+        Utils/IdManager.h
+        Utils/WindowBuilder.cpp
+        Utils/WindowBuilder.h
+        Utils/Managers/RenderingProviderManager.cpp
+        Utils/Managers/RenderingProviderManager.h
+        Utils/RenderingProxyMessageSender.cpp
+        Utils/RenderingProxyMessageSender.h
+        )
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_Utils_Managers

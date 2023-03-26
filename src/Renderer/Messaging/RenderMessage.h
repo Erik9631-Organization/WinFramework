@@ -50,7 +50,13 @@ public:
     }
 
     template<class dataType>
-    static std::unique_ptr<RenderMessage> CreatePropertyMessage(long long int receiverId, dataType data, RenderMessageSender* sender = nullptr)
+    static std::unique_ptr<RenderMessage> CreatePropertyMessage(dataType data, long long int receiverId)
+    {
+        return CreatePropertyMessage(data, nullptr, receiverId);
+    }
+
+    template<class dataType>
+    static std::unique_ptr<RenderMessage> CreatePropertyMessage(dataType data, RenderMessageSender* sender = nullptr, long long int receiverId = 0)
     {
         auto renderMessage = new RenderMessage(Commands::Property, data, sender);
         renderMessage->receiverId = receiverId;

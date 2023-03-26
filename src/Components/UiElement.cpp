@@ -13,18 +13,17 @@ using namespace std;
 
 UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
-    auto& elementRef = *uiElement;
+    auto& elementRef = *uiElement.release();;
     auto root = dynamic_cast<Window*>(&GetRoot());
     //We always draw the added element on top of the current element(The parent)
 
-    std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};
+    std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&elementRef.GetUiElementNode()};
     uiElementNode->AddNode(std::move(nodeToBeAdded));
 
     if(root != nullptr)
-        uiElement->NotifyOnMounted(static_cast<Presenter&>(*root));
+        elementRef.NotifyOnMounted(static_cast<Presenter&>(*root));
 
-    uiElement->SetZ(GetZ() - 1);
-    uiElement.release();
+    elementRef.SetZ(GetZ() - 1);
 
 
     //RegisterComponent to the memory manager

@@ -20,7 +20,7 @@ private:
     Presenter* presenter = nullptr;
     std::unique_ptr<RectangleProxy> rectangleProxy;
     UiElement& associatedElement;
-    glm::vec4 relativeZIndex = {0, 0, 0, RelativeZIndex::BorderIndex};
+    glm::vec4 relativeZIndex = {0, 0, 0, RelativeZIndex::GetInstance()->GetIndex("BackgroundIndex")};
 public:
     Background(UiElement& element);
     ~Background() override;

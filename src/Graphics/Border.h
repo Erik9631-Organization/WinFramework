@@ -15,7 +15,7 @@ private:
     UiElement& associatedElement;
     Presenter* presenter = nullptr;
     std::unique_ptr<RectangleProxy> rectangleProxy;
-    glm::vec4 relativeZIndex = {0, 0, 0, RelativeZIndex::BorderIndex};
+    glm::vec4 relativeZIndex = {0, 0, 0, RelativeZIndex::GetInstance()->GetIndex("BorderIndex")};
 public:
     Border(UiElement& element);
     void OnMounted(Presenter &presenter, UiElement &element) override;

@@ -48,10 +48,10 @@ void Border::SetColor(glm::ivec4 color)
 
 int Border::GetRelativeZIndex()
 {
-    return relativeZIndex.z;
+    return static_cast<int>(relativeZIndex.z);
 }
 
 void Border::SetRelativeZIndex(int relativeZIndex)
 {
-    this->relativeZIndex.z = relativeZIndex;
+    this->relativeZIndex.z = static_cast<float>(relativeZIndex);
 }

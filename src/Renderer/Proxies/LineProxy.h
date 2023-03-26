@@ -38,9 +38,7 @@ public:
 
     size_t & GetAssociatedModelId() override;
 
-    void OnModelCreated(RenderingModel *model) override;
-
-    void SetRenderingConsumer(RenderingConsumer *consumer) override;
+    void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 

@@ -21,7 +21,6 @@ private:
     Renderer* renderer;
     glm::ivec4 color{255, 255, 255, 255};
     float fontSize = 12.0f;
-    std::unique_ptr<FontFormat> format;
     int fontAlignment = FontAlignment::FontAlignmentNear;
     int fontLineAlignment = FontAlignment::FontAlignmentNear;
     bool viewPortSet = false;

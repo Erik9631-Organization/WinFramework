@@ -30,9 +30,8 @@ private:
     {
         auto createData = message->GetData<MessageGenerateModel<ProxyType*>*>();
         auto proxy = createData->GetRendererProxy();
-        proxy->SetRenderingConsumer(this);
         auto modelPtr = renderer->CreateModel(message->GetMessageId());
-        proxy->OnModelCreated(modelPtr);
+        proxy->OnModelCreated(modelPtr, this);
         delete createData;
         RedrawScene();
     }
