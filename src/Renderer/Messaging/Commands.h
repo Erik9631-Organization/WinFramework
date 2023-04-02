@@ -17,7 +17,7 @@ enum class Commands
    Quit,
 };
 
-enum class SubCommands
+enum class SubCommands : unsigned char
 {
     None,
     SetSize,
@@ -40,6 +40,7 @@ enum class SubCommands
     SetFontLineAlignment,
     SetFontAlignment,
     SetFill,
+    CommandCount,
 };
 
 #endif //LII_COMMANDS_H

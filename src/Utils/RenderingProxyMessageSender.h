@@ -10,13 +10,13 @@
 #include "concurrentqueue.h"
 #include "RenderingModel.h"
 #include <mutex>
+#include <array>
 
 class RenderingProxyMessageSender : public RenderMessageSender
 {
 private:
     std::mutex mapLock;
-    std::unordered_map<SubCommands, RenderMessage*> copyOnWriteMap;
-    unsigned int size = 0;
+    std::array<RenderMessage*, static_cast<int>(SubCommands::CommandCount)> copyOnWriteMap{};
     void Add(const SubCommands &subCommand, RenderMessage* message);
     void Remove(const SubCommands &subCommand);
     moodycamel::ConcurrentQueue<std::unique_ptr<RenderMessage>>* preInitMessages = nullptr;
@@ -25,7 +25,7 @@ private:
     std::mutex modelSetMutex;
     void TrySendCommand(std::unique_ptr<RenderMessage> message);
 public:
-    RenderingProxyMessageSender(size_t size);
+    RenderingProxyMessageSender();
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
     RenderMessage* Get(const SubCommands &subCommand);
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;

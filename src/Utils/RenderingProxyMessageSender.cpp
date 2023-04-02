@@ -7,9 +7,8 @@
 #include "RenderingConsumer.h"
 #include <iostream>
 
-RenderingProxyMessageSender::RenderingProxyMessageSender(size_t size)
+RenderingProxyMessageSender::RenderingProxyMessageSender()
 {
-    copyOnWriteMap.reserve(size);
     preInitMessages = new moodycamel::ConcurrentQueue<std::unique_ptr<RenderMessage>>();
 }
 
@@ -18,22 +17,19 @@ void RenderingProxyMessageSender::Add(const SubCommands &subCommand, RenderMessa
 {
     //Add can be accessed while rendering thread is calling remove
     std::lock_guard<std::mutex>lock{mapLock};
-    copyOnWriteMap[subCommand] = message;
+    copyOnWriteMap[static_cast<int>(subCommand)] = message;
 }
 
 //Called from the rendering thread
 void RenderingProxyMessageSender::Remove(const SubCommands &subCommand)
 {
     std::lock_guard<std::mutex>lock{mapLock};
-    copyOnWriteMap.erase(subCommand);
+    copyOnWriteMap[static_cast<int>(subCommand)] = nullptr;
 }
 
 RenderMessage *RenderingProxyMessageSender::Get(const SubCommands &subCommand)
 {
-    auto it = copyOnWriteMap.find(subCommand);
-    if(it != copyOnWriteMap.end())
-        return it->second;
-    return nullptr;
+    return copyOnWriteMap[static_cast<int>(subCommand)];
 }
 
 //Called from the rendering thread

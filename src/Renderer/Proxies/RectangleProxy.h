@@ -28,7 +28,7 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     static constexpr int totalCommands = 10;
-    RenderingProxyMessageSender messageSender{totalCommands};
+    RenderingProxyMessageSender messageSender;
 
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
 public:

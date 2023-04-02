@@ -185,3 +185,8 @@ void TextProxy::OnMove(EventMoveInfo e)
 {
 
 }
+
+TextProxy::TextProxy() : sender()
+{
+
+}

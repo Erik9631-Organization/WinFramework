@@ -10,12 +10,15 @@
 #include "RenderProxy.h"
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
+#include "RenderingProxyMessageSender.h"
 
 class TextProxy : public Movable, public RenderProxy, public MoveSubscriber
 {
 private:
     size_t id = 0;
+    RenderingProxyMessageSender sender;
 public:
+    TextProxy();
     glm::vec4 GetPosition() override;
 
     float GetX() override;

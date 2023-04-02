@@ -93,6 +93,8 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             render = false;
             break;
         }
+        default:
+            break;
     }
 }
 
