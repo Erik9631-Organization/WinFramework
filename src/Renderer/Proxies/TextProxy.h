@@ -11,14 +11,16 @@
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "RenderingProxyMessageSender.h"
+class TextModel;
 
 class TextProxy : public Movable, public RenderProxy, public MoveSubscriber
 {
 private:
+    TextModel* model = nullptr;
+    std::vector<MoveSubscriber*>moveSubscribers;
     size_t id = 0;
-    RenderingProxyMessageSender sender;
+    RenderingProxyMessageSender messageSender;
 public:
-    TextProxy();
     glm::vec4 GetPosition() override;
 
     float GetX() override;

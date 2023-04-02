@@ -23,11 +23,9 @@ class RenderMessage;
 class RectangleProxy : public Movable, public Resizable, public RenderProxy, public MoveSubscriber, public ResizeSubscriber
 {
 private:
-    RenderingConsumer* renderingConsumer = nullptr;
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
-    static constexpr int totalCommands = 10;
     RenderingProxyMessageSender messageSender;
 
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);

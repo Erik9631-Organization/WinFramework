@@ -262,9 +262,7 @@ void RectangleProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
 void RectangleProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
 {
     for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
-    {
         (*it)->OnMove(e);
-    }
 }
 
 void RectangleProxy::NotifyOnResizeSubscribers(EventResizeInfo event)
@@ -315,6 +313,7 @@ size_t & RectangleProxy::GetAssociatedModelId()
 void RectangleProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *consumer)
 {
     messageSender.OnModelCreated(model, consumer);
+    this->model = dynamic_cast<RectangleModel*>(model);
 }
 
 void RectangleProxy::SendRenderingMessage(std::unique_ptr<RenderMessage> message)
@@ -369,12 +368,12 @@ void RectangleProxy::ResetViewPort()
 
 void RectangleProxy::OnMove(EventMoveInfo e)
 {
-    SetViewPortPosition(e.GetPosition());
+    SetPosition(e.GetPosition());
 }
 
 void RectangleProxy::OnResize(EventResizeInfo e)
 {
-    SetViewPortSize(e.GetSize());
+    SetSize(e.GetSize());
 }
 
 void RectangleProxy::SetThickness(float thickness)
