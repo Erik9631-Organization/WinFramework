@@ -27,7 +27,23 @@ size_t RelativeZIndex::GetSize()
 
 float RelativeZIndex::GetIndex(const std::string &name)
 {
-    if(relativeIndexList.find(name) == relativeIndexList.end())
+    auto it = relativeIndexList.find(name);
+    if(it == relativeIndexList.end())
+    {
         std::cout << "Index not found" << std::endl;
-    return relativeIndexList[name];
+        return 0;
+    }
+
+    return it->second;
+}
+
+void RelativeZIndex::SetIndex(const std::string &name, float value)
+{
+    auto it = relativeIndexList.find(name);
+    if(relativeIndexList.find(name) == relativeIndexList.end())
+    {
+        std::cout << "Index not found" << std::endl;
+        return;
+    }
+    it->second = value;
 }

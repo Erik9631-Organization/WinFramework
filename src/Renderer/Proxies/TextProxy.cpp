@@ -230,3 +230,79 @@ void TextProxy::OnMove(EventMoveInfo e)
 {
     SetPosition(e.GetPosition(), true);
 }
+
+void TextProxy::SetFontSize(float fontSize)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(fontSize, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFontSize);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetFontAlignment(FontAlignment alignment)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(alignment, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFontAlignment);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetFontLineAlignment(FontAlignment alignment)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(alignment, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFontLineAlignment);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetColor(const glm::ivec4 &color)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(color, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFontLineAlignment);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetFontFamily(const std::wstring &fontFamily)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(fontFamily, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFontFamily);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetText(const std::wstring &text)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(text, this);
+    renderMessage->SetSubMessageId(SubCommands::SetText);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+const glm::ivec4 &TextProxy::GetColor()
+{
+    auto tempData = messageSender.Get(SubCommands::SetColor);
+    if(tempData == nullptr)
+        return model->GetColor();
+    return tempData->GetData<glm::ivec4&>();
+}
+
+const std::wstring &TextProxy::GetText()
+{
+    auto tempData = messageSender.Get(SubCommands::SetText);
+    if(tempData == nullptr)
+        return model->GetText();
+    return tempData->GetData<std::wstring&>();
+}
+
+const std::wstring &TextProxy::GetFontFamily()
+{
+    auto tempData = messageSender.Get(SubCommands::SetFontFamily);
+    if(tempData == nullptr)
+        return model->GetFontFamily();
+    return tempData->GetData<std::wstring&>();
+}
+
+FontAlignment TextProxy::GetFontLineAlignment()
+{
+    return FontAlignmentCenter;
+}
+
+FontAlignment TextProxy::GetFontAlignment()
+{
+    return FontAlignmentCenter;
+}

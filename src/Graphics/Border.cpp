@@ -46,12 +46,12 @@ void Border::SetColor(glm::ivec4 color)
     rectangleProxy->SetColor(color);
 }
 
-int Border::GetRelativeZIndex()
+float Border::GetRelativeZIndex()
 {
     return static_cast<int>(relativeZIndex.z);
 }
 
-void Border::SetRelativeZIndex(int relativeZIndex)
+void Border::SetRelativeZIndex(float relativeZIndex)
 {
     this->relativeZIndex.z = static_cast<float>(relativeZIndex);
 }

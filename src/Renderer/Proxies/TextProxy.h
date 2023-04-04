@@ -11,9 +11,11 @@
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "RenderingProxyMessageSender.h"
+#include "api/TextApi.h"
+
 class TextModel;
 
-class TextProxy : public Movable, public RenderProxy, public MoveSubscriber
+class TextProxy : public TextApi, public RenderProxy, public MoveSubscriber, public Movable
 {
 private:
     TextModel* model = nullptr;
@@ -92,6 +94,28 @@ public:
     void NotifyOnMoveSubscribers(EventMoveInfo e) override;
 
     void OnMove(EventMoveInfo e) override;
+
+    void SetText(const std::wstring& text) override;
+
+    void SetFontSize(float fontSize) override;
+
+    void SetFontAlignment(FontAlignment alignment) override;
+
+    void SetFontLineAlignment(FontAlignment alignment) override;
+
+    void SetColor(const glm::ivec4 &color) override;
+
+    void SetFontFamily(const std::wstring &fontFamily) override;
+
+    const glm::ivec4 &GetColor() override;
+
+    const std::wstring &GetText() override;
+
+    const std::wstring &GetFontFamily() override;
+
+    FontAlignment GetFontLineAlignment() override;
+
+    FontAlignment GetFontAlignment() override;
 
 };
 

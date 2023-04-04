@@ -16,6 +16,7 @@ private:
 public:
     [[maybe_unused]] void RegisterIndex(const std::string& name, float index);
     float GetIndex(const std::string& name);
+    void SetIndex(const std::string &name, float value);
     static RelativeZIndex* GetInstance();
     size_t GetSize();
 

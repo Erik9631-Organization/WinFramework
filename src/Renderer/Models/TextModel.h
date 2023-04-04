@@ -11,9 +11,10 @@
 #include "FontAlignment.h"
 #include "ModelViewport.h"
 #include "FontFormat.h"
+#include "api/TextApi.h"
 #include <string>
 
-class TextModel : public Movable, public RenderingModel
+class TextModel : public RenderingModel, public TextApi, public Movable
 {
 private:
     MovableModelBehavior movableModelBehavior;
@@ -21,12 +22,12 @@ private:
     Renderer* renderer;
     glm::ivec4 color{255, 255, 255, 255};
     float fontSize = 12.0f;
-    int fontAlignment = FontAlignment::FontAlignmentNear;
-    int fontLineAlignment = FontAlignment::FontAlignmentNear;
+    FontAlignment fontAlignment = FontAlignment::FontAlignmentNear;
+    FontAlignment fontLineAlignment = FontAlignment::FontAlignmentNear;
     bool viewPortSet = false;
     ModelViewport viewPort;
     std::wstring fontFamily = L"Arial";
-    std::wstring text;
+    std::wstring text = L"";
 public:
     glm::vec4 GetPosition() override;
 
@@ -102,15 +103,29 @@ public:
 
     size_t &GetModelId() override;
 
-    void SetColor(const glm::vec4 &color);
+    void SetColor(const glm::ivec4 &color) override;
 
-    const glm::ivec4& GetColor();
+    const glm::ivec4& GetColor() override;
 
-    void SetFontSize(float fontSize);
+    void SetFontSize(float fontSize) override;
 
-    void SetFontAlignment(FontAlignment alignment);
+    void SetFontAlignment(FontAlignment alignment) override;
 
-    void SetFontLineAlignment(FontAlignment alignment);
+    void SetFontLineAlignment(FontAlignment alignment) override;
+
+    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+
+    void SetText(const std::wstring &text) override;
+
+    void SetFontFamily(const std::wstring &fontFamily) override;
+
+    const std::wstring &GetText() override;
+
+    const std::wstring &GetFontFamily() override;
+
+    FontAlignment GetFontLineAlignment() override;
+
+    FontAlignment GetFontAlignment() override;
 
 };
 

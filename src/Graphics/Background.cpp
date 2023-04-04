@@ -49,12 +49,12 @@ Background::~Background()
     associatedElement.RemoveOnMountedSubscriber(*this);
 }
 
-int Background::GetRelativeZIndex()
+float Background::GetRelativeZIndex()
 {
     return relativeZIndex.z;
 }
 
-void Background::SetRelativeZIndex(int relativeZIndex)
+void Background::SetRelativeZIndex(float relativeZIndex)
 {
     this->relativeZIndex.z = relativeZIndex;
 }

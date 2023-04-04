@@ -46,9 +46,15 @@ std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestModelProxy
     return nullptr;
 }
 
-std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestTextProxy()
+std::unique_ptr<TextProxy> DefaultAsyncRenderCommandHandler::RequestTextProxy()
 {
-    return nullptr;
+    auto proxy = std::make_unique<TextProxy>();
+    auto createMessage = new MessageGenerateModel(proxy.get());
+    //TODO FIND A SAFE WAY
+    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
+    auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
+    this->ReceiveCommand(std::move(message));
+    return proxy;
 }
 
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)

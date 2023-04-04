@@ -24,7 +24,7 @@ public:
         return sender;
     }
 
-    const long long int & GetReceiverId() const
+    [[nodiscard]] const long long int & GetReceiverId() const
     {
         return receiverId;
     }
@@ -74,12 +74,12 @@ public:
         return std::any_cast<dataType>(data);
     }
 
-    const Commands & GetMessageId() const
+    [[nodiscard]] const Commands & GetMessageId() const
     {
         return messageId;
     }
 
-    const SubCommands & GetSubMessageId() const
+    [[nodiscard]] const SubCommands & GetSubMessageId() const
     {
         return subMessageId;
     }

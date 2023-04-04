@@ -40,6 +40,8 @@ enum class SubCommands : unsigned char
     SetFontLineAlignment,
     SetFontAlignment,
     SetFill,
+    SetText,
+    SetFontFamily,
     CommandCount,
 };
 

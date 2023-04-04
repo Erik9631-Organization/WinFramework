@@ -24,8 +24,8 @@ public:
     void SetColor(glm::ivec4 color);
 
 private:
-    int GetRelativeZIndex() override;
-    void SetRelativeZIndex(int relativeZIndex) override;
+    float GetRelativeZIndex() override;
+    void SetRelativeZIndex(float relativeZIndex) override;
 };
 
 

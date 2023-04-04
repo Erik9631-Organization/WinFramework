@@ -34,7 +34,7 @@ public:
     void OnResize(EventResizeInfo e) override;
 
 private:
-    int GetRelativeZIndex() override;
+    float GetRelativeZIndex() override;
 
-    void SetRelativeZIndex(int relativeZIndex) override;
+    void SetRelativeZIndex(float relativeZIndex) override;
 };

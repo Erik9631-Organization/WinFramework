@@ -22,7 +22,7 @@ public:
     virtual std::unique_ptr<RenderProxy> RequestEllipseProxy() = 0;
     virtual std::unique_ptr<RenderProxy> RequestModelProxy() = 0;
     virtual std::unique_ptr<LineProxy> RequestLineProxy() = 0;
-    virtual std::unique_ptr<RenderProxy> RequestTextProxy() = 0;
+    virtual std::unique_ptr<TextProxy> RequestTextProxy() = 0;
     virtual std::unique_ptr<RectangleProxy> RequestRectangleProxy() = 0;
 
     virtual void SetViewportSize(int width, int height) = 0;

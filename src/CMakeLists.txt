@@ -517,7 +517,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp)
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h)
 
 
 ################################################################################

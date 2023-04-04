@@ -4,6 +4,7 @@
 
 #include "TextModel.h"
 #include "Renderer.h"
+#include "EventMoveInfo.h"
 
 glm::vec4 TextModel::GetPosition()
 {
@@ -179,8 +180,12 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetFontLineAlignment:
             SetFontLineAlignment(message->GetData<FontAlignment>());
         case SubCommands::SetColor:
-            SetColor(message->GetData<glm::vec4>());
+            SetColor(message->GetData<glm::ivec4>());
         break;
+        case SubCommands::SetText:
+            SetText(message->GetData<std::wstring>());
+        case SubCommands::SetFontFamily:
+            SetFontFamily(message->GetData<std::wstring>());
         default:
             break;
     }
@@ -234,7 +239,7 @@ size_t &TextModel::GetModelId()
     return modelId;
 }
 
-void TextModel::SetColor(const glm::vec4 &color)
+void TextModel::SetColor(const glm::ivec4 &color)
 {
     this->color = color;
 }
@@ -257,4 +262,39 @@ void TextModel::SetFontAlignment(FontAlignment alignment)
 void TextModel::SetFontLineAlignment(FontAlignment alignment)
 {
     this->fontLineAlignment = alignment;
+}
+
+void TextModel::NotifyOnMoveSubscribers(EventMoveInfo e)
+{
+    movableModelBehavior.NotifyOnMoveSubscribers(e);
+}
+
+void TextModel::SetText(const std::wstring &text)
+{
+    this->text = text;
+}
+
+void TextModel::SetFontFamily(const std::wstring &fontFamily)
+{
+    this->fontFamily = fontFamily;
+}
+
+const std::wstring &TextModel::GetText()
+{
+    return text;
+}
+
+const std::wstring &TextModel::GetFontFamily()
+{
+    return this->fontFamily;
+}
+
+FontAlignment TextModel::GetFontLineAlignment()
+{
+    return fontLineAlignment;
+}
+
+FontAlignment TextModel::GetFontAlignment()
+{
+    return fontAlignment;
 }
