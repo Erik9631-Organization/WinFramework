@@ -6,6 +6,7 @@
 #include "DefaultButtonBehavior.h"
 #include "RectangleProxy.h"
 #include "Border.h"
+#include "Text2.h"
 
 class Button : public UiElement
 {
@@ -13,10 +14,12 @@ class Button : public UiElement
 private:
     Border border;
     Background background;
-	Text text;
+	Text2 text;
 	DefaultButtonBehavior buttonBehavior;
 
 public:
+    void OnMounted(Presenter &presenter, UiElement &element) override;
+
 	Button(int x, int y, int width, int height);
 	
 	/**
@@ -63,7 +66,5 @@ public:
 	glm::vec3 GetOnClickColor();
 	glm::vec3 GetOnHoverColor();
 	~Button();
-
-    void OnMounted(Presenter &presenter, UiElement &element) override;
 };
 

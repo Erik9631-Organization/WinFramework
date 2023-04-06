@@ -7,6 +7,7 @@
 #include "Presenter.h"
 #include "EventMoveInfo.h"
 #include "RelativeZIndex.h"
+#include "UiElement.h"
 
 void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
@@ -151,4 +152,17 @@ void Text2::SetText(const std::wstring &text)
     if(textProxy == nullptr)
         return;
     textProxy->SetText(text);
+}
+
+Text2::Text2(UiElement *associatedElement)
+{
+    parentElement = associatedElement;
+    associatedElement->AddOnMountedSubscriber(*this);
+    // associatedElement->AddOnMoveSubscriber(*this);
+}
+
+Text2::~Text2()
+{
+    this->parentElement->RemoveOnMountedSubscriber(*this);
+    this->parentElement->RemoveOnMoveSubscriber(*this);
 }

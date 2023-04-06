@@ -52,7 +52,7 @@ std::unique_ptr<TextProxy> DefaultAsyncRenderCommandHandler::RequestTextProxy()
     auto createMessage = new MessageGenerateModel(proxy.get());
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
+    auto message = RenderMessage::Create(Commands::RequestText, createMessage);
     this->ReceiveCommand(std::move(message));
     return proxy;
 }
@@ -82,7 +82,7 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
             renderer->GetModel(id)->ReceiveCommand(std::move(message));
-
+            RedrawScene();
             if(sender!= nullptr)
                 sender->OnRenderMessageProcessed(messageSubId);
             break;
@@ -129,6 +129,7 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
     auto message = RenderMessage::Create(Commands::Redraw, nullptr);
     invalidated = true;
     this->ReceiveCommand(std::move(message));
+    std::cout << "Sending redraw command" << std::endl;
 }
 
 void DefaultAsyncRenderCommandHandler::OnInit(Core &core)

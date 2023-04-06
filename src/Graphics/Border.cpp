@@ -21,7 +21,6 @@ void Border::OnMove(EventMoveInfo e)
     if(rectangleProxy == nullptr)
         return;
     rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
-    presenter->ScheduleRedraw();
 }
 
 void Border::OnResize(EventResizeInfo e)
@@ -29,7 +28,6 @@ void Border::OnResize(EventResizeInfo e)
     if(rectangleProxy == nullptr)
         return;
     rectangleProxy->SetSize(e.GetSrc()->GetSize());
-    presenter->ScheduleRedraw();
 }
 
 Border::Border(UiElement &element) : associatedElement(element)

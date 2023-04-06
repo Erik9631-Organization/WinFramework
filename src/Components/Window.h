@@ -44,8 +44,6 @@ public:
     Window(int x, int y, int width, int height, std::string windowName);
     static std::unique_ptr<Window> Create(const std::string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const std::string &windowName);
-	
-	bool initDone = false;
 
 	void SetSize(float width, float height, bool emit) override;
 	void SetSize(glm::vec4 size, bool emit) override;

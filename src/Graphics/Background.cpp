@@ -16,7 +16,6 @@ void Background::OnMove(EventMoveInfo e)
     if(rectangleProxy == nullptr)
         return;
     rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
-    presenter->ScheduleRedraw();
 }
 
 void Background::OnResize(EventResizeInfo e)
@@ -24,7 +23,6 @@ void Background::OnResize(EventResizeInfo e)
     if(rectangleProxy == nullptr)
         return;
    rectangleProxy->SetSize(e.GetSrc()->GetSize());
-   presenter->ScheduleRedraw();
 }
 
 Background::Background(UiElement &element) : associatedElement(element)
@@ -40,6 +38,7 @@ void Background::SetColor(glm::ivec4 color)
     if(rectangleProxy == nullptr)
         return;
     rectangleProxy->SetColor(color);
+
 }
 
 Background::~Background()

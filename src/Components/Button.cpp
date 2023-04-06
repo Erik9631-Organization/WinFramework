@@ -23,30 +23,25 @@ glm::vec3 Button::GetBorderColor()
 	return glm::vec4{1};
 }
 
+Button::Button(int x, int y, int width, int height) : buttonBehavior(*this), background(*this), text(this), border(*this)
+{
+    SetSize(width, height, false);
+    SetPosition(x, y, 0, 0, false);
+    componentType = "Button";
+
+    border.SetColor({255, 0, 0, 255});
+    //text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    //text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+}
+
 void Button::SetBorderThickness(float thickness)
 {
 
 }
 
-Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this), background(*this), border(*this)
-{
-    SetSize(width, height, false);
-    SetPosition(x, y, 0, 0, false);
-	componentType = "Button";
-
-	border.SetColor({255, 0, 0, 255});
-
-	text.SetScalingTypeY(Percentual);
-	text.SetScalingTypeY(Percentual);
-
-	text.SetPosition({0.5f, 0.5f, 0, 0});
-	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
-	text.SetAlignment(FontAlignment::FontAlignmentCenter);
-}
-
 void Button::SetText(std::wstring text)
 {
-	this->text.SetText(text);
+	//this->text.SetText(text);
 }
 
 std::wstring Button::GetText()
@@ -88,4 +83,5 @@ void Button::OnMounted(Presenter &presenter, UiElement &element)
 {
     UiElement::OnMounted(presenter, element);
     SetBackgroundColor({30, 30, 30, 255});
+    //text.SetColor({255, 0, 0, 255});
 }

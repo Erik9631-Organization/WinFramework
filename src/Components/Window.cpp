@@ -121,7 +121,7 @@ Window::Window(int x, int y, int width, int height, string windowName) :
 UiElement & Window::Add(unique_ptr<UiElement> component)
 {
     auto& element = *component;
-UiElement::Add(std::move(component));
+    UiElement::Add(std::move(component));
     return element;
 }
 

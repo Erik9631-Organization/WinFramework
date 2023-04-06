@@ -13,9 +13,12 @@ private:
     std::unique_ptr<TextProxy> textProxy;
     float GetRelativeZIndex() override;
     void SetRelativeZIndex(float relativeZIndex) override;
-    Presenter* presenter;
-    UiElement* parentElement;
+    Presenter* presenter = nullptr;
+    UiElement* parentElement = nullptr;
 public:
+    explicit Text2(UiElement* associatedElement);
+    ~Text2() override;
+
     void OnMounted(Presenter &presenter, UiElement &element) override;
     void OnMove(EventMoveInfo e) override;
     void OnResize(EventResizeInfo e) override;

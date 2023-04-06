@@ -11,6 +11,7 @@ enum class Commands
    RequestRectangle,
    RequestModel,
    RequestEllipse,
+   RequestText,
    RequestLine,
    Property,
    Redraw,
