@@ -29,6 +29,8 @@ private:
     std::wstring fontFamily = L"Arial";
     std::wstring text = L"";
 public:
+
+    TextModel();
     glm::vec4 GetPosition() override;
 
     float GetX() override;

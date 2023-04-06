@@ -76,11 +76,16 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             CreateModelFromMessage<LineProxy>(std::move(message));
             break;
         }
+
+        case Commands::RequestText:
+            CreateModelFromMessage<TextProxy>(std::move(message));
+            break;
         case Commands::Property:
         {
             const auto id = message->GetReceiverId();
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
+            std::cout << static_cast<int>(messageSubId) << std::endl;
             renderer->GetModel(id)->ReceiveCommand(std::move(message));
             RedrawScene();
             if(sender!= nullptr)

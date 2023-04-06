@@ -11,6 +11,7 @@
 #include "RectangleProxy.h"
 #include "MessageGenerateModel.h"
 #include <future>
+#include "TextModel.h"
 
 
 class DefaultAsyncRenderCommandHandler : public AsyncRenderCommandHandler

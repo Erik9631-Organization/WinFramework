@@ -22,6 +22,7 @@
 #include "MoveSubscriber.h"
 #include <mutex>
 #include <condition_variable>
+#include "TextModel.h"
 
 
 class Timer;

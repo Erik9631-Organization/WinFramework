@@ -157,35 +157,40 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     {
         case SubCommands::SetX:
             SetX(message->GetData<float>());
-        break;
+            break;
         case SubCommands::SetY:
             SetY(message->GetData<float>());
-        break;
+            break;
         case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetTranslate:
             SetTranslate(message->GetData<glm::vec4>());
+            break;
         case SubCommands::SetTranslateX:
             SetTranslateX(message->GetData<float>());
+            break;
         case SubCommands::SetTranslateY:
             SetTranslateY(message->GetData<float>());
-        break;
+            break;
         case SubCommands::SetFontSize:
             SetFontSize(message->GetData<float>());
-        break;
+            break;
         case SubCommands::SetFontAlignment:
             SetFontAlignment(message->GetData<FontAlignment>());
-        break;
+            break;
         case SubCommands::SetFontLineAlignment:
             SetFontLineAlignment(message->GetData<FontAlignment>());
+            break;
         case SubCommands::SetColor:
             SetColor(message->GetData<glm::ivec4>());
-        break;
+            break;
         case SubCommands::SetText:
             SetText(message->GetData<std::wstring>());
+            break;
         case SubCommands::SetFontFamily:
             SetFontFamily(message->GetData<std::wstring>());
+            break;
         default:
             break;
     }
@@ -297,4 +302,9 @@ FontAlignment TextModel::GetFontLineAlignment()
 FontAlignment TextModel::GetFontAlignment()
 {
     return fontAlignment;
+}
+
+TextModel::TextModel() : movableModelBehavior(*this)
+{
+
 }

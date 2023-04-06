@@ -117,6 +117,12 @@ RenderingModel * GdiRenderer::CreateModel(Commands createCommand)
             model->AddOnMoveSubscriber(*this);
             return model;
         }
+        case Commands::RequestText:
+        {
+            auto model = CreateModel<TextModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
+        }
         default:
             return nullptr;
     }

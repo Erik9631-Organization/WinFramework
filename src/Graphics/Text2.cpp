@@ -158,7 +158,7 @@ Text2::Text2(UiElement *associatedElement)
 {
     parentElement = associatedElement;
     associatedElement->AddOnMountedSubscriber(*this);
-    // associatedElement->AddOnMoveSubscriber(*this);
+    associatedElement->AddOnMoveSubscriber(*this);
 }
 
 Text2::~Text2()
