@@ -130,7 +130,7 @@ float Viewport::GetAbsoluteY()
     return absolutePosition.y;
 }
 
-glm::vec4 Viewport::GetAbsolutePosition()
+const glm::vec4 & Viewport::GetAbsolutePosition()
 {
     return absolutePosition;
 }
@@ -170,7 +170,7 @@ void Viewport::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-glm::vec4 Viewport::GetSize()
+const glm::vec4 & Viewport::GetSize()
 {
     return resizeBehavior.GetSize();
 }

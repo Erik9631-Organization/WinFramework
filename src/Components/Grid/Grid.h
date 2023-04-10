@@ -31,16 +31,16 @@ private:
 public:
 	Grid();
 	/**
-	 * \param x the X position of the grid.
-	 * \param y the Y position of the grid
+	 * \param x the X viewPortSize of the grid.
+	 * \param y the Y viewPortSize of the grid
 	 * \param width the width of the grid
 	 * \param height the height of the grid.
 	 */
 	Grid(int x, int y, int width, int height);
 
 	/**
-	 * \param x the X position of the grid.
-	 * \param y the Y position of the grid
+	 * \param x the X viewPortSize of the grid.
+	 * \param y the Y viewPortSize of the grid
 	 * \param width the width of the grid
 	 * \param height the height of the grid.
 	 * \param name the identification name of the grid. This is not a display value.
@@ -119,22 +119,22 @@ public:
 	bool CheckSpanCollision(GridSpan span);
 
 	/**
-	 * \return returns the default column size.
+	 * \return returns the default column viewPortPosition.
 	 */
 	int GetDefaultColumnSize();
 
 	/**
-	 * \return returns the default row size.
+	 * \return returns the default row viewPortPosition.
 	 */
 	int GetDefaultRowSize();
 
 	/**
-	 * \param defaultColumnSize sets the default size for columns if they expand beyound the defined Grid::SetGridColumns
+	 * \param defaultColumnSize sets the default viewPortPosition for columns if they expand beyound the defined Grid::SetGridColumns
 	 */
 	void SetDefaultColumnSize(int defaultColumnSize);
 
 	/**
-	 * \param defaultRowSize sets the default size for row if they expand beyound the defined Grid::SetDefaultRowSize
+	 * \param defaultRowSize sets the default viewPortPosition for row if they expand beyound the defined Grid::SetDefaultRowSize
 	 */
 	void SetDefaultRowSize(int defaultRowSize);
 
@@ -146,12 +146,12 @@ public:
 	GridCell* GetGridCell(int x, int y);
 
 	/**
-	 * \param columns a list of column sizes which are explicitely defined. If the columns expand beyound the defined size, the default column size is used.
+	 * \param columns a list of column sizes which are explicitely defined. If the columns expand beyound the defined viewPortPosition, the default column viewPortPosition is used.
 	 */
 	void SetGridColumns(std::initializer_list<int> columns);
 
 	/**
-	 * \param columns a list of row sizes which are explicitely defined. If the columns expand beyound the defined size, the default row size is used.
+	 * \param columns a list of row sizes which are explicitely defined. If the columns expand beyound the defined viewPortPosition, the default row viewPortPosition is used.
 	 */
 	void SetGridRows(std::initializer_list<int> rows);
 
@@ -168,7 +168,7 @@ public:
 	int GetGridColumnSize(int index);
 
 	/**
-	 * Automatically extends the size of the grid based on the number of rows and columns
+	 * Automatically extends the viewPortPosition of the grid based on the number of rows and columns
 	 * \param state Auto extention state.
 	 */
 	void SetAutoExtend(bool state);

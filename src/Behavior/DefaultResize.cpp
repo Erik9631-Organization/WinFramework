@@ -29,7 +29,7 @@ void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     }
 }
 
-glm::vec4 DefaultResize::GetSize()
+const glm::vec4 & DefaultResize::GetSize()
 {
     return size;
 }

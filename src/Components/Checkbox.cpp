@@ -55,7 +55,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
 {
 	border.SetColor({0, 0, 0});
 	border.SetThickness(1.0f);
-	//background.SetColor({0, 0, 0, 0});
+	//background.SetBackgroundColor({0, 0, 0, 0});
 
 	checkboxBorder.SetColor({0, 0, 0});
 	checkboxBorder.SetScalingTypeWidth(Decimal);

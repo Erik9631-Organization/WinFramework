@@ -301,8 +301,8 @@ set(Lii_Graphics
     "Graphics/TestGraphics.cpp"
     Graphics/Border.cpp
     Graphics/Border.h
-    Graphics/RelativeZIndex.h
-    Graphics/RelativeZIndex.cpp)
+        Graphics/DefaultRelativeZIndex.h
+        Graphics/DefaultRelativeZIndex.cpp)
 source_group("Lii\\Graphics" FILES ${Lii_Graphics})
 
 

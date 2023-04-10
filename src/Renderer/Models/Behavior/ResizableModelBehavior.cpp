@@ -4,7 +4,7 @@
 
 #include "ResizableModelBehavior.h"
 
-glm::vec4 ResizableModelBehavior::GetSize()
+const glm::vec4 & ResizableModelBehavior::GetSize()
 {
     return size;
 }

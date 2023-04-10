@@ -14,7 +14,7 @@
  * A text renderable. Draws text within the canvas of the defined object.
  * Supported properties:<br>
  * text-color, args: Gdiplus::Color<br>
- * font-size, args: double
+ * font-viewPortPosition, args: double
  */
 class Text : public RenderCommander, public Reflectable<Text>
 {
@@ -24,7 +24,6 @@ private:
     glm::vec4 position;
 	glm::ivec4 color;
 	ScalingUtil2D graphicsUtil;
-
 	ReflectionContainer<Text> reflectionContainer;
 	float fontSize = 12.0f;
 	std::wstring text;

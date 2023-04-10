@@ -381,9 +381,9 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* File browser test start
 	*/
-	auto fileBrowseButton = std::make_unique<Button>(490, 320, 100, 25);
-	auto fileSaveButton = std::make_unique<Button>(595, 320, 100, 25);
-	auto clearButton = std::make_unique<Button>(700, 320, 100, 25);
+	auto fileBrowseButton = std::make_unique<Button>(490, 320, 100, 25, "FileBrowseButton");
+	auto fileSaveButton = std::make_unique<Button>(595, 320, 100, 25, "FileSaveButton");
+	auto clearButton = std::make_unique<Button>(700, 320, 100, 25, "ClearButton");
 	auto fileOutput = std::make_unique<TextInput>(490, 350, 300, 100, "File Content");
 	fileOutput->SetMultiline(true);
 	fileBrowseButton->SetText(L"Browse");
@@ -407,7 +407,7 @@ void DemoApplication::LaunchDemoApp()
 	* Password Form START
 	*/
 	auto passwordField = std::make_unique<PasswordField>(490, 210, 100, 30, "PasswordField");
-	auto submitButton = std::make_unique<Button>(600, 210, 100, 30);
+	auto submitButton = std::make_unique<Button>(600, 210, 100, 30, "SubmitButton");
 	submitButton->SetText(L"Submit");
     submitButton->SetComponentName("SubmitButton");
 	auto resultLabel = std::make_unique<Label>(490, 250, 100, 50, "resultLabel");
@@ -526,7 +526,7 @@ void DemoApplication::LaunchDemoApp()
 
 	for (int i = 0; i < 11; i++)
 	{
-		auto inputButtonPtr = std::make_unique<Button>(0, 0, 0, 0);
+		auto inputButtonPtr = std::make_unique<Button>(0, 0, 0, 0, "inputButton" + to_string(i));
         auto* inputButton = inputButtonPtr.get();
 		inputButton->SetText(to_wstring(i));
 		if (i == 3)
@@ -648,24 +648,24 @@ void DemoApplication::LaunchOpenGLApp()
 //    ModeledElement& wallBlockElement = frame->CreateElement<ModeledElement>(std::move(wallBlock));
 //
 //    ModeledElement& blockElement = frame->CreateElement<ModeledElement>(std::move(block));
-//    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    blockElement.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
 //
 //    rectangle->SetCamera(nullptr);
 //    rectangle->CustomCameraEnabled(true);
 //    auto& rectangleElement = frame->CreateElement<ModeledElement>(std::move(rectangle));
-//    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    rectangleElement.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
 //    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
 //
 //    wallBlockElement.GetModel()->SetTexture("WallTexture");
 //
 //    DirectionalLight& light = frame->CreateElement<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
-//    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
+//    light.SetBackgroundColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
 //
 //    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
 //    auto& pointLight = frame->CreateElement<PointLight>(std::move(pointLightModel));
 //    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
-//    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-//    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
+//    pointLight.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    pointLight.SetBackgroundColor({0.5f, 0.5f, 0.7f, 1.0f});
 //    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
 //
 //

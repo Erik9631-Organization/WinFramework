@@ -44,19 +44,19 @@ public:
 	bool IsChecked();
 
 	/**
-	 * Creates a new checkbox with no name 0 width and height and 0 x position and y position.
+	 * Creates a new checkbox with no name 0 width and height and 0 x viewPortSize and y viewPortSize.
 	 */
 	Checkbox();
 
 	/**
-	 * Creates a new checkbox with 0 width and height and 0 x position and y position.
+	 * Creates a new checkbox with 0 width and height and 0 x viewPortSize and y viewPortSize.
 	 * \param name the name used to identify the checkbox. This is not a display value.
 	*/
 	Checkbox(std::string name);
 
 	/**
-	 * \param x the x position where the checkbox should be located
-	 * \param y the y position where the checkbox should be located
+	 * \param x the x viewPortSize where the checkbox should be located
+	 * \param y the y viewPortSize where the checkbox should be located
 	 * \param width the width of the checkbox
 	 * \param height the height of the checkbox
 	 * \param name the name used to identify the checkbox. This is not a display value.

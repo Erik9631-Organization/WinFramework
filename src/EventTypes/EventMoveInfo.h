@@ -18,7 +18,7 @@ public:
     const glm::vec4& GetPrevPosition() const;
 
 	/**
-	 * \return Returns the position of the source object at the point this event was called.
+	 * \return Returns the viewPortSize of the source object at the point this event was called.
 	 */
     glm::vec4 GetPosition() const;
 
@@ -28,7 +28,7 @@ public:
 	Movable* GetSrc() const;
 
 	/**
-	 * \param position the position of the source object.
+	 * \param position the viewPortSize of the source object.
 	 * \param src the source object that called the event. 
 	 */
 	EventMoveInfo(glm::vec4 position, Movable* src);

@@ -175,7 +175,7 @@ float RectangleProxy::GetTranslateY()
     return model->GetTranslateY();
 }
 
-glm::vec4 RectangleProxy::GetSize()
+const glm::vec4 & RectangleProxy::GetSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
@@ -300,7 +300,7 @@ float RectangleProxy::GetAbsoluteY()
     return model->GetY();
 }
 
-glm::vec4 RectangleProxy::GetAbsolutePosition()
+const glm::vec4 & RectangleProxy::GetAbsolutePosition()
 {
     return model->GetAbsolutePosition();
 }
@@ -382,4 +382,3 @@ void RectangleProxy::SetThickness(float thickness)
     renderMessage->SetSubMessageId(SubCommands::SetThickness);
     SendRenderingMessage(std::move(renderMessage));
 }
-

@@ -5,6 +5,8 @@
 #ifndef LII_RENDERPROXY_H
 #define LII_RENDERPROXY_H
 #include "RenderMessageSender.h"
+#include "MountedSubscriber.h"
+
 class RenderingModel;
 class RenderingConsumer;
 

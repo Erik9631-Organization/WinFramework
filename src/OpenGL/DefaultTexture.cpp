@@ -11,7 +11,7 @@
 
 using namespace OpenGL;
 
-glm::vec4 StaticTexture::GetSize()
+const glm::vec4 & StaticTexture::GetSize()
 {
     return glm::vec4();
 }

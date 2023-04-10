@@ -133,7 +133,7 @@ void GridCell::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     associatedAdjustable->RemoveOnResizeSubscriber(subscriber);
 }
 
-glm::vec4 GridCell::GetSize()
+const glm::vec4 & GridCell::GetSize()
 {
     return {cellSize.x, cellSize.y, 0, 1};
 }
@@ -229,7 +229,7 @@ float GridCell::GetAbsoluteY()
     return indexPos.y + parentGrid.GetAbsoluteY();
 }
 
-glm::vec4 GridCell::GetAbsolutePosition()
+const glm::vec4 & GridCell::GetAbsolutePosition()
 {
     return {indexPos.x + parentGrid.GetAbsoluteX(), indexPos.y + parentGrid.GetAbsoluteY(), 0, 1};
 }

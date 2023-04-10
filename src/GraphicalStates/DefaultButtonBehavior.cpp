@@ -5,32 +5,31 @@
 DefaultButtonBehavior::DefaultButtonBehavior(Button& button) : associatedButton(button)
 {
 	associatedButton.AddMouseStateSubscriber(*this);
-	onHoverColor = {100, 100, 100};
-	onClickColor = {60, 60, 60};
+    associatedButton.SetBackgroundColor(backgroundColor);
 }
 
-void DefaultButtonBehavior::SetOnHoverColor(glm::vec3 color)
+void DefaultButtonBehavior::SetOnHoverBackgroundColor(const glm::ivec4 &color)
 {
-	onHoverColor = color;
+    onHoverBackgroundColor = color;
 }
 
-void DefaultButtonBehavior::SetOnClickColor(glm::vec3 color)
+void DefaultButtonBehavior::SetOnClickBackgroundColor(const glm::ivec4 &color)
 {
-	onClickColor = color;
+    onClickBackgroundColor = color;
 }
 
 
 void DefaultButtonBehavior::OnMouseDown(EventMouseStateInfo e)
 {
-	associatedButton.SetColor(onClickColor);
+    associatedButton.SetBackgroundColor(onClickBackgroundColor);
 }
 
 void DefaultButtonBehavior::OnMouseUp(EventMouseStateInfo e)
 {
     if(associatedButton.HasMouseEntered())
-        associatedButton.SetColor(onHoverColor);
+        associatedButton.SetBackgroundColor(onHoverBackgroundColor);
     else
-        associatedButton.SetColor(standardColor);
+        associatedButton.SetBackgroundColor(backgroundColor);
 }
 
 void DefaultButtonBehavior::OnMousePressed(EventMouseStateInfo e)
@@ -46,14 +45,14 @@ void DefaultButtonBehavior::OnMouseMove(EventMouseStateInfo e)
 void DefaultButtonBehavior::OnMouseEntered(EventMouseStateInfo e)
 {
     if(associatedButton.IsMouseCaptured())
-        associatedButton.SetColor(onClickColor);
+        associatedButton.SetBackgroundColor(onClickBackgroundColor);
     else
-	    associatedButton.SetColor(onHoverColor);
+        associatedButton.SetBackgroundColor(onHoverBackgroundColor);
 }
 
 void DefaultButtonBehavior::OnMouseLeft(EventMouseStateInfo e)
 {
-    associatedButton.SetColor(standardColor);
+    associatedButton.SetBackgroundColor(backgroundColor);
 }
 
 void DefaultButtonBehavior::OnMouseCaptured(EventMouseStateInfo e)
@@ -61,22 +60,23 @@ void DefaultButtonBehavior::OnMouseCaptured(EventMouseStateInfo e)
 
 }
 
-glm::vec3 DefaultButtonBehavior::GetStandardColor()
+const glm::ivec4 & DefaultButtonBehavior::GetStandardColor()
 {
-    return standardColor;
+    return backgroundColor;
 }
 
-void DefaultButtonBehavior::SetStatelessColor(glm::vec3 statelessColor)
+void DefaultButtonBehavior::SetBackgroundColor(const glm::ivec4 &statelessColor)
 {
-    DefaultButtonBehavior::standardColor = statelessColor;
+    backgroundColor = statelessColor;
+    associatedButton.SetBackgroundColor(backgroundColor);
 }
 
-glm::vec3 DefaultButtonBehavior::GetOnClickColor()
+const glm::ivec4 & DefaultButtonBehavior::GetOnClickColor()
 {
-    return onClickColor;
+    return onClickBackgroundColor;
 }
 
-glm::vec3 DefaultButtonBehavior::GetOnHoverColor()
+const glm::ivec4 & DefaultButtonBehavior::GetOnHoverColor()
 {
-    return onHoverColor;
+    return onHoverBackgroundColor;
 }

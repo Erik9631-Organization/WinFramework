@@ -8,26 +8,21 @@
 
 void Border::OnMounted(Presenter &presenter, UiElement &element)
 {
-    rectangleProxy = std::move(presenter.GetRenderer()->RequestRectangleProxy());
-    rectangleProxy->SetFill(false);
-    rectangleProxy->SetSize(element.GetSize());
-    rectangleProxy->SetPosition(element.GetAbsolutePosition() + relativeZIndex);
-    rectangleProxy->SetColor({0, 0, 0, 255});
+    presenter.GetRenderer()->RequestRectangleModel(rectangleProxy);
     this->presenter = &presenter;
+    rectangleProxy.SetFill(false);
+    rectangleProxy.SetSize(element.GetSize());
+    rectangleProxy.SetPosition(element.GetAbsolutePosition() + relativeZIndex);
 }
 
 void Border::OnMove(EventMoveInfo e)
 {
-    if(rectangleProxy == nullptr)
-        return;
-    rectangleProxy->SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
+    rectangleProxy.SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
 }
 
 void Border::OnResize(EventResizeInfo e)
 {
-    if(rectangleProxy == nullptr)
-        return;
-    rectangleProxy->SetSize(e.GetSrc()->GetSize());
+    rectangleProxy.SetSize(e.GetSrc()->GetSize());
 }
 
 Border::Border(UiElement &element) : associatedElement(element)
@@ -35,13 +30,12 @@ Border::Border(UiElement &element) : associatedElement(element)
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
+    rectangleProxy.SetColor({0, 0, 0, 255});
 }
 
 void Border::SetColor(glm::ivec4 color)
 {
-    if(rectangleProxy == nullptr)
-        return;
-    rectangleProxy->SetColor(color);
+    rectangleProxy.SetColor(color);
 }
 
 float Border::GetRelativeZIndex()

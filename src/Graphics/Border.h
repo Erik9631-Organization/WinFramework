@@ -6,7 +6,7 @@
 #define LII_BORDER_H
 #include "Appearance.h"
 #include "RectangleProxy.h"
-#include "RelativeZIndex.h"
+#include "DefaultRelativeZIndex.h"
 #include <memory>
 
 class Border : public Appearance
@@ -14,10 +14,10 @@ class Border : public Appearance
 private:
     UiElement& associatedElement;
     Presenter* presenter = nullptr;
-    std::unique_ptr<RectangleProxy> rectangleProxy;
-    glm::vec4 relativeZIndex = {0, 0, 0, RelativeZIndex::GetInstance()->GetIndex("BorderIndex")};
+    RectangleProxy rectangleProxy;
+    glm::vec4 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BorderIndex"), 0};
 public:
-    Border(UiElement& element);
+    explicit Border(UiElement& element);
     void OnMounted(Presenter &presenter, UiElement &element) override;
     void OnMove(EventMoveInfo e) override;
     void OnResize(EventResizeInfo e) override;

@@ -30,7 +30,7 @@ float EllipseProxy::GetAbsoluteY()
     return 0;
 }
 
-glm::vec4 EllipseProxy::GetAbsolutePosition()
+const glm::vec4 & EllipseProxy::GetAbsolutePosition()
 {
     return glm::vec4();
 }

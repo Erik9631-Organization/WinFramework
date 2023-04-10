@@ -12,7 +12,7 @@ class Grid;
 * 1) Each GridCell should have Setspan parameter. It recieved a data type that contains grid-column-start, grid-column-end, grid-row-start, grid-row-end
 * 2) When the span is set, the span parent is calculated. This is the top left cell of the entire span area.
 * 3) This way, all the cells within the span will refer to the top corner.
-* 4) The methods will be automatically delegated to the parent. Size and position should be an exception as the parent will use those values to calculate the spanning of its component
+* 4) The methods will be automatically delegated to the parent. Size and viewPortSize should be an exception as the parent will use those values to calculate the spanning of its component
 * The idea is that spanning should be possible with the existing grid system, without creating incompatibilities
 */
 
@@ -72,7 +72,7 @@ public:
 	void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	glm::vec4 GetSize() override;
+	const glm::vec4 & GetSize() override;
 	float GetWidth() override;
 	float GetHeight() override;
 	void SetSize(glm::vec4 size, bool emit) override;
@@ -89,7 +89,7 @@ public:
     float GetW() override;
 	float GetAbsoluteX() override;
 	float GetAbsoluteY() override;
-	glm::vec4 GetAbsolutePosition() override;
+	const glm::vec4 & GetAbsolutePosition() override;
 	void SetPosition(glm::vec4 position, bool emit) override;
 	void SetPosition(float x, float y, float z, float w, bool emit) override;
 	void SetX(float x, bool emit) override;

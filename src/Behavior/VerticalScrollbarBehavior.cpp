@@ -47,7 +47,7 @@ void VerticalScrollbarBehavior::OnMouseLeft(EventMouseStateInfo e)
 
 void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
 {
-    //Set position
+    //Set viewPortSize
     //Check if scrollbar can be moved
     if(e.GetMouseDelta().y + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
         return;
@@ -62,7 +62,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     float percentualPos = GetScrollbarPercentualPos();
     float pageHeight = GetPageHeight();
     //We only want the offset of the not visible part, not the complete page offset
-    //pageHeight includes the offset and the window size itself. If we move the scrollbar, we want to apply only the offset
+    //pageHeight includes the offset and the window viewPortPosition itself. If we move the scrollbar, we want to apply only the offset
     //That is why we need to subtract
     float offset = (percentualPos * (pageHeight - associatedScrollbar.GetControlledComponent()->GetHeight()));
 
@@ -146,11 +146,11 @@ void VerticalScrollbarBehavior::UpdateThumbTrackSize()
     //Set width and height
     if(scrollbarPercentualHeight >= 1.0f)
     {
-        associatedTrackBar.SetColor({255, 255, 255});
+        associatedTrackBar.SetBackgroundColor({255, 255, 255, 255});
         associatedTrackBar.SetActive(false);
         return;
     }
-    associatedTrackBar.SetColor(associatedTrackBar.GetBackgroundColor());
+    associatedTrackBar.SetBackgroundColor(associatedTrackBar.GetBackgroundColor());
 
     trackbarHeight = (float)associatedScrollbar.GetControlledComponent()->GetHeight() * scrollbarPercentualHeight;
     if(trackbarHeight < minSize) // Force minsize.

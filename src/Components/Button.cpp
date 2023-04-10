@@ -2,36 +2,37 @@
 #include "Core/Windows/WindowsCore.h"
 #include "FontAlignment.h"
 
-void Button::SetBorderColor(glm::vec3 color)
+void Button::SetBorderColor(const glm::ivec4 &color)
 {
-	border.SetColor(glm::vec4{color, 255});
+	border.SetColor(color);
 }
 
-void Button::SetBackgroundColor(const glm::vec4 &color)
+void Button::SetBackgroundColor(const glm::ivec4 &color)
 {
 	background.SetColor(color);
-	buttonBehavior.SetStatelessColor(color);
 }
 
-glm::vec3 Button::GetBackgroundColor()
+const glm::ivec4 & Button::GetBackgroundColor()
 {
     return buttonBehavior.GetStandardColor();
 }
 
-glm::vec3 Button::GetBorderColor()
+const glm::ivec4 & Button::GetBorderColor()
 {
 	return glm::vec4{1};
 }
 
-Button::Button(int x, int y, int width, int height) : buttonBehavior(*this), background(*this), text(this), border(*this)
+Button::Button(float x, float y, float width, float height, const std::string& name = "") : UiElement(x, y, width, height, name),
+    buttonBehavior(*this),
+    background(*this),
+    text(this),
+    border(*this)
 {
-    SetSize(width, height, false);
-    SetPosition(x, y, 0, 0, false);
     componentType = "Button";
-
-    border.SetColor({255, 0, 0, 255});
-    //text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
-    //text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    border.SetColor({0, 0, 0, 255});
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetColor({255, 255, 255, 255});
 }
 
 void Button::SetBorderThickness(float thickness)
@@ -41,7 +42,7 @@ void Button::SetBorderThickness(float thickness)
 
 void Button::SetText(std::wstring text)
 {
-	//this->text.SetText(text);
+	this->text.SetText(text);
 }
 
 std::wstring Button::GetText()
@@ -49,39 +50,27 @@ std::wstring Button::GetText()
 	return text.GetText();
 }
 
-Button::~Button()
+void Button::SetOnHoverColor(const glm::ivec4 &color)
 {
-
+    buttonBehavior.SetOnHoverBackgroundColor(color);
 }
 
-void Button::SetOnHoverColor(glm::vec3 color)
+void Button::SetOnClickColor(const glm::vec4 &color)
 {
-    buttonBehavior.SetOnHoverColor(color);
+    buttonBehavior.SetOnClickBackgroundColor(color);
 }
 
-void Button::SetOnClickColor(glm::vec3 color)
-{
-    buttonBehavior.SetOnClickColor(color);
-}
-
-glm::vec3 Button::GetOnClickColor()
+const glm::ivec4 & Button::GetOnClickColor()
 {
     return buttonBehavior.GetOnClickColor();
 }
 
-glm::vec3 Button::GetOnHoverColor()
+const glm::ivec4 & Button::GetOnHoverColor()
 {
     return buttonBehavior.GetOnHoverColor();
 }
 
-void Button::SetColor(glm::vec3 color)
+void Button::SetStatelessBackgroundColor(const glm::ivec4 &color)
 {
-    
-}
-
-void Button::OnMounted(Presenter &presenter, UiElement &element)
-{
-    UiElement::OnMounted(presenter, element);
-    SetBackgroundColor({30, 30, 30, 255});
-    //text.SetColor({255, 0, 0, 255});
+    buttonBehavior.SetBackgroundColor(color);
 }

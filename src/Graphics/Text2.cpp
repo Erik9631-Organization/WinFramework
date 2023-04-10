@@ -6,22 +6,21 @@
 #include "Text2.h"
 #include "Presenter.h"
 #include "EventMoveInfo.h"
-#include "RelativeZIndex.h"
+#include "DefaultRelativeZIndex.h"
 #include "UiElement.h"
+#include "ScalingUtil2D.h"
 
 void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
     this->presenter = &presenter;
     this->parentElement = &element;
-    textProxy = std::move(presenter.GetRenderer()->RequestTextProxy());
+    presenter.GetRenderer()->RequestTextModel(textProxy);
 }
 
 void Text2::OnMove(EventMoveInfo e)
 {
-    if(textProxy == nullptr)
-        return;
-    textProxy->SetPosition(e.GetSrc()->GetAbsolutePosition());
-    presenter->ScheduleRedraw();
+    textScaler.Scale(textPosition);
+    textProxy.SetPosition(textScaler.GetPosition());
 }
 
 void Text2::OnResize(EventResizeInfo e)
@@ -31,134 +30,77 @@ void Text2::OnResize(EventResizeInfo e)
 
 float Text2::GetRelativeZIndex()
 {
-    return RelativeZIndex::GetInstance()->GetIndex("TextIndex");
+    return this->textPosition.z;
 }
 
 void Text2::SetRelativeZIndex(float relativeZIndex)
 {
-    RelativeZIndex::GetInstance()->SetIndex("TextIndex", relativeZIndex);
+    this->textPosition.z = relativeZIndex;
 }
 
 
 void Text2::SetFontSize(float fontSize)
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return;
-    }
-    textProxy->SetFontSize(fontSize);
+    textProxy.SetFontSize(fontSize);
 }
 
 void Text2::SetFontAlignment(FontAlignment alignment)
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return;
-    }
-    textProxy->SetFontAlignment(alignment);
+    textProxy.SetFontAlignment(alignment);
 }
 
 void Text2::SetFontLineAlignment(FontAlignment alignment)
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return;
-    }
-    textProxy->SetFontLineAlignment(alignment);
+    textProxy.SetFontLineAlignment(alignment);
 }
 
 void Text2::SetColor(const glm::ivec4 &color)
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return;
-    }
-    textProxy->SetColor(color);
+    textProxy.SetColor(color);
 }
 
-//TODO Throw exception if textProxy is null
 void Text2::SetFontFamily(const std::wstring &fontFamily)
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return;
-    }
-    textProxy->SetFontFamily(fontFamily);
+    textProxy.SetFontFamily(fontFamily);
 }
 
-//TODO Throw exception if textProxy is null
 const glm::ivec4 &Text2::GetColor()
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return glm::ivec4(0,0,0,0);
-    }
-    return textProxy->GetColor();
+    return textProxy.GetColor();
 }
 
-// TODO Throw exception if textProxy is null
 const std::wstring &Text2::GetText()
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return L"";
-    }
-    return textProxy->GetText();
+    return textProxy.GetText();
 }
 
-// TODO Throw exception if textProxy is null
 const std::wstring &Text2::GetFontFamily()
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return L"";
-    }
-
-    return textProxy->GetFontFamily();
+    return textProxy.GetFontFamily();
 }
 
-// TODO Throw exception if textProxy is null
 FontAlignment Text2::GetFontLineAlignment()
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return FontAlignmentCenter;
-    }
-    return textProxy->GetFontLineAlignment();
+    return textProxy.GetFontLineAlignment();
 }
 
-// TODO Throw exception if textProxy is null
 FontAlignment Text2::GetFontAlignment()
 {
-    if(textProxy == nullptr)
-    {
-        std::cout << "Exception textProxy is null" << std::endl;
-        return FontAlignmentCenter;
-    }
-    return textProxy->GetFontAlignment();
+    return textProxy.GetFontAlignment();
 }
 
 void Text2::SetText(const std::wstring &text)
 {
-    if(textProxy == nullptr)
-        return;
-    textProxy->SetText(text);
+    textProxy.SetText(text);
 }
 
-Text2::Text2(UiElement *associatedElement)
+Text2::Text2(UiElement *associatedElement) : textScaler(associatedElement->GetAbsolutePosition(), associatedElement->GetSize())
 {
     parentElement = associatedElement;
     associatedElement->AddOnMountedSubscriber(*this);
     associatedElement->AddOnMoveSubscriber(*this);
+    textScaler.SetCalculateFromCenterY(true);
+    textScaler.SetCalculateFromCenterX(true);
 }
 
 Text2::~Text2()

@@ -41,7 +41,7 @@ float TextModel::GetAbsoluteY()
     return movableModelBehavior.GetAbsoluteY();
 }
 
-glm::vec4 TextModel::GetAbsolutePosition()
+const glm::vec4 & TextModel::GetAbsolutePosition()
 {
     return movableModelBehavior.GetAbsolutePosition();
 }
@@ -226,7 +226,6 @@ void TextModel::Draw()
 
     api->SetFontSize(fontSize);
     api->SetFontFamily(fontFamily);
-    api->SetFontFamily(fontFamily);
     api->DrawString(text, movableModelBehavior.GetPosition(), *format);
 }
 
@@ -234,7 +233,7 @@ void TextModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
 }
-void TextModel::SetAssociatedModelId(unsigned long long int id)
+void TextModel::SetModelId(unsigned long long int id)
 {
     this->modelId = id;
 }

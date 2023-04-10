@@ -15,7 +15,7 @@ private:
     std::vector<ResizeSubscriber*> resizeSubscribers;
 
 public:
-    glm::vec4 GetSize() override;
+    const glm::vec4 & GetSize() override;
 
     float GetWidth() override;
 

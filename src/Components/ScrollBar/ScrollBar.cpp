@@ -9,7 +9,7 @@ using namespace std;
 ScrollBar::ScrollBar(int x, int y, int width, int height, const string &name) :
         Panel(x, y, width, height, name)
 {
-    thumbTrack = new Button(0, 0, 0, 0);
+    thumbTrack = new Button(0.0f, 0.0f, 0.0f, 0.0f, "thumbTrackButton");
     scrollbarBehavior = std::make_unique<VerticalScrollbarBehavior>(*this, *thumbTrack);
     Add(std::unique_ptr<Button>(thumbTrack));
 }
@@ -46,7 +46,7 @@ void ScrollBar::Control(UiElement *component, std::unique_ptr<ScrollBar> scrollb
     component->AddOnResizeSubscriber(*scrollbarRef.scrollbarBehavior);
     component->AddOnAddSubscriber(*scrollbarRef.scrollbarBehavior);
 
-    //Send resize event to calculate the position
+    //Send resize event to calculate the viewPortSize
     EventResizeInfo resizeInfo = EventResizeInfo(component->GetSize(), component);
     scrollbarRef.scrollbarBehavior->OnResize(resizeInfo);
 }

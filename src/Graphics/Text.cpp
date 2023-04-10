@@ -25,10 +25,10 @@ int Text::GetAlignment()
 }
 
 
-Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position)
+Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, position)
 {
-    reflectionContainer.RegisterMethod("text-color", "SetColor", &Text::SetColor);
-    reflectionContainer.RegisterMethod("font-size", "SetFontSize", &Text::SetFontSize);
+    reflectionContainer.RegisterMethod("text-color", "SetBackgroundColor", &Text::SetColor);
+    reflectionContainer.RegisterMethod("font-viewPortPosition", "SetFontSize", &Text::SetFontSize);
 
     std::wstring family = std::wstring(fontFamily.begin(), fontFamily.end());
     this->fontFamily = family;
@@ -69,7 +69,7 @@ void Text::SetFontSize(float fontSize)
 void Text::OnRenderSync(RenderEventInfo e)
 {
     RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    graphicsUtil.Scale(drawData.GetSize());
     std::unique_ptr<FontFormat> format = renderer.CreateFontFormat();
 //    format->SetAlignment(alignment);
 //    format->SetLineAlignment(lineAlignment);

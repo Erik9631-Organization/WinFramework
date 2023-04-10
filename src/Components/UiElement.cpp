@@ -554,7 +554,7 @@ float UiElement::GetAbsoluteY()
 	return moveBehavior.GetAbsoluteY();
 }
 
-glm::vec4 UiElement::GetAbsolutePosition()
+const glm::vec4 & UiElement::GetAbsolutePosition()
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -584,7 +584,7 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-glm::vec4 UiElement::GetSize()
+const glm::vec4 & UiElement::GetSize()
 {
 	return resizeBehavior.GetSize();
 }

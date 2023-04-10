@@ -22,8 +22,15 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 void GdiRenderer::Render()
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
-    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
+    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it){
+        std::cout << it->first << std::endl;
+        std::cout << it->second->GetModelId() << std::endl;
+        std::cout << std::endl;
         it->second->Draw();
+    }
+
+    std::cout << std::endl;
+
 }
 
 void GdiRenderer::CleanDeviceContext()
@@ -98,7 +105,7 @@ RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> rendering
     modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
     auto modelPtr = renderingModel.get();
     renderingModels.push_back(std::move(renderingModel));
-    modelPtr->SetAssociatedModelId(renderingModels.size() - 1);
+    modelPtr->SetModelId(renderingModels.size() - 1);
     return modelPtr;
 }
 

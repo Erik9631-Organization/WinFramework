@@ -19,14 +19,14 @@ private:
 public:
 
     /**
-     * Sets position of the starting point of the line
-     * @param position - position of the starting point of the line
+     * Sets viewPortSize of the starting point of the line
+     * @param position - viewPortSize of the starting point of the line
      */
     void SetStartPosition(const glm::vec3& position);
 
     /**
-     * Sets position of the end point of the line
-     * @param position - position of the end point of the line
+     * Sets viewPortSize of the end point of the line
+     * @param position - viewPortSize of the end point of the line
     */
     void SetEndPosition(const glm::vec3& position);
 

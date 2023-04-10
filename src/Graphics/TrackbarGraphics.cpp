@@ -4,16 +4,16 @@
 TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContainer(*this)
 {
     reflectionContainer.RegisterMethod("tracker-color", "SetTrackerColor", &TrackbarGraphics::SetTrackerColor);
-    reflectionContainer.RegisterMethod("tracker-position", "SetPercentualPosition", &TrackbarGraphics::SetPercentualPosition);
+    reflectionContainer.RegisterMethod("tracker-viewPortSize", "SetPercentualPosition", &TrackbarGraphics::SetPercentualPosition);
     reflectionContainer.RegisterMethod("tracker-height", "SetPercentualHeight", &TrackbarGraphics::SetPercentualHeight);
 
     reflectionContainer.RegisterMethod("get-tracker-height", "GetPercentualHeight", &TrackbarGraphics::GetPercentualHeight);
-    reflectionContainer.RegisterMethod("get-tracker-position", "GetX", &TrackbarGraphics::GetPercentualPosition);
+    reflectionContainer.RegisterMethod("get-tracker-viewPortSize", "GetX", &TrackbarGraphics::GetPercentualPosition);
 
     reflectionContainer.RegisterMethod("get-tracker-color", "GetTrackerColor", &TrackbarGraphics::GetTrackerColor);
 
     border.SetColor({0, 0, 0});
-    // tracker.SetColor({0, 0, 0});
+    // tracker.SetBackgroundColor({0, 0, 0});
 
     // AddRenderCommander(tracker);
     AddRenderCommander(border);
@@ -43,7 +43,7 @@ float TrackbarGraphics::GetPercentualPosition()
 
 void TrackbarGraphics::SetTrackerColor(glm::vec3 color)
 {
-    //tracker.SetColor(color);
+    //tracker.SetBackgroundColor(color);
 }
 
 glm::vec3 TrackbarGraphics::GetTrackerColor()

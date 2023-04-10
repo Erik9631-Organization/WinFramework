@@ -16,7 +16,7 @@ private:
 
 public:
 	/**
-	 * \return returns the size of the source at the point the event was called.
+	 * \return returns the viewPortPosition of the source at the point the event was called.
 	 */
     glm::vec4 GetSize() const;
 
@@ -26,7 +26,7 @@ public:
 	Resizable* GetSrc() const;
 
 	/**
-	 * \param size the size of the source object
+	 * \param size the viewPortPosition of the source object
 	 * \param src the source object that that called the event.
 	 */
 	EventResizeInfo(glm::vec4 size, Resizable* src);

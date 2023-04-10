@@ -126,7 +126,7 @@ public:
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	
 	/**
-	 * Similar to ScheduleRedraw, but also updates the position and scale.
+	 * Similar to ScheduleRedraw, but also updates the viewPortSize and scale.
 	 * \param e event object to pass.
 	 */
 	virtual void Repaint() override;

@@ -5,7 +5,7 @@
 #include "DataTypes/MultiTree.h"
 #include "api/Adjustable.h"
 #include "../GenericObj.h"
-#include "RelativeZIndex.h"
+#include "DefaultRelativeZIndex.h"
 
 /**
  * T has to be of pointer type
@@ -17,7 +17,7 @@ private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
     glm::vec4 absolutePosition{0};
     glm::vec4 relativePosition{0};
-    glm::vec4 translate{0}; // Defines the position within the viewport
+    glm::vec4 translate{0}; // Defines the viewPortSize within the viewport
     glm::vec4 childrenTranslate{0};
 	MultiTree<T>& associatedAdjustableNode;
 
@@ -58,7 +58,7 @@ public:
     void SetW(float w) override;
 	float GetAbsoluteX() override;
 	float GetAbsoluteY() override;
-	glm::vec4 GetAbsolutePosition() override;
+	const glm::vec4 & GetAbsolutePosition() override;
 
 	void SetTranslate(glm::vec4 offset, bool emit) override;
 	void SetTranslateX(float x, bool emit) override;
@@ -162,7 +162,7 @@ void UiMoveBehavior<T>::CalculateAbsolutePosition()
 	    absolutePosition.x = relativePosition.x + associatedAdjustableNode.GetParent()->GetAbsoluteX() + translate.x;
 	    absolutePosition.y = relativePosition.y + associatedAdjustableNode.GetParent()->GetAbsoluteY() + translate.y;
 	}
-    absolutePosition.z *= static_cast<float>(RelativeZIndex::GetInstance()->GetSize());
+    absolutePosition.z *= static_cast<float>(DefaultRelativeZIndex::GetInstance()->GetSize());
 }
 
 template<class T>
@@ -310,7 +310,7 @@ float UiMoveBehavior<T>::GetAbsoluteY()
 }
 
 template<class T>
-glm::vec4 UiMoveBehavior<T>::GetAbsolutePosition()
+const glm::vec4 & UiMoveBehavior<T>::GetAbsolutePosition()
 {
 	return absolutePosition;
 }

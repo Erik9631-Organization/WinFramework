@@ -11,7 +11,7 @@ SimpleBorder::SimpleBorder() :
     graphicsUtil(position, size)
 {
 	//Set up meta data
-	reflectionContainer.RegisterMethod<glm::ivec3>("border-color", "SetColor", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<glm::ivec3>("border-color", "SetBackgroundColor", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod<glm::ivec4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
 
@@ -55,7 +55,7 @@ void SimpleBorder::DrawFromCenterY(bool state)
 void SimpleBorder::OnRenderSync(RenderEventInfo e)
 {
     RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    graphicsUtil.Scale(drawData.GetSize());
 
     renderer.SetThickness(thickness);
     renderer.SetColor(color);

@@ -304,7 +304,7 @@ void OpenGLRenderer::GraphicsInit()
 //    manager.AddModel(*block);
 //    models.emplace_back(std::move(block));
 //    models.emplace_back(std::move(wallBlock));
-//    models.at(0)->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    models.at(0)->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
 }
 
 //TODO Finish Acquire Renderer for opengl

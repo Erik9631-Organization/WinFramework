@@ -11,7 +11,7 @@ class RenderEventInfo
 {
 public:
 	/**
-	 * The parent size is set ti 0,0 by default.
+	 * The parent viewPortPosition is set ti 0,0 by default.
 	 * \param g pointer to a rendereringProvider object associated with a HDC on which it is possible to perform a drawing operation.
 	 */
 	RenderEventInfo(RenderingPool *g);

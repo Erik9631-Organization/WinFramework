@@ -18,8 +18,8 @@ public:
 	Label();
 
 	/**
-	 * \param x the X position of the grid.
-	 * \param y the Y position of the grid
+	 * \param x the X viewPortSize of the grid.
+	 * \param y the Y viewPortSize of the grid
 	 * \param width the width of the grid
 	 * \param height the height of the grid.
 	 * \param name the identification name of the grid. This is not a display value.

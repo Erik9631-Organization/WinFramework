@@ -53,7 +53,7 @@ public:
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual glm::vec4 GetAbsolutePosition() override;
+	virtual const glm::vec4 & GetAbsolutePosition() override;
 	virtual void SetPosition(glm::vec4 position, bool emit) override;
 	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
@@ -63,7 +63,7 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual glm::vec4 GetSize() override;
+	virtual const glm::vec4 & GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
 	virtual void SetSize(glm::vec4 size, bool emit) override;

@@ -23,7 +23,7 @@ public:
     virtual void DrawEllipse(float x,float y, float width, float height) = 0;
     virtual void DrawEllipse(float x, float y, glm::vec4) = 0;
     //virtual void DrawImage(const Image& imageData, float x, float y);
-    //virtual void DrawImage(const Image& imageData, vector2d position);
+    //virtual void DrawImage(const Image& imageData, vector2d viewPortSize);
     virtual void DrawModel(const OpenGL::Model &model) = 0;
     virtual void DrawLine(float x1,float y1, float x2, float y2) = 0;
     virtual void DrawLine(glm::vec4 pos, glm::vec4 size) = 0;

@@ -10,10 +10,10 @@ class Resizable : public ResizeSubject
 {
 public:
 	/**
-	 * Returns the size of the object.
-	 * \return returns a size object which specifies the width and height
+	 * Returns the viewPortPosition of the object.
+	 * \return returns a viewPortPosition object which specifies the width and height
 	 */
-	virtual glm::vec4 GetSize() = 0;
+	virtual const glm::vec4 & GetSize() = 0;
 
 	/**
 	 * Returns the width of the object
@@ -28,8 +28,8 @@ public:
 	virtual float GetHeight() = 0;
 	
 	/**
-	 * Sets the size of the object
-	 * \param size the size object which specifies the width and height of the target object.
+	 * Sets the viewPortPosition of the object
+	 * \param size the viewPortPosition object which specifies the width and height of the target object.
 	 */
 	virtual void SetSize(glm::vec4 size, bool emit) = 0;
     virtual void SetSize(glm::vec4 size) = 0;

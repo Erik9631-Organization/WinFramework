@@ -42,9 +42,9 @@ private:
 public:
     std::unique_ptr<RenderProxy> RequestEllipseProxy() override;
     std::unique_ptr<RenderProxy> RequestModelProxy() override;
-    std::unique_ptr<LineProxy> RequestLineProxy() override;
-    std::unique_ptr<TextProxy> RequestTextProxy() override;
-    std::unique_ptr<RectangleProxy> RequestRectangleProxy() override;
+    void RequestLineModel(LineProxy &proxy) override;
+    void RequestTextModel(TextProxy &proxy) override;
+    void RequestRectangleModel(RectangleProxy &proxy) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
     void SwapScreenBuffer() override;
 

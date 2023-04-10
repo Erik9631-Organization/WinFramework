@@ -13,7 +13,7 @@ PasswordField::PasswordField(int x, int y, int width, int height, string windowN
 	text.SetColor({0, 0, 0});
 	border.SetColor({100, 100, 100});
 	border.SetThickness(1.0f);
-	//background.SetColor({200, 200, 200});
+	//background.SetBackgroundColor({200, 200, 200});
 
     //renderBehavior.AddRenderCommander(background);
     renderBehavior.AddRenderCommander(border);
@@ -47,6 +47,6 @@ glm::vec3 PasswordField::GetBackgroundColor()
 
 void PasswordField::SetBackgroundColor(glm::vec3 color)
 {
-	//background.SetColor(color);
+	//background.SetBackgroundColor(color);
 	//Repaint();
 }

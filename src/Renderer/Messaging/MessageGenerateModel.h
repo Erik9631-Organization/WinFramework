@@ -15,7 +15,7 @@ private:
     T proxy = nullptr;
     bool isCallbackSet = false;
 public:
-    MessageGenerateModel(T renderProxyParam)
+    explicit MessageGenerateModel(T renderProxyParam)
     {
         proxy = renderProxyParam;
     }

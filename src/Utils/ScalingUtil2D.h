@@ -5,14 +5,13 @@
 #ifndef GRAPHICS_GRAPHICS2DUTIL_H
 #define GRAPHICS_GRAPHICS2DUTIL_H
 #include "GraphicsScaling.h"
-#include "api/RenderCommander.h"
-#include "vec2.hpp"
+#include "RenderCommander.h"
+#include "Vector2DScaler.h"
 
 class ScalingUtil2D
 {
 public:
-    ScalingUtil2D(glm::vec4 &associatedPosition);
-    ScalingUtil2D(glm::vec4 &associatedPosition, glm::vec4 &associatedSize);
+    ScalingUtil2D(const glm::vec4 &viewPortPosition, const glm::vec4 &viewPortSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);
@@ -28,10 +27,10 @@ public:
     GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void CreateRatio(const glm::vec4 &parentPosition, const glm::vec4 &parentSize);
+    void Scale(const glm::vec4 &inputVector);
 
-    glm::vec4 GetSize();
-    glm::vec4 GetPosition();
+    const glm::vec4 & GetSize();
+    const glm::vec4 & GetPosition();
     float GetX();
     float GetY();
     float GetWidth();
@@ -41,18 +40,19 @@ private:
     bool calculateFromCenterX = false;
     bool calculateFromCenterY = false;
 
-    GraphicsScaling scalingTypeX = Percentual;
-    GraphicsScaling scalingTypeY = Percentual;
-    GraphicsScaling scalingTypeWidth = Percentual;
-    GraphicsScaling scalingTypeHeight = Percentual;
+    GraphicsScaling scalingTypeX = Decimal;
+    GraphicsScaling scalingTypeY = Decimal;
+    GraphicsScaling scalingTypeWidth = Decimal;
+    GraphicsScaling scalingTypeHeight = Decimal;
 
-    glm::vec4& associatedSize;
-    glm::vec4& associatedPosition;
+    const glm::vec4& viewPortPosition;
+    const glm::vec4& viewPortSize;
 
     glm::vec4 calculatedSize{0};
     glm::vec4 calculatedPosition{0};
 
-    glm::vec4 defaultSize{0};
+    Vector2DScaler positionScaler;
+    Vector2DScaler sizeScaler;
 };
 
 

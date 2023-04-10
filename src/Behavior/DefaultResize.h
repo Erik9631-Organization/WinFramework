@@ -15,7 +15,7 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual glm::vec4 GetSize() override;
+	virtual const glm::vec4 & GetSize() override;
 	virtual float GetWidth() override;
 	virtual float GetHeight() override;
 	virtual void SetSize(glm::vec4 size, bool emit) override;

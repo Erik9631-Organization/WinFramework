@@ -1,5 +1,5 @@
 /**
-* Class responsibility is to generate resize events, position change events, onHover events and onAction evenets.
+* Class responsibility is to generate resize events, viewPortSize change events, onHover events and onAction evenets.
   The class acts as an observer and is a composite for the class Shape and class Vgraphics
 */
 #pragma once
@@ -86,13 +86,13 @@ public:
 
 	/**
 	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
-	 * \param ignoreTranslate true for ignoring the position, false for not ignoring the position
+	 * \param ignoreTranslate true for ignoring the viewPortSize, false for not ignoring the viewPortSize
 	 */
 	void SetIgnoreTranslate(bool ignoreTranslate);
 	
 	/**
 	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
-	 * \param ignoreOffset true for ignoring the position, false for not ignoring the position
+	 * \param ignoreOffset true for ignoring the viewPortSize, false for not ignoring the viewPortSize
 	 */
 	bool IsIgnoringTranslate();
 
@@ -107,7 +107,7 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	glm::vec4 GetSize() override;
+	const glm::vec4 & GetSize() override;
 	glm::vec4 GetPosition() override;
 	float GetWidth() override;
 	float GetHeight() override;
@@ -181,7 +181,7 @@ public:
 	virtual void SetY(float y, bool emit) override;
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
-	virtual glm::vec4 GetAbsolutePosition() override;
+	virtual const glm::vec4 & GetAbsolutePosition() override;
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;
@@ -323,14 +323,14 @@ public:
 	virtual float GetTranslateY() override;
 	
 	/**
-	 * Gets the internal position of the child components
-	 * \return returns the point that contains X and Y of the internal position.
+	 * Gets the internal viewPortSize of the child components
+	 * \return returns the point that contains X and Y of the internal viewPortSize.
 	 */
     glm::vec4 GetChildrenTranslate();
 	
 	/**
-	 * Sets the position of all the subcomponents that are owned by this component at once
-	 * \param internalOffset the position
+	 * Sets the viewPortSize of all the subcomponents that are owned by this component at once
+	 * \param internalOffset the viewPortSize
 	 */
 	void SetChildrenTranslate(glm::vec4 internalOffset);
 

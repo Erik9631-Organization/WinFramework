@@ -14,26 +14,22 @@
 #include <iostream>
 #include "ApplicationController.h"
 
-std::unique_ptr<LineProxy> DefaultAsyncRenderCommandHandler::RequestLineProxy()
+void DefaultAsyncRenderCommandHandler::RequestLineModel(LineProxy &proxy)
 {
-    auto proxy = std::make_unique<LineProxy>();
-    auto createMessage = new MessageGenerateModel(proxy.get());
+    auto createMessage = new MessageGenerateModel(&proxy);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
     this->ReceiveCommand(std::move(message));
-    return proxy;
 }
 
-std::unique_ptr<RectangleProxy> DefaultAsyncRenderCommandHandler::RequestRectangleProxy()
+void DefaultAsyncRenderCommandHandler::RequestRectangleModel(RectangleProxy &proxy)
 {
-    auto proxy = std::make_unique<RectangleProxy>();
-    auto createMessage = new MessageGenerateModel(proxy.get());
+    auto createMessage = new MessageGenerateModel(&proxy);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
     this->ReceiveCommand(std::move(message));
-    return proxy;
 }
 
 std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestEllipseProxy()
@@ -46,15 +42,13 @@ std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestModelProxy
     return nullptr;
 }
 
-std::unique_ptr<TextProxy> DefaultAsyncRenderCommandHandler::RequestTextProxy()
+void DefaultAsyncRenderCommandHandler::RequestTextModel(TextProxy &proxy)
 {
-    auto proxy = std::make_unique<TextProxy>();
-    auto createMessage = new MessageGenerateModel(proxy.get());
+    auto createMessage = new MessageGenerateModel(&proxy);
     //TODO FIND A SAFE WAY
     // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
     auto message = RenderMessage::Create(Commands::RequestText, createMessage);
     this->ReceiveCommand(std::move(message));
-    return proxy;
 }
 
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
@@ -85,7 +79,6 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             const auto id = message->GetReceiverId();
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
-            std::cout << static_cast<int>(messageSubId) << std::endl;
             renderer->GetModel(id)->ReceiveCommand(std::move(message));
             RedrawScene();
             if(sender!= nullptr)
@@ -134,7 +127,6 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
     auto message = RenderMessage::Create(Commands::Redraw, nullptr);
     invalidated = true;
     this->ReceiveCommand(std::move(message));
-    std::cout << "Sending redraw command" << std::endl;
 }
 
 void DefaultAsyncRenderCommandHandler::OnInit(Core &core)

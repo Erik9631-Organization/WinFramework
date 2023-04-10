@@ -9,133 +9,133 @@ class Movable : public MoveSubject
 {
 public:
 	/**
-	 * Returns position
-	 * \return returns Point object that specifies the X position and the Y position
+	 * Returns viewPortSize
+	 * \return returns Point object that specifies the X viewPortSize and the Y viewPortSize
 	 */
 	virtual glm::vec4 GetPosition() = 0;
 
 	/**
-	 * Gets the X position of the object
-	 * \return returns X position of the object as an integer.
+	 * Gets the X viewPortSize of the object
+	 * \return returns X viewPortSize of the object as an integer.
 	 */
 	virtual float GetX() = 0;
 
 	/**
-	 * Gets the Y position of the object
-	 * \return returns Y position of the object as an integer.
+	 * Gets the Y viewPortSize of the object
+	 * \return returns Y viewPortSize of the object as an integer.
 	 */
 	virtual float GetY() = 0;
 
     /**
-     * Gets the Z position of the object
-     * \return returns Z position of the object as an integer.
+     * Gets the Z viewPortSize of the object
+     * \return returns Z viewPortSize of the object as an integer.
      */
     virtual float GetZ() = 0;
 
     /**
-     * Gets the W position of the object
-     * \return returns W position of the object as an integer.
+     * Gets the W viewPortSize of the object
+     * \return returns W viewPortSize of the object as an integer.
      */
     virtual float GetW() = 0;
 
 	/**
-	 * Gets Absolute X position of the object. The absolute position is always the position in the window regardless the parent.
-	 * \return returns X absolute position of the object as an integer.
+	 * Gets Absolute X viewPortSize of the object. The absolute viewPortSize is always the viewPortSize in the window regardless the parent.
+	 * \return returns X absolute viewPortSize of the object as an integer.
 	 */
 	virtual float GetAbsoluteX() = 0;
 	
 	/**
-	 * Gets Absolute Y position of the object. The absolute position is always the position in the window regardless the parent.
-	 * \return returns Y absolute position of the object as an integer.
+	 * Gets Absolute Y viewPortSize of the object. The absolute viewPortSize is always the viewPortSize in the window regardless the parent.
+	 * \return returns Y absolute viewPortSize of the object as an integer.
 	 */
 	virtual float GetAbsoluteY() = 0;
 
 	/**
-	 * Gets Absolute position of the object. The absolute position is always the position in the window regardless the parent.
-	 * \return returns absolute position as a point which specifies the X and Y position.
+	 * Gets Absolute viewPortSize of the object. The absolute viewPortSize is always the viewPortSize in the window regardless the parent.
+	 * \return returns absolute viewPortSize as a point which specifies the X and Y viewPortSize.
 	 */
-	virtual glm::vec4 GetAbsolutePosition() = 0;
+	virtual const glm::vec4 & GetAbsolutePosition() = 0;
 
 	/**
-	 * Sets the position of the object.
-	 * \param position Sets the position as a point which specifies the X and Y position.
+	 * Sets the viewPortSize of the object.
+	 * \param position Sets the viewPortSize as a point which specifies the X and Y viewPortSize.
 	 */
 	virtual void SetPosition(glm::vec4 position, bool emit) = 0;
     virtual void SetPosition(glm::vec4 position) = 0;
 
 	/**
-	 * Sets the position of the object. 
-	 * \param x sets the X position of the object.
-	 * \param y sets the Y position of the object.
+	 * Sets the viewPortSize of the object.
+	 * \param x sets the X viewPortSize of the object.
+	 * \param y sets the Y viewPortSize of the object.
 	 */
 	virtual void SetPosition(float x, float y, float z, float w, bool emit) = 0;
     virtual void SetPosition(float x, float y, float z, float w) = 0;
 
 	/**
-	 * Sets the position of the object.
-	 * \param x sets the X position of the object.
+	 * Sets the viewPortSize of the object.
+	 * \param x sets the X viewPortSize of the object.
 	 */
 	virtual void SetX(float x, bool emit) = 0;
     virtual void SetX(float x) = 0;
 
 	/**
-	 * Sets the position of the object.
-	 * \param y sets the Y position of the object.
+	 * Sets the viewPortSize of the object.
+	 * \param y sets the Y viewPortSize of the object.
 	 */
 	virtual void SetY(float y, bool emit) = 0;
     virtual void SetY(float y) = 0;
 
     /**
-     * Sets the position of the object.
-     * \param z sets the Z position of the object.
+     * Sets the viewPortSize of the object.
+     * \param z sets the Z viewPortSize of the object.
      */
     virtual void SetZ(float z, bool emit) = 0;
     virtual void SetZ(float z) = 0;
 
     /**
-     * Sets the position of the object.
-     * \param w sets the W position of the object.
+     * Sets the viewPortSize of the object.
+     * \param w sets the W viewPortSize of the object.
      */
     virtual void SetW(float w, bool emit) = 0;
     virtual void SetW(float w) = 0;
 
 	/**
-	 * Sets position from the current position
-	 * \param offset sets the position via a point object which specifies the X and Y position.
+	 * Sets viewPortSize from the current viewPortSize
+	 * \param offset sets the viewPortSize via a point object which specifies the X and Y viewPortSize.
 	 */
 	virtual void SetTranslate(glm::vec4 offset, bool emit) = 0;
     virtual void SetTranslate(glm::vec4 offset) = 0;
 
 	/**
-	 * Sets position from the current position
-	 * \param x specifies the X position.
+	 * Sets viewPortSize from the current viewPortSize
+	 * \param x specifies the X viewPortSize.
 	 */
 	virtual void SetTranslateX(float x, bool emit) = 0;
     virtual void SetTranslateX(float x) = 0;
 
 	/**
-	 * Sets position from the current position
-	 * \param y specifies the Y position.
+	 * Sets viewPortSize from the current viewPortSize
+	 * \param y specifies the Y viewPortSize.
 	 */
 	virtual void SetTranslateY(float y, bool emit) = 0;
 
     virtual void SetTranslateY(float y) = 0;
 
 	/**
-	 * Gets the element position dependent on the current position.
-	 * \return returns the point which specifies the X and Y position.
+	 * Gets the element viewPortSize dependent on the current viewPortSize.
+	 * \return returns the point which specifies the X and Y viewPortSize.
 	 */
 	virtual glm::vec4 GetTranslate() = 0;
 
 	/**
-	 * Gets the element X position dependent on the current position.
-	 * \return return the X position.
+	 * Gets the element X viewPortSize dependent on the current viewPortSize.
+	 * \return return the X viewPortSize.
 	 */
 	virtual float GetTranslateX() = 0;
 
 	/**
-	 * Gets the element Y position dependent on the current position.
-	 * \return return the Y position.
+	 * Gets the element Y viewPortSize dependent on the current viewPortSize.
+	 * \return return the Y viewPortSize.
 	 */
 	virtual float GetTranslateY() = 0;
 };

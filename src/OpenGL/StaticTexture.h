@@ -44,7 +44,7 @@ namespace OpenGL
         void Bind() const override;
         void Unbind() const override;
         float GetHeight() override;
-        glm::vec4 GetSize() override;
+        const glm::vec4 & GetSize() override;
         float GetWidth() override;
         void Unload() override;
         const std::string &GetTag() override;

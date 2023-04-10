@@ -43,7 +43,7 @@ float RectangleModel::GetAbsoluteY()
     return movableBehavior.GetAbsoluteY();
 }
 
-glm::vec4 RectangleModel::GetAbsolutePosition()
+const glm::vec4 & RectangleModel::GetAbsolutePosition()
 {
     return movableBehavior.GetAbsolutePosition();
 }
@@ -153,7 +153,7 @@ float RectangleModel::GetTranslateY()
     return movableBehavior.GetTranslateY();
 }
 
-glm::vec4 RectangleModel::GetSize()
+const glm::vec4 & RectangleModel::GetSize()
 {
     return resizableBehavior.GetSize();
 }
@@ -282,7 +282,7 @@ void RectangleModel::SetRenderer(Renderer *renderer)
     this->rendereringProvider = renderer;
 }
 
-void RectangleModel::SetAssociatedModelId(unsigned long long int id)
+void RectangleModel::SetModelId(unsigned long long int id)
 {
     this->id = id;
 }

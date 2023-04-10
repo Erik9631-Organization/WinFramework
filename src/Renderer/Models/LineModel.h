@@ -30,7 +30,7 @@ public:
 
     void SetRenderer(Renderer *renderer) override;
 
-    void SetAssociatedModelId(unsigned long long int id) override;
+    void SetModelId(unsigned long long int id) override;
 
     size_t & GetModelId() override;
 

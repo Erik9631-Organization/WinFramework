@@ -32,7 +32,7 @@ public:
 
     float GetAbsoluteY() override;
 
-    glm::vec4 GetAbsolutePosition() override;
+    const glm::vec4 & GetAbsolutePosition() override;
 
     void SetPosition(glm::vec4 position, bool emit) override;
 

@@ -5,6 +5,7 @@
 #ifndef LII_MOUNTEDSUBSCRIBER_H
 #define LII_MOUNTEDSUBSCRIBER_H
 class Presenter;
+class UiElement;
 
 class MountedSubscriber
 {

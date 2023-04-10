@@ -40,7 +40,7 @@ float MovableModelBehavior::GetAbsoluteY()
     return position.y;
 }
 
-glm::vec4 MovableModelBehavior::GetAbsolutePosition()
+const glm::vec4 & MovableModelBehavior::GetAbsolutePosition()
 {
     return position;
 }

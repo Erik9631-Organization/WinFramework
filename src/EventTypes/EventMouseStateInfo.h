@@ -15,7 +15,7 @@ private:
 	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
     glm::vec4 mouseDelta;
-	bool recursive = true; // Notifies the topmost component on the position if there is any, if set to false, then only notifies the target
+	bool recursive = true; // Notifies the topmost component on the viewPortSize if there is any, if set to false, then only notifies the target
 	int key;
 public:
 
@@ -24,8 +24,8 @@ public:
     EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta, int key, MouseStateSubject* src);
 
 	/**
-	 * The relative position is automatically calculated from the src component
-	 * \param position the position of the mouse
+	 * The relative viewPortSize is automatically calculated from the src component
+	 * \param position the viewPortSize of the mouse
 	 * \param key the mouse key that was interacted with.
 	 * \param src the source of the object that called the event.
 	 */
@@ -39,39 +39,39 @@ public:
 	EventMouseStateInfo(EventMouseStateInfo e, UiElement* src);
 
 	/**
-	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source and the relative position.
-	 * \param relativePosition the new relative position.
+	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source and the relative viewPortSize.
+	 * \param relativePosition the new relative viewPortSize.
 	 * \param src the new source object that called the event.
 	 */
 	EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relativePosition, MouseStateSubject* src);
 
 	/**
-	 * \return returns the mouse position within the window at the time the event was called.
+	 * \return returns the mouse viewPortSize within the window at the time the event was called.
 	 */
     glm::vec4 GetMouseAbsolutePosition();
 
 	/**
-	 * \return returns the mouse position within the component at the time the event was called.
+	 * \return returns the mouse viewPortSize within the component at the time the event was called.
 	 */
     glm::vec4 GetMousePosition();
 
 	/**
-	 * \return returns the X position of the mouse within the window.
+	 * \return returns the X viewPortSize of the mouse within the window.
 	 */
 	float GetAbsoluteMouseX();
 
 	/**
-	 * \return returns the Y position of the mouse within the window.
+	 * \return returns the Y viewPortSize of the mouse within the window.
 	 */
 	float GetAbsoluteMouseY();
 
 	/**
-	 * \return returns the X position of the mouse within the component.
+	 * \return returns the X viewPortSize of the mouse within the component.
 	 */
 	float GetMouseX();
 
 	/**
-	 * \return returns the Y position of the mouse within the component.
+	 * \return returns the Y viewPortSize of the mouse within the component.
 	 */
 	float GetMouseY();
 

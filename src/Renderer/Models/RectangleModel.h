@@ -52,7 +52,7 @@ public:
 
     float GetAbsoluteY() override;
 
-    glm::vec4 GetAbsolutePosition() override;
+    const glm::vec4 & GetAbsolutePosition() override;
 
     void SetPosition(glm::vec4 position, bool emit) override;
 
@@ -96,7 +96,7 @@ public:
 
     float GetTranslateY() override;
 
-    glm::vec4 GetSize() override;
+    const glm::vec4 & GetSize() override;
 
     float GetWidth() override;
 
@@ -134,7 +134,7 @@ public:
 
     void SetRenderer(Renderer *renderer) override;
 
-    void SetAssociatedModelId(unsigned long long int id) override;
+    void SetModelId(unsigned long long int id) override;
 
     size_t & GetModelId() override;
 

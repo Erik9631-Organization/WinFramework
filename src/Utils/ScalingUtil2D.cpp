@@ -5,16 +5,11 @@
 #include "ScalingUtil2D.h"
 #include "Vector2DScaler.h"
 
-
-ScalingUtil2D::ScalingUtil2D(glm::vec4 &associatedPosition) : ScalingUtil2D(associatedPosition, defaultSize)
-{
-
-}
-
-
-ScalingUtil2D::ScalingUtil2D(glm::vec4 &associatedPosition, glm::vec4 &associatedSize) :
-    associatedPosition(associatedPosition),
-    associatedSize(associatedSize)
+ScalingUtil2D::ScalingUtil2D(const glm::vec4 &viewPortPosition, const glm::vec4 &viewPortSize) :
+        viewPortSize(viewPortSize),
+        viewPortPosition(viewPortPosition),
+        positionScaler(viewPortSize),
+        sizeScaler(viewPortSize)
 {
 
 }
@@ -79,33 +74,35 @@ void ScalingUtil2D::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil2D::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil2D::CreateRatio(const glm::vec4 &parentPosition, const glm::vec4 &parentSize)
+void ScalingUtil2D::Scale(const glm::vec4 &inputVector)
 {
-    Vector2DScaler positionScaler = Vector2DScaler(parentSize, scalingTypeX, scalingTypeY);
-    Vector2DScaler sizeScaler = Vector2DScaler(parentSize, scalingTypeWidth, scalingTypeHeight);
+    positionScaler.SetScalingTypeX(scalingTypeX);
+    positionScaler.SetScalingTypeY(scalingTypeY);
+    sizeScaler.SetScalingTypeX(scalingTypeWidth);
+    sizeScaler.SetScalingTypeY(scalingTypeHeight);
 
-    auto scaledPosition = positionScaler.GetScaledValues(associatedPosition);
-    auto scaledSize = sizeScaler.GetScaledValues(associatedSize);
+    auto scaledPosition = positionScaler.GetScaledValues(inputVector);
+    auto scaledSize = sizeScaler.GetScaledValues(inputVector);
 
 
     if (calculateFromCenterX)
-        scaledPosition.x = scaledPosition.x - (scaledSize.x / 2.0f);
+        scaledPosition.x = scaledPosition.x + (viewPortSize.x / 2.0f);
     if(calculateFromCenterY)
-        scaledPosition.y = scaledPosition.y - (scaledSize.y / 2.0f);
+        scaledPosition.y = scaledPosition.y + (viewPortSize.y / 2.0f);
 
     calculatedSize.x = scaledSize.x;
     calculatedSize.y = scaledSize.y;
 
-    calculatedPosition.x = scaledPosition.x;
-    calculatedPosition.y = scaledPosition.y;
+    calculatedPosition = {scaledPosition.x + viewPortPosition.x,
+                          scaledPosition.y + viewPortPosition.y, viewPortPosition.z, viewPortPosition.w};
 }
 
-glm::vec4 ScalingUtil2D::GetSize()
+const glm::vec4 & ScalingUtil2D::GetSize()
 {
     return calculatedSize;
 }
 
-glm::vec4 ScalingUtil2D::GetPosition()
+const glm::vec4 & ScalingUtil2D::GetPosition()
 {
     return calculatedPosition;
 }

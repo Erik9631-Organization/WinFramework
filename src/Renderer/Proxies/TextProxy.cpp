@@ -60,7 +60,7 @@ float TextProxy::GetAbsoluteY()
     return model->GetY();
 }
 
-glm::vec4 TextProxy::GetAbsolutePosition()
+const glm::vec4 & TextProxy::GetAbsolutePosition()
 {
     return model->GetAbsolutePosition();
 }
@@ -255,7 +255,7 @@ void TextProxy::SetFontLineAlignment(FontAlignment alignment)
 void TextProxy::SetColor(const glm::ivec4 &color)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(color, this);
-    renderMessage->SetSubMessageId(SubCommands::SetFontLineAlignment);
+    renderMessage->SetSubMessageId(SubCommands::SetColor);
     messageSender.SendRenderingMessage(std::move(renderMessage));
 }
 
