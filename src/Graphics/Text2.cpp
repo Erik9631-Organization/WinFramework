@@ -8,7 +8,6 @@
 #include "EventMoveInfo.h"
 #include "DefaultRelativeZIndex.h"
 #include "UiElement.h"
-#include "ScalingUtil2D.h"
 
 void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
@@ -25,7 +24,8 @@ void Text2::OnMove(EventMoveInfo e)
 
 void Text2::OnResize(EventResizeInfo e)
 {
-
+    textScaler.Scale(textPosition);
+    textProxy.SetPosition(textScaler.GetPosition());
 }
 
 float Text2::GetRelativeZIndex()
@@ -99,6 +99,7 @@ Text2::Text2(UiElement *associatedElement) : textScaler(associatedElement->GetAb
     parentElement = associatedElement;
     associatedElement->AddOnMountedSubscriber(*this);
     associatedElement->AddOnMoveSubscriber(*this);
+    associatedElement->AddOnResizeSubscriber(*this);
     textScaler.SetCalculateFromCenterY(true);
     textScaler.SetCalculateFromCenterX(true);
 }

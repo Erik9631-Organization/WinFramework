@@ -74,15 +74,15 @@ void ScalingUtil2D::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil2D::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil2D::Scale(const glm::vec4 &inputVector)
+void ScalingUtil2D::Scale(const glm::vec4 &translationVector)
 {
     positionScaler.SetScalingTypeX(scalingTypeX);
     positionScaler.SetScalingTypeY(scalingTypeY);
     sizeScaler.SetScalingTypeX(scalingTypeWidth);
     sizeScaler.SetScalingTypeY(scalingTypeHeight);
 
-    auto scaledPosition = positionScaler.GetScaledValues(inputVector);
-    auto scaledSize = sizeScaler.GetScaledValues(inputVector);
+    auto scaledPosition = positionScaler.GetScaledValues(translationVector);
+    auto scaledSize = sizeScaler.GetScaledValues(translationVector);
 
 
     if (calculateFromCenterX)

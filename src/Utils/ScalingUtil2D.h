@@ -18,16 +18,16 @@ public:
     bool IsCalculateFromCenterY() const;
     void SetCalculateFromCenterY(bool calculateFromCenterY);
 
-    GraphicsScaling GetScalingTypeX() const;
+    [[nodiscard]] GraphicsScaling GetScalingTypeX() const;
     void SetScalingTypeX(GraphicsScaling scalingTypeX);
-    GraphicsScaling GetScalingTypeY() const;
+    [[nodiscard]] GraphicsScaling GetScalingTypeY() const;
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    GraphicsScaling GetScalingTypeWidth() const;
+    [[nodiscard]] GraphicsScaling GetScalingTypeWidth() const;
     void SetScalingTypeWidth(GraphicsScaling scalingTypeWidth);
-    GraphicsScaling GetScalingTypeHeight() const;
+    [[nodiscard]] GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void Scale(const glm::vec4 &inputVector);
+    void Scale(const glm::vec4 &translationVector);
 
     const glm::vec4 & GetSize();
     const glm::vec4 & GetPosition();

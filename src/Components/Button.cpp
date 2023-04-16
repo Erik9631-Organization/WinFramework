@@ -32,7 +32,7 @@ Button::Button(float x, float y, float width, float height, const std::string& n
     border.SetColor({0, 0, 0, 255});
     text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
     text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
-    text.SetColor({255, 255, 255, 255});
+    text.SetColor({255, 0, 0, 255});
 }
 
 void Button::SetBorderThickness(float thickness)
