@@ -15,15 +15,12 @@
 #include "Renderer.h"
 #include "ModelProxy.h"
 #include <memory>
+#include "Commands.h"
 
 class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {
 public:
-    virtual void RequestEllipseProxy(EllipseProxy &proxy) = 0;
-    virtual std::unique_ptr<RenderProxy> RequestModelProxy() = 0;
-    virtual void RequestLineModel(LineProxy &proxy) = 0;
-    virtual void RequestTextModel(TextProxy &proxy) = 0;
-    virtual void RequestRectangleModel(RectangleProxy &proxy) = 0;
+    virtual void RequestModel(SubCommands command, RenderProxy& proxy) = 0;
 
     virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;

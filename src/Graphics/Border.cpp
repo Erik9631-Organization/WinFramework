@@ -8,7 +8,7 @@
 
 void Border::OnMounted(Presenter &presenter, UiElement &element)
 {
-    presenter.GetRenderer()->RequestRectangleModel(rectangleProxy);
+    presenter.GetRenderer()->RequestModel(SubCommands::RequestRectangle, rectangleProxy);
     this->presenter = &presenter;
     rectangleProxy.SetFill(false);
     rectangleProxy.SetSize(element.GetSize());

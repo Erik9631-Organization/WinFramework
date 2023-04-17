@@ -21,6 +21,10 @@ enum class Commands : unsigned char
 enum class SubCommands : unsigned char
 {
     None,
+    RequestRectangle,
+    RequestEllipse,
+    RequestText,
+    RequestLine,
     SetSize,
     SetPosition,
     SetTranslate,

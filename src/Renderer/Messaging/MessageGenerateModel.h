@@ -13,7 +13,6 @@ class MessageGenerateModel
 {
 private:
     T proxy = nullptr;
-    bool isCallbackSet = false;
 public:
     explicit MessageGenerateModel(T renderProxyParam)
     {

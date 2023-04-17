@@ -110,17 +110,17 @@ RenderingModel *GdiRenderer::GetModel(size_t index)
     return renderingModels[index].get();
 }
 
-RenderingModel * GdiRenderer::CreateModel(Commands createCommand)
+RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 {
     switch (createCommand)
     {
-        case Commands::RequestRectangle:
+        case SubCommands::RequestRectangle:
         {
             auto model = CreateModel<RectangleModel>();
             model->AddOnMoveSubscriber(*this);
             return model;
         }
-        case Commands::RequestText:
+        case SubCommands::RequestText:
         {
             auto model = CreateModel<TextModel>();
             model->AddOnMoveSubscriber(*this);

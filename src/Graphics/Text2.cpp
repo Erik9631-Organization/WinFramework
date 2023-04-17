@@ -12,7 +12,7 @@ void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
     this->presenter = &presenter;
     this->parentElement = &element;
-    presenter.GetRenderer()->RequestTextModel(textProxy);
+    presenter.GetRenderer()->RequestModel(SubCommands::RequestText, textProxy);
 }
 
 void Text2::OnMove(EventMoveInfo e)

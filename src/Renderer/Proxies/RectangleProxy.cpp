@@ -312,9 +312,15 @@ size_t & RectangleProxy::GetAssociatedModelId()
 
 void RectangleProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *consumer)
 {
-    messageSender.OnModelCreated(model, consumer);
-    //TODO add error checking as this is a crucial point of failure
     this->model = dynamic_cast<RectangleModel*>(model);
+    if (this->model == nullptr)
+    {
+        std::cout << "RectangleProxy::OnModelCreated: model is not a RectangleModel" << std::endl;
+        return;
+    }
+
+    messageSender.OnModelCreated(model, consumer);
+
 }
 
 void RectangleProxy::SendRenderingMessage(std::unique_ptr<RenderMessage> message)

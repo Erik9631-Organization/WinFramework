@@ -325,7 +325,7 @@ RenderingModel *OpenGLRenderer::GetModel(size_t index)
     return nullptr;
 }
 
-RenderingModel *OpenGLRenderer::CreateModel(Commands createCommand)
+RenderingModel *OpenGLRenderer::CreateModel(SubCommands createCommand)
 {
     return nullptr;
 }

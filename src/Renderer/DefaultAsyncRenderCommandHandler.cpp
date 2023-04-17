@@ -14,79 +14,28 @@
 #include <iostream>
 #include "ApplicationController.h"
 
-void DefaultAsyncRenderCommandHandler::RequestLineModel(LineProxy &proxy)
-{
-    auto createMessage = new MessageGenerateModel(&proxy);
-    //TODO FIND A SAFE WAY
-    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestLine, createMessage);
-    this->ReceiveCommand(std::move(message));
-}
-
-void DefaultAsyncRenderCommandHandler::RequestRectangleModel(RectangleProxy &proxy)
-{
-    auto createMessage = new MessageGenerateModel(&proxy);
-    //TODO FIND A SAFE WAY
-    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestRectangle, createMessage);
-    this->ReceiveCommand(std::move(message));
-}
-
-void DefaultAsyncRenderCommandHandler::RequestEllipseProxy(EllipseProxy &proxy)
-{
-    auto createMessage = new MessageGenerateModel(&proxy);
-    //TODO FIND A SAFE WAY
-    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestEllipse, createMessage);
-    this->ReceiveCommand(std::move(message));
-}
-
-std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestModelProxy()
-{
-    return nullptr;
-}
-
-void DefaultAsyncRenderCommandHandler::RequestTextModel(TextProxy &proxy)
-{
-    auto createMessage = new MessageGenerateModel(&proxy);
-    //TODO FIND A SAFE WAY
-    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
-    auto message = RenderMessage::Create(Commands::RequestText, createMessage);
-    this->ReceiveCommand(std::move(message));
-}
-
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
     messageQueue.enqueue(std::move(message));
+}
+
+void DefaultAsyncRenderCommandHandler::CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
+{
+    auto proxy = message->GetData<RenderProxy*>();
+    auto modelPtr = renderer->CreateModel(message->GetSubMessageId());
+    proxy->OnModelCreated(modelPtr, this);
+    RedrawScene();
 }
 
 void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<RenderMessage> message)
 {
     switch (message->GetMessageId())
     {
-        case Commands::RequestRectangle:
+        case Commands::RequestModel:
         {
-            CreateModelFromMessage<RectangleProxy>(std::move(message));
+            CreateModelFromMessage(std::move(message));
             break;
         }
-        case Commands::RequestLine:
-        {
-            CreateModelFromMessage<LineProxy>(std::move(message));
-            break;
-        }
-
-        case Commands::RequestText:
-        {
-            CreateModelFromMessage<TextProxy>(std::move(message));
-            break;
-        }
-
-        case Commands::RequestEllipse:
-        {
-            CreateModelFromMessage<EllipseProxy>(std::move(message));
-            break;
-        }
-
         case Commands::Property:
         {
             const auto id = message->GetReceiverId();
@@ -165,4 +114,10 @@ void DefaultAsyncRenderCommandHandler::SetViewportSize(int width, int height)
 void DefaultAsyncRenderCommandHandler::SetViewportSize(const glm::ivec2 &size)
 {
     renderer->SetViewportSize(size);
+}
+
+void DefaultAsyncRenderCommandHandler::RequestModel(SubCommands command, RenderProxy &proxy)
+{
+    auto message = RenderMessage::CreateModelRequestMessage(command, &proxy);
+    this->ReceiveCommand(std::move(message));
 }

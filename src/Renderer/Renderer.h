@@ -15,7 +15,7 @@ class Renderer
 {
 public:
     virtual void Render() = 0;
-    virtual RenderingModel * CreateModel(Commands createCommand) = 0;
+    virtual RenderingModel * CreateModel(SubCommands createCommand) = 0;
     virtual RenderingModel* GetModel(size_t index) = 0;
     virtual void OnInit(Core &coreWindow) = 0;
     virtual void OnDestroy(Core &coreWindow) = 0;

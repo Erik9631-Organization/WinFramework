@@ -5,6 +5,7 @@
 #include "TextProxy.h"
 #include "EventMoveInfo.h"
 #include "TextModel.h"
+#include <iostream>
 
 glm::vec4 TextProxy::GetPosition()
 {
@@ -198,8 +199,13 @@ size_t &TextProxy::GetAssociatedModelId()
 
 void TextProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *consumer)
 {
-    messageSender.OnModelCreated(model, consumer);
     this->model = dynamic_cast<TextModel*>(model);
+    if (this->model == nullptr)
+    {
+        std::cout << "Error: TextProxy::OnModelCreated: model is not a TextModel" << std::endl;
+    }
+    messageSender.OnModelCreated(model, consumer);
+
 }
 
 

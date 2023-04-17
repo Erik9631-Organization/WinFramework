@@ -26,25 +26,10 @@ private:
     std::vector<std::unique_ptr<RenderProxy>> proxies;
     std::thread* renderThread;
     std::unique_ptr<Renderer> renderer;
-    template<typename ProxyType>
-    void CreateModelFromMessage(std::unique_ptr<RenderMessage> message)
-    {
-        auto createData = message->GetData<MessageGenerateModel<ProxyType*>*>();
-        auto proxy = createData->GetRendererProxy();
-        auto modelPtr = renderer->CreateModel(message->GetMessageId());
-        proxy->OnModelCreated(modelPtr, this);
-        delete createData;
-        RedrawScene();
-    }
-
+    void CreateModelFromMessage(std::unique_ptr<RenderMessage> message);
     void RenderLoop();
 
 public:
-    void RequestEllipseProxy(EllipseProxy &proxy) override;
-    std::unique_ptr<RenderProxy> RequestModelProxy() override;
-    void RequestLineModel(LineProxy &proxy) override;
-    void RequestTextModel(TextProxy &proxy) override;
-    void RequestRectangleModel(RectangleProxy &proxy) override;
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
     void SwapScreenBuffer() override;
 
@@ -55,6 +40,8 @@ public:
     void SetViewportSize(int width, int height) override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
+
+    void RequestModel(SubCommands command, RenderProxy &proxy) override;
 
 };
 

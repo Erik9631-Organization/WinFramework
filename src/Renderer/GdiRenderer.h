@@ -72,7 +72,7 @@ public:
     std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
-    RenderingModel * CreateModel(Commands createCommand) override;
+    RenderingModel * CreateModel(SubCommands createCommand) override;
 
     void OnMove(EventMoveInfo e) override;
 

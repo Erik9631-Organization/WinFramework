@@ -14,7 +14,7 @@ class RenderMessage
 private:
     std::any data;
     Commands messageId = Commands::None;
-    size_t receiverId = -1;
+    long long int receiverId = -1;
     SubCommands subMessageId = SubCommands::None;
     RenderMessageSender *sender = nullptr;
 public:
@@ -29,7 +29,7 @@ public:
         return receiverId;
     }
 
-    void SetReceiverId(size_t receiverId)
+    void SetReceiverId(long long int receiverId)
     {
         RenderMessage::receiverId = receiverId;
     }
@@ -45,8 +45,16 @@ public:
     template<class dataType>
     static std::unique_ptr<RenderMessage> Create(Commands messageId, dataType data, RenderMessageSender* sender = nullptr)
     {
-        auto renderMessage = new RenderMessage(messageId, data, sender);
-        return std::unique_ptr<RenderMessage>(renderMessage);
+        auto renderMessage = std::make_unique<RenderMessage>(messageId, data, sender);
+        return renderMessage;
+    }
+
+    template<class dataType>
+    static std::unique_ptr<RenderMessage> CreateModelRequestMessage(SubCommands modelType, dataType data)
+    {
+        auto renderMessage = std::make_unique<RenderMessage>(Commands::RequestModel, data);
+        renderMessage->SetSubMessageId(modelType);
+        return renderMessage;
     }
 
     template<class dataType>
@@ -58,9 +66,9 @@ public:
     template<class dataType>
     static std::unique_ptr<RenderMessage> CreatePropertyMessage(dataType data, RenderMessageSender* sender = nullptr, long long int receiverId = 0)
     {
-        auto renderMessage = new RenderMessage(Commands::Property, data, sender);
+        auto renderMessage = std::make_unique<RenderMessage>(Commands::Property, data, sender);
         renderMessage->receiverId = receiverId;
-        return std::unique_ptr<RenderMessage>(renderMessage);
+        return renderMessage;
     }
 
     void SetSubMessageId(SubCommands subMessageId)

@@ -19,7 +19,7 @@ public:
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
 
-    RenderingModel *CreateModel(Commands createCommand) override;
+    RenderingModel *CreateModel(SubCommands createCommand) override;
 
     void SetViewportSize(int width, int height) override;
 

@@ -4,8 +4,7 @@
 
 void Background::OnMounted(Presenter &presenter, UiElement& element)
 {
-    //    presenter.GetRenderer()->RequestModel(Commands::RequestEllipse, rectangleProxy);
-    presenter.GetRenderer()->RequestRectangleModel(rectangleProxy);
+    presenter.GetRenderer()->RequestModel(SubCommands::RequestRectangle, rectangleProxy);
     this->presenter = &presenter;
     rectangleProxy.SetSize(element.GetSize());
     rectangleProxy.SetPosition(element.GetAbsolutePosition() + relativeZIndex);
