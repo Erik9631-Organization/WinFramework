@@ -19,7 +19,7 @@
 class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {
 public:
-    virtual std::unique_ptr<RenderProxy> RequestEllipseProxy() = 0;
+    virtual void RequestEllipseProxy(EllipseProxy &proxy) = 0;
     virtual std::unique_ptr<RenderProxy> RequestModelProxy() = 0;
     virtual void RequestLineModel(LineProxy &proxy) = 0;
     virtual void RequestTextModel(TextProxy &proxy) = 0;
@@ -27,10 +27,8 @@ public:
 
     virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;
-
     virtual void OnInit(Core& core) = 0;
     virtual void OnDestroy(Core& core) = 0;
-
     virtual void SwapScreenBuffer() = 0;
 
 };

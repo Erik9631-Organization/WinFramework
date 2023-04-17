@@ -22,12 +22,8 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 void GdiRenderer::Render()
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
-    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it){
-        std::cout << it->first << std::endl;
-        std::cout << it->second->GetModelId() << std::endl;
-        std::cout << std::endl;
+    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
         it->second->Draw();
-    }
 
     std::cout << std::endl;
 

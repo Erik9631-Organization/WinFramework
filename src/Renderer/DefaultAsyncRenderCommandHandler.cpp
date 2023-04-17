@@ -32,9 +32,13 @@ void DefaultAsyncRenderCommandHandler::RequestRectangleModel(RectangleProxy &pro
     this->ReceiveCommand(std::move(message));
 }
 
-std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestEllipseProxy()
+void DefaultAsyncRenderCommandHandler::RequestEllipseProxy(EllipseProxy &proxy)
 {
-    return nullptr;
+    auto createMessage = new MessageGenerateModel(&proxy);
+    //TODO FIND A SAFE WAY
+    // !!!!WARNING THIS IS DANGEROUS, CAN CAUSE MEMORY LEAK!!!!
+    auto message = RenderMessage::Create(Commands::RequestEllipse, createMessage);
+    this->ReceiveCommand(std::move(message));
 }
 
 std::unique_ptr<RenderProxy> DefaultAsyncRenderCommandHandler::RequestModelProxy()
@@ -72,8 +76,17 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
         }
 
         case Commands::RequestText:
+        {
             CreateModelFromMessage<TextProxy>(std::move(message));
             break;
+        }
+
+        case Commands::RequestEllipse:
+        {
+            CreateModelFromMessage<EllipseProxy>(std::move(message));
+            break;
+        }
+
         case Commands::Property:
         {
             const auto id = message->GetReceiverId();

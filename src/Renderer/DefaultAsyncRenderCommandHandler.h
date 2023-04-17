@@ -40,7 +40,7 @@ private:
     void RenderLoop();
 
 public:
-    std::unique_ptr<RenderProxy> RequestEllipseProxy() override;
+    void RequestEllipseProxy(EllipseProxy &proxy) override;
     std::unique_ptr<RenderProxy> RequestModelProxy() override;
     void RequestLineModel(LineProxy &proxy) override;
     void RequestTextModel(TextProxy &proxy) override;

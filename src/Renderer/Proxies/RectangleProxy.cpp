@@ -179,7 +179,7 @@ const glm::vec4 & RectangleProxy::GetSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>();
+        return tempData->GetData<const glm::vec4&>();
 
     return model->GetSize();
 }
@@ -313,6 +313,7 @@ size_t & RectangleProxy::GetAssociatedModelId()
 void RectangleProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *consumer)
 {
     messageSender.OnModelCreated(model, consumer);
+    //TODO add error checking as this is a crucial point of failure
     this->model = dynamic_cast<RectangleModel*>(model);
 }
 

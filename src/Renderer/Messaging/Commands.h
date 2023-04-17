@@ -5,7 +5,7 @@
 #ifndef LII_COMMANDS_H
 #define LII_COMMANDS_H
 
-enum class Commands
+enum class Commands : unsigned char
 {
     None,
    RequestRectangle,

@@ -2,7 +2,6 @@
 // Created by erik9 on 4/4/2023.
 //
 
-#include <iostream>
 #include "Text2.h"
 #include "Presenter.h"
 #include "EventMoveInfo.h"
