@@ -12,8 +12,8 @@ public:
     virtual float GetZIndex() = 0;
     virtual void Draw() = 0;
     virtual void SetRenderer(Renderer *renderer) = 0;
-    virtual void SetModelId(unsigned long long id) = 0;
-    virtual size_t & GetModelId() = 0;
+    virtual void SetModelId(long long int id) = 0;
+    virtual long long int & GetModelId() = 0;
     virtual ~RenderingModel() = default;
 };
 

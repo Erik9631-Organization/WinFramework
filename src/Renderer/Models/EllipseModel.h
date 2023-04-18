@@ -1,42 +1,40 @@
 //
-// Created by erik9 on 12/12/2022.
+// Created by erik9 on 4/18/2023.
 //
 
-#ifndef LII_RECTANGLEMODEL_H
-#define LII_RECTANGLEMODEL_H
-#include "Movable.h"
-#include "Resizable.h"
-#include "MovableModelBehavior.h"
-#include "ResizableModelBehavior.h"
+#ifndef LII_ELLIPSEMODEL_H
+#define LII_ELLIPSEMODEL_H
+
+
 #include "RenderingModel.h"
 #include "ModelViewport.h"
-#include "Renderer.h"
+#include "Resizable.h"
+#include "Movable.h"
+#include "MovableModelBehavior.h"
+#include "ResizableModelBehavior.h"
 
-class RectangleModel : public Movable, public Resizable, public RenderingModel
+class EllipseModel : public RenderingModel, public Resizable, public Movable
 {
 private:
+    long long id = -1;
+    bool fill = true;
+    ModelViewport viewPort;
+    glm::ivec4 color{255, 255, 255, 255};
+    Renderer* renderer = nullptr;
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
-    Renderer* renderer = nullptr;
-    glm::ivec4 color{255, 255, 255, 255};
-    ModelViewport viewPort;
-    bool fill = true;
-    long long id = -1;
-    float thickness = 1.0f;
 public:
-    RectangleModel();
+    void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
-    const ModelViewport& GetViewPort() const;
+    float GetZIndex() override;
 
-    bool IsViewPortSet();
+    void Draw() override;
 
-    void ResetViewport();
+    void SetRenderer(Renderer *renderer) override;
 
-    void SetFill(bool fill);
-    const bool &GetFill() const;
+    void SetModelId(long long int id) override;
 
-    void SetColor(const glm::vec4 &color);
-    const glm::ivec4 & GetColor() const;
+    long long int & GetModelId() override;
 
     glm::vec4 GetPosition() override;
 
@@ -52,7 +50,7 @@ public:
 
     float GetAbsoluteY() override;
 
-    const glm::vec4 & GetAbsolutePosition() override;
+    const glm::vec4 &GetAbsolutePosition() override;
 
     void SetPosition(glm::vec4 position, bool emit) override;
 
@@ -96,7 +94,7 @@ public:
 
     float GetTranslateY() override;
 
-    const glm::vec4 & GetSize() override;
+    const glm::vec4 &GetSize() override;
 
     float GetWidth() override;
 
@@ -130,21 +128,9 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    void Draw() override;
+    void ResetViewport();
 
-    void SetRenderer(Renderer *renderer) override;
-
-    void SetModelId(long long int id) override;
-
-    long long int & GetModelId() override;
-
-    void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
-
-    float GetZIndex() override;
-
-    void SetThickness(float thickness);
-    float GetThickness();
 };
 
 
-#endif //LII_RECTANGLEMODEL_H
+#endif //LII_ELLIPSEMODEL_H

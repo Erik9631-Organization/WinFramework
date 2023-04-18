@@ -233,12 +233,12 @@ void TextModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
 }
-void TextModel::SetModelId(unsigned long long int id)
+void TextModel::SetModelId(long long int id)
 {
     this->modelId = id;
 }
 
-size_t &TextModel::GetModelId()
+long long int & TextModel::GetModelId()
 {
     return modelId;
 }

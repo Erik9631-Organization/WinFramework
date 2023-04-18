@@ -101,9 +101,9 @@ public:
 
     void SetRenderer(Renderer *renderer) override;
 
-    void SetModelId(unsigned long long int id) override;
+    void SetModelId(long long int id) override;
 
-    size_t &GetModelId() override;
+    long long int & GetModelId() override;
 
     void SetColor(const glm::ivec4 &color) override;
 

@@ -1,7 +1,7 @@
 #pragma once
 /*
 * All renderables should recieve reference to a Movable or resizable as base argument???? This should define the relative viewPortSize of the renderable????? (Read next line!!!!!)
-* UiElement should also be renderable (It recieved a rendereringProvider object from the root). The render function in the component should do a translation to the viewport coordinate system
+* UiElement should also be renderable (It recieved a renderer object from the root). The render function in the component should do a translation to the viewport coordinate system
 */
 
 
@@ -19,7 +19,7 @@ class RenderSubscriber
 public:
 	/**
 	 * Method which recieves the render events
-	 * \param e the render event object which contains the rendereringProvider on which the rendering is to be done. Check RenderEventInfo class.
+	 * \param e the render event object which contains the renderer on which the rendering is to be done. Check RenderEventInfo class.
 	 */
 	virtual void OnRenderSync(RenderEventInfo e) = 0;
 	virtual void OnSync(const DrawData& data) = 0;

@@ -240,19 +240,19 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 void RectangleModel::Draw()
 {
-    auto renderer = this->rendereringProvider->AcquireRenderingApi();
-    if(renderer == nullptr)
+    auto renderingApi = this->renderer->AcquireRenderingApi();
+    if(renderingApi == nullptr)
         return;
-    renderer->SetColor(color);
+    renderingApi->SetColor(color);
     if(viewPort.IsSet())
-        renderer->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
+        renderingApi->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     if(fill)
-        renderer->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
     {
-        renderer->SetThickness(thickness);
-        renderer->DrawRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->SetThickness(thickness);
+        renderingApi->DrawRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     }
 
 }
@@ -279,15 +279,15 @@ const bool &RectangleModel::GetFill() const
 
 void RectangleModel::SetRenderer(Renderer *renderer)
 {
-    this->rendereringProvider = renderer;
+    this->renderer = renderer;
 }
 
-void RectangleModel::SetModelId(unsigned long long int id)
+void RectangleModel::SetModelId(long long int id)
 {
     this->id = id;
 }
 
-size_t & RectangleModel::GetModelId()
+long long int & RectangleModel::GetModelId()
 {
     return id;
 }
