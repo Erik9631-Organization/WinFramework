@@ -36,7 +36,7 @@ public:
     const glm::vec4 & GetStartPoint();
     const glm::vec4 & GetEndPoint();
 
-    size_t & GetAssociatedModelId() override;
+    const size_t & GetAssociatedModelId() override;
 
     void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 

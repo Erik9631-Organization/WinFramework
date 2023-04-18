@@ -192,7 +192,7 @@ void TextProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
     messageSender.OnRenderMessageProcessed(processedCommand);
 }
 
-size_t &TextProxy::GetAssociatedModelId()
+const size_t & TextProxy::GetAssociatedModelId()
 {
     return id;
 }

@@ -34,7 +34,7 @@ public:
 
     void SetModelId(long long int id) override;
 
-    long long int & GetModelId() override;
+    const size_t & GetModelId() override;
 
     glm::vec4 GetPosition() override;
 
@@ -100,7 +100,7 @@ public:
 
     float GetHeight() override;
 
-    void SetSize(glm::vec4 size, bool emit) override;
+    void SetSize(const glm::vec4 &size, bool emit) override;
 
     void SetSize(glm::vec4 size) override;
 

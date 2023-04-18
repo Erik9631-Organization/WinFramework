@@ -642,7 +642,7 @@ void UiElement::SetSize(float width, float height, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetSize(glm::vec4 size, bool emit)
+void UiElement::SetSize(const glm::vec4 &size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));

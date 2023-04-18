@@ -8,11 +8,18 @@
 #include "Movable.h"
 #include "vec2.hpp"
 #include "RenderingModel.h"
+#include "Resizable.h"
+#include "RenderingProxyMessageSender.h"
+class EllipseModel;
 
-class EllipseProxy : public virtual Movable, public virtual RenderProxy
+class EllipseProxy : public virtual Movable, public Resizable, public virtual RenderProxy
 {
 private:
     RenderingModel *renderingModel;
+    RenderingProxyMessageSender messageSender;
+    EllipseModel* model;
+    std::vector<MoveSubscriber*>moveSubscribers;
+    std::vector<ResizeSubscriber*>resizeSubscribers;
 public:
     glm::vec4 GetPosition() override;
 
@@ -60,7 +67,7 @@ public:
 
     float GetTranslateY() override;
 
-    size_t & GetAssociatedModelId() override;
+    const size_t & GetAssociatedModelId() override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
@@ -68,7 +75,51 @@ public:
 
     void NotifyOnMoveSubscribers(EventMoveInfo e) override;
 
-    ~EllipseProxy() override;
+    ~EllipseProxy() override = default;
+
+    float GetZ() override;
+
+    float GetW() override;
+
+    void SetZ(float z, bool emit) override;
+
+    void SetZ(float z) override;
+
+    void SetW(float w, bool emit) override;
+
+    void SetW(float w) override;
+
+    void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
+
+    void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
+
+    const glm::vec4 &GetSize() override;
+
+    float GetWidth() override;
+
+    float GetHeight() override;
+
+    void SetSize(const glm::vec4 &size, bool emit) override;
+
+    void SetSize(glm::vec4 size) override;
+
+    void SetSize(float width, float height, bool emit) override;
+
+    void SetSize(float width, float height) override;
+
+    void SetWidth(float width, bool emit) override;
+
+    void SetWidth(float width) override;
+
+    void SetHeight(float height, bool emit) override;
+
+    void SetHeight(float height) override;
+
+    void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+
+    void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+
+    void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 };
 
 

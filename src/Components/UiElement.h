@@ -126,7 +126,7 @@ public:
 	 */
 	UiElement * GetParent();
 	void SetSize(float width, float height, bool emit) override;
-	void SetSize(glm::vec4 size, bool emit) override;
+	void SetSize(const glm::vec4 &size, bool emit) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead

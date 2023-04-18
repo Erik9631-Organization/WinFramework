@@ -26,7 +26,7 @@ float StaticTexture::GetHeight()
     return size.y;
 }
 
-void StaticTexture::SetSize(glm::vec4 size, bool emit)
+void StaticTexture::SetSize(const glm::vec4 &size, bool emit)
 {
     if(imageData == nullptr)
         return;

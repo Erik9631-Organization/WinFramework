@@ -238,7 +238,7 @@ void TextModel::SetModelId(long long int id)
     this->modelId = id;
 }
 
-long long int & TextModel::GetModelId()
+const size_t & TextModel::GetModelId()
 {
     return modelId;
 }

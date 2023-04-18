@@ -21,22 +21,22 @@ private:
     glm::ivec4 color{255, 255, 255, 255};
     ModelViewport viewPort;
     bool fill = true;
-    long long id = -1;
+    size_t id = -1;
     float thickness = 1.0f;
 public:
     RectangleModel();
 
-    const ModelViewport& GetViewPort() const;
+    [[nodiscard]] const ModelViewport& GetViewPort() const;
 
     bool IsViewPortSet();
 
     void ResetViewport();
 
     void SetFill(bool fill);
-    const bool &GetFill() const;
+    [[nodiscard]] const bool &GetFill() const;
 
     void SetColor(const glm::vec4 &color);
-    const glm::ivec4 & GetColor() const;
+    [[nodiscard]] const glm::ivec4 & GetColor() const;
 
     glm::vec4 GetPosition() override;
 
@@ -102,7 +102,7 @@ public:
 
     float GetHeight() override;
 
-    void SetSize(glm::vec4 size, bool emit) override;
+    void SetSize(const glm::vec4 &size, bool emit) override;
 
     void SetSize(glm::vec4 size) override;
 
@@ -136,14 +136,14 @@ public:
 
     void SetModelId(long long int id) override;
 
-    long long int & GetModelId() override;
+    const size_t & GetModelId() override;
 
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     float GetZIndex() override;
 
     void SetThickness(float thickness);
-    float GetThickness();
+    float GetThickness() const;
 };
 
 

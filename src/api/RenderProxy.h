@@ -14,7 +14,7 @@ class RenderingConsumer;
 class RenderProxy : public RenderMessageSender
 {
 public:
-    virtual size_t & GetAssociatedModelId() = 0;
+    virtual const size_t & GetAssociatedModelId() = 0;
     virtual void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) = 0;
     virtual ~RenderProxy() = default;
 };

@@ -31,7 +31,7 @@ public:
 	 * Sets the viewPortPosition of the object
 	 * \param size the viewPortPosition object which specifies the width and height of the target object.
 	 */
-	virtual void SetSize(glm::vec4 size, bool emit) = 0;
+	virtual void SetSize(const glm::vec4 &size, bool emit) = 0;
     virtual void SetSize(glm::vec4 size) = 0;
 	
 	/**

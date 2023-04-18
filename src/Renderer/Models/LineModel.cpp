@@ -64,7 +64,7 @@ void LineModel::SetModelId(long long int id)
     this->id = id;
 }
 
-long long int & LineModel::GetModelId()
+const size_t & LineModel::GetModelId()
 {
     return id;
 }

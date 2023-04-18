@@ -83,7 +83,7 @@ public:
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 
-    size_t &GetAssociatedModelId() override;
+    const size_t & GetAssociatedModelId() override;
 
     void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 

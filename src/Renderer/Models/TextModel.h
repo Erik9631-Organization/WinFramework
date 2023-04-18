@@ -103,7 +103,7 @@ public:
 
     void SetModelId(long long int id) override;
 
-    long long int & GetModelId() override;
+    const size_t & GetModelId() override;
 
     void SetColor(const glm::ivec4 &color) override;
 

@@ -132,7 +132,7 @@ void EllipseModel::SetModelId(long long int id)
     this->id = id;
 }
 
-long long int & EllipseModel::GetModelId()
+const size_t & EllipseModel::GetModelId()
 {
     return id;
 }
@@ -297,7 +297,7 @@ float EllipseModel::GetHeight()
     return resizableBehavior.GetHeight();
 }
 
-void EllipseModel::SetSize(glm::vec4 size, bool emit)
+void EllipseModel::SetSize(const glm::vec4 &size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
 }

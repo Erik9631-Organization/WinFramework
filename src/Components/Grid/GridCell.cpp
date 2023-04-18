@@ -148,7 +148,7 @@ float GridCell::GetHeight()
     return cellSize.y;
 }
 
-void GridCell::SetSize(glm::vec4 size, bool emit)
+void GridCell::SetSize(const glm::vec4 &size, bool emit)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)

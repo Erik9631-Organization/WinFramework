@@ -26,7 +26,7 @@ void Window::SetSize(float width, float height, bool emit)
 
 }
 
-void Window::SetSize(glm::vec4 size, bool emit)
+void Window::SetSize(const glm::vec4 &size, bool emit)
 {
     SetSize(size.x, size.y, emit);
 }

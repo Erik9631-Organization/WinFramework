@@ -168,7 +168,7 @@ float RectangleModel::GetHeight()
     return resizableBehavior.GetHeight();
 }
 
-void RectangleModel::SetSize(glm::vec4 size, bool emit)
+void RectangleModel::SetSize(const glm::vec4 &size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
 }
@@ -287,7 +287,7 @@ void RectangleModel::SetModelId(long long int id)
     this->id = id;
 }
 
-long long int & RectangleModel::GetModelId()
+const size_t & RectangleModel::GetModelId()
 {
     return id;
 }
@@ -380,7 +380,7 @@ RectangleModel::RectangleModel() : movableBehavior(*this)
 
 }
 
-float RectangleModel::GetThickness()
+float RectangleModel::GetThickness() const
 {
     return thickness;
 }

@@ -27,7 +27,6 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     RenderingProxyMessageSender messageSender;
-
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
 public:
 
@@ -107,7 +106,7 @@ public:
 
     float GetHeight() override;
 
-    void SetSize(glm::vec4 size, bool emit) override;
+    void SetSize(const glm::vec4 &size, bool emit) override;
 
     void SetSize(glm::vec4 size) override;
 
@@ -135,7 +134,7 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    size_t & GetAssociatedModelId() override;
+    const size_t & GetAssociatedModelId() override;
 
     void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 

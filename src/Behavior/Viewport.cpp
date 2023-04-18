@@ -185,7 +185,7 @@ float Viewport::GetHeight()
     return resizeBehavior.GetHeight();
 }
 
-void Viewport::SetSize(glm::vec4 size, bool emit)
+void Viewport::SetSize(const glm::vec4 &size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 }

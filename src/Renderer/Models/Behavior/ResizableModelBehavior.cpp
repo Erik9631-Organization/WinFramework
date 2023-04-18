@@ -19,7 +19,7 @@ float ResizableModelBehavior::GetHeight()
     return size.y;
 }
 
-void ResizableModelBehavior::SetSize(glm::vec4 size, bool emit)
+void ResizableModelBehavior::SetSize(const glm::vec4 &size, bool emit)
 {
     this->size = size;
 }

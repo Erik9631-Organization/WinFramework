@@ -200,7 +200,7 @@ float RectangleProxy::GetHeight()
     return model->GetHeight();
 }
 
-void RectangleProxy::SetSize(glm::vec4 size, bool emit)
+void RectangleProxy::SetSize(const glm::vec4 &size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
@@ -268,9 +268,7 @@ void RectangleProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
 void RectangleProxy::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
     for (auto* subscriber : resizeSubscribers)
-    {
         subscriber->OnResize(event);
-    }
 }
 
 void RectangleProxy::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
@@ -292,20 +290,20 @@ void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 float RectangleProxy::GetAbsoluteX()
 {
-    return model->GetX();
+    return GetPosition().x;
 }
 
 float RectangleProxy::GetAbsoluteY()
 {
-    return model->GetY();
+    return GetPosition().y;
 }
-
+//TODO Fix returning temporary object
 const glm::vec4 & RectangleProxy::GetAbsolutePosition()
 {
-    return model->GetAbsolutePosition();
+    return GetPosition();
 }
 
-size_t & RectangleProxy::GetAssociatedModelId()
+const size_t & RectangleProxy::GetAssociatedModelId()
 {
     return model->GetModelId();
 }
