@@ -42,6 +42,10 @@ public:
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
+
 };
 
 

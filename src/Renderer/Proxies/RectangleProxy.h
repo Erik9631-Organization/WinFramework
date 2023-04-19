@@ -145,6 +145,10 @@ public:
     void OnMove(EventMoveInfo e) override;
 
     void OnResize(EventResizeInfo e) override;
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 };
 
 

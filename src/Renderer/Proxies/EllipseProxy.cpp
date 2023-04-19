@@ -211,7 +211,7 @@ void EllipseProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *cons
     this->model = dynamic_cast<EllipseModel*>(model);
     if (this->model == nullptr)
     {
-        std::cout << "RectangleProxy::OnModelCreated: model is not a RectangleModel" << std::endl;
+        std::cout << "EllipseProxy::OnModelCreated: model is not a EllipseModel" << std::endl;
         return;
     }
 
@@ -300,4 +300,49 @@ void EllipseProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
             return;
         }
     }
+}
+
+void EllipseProxy::SetColor(const glm::ivec4 &color)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(color, this);
+    renderMessage->SetSubMessageId(SubCommands::SetColor);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+const glm::ivec4 & EllipseProxy::GetColor()
+{
+    auto tempData = messageSender.Get(SubCommands::SetColor);
+    if(tempData != nullptr)
+        return tempData->GetData<const glm::ivec4&>();
+    return model->GetColor();
+}
+
+void EllipseProxy::SetFill(bool fill)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(fill, this);
+    renderMessage->SetSubMessageId(SubCommands::SetFill);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+bool EllipseProxy::GetFill()
+{
+    auto tempData = messageSender.Get(SubCommands::SetColor);
+    if(tempData != nullptr)
+        return tempData->GetData<const bool>();
+    return model->GetFill();
+}
+
+void EllipseProxy::SetVisible(bool visible)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(visible, this);
+    renderMessage->SetSubMessageId(SubCommands::SetVisible);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+bool EllipseProxy::IsVisible()
+{
+    auto tempData = messageSender.Get(SubCommands::SetVisible);
+    if(tempData != nullptr)
+        return tempData->GetData<const bool>();
+    return model->IsVisible();
 }

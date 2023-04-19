@@ -16,6 +16,8 @@ class RenderProxy : public RenderMessageSender
 public:
     virtual const size_t & GetAssociatedModelId() = 0;
     virtual void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) = 0;
+    virtual void SetVisible(bool visible) = 0;
+    virtual bool IsVisible() = 0;
     virtual ~RenderProxy() = default;
 };
 

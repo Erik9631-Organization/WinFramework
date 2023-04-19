@@ -213,6 +213,9 @@ float TextModel::GetZIndex()
 
 void TextModel::Draw()
 {
+    if(!visible)
+        return;
+
     if(renderer == nullptr)
         return;
 
@@ -306,4 +309,14 @@ FontAlignment TextModel::GetFontAlignment()
 TextModel::TextModel() : movableModelBehavior(*this)
 {
 
+}
+
+void TextModel::SetVisible(bool visible)
+{
+    this->visible = visible;
+}
+
+bool TextModel::IsVisible()
+{
+    return visible;
 }

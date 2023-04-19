@@ -57,3 +57,13 @@ void LineProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
 {
 
 }
+
+void LineProxy::SetVisible(bool visible)
+{
+
+}
+
+bool LineProxy::IsVisible()
+{
+    return false;
+}

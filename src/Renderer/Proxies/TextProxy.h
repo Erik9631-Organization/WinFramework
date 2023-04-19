@@ -117,6 +117,10 @@ public:
 
     FontAlignment GetFontAlignment() override;
 
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
+
 };
 
 

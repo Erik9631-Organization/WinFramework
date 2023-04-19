@@ -312,3 +312,18 @@ FontAlignment TextProxy::GetFontAlignment()
 {
     return FontAlignmentCenter;
 }
+
+void TextProxy::SetVisible(bool visible)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(visible, this);
+    renderMessage->SetSubMessageId(SubCommands::SetVisible);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+bool TextProxy::IsVisible()
+{
+    auto tempData = messageSender.Get(SubCommands::SetVisible);
+    if(tempData == nullptr)
+        return model->IsVisible();
+    return tempData->GetData<bool>();
+}

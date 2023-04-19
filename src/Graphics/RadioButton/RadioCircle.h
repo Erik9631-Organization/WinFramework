@@ -1,22 +1,57 @@
 //
-// Created by erik9 on 12/12/2022.
+// Created by erik9 on 4/19/2023.
 //
 
-#ifndef LII_MOVABLEMODELBEHAVIOR_H
-#define LII_MOVABLEMODELBEHAVIOR_H
-#include <vector>
-#include "MoveSubscriber.h"
-#include "Movable.h"
+#ifndef LII_RADIOCIRCLE_H
+#define LII_RADIOCIRCLE_H
 
-class MovableModelBehavior : public Movable
+
+#include "Appearance.h"
+#include "EllipseProxy.h"
+#include "DefaultRelativeZIndex.h"
+#include "ScalingUtil2D.h"
+
+class RadioCircle : public Appearance, public Movable
 {
 private:
-    glm::vec4 position = {0, 0, 0, 0};
-    glm::vec4 translation{0};
+    EllipseProxy border;
+    EllipseProxy fill;
+    UiElement& element;
+    ScalingUtil2D scaler;
+
+    float radius = 50;
+    float padding = 0.7f;
+    void UpdateGraphics();
+    glm::vec4 position = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("None"), 0};
     std::vector<MoveSubscriber*> moveSubscribers;
-    Movable& owner;
 public:
-    explicit MovableModelBehavior(Movable& associatedMovable);
+    void SetFillEnabled(bool state);
+
+    void SetBorderColor(const glm::ivec4 &color);
+
+    void SetFillColor(const glm::ivec4 &color);
+
+    ScalingUtil2D& GetScales();
+
+    float GetRelativeZIndex() override;
+
+    void SetRelativeZIndex(float relativeZIndex) override;
+
+    void SetRadius(float radius);
+
+    void SetPadding(float padding);
+
+    [[nodiscard]] float GetPadding() const;
+
+    [[nodiscard]] float GetRadius() const;
+
+    explicit RadioCircle(UiElement& element);
+
+    void OnMounted(Presenter &presenter, UiElement &element) override;
+
+    void OnMove(EventMoveInfo e) override;
+
+    void OnResize(EventResizeInfo e) override;
 
     glm::vec4 GetPosition() override;
 
@@ -32,7 +67,7 @@ public:
 
     float GetAbsoluteY() override;
 
-    const glm::vec4 & GetAbsolutePosition() override;
+    const glm::vec4 &GetAbsolutePosition() override;
 
     void SetPosition(glm::vec4 position, bool emit) override;
 
@@ -84,4 +119,4 @@ public:
 };
 
 
-#endif //LII_MOVABLEMODELBEHAVIOR_H
+#endif //LII_RADIOCIRCLE_H

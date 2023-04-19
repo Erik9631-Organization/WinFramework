@@ -39,6 +39,8 @@ const glm::vec4 & LineModel::GetColor()
 
 void LineModel::Draw()
 {
+    if(!visible)
+        return;
     auto renderer = renderingProvider->AcquireRenderingApi();
     renderer->SetColor(color);
     renderer->DrawLine(startPoint, endPoint);
@@ -102,4 +104,14 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 float LineModel::GetZIndex()
 {
     return startPoint.z;
+}
+
+void LineModel::SetVisible(bool visible)
+{
+    this->visible = visible;
+}
+
+bool LineModel::IsVisible()
+{
+    return visible;
 }

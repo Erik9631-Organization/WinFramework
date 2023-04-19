@@ -301,9 +301,14 @@ set(Lii_Graphics
     "Graphics/TestGraphics.cpp"
     Graphics/Border.cpp
     Graphics/Border.h
-        Graphics/DefaultRelativeZIndex.h
-        Graphics/DefaultRelativeZIndex.cpp)
+    Graphics/DefaultRelativeZIndex.h
+    Graphics/DefaultRelativeZIndex.cpp)
 source_group("Lii\\Graphics" FILES ${Lii_Graphics})
+
+set(Lii_Graphics_RadioButton
+    "Graphics/RadioButtonGraphics.h"
+    "Graphics/RadioButtonGraphics.cpp" Graphics/RadioButton/RadioCircle.cpp Graphics/RadioButton/RadioCircle.h)
+source_group("Lii\\Graphics\\RadioButton" FILES ${Lii_Graphics_RadioButton})
 
 
 set(Lii_GraphicalStates
@@ -354,7 +359,7 @@ set(Lii_Utils
         Utils/Managers/RenderingProviderManager.h
         Utils/RenderingProxyMessageSender.cpp
         Utils/RenderingProxyMessageSender.h
-        )
+        Utils/Utils.hpp)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_Utils_Managers
@@ -498,6 +503,7 @@ set(ALL_FILES
     ${Lii_Events}
     ${Lii_EventTypes}
     ${Lii_Graphics}
+    ${Lii_Graphics_RadioButton}
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
@@ -561,6 +567,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Models/Viewports"
         "Renderer"
         "Renderer/Proxies"
+        "Graphics/RadioButton"
         )
 
 target_link_libraries(${PROJECT_NAME}

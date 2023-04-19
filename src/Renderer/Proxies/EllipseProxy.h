@@ -21,6 +21,14 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
 public:
+    void SetFill(bool fill);
+
+    bool GetFill();
+
+    void SetColor(const glm::ivec4 &color);
+
+    const glm::ivec4 & GetColor();
+
     glm::vec4 GetPosition() override;
 
     float GetX() override;
@@ -120,6 +128,10 @@ public:
     void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 };
 
 

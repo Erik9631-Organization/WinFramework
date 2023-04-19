@@ -8,14 +8,17 @@
 #include <vector>
 #include <memory>
 #include "Events/RadioButtonStateSubject.h"
+#include "Border.h"
+#include "Text2.h"
+#include "RadioCircle.h"
 
 class RadioButton : public UiElement, public RadioButtonStateSubject
 {
 private:
-	SimpleBorder border;
-	RadioButtonGraphics radioButtonGraphics;
+	Border border;
+	RadioCircle radioCircle;
 	RadioButtonBehavior behavior;
-	Text text;
+	Text2 text;
 	
 	// Background background;
 	//radioButtonBehavior
@@ -32,7 +35,7 @@ public:
 
 	RadioButton();
 	RadioButton(std::string name);
-	RadioButton(int x, int y, int width, int height, std::string componentName);
+	RadioButton(float x, float y, float width, float height, std::string componentName);
 
 	// Inherited via RadioButtonStateSubject
 	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;

@@ -387,3 +387,18 @@ void RectangleProxy::SetThickness(float thickness)
     renderMessage->SetSubMessageId(SubCommands::SetThickness);
     SendRenderingMessage(std::move(renderMessage));
 }
+
+void RectangleProxy::SetVisible(bool visible)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(visible, this);
+    renderMessage->SetSubMessageId(SubCommands::SetVisible);
+    SendRenderingMessage(std::move(renderMessage));
+}
+
+bool RectangleProxy::IsVisible()
+{
+    auto tempData = messageSender.Get(SubCommands::SetVisible);
+    if(tempData != nullptr)
+        return tempData->GetData<bool>();
+    return model->IsVisible();
+}

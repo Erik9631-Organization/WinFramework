@@ -17,6 +17,7 @@
 class TextModel : public RenderingModel, public TextApi, public Movable
 {
 private:
+    bool visible = true;
     MovableModelBehavior movableModelBehavior;
     size_t modelId = 0;
     Renderer* renderer;
@@ -128,6 +129,10 @@ public:
     FontAlignment GetFontLineAlignment() override;
 
     FontAlignment GetFontAlignment() override;
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 
 };
 

@@ -15,6 +15,7 @@
 class RectangleModel : public Movable, public Resizable, public RenderingModel
 {
 private:
+    bool visible = true;
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
     Renderer* renderer = nullptr;
@@ -144,6 +145,10 @@ public:
 
     void SetThickness(float thickness);
     float GetThickness() const;
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 };
 
 

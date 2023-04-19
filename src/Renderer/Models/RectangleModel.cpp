@@ -240,6 +240,9 @@ void RectangleModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 
 void RectangleModel::Draw()
 {
+    if(!visible)
+        return;
+
     auto renderingApi = this->renderer->AcquireRenderingApi();
     if(renderingApi == nullptr)
         return;
@@ -388,4 +391,14 @@ float RectangleModel::GetThickness() const
 void RectangleModel::SetThickness(float thickness)
 {
     this->thickness = thickness;
+}
+
+void RectangleModel::SetVisible(bool visible)
+{
+    this->visible = visible;
+}
+
+bool RectangleModel::IsVisible()
+{
+    return visible;
 }

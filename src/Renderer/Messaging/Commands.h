@@ -16,6 +16,7 @@ enum class Commands : unsigned char
    Property,
    Redraw,
    Quit,
+   CommandCount
 };
 
 enum class SubCommands : unsigned char
@@ -47,7 +48,8 @@ enum class SubCommands : unsigned char
     SetFill,
     SetText,
     SetFontFamily,
-    CommandCount,
+    SetVisible,
+    CommandCount
 };
 
 #endif //LII_COMMANDS_H

@@ -22,7 +22,7 @@ void RadioButton::SetChecked(bool checked)
 	this->checked = checked;
 	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, this));
 
-	radioButtonGraphics.SetFillEnabled(checked);
+	radioCircle.SetFillEnabled(checked);
 	//Repaint();
 }
 
@@ -62,32 +62,26 @@ RadioButton::RadioButton(std::string name) : RadioButton(0, 0, 0, 0, name)
 
 }
 
-RadioButton::RadioButton(int x, int y, int width, int height, string componentName) : UiElement(x, y, width, height, componentName), text("Arial"), behavior(*this)
+RadioButton::RadioButton(float x, float y, float width, float height, string componentName) :
+    UiElement(x, y, width, height, componentName),
+    behavior(*this),
+    border(*this),
+    text(this),
+    radioCircle(*this)
 {
-	border.SetColor({0, 0, 0});
-	border.SetThickness(1.0f);
-	radioButtonGraphics.SetFillEnabled(false);
-    radioButtonGraphics.SetDiameter(15.0f);
-	radioButtonGraphics.SetFillPadding(5.0f);
-	radioButtonGraphics.SetDrawFromCenterY(true);
-	radioButtonGraphics.SetDrawFromCenterX(true);
-	radioButtonGraphics.SetScalingTypeWidth(Decimal);
-	radioButtonGraphics.SetScalingTypeHeight(Decimal);
-	radioButtonGraphics.SetY(0.5f);
-	radioButtonGraphics.SetX(0.1f);
+	border.SetColor({0, 0, 0, 255});
+    radioCircle.SetRadius(7.5f);
+	radioCircle.GetScales().SetCalculateFromCenterX(false);
+    radioCircle.GetScales().SetCalculateFromCenterY(true);
+    radioCircle.GetScales().SetScalingTypeX(GraphicsScaling::Percentual);
+    radioCircle.GetScales().SetScalingTypeY(GraphicsScaling::Percentual);
 
-	text.SetColor({0, 0, 0});
+	text.SetColor({0, 0, 0, 255});
 	text.SetFontSize(12.0f);
-	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
-	text.SetScalingTypeX(Percentual);
-	text.SetScalingTypeY(Percentual);
-	text.SetPosition({0.23f, 0.52f, 0, 0});
+	text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
 	text.SetText(L"Radio");
 	SetChecked(false);
-
-    AddRenderCommander(radioButtonGraphics);
-    AddRenderCommander(border);
-    AddRenderCommander(text);
 }
 
 void RadioButton::NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e)

@@ -11,6 +11,7 @@ DefaultRelativeZIndex* DefaultRelativeZIndex::instance = new DefaultRelativeZInd
 DefaultRelativeZIndex::DefaultRelativeZIndex()
 {
     relativeIndexList["TextIndex"] =  0.0f;
+    relativeIndexList["None"] =  0.5f;
     relativeIndexList["BorderIndex"] = 1.0f;
     relativeIndexList["BackgroundIndex"] = 2.0f;
 }

@@ -10,6 +10,7 @@
 class LineModel : public RenderingModel
 {
 private:
+    bool visible = true;
     glm::ivec4 color;
     glm::vec4 startPoint;
     glm::vec4 endPoint;
@@ -37,6 +38,10 @@ public:
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     float GetZIndex() override;
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 };
 
 

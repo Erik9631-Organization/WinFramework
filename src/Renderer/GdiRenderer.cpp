@@ -10,6 +10,7 @@
 #include <chrono>
 #include "GdiRenderingPool.h"
 #include "RectangleModel.h"
+#include "EllipseModel.h"
 #include <iostream>
 
 using namespace std;
@@ -123,6 +124,12 @@ RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
         case SubCommands::RequestText:
         {
             auto model = CreateModel<TextModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
+        }
+        case SubCommands::RequestEllipse:
+        {
+            auto model = CreateModel<EllipseModel>();
             model->AddOnMoveSubscriber(*this);
             return model;
         }

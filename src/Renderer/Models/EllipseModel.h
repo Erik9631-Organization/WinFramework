@@ -17,13 +17,25 @@ class EllipseModel : public RenderingModel, public Resizable, public Movable
 {
 private:
     long long id = -1;
-    bool fill = true;
+    bool fill = false;
+    bool visible = true;
+    bool renderFromCenter = true;
     ModelViewport viewPort;
     glm::ivec4 color{255, 255, 255, 255};
     Renderer* renderer = nullptr;
     MovableModelBehavior movableBehavior;
     ResizableModelBehavior resizableBehavior;
 public:
+    void SetRenderFromCenter(bool renderFromCenter);
+
+    bool GetRenderFromCenter();
+
+    EllipseModel();
+
+    void SetFill(bool fill);
+
+    [[nodiscard]] bool GetFill() const;
+
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
     float GetZIndex() override;
@@ -129,6 +141,14 @@ public:
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
     void ResetViewport();
+
+    void SetColor(const glm::ivec4 &color);
+
+    const glm::ivec4 & GetColor();
+
+    void SetVisible(bool visible) override;
+
+    bool IsVisible() override;
 
 };
 

@@ -6,6 +6,7 @@
 #include "EventMoveInfo.h"
 #include "Commands.h"
 #include "Renderer.h"
+#include "Utils.hpp"
 
 void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
@@ -90,6 +91,11 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             ResetViewport();
             break;
         }
+        case SubCommands::SetVisible:
+        {
+            visible = message->GetData<bool>();
+            break;
+        }
         default:
             break;
     }
@@ -108,6 +114,12 @@ float EllipseModel::GetZIndex()
 
 void EllipseModel::Draw()
 {
+    if(!visible)
+        return;
+    auto calculatedPosition = movableBehavior.GetPosition();
+    if(renderFromCenter)
+        calculatedPosition = TranslateFromCornerToCenter(calculatedPosition, resizableBehavior.GetSize());
+
     auto renderingApi = this->renderer->AcquireRenderingApi();
     if(renderingApi == nullptr)
         return;
@@ -116,9 +128,9 @@ void EllipseModel::Draw()
         renderingApi->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     if(fill)
-        renderingApi->DrawFillEllipse(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawFillEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
     else
-        renderingApi->DrawEllipse(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
 
 }
 
@@ -365,4 +377,49 @@ void EllipseModel::AddOnResizeSubscriber(ResizeSubscriber &subscriber)
 void EllipseModel::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
 {
     resizableBehavior.RemoveOnResizeSubscriber(subscriber);
+}
+
+void EllipseModel::SetColor(const glm::ivec4 &color)
+{
+    this->color = color;
+}
+
+const glm::ivec4 & EllipseModel::GetColor()
+{
+    return color;
+}
+
+EllipseModel::EllipseModel() : movableBehavior(*this)
+{
+
+}
+
+void EllipseModel::SetFill(bool fill)
+{
+    this->fill = fill;
+}
+
+bool EllipseModel::GetFill() const
+{
+    return fill;
+}
+
+void EllipseModel::SetVisible(bool visible)
+{
+    this->visible = visible;
+}
+
+bool EllipseModel::IsVisible()
+{
+    return visible;
+}
+
+void EllipseModel::SetRenderFromCenter(bool renderFromCenter)
+{
+    this->renderFromCenter = renderFromCenter;
+}
+
+bool EllipseModel::GetRenderFromCenter()
+{
+    return renderFromCenter;
 }
