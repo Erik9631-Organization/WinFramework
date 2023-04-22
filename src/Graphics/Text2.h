@@ -9,7 +9,7 @@
 #include "DefaultRelativeZIndex.h"
 #include "ScalingUtil2D.h"
 
-class Text2 : public Appearance, public TextApi
+class Text2 : public Appearance, public TextApi, public Movable
 {
 private:
     TextProxy textProxy;
@@ -19,6 +19,7 @@ private:
     UiElement* parentElement = nullptr;
     glm::vec4 textPosition = {0.0f, 0.0f, DefaultRelativeZIndex::GetInstance()->GetIndex("TextIndex"), 1.0};
     ScalingUtil2D textScaler;
+    std::vector<MoveSubscriber*> moveSubscribers;
 public:
     explicit Text2(UiElement* associatedElement);
     ~Text2() override;
@@ -48,6 +49,74 @@ public:
     FontAlignment GetFontAlignment() override;
 
     void SetText(const std::wstring &text) override;
+
+    glm::vec4 GetPosition() override;
+
+    float GetX() override;
+
+    float GetY() override;
+
+    float GetZ() override;
+
+    float GetW() override;
+
+    float GetAbsoluteX() override;
+
+    float GetAbsoluteY() override;
+
+    const glm::vec4 &GetAbsolutePosition() override;
+
+    void SetPosition(glm::vec4 position, bool emit) override;
+
+    void SetPosition(glm::vec4 position) override;
+
+    void SetPosition(float x, float y, float z, float w, bool emit) override;
+
+    void SetPosition(float x, float y, float z, float w) override;
+
+    void SetX(float x, bool emit) override;
+
+    void SetX(float x) override;
+
+    void SetY(float y, bool emit) override;
+
+    void SetY(float y) override;
+
+    void SetZ(float z, bool emit) override;
+
+    void SetZ(float z) override;
+
+    void SetW(float w, bool emit) override;
+
+    void SetW(float w) override;
+
+    void SetTranslate(glm::vec4 offset, bool emit) override;
+
+    void SetTranslate(glm::vec4 offset) override;
+
+    void SetTranslateX(float x, bool emit) override;
+
+    void SetTranslateX(float x) override;
+
+    void SetTranslateY(float y, bool emit) override;
+
+    void SetTranslateY(float y) override;
+
+    glm::vec4 GetTranslate() override;
+
+    float GetTranslateX() override;
+
+    float GetTranslateY() override;
+
+    void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+
+    ScalingUtil2D& GetScales();
+
+    void SetVisible(bool state) override;
 };
 
 

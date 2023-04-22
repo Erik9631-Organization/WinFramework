@@ -116,8 +116,8 @@ void DefaultAsyncRenderCommandHandler::SetViewportSize(const glm::ivec2 &size)
     renderer->SetViewportSize(size);
 }
 
-void DefaultAsyncRenderCommandHandler::RequestModel(SubCommands command, RenderProxy &proxy)
+void DefaultAsyncRenderCommandHandler::RequestModel(RenderProxy &proxy)
 {
-    auto message = RenderMessage::CreateModelRequestMessage(command, &proxy);
+    auto message = RenderMessage::CreateModelRequestMessage(proxy.GetModelRequestCommand(), &proxy);
     this->ReceiveCommand(std::move(message));
 }

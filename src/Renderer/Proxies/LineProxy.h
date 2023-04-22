@@ -46,6 +46,8 @@ public:
 
     bool IsVisible() override;
 
+    SubCommands GetModelRequestCommand() override;
+
 };
 
 

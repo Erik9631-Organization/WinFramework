@@ -76,7 +76,7 @@ GraphicsScaling CircleBorder::GetScalingTypeX() const
 
 void CircleBorder::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    graphicsUtil.SetScalingTypeX(scalingTypeX);
+    graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeY() const
@@ -86,7 +86,7 @@ GraphicsScaling CircleBorder::GetScalingTypeY() const
 
 void CircleBorder::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    return graphicsUtil.SetScalingTypeY(scalingTypeY);
+    return graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeWidth() const

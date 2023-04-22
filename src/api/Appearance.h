@@ -14,6 +14,7 @@ class Appearance : public MoveSubscriber, public ResizeSubscriber, public Mounte
 public:
     virtual float GetRelativeZIndex() = 0;
     virtual void SetRelativeZIndex(float relativeZIndex) = 0;
+    virtual void SetVisible(bool state) = 0;
 };
 
 

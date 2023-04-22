@@ -39,7 +39,7 @@ GraphicsScaling ScalingUtil2D::GetScalingTypeX() const
     return scalingTypeX;
 }
 
-void ScalingUtil2D::SetScalingTypeX(GraphicsScaling scalingTypeX)
+void ScalingUtil2D::SetUnitTypePosX(GraphicsScaling scalingTypeX)
 {
     ScalingUtil2D::scalingTypeX = scalingTypeX;
 }
@@ -49,7 +49,7 @@ GraphicsScaling ScalingUtil2D::GetScalingTypeY() const
     return scalingTypeY;
 }
 
-void ScalingUtil2D::SetScalingTypeY(GraphicsScaling scalingTypeY)
+void ScalingUtil2D::SetUnitTypePosY(GraphicsScaling scalingTypeY)
 {
     ScalingUtil2D::scalingTypeY = scalingTypeY;
 }

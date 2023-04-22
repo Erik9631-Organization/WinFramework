@@ -18,6 +18,7 @@ public:
     virtual void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) = 0;
     virtual void SetVisible(bool visible) = 0;
     virtual bool IsVisible() = 0;
+    virtual SubCommands GetModelRequestCommand() = 0;
     virtual ~RenderProxy() = default;
 };
 

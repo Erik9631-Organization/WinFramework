@@ -191,6 +191,9 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetFontFamily:
             SetFontFamily(message->GetData<std::wstring>());
             break;
+        case SubCommands::SetVisible:
+            SetVisible(message->GetData<bool>());
+            break;
         default:
             break;
     }

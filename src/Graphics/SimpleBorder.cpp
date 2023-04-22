@@ -110,7 +110,7 @@ GraphicsScaling SimpleBorder::GetScalingTypeX() const
 
 void SimpleBorder::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    graphicsUtil.SetScalingTypeX(scalingTypeX);
+    graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling SimpleBorder::GetScalingTypeY() const
@@ -120,7 +120,7 @@ GraphicsScaling SimpleBorder::GetScalingTypeY() const
 
 void SimpleBorder::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    graphicsUtil.SetScalingTypeY(scalingTypeY);
+    graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 GraphicsScaling SimpleBorder::GetScalingTypeWidth() const

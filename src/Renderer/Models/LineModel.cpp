@@ -99,6 +99,11 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         auto color = message->GetData<glm::vec4>();
         SetColor(color);
     }
+    else if(message->GetSubMessageId() == SubCommands::SetVisible)
+    {
+        auto visible = message->GetData<bool>();
+        SetVisible(visible);
+    }
 }
 
 float LineModel::GetZIndex()

@@ -706,9 +706,9 @@ void UiElement::NotifyOnTick()
     for(OnTickSubscriber* i : tickSubscribers)
         i->OnTick();
 
-    std::for_each(std::execution::par, uiElementNode->GetNodes().begin(), uiElementNode->GetNodes().end(), [&](auto& node)
+    std::for_each(std::execution::par, tickSubscribers.begin(), tickSubscribers.end(), [&](auto* subscriber)
     {
-        node->GetValue()->NotifyOnTick();
+        subscriber->OnTick();
     });
     addToContainerMutex.unlock();
 }

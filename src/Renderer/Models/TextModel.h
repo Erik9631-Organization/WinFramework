@@ -28,7 +28,7 @@ private:
     bool viewPortSet = false;
     ModelViewport viewPort;
     std::wstring fontFamily = L"Arial";
-    std::wstring text = L"";
+    std::wstring text;
 public:
 
     TextModel();

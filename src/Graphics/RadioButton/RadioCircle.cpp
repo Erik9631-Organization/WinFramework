@@ -9,8 +9,8 @@
 
 void RadioCircle::OnMounted(Presenter &presenter, UiElement &element)
 {
-    presenter.GetRenderer()->RequestModel(SubCommands::RequestEllipse, border);
-    presenter.GetRenderer()->RequestModel(SubCommands::RequestEllipse, fill);
+    presenter.GetRenderer()->RequestModel(border);
+    presenter.GetRenderer()->RequestModel(fill);
 }
 
 void RadioCircle::OnMove(EventMoveInfo e)
@@ -45,6 +45,7 @@ RadioCircle::RadioCircle(UiElement &element) : element(element), scaler(element.
     border.SetColor({0, 0, 0, 255});
     fill.SetColor({0, 0, 0, 255});
     fill.SetFill(true);
+    fill.SetVisible(false);
     UpdateGraphics();
 }
 
@@ -259,5 +260,11 @@ void RadioCircle::SetBorderColor(const glm::ivec4 &color)
 
 void RadioCircle::SetFillEnabled(bool state)
 {
+    fill.SetVisible(state);
+}
+
+void RadioCircle::SetVisible(bool state)
+{
+    border.SetVisible(state);
     fill.SetVisible(state);
 }

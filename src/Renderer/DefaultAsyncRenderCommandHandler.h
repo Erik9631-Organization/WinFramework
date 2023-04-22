@@ -41,7 +41,7 @@ public:
 
     void SetViewportSize(const glm::ivec2 &size) override;
 
-    void RequestModel(SubCommands command, RenderProxy &proxy) override;
+    void RequestModel(RenderProxy &proxy) override;
 
 };
 

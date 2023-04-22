@@ -67,3 +67,8 @@ bool LineProxy::IsVisible()
 {
     return false;
 }
+
+SubCommands LineProxy::GetModelRequestCommand()
+{
+    return SubCommands::RequestLine;
+}

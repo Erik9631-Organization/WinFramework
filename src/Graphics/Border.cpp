@@ -8,7 +8,7 @@
 
 void Border::OnMounted(Presenter &presenter, UiElement &element)
 {
-    presenter.GetRenderer()->RequestModel(SubCommands::RequestRectangle, rectangleProxy);
+    presenter.GetRenderer()->RequestModel(rectangleProxy);
     this->presenter = &presenter;
     rectangleProxy.SetFill(false);
     rectangleProxy.SetSize(element.GetSize());
@@ -46,4 +46,9 @@ float Border::GetRelativeZIndex()
 void Border::SetRelativeZIndex(float relativeZIndex)
 {
     this->relativeZIndex.z = static_cast<float>(relativeZIndex);
+}
+
+void Border::SetVisible(bool state)
+{
+    rectangleProxy.SetVisible(state);
 }

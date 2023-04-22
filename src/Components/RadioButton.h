@@ -24,6 +24,7 @@ private:
 	//radioButtonBehavior
 	bool checked = false;
 public:
+    void SetBorder(bool state);
 	void Check();
 	bool IsChecked();
 	void SetChecked(bool state);

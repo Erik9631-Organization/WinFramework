@@ -23,6 +23,8 @@ public:
     void OnResize(EventResizeInfo e) override;
     void SetColor(glm::ivec4 color);
 
+    void SetVisible(bool state) override;
+
 private:
     float GetRelativeZIndex() override;
     void SetRelativeZIndex(float relativeZIndex) override;

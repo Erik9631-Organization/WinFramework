@@ -402,3 +402,8 @@ bool RectangleProxy::IsVisible()
         return tempData->GetData<bool>();
     return model->IsVisible();
 }
+
+SubCommands RectangleProxy::GetModelRequestCommand()
+{
+    return SubCommands::RequestRectangle;
+}

@@ -310,6 +310,9 @@ set(Lii_Graphics_RadioButton
     "Graphics/RadioButtonGraphics.cpp" Graphics/RadioButton/RadioCircle.cpp Graphics/RadioButton/RadioCircle.h)
 source_group("Lii\\Graphics\\RadioButton" FILES ${Lii_Graphics_RadioButton})
 
+set(Lii_Graphics_Checkbox
+        Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h)
+source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
 
 set(Lii_GraphicalStates
     "GraphicalStates/DefaultButtonBehavior.h"
@@ -504,6 +507,7 @@ set(ALL_FILES
     ${Lii_EventTypes}
     ${Lii_Graphics}
     ${Lii_Graphics_RadioButton}
+    ${Lii_Graphics_Checkbox}
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
@@ -523,7 +527,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h)
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h)
 
 
 ################################################################################
@@ -568,6 +572,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer"
         "Renderer/Proxies"
         "Graphics/RadioButton"
+        "Graphics/Checkbox"
         )
 
 target_link_libraries(${PROJECT_NAME}

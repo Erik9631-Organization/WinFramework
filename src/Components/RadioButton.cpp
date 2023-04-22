@@ -23,7 +23,6 @@ void RadioButton::SetChecked(bool checked)
 	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, this));
 
 	radioCircle.SetFillEnabled(checked);
-	//Repaint();
 }
 
 void RadioButton::AddToGroup(RadioButton& button)
@@ -73,14 +72,21 @@ RadioButton::RadioButton(float x, float y, float width, float height, string com
     radioCircle.SetRadius(7.5f);
 	radioCircle.GetScales().SetCalculateFromCenterX(false);
     radioCircle.GetScales().SetCalculateFromCenterY(true);
-    radioCircle.GetScales().SetScalingTypeX(GraphicsScaling::Percentual);
-    radioCircle.GetScales().SetScalingTypeY(GraphicsScaling::Percentual);
+    radioCircle.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
+    radioCircle.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
+    radioCircle.SetX(0.1f);
 
-	text.SetColor({0, 0, 0, 255});
+    // TODO Fix units. Potential issue if differet units are used
+
 	text.SetFontSize(12.0f);
 	text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
     text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
-	text.SetText(L"Radio");
+    text.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
+    text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
+	text.SetText(L"");
+    text.SetX(0.1f);
+    text.GetX();
+    border.SetVisible(true);
 	SetChecked(false);
 }
 
@@ -97,4 +103,9 @@ void RadioButton::AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subs
 void RadioButton::RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber)
 {
 	behavior.RemoveRadiobuttonStateSubscriber(subscriber);
+}
+
+void RadioButton::SetBorder(bool state)
+{
+    border.SetVisible(state);
 }

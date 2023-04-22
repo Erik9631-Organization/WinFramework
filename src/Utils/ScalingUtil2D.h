@@ -19,9 +19,9 @@ public:
     void SetCalculateFromCenterY(bool calculateFromCenterY);
 
     [[nodiscard]] GraphicsScaling GetScalingTypeX() const;
-    void SetScalingTypeX(GraphicsScaling scalingTypeX);
+    void SetUnitTypePosX(GraphicsScaling scalingTypeX);
     [[nodiscard]] GraphicsScaling GetScalingTypeY() const;
-    void SetScalingTypeY(GraphicsScaling scalingTypeY);
+    void SetUnitTypePosY(GraphicsScaling scalingTypeY);
     [[nodiscard]] GraphicsScaling GetScalingTypeWidth() const;
     void SetScalingTypeWidth(GraphicsScaling scalingTypeWidth);
     [[nodiscard]] GraphicsScaling GetScalingTypeHeight() const;

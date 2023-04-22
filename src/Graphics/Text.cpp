@@ -115,7 +115,7 @@ GraphicsScaling Text::GetScalingTypeX() const
 
 void Text::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    return graphicsUtil.SetScalingTypeX(scalingTypeX);
+    return graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling Text::GetScalingTypeY() const
@@ -125,7 +125,7 @@ GraphicsScaling Text::GetScalingTypeY() const
 
 void Text::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    graphicsUtil.SetScalingTypeY(scalingTypeY);
+    graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 void Text::SetX(float x)

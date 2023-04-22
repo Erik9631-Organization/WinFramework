@@ -4,7 +4,7 @@
 
 void Background::OnMounted(Presenter &presenter, UiElement& element)
 {
-    presenter.GetRenderer()->RequestModel(SubCommands::RequestRectangle, rectangleProxy);
+    presenter.GetRenderer()->RequestModel(rectangleProxy);
     this->presenter = &presenter;
     rectangleProxy.SetSize(element.GetSize());
     rectangleProxy.SetPosition(element.GetAbsolutePosition() + relativeZIndex);
@@ -48,4 +48,9 @@ float Background::GetRelativeZIndex()
 void Background::SetRelativeZIndex(float relativeZIndex)
 {
     this->relativeZIndex.z = relativeZIndex;
+}
+
+void Background::SetVisible(bool state)
+{
+    rectangleProxy.SetVisible(false);
 }

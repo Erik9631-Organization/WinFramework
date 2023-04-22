@@ -346,3 +346,8 @@ bool EllipseProxy::IsVisible()
         return tempData->GetData<const bool>();
     return model->IsVisible();
 }
+
+SubCommands EllipseProxy::GetModelRequestCommand()
+{
+    return SubCommands::RequestEllipse;
+}

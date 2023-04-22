@@ -67,7 +67,7 @@ protected:
     bool deletedElementNode = false;
 public:
 	UiElement();
-	UiElement(std::string name);
+	explicit UiElement(std::string name);
 	UiElement(float x, float y, float width, float height, std::string name);
     Presenter* GetPresenter();
 

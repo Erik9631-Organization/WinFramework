@@ -16,8 +16,8 @@ class RadioCircle : public Appearance, public Movable
 private:
     EllipseProxy border;
     EllipseProxy fill;
-    UiElement& element;
     ScalingUtil2D scaler;
+    UiElement& element;
 
     float radius = 50;
     float padding = 0.7f;
@@ -45,7 +45,7 @@ public:
 
     [[nodiscard]] float GetRadius() const;
 
-    explicit RadioCircle(UiElement& element);
+    explicit RadioCircle(UiElement &element);
 
     void OnMounted(Presenter &presenter, UiElement &element) override;
 
@@ -116,6 +116,8 @@ public:
     void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
     void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+
+    void SetVisible(bool state) override;
 };
 
 

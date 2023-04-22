@@ -33,6 +33,8 @@ public:
 
     void OnResize(EventResizeInfo e) override;
 
+    void SetVisible(bool state) override;
+
 private:
     float GetRelativeZIndex() override;
 

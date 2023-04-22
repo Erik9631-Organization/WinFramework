@@ -1,5 +1,5 @@
 ﻿#include "Checkbox.h"
-#include "EventTypes/EventCheckboxStateInfo.h"
+#include "EventCheckboxStateInfo.h"
 using namespace std;
 
 void Checkbox::SetText(std::wstring text)
@@ -23,15 +23,15 @@ std::wstring Checkbox::GetText()
 
 void Checkbox::SetChecked(bool state)
 {
-	if (state == true)
+	if (state)
 	{
-		checkBoxChar.SetText(L"✓");
+		//checkBoxChar.SetText(L"✓");
 		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, true));
 	}
 
 	else
 	{
-		checkBoxChar.SetText(L"");
+		//checkBoxChar.SetText(L"");
 		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, false));
 	}
 
@@ -51,44 +51,20 @@ Checkbox::Checkbox(string name) : Checkbox(0, 0, 0, 0, name)
 {
 }
 
-Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement(x, y, width, height, name), checkBoxChar("Arial"), text("Arial"), checkboxBehavior(*this)
+Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement(x, y, width, height, name) ,
+        checkboxBehavior(*this),
+        border(*this),
+        text(this),
+        checkboxGraphics(*this)
 {
-	border.SetColor({0, 0, 0});
-	border.SetThickness(1.0f);
-	//background.SetBackgroundColor({0, 0, 0, 0});
+	border.SetColor({0, 0, 0, 255});
+    text.SetFontSize(12.0f);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    text.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
+    text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
 
-	checkboxBorder.SetColor({0, 0, 0});
-	checkboxBorder.SetScalingTypeWidth(Decimal);
-	checkboxBorder.SetScalingTypeHeight(Decimal);
-
-	checkboxBorder.DrawFromCenterY(true);
-
-	checkboxBorder.SetWidth(15.0f);
-	checkboxBorder.SetHeight(15.0f);
-
-    checkboxBorder.SetX(0.02f);
-    checkboxBorder.SetY(0.5f);
-
-	checkBoxChar.SetLineAlignment(FontAlignment::FontAlignmentCenter);
-	checkBoxChar.SetAlignment(FontAlignment::FontAlignmentCenter);
-	checkBoxChar.SetScalingTypeY(Percentual);
-	checkBoxChar.SetScalingTypeX(Decimal);
-	checkBoxChar.SetPosition({10.0f, 0.51f, 0, 0});
-	checkBoxChar.SetText(L"");
-	checkBoxChar.SetColor({0, 0, 0});
-
-	text.SetLineAlignment(FontAlignment::FontAlignmentCenter);
-	text.SetColor({0, 0, 0});
-	text.SetScalingTypeY(Percentual);
-	text.SetScalingTypeX(Decimal);
-
-	text.SetPosition({20.0f, 0.51f, 0, 0});
-
-    //AddRenderCommander(background);
-    AddRenderCommander(border);
-    AddRenderCommander(checkboxBorder);
-    AddRenderCommander(checkBoxChar);
-    AddRenderCommander(text);
+	text.SetX(0.1f);
 }
 
 void Checkbox::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)

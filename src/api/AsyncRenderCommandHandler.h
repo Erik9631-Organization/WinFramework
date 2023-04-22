@@ -20,7 +20,7 @@
 class AsyncRenderCommandHandler : virtual public RenderingConsumer
 {
 public:
-    virtual void RequestModel(SubCommands command, RenderProxy& proxy) = 0;
+    virtual void RequestModel(RenderProxy &proxy) = 0;
 
     virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;

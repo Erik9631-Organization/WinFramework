@@ -327,3 +327,8 @@ bool TextProxy::IsVisible()
         return model->IsVisible();
     return tempData->GetData<bool>();
 }
+
+SubCommands TextProxy::GetModelRequestCommand()
+{
+    return SubCommands::RequestText;
+}

@@ -352,6 +352,11 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetThickness(message->GetData<float>());
             break;
         }
+        case SubCommands::SetVisible:
+        {
+            SetVisible(message->GetData<bool>());
+            break;
+        }
         default:
             break;
     }

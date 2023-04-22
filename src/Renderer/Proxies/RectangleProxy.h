@@ -149,6 +149,8 @@ public:
     void SetVisible(bool visible) override;
 
     bool IsVisible() override;
+
+    SubCommands GetModelRequestCommand() override;
 };
 
 
