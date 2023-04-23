@@ -178,7 +178,7 @@ set(Lii_Api_Events
         "Api/Events/DropSubscriber.h"
         "Api/Draggable.h"
         "Api/Events/OnAddSubscriber.h"
-        )
+        Api/Events/Viewport2Subject.h)
 source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
 
@@ -317,7 +317,7 @@ source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
 
 set(Lii_Graphics_api
 
-        Api/Viewport2.h Api/Events/ViewPort2Subscriber.h)
+        Api/Viewport2.h Api/Events/Viewport2Subscriber.h)
 source_group("Lii\\Graphics\\api" FILES ${Lii_Graphics_api})
 
 set(Lii_GraphicalStates
