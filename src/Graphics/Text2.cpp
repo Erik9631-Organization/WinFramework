@@ -285,27 +285,27 @@ void Text2::SetVisible(bool state)
 }
 
 
-void Text2::ResetViewPort()
+void Text2::ResetViewport()
 {
-    textProxy.ResetViewPort();
+    textProxy.ResetViewport();
 }
 
-void Text2::SetViewPortSize(const glm::vec4 &vec4)
+void Text2::SetViewportSize(const glm::vec4 &vec4)
 {
-    textProxy.SetViewPortSize(vec4);
+    textProxy.SetViewportSize(vec4);
 }
 
-void Text2::SetViewPortPosition(const glm::vec4 &vec4)
+void Text2::SetViewportPosition(const glm::vec4 &vec4)
 {
-    textProxy.SetViewPortPosition(vec4);
+    textProxy.SetViewportPosition(vec4);
 }
 
-glm::vec4 &Text2::GetViewPortSize()
+glm::vec4 &Text2::GetViewportSize()
 {
-    return textProxy.GetViewPortSize();
+    return textProxy.GetViewportSize();
 }
 
-glm::vec4 &Text2::GetViewPortPosition()
+glm::vec4 &Text2::GetViewportPosition()
 {
-    return textProxy.GetViewPortPosition();
+    return textProxy.GetViewportPosition();
 }

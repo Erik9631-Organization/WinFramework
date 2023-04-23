@@ -13,38 +13,33 @@ set(Lii
     "AddSubject.h"
     "Behavior/DefaultListBoxBehavior.h"
     "DemoApplication.h"
-    "api/Draggable.h"
+    "Api/Draggable.h"
     "DragManager.h"
-    "Events/DragSubject.h"
-    "Events/DragSubscriber.h"
+    "Api/Events/DragSubject.h"
+    "Api/Events/DragSubscriber.h"
     "DropAction.h"
-    "Events/DropSubject.h"
-    "Events/DropSubscriber.h"
+    "Api/Events/DropSubject.h"
+    "Api/Events/DropSubscriber.h"
     "EventTypes/EventOnAddInfo.h"
     "EventTypes/EventOnDragInfo.h"
     "GenericObj.h"
     "Components/Grid/GridCell.h"
     "Components/Grid/GridSpan.h"
-    "Events/OnAddSubscriber.h"
+    "Api/Events/OnAddSubscriber.h"
     "TableElement.h"
     "Graphics/TrackbarGraphics.h"
     "AddSubject.cpp"
     "Behavior/DefaultListBoxBehavior.cpp"
     "DemoApplication.cpp"
     "DragManager.cpp"
-    "Events/DragSubject.cpp"
-    "Events/DragSubscriber.cpp"
-    "DropAction.cpp"
-    "Events/DropSubject.cpp"
-    "Events/DropSubscriber.cpp"
-    "EventTypes/EventOnAddInfo.cpp"
+        "DropAction.cpp"
+        "EventTypes/EventOnAddInfo.cpp"
     "EventTypes/EventOnDragInfo.cpp"
     "GenericObj.cpp"
     "Components/Grid/GridCell.cpp"
     "Components/Grid/GridSpan.cpp"
     "Main.cpp"
-    "Events/OnAddSubscriber.cpp"
-    "TableElement.cpp"
+        "TableElement.cpp"
     "Graphics/TrackbarGraphics.cpp"
     CoreMediator.cpp
     CoreMediator.h
@@ -115,35 +110,80 @@ source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
 set(Lii_Api
-        api/Translatable.h
-        api/Rotatable.h
-        api/Rotatable.h
-        api/Transformable.h
-        api/RenderSubscriber.h
-        api/Activatable.h
-        api/Adjustable.h
-        api/Collidable.h
-        api/MouseInteractable.h
-        api/Movable.h
-        api/RenderCommander.h
-        api/Resizable.h
-        api/Viewable.h
-        api/Scalable.h
-        api/RenderObjectSubscriber.h
-        api/RelativeMovement.h
-        api/Clonable.h
-        api/MemoryMovable.h
-        api/Clonable.h
-        api/TextureManager.h
-        api/MeshManager.h
-        api/Texture.h
-        api/ShaderManager.h
-        api/ResourceManager.h
-        api/ShaderManager.h
-        api/RenderProxy.h
-        api/RenderMessageSender.h
-        api/MeshManager.h api/Light.h api/CoreSubject.h api/PresenterSubscriber.h api/PresentationSubject.h api/Presenter.h api/Core.h api/PresenterSubject.h api/Factory.h api/MountedSubject.h api/MountedSubscriber.h api/AsyncRenderCommandHandler.h api/RenderingConsumer.h)
+        Api/Translatable.h
+        Api/Rotatable.h
+        Api/Rotatable.h
+        Api/Transformable.h
+        Api/RenderSubscriber.h
+        Api/Activatable.h
+        Api/Adjustable.h
+        Api/Collidable.h
+        Api/MouseInteractable.h
+        Api/Movable.h
+        Api/RenderCommander.h
+        Api/Resizable.h
+        Api/Viewable.h
+        Api/Scalable.h
+        Api/RenderObjectSubscriber.h
+        Api/RelativeMovement.h
+        Api/Clonable.h
+        Api/MemoryMovable.h
+        Api/Clonable.h
+        Api/TextureManager.h
+        Api/MeshManager.h
+        Api/Texture.h
+        Api/ShaderManager.h
+        Api/ResourceManager.h
+        Api/ShaderManager.h
+        Api/RenderProxy.h
+        Api/RenderMessageSender.h
+        Api/MeshManager.h
+        Api/Light.h
+        Api/CoreSubject.h
+        Api/PresenterSubscriber.h
+        Api/PresentationSubject.h
+        Api/Presenter.h
+        Api/Core.h
+        Api/PresenterSubject.h
+        Api/Factory.h
+        Api/MountedSubject.h
+        Api/MountedSubscriber.h
+        Api/AsyncRenderCommandHandler.h
+        Api/RenderingConsumer.h
+        )
 source_group("Lii/api" FILES ${Lii_Api})
+
+set(Lii_Api_Events
+        "Api/Events/ActivateSubject.h"
+        "Api/Events/ActivateSubscriber.h"
+        "Api/Events/CheckboxStateSubject.h"
+        "Api/Events/CheckboxStateSubscriber.h"
+        "Api/Events/ComboBoxStateSubscriber.h"
+        "Api/Events/KeyStateSubject.h"
+        "Api/Events/KeyStateSubscriber.h"
+        "Api/Events/MouseStateSubject.h"
+        "Api/Events/MouseStateSubscriber.h"
+        "Api/Events/MoveSubject.h"
+        "Api/Events/MoveSubscriber.h"
+        "Api/Events/RadioButtonStateSubject.h"
+        "Api/Events/RadioButtonStateSubscriber.h"
+        "Api/Events/ResizeSubject.h"
+        "Api/Events/ResizeSubscriber.h"
+        "Api/Events/UpdateSubject.h"
+        "Api/Events/UpdateSubscriber.h"
+        "Api/Events/MouseStateSubscriber.cpp"
+        Api/Events/TimerSubject.h
+        Api/Events/OnTickSubscriber.h
+        Api/Events/TickSubject.h
+        Api/Events/RenderObjectEventInfo.cpp
+        Api/Events/RenderObjectEventInfo.h
+        Api/Events/DestroySubject.h
+        Api/Events/DestroySubscriber.h
+        Api/Events/OnStartSubject.h
+        EventTypes/Viewport2Event.cpp
+        EventTypes/Viewport2Event.h
+        )
+source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
 
 set(Lii_Components
@@ -211,53 +251,6 @@ set(Lii_DataTypes
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
-set(Lii_Events
-    "Events/ActivateSubject.h"
-    "Events/ActivateSubscriber.h"
-    "Events/CheckboxStateSubject.h"
-    "Events/CheckboxStateSubscriber.h"
-    "Events/ComboBoxStateSubscriber.h"
-    "Events/KeyStateSubject.h"
-    "Events/KeyStateSubscriber.h"
-    "Events/MouseStateSubject.h"
-    "Events/MouseStateSubscriber.h"
-    "Events/MoveSubject.h"
-    "Events/MoveSubscriber.h"
-    "Events/RadioButtonStateSubject.h"
-    "Events/RadioButtonStateSubscriber.h"
-    "Events/ResizeSubject.h"
-    "Events/ResizeSubscriber.h"
-    "Events/UpdateSubject.h"
-    "Events/UpdateSubscriber.h"
-    "Events/ActivateSubject.cpp"
-    "Events/ActivateSubscriber.cpp"
-    "Events/CheckboxStateSubject.cpp"
-    "Events/CheckboxStateSubscriber.cpp"
-    "Events/ComboBoxStateSubscriber.cpp"
-    "Events/KeyStateSubject.cpp"
-    "Events/KeyStateSubscriber.cpp"
-    "Events/MouseStateSubject.cpp"
-    "Events/MouseStateSubscriber.cpp"
-    "Events/MoveSubject.cpp"
-    "Events/MoveSubscriber.cpp"
-    "Events/RadioButtonStateSubject.cpp"
-    "Events/RadioButtonStateSubscriber.cpp"
-        "Events/ResizeSubject.cpp"
-    "Events/ResizeSubscriber.cpp"
-    "Events/UpdateSubject.cpp"
-    Events/TimerSubject.cpp
-    Events/TimerSubject.h
-    Events/OnTickSubscriber.h
-    Events/TickSubject.h
-    Events/RenderObjectEventInfo.cpp
-    Events/RenderObjectEventInfo.h
-    Events/DestroySubject.h
-    Events/DestroySubscriber.h
-        Events/OnStartSubject.h)
-
-source_group("Lii\\Events" FILES ${Lii_Events})
-
-
 set(Lii_EventTypes
     "EventTypes/EventCheckboxStateInfo.h"
     "EventTypes/EventComboBoxStateInfo.h"
@@ -322,7 +315,7 @@ source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
 
 set(Lii_Graphics_api
 
-        Graphics/api/GraphicsViewport.h)
+        Api/Viewport2.h Api/Events/ViewPort2Subscriber.h)
 source_group("Lii\\Graphics\\api" FILES ${Lii_Graphics_api})
 
 set(Lii_GraphicalStates
@@ -360,8 +353,7 @@ set(Lii_Utils
         Utils/ScalingUtil2D.h
         Utils/Timer.cpp
     Utils/Timer.h
-        Events/TimerSubscriber.cpp
-    Events/TimerSubscriber.h
+        Api/Events/TimerSubscriber.h
         Utils/Hash.cpp Utils/Hash.h
         Utils/AutoId.cpp
         Utils/AutoId.h
@@ -398,23 +390,23 @@ set(Lii_OpenGL
         OpenGL/Shader.h 
         OpenGL/GraphicsShader.cpp
         OpenGL/GraphicsShader.h
-        api/ShaderProgram.h
+        Api/ShaderProgram.h
         OpenGL/DefaultShaderProgram.cpp
         OpenGL/DefaultShaderProgram.h
-        api/Mesh.h OpenGL/StaticMesh.cpp
+        Api/Mesh.h OpenGL/StaticMesh.cpp
         OpenGL/StaticMesh.h OpenGL/Uniform.h
         OpenGL/UniformProperties.h
         OpenGL/ShapeBuilder.cpp
         OpenGL/ModelBuilder.h
         OpenGL/DefaultTexture.cpp
         OpenGL/StaticTexture.h
-        api/Resource.h
+        Api/Resource.h
         OpenGL/DefaultVertexAttribute.cpp
         OpenGL/DefaultVertexAttribute.h
         OpenGL/VertexArrayObjectPool.h
         OpenGL/DefaultGpuMemoryAllocator.cpp
         OpenGL/DefaultGpuMemoryAllocator.h
-        api/Taggable.h
+        Api/Taggable.h
         OpenGL/GpuMemoryAllocator.h
         OpenGL/MemoryAllocatorManager.cpp
         OpenGL/MemoryAllocatorManager.h
@@ -515,7 +507,6 @@ set(ALL_FILES
     ${Lii_Components_api}
     ${Lii_Core_Windows}
     ${Lii_DataTypes}
-    ${Lii_Events}
     ${Lii_EventTypes}
     ${Lii_Graphics}
     ${Lii_Graphics_RadioButton}
@@ -530,6 +521,7 @@ set(ALL_FILES
     ${Lii_Shaders}
     ${Lii_Materials}
     ${Lii_Api}
+    ${Lii_Api_Events}
     ${Lii_Managers}
     ${Lii_Components_3d}
     ${Lii_Utils_Managers}
@@ -540,7 +532,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
+        Api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
 
 
 ################################################################################
@@ -551,13 +543,13 @@ add_executable(${PROJECT_NAME} ${ALL_FILES})
 target_include_directories(${PROJECT_NAME} PRIVATE
         .
         "Behavior/"
-        "api/"
+        "Api/"
         "Components/"
         "Components/Grid"
         "Components/FileBrowser/"
         "Components/api/"
         "DataTypes/"
-        "Events/"
+        "Api/Events/"
         "EventTypes/"
         "GraphicalStates/"
         "Graphics/"

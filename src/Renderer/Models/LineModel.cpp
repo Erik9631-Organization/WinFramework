@@ -121,27 +121,27 @@ bool LineModel::IsVisible()
     return visible;
 }
 
-void LineModel::SetViewPortSize(const glm::vec4 &vec4)
+void LineModel::SetViewportSize(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortSize(vec4);
+    viewPort.SetViewportSize(vec4);
 }
 
-void LineModel::SetViewPortPosition(const glm::vec4 &vec4)
+void LineModel::SetViewportPosition(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortPosition(vec4);
+    viewPort.SetViewportPosition(vec4);
 }
 
-glm::vec4 &LineModel::GetViewPortSize()
+glm::vec4 &LineModel::GetViewportSize()
 {
-    return viewPort.GetViewPortSize();
+    return viewPort.GetViewportSize();
 }
 
-glm::vec4 &LineModel::GetViewPortPosition()
+glm::vec4 &LineModel::GetViewportPosition()
 {
-    return viewPort.GetViewPortPosition();
+    return viewPort.GetViewportPosition();
 }
 
-void LineModel::ResetViewPort()
+void LineModel::ResetViewport()
 {
-    viewPort.ResetViewPort();
+    viewPort.ResetViewport();
 }

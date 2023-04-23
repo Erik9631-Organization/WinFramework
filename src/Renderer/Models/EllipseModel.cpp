@@ -78,17 +78,17 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         }
         case SubCommands::SetViewPortSize:
         {
-            SetViewPortSize(message->GetData<glm::vec4>());
+            SetViewportSize(message->GetData<glm::vec4>());
             break;
         }
         case SubCommands::SetViewPortPosition:
         {
-            SetViewPortPosition(message->GetData<glm::vec4>());
+            SetViewportPosition(message->GetData<glm::vec4>());
             break;
         }
         case SubCommands::ResetViewPort:
         {
-            ResetViewPort();
+            ResetViewport();
             break;
         }
         case SubCommands::SetVisible:
@@ -101,9 +101,9 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     }
 }
 
-void EllipseModel::ResetViewPort()
+void EllipseModel::ResetViewport()
 {
-    viewPort.ResetViewPort();
+    viewPort.ResetViewport();
 }
 
 
@@ -125,7 +125,8 @@ void EllipseModel::Draw()
         return;
     renderingApi->SetColor(color);
     if(viewPort.IsSet())
-        renderingApi->SetClippingRectangle(calculatedPosition + viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
+        renderingApi->SetClippingRectangle(calculatedPosition + viewPort.GetViewportPosition(),
+                                           viewPort.GetViewportSize());
 
     if(fill)
         renderingApi->DrawFillEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
@@ -424,22 +425,22 @@ bool EllipseModel::GetRenderFromCenter()
     return renderFromCenter;
 }
 
-void EllipseModel::SetViewPortSize(const glm::vec4 &vec4)
+void EllipseModel::SetViewportSize(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortSize(vec4);
+    viewPort.SetViewportSize(vec4);
 }
 
-void EllipseModel::SetViewPortPosition(const glm::vec4 &vec4)
+void EllipseModel::SetViewportPosition(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortPosition(vec4);
+    viewPort.SetViewportPosition(vec4);
 }
 
-glm::vec4 & EllipseModel::GetViewPortSize()
+glm::vec4 & EllipseModel::GetViewportSize()
 {
-    return viewPort.GetViewPortSize();
+    return viewPort.GetViewportSize();
 }
 
-glm::vec4 & EllipseModel::GetViewPortPosition()
+glm::vec4 & EllipseModel::GetViewportPosition()
 {
-    return viewPort.GetViewPortPosition();
+    return viewPort.GetViewportPosition();
 }

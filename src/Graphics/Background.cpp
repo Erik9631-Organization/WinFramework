@@ -60,27 +60,27 @@ const glm::ivec4 &Background::GetColor()
     return rectangleProxy.GetColor();
 }
 
-void Background::ResetViewPort()
+void Background::ResetViewport()
 {
-    rectangleProxy.ResetViewPort();
+    rectangleProxy.ResetViewport();
 }
 
-void Background::SetViewPortSize(const glm::vec4 &vec4)
+void Background::SetViewportSize(const glm::vec4 &vec4)
 {
-    rectangleProxy.SetViewPortSize(vec4);
+    rectangleProxy.SetViewportSize(vec4);
 }
 
-void Background::SetViewPortPosition(const glm::vec4 &vec4)
+void Background::SetViewportPosition(const glm::vec4 &vec4)
 {
-    rectangleProxy.SetViewPortPosition(vec4);
+    rectangleProxy.SetViewportPosition(vec4);
 }
 
-glm::vec4 &Background::GetViewPortSize()
+glm::vec4 &Background::GetViewportSize()
 {
-    return rectangleProxy.GetViewPortSize();
+    return rectangleProxy.GetViewportSize();
 }
 
-glm::vec4 &Background::GetViewPortPosition()
+glm::vec4 &Background::GetViewportPosition()
 {
-    return rectangleProxy.GetViewPortPosition();
+    return rectangleProxy.GetViewportPosition();
 }

@@ -390,37 +390,37 @@ const glm::ivec4 &RectangleProxy::GetColor()
     return model->GetColor();
 }
 
-void RectangleProxy::SetViewPortSize(const glm::vec4 &vec4)
+void RectangleProxy::SetViewportSize(const glm::vec4 &vec4)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     SendRenderingMessage(std::move(renderMessage));
 }
 
-void RectangleProxy::SetViewPortPosition(const glm::vec4 &vec4)
+void RectangleProxy::SetViewportPosition(const glm::vec4 &vec4)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
     SendRenderingMessage(std::move(renderMessage));
 }
 
-glm::vec4 &RectangleProxy::GetViewPortSize()
+glm::vec4 &RectangleProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
-    return model->GetViewPortSize();
+    return model->GetViewportSize();
 }
 
-glm::vec4 &RectangleProxy::GetViewPortPosition()
+glm::vec4 &RectangleProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
-    return model->GetViewPortPosition();
+    return model->GetViewportPosition();
 }
 
-void RectangleProxy::ResetViewPort()
+void RectangleProxy::ResetViewport()
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(nullptr, this);
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);

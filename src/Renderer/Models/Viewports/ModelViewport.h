@@ -5,9 +5,9 @@
 #ifndef LII_MODELVIEWPORT_H
 #define LII_MODELVIEWPORT_H
 #include "glm.hpp"
-#include "GraphicsViewport.h"
+#include "Viewport2.h"
 
-class ModelViewport : public GraphicsViewport
+class ModelViewport : public Viewport2
 {
 private:
     glm::vec4 viewPortSize = {0,0,0,0};
@@ -17,15 +17,15 @@ private:
 public:
     [[nodiscard]] bool IsSet() const;
 
-    void ResetViewPort() override;
+    void ResetViewport() override;
 
-    void SetViewPortSize(const glm::vec4 &vec4) override;
+    void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewPortPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec4 &vec4) override;
 
-    glm::vec4 & GetViewPortSize() override;
+    glm::vec4 & GetViewportSize() override;
 
-    glm::vec4 & GetViewPortPosition() override;
+    glm::vec4 & GetViewportPosition() override;
 
 };
 

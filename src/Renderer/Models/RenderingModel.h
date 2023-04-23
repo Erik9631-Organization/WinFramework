@@ -4,10 +4,10 @@
 #ifndef LII_RENDERINGMODEL_H
 #define LII_RENDERINGMODEL_H
 #include "RenderingConsumer.h"
-#include "GraphicsViewport.h"
+#include "Viewport2.h"
 
 class Renderer;
-class RenderingModel : public RenderingConsumer, public GraphicsViewport
+class RenderingModel : public RenderingConsumer, public Viewport2
 {
 public:
     virtual float GetZIndex() = 0;

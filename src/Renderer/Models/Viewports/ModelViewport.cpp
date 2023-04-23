@@ -9,27 +9,27 @@ bool ModelViewport::IsSet() const
     return isSet;
 }
 
-void ModelViewport::ResetViewPort()
+void ModelViewport::ResetViewport()
 {
     this->isSet = false;
 }
 
-void ModelViewport::SetViewPortSize(const glm::vec4 &vec4)
+void ModelViewport::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPortSize = vec4;
 }
 
-void ModelViewport::SetViewPortPosition(const glm::vec4 &vec4)
+void ModelViewport::SetViewportPosition(const glm::vec4 &vec4)
 {
     viewPortPosition = vec4;
 }
 
-glm::vec4 & ModelViewport::GetViewPortSize()
+glm::vec4 & ModelViewport::GetViewportSize()
 {
     return viewPortSize;
 }
 
-glm::vec4 & ModelViewport::GetViewPortPosition()
+glm::vec4 & ModelViewport::GetViewportPosition()
 {
     return viewPortPosition;
 }

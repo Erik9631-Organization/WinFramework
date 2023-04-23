@@ -228,7 +228,7 @@ void TextModel::Draw()
     format->SetLineAlignment(fontLineAlignment);
     api->SetColor(color);
     if(viewPort.IsSet())
-        api->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
+        api->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
     api->SetFontSize(fontSize);
     api->SetFontFamily(fontFamily);
@@ -324,28 +324,28 @@ bool TextModel::IsVisible()
     return visible;
 }
 
-void TextModel::SetViewPortSize(const glm::vec4 &vec4)
+void TextModel::SetViewportSize(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortSize(vec4);
+    viewPort.SetViewportSize(vec4);
 
 }
 
-void TextModel::SetViewPortPosition(const glm::vec4 &vec4)
+void TextModel::SetViewportPosition(const glm::vec4 &vec4)
 {
-    viewPort.SetViewPortPosition(vec4);
+    viewPort.SetViewportPosition(vec4);
 }
 
-glm::vec4 &TextModel::GetViewPortSize()
+glm::vec4 &TextModel::GetViewportSize()
 {
-    return viewPort.GetViewPortSize();
+    return viewPort.GetViewportSize();
 }
 
-glm::vec4 &TextModel::GetViewPortPosition()
+glm::vec4 &TextModel::GetViewportPosition()
 {
-    return viewPort.GetViewPortPosition();
+    return viewPort.GetViewportPosition();
 }
 
-void TextModel::ResetViewPort()
+void TextModel::ResetViewport()
 {
-    viewPort.ResetViewPort();
+    viewPort.ResetViewport();
 }

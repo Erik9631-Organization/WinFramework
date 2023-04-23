@@ -53,27 +53,27 @@ void Border::SetVisible(bool state)
     rectangleProxy.SetVisible(state);
 }
 
-void Border::ResetViewPort()
+void Border::ResetViewport()
 {
-    rectangleProxy.ResetViewPort();
+    rectangleProxy.ResetViewport();
 }
 
-void Border::SetViewPortSize(const glm::vec4 &vec4)
+void Border::SetViewportSize(const glm::vec4 &vec4)
 {
-    rectangleProxy.SetViewPortSize(vec4);
+    rectangleProxy.SetViewportSize(vec4);
 }
 
-void Border::SetViewPortPosition(const glm::vec4 &vec4)
+void Border::SetViewportPosition(const glm::vec4 &vec4)
 {
-    rectangleProxy.SetViewPortPosition(vec4);
+    rectangleProxy.SetViewportPosition(vec4);
 }
 
-glm::vec4 &Border::GetViewPortSize()
+glm::vec4 &Border::GetViewportSize()
 {
-    return rectangleProxy.GetViewPortSize();
+    return rectangleProxy.GetViewportSize();
 }
 
-glm::vec4 &Border::GetViewPortPosition()
+glm::vec4 &Border::GetViewportPosition()
 {
-    return rectangleProxy.GetViewPortSize();
+    return rectangleProxy.GetViewportSize();
 }

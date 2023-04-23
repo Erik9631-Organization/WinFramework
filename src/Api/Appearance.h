@@ -8,9 +8,9 @@
 #include "ResizeSubscriber.h"
 #include "MouseInteractable.h"
 #include "MountedSubscriber.h"
-#include "GraphicsViewport.h"
+#include "Viewport2.h"
 
-class Appearance : public MoveSubscriber, public ResizeSubscriber, public MountedSubscriber, public GraphicsViewport
+class Appearance : public MoveSubscriber, public ResizeSubscriber, public MountedSubscriber, public Viewport2
 {
 public:
     virtual float GetRelativeZIndex() = 0;

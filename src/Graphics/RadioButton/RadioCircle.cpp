@@ -270,30 +270,30 @@ void RadioCircle::SetVisible(bool state)
 }
 
 
-void RadioCircle::ResetViewPort()
+void RadioCircle::ResetViewport()
 {
-    border.ResetViewPort();
-    fill.ResetViewPort();
+    border.ResetViewport();
+    fill.ResetViewport();
 }
 
-void RadioCircle::SetViewPortSize(const glm::vec4 &vec4)
+void RadioCircle::SetViewportSize(const glm::vec4 &vec4)
 {
-    border.SetViewPortSize(vec4);
-    fill.SetViewPortSize(vec4);
+    border.SetViewportSize(vec4);
+    fill.SetViewportSize(vec4);
 }
 
-void RadioCircle::SetViewPortPosition(const glm::vec4 &vec4)
+void RadioCircle::SetViewportPosition(const glm::vec4 &vec4)
 {
-    border.SetViewPortPosition(vec4);
-    fill.SetViewPortPosition(vec4);
+    border.SetViewportPosition(vec4);
+    fill.SetViewportPosition(vec4);
 }
 
-glm::vec4 &RadioCircle::GetViewPortSize()
+glm::vec4 &RadioCircle::GetViewportSize()
 {
-    return border.GetViewPortSize();
+    return border.GetViewportSize();
 }
 
-glm::vec4 &RadioCircle::GetViewPortPosition()
+glm::vec4 &RadioCircle::GetViewportPosition()
 {
-    return border.GetViewPortPosition();
+    return border.GetViewportPosition();
 }
