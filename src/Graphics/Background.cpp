@@ -84,3 +84,28 @@ glm::vec4 &Background::GetViewportPosition()
 {
     return rectangleProxy.GetViewportPosition();
 }
+
+void Background::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    rectangleProxy.AddViewport2Subscriber(subscriber);
+}
+
+void Background::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    rectangleProxy.RemoveViewport2Subscriber(subscriber);
+}
+
+void Background::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    rectangleProxy.NotifyOnViewportSizeChanged(event);
+}
+
+void Background::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    rectangleProxy.NotifyOnViewportPositionChanged(event);
+}
+
+bool Background::IsViewportSet() const
+{
+    return rectangleProxy.IsViewportSet();
+}

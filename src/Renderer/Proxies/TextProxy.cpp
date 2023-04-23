@@ -338,6 +338,7 @@ void TextProxy::SetViewportSize(const glm::vec4 &vec4)
     auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
 }
 
 void TextProxy::SetViewportPosition(const glm::vec4 &vec4)
@@ -345,6 +346,7 @@ void TextProxy::SetViewportPosition(const glm::vec4 &vec4)
     auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
     messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
 glm::vec4 &TextProxy::GetViewportSize()
@@ -368,4 +370,31 @@ void TextProxy::ResetViewport()
     auto renderMessage = RenderMessage::CreatePropertyMessage(this);
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
     messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.push_back(subscriber);
+}
+
+void TextProxy::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), subscriber), viewPortSubscribers.end());
+}
+
+void TextProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    for(auto i : viewPortSubscribers)
+        i->OnViewportSizeChanged(event);
+}
+
+void TextProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    for(auto i : viewPortSubscribers)
+        i->OnViewportPositionChanged(event);
+}
+
+bool TextProxy::IsViewportSet() const
+{
+    return model->IsViewportSet();
 }

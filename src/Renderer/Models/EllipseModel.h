@@ -7,7 +7,7 @@
 
 
 #include "RenderingModel.h"
-#include "ModelViewport.h"
+#include "DefaultViewport2.h"
 #include "Resizable.h"
 #include "Movable.h"
 #include "MovableModelBehavior.h"
@@ -20,7 +20,7 @@ private:
     bool fill = false;
     bool visible = true;
     bool renderFromCenter = true;
-    ModelViewport viewPort;
+    DefaultViewport2 viewPort;
     glm::ivec4 color{255, 255, 255, 255};
     Renderer* renderer = nullptr;
     MovableModelBehavior movableBehavior;
@@ -157,6 +157,16 @@ public:
     glm::vec4 & GetViewportSize() override;
 
     glm::vec4 & GetViewportPosition() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 
 };
 

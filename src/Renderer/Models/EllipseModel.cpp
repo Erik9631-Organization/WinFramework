@@ -124,7 +124,7 @@ void EllipseModel::Draw()
     if(renderingApi == nullptr)
         return;
     renderingApi->SetColor(color);
-    if(viewPort.IsSet())
+    if(viewPort.IsViewportSet())
         renderingApi->SetClippingRectangle(calculatedPosition + viewPort.GetViewportPosition(),
                                            viewPort.GetViewportSize());
 
@@ -428,11 +428,13 @@ bool EllipseModel::GetRenderFromCenter()
 void EllipseModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
 }
 
 void EllipseModel::SetViewportPosition(const glm::vec4 &vec4)
 {
     viewPort.SetViewportPosition(vec4);
+    viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
 }
 
 glm::vec4 & EllipseModel::GetViewportSize()
@@ -443,4 +445,29 @@ glm::vec4 & EllipseModel::GetViewportSize()
 glm::vec4 & EllipseModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
+}
+
+void EllipseModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.AddViewport2Subscriber(subscriber);
+}
+
+void EllipseModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.RemoveViewport2Subscriber(subscriber);
+}
+
+void EllipseModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportSizeChanged(event);
+}
+
+void EllipseModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportPositionChanged(event);
+}
+
+bool EllipseModel::IsViewportSet() const
+{
+    return viewPort.IsViewportSet();
 }

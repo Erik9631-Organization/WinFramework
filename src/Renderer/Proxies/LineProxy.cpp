@@ -99,3 +99,30 @@ void LineProxy::ResetViewport()
 {
 
 }
+
+void LineProxy::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.push_back(subscriber);
+}
+
+void LineProxy::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), subscriber), viewPortSubscribers.end());
+}
+
+void LineProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    for(auto subscriber : viewPortSubscribers)
+        subscriber->OnViewportSizeChanged(event);
+}
+
+void LineProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    for(auto subscriber : viewPortSubscribers)
+        subscriber->OnViewportPositionChanged(event);
+}
+
+bool LineProxy::IsViewportSet() const
+{
+    return lineModel->IsViewportSet();
+}

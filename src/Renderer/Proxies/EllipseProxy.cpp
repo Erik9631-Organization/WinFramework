@@ -357,6 +357,7 @@ void EllipseProxy::SetViewportSize(const glm::vec4 &viewPort)
     auto renderMessage = RenderMessage::CreatePropertyMessage(viewPort, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportSizeChanged({GetViewportPosition(), viewPort, this});
 }
 
 void EllipseProxy::SetViewportPosition(const glm::vec4 &position)
@@ -364,6 +365,7 @@ void EllipseProxy::SetViewportPosition(const glm::vec4 &position)
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
     messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportPositionChanged({position, GetViewportSize(), this});
 }
 
 void EllipseProxy::ResetViewport()
@@ -387,4 +389,31 @@ glm::vec4 &EllipseProxy::GetViewportPosition()
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
     return model->GetViewportSize();
+}
+
+void EllipseProxy::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.push_back(subscriber);
+}
+
+void EllipseProxy::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), subscriber), viewPortSubscribers.end());
+}
+
+void EllipseProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    for(auto* subscriber : viewPortSubscribers)
+        subscriber->OnViewportSizeChanged(event);
+}
+
+void EllipseProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    for(auto* subscriber : viewPortSubscribers)
+        subscriber->OnViewportPositionChanged(event);
+}
+
+bool EllipseProxy::IsViewportSet() const
+{
+    return model->IsViewportSet();
 }

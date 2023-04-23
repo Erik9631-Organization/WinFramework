@@ -8,6 +8,10 @@
 #include "MoveSubscriber.h"
 #include "Movable.h"
 
+//curValue = GetPosition()
+//curValue.x = 12313123123
+//SetPosition(curValue)
+
 class MovableModelBehavior : public Movable
 {
 private:

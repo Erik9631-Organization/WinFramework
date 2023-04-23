@@ -9,7 +9,7 @@
 #include "RenderingModel.h"
 #include "MovableModelBehavior.h"
 #include "FontAlignment.h"
-#include "ModelViewport.h"
+#include "DefaultViewport2.h"
 #include "FontFormat.h"
 #include "api/TextApi.h"
 #include <string>
@@ -26,7 +26,7 @@ private:
     FontAlignment fontAlignment = FontAlignment::FontAlignmentNear;
     FontAlignment fontLineAlignment = FontAlignment::FontAlignmentNear;
     bool viewPortSet = false;
-    ModelViewport viewPort;
+    DefaultViewport2 viewPort;
     std::wstring fontFamily = L"Arial";
     std::wstring text;
 public:
@@ -143,6 +143,16 @@ public:
     glm::vec4 &GetViewportPosition() override;
 
     void ResetViewport() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 
 };
 

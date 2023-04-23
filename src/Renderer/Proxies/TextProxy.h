@@ -22,6 +22,7 @@ private:
     std::vector<MoveSubscriber*>moveSubscribers;
     size_t id = 0;
     RenderingProxyMessageSender messageSender;
+    std::vector<Viewport2Subscriber*> viewPortSubscribers;
 public:
     glm::vec4 GetPosition() override;
 
@@ -132,6 +133,16 @@ public:
     glm::vec4 &GetViewportPosition() override;
 
     void ResetViewport() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 
 };
 

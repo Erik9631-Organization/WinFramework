@@ -227,7 +227,7 @@ void TextModel::Draw()
     format->SetAlignment(fontAlignment);
     format->SetLineAlignment(fontLineAlignment);
     api->SetColor(color);
-    if(viewPort.IsSet())
+    if(viewPort.IsViewportSet())
         api->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
     api->SetFontSize(fontSize);
@@ -327,12 +327,13 @@ bool TextModel::IsVisible()
 void TextModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
-
+    viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
 }
 
 void TextModel::SetViewportPosition(const glm::vec4 &vec4)
 {
     viewPort.SetViewportPosition(vec4);
+    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
 glm::vec4 &TextModel::GetViewportSize()
@@ -348,4 +349,29 @@ glm::vec4 &TextModel::GetViewportPosition()
 void TextModel::ResetViewport()
 {
     viewPort.ResetViewport();
+}
+
+void TextModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.AddViewport2Subscriber(subscriber);
+}
+
+void TextModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.RemoveViewport2Subscriber(subscriber);
+}
+
+void TextModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportSizeChanged(event);
+}
+
+void TextModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportPositionChanged(event);
+}
+
+bool TextModel::IsViewportSet() const
+{
+    return viewPort.IsViewportSet();
 }

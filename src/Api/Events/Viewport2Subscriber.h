@@ -4,12 +4,13 @@
 
 #ifndef LII_VIEWPORT2SUBSCRIBER_H
 #define LII_VIEWPORT2SUBSCRIBER_H
-#include "Viewport2Event.h"
+#include "Viewport2EventInfo.h"
 
 class Viewport2Subscriber
 {
 public:
-    virtual void OnViewPortChanged(Viewport2Event& event) = 0;
+    virtual void OnViewportSizeChanged(const Viewport2EventInfo &event) = 0;
+    virtual void OnViewportPositionChanged(const Viewport2EventInfo &event) = 0;
 };
 
 

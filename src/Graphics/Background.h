@@ -23,7 +23,6 @@ private:
     Presenter* presenter = nullptr;
     RectangleProxy rectangleProxy;
     UiElement& associatedElement;
-    Resizable* viewPort = nullptr;
     glm::vec4 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BackgroundIndex"), 0};
 public:
     explicit Background(UiElement& element);
@@ -50,6 +49,16 @@ public:
     glm::vec4 &GetViewportSize() override;
 
     glm::vec4 &GetViewportPosition() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 
 private:
     float GetRelativeZIndex() override;

@@ -7,6 +7,7 @@
 #include "RenderProxy.h"
 #include "RenderingConsumer.h"
 #include "glm.hpp"
+#include <vector>
 
 class RenderingConsumer;
 class LineModel;
@@ -16,6 +17,7 @@ class LineProxy : public RenderProxy
 private:
     LineModel *lineModel;
     RenderingConsumer *renderingConsumer;
+    std::vector<Viewport2Subscriber*> viewPortSubscribers;
 public:
 
     /**
@@ -57,6 +59,16 @@ public:
     glm::vec4 &GetViewportPosition() override;
 
     void ResetViewport() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 
 };
 

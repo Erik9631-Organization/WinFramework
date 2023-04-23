@@ -248,7 +248,7 @@ void RectangleModel::Draw()
         return;
     renderingApi->SetColor(color);
     //TODO Viewport position should serve only as an offset to the current position.
-    if(viewPort.IsSet())
+    if(viewPort.IsViewportSet())
         renderingApi->SetClippingRectangle(movableBehavior.GetPosition() + viewPort.GetViewportPosition(),
                                            viewPort.GetViewportSize());
 
@@ -372,7 +372,7 @@ float RectangleModel::GetZIndex()
 
 bool RectangleModel::IsViewPortSet()
 {
-    return viewPort.IsSet();
+    return viewPort.IsViewportSet();
 }
 
 void RectangleModel::ResetViewport()
@@ -380,7 +380,7 @@ void RectangleModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-const ModelViewport &RectangleModel::GetViewPort() const
+const DefaultViewport2 &RectangleModel::GetViewPort() const
 {
     return viewPort;
 }
@@ -413,11 +413,13 @@ bool RectangleModel::IsVisible()
 void RectangleModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
+    viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
 }
 
 void RectangleModel::SetViewportPosition(const glm::vec4 &vec4)
 {
     viewPort.SetViewportPosition(vec4);
+    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
 glm::vec4 &RectangleModel::GetViewportSize()
@@ -428,4 +430,29 @@ glm::vec4 &RectangleModel::GetViewportSize()
 glm::vec4 &RectangleModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
+}
+
+void RectangleModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.AddViewport2Subscriber(subscriber);
+}
+
+void RectangleModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.RemoveViewport2Subscriber(subscriber);
+}
+
+void RectangleModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportSizeChanged(event);
+}
+
+void RectangleModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportPositionChanged(event);
+}
+
+bool RectangleModel::IsViewportSet() const
+{
+    return viewPort.IsViewportSet();
 }

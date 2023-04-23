@@ -277,7 +277,7 @@ set(Lii_EventTypes
     EventInfo/EventAttributeInfo.cpp
     EventInfo/EventAttributeInfo.h
     EventInfo/Viewport2Event.cpp
-    EventInfo/Viewport2Event.h
+        EventInfo/Viewport2EventInfo.h
     EventInfo/RenderObjectEventInfo.cpp
     EventInfo/RenderObjectEventInfo.h
         )
@@ -495,7 +495,7 @@ source_group(Lii/Renderer/Models/Behavior FILES ${Lii_Renderer_Models_Behavior})
 
 set(Lii_Renderer_Models_Viewports
         Renderer/Models/Viewports/ModelViewport.cpp
-        Renderer/Models/Viewports/ModelViewport.h
+        Renderer/Models/Viewports/DefaultViewport2.h
 )
 source_group(Lii/Renderer/Models/Viewports FILES ${Lii_Renderer_Models_Viewports})
 

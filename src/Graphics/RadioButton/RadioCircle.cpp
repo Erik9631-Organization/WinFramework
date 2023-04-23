@@ -297,3 +297,32 @@ glm::vec4 &RadioCircle::GetViewportPosition()
 {
     return border.GetViewportPosition();
 }
+
+void RadioCircle::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    border.AddViewport2Subscriber(subscriber);
+    fill.AddViewport2Subscriber(subscriber);
+}
+
+void RadioCircle::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    border.RemoveViewport2Subscriber(subscriber);
+    fill.RemoveViewport2Subscriber(subscriber);
+}
+
+void RadioCircle::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    border.NotifyOnViewportSizeChanged(event);
+    fill.NotifyOnViewportSizeChanged(event);
+}
+
+void RadioCircle::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    border.NotifyOnViewportPositionChanged(event);
+    fill.NotifyOnViewportPositionChanged(event);
+}
+
+bool RadioCircle::IsViewportSet() const
+{
+    return border.IsViewportSet();
+}

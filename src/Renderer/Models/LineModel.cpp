@@ -124,11 +124,14 @@ bool LineModel::IsVisible()
 void LineModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
 }
 
 void LineModel::SetViewportPosition(const glm::vec4 &vec4)
 {
     viewPort.SetViewportPosition(vec4);
+    viewPort.NotifyOnViewportPositionChanged({GetViewportPosition(), vec4, this});
+
 }
 
 glm::vec4 &LineModel::GetViewportSize()
@@ -144,4 +147,29 @@ glm::vec4 &LineModel::GetViewportPosition()
 void LineModel::ResetViewport()
 {
     viewPort.ResetViewport();
+}
+
+void LineModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.AddViewport2Subscriber(subscriber);
+}
+
+void LineModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    viewPort.RemoveViewport2Subscriber(subscriber);
+}
+
+void LineModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportSizeChanged(event);
+}
+
+void LineModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportPositionChanged(event);
+}
+
+bool LineModel::IsViewportSet() const
+{
+    return viewPort.IsViewportSet();
 }

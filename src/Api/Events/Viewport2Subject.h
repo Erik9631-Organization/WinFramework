@@ -11,6 +11,7 @@ class Viewport2Subject
 public:
     virtual void AddViewport2Subscriber(Viewport2Subscriber* subscriber) = 0;
     virtual void RemoveViewport2Subscriber(Viewport2Subscriber* subscriber) = 0;
-    virtual void NotifyOnViewportChanged(Viewport2Event& event) = 0;
+    virtual void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) = 0;
+    virtual void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) = 0;
 };
 #endif //LII_VIEWPORT2SUBJECT_H

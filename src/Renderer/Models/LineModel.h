@@ -6,7 +6,7 @@
 #define LII_LINEMODEL_H
 #include "RenderingModel.h"
 #include "glm.hpp"
-#include "ModelViewport.h"
+#include "DefaultViewport2.h"
 
 class LineModel : public RenderingModel
 {
@@ -18,7 +18,7 @@ private:
     Renderer* renderingProvider;
     float width;
     size_t id = -1;
-    ModelViewport viewPort;
+    DefaultViewport2 viewPort;
 public:
     void SetStartPont(const glm::vec4 &pos);
     void SetEndPoint(const glm::vec4 &pos);
@@ -54,6 +54,16 @@ public:
     glm::vec4 &GetViewportPosition() override;
 
     void ResetViewport() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
 };
 
 

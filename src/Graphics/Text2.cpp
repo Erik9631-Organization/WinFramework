@@ -309,3 +309,28 @@ glm::vec4 &Text2::GetViewportPosition()
 {
     return textProxy.GetViewportPosition();
 }
+
+void Text2::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    textProxy.AddViewport2Subscriber(subscriber);
+}
+
+void Text2::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+{
+    textProxy.RemoveViewport2Subscriber(subscriber);
+}
+
+void Text2::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    textProxy.NotifyOnViewportSizeChanged(event);
+}
+
+void Text2::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    textProxy.NotifyOnViewportPositionChanged(event);
+}
+
+bool Text2::IsViewportSet() const
+{
+    return textProxy.IsViewportSet();
+}
