@@ -2,6 +2,7 @@
 #include "Events/ActivateSubscriber.h"
 #include "Events/KeyStateSubscriber.h"
 #include "glm.hpp"
+#include "TextInputApi.h"
 
 class UiElement;
 
@@ -11,7 +12,7 @@ class TextInputBehavior : public KeyStateSubscriber, public ActivateSubscriber
 {
 private:
 	bool multiLineEnabled = false;
-	UiElement& associatedTextInput;
+	TextInputApi& associatedTextInput;
 	glm::ivec4 originalColor;
 	glm::ivec4 activeColor;
 	void InsertCharacter(EventKeyStateInfo e);
@@ -19,7 +20,7 @@ private:
 	void SetInactiveBackground();
 	void RemoveLastChar();
 public:
-	TextInputBehavior(UiElement& textInput);
+	TextInputBehavior(TextInputApi &textInput);
 
 	void SetMultiline(bool state);
 	bool IsMultiLine();

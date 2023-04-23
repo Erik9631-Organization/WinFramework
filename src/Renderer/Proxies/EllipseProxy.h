@@ -134,6 +134,17 @@ public:
     bool IsVisible() override;
 
     SubCommands GetModelRequestCommand() override;
+
+    void SetViewPortSize(const glm::vec4 &viewPort) override;
+
+    void SetViewPortPosition(const glm::vec4 &position) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
+
+    void ResetViewPort() override;
+
 };
 
 

@@ -1,20 +1,23 @@
 #include "TextInput.h"
 using namespace std;
 
-TextInput::TextInput(int x, int y, int width, int height, string windowName) : text("Arial"), border(), inputBehavior(*this)
+TextInput::TextInput(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName),
+    text(*this),
+    border(*this),
+    background(*this),
+    inputBehavior(*this)
 {
-    SetPosition(x, y, 0, 0, false);
-    SetSize(width, height, false);
 
     text.SetFontSize(12.0);
-    text.SetColor({0, 0, 0});
-    border.SetColor({100, 100, 100});
-    border.SetThickness(1.0f);
-    // background.SetBackgroundColor({200, 200, 200});
-
-    // renderBehavior.AddRenderCommander(background);
-    renderBehavior.AddRenderCommander(border);
-    renderBehavior.AddRenderCommander(text);
+    text.SetColor({0, 0, 0, 255});
+    border.SetColor({100, 100, 100, 255});
+    background.SetColor({200, 200, 200, 255});
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentFar);
+    text.SetFontAlignment(FontAlignment::FontAlignmentNear);
+    text.GetScales().SetCalculateFromCenterX(false);
+    text.GetScales().SetCalculateFromCenterY(false);
+    text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
+    text.SetY(0.3f);
 }
 
 TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
@@ -24,6 +27,7 @@ TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
 
 TextInput::TextInput(string name) : TextInput(0, 0, 0, 0, name)
 {
+
 }
 
 void TextInput::SetText(wstring text)
@@ -32,14 +36,10 @@ void TextInput::SetText(wstring text)
 	//Repaint();
 }
 
-wstring TextInput::GetText()
-{
-	return text.GetText();
-}
 
-glm::vec3 TextInput::GetBackgroundColor()
+const glm::ivec4 & TextInput::GetBackgroundColor()
 {
-	return {0, 0, 0}; //background.GetColor();
+	return background.GetColor();
 }
 
 void TextInput::SetMultiline(bool state)
@@ -52,8 +52,12 @@ bool TextInput::IsMultiLine()
 	return inputBehavior.IsMultiLine();
 }
 
-void TextInput::SetBackgroundColor(glm::vec3 color)
+void TextInput::SetBackgroundColor(const glm::ivec4 &color)
 {
-	//background.SetBackgroundColor(color);
-	//Repaint();
+	background.SetColor(color);
+}
+
+const wstring &TextInput::GetText()
+{
+    return text.GetText();
 }

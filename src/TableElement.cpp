@@ -33,8 +33,8 @@ bool TableElement::IsSelected()
 void TableElement::SetSelected(bool selected)
 {
 	if (selected == true)
-		SetBackground(highlightColor);
+		SetBackground({highlightColor, 255});
 	else
-		SetBackground(originalcolor);
+		SetBackground({originalcolor, 255});
 	this->selected = selected;
 }

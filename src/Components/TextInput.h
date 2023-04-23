@@ -4,15 +4,20 @@
 #include "Graphics/Background.h"
 #include "TextInputBehavior.h"
 #include "Graphics/SimpleBorder.h"
-class TextInput : public UiElement
+#include "Border.h"
+#include "Text2.h"
+#include "TextInputApi.h"
+
+class TextInput : public UiElement, public TextInputApi
 {
 private:
-	// Background background;
-	SimpleBorder border;
-	Text text;
+	Background background;
+	Border border;
+	Text2 text;
 	TextInputBehavior inputBehavior;
-
 public:
+    const glm::ivec4& GetBackgroundColor() override;
+
 	TextInput();
 	/**
 	 * \param x the X viewPortSize of the grid.
@@ -30,12 +35,6 @@ public:
 
 
 	void SetText(std::wstring text) override;
-    std::wstring GetText() override;
-	/**
-	 * \return returns the background color.
-	 */
-    glm::vec3 GetBackgroundColor();
-
 	/**
 	 * \param state sets whether the text field is multiline.
 	 */
@@ -49,6 +48,8 @@ public:
 	/**
 	 * \param color sets the background color.
 	 */
-	void SetBackgroundColor(glm::vec3 color);
+	void SetBackgroundColor(const glm::ivec4 &color) override;
+
+    const std::wstring &GetText() override;
 };
 

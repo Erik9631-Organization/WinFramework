@@ -17,10 +17,10 @@ private:
     EllipseProxy border;
     EllipseProxy fill;
     ScalingUtil2D scaler;
-    UiElement& element;
+    UiElement& associatedElement;
 
-    float radius = 50;
-    float padding = 0.7f;
+    float radius = 40;
+    float innerCirclePadding = 0.6f;
     void UpdateGraphics();
     glm::vec4 position = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("None"), 0};
     std::vector<MoveSubscriber*> moveSubscribers;
@@ -118,6 +118,16 @@ public:
     void NotifyOnMoveSubscribers(EventMoveInfo e) override;
 
     void SetVisible(bool state) override;
+
+    void ResetViewPort() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
 };
 
 

@@ -323,3 +323,29 @@ bool TextModel::IsVisible()
 {
     return visible;
 }
+
+void TextModel::SetViewPortSize(const glm::vec4 &vec4)
+{
+    viewPort.SetViewPortSize(vec4);
+
+}
+
+void TextModel::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    viewPort.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &TextModel::GetViewPortSize()
+{
+    return viewPort.GetViewPortSize();
+}
+
+glm::vec4 &TextModel::GetViewPortPosition()
+{
+    return viewPort.GetViewPortPosition();
+}
+
+void TextModel::ResetViewPort()
+{
+    viewPort.ResetViewPort();
+}

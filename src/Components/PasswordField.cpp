@@ -34,19 +34,23 @@ void PasswordField::SetText(wstring text)
 	//Repaint();
 }
 
-wstring PasswordField::GetText()
-{
-	return realText;
-}
-
-
-glm::vec3 PasswordField::GetBackgroundColor()
-{
-	return {0,0,0}; //background.GetColor();
-}
-
 void PasswordField::SetBackgroundColor(glm::vec3 color)
 {
 	//background.SetBackgroundColor(color);
 	//Repaint();
+}
+
+const wstring &PasswordField::GetText()
+{
+    return text.GetText();
+}
+
+const glm::ivec4 &PasswordField::GetBackgroundColor()
+{
+    return {0,0,0,0};
+}
+
+void PasswordField::SetBackgroundColor(const glm::ivec4 &color)
+{
+
 }

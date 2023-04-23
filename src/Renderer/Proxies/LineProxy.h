@@ -48,6 +48,16 @@ public:
 
     SubCommands GetModelRequestCommand() override;
 
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
+
+    void ResetViewPort() override;
+
 };
 
 

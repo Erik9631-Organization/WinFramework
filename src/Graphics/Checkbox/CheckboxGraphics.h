@@ -16,9 +16,14 @@ private:
     TextProxy checkBoxChar;
     glm::vec4 checkboxPosition = {0.02, 0.3f, DefaultRelativeZIndex::GetInstance()->GetIndex("None"), 0};
     ScalingUtil2D checkboxScaler;
+    UiElement& associatedElement;
+    bool checked = false;
     void UpdateGraphics();
 
 public:
+    void SetCheck(bool state);
+
+    bool IsChecked();
 
     explicit CheckboxGraphics(UiElement &element);
 
@@ -33,6 +38,16 @@ public:
     void OnMove(EventMoveInfo e) override;
 
     void OnResize(EventResizeInfo e) override;
+
+    void ResetViewPort() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
 
 };
 

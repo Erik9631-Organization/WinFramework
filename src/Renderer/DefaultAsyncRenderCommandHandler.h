@@ -37,9 +37,9 @@ public:
 
     void OnDestroy(Core &core) override;
 
-    void SetViewportSize(int width, int height) override;
+    void SetViewPortSize(int width, int height) override;
 
-    void SetViewportSize(const glm::ivec2 &size) override;
+    void SetViewPortSize(const glm::ivec2 &size) override;
 
     void RequestModel(RenderProxy &proxy) override;
 

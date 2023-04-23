@@ -106,12 +106,12 @@ void DefaultAsyncRenderCommandHandler::OnDestroy(Core &core)
     this->ReceiveCommand(std::move(quitMessage));
 }
 
-void DefaultAsyncRenderCommandHandler::SetViewportSize(int width, int height)
+void DefaultAsyncRenderCommandHandler::SetViewPortSize(int width, int height)
 {
     renderer->SetViewportSize(width, height);
 }
 
-void DefaultAsyncRenderCommandHandler::SetViewportSize(const glm::ivec2 &size)
+void DefaultAsyncRenderCommandHandler::SetViewPortSize(const glm::ivec2 &size)
 {
     renderer->SetViewportSize(size);
 }

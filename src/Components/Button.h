@@ -26,7 +26,7 @@ public:
 	/**
 	 * \return returns the unicode text of the thumbTrack which is displayed.
 	 */
-	std::wstring GetText() override;
+    const std::wstring & GetText() override;
 
 	/**
 	 * \return returns the background color of the thumbTrack.

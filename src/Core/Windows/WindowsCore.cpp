@@ -124,7 +124,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         if(renderer != nullptr)
-            renderer->SetViewportSize(width, height);
+            renderer->SetViewPortSize(width, height);
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);

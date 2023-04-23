@@ -32,7 +32,7 @@ public:
 	void SetGroup(std::shared_ptr<std::vector<std::reference_wrapper<RadioButton>>> group);
 	void UnGroup();
 	void SetText(std::wstring text) override;
-	std::wstring GetText() override;
+	const std::wstring & GetText() override;
 
 	RadioButton();
 	RadioButton(std::string name);

@@ -40,15 +40,40 @@ void Border::SetColor(glm::ivec4 color)
 
 float Border::GetRelativeZIndex()
 {
-    return static_cast<int>(relativeZIndex.z);
+    return relativeZIndex.z;
 }
 
 void Border::SetRelativeZIndex(float relativeZIndex)
 {
-    this->relativeZIndex.z = static_cast<float>(relativeZIndex);
+    this->relativeZIndex.z = relativeZIndex;
 }
 
 void Border::SetVisible(bool state)
 {
     rectangleProxy.SetVisible(state);
+}
+
+void Border::ResetViewPort()
+{
+    rectangleProxy.ResetViewPort();
+}
+
+void Border::SetViewPortSize(const glm::vec4 &vec4)
+{
+    rectangleProxy.SetViewPortSize(vec4);
+}
+
+void Border::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    rectangleProxy.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &Border::GetViewPortSize()
+{
+    return rectangleProxy.GetViewPortSize();
+}
+
+glm::vec4 &Border::GetViewPortPosition()
+{
+    return rectangleProxy.GetViewPortSize();
 }

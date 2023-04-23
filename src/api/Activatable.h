@@ -5,7 +5,7 @@
  * This interface is implemented by objects which support focus. By definition, only one component at the same time can have focus
  * And the component that has focus receives input events.
  */
-class Activatable : ActivateSubject
+class Activatable : public virtual ActivateSubject
 {
 public:
 	/**

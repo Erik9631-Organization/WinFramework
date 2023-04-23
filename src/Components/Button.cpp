@@ -25,7 +25,7 @@ const glm::ivec4 & Button::GetBorderColor()
 Button::Button(float x, float y, float width, float height, const std::string& name = "") : UiElement(x, y, width, height, name),
     buttonBehavior(*this),
     background(*this),
-    text(this),
+    text(*this),
     border(*this)
 {
     componentType = "Button";
@@ -45,7 +45,7 @@ void Button::SetText(std::wstring text)
 	this->text.SetText(text);
 }
 
-std::wstring Button::GetText()
+const std::wstring & Button::GetText()
 {
 	return text.GetText();
 }

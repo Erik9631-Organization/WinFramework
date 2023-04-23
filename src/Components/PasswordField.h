@@ -3,7 +3,7 @@
 #include "Graphics/Text.h"
 #include "TextInputBehavior.h"
 
-class PasswordField : public UiElement
+class PasswordField : public UiElement, public TextInputApi
 {
 private:
 	Text text;
@@ -31,16 +31,16 @@ public:
 
 	
 	void SetText(std::wstring text) override;
-    std::wstring GetText() override;
-
-	/**
-	 * \return returns the background color.
-	 */
-    glm::vec3 GetBackgroundColor();
 
 	/**
 	 * \param color sets the background color.
 	 */
 	void SetBackgroundColor(glm::vec3 color);
+
+    const std::wstring &GetText() override;
+
+    const glm::ivec4 &GetBackgroundColor() override;
+
+    void SetBackgroundColor(const glm::ivec4 &color) override;
 };
 

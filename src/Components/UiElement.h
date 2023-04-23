@@ -76,8 +76,9 @@ public:
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
 	 */
-	virtual std::wstring GetText();
-	
+	virtual const std::wstring & GetText();
+
+    //TODO UI element doesn't have text. Only tag. Should be moved to individual interfaces
 	/**
 	 * Sets the text value of the component. (Usually used for name or description)
 	 * \param text sets the unicode text value of the component.
@@ -170,6 +171,13 @@ public:
 	}
 
 	virtual ~UiElement();
+
+    // Inherited via Activatable
+    void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+    void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+    void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
+    virtual void SetActive(bool state) override;
+    virtual bool IsActive() override;
 	
 
 
@@ -238,13 +246,6 @@ public:
 
 	// Inherited via UpdateSubscriber
 	virtual void OnUpdate(EventUpdateInfo e) override;
-
-	// Inherited via Activatable
-	virtual void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
-	virtual void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
-	virtual void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
-	virtual void SetActive(bool state) override;
-	virtual bool IsActive() override;
 
 	// Inherited via MouseStateSubject
 	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;

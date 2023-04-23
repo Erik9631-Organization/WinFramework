@@ -52,7 +52,7 @@ public:
 	/**
 	 * \return returns the identification text of the checkbox.
 	 */
-	std::wstring GetText() override;
+    const std::wstring & GetText() override;
 
 	/**
 	 * \param state sets the checked state of the checkbox. True for checked false for unchecked.

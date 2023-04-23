@@ -16,7 +16,7 @@ void Checkbox::Check()
 		SetChecked(true);
 }
 
-std::wstring Checkbox::GetText()
+const wstring & Checkbox::GetText()
 {
 	return text.GetText();
 }
@@ -25,13 +25,13 @@ void Checkbox::SetChecked(bool state)
 {
 	if (state)
 	{
-		//checkBoxChar.SetText(L"✓");
+        checkboxGraphics.SetCheck(true);
 		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, true));
 	}
 
 	else
 	{
-		//checkBoxChar.SetText(L"");
+        checkboxGraphics.SetCheck(false);
 		checkboxBehavior.NotifyOnChecked(EventCheckboxStateInfo(this, false));
 	}
 
@@ -54,7 +54,7 @@ Checkbox::Checkbox(string name) : Checkbox(0, 0, 0, 0, name)
 Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement(x, y, width, height, name) ,
         checkboxBehavior(*this),
         border(*this),
-        text(this),
+        text(*this),
         checkboxGraphics(*this)
 {
 	border.SetColor({0, 0, 0, 255});

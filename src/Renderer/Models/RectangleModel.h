@@ -31,7 +31,7 @@ public:
 
     bool IsViewPortSet();
 
-    void ResetViewport();
+    void ResetViewPort();
 
     void SetFill(bool fill);
     [[nodiscard]] const bool &GetFill() const;
@@ -149,6 +149,14 @@ public:
     void SetVisible(bool visible) override;
 
     bool IsVisible() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
 };
 
 

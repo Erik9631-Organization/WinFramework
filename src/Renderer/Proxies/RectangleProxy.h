@@ -32,15 +32,11 @@ public:
 
     void SetThickness(float thickness);
 
-    void SetViewPortPosition(const glm::vec2& position);
-
-    void SetViewPortSize(const glm::vec2 &size);
-
-    void ResetViewPort();
-
     void SetFill(bool fill);
 
-    void SetColor(const glm::vec4 &color);
+    const glm::ivec4& GetColor();
+
+    void SetColor(const glm::ivec4 &color);
 
     glm::vec4 GetPosition() override;
 
@@ -140,8 +136,6 @@ public:
 
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
 
-    [[nodiscard]] const ModelViewport& GetViewport() const;
-
     void OnMove(EventMoveInfo e) override;
 
     void OnResize(EventResizeInfo e) override;
@@ -151,6 +145,16 @@ public:
     bool IsVisible() override;
 
     SubCommands GetModelRequestCommand() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
+
+    void ResetViewPort() override;
 };
 
 

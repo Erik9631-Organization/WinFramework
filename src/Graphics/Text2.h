@@ -16,12 +16,12 @@ private:
     float GetRelativeZIndex() override;
     void SetRelativeZIndex(float relativeZIndex) override;
     Presenter* presenter = nullptr;
-    UiElement* parentElement = nullptr;
+    UiElement& associatedElement;
     glm::vec4 textPosition = {0.0f, 0.0f, DefaultRelativeZIndex::GetInstance()->GetIndex("TextIndex"), 1.0};
     ScalingUtil2D textScaler;
     std::vector<MoveSubscriber*> moveSubscribers;
 public:
-    explicit Text2(UiElement* associatedElement);
+    explicit Text2(UiElement &associatedElement);
     ~Text2() override;
 
     void OnMounted(Presenter &presenter, UiElement &element) override;
@@ -117,6 +117,16 @@ public:
     ScalingUtil2D& GetScales();
 
     void SetVisible(bool state) override;
+
+    void ResetViewPort() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
 };
 
 

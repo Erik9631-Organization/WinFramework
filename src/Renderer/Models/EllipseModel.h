@@ -140,7 +140,7 @@ public:
 
     void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
 
-    void ResetViewport();
+    void ResetViewPort() override;
 
     void SetColor(const glm::ivec4 &color);
 
@@ -149,6 +149,14 @@ public:
     void SetVisible(bool visible) override;
 
     bool IsVisible() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 & GetViewPortSize() override;
+
+    glm::vec4 & GetViewPortPosition() override;
 
 };
 

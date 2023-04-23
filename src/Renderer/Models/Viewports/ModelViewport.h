@@ -5,30 +5,27 @@
 #ifndef LII_MODELVIEWPORT_H
 #define LII_MODELVIEWPORT_H
 #include "glm.hpp"
+#include "GraphicsViewport.h"
 
-class ModelViewport
+class ModelViewport : public GraphicsViewport
 {
 private:
-    glm::vec2 viewPortSize = {0,0};
-    glm::vec2 viewPortPosition = {0,0};
+    glm::vec4 viewPortSize = {0,0,0,0};
+    glm::vec4 viewPortPosition = {0,0,0,0};
     bool isSet = false;
 
 public:
-    void SetViewPortSize(const glm::vec2 &size);
-    void SetViewPortPosition(const glm::vec2 &position);
-    void SetViewPortX(float x);
-    void SetViewPortY(float y);
-    void SetViewPortWidth(float width);
-    void SetViewPortHeight(float height);
+    [[nodiscard]] bool IsSet() const;
 
-    const glm::vec2& GetViewPortSize() const;
-    const glm::vec2& GetViewPortPosition() const;
-    float GetViewPortX() const;
-    float GetViewPortY() const;
-    float GetViewPortWidth() const;
-    float GetViewPortHeight() const;
-    bool IsSet() const;
-    void ResetViewPort();
+    void ResetViewPort() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 & GetViewPortSize() override;
+
+    glm::vec4 & GetViewPortPosition() override;
 
 };
 

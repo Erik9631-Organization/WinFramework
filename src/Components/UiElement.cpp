@@ -56,7 +56,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	this->name = name;
 }
 
-std::wstring UiElement::GetText()
+const wstring & UiElement::GetText()
 {
 	return text;
 }

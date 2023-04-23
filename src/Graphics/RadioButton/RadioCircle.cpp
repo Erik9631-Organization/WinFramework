@@ -37,7 +37,7 @@ void RadioCircle::SetRelativeZIndex(float relativeZIndex)
     position.z = relativeZIndex;
 }
 
-RadioCircle::RadioCircle(UiElement &element) : element(element), scaler(element.GetAbsolutePosition(), element.GetSize())
+RadioCircle::RadioCircle(UiElement &element) : associatedElement(element), scaler(element.GetAbsolutePosition(), element.GetSize())
 {
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
@@ -62,19 +62,19 @@ void RadioCircle::SetRadius(float radius)
 
 void RadioCircle::SetPadding(float padding)
 {
-    this->padding = padding;
+    this->innerCirclePadding = padding;
     UpdateGraphics();
 }
 
 float RadioCircle::GetPadding() const
 {
-    return padding;
+    return innerCirclePadding;
 }
 
 void RadioCircle::UpdateGraphics()
 {
     border.SetSize({radius * 2, radius * 2, 0, 0});
-    fill.SetSize({radius * 2 * padding, radius * 2 * padding, 0, 0});
+    fill.SetSize({radius * 2 * innerCirclePadding, radius * 2 * innerCirclePadding, 0, 0});
 }
 
 ScalingUtil2D &RadioCircle::GetScales()
@@ -267,4 +267,33 @@ void RadioCircle::SetVisible(bool state)
 {
     border.SetVisible(state);
     fill.SetVisible(state);
+}
+
+
+void RadioCircle::ResetViewPort()
+{
+    border.ResetViewPort();
+    fill.ResetViewPort();
+}
+
+void RadioCircle::SetViewPortSize(const glm::vec4 &vec4)
+{
+    border.SetViewPortSize(vec4);
+    fill.SetViewPortSize(vec4);
+}
+
+void RadioCircle::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    border.SetViewPortPosition(vec4);
+    fill.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &RadioCircle::GetViewPortSize()
+{
+    return border.GetViewPortSize();
+}
+
+glm::vec4 &RadioCircle::GetViewPortPosition()
+{
+    return border.GetViewPortPosition();
 }

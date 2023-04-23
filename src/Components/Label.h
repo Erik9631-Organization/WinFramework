@@ -2,19 +2,21 @@
 #include "UiElement.h"
 #include "Graphics/Background.h"
 #include "Graphics/Text.h"
+#include "Text2.h"
+
 /**
  * A component made for descriptive purposes. It displays text with a background.
  */
 class Label : public UiElement
 {
 private:
-	//Background background;
-	Text text;
+	Background background;
+	Text2 text;
 public:
 	/**
 	 * \param name the identification name of the component. This value is not a display value.
 	 */
-	Label(std::string name);
+	Label(const std::string &name);
 	Label();
 
 	/**
@@ -29,12 +31,12 @@ public:
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackground(glm::vec3 color);
+	void SetBackground(const glm::vec4 &color);
 
 	/**
 	 * \return gets the color of the background.
 	 */
-    glm::vec3 GetBackground();
+    const glm::ivec4 & GetBackground();
 
 	/**
 	 * \param str sets the display value of the label.
@@ -44,6 +46,6 @@ public:
 	/**
 	 * \return gets the display value of the label.
 	 */
-	std::wstring GetText() override;
+    const std::wstring & GetText() override;
 };
 

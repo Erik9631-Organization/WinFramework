@@ -11,7 +11,6 @@
 void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
     this->presenter = &presenter;
-    this->parentElement = &element;
     presenter.GetRenderer()->RequestModel(textProxy);
 }
 
@@ -93,12 +92,12 @@ void Text2::SetText(const std::wstring &text)
     textProxy.SetText(text);
 }
 
-Text2::Text2(UiElement *associatedElement) : textScaler(associatedElement->GetAbsolutePosition(), associatedElement->GetSize())
+Text2::Text2(UiElement &associatedElement) : textScaler(associatedElement.GetAbsolutePosition(), associatedElement.GetSize()),
+                                             associatedElement(associatedElement)
 {
-    parentElement = associatedElement;
-    associatedElement->AddOnMountedSubscriber(*this);
-    associatedElement->AddOnMoveSubscriber(*this);
-    associatedElement->AddOnResizeSubscriber(*this);
+    associatedElement.AddOnMountedSubscriber(*this);
+    associatedElement.AddOnMoveSubscriber(*this);
+    associatedElement.AddOnResizeSubscriber(*this);
     textScaler.SetCalculateFromCenterY(true);
     textScaler.SetCalculateFromCenterX(true);
     textProxy.SetColor({0, 0, 0, 255});
@@ -106,8 +105,8 @@ Text2::Text2(UiElement *associatedElement) : textScaler(associatedElement->GetAb
 
 Text2::~Text2()
 {
-    this->parentElement->RemoveOnMountedSubscriber(*this);
-    this->parentElement->RemoveOnMoveSubscriber(*this);
+    this->associatedElement.RemoveOnMountedSubscriber(*this);
+    this->associatedElement.RemoveOnMoveSubscriber(*this);
 }
 
 glm::vec4 Text2::GetPosition()
@@ -283,4 +282,30 @@ ScalingUtil2D &Text2::GetScales()
 void Text2::SetVisible(bool state)
 {
     textProxy.SetVisible(state);
+}
+
+
+void Text2::ResetViewPort()
+{
+    textProxy.ResetViewPort();
+}
+
+void Text2::SetViewPortSize(const glm::vec4 &vec4)
+{
+    textProxy.SetViewPortSize(vec4);
+}
+
+void Text2::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    textProxy.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &Text2::GetViewPortSize()
+{
+    return textProxy.GetViewPortSize();
+}
+
+glm::vec4 &Text2::GetViewPortPosition()
+{
+    return textProxy.GetViewPortPosition();
 }

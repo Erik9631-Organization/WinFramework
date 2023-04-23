@@ -14,16 +14,22 @@
  * background-color, args: Gdiplus::Color, return void
  * get-background-color, return Gdiplus::Color
  */
+
+//TODO const correctness---Mark functions that return const as const functions
+
 class Background : public Appearance
 {
 private:
     Presenter* presenter = nullptr;
     RectangleProxy rectangleProxy;
     UiElement& associatedElement;
+    Resizable* viewPort = nullptr;
     glm::vec4 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BackgroundIndex"), 0};
 public:
     explicit Background(UiElement& element);
     ~Background() override;
+
+    const glm::ivec4& GetColor();
 
     void SetColor(glm::ivec4 color);
 
@@ -34,6 +40,16 @@ public:
     void OnResize(EventResizeInfo e) override;
 
     void SetVisible(bool state) override;
+
+    void ResetViewPort() override;
+
+    void SetViewPortSize(const glm::vec4 &vec4) override;
+
+    void SetViewPortPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewPortSize() override;
+
+    glm::vec4 &GetViewPortPosition() override;
 
 private:
     float GetRelativeZIndex() override;

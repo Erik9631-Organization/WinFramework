@@ -332,3 +332,40 @@ SubCommands TextProxy::GetModelRequestCommand()
 {
     return SubCommands::RequestText;
 }
+
+void TextProxy::SetViewPortSize(const glm::vec4 &vec4)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void TextProxy::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+glm::vec4 &TextProxy::GetViewPortSize()
+{
+    auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4&>();
+    return model->GetViewPortPosition();
+}
+
+glm::vec4 &TextProxy::GetViewPortPosition()
+{
+    auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4&>();
+    return model->GetViewPortPosition();
+}
+
+void TextProxy::ResetViewPort()
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(this);
+    renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}

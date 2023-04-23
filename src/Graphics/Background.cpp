@@ -54,3 +54,33 @@ void Background::SetVisible(bool state)
 {
     rectangleProxy.SetVisible(false);
 }
+
+const glm::ivec4 &Background::GetColor()
+{
+    return rectangleProxy.GetColor();
+}
+
+void Background::ResetViewPort()
+{
+    rectangleProxy.ResetViewPort();
+}
+
+void Background::SetViewPortSize(const glm::vec4 &vec4)
+{
+    rectangleProxy.SetViewPortSize(vec4);
+}
+
+void Background::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    rectangleProxy.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &Background::GetViewPortSize()
+{
+    return rectangleProxy.GetViewPortSize();
+}
+
+glm::vec4 &Background::GetViewPortPosition()
+{
+    return rectangleProxy.GetViewPortPosition();
+}

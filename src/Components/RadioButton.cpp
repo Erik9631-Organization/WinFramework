@@ -46,7 +46,7 @@ void RadioButton::SetText(std::wstring text)
 	//Repaint();
 }
 
-std::wstring RadioButton::GetText()
+const wstring & RadioButton::GetText()
 {
 	return text.GetText();
 }
@@ -65,7 +65,7 @@ RadioButton::RadioButton(float x, float y, float width, float height, string com
     UiElement(x, y, width, height, componentName),
     behavior(*this),
     border(*this),
-    text(this),
+    text(*this),
     radioCircle(*this)
 {
 	border.SetColor({0, 0, 0, 255});

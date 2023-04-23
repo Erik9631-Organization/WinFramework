@@ -351,3 +351,40 @@ SubCommands EllipseProxy::GetModelRequestCommand()
 {
     return SubCommands::RequestEllipse;
 }
+
+void EllipseProxy::SetViewPortSize(const glm::vec4 &viewPort)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(viewPort, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void EllipseProxy::SetViewPortPosition(const glm::vec4 &position)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+void EllipseProxy::ResetViewPort()
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(nullptr, this);
+    renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+glm::vec4 &EllipseProxy::GetViewPortSize()
+{
+    auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4& >();
+    return model->GetViewPortSize();
+}
+
+glm::vec4 &EllipseProxy::GetViewPortPosition()
+{
+    auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec4&>();
+    return model->GetViewPortSize();
+}

@@ -22,8 +22,8 @@ class AsyncRenderCommandHandler : virtual public RenderingConsumer
 public:
     virtual void RequestModel(RenderProxy &proxy) = 0;
 
-    virtual void SetViewportSize(int width, int height) = 0;
-    virtual void SetViewportSize(const glm::ivec2& size) = 0;
+    virtual void SetViewPortSize(int width, int height) = 0;
+    virtual void SetViewPortSize(const glm::ivec2& size) = 0;
     virtual void OnInit(Core& core) = 0;
     virtual void OnDestroy(Core& core) = 0;
     virtual void SwapScreenBuffer() = 0;

@@ -49,7 +49,7 @@ void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position,
     stringFormat.SetLineAlignment((StringAlignment) format.GetLineAlignment());
 
     font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    graphics->DrawString(L"✔", -1, font, {position.x, position.y}, &stringFormat, brush);
+    graphics->DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
     delete font;
 }
 

@@ -46,7 +46,9 @@ set(Lii
     "Events/OnAddSubscriber.cpp"
     "TableElement.cpp"
     "Graphics/TrackbarGraphics.cpp"
-        CoreMediator.cpp CoreMediator.h)
+    CoreMediator.cpp
+    CoreMediator.h
+        )
 source_group("Lii" FILES ${Lii})
 
 
@@ -179,6 +181,10 @@ set(Lii_Components
     OnAddHandler.h
         )
 source_group("Lii\\Components" FILES ${Lii_Components})
+
+Set(Lii_Components_api
+        Components/api/TextInputApi.h)
+source_group("Lii\\Components\\api" FILES ${Lii_Components_api})
 
 Set(Lii_Core_Windows
         "Core/Windows/WindowsCore.h"
@@ -313,6 +319,11 @@ source_group("Lii\\Graphics\\RadioButton" FILES ${Lii_Graphics_RadioButton})
 set(Lii_Graphics_Checkbox
         Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h)
 source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
+
+set(Lii_Graphics_api
+
+        Graphics/api/GraphicsViewport.h)
+source_group("Lii\\Graphics\\api" FILES ${Lii_Graphics_api})
 
 set(Lii_GraphicalStates
     "GraphicalStates/DefaultButtonBehavior.h"
@@ -501,6 +512,7 @@ set(ALL_FILES
     ${Lii_Behavior}
     ${Lii_Components}
     ${Lii_Components_ComboBox}
+    ${Lii_Components_api}
     ${Lii_Core_Windows}
     ${Lii_DataTypes}
     ${Lii_Events}
@@ -508,6 +520,7 @@ set(ALL_FILES
     ${Lii_Graphics}
     ${Lii_Graphics_RadioButton}
     ${Lii_Graphics_Checkbox}
+    ${Lii_Graphics_api}
     ${Lii_GraphicalStates}
     ${Lii_MetaObjects}
     ${Lii_Utils}
@@ -527,7 +540,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h)
+        api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
 
 
 ################################################################################
@@ -542,11 +555,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Components/"
         "Components/Grid"
         "Components/FileBrowser/"
+        "Components/api/"
         "DataTypes/"
         "Events/"
         "EventTypes/"
         "GraphicalStates/"
         "Graphics/"
+        "Graphics/api/"
         "MetaObjects/"
         "Utils/"
         "Enums/"

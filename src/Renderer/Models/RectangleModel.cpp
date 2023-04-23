@@ -247,8 +247,9 @@ void RectangleModel::Draw()
     if(renderingApi == nullptr)
         return;
     renderingApi->SetColor(color);
+    //TODO Viewport position should serve only as an offset to the current position.
     if(viewPort.IsSet())
-        renderingApi->SetClippingRectangle(viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
+        renderingApi->SetClippingRectangle(movableBehavior.GetPosition() + viewPort.GetViewPortPosition(), viewPort.GetViewPortSize());
 
     if(fill)
         renderingApi->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
@@ -327,24 +328,24 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetTranslate(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetColor:
-            SetColor(message->GetData<glm::vec4>());
+            SetColor(message->GetData<glm::ivec4>());
             break;
         case SubCommands::SetFill:
             SetFill(message->GetData<bool>());
             break;
         case SubCommands::SetViewPortSize:
         {
-            viewPort.SetViewPortSize(message->GetData<glm::vec2>());
+            SetViewPortSize(message->GetData<glm::vec4>());
             break;
         }
         case SubCommands::SetViewPortPosition:
         {
-            viewPort.SetViewPortPosition(message->GetData<glm::vec2>());
+            SetViewPortPosition(message->GetData<glm::vec4>());
             break;
         }
         case SubCommands::ResetViewPort:
         {
-            ResetViewport();
+            ResetViewPort();
             break;
         }
         case SubCommands::SetThickness:
@@ -373,7 +374,7 @@ bool RectangleModel::IsViewPortSet()
     return viewPort.IsSet();
 }
 
-void RectangleModel::ResetViewport()
+void RectangleModel::ResetViewPort()
 {
     viewPort.ResetViewPort();
 }
@@ -406,4 +407,24 @@ void RectangleModel::SetVisible(bool visible)
 bool RectangleModel::IsVisible()
 {
     return visible;
+}
+
+void RectangleModel::SetViewPortSize(const glm::vec4 &vec4)
+{
+    viewPort.SetViewPortSize(vec4);
+}
+
+void RectangleModel::SetViewPortPosition(const glm::vec4 &vec4)
+{
+    viewPort.SetViewPortPosition(vec4);
+}
+
+glm::vec4 &RectangleModel::GetViewPortSize()
+{
+    return viewPort.GetViewPortSize();
+}
+
+glm::vec4 &RectangleModel::GetViewPortPosition()
+{
+    return viewPort.GetViewPortPosition();
 }
