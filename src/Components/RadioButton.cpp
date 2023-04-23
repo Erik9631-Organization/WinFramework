@@ -1,5 +1,5 @@
 #include "RadioButton.h"
-#include "EventTypes/EventRadioButtonStateInfo.h"
+#include "EventRadioButtonStateInfo.h"
 using namespace std;
 
 void RadioButton::Check()

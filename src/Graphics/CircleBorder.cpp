@@ -1,5 +1,5 @@
 #include "CircleBorder.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 #include "DrawData.h"
 #include "RenderingPool.h"
 

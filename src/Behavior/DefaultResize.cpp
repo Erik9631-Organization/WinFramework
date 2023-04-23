@@ -1,7 +1,7 @@
 #include "DefaultResize.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "Events/ResizeSubscriber.h"
-#include "../GenericObj.h"
+#include "EventResizeInfo.h"
+#include "ResizeSubscriber.h"
+#include "GenericObj.h"
 
 DefaultResize::DefaultResize(Resizable& resizeComponent) : associatedResizable(resizeComponent)
 {

@@ -1,14 +1,10 @@
 #include "UiElement.h"
 #include "Window.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "EventTypes/RenderEventInfo.h"
-#include "EventTypes/EventUpdateInfo.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventUpdateInfo.h"
 #include "DrawData2D.h"
 #include <execution>
-#include <future>
 #include <algorithm>
-#include "Core/Windows/WindowsCore.h"
+#include "WindowsCore.h"
 using namespace std;
 
 UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)

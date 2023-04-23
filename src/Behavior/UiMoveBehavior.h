@@ -1,10 +1,10 @@
 #pragma once
-#include "Events/MoveSubscriber.h"
-#include "EventTypes/EventMoveInfo.h"
+#include "MoveSubscriber.h"
+#include "EventMoveInfo.h"
 #include <vector>
-#include "DataTypes/MultiTree.h"
-#include "api/Adjustable.h"
-#include "../GenericObj.h"
+#include "MultiTree.h"
+#include "Adjustable.h"
+#include "GenericObj.h"
 #include "DefaultRelativeZIndex.h"
 
 /**

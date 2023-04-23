@@ -1,5 +1,5 @@
 #include "DefaultKeyStateBehavior.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventKeyStateInfo.h"
 
 DefaultKeyStateBehavior::DefaultKeyStateBehavior(Activatable& activatable) : associatedActivatable(activatable)
 {

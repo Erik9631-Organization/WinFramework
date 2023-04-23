@@ -13,19 +13,13 @@ set(Lii
     "AddSubject.h"
     "Behavior/DefaultListBoxBehavior.h"
     "DemoApplication.h"
-    "Api/Draggable.h"
     "DragManager.h"
-    "Api/Events/DragSubject.h"
-    "Api/Events/DragSubscriber.h"
     "DropAction.h"
-    "Api/Events/DropSubject.h"
-    "Api/Events/DropSubscriber.h"
-    "EventTypes/EventOnAddInfo.h"
-    "EventTypes/EventOnDragInfo.h"
+    "EventInfo/EventOnAddInfo.h"
+    "EventInfo/EventOnDragInfo.h"
     "GenericObj.h"
     "Components/Grid/GridCell.h"
     "Components/Grid/GridSpan.h"
-    "Api/Events/OnAddSubscriber.h"
     "TableElement.h"
     "Graphics/TrackbarGraphics.h"
     "AddSubject.cpp"
@@ -33,8 +27,8 @@ set(Lii
     "DemoApplication.cpp"
     "DragManager.cpp"
         "DropAction.cpp"
-        "EventTypes/EventOnAddInfo.cpp"
-    "EventTypes/EventOnDragInfo.cpp"
+        "EventInfo/EventOnAddInfo.cpp"
+    "EventInfo/EventOnDragInfo.cpp"
     "GenericObj.cpp"
     "Components/Grid/GridCell.cpp"
     "Components/Grid/GridSpan.cpp"
@@ -175,13 +169,15 @@ set(Lii_Api_Events
         Api/Events/TimerSubject.h
         Api/Events/OnTickSubscriber.h
         Api/Events/TickSubject.h
-        Api/Events/RenderObjectEventInfo.cpp
-        Api/Events/RenderObjectEventInfo.h
         Api/Events/DestroySubject.h
         Api/Events/DestroySubscriber.h
         Api/Events/OnStartSubject.h
-        EventTypes/Viewport2Event.cpp
-        EventTypes/Viewport2Event.h
+        "Api/Events/DragSubject.h"
+        "Api/Events/DragSubscriber.h"
+        "Api/Events/DropSubject.h"
+        "Api/Events/DropSubscriber.h"
+        "Api/Draggable.h"
+        "Api/Events/OnAddSubscriber.h"
         )
 source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
@@ -252,33 +248,39 @@ source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
 set(Lii_EventTypes
-    "EventTypes/EventCheckboxStateInfo.h"
-    "EventTypes/EventComboBoxStateInfo.h"
-    "EventTypes/EventInfo.h"
-    "EventTypes/EventKeyStateInfo.h"
-    "EventTypes/EventMouseStateInfo.h"
-    "EventTypes/EventMoveInfo.h"
-    "EventTypes/EventOnActivateInfo.h"
-    "EventTypes/EventRadioButtonStateInfo.h"
-    "EventTypes/EventResizeInfo.h"
-    "EventTypes/EventUpdateInfo.h"
-    "EventTypes/RenderEventInfo.h"
-    "EventTypes/EventCheckboxStateInfo.cpp"
-    "EventTypes/EventComboBoxStateInfo.cpp"
-    "EventTypes/EventInfo.cpp"
-    "EventTypes/EventKeyStateInfo.cpp"
-    "EventTypes/EventMouseStateInfo.cpp"
-    "EventTypes/EventMoveInfo.cpp"
-    "EventTypes/EventOnActivateInfo.cpp"
-    "EventTypes/EventRadioButtonStateInfo.cpp"
-    "EventTypes/EventResizeInfo.cpp"
-    "EventTypes/EventUpdateInfo.cpp"
-    "EventTypes/RenderEventInfo.cpp"
-    EventTypes/EventOnTimerElapsed.cpp
-    EventTypes/EventOnTimerElapsed.h
-    EventTypes/DestroyEventInfo.cpp
-    EventTypes/DestroyEventInfo.h
-        EventTypes/EventAttributeInfo.cpp EventTypes/EventAttributeInfo.h)
+    "EventInfo/EventCheckboxStateInfo.h"
+    "EventInfo/EventComboBoxStateInfo.h"
+    "EventInfo/EventInfo.h"
+    "EventInfo/EventKeyStateInfo.h"
+    "EventInfo/EventMouseStateInfo.h"
+    "EventInfo/EventMoveInfo.h"
+    "EventInfo/EventOnActivateInfo.h"
+    "EventInfo/EventRadioButtonStateInfo.h"
+    "EventInfo/EventResizeInfo.h"
+    "EventInfo/EventUpdateInfo.h"
+    "EventInfo/RenderEventInfo.h"
+    "EventInfo/EventCheckboxStateInfo.cpp"
+    "EventInfo/EventComboBoxStateInfo.cpp"
+    "EventInfo/EventInfo.cpp"
+    "EventInfo/EventKeyStateInfo.cpp"
+    "EventInfo/EventMouseStateInfo.cpp"
+    "EventInfo/EventMoveInfo.cpp"
+    "EventInfo/EventOnActivateInfo.cpp"
+    "EventInfo/EventRadioButtonStateInfo.cpp"
+    "EventInfo/EventResizeInfo.cpp"
+    "EventInfo/EventUpdateInfo.cpp"
+    "EventInfo/RenderEventInfo.cpp"
+    EventInfo/EventOnTimerElapsed.cpp
+    EventInfo/EventOnTimerElapsed.h
+    EventInfo/DestroyEventInfo.cpp
+    EventInfo/DestroyEventInfo.h
+    EventInfo/EventAttributeInfo.cpp
+    EventInfo/EventAttributeInfo.h
+    EventInfo/Viewport2Event.cpp
+    EventInfo/Viewport2Event.h
+    EventInfo/RenderObjectEventInfo.cpp
+    EventInfo/RenderObjectEventInfo.h
+        )
 
 source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
 
@@ -532,7 +534,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        Api/CoreSubscriber.h EventTypes/EventRenderingProviderInfo.cpp EventTypes/EventRenderingProviderInfo.h EventTypes/EventCursorLockInfo.cpp EventTypes/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
+        Api/CoreSubscriber.h EventInfo/EventRenderingProviderInfo.cpp EventInfo/EventRenderingProviderInfo.h EventInfo/EventCursorLockInfo.cpp EventInfo/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
 
 
 ################################################################################
@@ -550,7 +552,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Components/api/"
         "DataTypes/"
         "Api/Events/"
-        "EventTypes/"
+        "EventInfo/"
         "GraphicalStates/"
         "Graphics/"
         "Graphics/api/"

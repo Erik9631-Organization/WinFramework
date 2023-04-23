@@ -1,8 +1,8 @@
 #include "Viewport.h"
-#include "EventTypes/EventMoveInfo.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "Components/UiElement.h"
-#include "EventTypes/EventUpdateInfo.h"
+#include "EventMoveInfo.h"
+#include "EventResizeInfo.h"
+#include "UiElement.h"
+#include "EventUpdateInfo.h"
 
 void Viewport::CalculateAbsolutePosition(glm::vec4 relative)
 {

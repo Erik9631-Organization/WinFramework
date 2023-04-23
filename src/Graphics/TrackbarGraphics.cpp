@@ -1,5 +1,5 @@
 #include "TrackbarGraphics.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 
 TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContainer(*this)
 {

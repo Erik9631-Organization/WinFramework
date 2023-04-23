@@ -1,6 +1,6 @@
 #include "Text.h"
-#include "EventTypes/RenderEventInfo.h"
-#include "MetaObjects/ClassMethod.h"
+#include "RenderEventInfo.h"
+#include "ClassMethod.h"
 #include "FontFormat.h"
 #include "RenderingPool.h"
 

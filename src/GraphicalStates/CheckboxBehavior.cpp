@@ -1,8 +1,8 @@
 #include "CheckboxBehavior.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Components/Checkbox.h"
-#include "EventTypes/EventCheckboxStateInfo.h"
-#include "Events/CheckboxStateSubscriber.h"
+#include "EventMouseStateInfo.h"
+#include "Checkbox.h"
+#include "EventCheckboxStateInfo.h"
+#include "CheckboxStateSubscriber.h"
 
 CheckBoxBehavior::CheckBoxBehavior(Checkbox& checkbox) : associatedCheckbox(checkbox)
 {

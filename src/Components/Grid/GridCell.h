@@ -1,7 +1,7 @@
 #pragma once
-#include "api/Adjustable.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "EventTypes/EventMoveInfo.h"
+#include "Adjustable.h"
+#include "EventResizeInfo.h"
+#include "EventMoveInfo.h"
 #include "GridSpan.h"
 #include "vec2.hpp"
 

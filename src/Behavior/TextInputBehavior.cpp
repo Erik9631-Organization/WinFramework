@@ -1,8 +1,7 @@
 #include "TextInputBehavior.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventKeyStateInfo.h"
 #include "Components/TextInput.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "Components/UiElement.h"
+#include "EventOnActivateInfo.h"
 using namespace std;
 
 void TextInputBehavior::InsertCharacter(EventKeyStateInfo e)

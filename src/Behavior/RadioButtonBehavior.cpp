@@ -1,8 +1,8 @@
 #include "RadioButtonBehavior.h"
-#include "EventTypes/EventMouseStateInfo.h"
+#include "EventMouseStateInfo.h"
 #include "Components/RadioButton.h"
 #include "Events/RadioButtonStateSubscriber.h"
-#include "EventTypes/EventRadioButtonStateInfo.h"
+#include "EventRadioButtonStateInfo.h"
 
 
 RadioButtonBehavior::RadioButtonBehavior(RadioButton& button) : associatedRadioButton(button)

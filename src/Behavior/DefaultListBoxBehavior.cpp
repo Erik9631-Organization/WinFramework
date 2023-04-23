@@ -1,7 +1,7 @@
 #include "DefaultListBoxBehavior.h"
-#include "../TableElement.h"
-#include "Components/ListBox.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "TableElement.h"
+#include "ListBox.h"
+#include "EventKeyStateInfo.h"
 using namespace std;
 
 void DefaultListBoxBehavior::SelectClickAction(TableElement* element)

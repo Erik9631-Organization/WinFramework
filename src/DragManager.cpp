@@ -1,11 +1,11 @@
 #include "DragManager.h"
 #include <iostream>
-#include "api/Draggable.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Events/MouseStateSubject.h"
-#include "Events/DragSubscriber.h"
-#include "Events/DropSubscriber.h"
-#include "Core/Windows/WindowsCore.h"
+#include "Draggable.h"
+#include "EventMouseStateInfo.h"
+#include "MouseStateSubject.h"
+#include "DragSubscriber.h"
+#include "DropSubscriber.h"
+#include "WindowsCore.h"
 
 bool DragManager::isDragging = false;
 Draggable* DragManager::currentDragObj = nullptr;

@@ -1,7 +1,6 @@
 #include "GridCell.h"
 #include "Grid.h"
-#include "EventTypes/EventUpdateInfo.h"
-#include "vec2.hpp"
+#include "EventUpdateInfo.h"
 
 glm::ivec2 GridCell::CalculatePixelPosition()
 {

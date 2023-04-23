@@ -1,6 +1,6 @@
 #include "DefaultActivate.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "Events/ActivateSubscriber.h"
+#include "EventOnActivateInfo.h"
+#include "ActivateSubscriber.h"
 
 void DefaultActivate::SetActivatable(bool state)
 {
