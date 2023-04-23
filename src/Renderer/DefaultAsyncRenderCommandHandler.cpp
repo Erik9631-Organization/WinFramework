@@ -14,6 +14,8 @@
 #include <iostream>
 #include "ApplicationController.h"
 
+//TODO add release model
+
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
     messageQueue.enqueue(std::move(message));

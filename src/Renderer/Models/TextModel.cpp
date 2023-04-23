@@ -161,6 +161,12 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetY:
             SetY(message->GetData<float>());
             break;
+        case SubCommands::SetViewPortSize:
+            SetViewportSize(message->GetData<glm::vec4>());
+            break;
+        case SubCommands::SetViewPortPosition:
+            SetViewportPosition(message->GetData<glm::vec4>());
+            break;
         case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec4>());
             break;
@@ -351,12 +357,12 @@ void TextModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-void TextModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void TextModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.AddViewport2Subscriber(subscriber);
 }
 
-void TextModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void TextModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.RemoveViewport2Subscriber(subscriber);
 }
@@ -374,4 +380,9 @@ void TextModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
 bool TextModel::IsViewportSet() const
 {
     return viewPort.IsViewportSet();
+}
+
+void TextModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportReset(event);
 }

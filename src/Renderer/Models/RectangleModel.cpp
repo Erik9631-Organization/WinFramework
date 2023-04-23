@@ -249,8 +249,7 @@ void RectangleModel::Draw()
     renderingApi->SetColor(color);
     //TODO Viewport position should serve only as an offset to the current position.
     if(viewPort.IsViewportSet())
-        renderingApi->SetClippingRectangle(movableBehavior.GetPosition() + viewPort.GetViewportPosition(),
-                                           viewPort.GetViewportSize());
+        renderingApi->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
     if(fill)
         renderingApi->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
@@ -380,7 +379,7 @@ void RectangleModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-const DefaultViewport2 &RectangleModel::GetViewPort() const
+const ModelViewport &RectangleModel::GetViewPort() const
 {
     return viewPort;
 }
@@ -432,12 +431,12 @@ glm::vec4 &RectangleModel::GetViewportPosition()
     return viewPort.GetViewportPosition();
 }
 
-void RectangleModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RectangleModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.AddViewport2Subscriber(subscriber);
 }
 
-void RectangleModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RectangleModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.RemoveViewport2Subscriber(subscriber);
 }
@@ -455,4 +454,9 @@ void RectangleModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &e
 bool RectangleModel::IsViewportSet() const
 {
     return viewPort.IsViewportSet();
+}
+
+void RectangleModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportReset(event);
 }

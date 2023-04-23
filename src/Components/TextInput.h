@@ -15,6 +15,7 @@ private:
 	Border border;
 	Text2 text;
 	TextInputBehavior inputBehavior;
+    float borderWidth = 1.0f;
 public:
     const glm::ivec4& GetBackgroundColor() override;
 
@@ -51,5 +52,9 @@ public:
 	void SetBackgroundColor(const glm::ivec4 &color) override;
 
     const std::wstring &GetText() override;
+
+    void SetPosition(glm::vec4 position) override;
+
+    void SetSize(const glm::vec4 &size, bool emit) override;
 };
 

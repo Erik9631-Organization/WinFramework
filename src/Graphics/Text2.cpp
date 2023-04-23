@@ -98,6 +98,7 @@ Text2::Text2(UiElement &associatedElement) : textScaler(associatedElement.GetAbs
     associatedElement.AddOnMountedSubscriber(*this);
     associatedElement.AddOnMoveSubscriber(*this);
     associatedElement.AddOnResizeSubscriber(*this);
+    associatedElement.AddViewport2Subscriber(*this);
     textScaler.SetCalculateFromCenterY(true);
     textScaler.SetCalculateFromCenterX(true);
     textProxy.SetColor({0, 0, 0, 255});
@@ -105,8 +106,10 @@ Text2::Text2(UiElement &associatedElement) : textScaler(associatedElement.GetAbs
 
 Text2::~Text2()
 {
-    this->associatedElement.RemoveOnMountedSubscriber(*this);
-    this->associatedElement.RemoveOnMoveSubscriber(*this);
+    associatedElement.RemoveOnMountedSubscriber(*this);
+    associatedElement.RemoveOnMoveSubscriber(*this);
+    associatedElement.RemoveOnResizeSubscriber(*this);
+    associatedElement.RemoveViewport2Subscriber(*this);
 }
 
 glm::vec4 Text2::GetPosition()
@@ -310,12 +313,12 @@ glm::vec4 &Text2::GetViewportPosition()
     return textProxy.GetViewportPosition();
 }
 
-void Text2::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void Text2::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     textProxy.AddViewport2Subscriber(subscriber);
 }
 
-void Text2::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void Text2::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     textProxy.RemoveViewport2Subscriber(subscriber);
 }
@@ -333,4 +336,24 @@ void Text2::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
 bool Text2::IsViewportSet() const
 {
     return textProxy.IsViewportSet();
+}
+
+void Text2::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    textProxy.NotifyOnViewportReset(event);
+}
+
+void Text2::OnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    textProxy.SetViewportSize(event.GetSize());
+}
+
+void Text2::OnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    textProxy.SetViewportPosition(event.GetPosition());
+}
+
+void Text2::OnViewportReset(const Viewport2EventInfo &event)
+{
+    textProxy.ResetViewport();
 }

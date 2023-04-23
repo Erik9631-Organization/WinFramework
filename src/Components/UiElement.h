@@ -8,14 +8,14 @@
 #include "DefaultMultiTree.h"
 #include "UiMoveBehavior.h"
 #include "DefaultResize.h"
-#include "api/RenderCommander.h"
+#include "RenderCommander.h"
 #include "DefaultRender.h"
-#include "Viewport.h"
-#include "api/Viewable.h"
+#include "ModelViewport.h"
+#include "Viewable.h"
 #include "UpdateSubscriber.h"
 #include "DefaultActivate.h"
-#include "api/Collidable.h"
-#include "api/MouseInteractable.h"
+#include "Collidable.h"
+#include "MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
 #include "DefaultKeyStateBehavior.h"
 #include "AccessTools.h"
@@ -35,13 +35,13 @@ class EventHoverInfo;
 
 class UiElement : virtual public Adjustable,
     public virtual RenderCommander,
-    public virtual Viewable,
     public virtual MouseInteractable,
     public virtual KeyStateSubject,
     public virtual AddSubject<std::unique_ptr<UiElement>>,
     public virtual TickSubject,
     public virtual MountedSubject,
-    public virtual MountedSubscriber
+    public virtual MountedSubscriber,
+    public virtual Viewport2
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -57,7 +57,7 @@ protected:
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
-	Viewport viewport;
+	ModelViewport viewport;
 	std::wstring text;
 	bool ignoreTranslate = false;
 	std::vector<OnTickSubscriber*> tickSubscribers;
@@ -206,44 +206,6 @@ public:
 
 	// Inherited via Renderable
 	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-
-	// Inherited via Viewable
-	virtual void AddOnViewportMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnViewportMoveSubscribers(EventMoveInfo event) override;
-	virtual void SetViewportXMultiplier(float x) override;
-	virtual void SetViewportYMultiplier(float y) override;
-	virtual void SetViewportWidthMultiplier(float width) override;
-	virtual void SetViewportHeightMultiplier(float height) override;
-	virtual float GetViewportXMultiplier() override;
-	virtual float GetViewportYMultiplier() override;
-	virtual float GetViewportWidthMultiplier() override;
-	virtual float GetViewportHeightMultiplier() override;
-	virtual void SetViewportXOffset(int x) override;
-	virtual void SetViewportYOffset(int y) override;
-	virtual void SetViewportOffset(glm::vec4 offset) override;
-	virtual int GetViewportAbsoluteX() override;
-	virtual int GetViewportAbsoluteY() override;
-	virtual glm::vec4 GetViewportAbsolutePosition() override;
-	virtual int GetViewportX() override;
-	virtual int GetViewportY() override;
-	virtual glm::vec4 GetViewportPosition() override;
-	virtual void NotifyOnViewportResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual int GetViewportWidth() override;
-	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(glm::vec4 size) override;
-	virtual void SetViewportSize(int width, int height) override;
-	virtual void SetViewportWidth(int width) override;
-	virtual void SetViewportHeight(int height) override;
-	virtual glm::vec4 GetViewportSize() override;
-
-	// Inherited via Viewable
-	virtual int GetViewportAbsoluteWidth() override;
-	virtual int GetViewportAbsoluteHeight() override;
-	virtual glm::vec4 GetViewportAbsoluteSize() override;
-
 	// Inherited via UpdateSubscriber
 	virtual void OnUpdate(EventUpdateInfo e) override;
 
@@ -389,4 +351,26 @@ public:
     void SetW(float w, bool emit) override;
 
     void SetW(float w) override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    void SetViewportSize(const glm::vec4 &vec4) override;
+
+    void SetViewportPosition(const glm::vec4 &vec4) override;
+
+    glm::vec4 &GetViewportSize() override;
+
+    glm::vec4 &GetViewportPosition() override;
+
+    void ResetViewport() override;
+
+    bool IsViewportSet() const override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 };

@@ -25,6 +25,7 @@ Background::Background(UiElement &element) : associatedElement(element)
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
+    element.AddViewport2Subscriber(*this);
 
 }
 
@@ -38,6 +39,7 @@ Background::~Background()
     associatedElement.RemoveOnResizeSubscriber(*this);
     associatedElement.RemoveOnMoveSubscriber(*this);
     associatedElement.RemoveOnMountedSubscriber(*this);
+    associatedElement.RemoveViewport2Subscriber(*this);
 }
 
 float Background::GetRelativeZIndex()
@@ -85,12 +87,12 @@ glm::vec4 &Background::GetViewportPosition()
     return rectangleProxy.GetViewportPosition();
 }
 
-void Background::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void Background::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     rectangleProxy.AddViewport2Subscriber(subscriber);
 }
 
-void Background::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void Background::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     rectangleProxy.RemoveViewport2Subscriber(subscriber);
 }
@@ -108,4 +110,24 @@ void Background::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event
 bool Background::IsViewportSet() const
 {
     return rectangleProxy.IsViewportSet();
+}
+
+void Background::OnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    rectangleProxy.SetViewportSize(event.GetSize());
+}
+
+void Background::OnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    rectangleProxy.SetViewportPosition(event.GetPosition());
+}
+
+void Background::OnViewportReset(const Viewport2EventInfo &event)
+{
+    rectangleProxy.ResetViewport();
+}
+
+void Background::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    rectangleProxy.NotifyOnViewportReset(event);
 }

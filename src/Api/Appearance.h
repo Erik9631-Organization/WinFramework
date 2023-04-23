@@ -10,7 +10,7 @@
 #include "MountedSubscriber.h"
 #include "Viewport2.h"
 
-class Appearance : public MoveSubscriber, public ResizeSubscriber, public MountedSubscriber, public Viewport2
+class Appearance : public MoveSubscriber, public ResizeSubscriber, public MountedSubscriber, public Viewport2, public Viewport2Subscriber
 {
 public:
     virtual float GetRelativeZIndex() = 0;

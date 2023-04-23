@@ -11,6 +11,7 @@ class Viewport2Subscriber
 public:
     virtual void OnViewportSizeChanged(const Viewport2EventInfo &event) = 0;
     virtual void OnViewportPositionChanged(const Viewport2EventInfo &event) = 0;
+    virtual void OnViewportReset(const Viewport2EventInfo &event) = 0;
 };
 
 

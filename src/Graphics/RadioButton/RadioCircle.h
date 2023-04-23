@@ -25,6 +25,8 @@ private:
     glm::vec4 position = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("None"), 0};
     std::vector<MoveSubscriber*> moveSubscribers;
 public:
+    ~RadioCircle() override;
+
     void SetFillEnabled(bool state);
 
     void SetBorderColor(const glm::ivec4 &color);
@@ -129,15 +131,23 @@ public:
 
     glm::vec4 &GetViewportPosition() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
     void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
 
     void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
 
     bool IsViewportSet() const override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+
+    void OnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportReset(const Viewport2EventInfo &event) override;
 };
 
 

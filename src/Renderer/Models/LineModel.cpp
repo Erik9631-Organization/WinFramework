@@ -149,12 +149,12 @@ void LineModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-void LineModel::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void LineModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.AddViewport2Subscriber(subscriber);
 }
 
-void LineModel::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void LineModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     viewPort.RemoveViewport2Subscriber(subscriber);
 }
@@ -172,4 +172,9 @@ void LineModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
 bool LineModel::IsViewportSet() const
 {
     return viewPort.IsViewportSet();
+}
+
+void LineModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    viewPort.NotifyOnViewportReset(event);
 }

@@ -13,14 +13,15 @@ class Text2 : public Appearance, public TextApi, public Movable
 {
 private:
     TextProxy textProxy;
-    float GetRelativeZIndex() override;
-    void SetRelativeZIndex(float relativeZIndex) override;
     Presenter* presenter = nullptr;
     UiElement& associatedElement;
     glm::vec4 textPosition = {0.0f, 0.0f, DefaultRelativeZIndex::GetInstance()->GetIndex("TextIndex"), 1.0};
     ScalingUtil2D textScaler;
     std::vector<MoveSubscriber*> moveSubscribers;
 public:
+
+    float GetRelativeZIndex() override;
+    void SetRelativeZIndex(float relativeZIndex) override;
     explicit Text2(UiElement &associatedElement);
     ~Text2() override;
 
@@ -128,15 +129,23 @@ public:
 
     glm::vec4 &GetViewportPosition() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
     void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
 
     void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
 
     bool IsViewportSet() const override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+
+    void OnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportReset(const Viewport2EventInfo &event) override;
 };
 
 

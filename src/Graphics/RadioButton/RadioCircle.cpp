@@ -42,6 +42,7 @@ RadioCircle::RadioCircle(UiElement &element) : associatedElement(element), scale
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
+    element.AddViewport2Subscriber(*this);
     border.SetColor({0, 0, 0, 255});
     fill.SetColor({0, 0, 0, 255});
     fill.SetFill(true);
@@ -298,13 +299,13 @@ glm::vec4 &RadioCircle::GetViewportPosition()
     return border.GetViewportPosition();
 }
 
-void RadioCircle::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RadioCircle::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     border.AddViewport2Subscriber(subscriber);
     fill.AddViewport2Subscriber(subscriber);
 }
 
-void RadioCircle::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RadioCircle::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
     border.RemoveViewport2Subscriber(subscriber);
     fill.RemoveViewport2Subscriber(subscriber);
@@ -325,4 +326,36 @@ void RadioCircle::NotifyOnViewportPositionChanged(const Viewport2EventInfo &even
 bool RadioCircle::IsViewportSet() const
 {
     return border.IsViewportSet();
+}
+
+void RadioCircle::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    border.NotifyOnViewportReset(event);
+    fill.NotifyOnViewportReset(event);
+}
+
+void RadioCircle::OnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    border.SetViewportSize(event.GetSize());
+    fill.SetViewportSize(event.GetSize());
+}
+
+void RadioCircle::OnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    border.SetViewportPosition(event.GetPosition());
+    fill.SetViewportPosition(event.GetPosition());
+}
+
+void RadioCircle::OnViewportReset(const Viewport2EventInfo &event)
+{
+    border.ResetViewport();
+    fill.ResetViewport();
+}
+
+RadioCircle::~RadioCircle()
+{
+    associatedElement.RemoveOnMoveSubscriber(*this);
+    associatedElement.RemoveOnResizeSubscriber(*this);
+    associatedElement.RemoveOnMountedSubscriber(*this);
+    associatedElement.RemoveViewport2Subscriber(*this);
 }

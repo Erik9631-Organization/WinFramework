@@ -62,7 +62,7 @@ int main( int argc, char* argv[] )
 {
 //    int result = Catch::Session().run(argc, argv);
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
-//
+
     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
     auto& button2 = window->CreateElement<Button>(50, 120, 100, 50, "button2");
     auto& radioButton1 = window->CreateElement<RadioButton>(50, 190, 500, 50, "radioButton1");

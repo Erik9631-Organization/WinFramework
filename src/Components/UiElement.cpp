@@ -43,7 +43,6 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	moveBehavior(*uiElementNode),
 	mouseHandler(*uiElementNode),
 	renderBehavior(*this),
-	viewport(*this),
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
@@ -60,7 +59,6 @@ const wstring & UiElement::GetText()
 void UiElement::SetText(std::wstring text)
 {
 	this->text = text;
-	//Repaint();
 }
 
 void UiElement::SetIgnoreTranslate(bool ignoreTranslate)
@@ -172,175 +170,9 @@ std::vector<std::reference_wrapper<RenderCommander>> UiElement::GetRenderables()
 	return renderBehavior.GetRenderables();
 }
 
-void UiElement::AddOnViewportMoveSubscriber(MoveSubscriber& subscriber)
-{
-	viewport.AddOnMoveSubscriber(subscriber);
-}
-
-void UiElement::RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber)
-{
-	viewport.RemoveOnMoveSubscriber(subscriber);
-}
-
-void UiElement::NotifyOnViewportMoveSubscribers(EventMoveInfo event)
-{
-	viewport.NotifyOnMoveSubscribers(event);
-}
-
-void UiElement::SetViewportXMultiplier(float x)
-{
-	viewport.SetXMultiplier(x);
-}
-
-void UiElement::SetViewportYMultiplier(float y)
-{
-	viewport.SetYMultiplier(y);
-}
-
-void UiElement::SetViewportWidthMultiplier(float width)
-{
-	viewport.SetWidthMultiplier(width);
-}
-
-void UiElement::SetViewportHeightMultiplier(float height)
-{
-	viewport.SetHeightMultiplier(height);
-}
-
-float UiElement::GetViewportXMultiplier()
-{
-	return viewport.GetViewportXMultiplier();
-}
-
-float UiElement::GetViewportYMultiplier()
-{
-	return viewport.GetViewportYMultiplier();
-}
-
-float UiElement::GetViewportWidthMultiplier()
-{
-	return viewport.GetViewportWidthMultiplier();
-}
-
-float UiElement::GetViewportHeightMultiplier()
-{
-	return viewport.GetViewportHeightMultiplier();
-}
-
-void UiElement::SetViewportXOffset(int x)
-{
-    viewport.SetX(x, false);
-}
-
-void UiElement::SetViewportYOffset(int y)
-{
-    viewport.SetY(y, false);
-}
-
-void UiElement::SetViewportOffset(glm::vec4 offset)
-{
-    viewport.SetPosition(offset, false);
-}
-
-int UiElement::GetViewportAbsoluteX()
-{
-	return viewport.GetAbsoluteX();
-}
-
-int UiElement::GetViewportAbsoluteY()
-{
-	return viewport.GetAbsoluteY();
-}
-
-glm::vec4 UiElement::GetViewportAbsolutePosition()
-{
-	return viewport.GetAbsolutePosition();
-}
-
-int UiElement::GetViewportX()
-{
-	return viewport.GetX();
-}
-
-int UiElement::GetViewportY()
-{
-	return viewport.GetY();
-}
-
-glm::vec4 UiElement::GetViewportPosition()
-{
-	return viewport.GetPosition();
-}
-
-void UiElement::NotifyOnViewportResizeSubscribers(EventResizeInfo event)
-{
-	viewport.NotifyOnResizeSubscribers(event);
-}
-
-void UiElement::AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
-{
-	viewport.AddOnResizeSubscriber(subscriber);
-}
-
-void UiElement::RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
-{
-	viewport.RemoveOnResizeSubscriber(subscriber);
-}
-
-int UiElement::GetViewportWidth()
-{
-	return viewport.GetWidth();
-}
-
-int UiElement::GetViewportHeight()
-{
-	return viewport.GetHeight();
-}
-
-void UiElement::SetViewportSize(glm::vec4 size)
-{
-    viewport.SetSize(size, false);
-}
-
-void UiElement::SetViewportSize(int width, int height)
-{
-    viewport.SetSize(width, height, false);
-}
-
-void UiElement::SetViewportWidth(int width)
-{
-    viewport.SetWidth(width, false);
-}
-
-void UiElement::SetViewportHeight(int height)
-{
-    viewport.SetHeight(height, false);
-}
-
-glm::vec4 UiElement::GetViewportSize()
-{
-	return viewport.GetSize();
-}
-
-int UiElement::GetViewportAbsoluteWidth()
-{
-	return viewport.GetViewportAbsoluteWidth();
-}
-
-int UiElement::GetViewportAbsoluteHeight()
-{
-	return viewport.GetViewportAbsoluteHeight();
-}
-
-glm::vec4 UiElement::GetViewportAbsoluteSize()
-{
-	return viewport.GetViewportAbsoluteSize();
-}
-
 void UiElement::OnUpdate(EventUpdateInfo e)
 {
-	moveBehavior.CalculateAbsolutePosition(); 
-	viewport.OnUpdate(e);
+	moveBehavior.CalculateAbsolutePosition();
 	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
@@ -834,4 +666,59 @@ Presenter *UiElement::GetPresenter()
 void UiElement::OnMounted(Presenter &presenter, UiElement& element)
 {
     this->presenter = &presenter;
+}
+
+void UiElement::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+{
+    viewport.AddViewport2Subscriber(subscriber);
+}
+
+void UiElement::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+{
+    viewport.RemoveViewport2Subscriber(subscriber);
+}
+
+void UiElement::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+{
+    viewport.NotifyOnViewportSizeChanged(event);
+}
+
+void UiElement::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+{
+    viewport.NotifyOnViewportPositionChanged(event);
+}
+
+void UiElement::SetViewportSize(const glm::vec4 &vec4)
+{
+    viewport.SetViewportSize(vec4);
+}
+
+void UiElement::SetViewportPosition(const glm::vec4 &vec4)
+{
+    viewport.SetViewportPosition(vec4);
+}
+
+glm::vec4 &UiElement::GetViewportSize()
+{
+    return viewport.GetViewportSize();
+}
+
+glm::vec4 &UiElement::GetViewportPosition()
+{
+    return viewport.GetViewportPosition();
+}
+
+void UiElement::ResetViewport()
+{
+    viewport.ResetViewport();
+}
+
+bool UiElement::IsViewportSet() const
+{
+    return viewport.IsViewportSet();
+}
+
+void UiElement::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    viewport.NotifyOnViewportReset(event);
 }

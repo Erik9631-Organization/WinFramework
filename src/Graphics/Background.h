@@ -50,15 +50,23 @@ public:
 
     glm::vec4 &GetViewportPosition() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber *subscriber) override;
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
     void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
 
     void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
 
     bool IsViewportSet() const override;
+
+    void OnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportReset(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 
 private:
     float GetRelativeZIndex() override;

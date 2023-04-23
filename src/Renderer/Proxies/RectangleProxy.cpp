@@ -428,16 +428,17 @@ void RectangleProxy::ResetViewport()
     auto renderMessage = RenderMessage::CreatePropertyMessage(nullptr, this);
     renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
     SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-void RectangleProxy::AddViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RectangleProxy::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    viewPortSubscribers.push_back(subscriber);
+    viewPortSubscribers.push_back(&subscriber);
 }
 
-void RectangleProxy::RemoveViewport2Subscriber(Viewport2Subscriber *subscriber)
+void RectangleProxy::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), subscriber), viewPortSubscribers.end());
+    viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), &subscriber), viewPortSubscribers.end());
 }
 
 void RectangleProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
@@ -455,4 +456,10 @@ void RectangleProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &e
 bool RectangleProxy::IsViewportSet() const
 {
     return model->IsViewportSet();
+}
+
+void RectangleProxy::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    for(auto* subscriber : viewPortSubscribers)
+        subscriber->OnViewportReset(event);
 }

@@ -18,6 +18,11 @@ TextInput::TextInput(int x, int y, int width, int height, string windowName) : U
     text.GetScales().SetCalculateFromCenterY(false);
     text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
     text.SetY(0.3f);
+    auto viewPortSize = UiElement::GetSize();
+    viewPortSize.x += borderWidth;
+    viewPortSize.y += borderWidth;
+    UiElement::SetViewportPosition(UiElement::GetPosition());
+    UiElement::SetViewportSize(viewPortSize);
 }
 
 TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
@@ -33,7 +38,6 @@ TextInput::TextInput(string name) : TextInput(0, 0, 0, 0, name)
 void TextInput::SetText(wstring text)
 {
 	this->text.SetText(text);
-	//Repaint();
 }
 
 
@@ -60,4 +64,19 @@ void TextInput::SetBackgroundColor(const glm::ivec4 &color)
 const wstring &TextInput::GetText()
 {
     return text.GetText();
+}
+
+void TextInput::SetPosition(glm::vec4 position)
+{
+    UiElement::SetPosition(position);
+    UiElement::SetViewportPosition(position);
+}
+
+void TextInput::SetSize(const glm::vec4 &size, bool emit)
+{
+    UiElement::SetSize(size, emit);
+    auto viewportSize = size;
+    viewportSize.x += borderWidth;
+    viewportSize.y += borderWidth;
+    UiElement::SetViewportSize(viewportSize);
 }
