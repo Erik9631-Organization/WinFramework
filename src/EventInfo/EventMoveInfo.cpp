@@ -30,16 +30,6 @@ EventMoveInfo::EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolut
     this->isSource = isSource;
 }
 
-const glm::vec4 &EventMoveInfo::GetPrevPosition() const
-{
-    return prevPosition;
-}
-
-const glm::vec4 &EventMoveInfo::GetPrevAbsolutePosition() const
-{
-    return prevAbsolutePosition;
-}
-
 const glm::vec4 &EventMoveInfo::GetAbsolutePosition() const
 {
     return absolutePosition;

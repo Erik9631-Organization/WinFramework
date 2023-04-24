@@ -18,14 +18,10 @@ private:
 	Movable* src;
     bool isSource = true;
 public:
-    [[nodiscard]] const glm::vec4& GetPrevPosition() const;
-
 	/**
 	 * \return Returns the viewPortSize of the source object at the point this event was called.
 	 */
     [[nodiscard]] const glm::vec4 & GetPosition() const;
-
-    [[nodiscard]] const glm::vec4 & GetPrevAbsolutePosition() const;
 
     [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const;
 

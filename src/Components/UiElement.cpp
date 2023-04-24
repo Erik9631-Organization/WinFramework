@@ -171,7 +171,7 @@ std::vector<std::reference_wrapper<RenderCommander>> UiElement::GetRenderables()
 void UiElement::OnUpdate(EventUpdateInfo e)
 {
 	moveBehavior.CalculateAbsolutePosition();
-	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
+	UpdateSubNodes(e);
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
 	Repaint();

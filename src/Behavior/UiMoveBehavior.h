@@ -88,6 +88,14 @@ void UiMoveBehavior<T>::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
     for (MoveSubscriber& subscriber : moveSubscribers)
         subscriber.OnMove(event);
+
+    //TODO remove last position and last absolute position
+    auto nonSourceEvent = EventMoveInfo{GetPosition(), GetAbsolutePosition()),
+                                        event.GetPrevPosition(), event.GetPrevAbsolutePosition(),
+                                        event.GetSrc(), false};
+    for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
+        associatedAdjustableNode.Get(i)->NotifyOnMoveSubscribers(nonSourceEvent);
+
 }
 
 template<class T>
