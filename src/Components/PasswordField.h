@@ -1,16 +1,19 @@
 #pragma once
-#include "Components/UiElement.h"
-#include "Graphics/Text.h"
+#include "UiElement.h"
+#include "Text.h"
 #include "TextInputBehavior.h"
+#include "Text2.h"
+#include "Border.h"
 
 class PasswordField : public UiElement, public TextInputApi
 {
 private:
-	Text text;
+	Text2 text;
     std::wstring realText;
-	//Background background;
-	SimpleBorder border;
+	Background background;
+	Border border;
 	TextInputBehavior behavior;
+    float borderWidth = 1.0f;
 
 public:
 	PasswordField();
@@ -35,12 +38,16 @@ public:
 	/**
 	 * \param color sets the background color.
 	 */
-	void SetBackgroundColor(glm::vec3 color);
+	void SetBackgroundColor(const glm::vec4 &color);
 
     const std::wstring &GetText() override;
 
     const glm::ivec4 &GetBackgroundColor() override;
 
     void SetBackgroundColor(const glm::ivec4 &color) override;
+
+    void SetPosition(glm::vec4 position, bool emit) override;
+
+    void SetSize(const glm::vec4 &size, bool emit) override;
 };
 

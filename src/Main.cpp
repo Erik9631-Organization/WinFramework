@@ -6,6 +6,7 @@
 #include "Checkbox.h"
 #include "Label.h"
 #include "TextInput.h"
+#include "PasswordField.h"
 
 
 class ButtonController : public KeyStateSubscriber, public ResizeSubscriber
@@ -69,7 +70,8 @@ int main( int argc, char* argv[] )
     auto& radioButton2 = window->CreateElement<RadioButton>(50, 260, 100, 50, "radioButton2");
     auto& checkBox1 = window->CreateElement<Checkbox>(50, 330, 100, 50, "checkBox1");
     auto& label1 = window->CreateElement<Label>(50, 400, 100, 50, "checkBox1");
-    auto& textInput = window->CreateElement<TextInput>(200, 0, 400, 400, "textInput");
+    auto& textInput = window->CreateElement<TextInput>(200, 0, 200, 100, "textInput");
+    window->CreateElement<PasswordField>(200, 170, 200, 100, "passwordField");
     textInput.SetMultiline(true);
     checkBox1.SetText(L"Checkbox 1");
     label1.SetText(L"Label 1");

@@ -1,13 +1,14 @@
 #pragma once
 #include "Components/UiElement.h"
 #include "Graphics/SimpleBorder.h"
+#include "Border.h"
 #include <string>
 
 
 class Panel :public UiElement
 {
 protected:
-	SimpleBorder border;
+	Border border;
 public:
 	Panel();
 

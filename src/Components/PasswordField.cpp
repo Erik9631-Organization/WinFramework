@@ -7,22 +7,32 @@ PasswordField::PasswordField() : PasswordField("")
 
 }
 
-PasswordField::PasswordField(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName), text("Arial"), behavior(*this)
+PasswordField::PasswordField(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName),
+    text(*this),
+    behavior(*this),
+    background(*this),
+    border(*this)
 {
 	text.SetFontSize(16.0);
-	text.SetColor({0, 0, 0});
-	border.SetColor({100, 100, 100});
-	border.SetThickness(1.0f);
-	//background.SetBackgroundColor({200, 200, 200});
-
-    //renderBehavior.AddRenderCommander(background);
-    renderBehavior.AddRenderCommander(border);
-    renderBehavior.AddRenderCommander(text);
+	text.SetColor({0, 0, 0, 255});
+	border.SetColor({100, 100, 100, 255});
+	background.SetColor({200, 200, 200,255});
 	behavior.SetMultiline(false);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentNear);
+    text.SetFontAlignment(FontAlignment::FontAlignmentNear);
+    text.GetScales().SetCalculateFromCenterX(false);
+    text.GetScales().SetCalculateFromCenterY(false);
+    text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
+    auto viewPortSize = UiElement::GetSize();
+    viewPortSize.x += borderWidth;
+    viewPortSize.y += borderWidth;
+    UiElement::SetViewportPosition(UiElement::GetPosition());
+    UiElement::SetViewportSize(viewPortSize);
 }
 
-PasswordField::PasswordField(string name) : PasswordField(0, 0, 0, 0, name)
+PasswordField::PasswordField(string name) : PasswordField(0, 0, 0, 0, std::move(name))
 {
+
 }
 
 void PasswordField::SetText(wstring text)
@@ -31,13 +41,11 @@ void PasswordField::SetText(wstring text)
 	realText = text;
 	hiddenText.insert(0, text.size(), '*');
 	this->text.SetText(hiddenText);
-	//Repaint();
 }
 
-void PasswordField::SetBackgroundColor(glm::vec3 color)
+void PasswordField::SetBackgroundColor(const glm::vec4 &color)
 {
-	//background.SetBackgroundColor(color);
-	//Repaint();
+    background.SetColor(color);
 }
 
 const wstring &PasswordField::GetText()
@@ -47,10 +55,26 @@ const wstring &PasswordField::GetText()
 
 const glm::ivec4 &PasswordField::GetBackgroundColor()
 {
-    return {0,0,0,0};
+    return background.GetColor();
+}
+
+void PasswordField::SetPosition(glm::vec4 position, bool emit)
+{
+    UiElement::SetPosition(position);
+    UiElement::SetViewportPosition(position);
+}
+
+void PasswordField::SetSize(const glm::vec4 &size, bool emit)
+{
+    UiElement::SetSize(size, emit);
+    auto viewportSize = size;
+    viewportSize.x += borderWidth;
+    viewportSize.y += borderWidth;
+    UiElement::SetViewportSize(viewportSize);
+
 }
 
 void PasswordField::SetBackgroundColor(const glm::ivec4 &color)
 {
-
+    background.SetColor(color);
 }

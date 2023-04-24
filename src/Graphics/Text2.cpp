@@ -102,6 +102,7 @@ Text2::Text2(UiElement &associatedElement) : textScaler(associatedElement.GetAbs
     textScaler.SetCalculateFromCenterY(true);
     textScaler.SetCalculateFromCenterX(true);
     textProxy.SetColor({0, 0, 0, 255});
+
 }
 
 Text2::~Text2()
