@@ -12,12 +12,11 @@ TextInput::TextInput(int x, int y, int width, int height, string windowName) : U
     text.SetColor({0, 0, 0, 255});
     border.SetColor({100, 100, 100, 255});
     background.SetColor({200, 200, 200, 255});
-    text.SetFontLineAlignment(FontAlignment::FontAlignmentFar);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentNear);
     text.SetFontAlignment(FontAlignment::FontAlignmentNear);
     text.GetScales().SetCalculateFromCenterX(false);
     text.GetScales().SetCalculateFromCenterY(false);
     text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
-    text.SetY(0.3f);
     auto viewPortSize = UiElement::GetSize();
     viewPortSize.x += borderWidth;
     viewPortSize.y += borderWidth;

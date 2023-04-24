@@ -65,11 +65,12 @@ int main( int argc, char* argv[] )
 
     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
     auto& button2 = window->CreateElement<Button>(50, 120, 100, 50, "button2");
-    auto& radioButton1 = window->CreateElement<RadioButton>(50, 190, 500, 50, "radioButton1");
+    auto& radioButton1 = window->CreateElement<RadioButton>(50, 190, 100, 50, "radioButton1");
     auto& radioButton2 = window->CreateElement<RadioButton>(50, 260, 100, 50, "radioButton2");
     auto& checkBox1 = window->CreateElement<Checkbox>(50, 330, 100, 50, "checkBox1");
     auto& label1 = window->CreateElement<Label>(50, 400, 100, 50, "checkBox1");
-    window->CreateElement<TextInput>(50, 470, 100, 50, "textInput");
+    auto& textInput = window->CreateElement<TextInput>(200, 0, 400, 400, "textInput");
+    textInput.SetMultiline(true);
     checkBox1.SetText(L"Checkbox 1");
     label1.SetText(L"Label 1");
     auto ellipseProxy = std::make_unique<EllipseProxy>();
