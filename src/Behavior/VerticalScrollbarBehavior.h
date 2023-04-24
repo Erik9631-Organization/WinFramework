@@ -68,6 +68,8 @@ public:
     void OnMove(EventMoveInfo e) override;
 
 private:
+    void UpdateChildrenViewports(UiElement& root);
+
     int padding = 0;
     ScrollBar& associatedScrollbar;
     Button& associatedTrackBar;

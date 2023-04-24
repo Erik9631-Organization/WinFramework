@@ -6,6 +6,7 @@
 #include <algorithm>
 #include "WindowsCore.h"
 using namespace std;
+//TODO Refactor movement. Incorporate z into the calculations
 
 UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
@@ -16,14 +17,11 @@ UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
     std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&elementRef.GetUiElementNode()};
     uiElementNode->AddNode(std::move(nodeToBeAdded));
 
-    if(root != nullptr)
-        elementRef.NotifyOnMounted(static_cast<Presenter&>(*root));
-
-    elementRef.SetZ(GetZ() - 1);
-
-
     //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
+
+    if(root != nullptr)
+        elementRef.NotifyOnMounted(static_cast<Presenter&>(*root));
 
     return elementRef;
 }
@@ -698,12 +696,12 @@ void UiElement::SetViewportPosition(const glm::vec4 &vec4)
     viewport.SetViewportPosition(vec4);
 }
 
-glm::vec4 &UiElement::GetViewportSize()
+const glm::vec4 & UiElement::GetViewportSize()
 {
     return viewport.GetViewportSize();
 }
 
-glm::vec4 &UiElement::GetViewportPosition()
+const glm::vec4 & UiElement::GetViewportPosition()
 {
     return viewport.GetViewportPosition();
 }

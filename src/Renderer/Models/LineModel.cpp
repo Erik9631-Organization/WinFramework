@@ -134,12 +134,12 @@ void LineModel::SetViewportPosition(const glm::vec4 &vec4)
 
 }
 
-glm::vec4 &LineModel::GetViewportSize()
+const glm::vec4 & LineModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }
 
-glm::vec4 &LineModel::GetViewportPosition()
+const glm::vec4 & LineModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

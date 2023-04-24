@@ -18,7 +18,7 @@ ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(
     layout = new Grid(0, 0, width, height+50);
 	//this->Panel::Add(std::unique_ptr<ScrollBar>(trackbar));
     trackbar->SetWidth(10, false);
-    ScrollBar::Control(this, std::unique_ptr<ScrollBar>(trackbar));
+    ScrollBar::Control(*this, std::unique_ptr<ScrollBar>(trackbar));
 	this->Panel::Add(std::unique_ptr<Grid>(layout));
 	layout->SetAutoExtend(true);
 	layout->SetGridColumns({ width - (int)trackbar->GetWidth() });

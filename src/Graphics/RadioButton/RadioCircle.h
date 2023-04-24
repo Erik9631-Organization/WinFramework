@@ -19,6 +19,8 @@ private:
     ScalingUtil2D scaler;
     UiElement& associatedElement;
 
+    void Update();
+
     float radius = 40;
     float innerCirclePadding = 0.6f;
     void UpdateGraphics();
@@ -127,9 +129,9 @@ public:
 
     void SetViewportPosition(const glm::vec4 &vec4) override;
 
-    glm::vec4 &GetViewportSize() override;
+    const glm::vec4 & GetViewportSize() override;
 
-    glm::vec4 &GetViewportPosition() override;
+    const glm::vec4 & GetViewportPosition() override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 

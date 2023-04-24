@@ -29,12 +29,12 @@ void ModelViewport::SetViewportPosition(const glm::vec4 &vec4)
     isSet = true;
 }
 
-glm::vec4 & ModelViewport::GetViewportSize()
+const glm::vec4 & ModelViewport::GetViewportSize()
 {
     return viewPortSize;
 }
 
-glm::vec4 & ModelViewport::GetViewportPosition()
+const glm::vec4 & ModelViewport::GetViewportPosition()
 {
     return viewPortPosition;
 }

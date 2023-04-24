@@ -11,20 +11,17 @@ void RadioCircle::OnMounted(Presenter &presenter, UiElement &element)
 {
     presenter.GetRenderer()->RequestModel(border);
     presenter.GetRenderer()->RequestModel(fill);
+    Update();
 }
 
 void RadioCircle::OnMove(EventMoveInfo e)
 {
-    scaler.Scale(position);
-    border.SetPosition(scaler.GetPosition() + position);
-    fill.SetPosition(scaler.GetPosition() + position);
+    Update();
 }
 
 void RadioCircle::OnResize(EventResizeInfo e)
 {
-    scaler.Scale(position);
-    border.SetPosition(scaler.GetPosition() + position);
-    fill.SetPosition(scaler.GetPosition() + position);
+    Update();
 }
 
 float RadioCircle::GetRelativeZIndex()
@@ -289,12 +286,12 @@ void RadioCircle::SetViewportPosition(const glm::vec4 &vec4)
     fill.SetViewportPosition(vec4);
 }
 
-glm::vec4 &RadioCircle::GetViewportSize()
+const glm::vec4 & RadioCircle::GetViewportSize()
 {
     return border.GetViewportSize();
 }
 
-glm::vec4 &RadioCircle::GetViewportPosition()
+const glm::vec4 & RadioCircle::GetViewportPosition()
 {
     return border.GetViewportPosition();
 }
@@ -358,4 +355,11 @@ RadioCircle::~RadioCircle()
     associatedElement.RemoveOnResizeSubscriber(*this);
     associatedElement.RemoveOnMountedSubscriber(*this);
     associatedElement.RemoveViewport2Subscriber(*this);
+}
+
+void RadioCircle::Update()
+{
+    scaler.Scale(position);
+    border.SetPosition(scaler.GetPosition() + position);
+    fill.SetPosition(scaler.GetPosition() + position);
 }

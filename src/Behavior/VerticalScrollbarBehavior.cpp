@@ -2,6 +2,7 @@
 // Created by Erik on 1/18/2022.
 //
 
+#include <execution>
 #include "VerticalScrollbarBehavior.h"
 #include "ScrollBar.h"
 #include "Button.h"
@@ -55,7 +56,7 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
     if(e.GetMouseDelta().y + associatedTrackBar.GetY() < 0)
         return;
     //Set the trackbar
-    associatedTrackBar.SetY(e.GetMouseDelta().y + associatedTrackBar.GetY(), false);
+    associatedTrackBar.SetY(e.GetMouseDelta().y + associatedTrackBar.GetY());
 
     //Set the components
     UiElement* parent = associatedScrollbar.GetParent();
@@ -129,6 +130,9 @@ void VerticalScrollbarBehavior::OnAdd(EventOnAddInfo<unique_ptr<UiElement>> e)
     //Subscribe to added component in order to keep track of move and resize
     e.GetAddedComponent()->get()->AddOnResizeSubscriber(*this);
     e.GetAddedComponent()->get()->AddOnMoveSubscriber(*this);
+    auto* addedComponent = e.GetAddedComponent()->get();
+    addedComponent->SetViewportSize(associatedScrollbar.GetControlledComponent()->GetSize());
+    addedComponent->SetViewportPosition(associatedScrollbar.GetControlledComponent()->GetPosition());
 
     if(bottomComponent == nullptr)
         bottomComponent = GetBottomComponentFromParent();
@@ -150,14 +154,14 @@ void VerticalScrollbarBehavior::UpdateThumbTrackSize()
         associatedTrackBar.SetActive(false);
         return;
     }
-    associatedTrackBar.SetBackgroundColor(associatedTrackBar.GetBackgroundColor());
+    associatedTrackBar.SetBackgroundColor({30, 30, 30, 255});
 
     trackbarHeight = (float)associatedScrollbar.GetControlledComponent()->GetHeight() * scrollbarPercentualHeight;
     if(trackbarHeight < minSize) // Force minsize.
         trackbarHeight = minSize;
 
-    associatedTrackBar.SetWidth(trackbarWidth, false);
-    associatedTrackBar.SetHeight(trackbarHeight, false);
+    associatedTrackBar.SetWidth(trackbarWidth);
+    associatedTrackBar.SetHeight(trackbarHeight);
 
 }
 
@@ -168,8 +172,10 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
-        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, 0, 0, false);
-        associatedScrollbar.SetHeight(e.GetSize().y, false);
+        auto scrollbarPos = this->associatedScrollbar.GetPosition();
+        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, scrollbarPos.z, 0);
+        associatedScrollbar.SetHeight(e.GetSize().y);
+        UpdateChildrenViewports(*associatedScrollbar.GetControlledComponent());
     }
     else
     {
@@ -177,7 +183,6 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
             return;
         bottomComponent = GetBottomComponent(dynamic_cast<Adjustable*>(e.GetSrc()));
     }
-
 
     UpdateThumbTrackSize();
 }
@@ -187,6 +192,10 @@ void VerticalScrollbarBehavior::OnMove(EventMoveInfo e)
     Adjustable* src = dynamic_cast<Adjustable*>(e.GetSrc());
     if(src == nullptr)
         return;
+    if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
+    {
+        UpdateChildrenViewports(*associatedScrollbar.GetControlledComponent());
+    }
     bottomComponent = GetBottomComponent(src);
 }
 
@@ -200,4 +209,17 @@ Adjustable *VerticalScrollbarBehavior::GetBottomComponent(Adjustable *adjustable
     if(adjustable->GetY() + adjustable->GetHeight() > bottomComponent->GetY() + bottomComponent->GetHeight())
         return adjustable;
     return bottomComponent;
+}
+
+void VerticalScrollbarBehavior::UpdateChildrenViewports(UiElement &root)
+{
+    auto controlledComponent = this->associatedScrollbar.GetControlledComponent();
+    if(controlledComponent == nullptr)
+        return;
+    std::for_each(std::execution::par, root.GetUiElementNode().GetNodes().begin(), root.GetUiElementNode().GetNodes().end(), [&](std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>>& child)
+    {
+        child->GetValue()->SetViewportSize(controlledComponent->GetSize());
+        child->GetValue()->SetViewportPosition(controlledComponent->GetPosition());
+        UpdateChildrenViewports(*child->GetValue());
+    });
 }

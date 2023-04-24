@@ -421,12 +421,12 @@ void RectangleModel::SetViewportPosition(const glm::vec4 &vec4)
     NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
-glm::vec4 &RectangleModel::GetViewportSize()
+const glm::vec4 & RectangleModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }
 
-glm::vec4 &RectangleModel::GetViewportPosition()
+const glm::vec4 & RectangleModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

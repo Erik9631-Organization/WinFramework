@@ -342,12 +342,12 @@ void TextModel::SetViewportPosition(const glm::vec4 &vec4)
     NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
-glm::vec4 &TextModel::GetViewportSize()
+const glm::vec4 & TextModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }
 
-glm::vec4 &TextModel::GetViewportPosition()
+const glm::vec4 & TextModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

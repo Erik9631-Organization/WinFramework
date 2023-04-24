@@ -12,6 +12,8 @@ void Text2::OnMounted(Presenter &presenter, UiElement &element)
 {
     this->presenter = &presenter;
     presenter.GetRenderer()->RequestModel(textProxy);
+    textScaler.Scale(textPosition);
+    textProxy.SetPosition(textScaler.GetPosition());
 }
 
 void Text2::OnMove(EventMoveInfo e)
@@ -304,12 +306,12 @@ void Text2::SetViewportPosition(const glm::vec4 &vec4)
     textProxy.SetViewportPosition(vec4);
 }
 
-glm::vec4 &Text2::GetViewportSize()
+const glm::vec4 & Text2::GetViewportSize()
 {
     return textProxy.GetViewportSize();
 }
 
-glm::vec4 &Text2::GetViewportPosition()
+const glm::vec4 & Text2::GetViewportPosition()
 {
     return textProxy.GetViewportPosition();
 }

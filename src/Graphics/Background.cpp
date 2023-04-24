@@ -77,12 +77,12 @@ void Background::SetViewportPosition(const glm::vec4 &vec4)
     rectangleProxy.SetViewportPosition(vec4);
 }
 
-glm::vec4 &Background::GetViewportSize()
+const glm::vec4 & Background::GetViewportSize()
 {
     return rectangleProxy.GetViewportSize();
 }
 
-glm::vec4 &Background::GetViewportPosition()
+const glm::vec4 & Background::GetViewportPosition()
 {
     return rectangleProxy.GetViewportPosition();
 }

@@ -14,6 +14,7 @@ DefaultRelativeZIndex::DefaultRelativeZIndex()
     relativeIndexList["None"] =  0.5f;
     relativeIndexList["BorderIndex"] = 1.0f;
     relativeIndexList["BackgroundIndex"] = 2.0f;
+    relativeIndexList["zGap"] = 3.0f;
 }
 
 DefaultRelativeZIndex *DefaultRelativeZIndex::GetInstance()

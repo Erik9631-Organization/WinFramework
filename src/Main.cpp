@@ -7,6 +7,7 @@
 #include "Label.h"
 #include "TextInput.h"
 #include "PasswordField.h"
+#include "ScrollBar.h"
 
 
 class ButtonController : public KeyStateSubscriber, public ResizeSubscriber
@@ -63,7 +64,7 @@ int main( int argc, char* argv[] )
 {
 //    int result = Catch::Session().run(argc, argv);
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
-
+//
     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
     auto& button2 = window->CreateElement<Button>(50, 120, 100, 50, "button2");
     auto& radioButton1 = window->CreateElement<RadioButton>(50, 190, 100, 50, "radioButton1");
@@ -90,6 +91,18 @@ int main( int argc, char* argv[] )
     radioButton2.AddToGroup(radioButton1);
     button1.AddKeyStateSubscriber(controller);
     button2.AddKeyStateSubscriber(controller);
+
+    auto scrollbar = std::make_unique<ScrollBar>(0, 0, 10, 0, "ScrollBar");
+    auto& panel = window->CreateElement<Panel>(470, 0, 300, 250, "panel");
+    ScrollBar::Control(panel, std::move(scrollbar));
+
+    for (int i = 0; i < 10; i++)
+    {
+        auto scrollBarTest = std::make_unique<Label>(0, 10 + 110 * i, 100, 100, "testLabel");
+
+        scrollBarTest->SetText(L"TestLabel " + std::to_wstring(i));
+        panel.Add(std::move(scrollBarTest));
+    }
 
     ApplicationController::GetApplicationController()->JoinThreads();
     return 0;

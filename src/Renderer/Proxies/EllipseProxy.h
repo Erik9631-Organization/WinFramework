@@ -15,6 +15,8 @@ class EllipseModel;
 class EllipseProxy : public virtual Movable, public Resizable, public virtual RenderProxy
 {
 private:
+    static constexpr glm::vec4 defaultVector = glm::vec4{0, 0, 0, 0};
+    static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
     RenderingModel *renderingModel;
     RenderingProxyMessageSender messageSender;
     EllipseModel* model;
@@ -140,9 +142,9 @@ public:
 
     void SetViewportPosition(const glm::vec4 &position) override;
 
-    glm::vec4 &GetViewportSize() override;
+    const glm::vec4 & GetViewportSize() override;
 
-    glm::vec4 &GetViewportPosition() override;
+    const glm::vec4 & GetViewportPosition() override;
 
     void ResetViewport() override;
 

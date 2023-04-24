@@ -7,6 +7,8 @@
 #include "GenericObj.h"
 #include "DefaultRelativeZIndex.h"
 
+//TODO event move info sends relative position, not absolute position
+
 /**
  * T has to be of pointer type
  */
@@ -112,6 +114,8 @@ template<class T>
 void UiMoveBehavior<T>::SetTranslate(glm::vec4 offset, bool emit)
 {
 	this->translate = offset;
+    if(emit)
+        NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
 }
 template<class T>
 void UiMoveBehavior<T>::SetTranslateX(float x, bool emit)
@@ -153,16 +157,19 @@ UiMoveBehavior<T>::UiMoveBehavior(MultiTree<T>& adjustable) : associatedAdjustab
 template<class T>
 void UiMoveBehavior<T>::CalculateAbsolutePosition()
 {
-	if (associatedAdjustableNode.IsRoot() || associatedAdjustableNode.GetParentNode()->IsRoot()) //If the parent is root, we are in the global windowSpace and relative is same as absolute
+	if (associatedAdjustableNode.IsRoot()) //If the parent is root, we are in the global windowSpace and relative is same as absolute
 	{
 		absolutePosition = relativePosition + translate;
 	}
 	else
 	{
-	    absolutePosition.x = relativePosition.x + associatedAdjustableNode.GetParent()->GetAbsoluteX() + translate.x;
-	    absolutePosition.y = relativePosition.y + associatedAdjustableNode.GetParent()->GetAbsoluteY() + translate.y;
-	}
-    absolutePosition.z *= static_cast<float>(DefaultRelativeZIndex::GetInstance()->GetSize());
+        auto zGap = static_cast<float>(DefaultRelativeZIndex::GetInstance()->GetIndex("zGap"));
+        glm::vec4 parentPos = associatedAdjustableNode.GetParent()->GetAbsolutePosition();
+	    absolutePosition.x = relativePosition.x + parentPos.x + translate.x;
+	    absolutePosition.y = relativePosition.y + parentPos.y + translate.y;
+        absolutePosition.z = relativePosition.z + parentPos.z - zGap + translate.z;
+
+    }
 }
 
 template<class T>

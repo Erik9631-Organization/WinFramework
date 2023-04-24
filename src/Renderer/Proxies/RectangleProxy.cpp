@@ -14,6 +14,8 @@ glm::vec4 RectangleProxy::GetPosition()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>();
+    if(model == nullptr)
+        return defaultVec4;
 
     return model->GetPosition();
 }
@@ -23,7 +25,8 @@ float RectangleProxy::GetX()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
-
+    if(model == nullptr)
+        return 0.0f;
     return model->GetX();
 }
 
@@ -32,7 +35,8 @@ float RectangleProxy::GetY()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
-
+    if(model == nullptr)
+        return 0.0f;
     return model->GetY();
 }
 
@@ -41,6 +45,9 @@ float RectangleProxy::GetZ()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().z;
+    if(model == nullptr)
+        return 0.0f;
+
 
     return model->GetZ();
 }
@@ -50,6 +57,8 @@ float RectangleProxy::GetW()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().w;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetW();
 }
@@ -153,6 +162,8 @@ glm::vec4 RectangleProxy::GetTranslate()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>();
+    if(model == nullptr)
+        return defaultVec4;
 
     return model->GetTranslate();
 }
@@ -162,6 +173,8 @@ float RectangleProxy::GetTranslateX()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetTranslateX();
 }
@@ -172,6 +185,9 @@ float RectangleProxy::GetTranslateY()
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
 
+    if(model == nullptr)
+        return 0.0f;
+
     return model->GetTranslateY();
 }
 
@@ -180,6 +196,8 @@ const glm::vec4 & RectangleProxy::GetSize()
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec4&>();
+    if(model != nullptr)
+        return defaultVec4;
 
     return model->GetSize();
 }
@@ -189,6 +207,8 @@ float RectangleProxy::GetWidth()
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
+    if(model != nullptr)
+        return 0.0f;
     return model->GetWidth();
 }
 
@@ -197,6 +217,8 @@ float RectangleProxy::GetHeight()
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
+    if(model != nullptr)
+        return 0.0f;
     return model->GetHeight();
 }
 
@@ -387,6 +409,8 @@ const glm::ivec4 &RectangleProxy::GetColor()
     auto tempData = messageSender.Get(SubCommands::SetColor);
     if(tempData != nullptr)
         return tempData->GetData<const glm::ivec4&>();
+    if(model == nullptr)
+        return defaultColorVec;
     return model->GetColor();
 }
 
@@ -407,19 +431,24 @@ void RectangleProxy::SetViewportPosition(const glm::vec4 &vec4)
     NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
-glm::vec4 &RectangleProxy::GetViewportSize()
+const glm::vec4 & RectangleProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
+    if(model == nullptr)
+        return defaultVec4;
+
     return model->GetViewportSize();
 }
 
-glm::vec4 &RectangleProxy::GetViewportPosition()
+const glm::vec4 & RectangleProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
+    if(model == nullptr)
+        return defaultVec4;
     return model->GetViewportPosition();
 }
 

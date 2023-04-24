@@ -7,11 +7,15 @@
 #include "TextModel.h"
 #include <iostream>
 
+std::wstring TextProxy::defaultText = L"";
+
 glm::vec4 TextProxy::GetPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>();
+    if(model == nullptr)
+        return defaultVec;
     return model->GetPosition();
 }
 
@@ -20,6 +24,8 @@ float TextProxy::GetX()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetX();
 }
@@ -29,6 +35,8 @@ float TextProxy::GetY()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetY();
 }
@@ -38,6 +46,8 @@ float TextProxy::GetZ()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().z;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetZ();
 }
@@ -47,6 +57,8 @@ float TextProxy::GetW()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().w;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetW();
 }
@@ -165,6 +177,8 @@ glm::vec4 TextProxy::GetTranslate()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>();
+    if(model == nullptr)
+        return defaultVec;
 
     return model->GetTranslate();
 }
@@ -174,6 +188,8 @@ float TextProxy::GetTranslateX()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetTranslateX();
 }
@@ -183,6 +199,8 @@ float TextProxy::GetTranslateY()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetTranslateY();
 }
@@ -282,25 +300,32 @@ void TextProxy::SetText(const std::wstring &text)
 const glm::ivec4 &TextProxy::GetColor()
 {
     auto tempData = messageSender.Get(SubCommands::SetColor);
-    if(tempData == nullptr)
-        return model->GetColor();
-    return tempData->GetData<glm::ivec4&>();
+    if(tempData != nullptr)
+        return tempData->GetData<glm::ivec4&>();
+    if(model == nullptr)
+        return defaultColorVec;
+
+    return model->GetColor();
 }
 
 const std::wstring &TextProxy::GetText()
 {
     auto tempData = messageSender.Get(SubCommands::SetText);
-    if(tempData == nullptr)
-        return model->GetText();
-    return tempData->GetData<std::wstring&>();
+    if(tempData != nullptr)
+        return tempData->GetData<std::wstring&>();
+    if(model == nullptr)
+        return defaultText;
+    return model->GetText();
 }
 
 const std::wstring &TextProxy::GetFontFamily()
 {
     auto tempData = messageSender.Get(SubCommands::SetFontFamily);
-    if(tempData == nullptr)
-        return model->GetFontFamily();
-    return tempData->GetData<std::wstring&>();
+    if(tempData != nullptr)
+        return tempData->GetData<std::wstring&>();
+    if(model == nullptr)
+        return defaultText;
+    return model->GetFontFamily();
 }
 
 FontAlignment TextProxy::GetFontLineAlignment()
@@ -323,9 +348,11 @@ void TextProxy::SetVisible(bool visible)
 bool TextProxy::IsVisible()
 {
     auto tempData = messageSender.Get(SubCommands::SetVisible);
-    if(tempData == nullptr)
-        return model->IsVisible();
-    return tempData->GetData<bool>();
+    if(tempData != nullptr)
+        return tempData->GetData<bool>();
+    if (model == nullptr)
+        return false;
+    return model->IsVisible();
 }
 
 SubCommands TextProxy::GetModelRequestCommand()
@@ -349,19 +376,23 @@ void TextProxy::SetViewportPosition(const glm::vec4 &vec4)
     NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
 }
 
-glm::vec4 &TextProxy::GetViewportSize()
+const glm::vec4 & TextProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
+    if(model == nullptr)
+        return defaultVec;
     return model->GetViewportPosition();
 }
 
-glm::vec4 &TextProxy::GetViewportPosition()
+const glm::vec4 & TextProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
+    if(model == nullptr)
+        return defaultVec;
     return model->GetViewportPosition();
 }
 

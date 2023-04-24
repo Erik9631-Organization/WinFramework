@@ -15,6 +15,8 @@ glm::vec4 EllipseProxy::GetPosition()
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec4&>();
+    if(model == nullptr)
+        return defaultVector;
     return model->GetPosition();
 }
 
@@ -122,6 +124,8 @@ glm::vec4 EllipseProxy::GetTranslate()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec4&>();
+    if(model == nullptr)
+        return defaultVector;
     return model->GetTranslate();
 }
 
@@ -130,6 +134,8 @@ float EllipseProxy::GetTranslateX()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().x;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetTranslateX();
 }
@@ -139,6 +145,8 @@ float EllipseProxy::GetTranslateY()
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4>().y;
+    if(model == nullptr)
+        return 0.0f;
 
     return model->GetTranslateY();
 }
@@ -223,6 +231,8 @@ const glm::vec4 &EllipseProxy::GetSize()
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec4&>();
+    if(model == nullptr)
+        return defaultVector;
 
     return model->GetSize();
 }
@@ -314,6 +324,8 @@ const glm::ivec4 & EllipseProxy::GetColor()
     auto tempData = messageSender.Get(SubCommands::SetColor);
     if(tempData != nullptr)
         return tempData->GetData<const glm::ivec4&>();
+    if(model == nullptr)
+        return defaultColorVec;
     return model->GetColor();
 }
 
@@ -329,6 +341,8 @@ bool EllipseProxy::GetFill()
     auto tempData = messageSender.Get(SubCommands::SetColor);
     if(tempData != nullptr)
         return tempData->GetData<const bool>();
+    if(model == nullptr)
+        return false;
     return model->GetFill();
 }
 
@@ -376,19 +390,23 @@ void EllipseProxy::ResetViewport()
     NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-glm::vec4 &EllipseProxy::GetViewportSize()
+const glm::vec4 & EllipseProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4& >();
+    if(model == nullptr)
+        return defaultVector;
     return model->GetViewportSize();
 }
 
-glm::vec4 &EllipseProxy::GetViewportPosition()
+const glm::vec4 & EllipseProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
         return tempData->GetData<glm::vec4&>();
+    if(model == nullptr)
+        return defaultVector;
     return model->GetViewportSize();
 }
 

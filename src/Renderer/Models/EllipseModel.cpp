@@ -437,12 +437,12 @@ void EllipseModel::SetViewportPosition(const glm::vec4 &vec4)
     viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
 }
 
-glm::vec4 & EllipseModel::GetViewportSize()
+const glm::vec4 & EllipseModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }
 
-glm::vec4 & EllipseModel::GetViewportPosition()
+const glm::vec4 & EllipseModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

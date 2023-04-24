@@ -65,7 +65,7 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 
 void Window::SetPosition(float x, float y, float z, float w, bool emit)
 {
-    UiElement::SetPosition(x, y, 0, 0, emit);
+   // UiElement::SetPosition(x, y, 0, 0, emit);
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }

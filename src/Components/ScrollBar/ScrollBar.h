@@ -22,7 +22,7 @@ public:
      * If the scrollbar owner dies, the scrollbar will be deleted
      * \param component The component the scrollbar controls
      */
-    static void Control(UiElement *component, std::unique_ptr<ScrollBar> scrollbar);
+    static void Control(UiElement &component, std::unique_ptr<ScrollBar> scrollbar);
     UiElement* GetControlledComponent();
     void ClearControl();
 private:

@@ -26,7 +26,7 @@ ScrollBar::ScrollBar() :
 
 }
 
-void ScrollBar::Control(UiElement *component, std::unique_ptr<ScrollBar> scrollbar)
+void ScrollBar::Control(UiElement &component, std::unique_ptr<ScrollBar> scrollbar)
 {
     auto& scrollbarRef = *scrollbar;
     if(scrollbar->controlledComponent != nullptr)
@@ -40,14 +40,15 @@ void ScrollBar::Control(UiElement *component, std::unique_ptr<ScrollBar> scrollb
     //If control is lost
     //Reassign the components to the parent
 
-    scrollbar->controlledComponent = component;
-    component->Add(std::move(scrollbar));
+    scrollbar->controlledComponent = &component;
+    component.Add(std::move(scrollbar));
 
-    component->AddOnResizeSubscriber(*scrollbarRef.scrollbarBehavior);
-    component->AddOnAddSubscriber(*scrollbarRef.scrollbarBehavior);
+    component.AddOnResizeSubscriber(*scrollbarRef.scrollbarBehavior);
+    component.AddOnMoveSubscriber(*scrollbarRef.scrollbarBehavior);
+    component.AddOnAddSubscriber(*scrollbarRef.scrollbarBehavior);
 
     //Send resize event to calculate the viewPortSize
-    EventResizeInfo resizeInfo = EventResizeInfo(component->GetSize(), component);
+    EventResizeInfo resizeInfo = EventResizeInfo(component.GetSize(), &component);
     scrollbarRef.scrollbarBehavior->OnResize(resizeInfo);
 }
 

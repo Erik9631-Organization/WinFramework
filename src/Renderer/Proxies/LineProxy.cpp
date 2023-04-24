@@ -83,13 +83,13 @@ void LineProxy::SetViewportPosition(const glm::vec4 &vec4)
 
 }
 
-glm::vec4 &LineProxy::GetViewportSize()
+const glm::vec4 & LineProxy::GetViewportSize()
 {
     auto val = glm::vec4{0,0,0,0};
     return val;
 }
 
-glm::vec4 &LineProxy::GetViewportPosition()
+const glm::vec4 & LineProxy::GetViewportPosition()
 {
     auto val = glm::vec4{0,0,0,0};
     return val;

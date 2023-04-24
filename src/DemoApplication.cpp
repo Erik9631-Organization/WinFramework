@@ -317,7 +317,7 @@ void DemoApplication::LaunchDemoApp()
     auto scrollbar = std::make_unique<ScrollBar>(0, 0, 10, 0, "ScrollBar");
 
 	auto panel = std::make_unique<Panel>(50, 300, 300, 250, "panel");
-    ScrollBar::Control(panel.get(), std::move(scrollbar));
+    ScrollBar::Control(*panel, std::move(scrollbar));
 
 
 	/*
