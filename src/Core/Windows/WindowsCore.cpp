@@ -113,7 +113,8 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_MOVE:
     {
         auto pos = glm::vec4((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1], 0, 0);
-        EventMoveInfo e = {pos, nullptr};
+        //TODO use separate event for core
+        EventMoveInfo e = {pos, pos, pos, pos, nullptr};
         NotifyCoreOnMove(e);
         //wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
         UpdateLockCursor();

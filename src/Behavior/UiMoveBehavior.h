@@ -2,6 +2,7 @@
 #include "MoveSubscriber.h"
 #include "EventMoveInfo.h"
 #include <vector>
+#include <iostream>
 #include "MultiTree.h"
 #include "Adjustable.h"
 #include "GenericObj.h"
@@ -35,14 +36,12 @@ private:
     template <typename T>
     static constexpr bool isSmartPtr = IsSmartPtr<T>::value;
 
-    void NotifyOnMoveSubscribers(const glm::vec4& position, T& src);
-
 public:
 	UiMoveBehavior(MultiTree<T>& component);
 	void CalculateAbsolutePosition();
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	void NotifyOnMoveSubscribers(EventMoveInfo event) override;
+	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
 	glm::vec4 GetPosition() override;
 	float GetX() override;
 	float GetY() override;
@@ -85,14 +84,10 @@ public:
 };
 
 template<class T>
-void UiMoveBehavior<T>::NotifyOnMoveSubscribers(const glm::vec4 &position, T& src)
+void UiMoveBehavior<T>::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
-    if constexpr (std::is_pointer<T>::value)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, dynamic_cast<Movable*>(src)));
-    else if constexpr (isSmartPtr<T>)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, dynamic_cast<Movable*>(src.get())));
-    else
-        NotifyOnMoveSubscribers(EventMoveInfo(position, dynamic_cast<Movable*>(&src)));
+    for (MoveSubscriber& subscriber : moveSubscribers)
+        subscriber.OnMove(event);
 }
 
 template<class T>
@@ -113,9 +108,14 @@ void UiMoveBehavior<T>::TranslateChildren(glm::vec4 translate)
 template<class T>
 void UiMoveBehavior<T>::SetTranslate(glm::vec4 offset, bool emit)
 {
-	this->translate = offset;
+    this->translate = offset;
+    auto lastPos = GetPosition();
+    auto lastAbsPos = GetAbsolutePosition();
+    CalculateAbsolutePosition();
+    auto newAbsPos = GetAbsolutePosition();
+    auto newRelPos = GetPosition();
     if(emit)
-        NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+        NotifyOnMoveSubscribers({newRelPos, newAbsPos, lastPos, lastAbsPos, this});
 }
 template<class T>
 void UiMoveBehavior<T>::SetTranslateX(float x, bool emit)
@@ -192,13 +192,6 @@ void UiMoveBehavior<T>::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 }
 
 template<class T>
-void UiMoveBehavior<T>::NotifyOnMoveSubscribers(EventMoveInfo event)
-{
-	for (MoveSubscriber& subscriber : moveSubscribers)
-		subscriber.OnMove(event);
-}
-
-template<class T>
 glm::vec4 UiMoveBehavior<T>::GetPosition()
 {
 	return relativePosition;
@@ -231,11 +224,17 @@ float UiMoveBehavior<T>::GetW()
 template<class T>
 void UiMoveBehavior<T>::SetPosition(glm::vec4 position, bool emit)
 {
+    auto oldPosition = relativePosition;
+    auto oldAbsPosition = absolutePosition;
 	relativePosition = position;
 	CalculateAbsolutePosition();
     //TODO this is a hack, fix it as get is a unique_ptr
     if(emit)
-	    NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+    {
+        auto event = EventMoveInfo{relativePosition, absolutePosition, oldPosition, oldAbsPosition, this};
+        NotifyOnMoveSubscribers(event);
+    }
+
 }
 
 template<class T>
@@ -247,10 +246,7 @@ void UiMoveBehavior<T>::SetPosition(float x, float y, float z, float w, bool emi
 template<class T>
 void UiMoveBehavior<T>::SetX(float x, bool emit)
 {
-	relativePosition.x = x;
-	CalculateAbsolutePosition();
-    if(emit)
-	    NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+    SetPosition({x, relativePosition.y, relativePosition.z, relativePosition.w}, emit);
 }
 
 template<class T>
@@ -262,10 +258,7 @@ void UiMoveBehavior<T>::SetX(float x)
 template<class T>
 void UiMoveBehavior<T>::SetY(float y, bool emit)
 {
-	relativePosition.y = y;
-	CalculateAbsolutePosition();
-    if(emit)
-	    NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+    SetPosition({relativePosition.x, y, relativePosition.z, relativePosition.w}, emit);
 }
 
 template<class T>
@@ -277,10 +270,7 @@ void UiMoveBehavior<T>::SetY(float y)
 template<class T>
 void UiMoveBehavior<T>::SetZ(float z, bool emit)
 {
-    relativePosition.z = z;
-    CalculateAbsolutePosition();
-    if(emit)
-        NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+    SetPosition({relativePosition.x, relativePosition.y, z, relativePosition.w}, emit);
 }
 
 template<class T>
@@ -292,10 +282,7 @@ void UiMoveBehavior<T>::SetZ(float z)
 template<class T>
 void UiMoveBehavior<T>::SetW(float w, bool emit)
 {
-    relativePosition.w = w;
-    CalculateAbsolutePosition();
-    if(emit)
-        NotifyOnMoveSubscribers(relativePosition, associatedAdjustableNode.GetValue());
+    SetPosition({relativePosition.x, relativePosition.y, relativePosition.z, w}, emit);
 }
 
 template<class T>
@@ -331,7 +318,7 @@ void UiMoveBehavior<T>::SetPosition(glm::vec4 position)
 template<class T>
 void UiMoveBehavior<T>::SetPosition(float x, float y, float z, float w)
 {
-    SetPosition(x, y, z, w, true);
+    SetPosition({x, y, z, w}, true);
 }
 
 template<class T>

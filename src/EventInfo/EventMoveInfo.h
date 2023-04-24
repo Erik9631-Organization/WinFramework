@@ -13,26 +13,31 @@ class EventMoveInfo
 private:
     glm::vec4 prevPosition;
 	glm::vec4 position;
+    glm::vec4 absolutePosition;
+    glm::vec4 prevAbsolutePosition;
 	Movable* src;
+    bool isSource = true;
 public:
-    const glm::vec4& GetPrevPosition() const;
+    [[nodiscard]] const glm::vec4& GetPrevPosition() const;
 
 	/**
 	 * \return Returns the viewPortSize of the source object at the point this event was called.
 	 */
-    glm::vec4 GetPosition() const;
+    [[nodiscard]] const glm::vec4 & GetPosition() const;
+
+    [[nodiscard]] const glm::vec4 & GetPrevAbsolutePosition() const;
+
+    [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const;
+
+    [[nodiscard]] bool IsSource() const;
 
 	/**
 	 * \return returns the source object that called the event.
 	 */
-	Movable* GetSrc() const;
+	[[nodiscard]] Movable* GetSrc() const;
 
-	/**
-	 * \param position the viewPortSize of the source object.
-	 * \param src the source object that called the event. 
-	 */
-	EventMoveInfo(glm::vec4 position, Movable* src);
-    EventMoveInfo(glm::vec4 position, glm::vec4 prevPosition, Movable* src);
+    EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolutePosition, const glm::vec4 &prevPosition,
+                  const glm::vec4 &prevAbsolutePosition, Movable *src, bool isSource = true);
 
     ~EventMoveInfo();
 };

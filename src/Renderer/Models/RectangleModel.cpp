@@ -218,7 +218,7 @@ void RectangleModel::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     movableBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void RectangleModel::NotifyOnMoveSubscribers(EventMoveInfo e)
+void RectangleModel::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     movableBehavior.NotifyOnMoveSubscribers(e);
 }

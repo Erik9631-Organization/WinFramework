@@ -117,8 +117,7 @@ Text2::~Text2()
 
 glm::vec4 Text2::GetPosition()
 {
-
-    return glm::vec4();
+    return textPosition;
 }
 
 float Text2::GetX()
@@ -153,15 +152,18 @@ float Text2::GetAbsoluteY()
 
 const glm::vec4 &Text2::GetAbsolutePosition()
 {
-    return textPosition;
+    textScaler.Scale(textPosition);
+    return textScaler.GetPosition();
 }
 
 void Text2::SetPosition(glm::vec4 position, bool emit)
 {
-    if(emit)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, textPosition, this));
+    auto oldPosition = GetPosition();
+    auto oldAbsolutePosition = GetAbsolutePosition();
     textPosition = position;
-    OnMove(EventMoveInfo(position, textPosition, this));
+    if(emit)
+        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this));
+    OnMove(EventMoveInfo(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this)));
 }
 
 void Text2::SetPosition(glm::vec4 position)
@@ -274,7 +276,7 @@ void Text2::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     moveSubscribers.erase(std::remove(moveSubscribers.begin(), moveSubscribers.end(), &subscriber), moveSubscribers.end());
 }
 
-void Text2::NotifyOnMoveSubscribers(EventMoveInfo e)
+void Text2::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for(auto &subscriber : moveSubscribers)
         subscriber->OnMove(e);

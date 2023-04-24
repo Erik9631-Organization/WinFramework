@@ -119,7 +119,7 @@ public:
 
     void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
-    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &e) override;
 
     void SetVisible(bool state) override;
 

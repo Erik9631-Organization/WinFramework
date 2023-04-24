@@ -132,7 +132,7 @@ public:
 
     void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
-    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &e) override;
 
     void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 

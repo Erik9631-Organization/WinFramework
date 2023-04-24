@@ -125,9 +125,11 @@ const glm::vec4 &RadioCircle::GetAbsolutePosition()
 
 void RadioCircle::SetPosition(glm::vec4 position, bool emit)
 {
+    auto oldPosition = this->position;
+    auto oldAbsolutePosition = GetAbsolutePosition();
     this->position = position;
     if(emit)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, position, this));
+        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this));
 }
 
 void RadioCircle::SetPosition(glm::vec4 position)
@@ -240,7 +242,7 @@ void RadioCircle::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     moveSubscribers.erase(std::remove(moveSubscribers.begin(), moveSubscribers.end(), &subscriber), moveSubscribers.end());
 }
 
-void RadioCircle::NotifyOnMoveSubscribers(EventMoveInfo e)
+void RadioCircle::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for(auto &subscriber : moveSubscribers)
         subscriber->OnMove(e);

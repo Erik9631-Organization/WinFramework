@@ -168,7 +168,7 @@ void EllipseProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     }
 }
 
-void EllipseProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
+void EllipseProxy::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
         (*it)->OnMove(e);

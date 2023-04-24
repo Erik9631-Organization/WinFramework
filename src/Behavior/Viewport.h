@@ -47,7 +47,7 @@ public:
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
+	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
 	virtual glm::vec4 GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;

@@ -281,7 +281,7 @@ void RectangleProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     }
 }
 
-void RectangleProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
+void RectangleProxy::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
         (*it)->OnMove(e);

@@ -113,7 +113,7 @@ public:
 
     void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
-    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &e) override;
 
     ScalingUtil2D& GetScales();
 

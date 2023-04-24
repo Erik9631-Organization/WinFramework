@@ -244,7 +244,7 @@ void TextProxy::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     }
 }
 
-void TextProxy::NotifyOnMoveSubscribers(EventMoveInfo e)
+void TextProxy::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for (auto it = moveSubscribers.begin(); it != moveSubscribers.end(); it++)
         (*it)->OnMove(e);

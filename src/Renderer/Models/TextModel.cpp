@@ -280,7 +280,7 @@ void TextModel::SetFontLineAlignment(FontAlignment alignment)
     this->fontLineAlignment = alignment;
 }
 
-void TextModel::NotifyOnMoveSubscribers(EventMoveInfo e)
+void TextModel::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     movableModelBehavior.NotifyOnMoveSubscribers(e);
 }

@@ -90,7 +90,7 @@ void Viewport::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
     moveBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void Viewport::NotifyOnMoveSubscribers(EventMoveInfo event)
+void Viewport::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
     moveBehavior.NotifyOnMoveSubscribers(event);
 }

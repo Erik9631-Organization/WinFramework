@@ -184,7 +184,7 @@ public:
 	// Inherited via Movable
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
+	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
 	virtual float GetAbsoluteX() override;

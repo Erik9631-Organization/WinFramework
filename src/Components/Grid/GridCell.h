@@ -81,7 +81,7 @@ public:
 	void SetHeight(float height, bool emit) override;
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	void NotifyOnMoveSubscribers(EventMoveInfo event) override;
+	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
 	glm::vec4 GetPosition() override;
 	float GetX() override;
 	float GetY() override;

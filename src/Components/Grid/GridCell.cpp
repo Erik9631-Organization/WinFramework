@@ -188,7 +188,7 @@ void GridCell::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
     associatedAdjustable->RemoveOnMoveSubscriber(subscriber);
 }
 
-void GridCell::NotifyOnMoveSubscribers(EventMoveInfo event)
+void GridCell::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
     if (associatedAdjustable == nullptr)
         return;

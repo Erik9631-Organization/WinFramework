@@ -116,7 +116,7 @@ public:
 
     void SetFontLineAlignment(FontAlignment alignment) override;
 
-    void NotifyOnMoveSubscribers(EventMoveInfo e) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &e) override;
 
     void SetText(const std::wstring &text) override;
 

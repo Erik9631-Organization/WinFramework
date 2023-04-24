@@ -3,7 +3,7 @@
 #include "api/Movable.h"
 
 
-glm::vec4 EventMoveInfo::GetPosition() const
+const glm::vec4 & EventMoveInfo::GetPosition() const
 {
 	return position;
 }
@@ -13,24 +13,39 @@ Movable* EventMoveInfo::GetSrc() const
 	return src;
 }
 
-EventMoveInfo::EventMoveInfo(glm::vec4 position, Movable* src) : src(src)
-{
-	this->position = position;
-	this->src = src;
-}
-
 EventMoveInfo::~EventMoveInfo()
 {
+
 }
 
-EventMoveInfo::EventMoveInfo(glm::vec4 position, glm::vec4 prevPosition, Movable *src)
+EventMoveInfo::EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolutePosition,
+                             const glm::vec4 &prevPosition,
+                             const glm::vec4 &prevAbsolutePosition, Movable *src, bool isSource)
 {
     this->position = position;
     this->prevPosition = prevPosition;
+    this->prevAbsolutePosition = prevAbsolutePosition;
+    this->absolutePosition = absolutePosition;
     this->src = src;
+    this->isSource = isSource;
 }
 
 const glm::vec4 &EventMoveInfo::GetPrevPosition() const
 {
     return prevPosition;
+}
+
+const glm::vec4 &EventMoveInfo::GetPrevAbsolutePosition() const
+{
+    return prevAbsolutePosition;
+}
+
+const glm::vec4 &EventMoveInfo::GetAbsolutePosition() const
+{
+    return absolutePosition;
+}
+
+bool EventMoveInfo::IsSource() const
+{
+    return isSource;
 }

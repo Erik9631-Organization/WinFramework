@@ -65,7 +65,10 @@ int main( int argc, char* argv[] )
 //    int result = Catch::Session().run(argc, argv);
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
 //
-    auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
+     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
+     auto pos = button1.GetPosition();
+     pos.z = -100;
+     button1.SetPosition(pos);
     auto& button2 = window->CreateElement<Button>(50, 120, 100, 50, "button2");
     auto& radioButton1 = window->CreateElement<RadioButton>(50, 190, 100, 50, "radioButton1");
     auto& radioButton2 = window->CreateElement<RadioButton>(50, 260, 100, 50, "radioButton2");

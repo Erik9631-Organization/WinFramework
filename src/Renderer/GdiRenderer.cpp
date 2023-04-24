@@ -25,9 +25,6 @@ void GdiRenderer::Render()
     std::lock_guard<std::mutex> lock(setViewPortMutex);
     for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
         it->second->Draw();
-
-    std::cout << std::endl;
-
 }
 
 void GdiRenderer::CleanDeviceContext()
@@ -140,7 +137,7 @@ RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 
 void GdiRenderer::OnMove(EventMoveInfo e)
 {
-    auto matches = modelZIndexMap.equal_range(e.GetPrevPosition().z);
+    auto matches = modelZIndexMap.equal_range(e.GetPrevAbsolutePosition().z);
     auto model = dynamic_cast<RenderingModel*>(e.GetSrc());
     if (model == nullptr)
         return;
@@ -153,7 +150,7 @@ void GdiRenderer::OnMove(EventMoveInfo e)
             break;
         }
     }
-    modelZIndexMap.emplace(e.GetPosition().z, model);
+    modelZIndexMap.emplace(e.GetAbsolutePosition().z, model);
 }
 
 void GdiRenderer::SetViewportSize(int width, int height)

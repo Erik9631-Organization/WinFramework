@@ -360,7 +360,7 @@ void EllipseModel::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     movableBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void EllipseModel::NotifyOnMoveSubscribers(EventMoveInfo e)
+void EllipseModel::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     movableBehavior.NotifyOnMoveSubscribers(e);
 }

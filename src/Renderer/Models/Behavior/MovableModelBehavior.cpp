@@ -48,8 +48,9 @@ const glm::vec4 & MovableModelBehavior::GetAbsolutePosition()
 void MovableModelBehavior::SetPosition(glm::vec4 position, bool emit)
 {
     auto prevPos = this->position;
+    auto prevAbsPos = GetAbsolutePosition();
     this->position = position;
-    NotifyOnMoveSubscribers({position, prevPos, &owner});
+    NotifyOnMoveSubscribers({position, GetAbsolutePosition(), prevPos, prevAbsPos, &owner, false});
 }
 
 void MovableModelBehavior::SetPosition(glm::vec4 position)
@@ -169,7 +170,7 @@ void MovableModelBehavior::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
     }
 }
 
-void MovableModelBehavior::NotifyOnMoveSubscribers(EventMoveInfo e)
+void MovableModelBehavior::NotifyOnMoveSubscribers(const EventMoveInfo &e)
 {
     for(auto* subscriber : moveSubscribers)
         subscriber->OnMove(e);

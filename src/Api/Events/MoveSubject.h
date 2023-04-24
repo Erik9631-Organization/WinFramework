@@ -24,6 +24,6 @@ public:
 	 * Sends an event to all the subscribers of this object.
 	 * \param e the event object that should be sent to the subscribers.
 	 */
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo e) = 0;
+	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &e) = 0;
 };
 

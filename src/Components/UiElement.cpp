@@ -79,7 +79,7 @@ void UiElement::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 	moveBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
+void UiElement::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
 	moveBehavior.NotifyOnMoveSubscribers(event);
 }
