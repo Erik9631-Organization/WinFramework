@@ -89,10 +89,7 @@ void UiMoveBehavior<T>::NotifyOnMoveSubscribers(const EventMoveInfo &event)
     for (MoveSubscriber& subscriber : moveSubscribers)
         subscriber.OnMove(event);
 
-    //TODO remove last position and last absolute position
-    auto nonSourceEvent = EventMoveInfo{GetPosition(), GetAbsolutePosition()),
-                                        event.GetPrevPosition(), event.GetPrevAbsolutePosition(),
-                                        event.GetSrc(), false};
+    auto nonSourceEvent = EventMoveInfo{GetPosition(), GetAbsolutePosition(), this, false};
     for (int i = 0; i < associatedAdjustableNode.GetNodeCount(); i++)
         associatedAdjustableNode.Get(i)->NotifyOnMoveSubscribers(nonSourceEvent);
 
@@ -117,13 +114,9 @@ template<class T>
 void UiMoveBehavior<T>::SetTranslate(glm::vec4 offset, bool emit)
 {
     this->translate = offset;
-    auto lastPos = GetPosition();
-    auto lastAbsPos = GetAbsolutePosition();
     CalculateAbsolutePosition();
-    auto newAbsPos = GetAbsolutePosition();
-    auto newRelPos = GetPosition();
     if(emit)
-        NotifyOnMoveSubscribers({newRelPos, newAbsPos, lastPos, lastAbsPos, this});
+        NotifyOnMoveSubscribers({GetPosition(), GetAbsolutePosition(), this});
 }
 template<class T>
 void UiMoveBehavior<T>::SetTranslateX(float x, bool emit)
@@ -239,7 +232,7 @@ void UiMoveBehavior<T>::SetPosition(glm::vec4 position, bool emit)
     //TODO this is a hack, fix it as get is a unique_ptr
     if(emit)
     {
-        auto event = EventMoveInfo{relativePosition, absolutePosition, oldPosition, oldAbsPosition, this};
+        auto event = EventMoveInfo{relativePosition, absolutePosition, this};
         NotifyOnMoveSubscribers(event);
     }
 

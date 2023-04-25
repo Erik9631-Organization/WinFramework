@@ -162,8 +162,8 @@ void Text2::SetPosition(glm::vec4 position, bool emit)
     auto oldAbsolutePosition = GetAbsolutePosition();
     textPosition = position;
     if(emit)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this));
-    OnMove(EventMoveInfo(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this)));
+        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), this));
+    OnMove(EventMoveInfo(EventMoveInfo(position, GetAbsolutePosition(), this)));
 }
 
 void Text2::SetPosition(glm::vec4 position)

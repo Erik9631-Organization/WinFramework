@@ -129,7 +129,7 @@ void RadioCircle::SetPosition(glm::vec4 position, bool emit)
     auto oldAbsolutePosition = GetAbsolutePosition();
     this->position = position;
     if(emit)
-        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), oldPosition, oldAbsolutePosition, this));
+        NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), this));
 }
 
 void RadioCircle::SetPosition(glm::vec4 position)
