@@ -63,7 +63,7 @@ float RectangleProxy::GetW()
     return model->GetW();
 }
 
-void RectangleProxy::SetPosition(glm::vec4 position, bool emit)
+void RectangleProxy::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
@@ -125,7 +125,7 @@ void RectangleProxy::SetW(float w)
     SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, true);
 }
 
-void RectangleProxy::SetTranslate(glm::vec4 offset, bool emit)
+void RectangleProxy::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
@@ -157,7 +157,7 @@ void RectangleProxy::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-glm::vec4 RectangleProxy::GetTranslate()
+const glm::vec4 & RectangleProxy::GetTranslate()
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)

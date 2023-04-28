@@ -156,7 +156,7 @@ const glm::vec4 &Text2::GetAbsolutePosition()
     return textScaler.GetPosition();
 }
 
-void Text2::SetPosition(glm::vec4 position, bool emit)
+void Text2::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto oldPosition = GetPosition();
     auto oldAbsolutePosition = GetAbsolutePosition();
@@ -221,7 +221,7 @@ void Text2::SetW(float w)
     SetPosition({textPosition.x, textPosition.y, textPosition.z, w}, true);
 }
 
-void Text2::SetTranslate(glm::vec4 offset, bool emit)
+void Text2::SetTranslate(const glm::vec4 &offset, bool emit)
 {
 
 }
@@ -251,7 +251,7 @@ void Text2::SetTranslateY(float y)
 
 }
 
-glm::vec4 Text2::GetTranslate()
+const glm::vec4 & Text2::GetTranslate()
 {
     return glm::vec4();
 }

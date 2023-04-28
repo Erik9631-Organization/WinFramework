@@ -123,7 +123,7 @@ const glm::vec4 &RadioCircle::GetAbsolutePosition()
     return scaler.GetPosition();
 }
 
-void RadioCircle::SetPosition(glm::vec4 position, bool emit)
+void RadioCircle::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto oldPosition = this->position;
     auto oldAbsolutePosition = GetAbsolutePosition();
@@ -187,7 +187,7 @@ void RadioCircle::SetW(float w)
     SetPosition({position.x, position.y, position.z, w}, true);
 }
 
-void RadioCircle::SetTranslate(glm::vec4 offset, bool emit)
+void RadioCircle::SetTranslate(const glm::vec4 &offset, bool emit)
 {
 
 }
@@ -217,7 +217,7 @@ void RadioCircle::SetTranslateY(float y)
 
 }
 
-glm::vec4 RadioCircle::GetTranslate()
+const glm::vec4 & RadioCircle::GetTranslate()
 {
     return glm::vec4();
 }

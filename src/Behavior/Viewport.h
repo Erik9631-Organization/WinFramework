@@ -54,7 +54,7 @@ public:
 	virtual float GetAbsoluteX() override;
 	virtual float GetAbsoluteY() override;
 	virtual const glm::vec4 & GetAbsolutePosition() override;
-	virtual void SetPosition(glm::vec4 position, bool emit) override;
+	virtual void SetPosition(const glm::vec4 &position, bool emit) override;
 	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
 	virtual void SetX(float x, bool emit) override;
 	virtual void SetY(float y, bool emit) override;
@@ -76,13 +76,13 @@ public:
 
 
 	// Inherited via Adjustable
-	virtual void SetTranslate(glm::vec4 offset, bool emit) override;
+	virtual void SetTranslate(const glm::vec4 &offset, bool emit) override;
 
 	virtual void SetTranslateX(float x, bool emit) override;
 
 	virtual void SetTranslateY(float y, bool emit) override;
 
-	virtual glm::vec4 GetTranslate() override;
+	virtual const glm::vec4 & GetTranslate() override;
 
 	virtual float GetTranslateX() override;
 

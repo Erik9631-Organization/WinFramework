@@ -153,7 +153,7 @@ public:
 	void SetComponentName(std::string name);
 
 	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
-	virtual void SetPosition(glm::vec4 pos, bool emit) override;
+	virtual void SetPosition(const glm::vec4 &pos, bool emit) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -276,12 +276,12 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(glm::vec4 offset, bool emit) override;
+	virtual void SetTranslate(const glm::vec4 &offset, bool emit) override;
 	virtual void SetTranslateX(float x, bool emit) override;
 	virtual void SetTranslateY(float Y, bool emit) override;
 
 	// Inherited via Adjustable
-	virtual glm::vec4 GetTranslate() override;
+	virtual const glm::vec4 & GetTranslate() override;
 	virtual float GetTranslateX() override;
 	virtual float GetTranslateY() override;
 	

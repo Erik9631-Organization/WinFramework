@@ -45,7 +45,7 @@ const glm::vec4 & EllipseProxy::GetAbsolutePosition()
     return GetPosition();
 }
 
-void EllipseProxy::SetPosition(glm::vec4 position, bool emit)
+void EllipseProxy::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
@@ -87,7 +87,7 @@ void EllipseProxy::SetY(float y)
     SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), true);
 }
 
-void EllipseProxy::SetTranslate(glm::vec4 offset, bool emit)
+void EllipseProxy::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
@@ -119,7 +119,7 @@ void EllipseProxy::SetTranslateY(float y)
     SetTranslate({model->GetTranslateX(), y, 0, 0}, true);
 }
 
-glm::vec4 EllipseProxy::GetTranslate()
+const glm::vec4 & EllipseProxy::GetTranslate()
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)

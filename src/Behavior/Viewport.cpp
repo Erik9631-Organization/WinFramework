@@ -135,7 +135,7 @@ const glm::vec4 & Viewport::GetAbsolutePosition()
     return absolutePosition;
 }
 
-void Viewport::SetPosition(glm::vec4 position, bool emit)
+void Viewport::SetPosition(const glm::vec4 &position, bool emit)
 {
     moveBehavior.SetPosition(position, emit);
 }
@@ -211,7 +211,7 @@ void Viewport::OnUpdate(EventUpdateInfo e)
     CalculateAbsoluteSize({resizeBehavior.GetSize().x, resizeBehavior.GetSize().y, 0, 1});
 }
 
-void Viewport::SetTranslate(glm::vec4 offset, bool emit)
+void Viewport::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     moveBehavior.SetTranslate(offset, emit);
 }
@@ -226,7 +226,7 @@ void Viewport::SetTranslateY(float y, bool emit)
     moveBehavior.SetTranslateY(y, emit);
 }
 
-glm::vec4 Viewport::GetTranslate()
+const glm::vec4 & Viewport::GetTranslate()
 {
     return moveBehavior.GetTranslate();
 }

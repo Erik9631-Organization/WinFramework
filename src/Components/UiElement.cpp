@@ -306,7 +306,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(glm::vec4 offset, bool emit)
+void UiElement::SetTranslate(const glm::vec4 &offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
@@ -329,7 +329,7 @@ void UiElement::SetTranslateY(float y, bool emit)
     moveBehavior.SetTranslateY(y, emit);
 }
 
-glm::vec4 UiElement::GetTranslate()
+const glm::vec4 & UiElement::GetTranslate()
 {
 	return moveBehavior.GetTranslate();
 }
@@ -485,7 +485,7 @@ void UiElement::SetPosition(float x, float y, float z, float w, bool emit)
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
-void UiElement::SetPosition(glm::vec4 pos, bool emit)
+void UiElement::SetPosition(const glm::vec4 &pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));

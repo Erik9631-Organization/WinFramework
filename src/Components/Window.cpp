@@ -70,7 +70,7 @@ void Window::SetPosition(float x, float y, float z, float w, bool emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetPosition(glm::vec4 position, bool emit)
+void Window::SetPosition(const glm::vec4 &position, bool emit)
 {
     SetPosition(position.x, position.y, 0, 0, emit);
 }

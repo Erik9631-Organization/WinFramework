@@ -233,7 +233,7 @@ const glm::vec4 & GridCell::GetAbsolutePosition()
     return {indexPos.x + parentGrid.GetAbsoluteX(), indexPos.y + parentGrid.GetAbsoluteY(), 0, 1};
 }
 
-void GridCell::SetPosition(glm::vec4 position, bool emit)
+void GridCell::SetPosition(const glm::vec4 &position, bool emit)
 {
     this->indexPos.x = static_cast<int>(position.x);
     this->indexPos.y = static_cast<int>(position.y);
@@ -278,7 +278,7 @@ void GridCell::SetW(float w)
 
 }
 
-void GridCell::SetTranslate(glm::vec4 offset, bool emit)
+void GridCell::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     if (associatedAdjustable == nullptr)
         return;
@@ -299,7 +299,7 @@ void GridCell::SetTranslateY(float y, bool emit)
     associatedAdjustable->SetTranslateY(y, emit);
 }
 
-glm::vec4 GridCell::GetTranslate()
+const glm::vec4 & GridCell::GetTranslate()
 {
     if (associatedAdjustable == nullptr)
         return {0, 0, 0, 1};

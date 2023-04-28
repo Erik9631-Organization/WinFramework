@@ -45,7 +45,7 @@ const glm::vec4 & MovableModelBehavior::GetAbsolutePosition()
     return position;
 }
 
-void MovableModelBehavior::SetPosition(glm::vec4 position, bool emit)
+void MovableModelBehavior::SetPosition(const glm::vec4 &position, bool emit)
 {
     this->position = position;
     NotifyOnMoveSubscribers({position, GetAbsolutePosition(), &owner, false});
@@ -106,7 +106,7 @@ void MovableModelBehavior::SetW(float w)
     SetPosition({position.x, position.y, position.z, w});
 }
 
-void MovableModelBehavior::SetTranslate(glm::vec4 offset, bool emit)
+void MovableModelBehavior::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     translation = offset;
 }
@@ -136,7 +136,7 @@ void MovableModelBehavior::SetTranslateY(float y)
     translation.y = y;
 }
 
-glm::vec4 MovableModelBehavior::GetTranslate()
+const glm::vec4 & MovableModelBehavior::GetTranslate()
 {
     return translation;
 }

@@ -48,7 +48,7 @@ const glm::vec4 & RectangleModel::GetAbsolutePosition()
     return movableBehavior.GetAbsolutePosition();
 }
 
-void RectangleModel::SetPosition(glm::vec4 position, bool emit)
+void RectangleModel::SetPosition(const glm::vec4 &position, bool emit)
 {
     movableBehavior.SetPosition(position, emit);
 }
@@ -108,7 +108,7 @@ void RectangleModel::SetW(float w)
     movableBehavior.SetW(w);
 }
 
-void RectangleModel::SetTranslate(glm::vec4 offset, bool emit)
+void RectangleModel::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     movableBehavior.SetTranslate(offset, emit);
 }
@@ -138,7 +138,7 @@ void RectangleModel::SetTranslateY(float y)
     movableBehavior.SetTranslateY(y);
 }
 
-glm::vec4 RectangleModel::GetTranslate()
+const glm::vec4 & RectangleModel::GetTranslate()
 {
     return movableBehavior.GetTranslate();
 }

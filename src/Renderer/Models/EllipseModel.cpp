@@ -190,7 +190,7 @@ const glm::vec4 &EllipseModel::GetAbsolutePosition()
     return movableBehavior.GetAbsolutePosition();
 }
 
-void EllipseModel::SetPosition(glm::vec4 position, bool emit)
+void EllipseModel::SetPosition(const glm::vec4 &position, bool emit)
 {
     movableBehavior.SetPosition(position);
 }
@@ -250,7 +250,7 @@ void EllipseModel::SetW(float w)
     movableBehavior.SetW(w);
 }
 
-void EllipseModel::SetTranslate(glm::vec4 offset, bool emit)
+void EllipseModel::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     movableBehavior.SetTranslate(offset, emit);
 }
@@ -280,7 +280,7 @@ void EllipseModel::SetTranslateY(float y)
     movableBehavior.SetTranslateY(y);
 }
 
-glm::vec4 EllipseModel::GetTranslate()
+const glm::vec4 & EllipseModel::GetTranslate()
 {
     return movableBehavior.GetTranslate();
 }

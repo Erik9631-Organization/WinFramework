@@ -46,7 +46,7 @@ const glm::vec4 & TextModel::GetAbsolutePosition()
     return movableModelBehavior.GetAbsolutePosition();
 }
 
-void TextModel::SetPosition(glm::vec4 position, bool emit)
+void TextModel::SetPosition(const glm::vec4 &position, bool emit)
 {
     movableModelBehavior.SetPosition(position, emit);
 }
@@ -106,7 +106,7 @@ void TextModel::SetW(float w)
     movableModelBehavior.SetW(w);
 }
 
-void TextModel::SetTranslate(glm::vec4 offset, bool emit)
+void TextModel::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     movableModelBehavior.SetTranslate(offset, emit);
 }
@@ -136,7 +136,7 @@ void TextModel::SetTranslateY(float y)
     movableModelBehavior.SetTranslateY(y);
 }
 
-glm::vec4 TextModel::GetTranslate()
+const glm::vec4 & TextModel::GetTranslate()
 {
     return movableModelBehavior.GetTranslate();
 }

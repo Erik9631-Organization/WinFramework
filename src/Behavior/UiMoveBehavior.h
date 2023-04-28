@@ -47,7 +47,7 @@ public:
 	float GetY() override;
     float GetZ() override ;
     float GetW() override;
-	void SetPosition(glm::vec4 position, bool emit) override;
+	void SetPosition(const glm::vec4 &position, bool emit) override;
 	void SetPosition(float x, float y, float z, float w, bool emit) override;
 	void SetX(float x, bool emit) override;
     void SetX(float x) override;
@@ -61,11 +61,11 @@ public:
 	float GetAbsoluteY() override;
 	const glm::vec4 & GetAbsolutePosition() override;
 
-	void SetTranslate(glm::vec4 offset, bool emit) override;
+	void SetTranslate(const glm::vec4 &offset, bool emit) override;
 	void SetTranslateX(float x, bool emit) override;
 	void SetTranslateY(float Y, bool emit) override;
 
-	glm::vec4 GetTranslate() override;
+	const glm::vec4 & GetTranslate() override;
 	float GetTranslateX() override;
 	float GetTranslateY() override;
 
@@ -111,7 +111,7 @@ void UiMoveBehavior<T>::TranslateChildren(glm::vec4 translate)
 
 
 template<class T>
-void UiMoveBehavior<T>::SetTranslate(glm::vec4 offset, bool emit)
+void UiMoveBehavior<T>::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     this->translate = offset;
     CalculateAbsolutePosition();
@@ -130,7 +130,7 @@ void UiMoveBehavior<T>::SetTranslateY(float y, bool emit)
 }
 
 template<class T>
-glm::vec4 UiMoveBehavior<T>::GetTranslate()
+const glm::vec4 & UiMoveBehavior<T>::GetTranslate()
 {
 	return translate;
 }
@@ -223,7 +223,7 @@ float UiMoveBehavior<T>::GetW()
 }
 
 template<class T>
-void UiMoveBehavior<T>::SetPosition(glm::vec4 position, bool emit)
+void UiMoveBehavior<T>::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto oldPosition = relativePosition;
     auto oldAbsPosition = absolutePosition;

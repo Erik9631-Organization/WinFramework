@@ -46,7 +46,7 @@ public:
 
     void SetBackgroundColor(const glm::ivec4 &color) override;
 
-    void SetPosition(glm::vec4 position, bool emit) override;
+    void SetPosition(const glm::vec4 &position, bool emit) override;
 
     void SetSize(const glm::vec4 &size, bool emit) override;
 };

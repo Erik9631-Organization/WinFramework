@@ -55,7 +55,7 @@ public:
 
     const glm::vec4 & GetAbsolutePosition() override;
 
-    void SetPosition(glm::vec4 position, bool emit) override;
+    void SetPosition(const glm::vec4 &position, bool emit) override;
 
     void SetPosition(glm::vec4 position) override;
 
@@ -79,7 +79,7 @@ public:
 
     void SetW(float w) override;
 
-    void SetTranslate(glm::vec4 offset, bool emit) override;
+    void SetTranslate(const glm::vec4 &offset, bool emit) override;
 
     void SetTranslate(glm::vec4 offset) override;
 
@@ -91,7 +91,7 @@ public:
 
     void SetTranslateY(float y) override;
 
-    glm::vec4 GetTranslate() override;
+    const glm::vec4 & GetTranslate() override;
 
     float GetTranslateX() override;
 

@@ -78,7 +78,7 @@ const glm::vec4 & TextProxy::GetAbsolutePosition()
     return model->GetAbsolutePosition();
 }
 
-void TextProxy::SetPosition(glm::vec4 position, bool emit)
+void TextProxy::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
@@ -140,7 +140,7 @@ void TextProxy::SetW(float w)
     SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, true);
 }
 
-void TextProxy::SetTranslate(glm::vec4 offset, bool emit)
+void TextProxy::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
@@ -172,7 +172,7 @@ void TextProxy::SetTranslateY(float y)
     SetTranslateY(y, true);
 }
 
-glm::vec4 TextProxy::GetTranslate()
+const glm::vec4 & TextProxy::GetTranslate()
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
