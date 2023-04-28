@@ -16,7 +16,7 @@
 class EllipseModel : public RenderingModel, public Resizable, public Movable
 {
 private:
-    long long id = -1;
+    size_t id = -1;
     bool fill = false;
     bool visible = true;
     bool renderFromCenter = true;
@@ -28,7 +28,7 @@ private:
 public:
     void SetRenderFromCenter(bool renderFromCenter);
 
-    bool GetRenderFromCenter();
+    bool GetRenderFromCenter() const;
 
     EllipseModel();
 
@@ -44,7 +44,7 @@ public:
 
     void SetRenderer(Renderer *renderer) override;
 
-    void SetModelId(long long int id) override;
+    void SetModelId(size_t id) override;
 
     const size_t & GetModelId() override;
 

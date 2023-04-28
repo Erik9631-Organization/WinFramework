@@ -286,7 +286,7 @@ void RectangleModel::SetRenderer(Renderer *renderer)
     this->renderer = renderer;
 }
 
-void RectangleModel::SetModelId(long long int id)
+void RectangleModel::SetModelId(size_t id)
 {
     this->id = id;
 }

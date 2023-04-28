@@ -61,7 +61,7 @@ const float &LineModel::GetWidth()
     return width;
 }
 
-void LineModel::SetModelId(long long int id)
+void LineModel::SetModelId(size_t id)
 {
     this->id = id;
 }

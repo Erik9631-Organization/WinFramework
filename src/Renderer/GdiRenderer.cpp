@@ -97,7 +97,7 @@ void GdiRenderer::SwapScreenBuffer()
 RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
 {
     modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
-    auto modelPtr = renderingModel.get();
+    RenderingModel* modelPtr = renderingModel.get();
     renderingModels.push_back(std::move(renderingModel));
     modelPtr->SetModelId(renderingModels.size() - 1);
     return modelPtr;
@@ -105,6 +105,8 @@ RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> rendering
 
 RenderingModel *GdiRenderer::GetModel(size_t index)
 {
+    if(index >= renderingModels.size())
+        return nullptr;
     return renderingModels[index].get();
 }
 

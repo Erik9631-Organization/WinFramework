@@ -17,9 +17,9 @@ class EllipseProxy : public virtual Movable, public Resizable, public virtual Re
 private:
     static constexpr glm::vec4 defaultVector = glm::vec4{0, 0, 0, 0};
     static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
-    RenderingModel *renderingModel;
+    RenderingModel *renderingModel = nullptr;
     RenderingProxyMessageSender messageSender;
-    EllipseModel* model;
+    EllipseModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     std::vector<Viewport2Subscriber*>viewPortSubscribers;

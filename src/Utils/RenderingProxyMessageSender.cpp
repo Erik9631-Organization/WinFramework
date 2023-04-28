@@ -52,7 +52,6 @@ void RenderingProxyMessageSender::SendRenderingMessage(std::unique_ptr<RenderMes
         preInitMessages->enqueue(std::move(message));
         return;
     }
-
     message->SetReceiverId(model->GetModelId());
     TrySendCommand(std::move(message));
 }

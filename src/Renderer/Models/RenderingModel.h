@@ -13,7 +13,7 @@ public:
     virtual float GetZIndex() = 0;
     virtual void Draw() = 0;
     virtual void SetRenderer(Renderer *renderer) = 0;
-    virtual void SetModelId(long long int id) = 0;
+    virtual void SetModelId(size_t id) = 0;
     virtual void SetVisible(bool visible) = 0;
     virtual bool IsVisible() = 0;
     virtual const size_t & GetModelId() = 0;

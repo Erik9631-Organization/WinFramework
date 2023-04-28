@@ -33,7 +33,7 @@ public:
 
     void SetRenderer(Renderer *renderer) override;
 
-    void SetModelId(long long int id) override;
+    void SetModelId(size_t id) override;
 
     const size_t & GetModelId() override;
 

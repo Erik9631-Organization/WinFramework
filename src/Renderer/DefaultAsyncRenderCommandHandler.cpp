@@ -43,7 +43,11 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             const auto id = message->GetReceiverId();
             auto sender = message->GetRenderMessageSender();
             auto messageSubId = message->GetSubMessageId();
-            renderer->GetModel(id)->ReceiveCommand(std::move(message));
+            auto model = renderer->GetModel(id);
+            if(model != nullptr)
+                renderer->GetModel(id)->ReceiveCommand(std::move(message));
+            else
+                std::cout << "Model is null exception" << std::endl;
             RedrawScene();
             if(sender!= nullptr)
                 sender->OnRenderMessageProcessed(messageSubId);

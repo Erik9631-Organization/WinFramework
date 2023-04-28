@@ -64,7 +64,6 @@ int main( int argc, char* argv[] )
 {
 //    int result = Catch::Session().run(argc, argv);
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
-//
      auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
      auto pos = button1.GetPosition();
      pos.z = -100;
@@ -84,7 +83,7 @@ int main( int argc, char* argv[] )
     ellipseProxy->SetFill(true);
     ellipseProxy->SetColor({255, 0, 0, 255});
     ellipseProxy->SetSize({50, 50, 0, 0});
-    ellipseProxy->SetPosition({0, 0, 0, 0});
+    ellipseProxy->SetPosition({0, 0, -1, 0});
     auto controller = ButtonController{button1, button2};
     window->AddOnResizeSubscriber(controller);
     button1.SetText(L"Button 1");

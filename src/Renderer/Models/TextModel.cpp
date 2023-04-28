@@ -245,7 +245,7 @@ void TextModel::SetRenderer(Renderer *renderer)
 {
     this->renderer = renderer;
 }
-void TextModel::SetModelId(long long int id)
+void TextModel::SetModelId(size_t id)
 {
     this->modelId = id;
 }

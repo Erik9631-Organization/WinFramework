@@ -140,7 +140,7 @@ void EllipseModel::SetRenderer(Renderer *renderer)
     this->renderer = renderer;
 }
 
-void EllipseModel::SetModelId(long long int id)
+void EllipseModel::SetModelId(size_t id)
 {
     this->id = id;
 }
@@ -420,7 +420,7 @@ void EllipseModel::SetRenderFromCenter(bool renderFromCenter)
     this->renderFromCenter = renderFromCenter;
 }
 
-bool EllipseModel::GetRenderFromCenter()
+bool EllipseModel::GetRenderFromCenter() const
 {
     return renderFromCenter;
 }
