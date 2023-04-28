@@ -15,7 +15,7 @@ private:
     TextProxy textProxy;
     Presenter* presenter = nullptr;
     UiElement& associatedElement;
-    glm::vec4 textPosition = {0.0f, 0.0f, DefaultRelativeZIndex::GetInstance()->GetIndex("TextIndex"), 1.0};
+    glm::vec3 textPosition = {0.0f, 0.0f, DefaultRelativeZIndex::GetInstance()->GetIndex("TextIndex")};
     ScalingUtil2D textScaler;
     std::vector<MoveSubscriber*> moveSubscribers;
 public:
@@ -51,15 +51,15 @@ public:
 
     void SetText(const std::wstring &text) override;
 
-    [[nodiscard]] const glm::vec4 & GetPosition() const override;
+    [[nodiscard]] const glm::vec3 & GetPosition() const override;
 
-    [[nodiscard]] const glm::vec4 &GetAbsolutePosition() const override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-    void SetPosition(const glm::vec4 &position, bool emit = true) override;
+    void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-    [[nodiscard]] const glm::vec4 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
@@ -75,11 +75,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 

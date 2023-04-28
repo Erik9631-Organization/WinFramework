@@ -3,7 +3,7 @@
 #include "api/Movable.h"
 
 
-const glm::vec4 & EventMoveInfo::GetPosition() const
+const glm::vec3 & EventMoveInfo::GetPosition() const
 {
 	return position;
 }
@@ -13,12 +13,7 @@ Movable* EventMoveInfo::GetSrc() const
 	return src;
 }
 
-EventMoveInfo::~EventMoveInfo()
-{
-
-}
-
-EventMoveInfo::EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolutePosition, Movable *src, bool isOrigin)
+EventMoveInfo::EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, Movable *src, bool isOrigin)
 {
     this->position = position;
     this->absolutePosition = absolutePosition;
@@ -26,7 +21,7 @@ EventMoveInfo::EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolut
     this->isOrigin = isOrigin;
 }
 
-const glm::vec4 &EventMoveInfo::GetAbsolutePosition() const
+const glm::vec3 & EventMoveInfo::GetAbsolutePosition() const
 {
     return absolutePosition;
 }

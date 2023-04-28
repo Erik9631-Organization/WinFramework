@@ -175,7 +175,7 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
         auto scrollbarPos = this->associatedScrollbar.GetPosition();
-        associatedScrollbar.SetPosition({e.GetSize().x - associatedScrollbar.GetWidth(), 0, scrollbarPos.z, 0});
+        associatedScrollbar.SetPosition({e.GetSize().x - associatedScrollbar.GetWidth(), 0, scrollbarPos.z});
         associatedScrollbar.SetHeight(e.GetSize().y);
         UpdateChildrenViewports(*associatedScrollbar.GetControlledComponent());
     }

@@ -49,7 +49,7 @@ public:
 	void SetSize(const glm::vec4 &size, bool emit) override;
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
-	void SetPosition(const glm::vec4 &point, bool emit = true) override;
+	void SetPosition(const glm::vec3 &point, bool emit = true) override;
 
     void NotifyOnKeyDown(EventKeyStateInfo e) override;
     void NotifyOnKeyUp(EventKeyStateInfo e) override;

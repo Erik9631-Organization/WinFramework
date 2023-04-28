@@ -21,10 +21,10 @@ private:
     OpenGL::RenderingManager& renderingManager;
     std::unordered_map<const RenderCommander*, std::unique_ptr<OpenGLRenderingApi>> renderers;
     Window& window;
-    glm::vec4 translation;
+    glm::vec3 translation;
 public:
     const glm::vec2 & GetTranslation() const;
-    void SetTranslation(const glm::vec4 &translation);
+    void SetTranslation(const glm::vec3 &translation);
 };
 
 #endif //LII_OPENGLRENDERINGPOOL_H

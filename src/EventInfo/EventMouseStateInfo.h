@@ -10,16 +10,16 @@ class MouseStateSubject;
 class EventMouseStateInfo
 {
 private:
-    glm::vec4 position;
-    glm::vec4 relativePosition;
+    glm::vec3 position;
+    glm::vec3 relativePosition;
 	UiElement* src = nullptr; // Kept here for compatibility reasons
 	MouseStateSubject* mouseSrc = nullptr; // Alternative source parameter
-    glm::vec4 mouseDelta;
+    glm::vec3 mouseDelta;
 	bool recursive = true; // Notifies the topmost component on the viewPortSize if there is any, if set to false, then only notifies the target
 	int key;
 public:
 
-    glm::vec4 GetMouseDelta();
+    glm::vec3 GetMouseDelta();
 
     EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta, int key, MouseStateSubject* src);
 
@@ -30,7 +30,7 @@ public:
 	 * \param src the source of the object that called the event.
 	 */
 
-	EventMouseStateInfo(glm::vec4 position, int key, UiElement* src);
+	EventMouseStateInfo(glm::vec3 position, int key, UiElement* src);
 
 	/**
 	 * Copies an existing EventMouseStateInfo object but lets the user redefine the source.
@@ -43,17 +43,17 @@ public:
 	 * \param relativePosition the new relative viewPortSize.
 	 * \param src the new source object that called the event.
 	 */
-	EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relativePosition, MouseStateSubject* src);
+	EventMouseStateInfo(EventMouseStateInfo e, glm::vec3 relativePosition, MouseStateSubject* src);
 
 	/**
 	 * \return returns the mouse viewPortSize within the window at the time the event was called.
 	 */
-    glm::vec4 GetMouseAbsolutePosition();
+    glm::vec3 GetMouseAbsolutePosition();
 
 	/**
 	 * \return returns the mouse viewPortSize within the component at the time the event was called.
 	 */
-    glm::vec4 GetMousePosition();
+    glm::vec3 GetMousePosition();
 
 	/**
 	 * \return returns the X viewPortSize of the mouse within the window.

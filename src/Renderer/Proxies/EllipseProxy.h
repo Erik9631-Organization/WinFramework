@@ -15,8 +15,8 @@ class EllipseModel;
 class EllipseProxy : public virtual Movable, public Resizable, public virtual RenderProxy
 {
 private:
-    static constexpr glm::vec4 defaultVector = glm::vec4{0, 0, 0, 0};
-    static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
+    static constexpr glm::vec4 defaultVector = glm::vec4{0};
+    static constexpr glm::ivec4 defaultColorVec = glm::vec4{0};
     RenderingModel *renderingModel = nullptr;
     RenderingProxyMessageSender messageSender;
     EllipseModel* model = nullptr;
@@ -32,15 +32,15 @@ public:
 
     const glm::ivec4 & GetColor();
 
-    [[nodiscard]] const glm::vec4 & GetPosition() const override;
+    [[nodiscard]] const glm::vec3 & GetPosition() const override;
 
-    [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-    void SetPosition(const glm::vec4 &position, bool emit = true) override;
+    void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-    [[nodiscard]] const glm::vec4 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
     const size_t & GetAssociatedModelId() override;
 
@@ -92,11 +92,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &viewPort) override;
 
-    void SetViewportPosition(const glm::vec4 &position) override;
+    void SetViewportPosition(const glm::vec3 &position) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void ResetViewport() override;
 

@@ -11,7 +11,7 @@
 class ScalingUtil2D
 {
 public:
-    ScalingUtil2D(const glm::vec4 &viewPortPosition, const glm::vec4 &viewPortSize);
+    ScalingUtil2D(const glm::vec3 &viewPortPosition, const glm::vec4 &viewPortSize);
 
     bool IsCalculatingFromCenterX() const;
     void SetCalculateFromCenterX(bool calculateFromCenterX);
@@ -27,10 +27,10 @@ public:
     [[nodiscard]] GraphicsScaling GetScalingTypeHeight() const;
     void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
 
-    void Scale(const glm::vec4 &translationVector);
+    void Scale(const glm::vec3 &translationVector);
 
     const glm::vec4 & GetSize();
-    [[nodiscard]] const glm::vec4 & GetPosition() const;
+    [[nodiscard]] const glm::vec3 & GetPosition() const;
     float GetX();
     float GetY();
     float GetWidth();
@@ -45,11 +45,11 @@ private:
     GraphicsScaling scalingTypeWidth = Decimal;
     GraphicsScaling scalingTypeHeight = Decimal;
 
-    const glm::vec4& viewPortPosition;
+    const glm::vec3& viewPortPosition;
     const glm::vec4& viewPortSize;
 
     glm::vec4 calculatedSize{0};
-    glm::vec4 calculatedPosition{0};
+    glm::vec3 calculatedPosition{0};
 
     Vector2DScaler positionScaler;
     Vector2DScaler sizeScaler;

@@ -19,7 +19,7 @@ const glm::ivec4 & Button::GetBackgroundColor()
 
 const glm::ivec4 & Button::GetBorderColor()
 {
-	return glm::vec4{1};
+	return glm::vec4{0};
 }
 
 Button::Button(float x, float y, float width, float height, const std::string& name = "") : UiElement(x, y, width, height, name),

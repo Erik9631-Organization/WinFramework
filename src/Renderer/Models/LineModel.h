@@ -47,11 +47,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void ResetViewport() override;
 

@@ -65,7 +65,7 @@ const wstring &TextInput::GetText()
     return text.GetText();
 }
 
-void TextInput::SetPosition(const glm::vec4& position, bool emit)
+void TextInput::SetPosition(const glm::vec3 &position, bool emit)
 {
     UiElement::SetPosition(position, emit);
     UiElement::SetViewportPosition(position);

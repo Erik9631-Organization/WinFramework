@@ -44,7 +44,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-    moveBehavior.SetPosition({x, y, 0, 0}, false);
+    moveBehavior.SetPosition({x, y, 0}, false);
     resizeBehavior.SetSize(width, height, false);
 	this->name = name;
 }
@@ -91,7 +91,7 @@ void UiElement::OnRenderSync(RenderEventInfo e)
 
 void UiElement::OnSync(const DrawData &data)
 {
-    auto parentPos = glm::vec4(0, 0, 0, 1);
+    auto parentPos = glm::vec3(0, 0, 0);
 
     if(!IsRoot())
     {
@@ -216,7 +216,7 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 	mouseHandler.RemoveMouseStateSubscriber(subscriber);
 }
 
-bool UiElement::ColidesWithPoint(glm::vec4 point)
+bool UiElement::ColidesWithPoint(glm::vec3 point)
 {
 	if ( !(point.x >= GetAbsolutePosition().x && point.x <= GetAbsolutePosition().x + GetWidth()) )
 		return false;
@@ -240,7 +240,7 @@ bool UiElement::HasMouseEntered()
 	return mouseHandler.HasMouseEntered();
 }
 
-std::any UiElement::ColidesWithUpmost(glm::vec4 point)
+std::any UiElement::ColidesWithUpmost(glm::vec3 point)
 {
 	for (int i = 0; i < uiElementNode->GetNodeCount(); i++)
 	{
@@ -290,7 +290,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(const glm::vec4 &offset, bool emit)
+void UiElement::SetTranslate(const glm::vec3 &offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
@@ -298,12 +298,12 @@ void UiElement::SetTranslate(const glm::vec4 &offset, bool emit)
     moveBehavior.SetTranslate(offset, emit);
 }
 
-const glm::vec4 & UiElement::GetTranslate() const
+const glm::vec3 & UiElement::GetTranslate() const
 {
     return moveBehavior.GetTranslate();
 }
 
-glm::vec4 UiElement::GetChildrenTranslate()
+glm::vec3 UiElement::GetChildrenTranslate()
 {
 	return moveBehavior.GetChildrenTranslate();
 }
@@ -328,7 +328,7 @@ void UiElement::UpdateSubNodes(EventUpdateInfo e)
 	}
 }
 
-const glm::vec4 & UiElement::GetAbsolutePosition() const
+const glm::vec3 & UiElement::GetAbsolutePosition() const
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -363,7 +363,7 @@ const glm::vec4 & UiElement::GetSize()
 	return resizeBehavior.GetSize();
 }
 
-const glm::vec4 & UiElement::GetPosition() const
+const glm::vec3 & UiElement::GetPosition() const
 {
 	return moveBehavior.GetPosition();
 }
@@ -409,7 +409,7 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 }
 
 
-void UiElement::SetPosition(const glm::vec4 &pos, bool emit)
+void UiElement::SetPosition(const glm::vec3 &pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -560,9 +560,9 @@ void UiElement::SetViewportSize(const glm::vec4 &vec4)
     viewport.SetViewportSize(vec4);
 }
 
-void UiElement::SetViewportPosition(const glm::vec4 &vec4)
+void UiElement::SetViewportPosition(const glm::vec3 &input)
 {
-    viewport.SetViewportPosition(vec4);
+    viewport.SetViewportPosition(input);
 }
 
 const glm::vec4 & UiElement::GetViewportSize()
@@ -570,7 +570,7 @@ const glm::vec4 & UiElement::GetViewportSize()
     return viewport.GetViewportSize();
 }
 
-const glm::vec4 & UiElement::GetViewportPosition()
+const glm::vec3 & UiElement::GetViewportPosition()
 {
     return viewport.GetViewportPosition();
 }

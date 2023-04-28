@@ -11,17 +11,17 @@ class Movable;
 class EventMoveInfo
 {
 private:
-	glm::vec4 position{};
-    glm::vec4 absolutePosition{};
+	glm::vec3 position{};
+    glm::vec3 absolutePosition{};
 	Movable* src;
     bool isOrigin = true;
 public:
 	/**
 	 * \return Returns the viewPortSize of the source object at the point this event was called.
 	 */
-    [[nodiscard]] const glm::vec4 & GetPosition() const;
+    [[nodiscard]] const glm::vec3 & GetPosition() const;
 
-    [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const;
 
     [[nodiscard]] bool IsOrigin() const;
 
@@ -30,8 +30,6 @@ public:
 	 */
 	[[nodiscard]] Movable* GetSrc() const;
 
-    EventMoveInfo(const glm::vec4 &position, const glm::vec4 &absolutePosition, Movable *src, bool isOrigin = true);
-
-    ~EventMoveInfo();
+    EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, Movable *src, bool isOrigin = true);
 };
 

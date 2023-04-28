@@ -1,8 +1,8 @@
 #include "EventMouseStateInfo.h"
 #include "Events/MouseStateSubject.h"
 #include "Components/UiElement.h"
-
-EventMouseStateInfo::EventMouseStateInfo(glm::vec4 position, int key, UiElement* src) : src(src)
+//TODO change to references
+EventMouseStateInfo::EventMouseStateInfo(glm::vec3 position, int key, UiElement* src) : src(src)
 {
 	this->position = position;
 	this->relativePosition = position - src->GetAbsolutePosition();
@@ -18,7 +18,7 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* sourc
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relativePosition, MouseStateSubject* src) : mouseSrc(src)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec3 relativePosition, MouseStateSubject* src) : mouseSrc(src)
 {
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
@@ -27,16 +27,16 @@ EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec4 relati
 	this->mouseDelta = e.GetMouseDelta();
 }
 
-glm::vec4 EventMouseStateInfo::GetMouseAbsolutePosition()
+glm::vec3 EventMouseStateInfo::GetMouseAbsolutePosition()
 {
 	return position;
 }
 
-glm::vec4 EventMouseStateInfo::GetMousePosition()
+glm::vec3 EventMouseStateInfo::GetMousePosition()
 {
 	if (src == nullptr)
 		return GetMouseAbsolutePosition();
-	return {GetMouseX(), GetMouseY(), 0, 0};
+	return {GetMouseX(), GetMouseY(), 0};
 }
 
 float EventMouseStateInfo::GetAbsoluteMouseX()
@@ -99,7 +99,7 @@ EventMouseStateInfo::EventMouseStateInfo(glm::vec4 position, glm::vec4 relativeP
     this->key = key;
 }
 
-glm::vec4 EventMouseStateInfo::GetMouseDelta()
+glm::vec3 EventMouseStateInfo::GetMouseDelta()
 {
     return mouseDelta;
 }

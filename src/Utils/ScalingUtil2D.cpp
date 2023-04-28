@@ -5,7 +5,7 @@
 #include "ScalingUtil2D.h"
 #include "Vector2DScaler.h"
 
-ScalingUtil2D::ScalingUtil2D(const glm::vec4 &viewPortPosition, const glm::vec4 &viewPortSize) :
+ScalingUtil2D::ScalingUtil2D(const glm::vec3 &viewPortPosition, const glm::vec4 &viewPortSize) :
         viewPortSize(viewPortSize),
         viewPortPosition(viewPortPosition),
         positionScaler(viewPortSize),
@@ -74,7 +74,7 @@ void ScalingUtil2D::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     ScalingUtil2D::scalingTypeHeight = scalingTypeHeight;
 }
 
-void ScalingUtil2D::Scale(const glm::vec4 &translationVector)
+void ScalingUtil2D::Scale(const glm::vec3 &translationVector)
 {
     positionScaler.SetScalingTypeX(scalingTypeX);
     positionScaler.SetScalingTypeY(scalingTypeY);
@@ -93,8 +93,7 @@ void ScalingUtil2D::Scale(const glm::vec4 &translationVector)
     calculatedSize.x = scaledSize.x;
     calculatedSize.y = scaledSize.y;
 
-    calculatedPosition = {scaledPosition.x + viewPortPosition.x,
-                          scaledPosition.y + viewPortPosition.y, viewPortPosition.z, viewPortPosition.w};
+    calculatedPosition = {scaledPosition.x + viewPortPosition.x, scaledPosition.y + viewPortPosition.y, viewPortPosition.z};
 }
 
 const glm::vec4 & ScalingUtil2D::GetSize()
@@ -102,7 +101,7 @@ const glm::vec4 & ScalingUtil2D::GetSize()
     return calculatedSize;
 }
 
-const glm::vec4 & ScalingUtil2D::GetPosition() const
+const glm::vec3 & ScalingUtil2D::GetPosition() const
 {
     return calculatedPosition;
 }

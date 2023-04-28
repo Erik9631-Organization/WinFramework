@@ -109,7 +109,7 @@ public:
 	 */
 	UiElement& GetRoot();
 	const glm::vec4 & GetSize() override;
-	const glm::vec4 & GetPosition() const override;
+	const glm::vec3 & GetPosition() const override;
 	float GetWidth() override;
 	float GetHeight() override;
 
@@ -150,7 +150,7 @@ public:
 	 */
 	void SetComponentName(std::string name);
 
-    void SetPosition(const glm::vec4 &pos, bool emit = true) override;
+    void SetPosition(const glm::vec3 &pos, bool emit = true) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -182,7 +182,7 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	virtual const glm::vec4 & GetAbsolutePosition() const override;
+	virtual const glm::vec3 & GetAbsolutePosition() const override;
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;
@@ -211,7 +211,7 @@ public:
 	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(glm::vec4 point) override;
+	virtual bool ColidesWithPoint(glm::vec3 point) override;
 
 	// Inherited via MouseStateSubject
 	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
@@ -253,7 +253,7 @@ public:
 	}
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(glm::vec4 point) override;
+	virtual std::any ColidesWithUpmost(glm::vec3 point) override;
 
 	// Inherited via KeyStateSubject
 	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
@@ -269,16 +269,16 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
 	// Inherited via Adjustable
-	virtual const glm::vec4 & GetTranslate() const override;
+	virtual const glm::vec3 & GetTranslate() const override;
 	
 	/**
 	 * Gets the internal viewPortSize of the child components
 	 * \return returns the point that contains X and Y of the internal viewPortSize.
 	 */
-    glm::vec4 GetChildrenTranslate();
+    glm::vec3 GetChildrenTranslate();
 	
 	/**
 	 * Sets the viewPortSize of all the subcomponents that are owned by this component at once
@@ -325,11 +325,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void ResetViewport() override;
 

@@ -11,8 +11,8 @@
 class ModelViewport : public Viewport2
 {
 private:
-    glm::vec4 viewPortSize = {0,0,0,0};
-    glm::vec4 viewPortPosition = {0,0,0,0};
+    glm::vec4 viewPortSize{0};
+    glm::vec3 viewPortPosition{0};
     bool isSet = false;
     std::vector<Viewport2Subscriber*> subscribers;
 
@@ -23,11 +23,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 

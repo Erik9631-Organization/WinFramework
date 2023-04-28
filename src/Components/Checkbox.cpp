@@ -64,7 +64,7 @@ Checkbox::Checkbox(int x, int y, int width, int height, string name) : UiElement
     text.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
     text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
 
-	text.SetPosition({0.1f, text.GetPosition().y, text.GetPosition().z, text.GetPosition().w});
+	text.SetPosition({0.1f, text.GetPosition().y, text.GetPosition().z});
 }
 
 void Checkbox::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)

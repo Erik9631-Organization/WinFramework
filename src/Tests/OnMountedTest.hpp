@@ -17,7 +17,7 @@ public:
         onMountedCallCount++;
     }
 
-    const unsigned int& GetNumberOfOnMountedCalls() const
+    [[nodiscard]] const unsigned int& GetNumberOfOnMountedCalls() const
     {
         return onMountedCallCount;
     }

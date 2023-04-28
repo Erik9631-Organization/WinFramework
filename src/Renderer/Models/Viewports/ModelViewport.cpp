@@ -22,10 +22,10 @@ void ModelViewport::SetViewportSize(const glm::vec4 &vec4)
     isSet = true;
 }
 
-void ModelViewport::SetViewportPosition(const glm::vec4 &vec4)
+void ModelViewport::SetViewportPosition(const glm::vec3 &input)
 {
-    viewPortPosition = vec4;
-    NotifyOnViewportPositionChanged(Viewport2EventInfo(vec4, viewPortSize, this));
+    viewPortPosition = input;
+    NotifyOnViewportPositionChanged(Viewport2EventInfo(input, viewPortSize, this));
     isSet = true;
 }
 
@@ -34,7 +34,7 @@ const glm::vec4 & ModelViewport::GetViewportSize()
     return viewPortSize;
 }
 
-const glm::vec4 & ModelViewport::GetViewportPosition()
+const glm::vec3 & ModelViewport::GetViewportPosition()
 {
     return viewPortPosition;
 }

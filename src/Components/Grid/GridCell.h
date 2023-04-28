@@ -23,7 +23,7 @@ private:
 	Adjustable* associatedAdjustable = nullptr;
 
     glm::vec2 cellSize;
-	glm::vec4 indexPos;
+	glm::vec3 indexPos = {0, 0, 0};
     glm::vec2 position;
     glm::vec4 absPos;
     glm::ivec2 CalculatePixelPosition();;
@@ -69,14 +69,14 @@ public:
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	[[nodiscard]] const glm::vec4 & GetPosition() const override;
-	[[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
-	void SetPosition(const glm::vec4 &position, bool emit = true) override;
-	void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+	[[nodiscard]] const glm::vec3 & GetPosition() const override;
+	[[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
+	void SetPosition(const glm::vec3 &position, bool emit = true) override;
+	void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 	void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();
 	glm::vec2 GetPixelPosition();
-    [[nodiscard]] const glm::vec4 &GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 };
 

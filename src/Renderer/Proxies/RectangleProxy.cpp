@@ -9,11 +9,11 @@
 #include "EventMoveInfo.h"
 #include <iostream>
 
-const glm::vec4 & RectangleProxy::GetPosition() const
+const glm::vec3 & RectangleProxy::GetPosition() const
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVec4;
 
@@ -21,25 +21,25 @@ const glm::vec4 & RectangleProxy::GetPosition() const
 }
 
 
-void RectangleProxy::SetPosition(const glm::vec4 &position, bool emit)
+void RectangleProxy::SetPosition(const glm::vec3 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
     SendRenderingMessage(std::move(renderMessage));
 }
 
-void RectangleProxy::SetTranslate(const glm::vec4 &offset, bool emit)
+void RectangleProxy::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
     SendRenderingMessage(std::move(renderMessage));
 }
 
-const glm::vec4 & RectangleProxy::GetTranslate() const
+const glm::vec3 & RectangleProxy::GetTranslate() const
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVec4;
 
@@ -166,7 +166,7 @@ void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
     }
 }
 
-const glm::vec4 & RectangleProxy::GetAbsolutePosition() const
+const glm::vec3 & RectangleProxy::GetAbsolutePosition() const
 {
     return GetPosition();
 }
@@ -269,12 +269,12 @@ void RectangleProxy::SetViewportSize(const glm::vec4 &vec4)
 
 }
 
-void RectangleProxy::SetViewportPosition(const glm::vec4 &vec4)
+void RectangleProxy::SetViewportPosition(const glm::vec3 &input)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
     SendRenderingMessage(std::move(renderMessage));
-    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
+    NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
 const glm::vec4 & RectangleProxy::GetViewportSize()
@@ -288,11 +288,11 @@ const glm::vec4 & RectangleProxy::GetViewportSize()
     return model->GetViewportSize();
 }
 
-const glm::vec4 & RectangleProxy::GetViewportPosition()
+const glm::vec3 & RectangleProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4&>();
+        return tempData->GetData<glm::vec3&>();
     if(model == nullptr)
         return defaultVec4;
     return model->GetViewportPosition();

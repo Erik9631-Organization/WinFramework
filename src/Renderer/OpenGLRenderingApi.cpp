@@ -33,7 +33,7 @@ void OpenGLRenderingApi::DrawLine(glm::vec4 pos, glm::vec4 size)
 
 }
 
-void OpenGLRenderingApi::DrawRectangle(glm::vec4 pos, glm::vec4 size)
+void OpenGLRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec4 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
@@ -50,10 +50,10 @@ void OpenGLRenderingApi::DrawRectangle(glm::vec4 pos, glm::vec4 size)
 
 void OpenGLRenderingApi::DrawRectangle(float x, float y, float width, float height)
 {
-    DrawRectangle({x, y, 0, 0}, {width, height, 0, 0});
+    DrawRectangle({x, y, 0}, {width, height, 0, 0});
 }
 
-void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format)
+void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)
 {
 
 }
@@ -73,7 +73,7 @@ void OpenGLRenderingApi::DrawFillRectangle(float x, float y, float width, float 
     //DrawFillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderingApi::DrawFillRectangle(glm::vec4 pos, glm::vec4 size)
+void OpenGLRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec4 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
@@ -122,7 +122,6 @@ std::unique_ptr<FontFormat> OpenGLRenderingApi::CreateFontFormat()
 
 OpenGLRenderingApi::OpenGLRenderingApi(Window &window, OpenGL::RenderingManager& manager) : window(window), renderingManager(manager)
 {
-    //CRASH1
     window.AddOnResizeSubscriber(*this);
     viewMatrix = &defaultViewMatrix;
     CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
@@ -134,7 +133,7 @@ void OpenGLRenderingApi::OnResize(EventResizeInfo e)
     CreateViewMatrix(e.GetSize().x, e.GetSize().y, *viewMatrix);
 }
 
-void OpenGLRenderingApi::Translate(glm::vec4 translation)
+void OpenGLRenderingApi::Translate(glm::vec3 translation)
 {
     this->translation = translation;
 }

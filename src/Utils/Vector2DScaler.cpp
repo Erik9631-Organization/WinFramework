@@ -23,7 +23,7 @@ Vector2DScaler::Vector2DScaler(const glm::vec4 &basis, GraphicsScaling scalingTy
  *         With percentual value, it returns a multiple of the basis vector
  *         With decimal it simply returns the input vector
  */
-glm::vec4 Vector2DScaler::GetScaledValues(glm::vec4 input)
+glm::vec3 Vector2DScaler::GetScaledValues(glm::vec3 input)
 {
     float calculatedX = input.x;
     float calculatedY = input.y;
@@ -37,7 +37,7 @@ glm::vec4 Vector2DScaler::GetScaledValues(glm::vec4 input)
     {
         calculatedY = input.y * basis.y;
     }
-    return {calculatedX, calculatedY, input.z, input.w};
+    return {calculatedX, calculatedY, input.z};
 }
 
 GraphicsScaling Vector2DScaler::GetScalingTypeX() const

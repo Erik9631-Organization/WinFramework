@@ -195,38 +195,38 @@ void GridCell::NotifyOnMoveSubscribers(const EventMoveInfo &event)
     associatedAdjustable->NotifyOnMoveSubscribers(event);
 }
 
-const glm::vec4 & GridCell::GetPosition() const
+const glm::vec3 & GridCell::GetPosition() const
 {
     return indexPos;
 }
 
 //TODO fix absolute position
-const glm::vec4 & GridCell::GetAbsolutePosition() const
+const glm::vec3 & GridCell::GetAbsolutePosition() const
 {
-    return {indexPos.x + parentGrid.GetAbsolutePosition().x, indexPos.y + parentGrid.GetAbsolutePosition().y, 0, 1};
+    return {indexPos.x + parentGrid.GetAbsolutePosition().x, indexPos.y + parentGrid.GetAbsolutePosition().y, 0};
 }
 
-void GridCell::SetPosition(const glm::vec4 &position, bool emit)
+void GridCell::SetPosition(const glm::vec3 &position, bool emit)
 {
     this->indexPos.x = position.x;
     this->indexPos.y = position.y;
     this->position = {CalculatePixelPosition().x, CalculatePixelPosition().y};
     if (associatedAdjustable == nullptr)
         return;
-    associatedAdjustable->SetPosition({this->position.x, this->position.y, 0, 1}, emit);
+    associatedAdjustable->SetPosition({this->position.x, this->position.y, 0}, emit);
 }
 
-void GridCell::SetTranslate(const glm::vec4 &offset, bool emit)
+void GridCell::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetTranslate(offset, true);
 }
 
-const glm::vec4 & GridCell::GetTranslate() const
+const glm::vec3 & GridCell::GetTranslate() const
 {
     if (associatedAdjustable == nullptr)
-        return {0, 0, 0, 1};
+        return {0, 0, 0};
 
     return associatedAdjustable->GetTranslate();
 }
@@ -240,7 +240,7 @@ void GridCell::OnUpdate(EventUpdateInfo e)
         if(associatedAdjustable != nullptr)
         {
             auto pixelPos = CalculatePixelPosition();
-            associatedAdjustable->SetPosition({pixelPos.x, pixelPos.y, 0, 1}, false);
+            associatedAdjustable->SetPosition({pixelPos.x, pixelPos.y, 0}, false);
         }
         this->position = glm::vec2(pixelPos.x, pixelPos.y);
     }

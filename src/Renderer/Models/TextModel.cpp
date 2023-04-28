@@ -6,27 +6,27 @@
 #include "Renderer.h"
 #include "EventMoveInfo.h"
 
-const glm::vec4 & TextModel::GetPosition() const
+const glm::vec3 & TextModel::GetPosition() const
 {
     return movableModelBehavior.GetPosition();
 }
 
-const glm::vec4 & TextModel::GetAbsolutePosition() const
+const glm::vec3 & TextModel::GetAbsolutePosition() const
 {
     return movableModelBehavior.GetAbsolutePosition();
 }
 
-void TextModel::SetPosition(const glm::vec4 &position, bool emit)
+void TextModel::SetPosition(const glm::vec3 &position, bool emit)
 {
     movableModelBehavior.SetPosition(position, emit);
 }
 
-void TextModel::SetTranslate(const glm::vec4 &offset, bool emit)
+void TextModel::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     movableModelBehavior.SetTranslate(offset, emit);
 }
 
-const glm::vec4 & TextModel::GetTranslate() const
+const glm::vec3 & TextModel::GetTranslate() const
 {
     return movableModelBehavior.GetTranslate();
 }
@@ -39,13 +39,13 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetViewportSize(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetViewPortPosition:
-            SetViewportPosition(message->GetData<glm::vec4>());
+            SetViewportPosition(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetPosition:
-            SetPosition(message->GetData<glm::vec4>());
+            SetPosition(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetTranslate:
-            SetTranslate(message->GetData<glm::vec4>());
+            SetTranslate(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetFontSize:
             SetFontSize(message->GetData<float>());
@@ -201,13 +201,13 @@ bool TextModel::IsVisible()
 void TextModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
 }
 
-void TextModel::SetViewportPosition(const glm::vec4 &vec4)
+void TextModel::SetViewportPosition(const glm::vec3 &input)
 {
-    viewPort.SetViewportPosition(vec4);
-    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
+    viewPort.SetViewportPosition(input);
+    NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
 const glm::vec4 & TextModel::GetViewportSize()
@@ -215,7 +215,7 @@ const glm::vec4 & TextModel::GetViewportSize()
     return viewPort.GetViewportSize();
 }
 
-const glm::vec4 & TextModel::GetViewportPosition()
+const glm::vec3 & TextModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

@@ -84,7 +84,7 @@ int main( int argc, char* argv[] )
     ellipseProxy->SetFill(true);
     ellipseProxy->SetColor({255, 0, 0, 255});
     ellipseProxy->SetSize({50, 50, 0, 0});
-    ellipseProxy->SetPosition({0, 0, -1, 0});
+    ellipseProxy->SetPosition({0, 0, -1});
     auto controller = ButtonController{button1, button2};
     window->AddOnResizeSubscriber(controller);
     button1.SetText(L"Button 1");

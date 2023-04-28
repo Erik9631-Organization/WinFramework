@@ -26,7 +26,7 @@ public:
      * Creates a new checkbox with 0 width and height and 0 x viewPortSize and y viewPortSize.
      * \param name the name used to identify the checkbox. This is not a display value.
     */
-    Checkbox(std::string name);
+    explicit Checkbox(std::string name);
 
     /**
      * \param x the x viewPortSize where the checkbox should be located

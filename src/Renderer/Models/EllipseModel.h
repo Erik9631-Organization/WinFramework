@@ -48,13 +48,13 @@ public:
 
     const size_t & GetModelId() override;
 
-    [[nodiscard]] const glm::vec4 &GetAbsolutePosition() const override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-    void SetPosition(const glm::vec4 &position, bool emit = true) override;
+    void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-    [[nodiscard]] const glm::vec4 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
     const glm::vec4 &GetSize() override;
 
@@ -102,11 +102,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
@@ -120,7 +120,7 @@ public:
 
     void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 
-    const glm::vec4 &GetPosition() const override;
+    const glm::vec3 & GetPosition() const override;
 
 };
 

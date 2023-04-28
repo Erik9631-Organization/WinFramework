@@ -18,10 +18,10 @@ class UiMoveBehavior : public Movable
 {
 private:
 	std::vector<std::reference_wrapper<MoveSubscriber>> moveSubscribers;
-    glm::vec4 absolutePosition{0};
-    glm::vec4 relativePosition{0};
-    glm::vec4 translate{0}; // Defines the viewPortSize within the viewport
-    glm::vec4 childrenTranslate{0};
+    glm::vec3 absolutePosition{0, 0, 0};
+    glm::vec3 relativePosition{0, 0, 0};
+    glm::vec3 translate{0, 0, 0}; // Defines the viewPortSize within the viewport
+    glm::vec3 childrenTranslate{0, 0, 0};
 	MultiTree<T>& associatedAdjustableNode;
 
     template <typename T>
@@ -42,15 +42,15 @@ public:
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	[[nodiscard]] const glm::vec4 & GetPosition() const override;
-	void SetPosition(const glm::vec4 &position, bool emit = true) override;
-	[[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
+	[[nodiscard]] const glm::vec3 & GetPosition() const override;
+	void SetPosition(const glm::vec3 &position, bool emit = true) override;
+	[[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-	void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+	void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-	[[nodiscard]] const glm::vec4 & GetTranslate() const override;
+	[[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
-	[[nodiscard]] glm::vec4 GetChildrenTranslate() const;
+	[[nodiscard]] const glm::vec3 & GetChildrenTranslate() const;
 	void TranslateChildren(glm::vec4 translate);
 };
 
@@ -67,7 +67,7 @@ void UiMoveBehavior<T>::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 }
 
 template<class T>
-glm::vec4 UiMoveBehavior<T>::GetChildrenTranslate() const
+const glm::vec3 & UiMoveBehavior<T>::GetChildrenTranslate() const
 {
 	return childrenTranslate;
 }
@@ -82,16 +82,16 @@ void UiMoveBehavior<T>::TranslateChildren(glm::vec4 translate)
 
 
 template<class T>
-void UiMoveBehavior<T>::SetTranslate(const glm::vec4 &offset, bool emit)
+void UiMoveBehavior<T>::SetTranslate(const glm::vec3 &offset, bool emit)
 {
-    this->translate = offset;
+    translate = offset;
     CalculateAbsolutePosition();
     if(emit)
         NotifyOnMoveSubscribers({GetPosition(), GetAbsolutePosition(), this});
 }
 
 template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetTranslate() const
+const glm::vec3 & UiMoveBehavior<T>::GetTranslate() const
 {
 	return translate;
 }
@@ -100,9 +100,7 @@ const glm::vec4 & UiMoveBehavior<T>::GetTranslate() const
 template<class T>
 UiMoveBehavior<T>::UiMoveBehavior(MultiTree<T>& adjustable) : associatedAdjustableNode(adjustable)
 {
-	absolutePosition = {0, 0, 0, 0};
-	translate = {0, 0, 0, 0};
-	childrenTranslate = {0, 0, 0, 0};
+
 }
 
 template<class T>
@@ -115,7 +113,7 @@ void UiMoveBehavior<T>::CalculateAbsolutePosition()
 	else
 	{
         auto zGap = static_cast<float>(DefaultRelativeZIndex::GetInstance()->GetIndex("zGap"));
-        glm::vec4 parentPos = associatedAdjustableNode.GetParent()->GetAbsolutePosition();
+        glm::vec3 parentPos = associatedAdjustableNode.GetParent()->GetAbsolutePosition();
 	    absolutePosition.x = relativePosition.x + parentPos.x + translate.x;
 	    absolutePosition.y = relativePosition.y + parentPos.y + translate.y;
         absolutePosition.z = relativePosition.z + parentPos.z - zGap + translate.z;
@@ -143,16 +141,14 @@ void UiMoveBehavior<T>::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 }
 
 template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetPosition() const
+const glm::vec3 & UiMoveBehavior<T>::GetPosition() const
 {
 	return relativePosition;
 }
 
 template<class T>
-void UiMoveBehavior<T>::SetPosition(const glm::vec4 &position, bool emit)
+void UiMoveBehavior<T>::SetPosition(const glm::vec3 &position, bool emit)
 {
-    auto oldPosition = relativePosition;
-    auto oldAbsPosition = absolutePosition;
 	relativePosition = position;
 	CalculateAbsolutePosition();
     if(emit)
@@ -164,7 +160,7 @@ void UiMoveBehavior<T>::SetPosition(const glm::vec4 &position, bool emit)
 }
 
 template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetAbsolutePosition() const
+const glm::vec3 & UiMoveBehavior<T>::GetAbsolutePosition() const
 {
 	return absolutePosition;
 }

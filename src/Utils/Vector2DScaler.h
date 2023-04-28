@@ -24,7 +24,7 @@ public:
     GraphicsScaling GetScalingTypeY() const;
 
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    glm::vec4 GetScaledValues(glm::vec4 input);
+    glm::vec3 GetScaledValues(glm::vec3 input);
 };
 
 

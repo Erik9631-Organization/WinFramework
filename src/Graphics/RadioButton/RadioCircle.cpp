@@ -80,17 +80,17 @@ ScalingUtil2D &RadioCircle::GetScales()
     return scaler;
 }
 
-const glm::vec4 & RadioCircle::GetPosition() const
+const glm::vec3 & RadioCircle::GetPosition() const
 {
     return position;
 }
 
-const glm::vec4 &RadioCircle::GetAbsolutePosition() const
+const glm::vec3 & RadioCircle::GetAbsolutePosition() const
 {
     return scaler.GetPosition();
 }
 
-void RadioCircle::SetPosition(const glm::vec4 &position, bool emit)
+void RadioCircle::SetPosition(const glm::vec3 &position, bool emit)
 {
     auto oldPosition = this->position;
     auto oldAbsolutePosition = GetAbsolutePosition();
@@ -100,13 +100,13 @@ void RadioCircle::SetPosition(const glm::vec4 &position, bool emit)
 }
 
 
-void RadioCircle::SetTranslate(const glm::vec4 &offset, bool emit)
+void RadioCircle::SetTranslate(const glm::vec3 &offset, bool emit)
 {
 
 }
 
 
-const glm::vec4 & RadioCircle::GetTranslate() const
+const glm::vec3 & RadioCircle::GetTranslate() const
 {
     return glm::vec4();
 }
@@ -161,10 +161,10 @@ void RadioCircle::SetViewportSize(const glm::vec4 &vec4)
     fill.SetViewportSize(vec4);
 }
 
-void RadioCircle::SetViewportPosition(const glm::vec4 &vec4)
+void RadioCircle::SetViewportPosition(const glm::vec3 &input)
 {
-    border.SetViewportPosition(vec4);
-    fill.SetViewportPosition(vec4);
+    border.SetViewportPosition(input);
+    fill.SetViewportPosition(input);
 }
 
 const glm::vec4 & RadioCircle::GetViewportSize()
@@ -172,7 +172,7 @@ const glm::vec4 & RadioCircle::GetViewportSize()
     return border.GetViewportSize();
 }
 
-const glm::vec4 & RadioCircle::GetViewportPosition()
+const glm::vec3 & RadioCircle::GetViewportPosition()
 {
     return border.GetViewportPosition();
 }

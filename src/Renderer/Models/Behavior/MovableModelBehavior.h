@@ -15,22 +15,22 @@
 class MovableModelBehavior : public Movable
 {
 private:
-    glm::vec4 position = {0, 0, 0, 0};
-    glm::vec4 translation{0};
+    glm::vec3 position{0};
+    glm::vec3 translation{0};
     std::vector<MoveSubscriber*> moveSubscribers;
     Movable& owner;
 public:
     explicit MovableModelBehavior(Movable& associatedMovable);
 
-    [[nodiscard]] const glm::vec4 & GetPosition() const override;
+    [[nodiscard]] const glm::vec3 & GetPosition() const override;
 
-    [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-    void SetPosition(const glm::vec4 &position, bool emit = true) override;
+    void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-    [[nodiscard]] const glm::vec4 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 

@@ -5,28 +5,28 @@
 #include "MovableModelBehavior.h"
 #include "EventMoveInfo.h"
 
-const glm::vec4 & MovableModelBehavior::GetPosition() const
+const glm::vec3 & MovableModelBehavior::GetPosition() const
 {
     return position;
 }
 
-const glm::vec4 & MovableModelBehavior::GetAbsolutePosition() const
+const glm::vec3 & MovableModelBehavior::GetAbsolutePosition() const
 {
     return position;
 }
 
-void MovableModelBehavior::SetPosition(const glm::vec4 &position, bool emit)
+void MovableModelBehavior::SetPosition(const glm::vec3 &position, bool emit)
 {
     this->position = position;
     NotifyOnMoveSubscribers({position, GetAbsolutePosition(), &owner, false});
 }
 
-void MovableModelBehavior::SetTranslate(const glm::vec4 &offset, bool emit)
+void MovableModelBehavior::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     translation = offset;
 }
 
-const glm::vec4 & MovableModelBehavior::GetTranslate() const
+const glm::vec3 & MovableModelBehavior::GetTranslate() const
 {
     return translation;
 }

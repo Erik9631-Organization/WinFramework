@@ -32,7 +32,7 @@ void GdiRenderingApi::DrawLine(glm::vec4 pos, glm::vec4 size)
     graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiRenderingApi::DrawRectangle(glm::vec4 pos, glm::vec4 size)
+void GdiRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec4 size)
 {
     graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
@@ -42,7 +42,7 @@ void GdiRenderingApi::DrawRectangle(float x, float y, float width, float height)
     graphics->DrawRectangle(pen, x, y, width, height);
 }
 
-void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec4 position, const FontFormat &format)
+void GdiRenderingApi::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)
 {
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment) format.GetAlignment());
@@ -68,7 +68,7 @@ void GdiRenderingApi::DrawFillRectangle(float x, float y, float width, float hei
     graphics->FillRectangle(brush, x, y, width, height);
 }
 
-void GdiRenderingApi::DrawFillRectangle(glm::vec4 pos, glm::vec4 size)
+void GdiRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec4 size)
 {
     graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
@@ -126,7 +126,7 @@ GdiRenderingApi::~GdiRenderingApi()
     delete fontFamily;
 }
 
-void GdiRenderingApi::Translate(glm::vec4 translation)
+void GdiRenderingApi::Translate(glm::vec3 translation)
 {
     graphics->TranslateTransform(translation.x, translation.y);
 }

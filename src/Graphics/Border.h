@@ -15,7 +15,7 @@ private:
     UiElement& associatedElement;
     Presenter* presenter = nullptr;
     RectangleProxy rectangleProxy;
-    glm::vec4 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BorderIndex"), 0};
+    glm::vec3 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BorderIndex")};
 public:
     ~Border() override;
 
@@ -31,11 +31,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 

@@ -8,29 +8,29 @@
 #include "Commands.h"
 #include <iostream>
 
-const glm::vec4 & RectangleModel::GetPosition() const
+const glm::vec3 & RectangleModel::GetPosition() const
 {
     return movableBehavior.GetPosition();
 }
 
-const glm::vec4 & RectangleModel::GetAbsolutePosition() const
+const glm::vec3 & RectangleModel::GetAbsolutePosition() const
 {
     return movableBehavior.GetAbsolutePosition();
 }
 
-void RectangleModel::SetPosition(const glm::vec4 &position, bool emit)
+void RectangleModel::SetPosition(const glm::vec3 &position, bool emit)
 {
     movableBehavior.SetPosition(position, emit);
 }
 
 
-void RectangleModel::SetTranslate(const glm::vec4 &offset, bool emit)
+void RectangleModel::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     movableBehavior.SetTranslate(offset, emit);
 }
 
 
-const glm::vec4 & RectangleModel::GetTranslate() const
+const glm::vec3 & RectangleModel::GetTranslate() const
 {
     return movableBehavior.GetTranslate();
 }
@@ -198,10 +198,10 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetSize(message->GetData<glm::vec4>());
             break;
         case SubCommands::SetPosition:
-            SetPosition(message->GetData<glm::vec4>());
+            SetPosition(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetTranslate:
-            SetTranslate(message->GetData<glm::vec4>());
+            SetTranslate(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetColor:
             SetColor(message->GetData<glm::ivec4>());
@@ -216,7 +216,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         }
         case SubCommands::SetViewPortPosition:
         {
-            SetViewportPosition(message->GetData<glm::vec4>());
+            SetViewportPosition(message->GetData<glm::vec3>());
             break;
         }
         case SubCommands::ResetViewPort:
@@ -288,13 +288,13 @@ bool RectangleModel::IsVisible()
 void RectangleModel::SetViewportSize(const glm::vec4 &vec4)
 {
     viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({vec4, GetViewportPosition(), this});
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
 }
 
-void RectangleModel::SetViewportPosition(const glm::vec4 &vec4)
+void RectangleModel::SetViewportPosition(const glm::vec3 &input)
 {
-    viewPort.SetViewportPosition(vec4);
-    NotifyOnViewportPositionChanged({vec4, GetViewportPosition(), this});
+    viewPort.SetViewportPosition(input);
+    NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
 const glm::vec4 & RectangleModel::GetViewportSize()
@@ -302,7 +302,7 @@ const glm::vec4 & RectangleModel::GetViewportSize()
     return viewPort.GetViewportSize();
 }
 
-const glm::vec4 & RectangleModel::GetViewportPosition()
+const glm::vec3 & RectangleModel::GetViewportPosition()
 {
     return viewPort.GetViewportPosition();
 }

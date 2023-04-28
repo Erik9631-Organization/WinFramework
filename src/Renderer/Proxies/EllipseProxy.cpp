@@ -10,40 +10,40 @@
 #include <iostream>
 
 
-const glm::vec4 & EllipseProxy::GetPosition() const
+const glm::vec3 & EllipseProxy::GetPosition() const
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVector;
     return model->GetPosition();
 }
 
-const glm::vec4 & EllipseProxy::GetAbsolutePosition() const
+const glm::vec3 & EllipseProxy::GetAbsolutePosition() const
 {
     return GetPosition();
 }
 
-void EllipseProxy::SetPosition(const glm::vec4 &position, bool emit)
+void EllipseProxy::SetPosition(const glm::vec3 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
     messageSender.SendRenderingMessage(std::move(renderMessage));
 }
 
-void EllipseProxy::SetTranslate(const glm::vec4 &offset, bool emit)
+void EllipseProxy::SetTranslate(const glm::vec3 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
     renderMessage->SetSubMessageId(SubCommands::SetTranslate);
     messageSender.SendRenderingMessage(std::move(renderMessage));
 }
 
-const glm::vec4 & EllipseProxy::GetTranslate() const
+const glm::vec3 & EllipseProxy::GetTranslate() const
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVector;
     return model->GetTranslate();
@@ -242,12 +242,12 @@ void EllipseProxy::SetViewportSize(const glm::vec4 &viewPort)
     NotifyOnViewportSizeChanged({GetViewportPosition(), viewPort, this});
 }
 
-void EllipseProxy::SetViewportPosition(const glm::vec4 &position)
+void EllipseProxy::SetViewportPosition(const glm::vec3 &input)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
     messageSender.SendRenderingMessage(std::move(renderMessage));
-    NotifyOnViewportPositionChanged({position, GetViewportSize(), this});
+    NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
 void EllipseProxy::ResetViewport()
@@ -268,7 +268,7 @@ const glm::vec4 & EllipseProxy::GetViewportSize()
     return model->GetViewportSize();
 }
 
-const glm::vec4 & EllipseProxy::GetViewportPosition()
+const glm::vec3 & EllipseProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)

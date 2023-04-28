@@ -115,17 +115,17 @@ Text2::~Text2()
     associatedElement.RemoveViewport2Subscriber(*this);
 }
 
-const glm::vec4 & Text2::GetPosition() const
+const glm::vec3 & Text2::GetPosition() const
 {
     return textPosition;
 }
 
-const glm::vec4 &Text2::GetAbsolutePosition() const
+const glm::vec3 & Text2::GetAbsolutePosition() const
 {
     return textScaler.GetPosition();
 }
 
-void Text2::SetPosition(const glm::vec4 &position, bool emit)
+void Text2::SetPosition(const glm::vec3 &position, bool emit)
 {
     textPosition = position;
     if(emit)
@@ -133,13 +133,13 @@ void Text2::SetPosition(const glm::vec4 &position, bool emit)
     OnMove(EventMoveInfo(EventMoveInfo(position, GetAbsolutePosition(), this)));
 }
 
-void Text2::SetTranslate(const glm::vec4 &offset, bool emit)
+void Text2::SetTranslate(const glm::vec3 &offset, bool emit)
 {
 
 }
 
 
-const glm::vec4 & Text2::GetTranslate() const
+const glm::vec3 & Text2::GetTranslate() const
 {
     return glm::vec4();
 }
@@ -182,9 +182,9 @@ void Text2::SetViewportSize(const glm::vec4 &vec4)
     textProxy.SetViewportSize(vec4);
 }
 
-void Text2::SetViewportPosition(const glm::vec4 &vec4)
+void Text2::SetViewportPosition(const glm::vec3 &input)
 {
-    textProxy.SetViewportPosition(vec4);
+    textProxy.SetViewportPosition(input);
 }
 
 const glm::vec4 & Text2::GetViewportSize()
@@ -192,7 +192,7 @@ const glm::vec4 & Text2::GetViewportSize()
     return textProxy.GetViewportSize();
 }
 
-const glm::vec4 & Text2::GetViewportPosition()
+const glm::vec3 & Text2::GetViewportPosition()
 {
     return textProxy.GetViewportPosition();
 }

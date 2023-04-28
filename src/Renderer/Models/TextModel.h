@@ -32,15 +32,15 @@ private:
 public:
 
     TextModel();
-    [[nodiscard]] const glm::vec4 & GetPosition() const override;
+    [[nodiscard]] const glm::vec3 & GetPosition() const override;
 
-    [[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
-    void SetPosition(const glm::vec4 &position, bool emit = true) override;
+    void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
-    [[nodiscard]] const glm::vec4 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
 
@@ -88,11 +88,11 @@ public:
 
     void SetViewportSize(const glm::vec4 &vec4) override;
 
-    void SetViewportPosition(const glm::vec4 &vec4) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
     const glm::vec4 & GetViewportSize() override;
 
-    const glm::vec4 & GetViewportPosition() override;
+    const glm::vec3 & GetViewportPosition() override;
 
     void ResetViewport() override;
 

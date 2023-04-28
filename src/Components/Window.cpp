@@ -63,7 +63,7 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(const glm::vec4 &position, bool emit)
+void Window::SetPosition(const glm::vec3 &position, bool emit)
 {
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));

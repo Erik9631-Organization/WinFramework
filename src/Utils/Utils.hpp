@@ -6,7 +6,7 @@
 #define LII_UTILS_HPP
 #include <glm.hpp>
 
-glm::vec4 TranslateFromCornerToCenter(const glm::vec4& corner, const glm::vec4& viewPort)
+glm::vec4 TranslateFromCornerToCenter(const glm::vec3 &corner, const glm::vec3 &viewPort)
 {
     glm::vec4 translatedInput;
     translatedInput.x = corner.x - (viewPort.x / 2.0f);

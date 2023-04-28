@@ -11,23 +11,23 @@ class Viewport2EventInfo
 {
 private:
     glm::vec4 size{0};
-    glm::vec4 position{0};
+    glm::vec3 position{0};
     std::any src;
 
 public:
-    Viewport2EventInfo(const glm::vec4 &position, const glm::vec4 &size, const std::any &src)
+    Viewport2EventInfo(const glm::vec3 &position, const glm::vec4 &size, const std::any &src)
     {
         this->size = size;
         this->position = position;
         this->src = src;
     }
 
-    [[nodiscard]] const glm::vec4& GetSize() const
+    [[nodiscard]] const glm::vec4 & GetSize() const
     {
         return size;
     }
 
-    [[nodiscard]] const glm::vec4& GetPosition() const
+    [[nodiscard]] const glm::vec3 & GetPosition() const
     {
         return position;
     }
