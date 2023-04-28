@@ -5,42 +5,12 @@
 #include "MovableModelBehavior.h"
 #include "EventMoveInfo.h"
 
-const glm::vec4 & MovableModelBehavior::GetPosition()
+const glm::vec4 & MovableModelBehavior::GetPosition() const
 {
     return position;
 }
 
-float MovableModelBehavior::GetX()
-{
-    return position.x;
-}
-
-float MovableModelBehavior::GetY()
-{
-    return position.y;
-}
-
-float MovableModelBehavior::GetZ()
-{
-    return position.z;
-}
-
-float MovableModelBehavior::GetW()
-{
-    return position.w;
-}
-
-float MovableModelBehavior::GetAbsoluteX()
-{
-    return position.x;
-}
-
-float MovableModelBehavior::GetAbsoluteY()
-{
-    return position.y;
-}
-
-const glm::vec4 & MovableModelBehavior::GetAbsolutePosition()
+const glm::vec4 & MovableModelBehavior::GetAbsolutePosition() const
 {
     return position;
 }
@@ -51,104 +21,14 @@ void MovableModelBehavior::SetPosition(const glm::vec4 &position, bool emit)
     NotifyOnMoveSubscribers({position, GetAbsolutePosition(), &owner, false});
 }
 
-void MovableModelBehavior::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void MovableModelBehavior::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, 0, 1}, emit);
-}
-
-void MovableModelBehavior::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition({x, y, 0, 1});
-}
-
-void MovableModelBehavior::SetX(float x, bool emit)
-{
-    SetPosition({x, position.x, position.z, position.w}, emit);
-}
-
-void MovableModelBehavior::SetX(float x)
-{
-    SetPosition({x, position.x, position.z, position.w});
-}
-
-void MovableModelBehavior::SetY(float y, bool emit)
-{
-    SetPosition({position.x, y, position.z, position.w}, emit);
-}
-
-void MovableModelBehavior::SetY(float y)
-{
-    SetPosition({position.x, y, position.z, position.w});
-}
-
-void MovableModelBehavior::SetZ(float z, bool emit)
-{
-    SetPosition({position.x, position.y, z, position.w}, emit);
-}
-
-void MovableModelBehavior::SetZ(float z)
-{
-    SetPosition({position.x, position.y, z, position.w});
-}
-
-void MovableModelBehavior::SetW(float w, bool emit)
-{
-    SetPosition({position.x, position.y, position.z, w}, emit);
-}
-
-void MovableModelBehavior::SetW(float w)
-{
-    SetPosition({position.x, position.y, position.z, w});
-}
-
 void MovableModelBehavior::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     translation = offset;
 }
 
-void MovableModelBehavior::SetTranslate(glm::vec4 offset)
-{
-    translation = offset;
-}
-
-void MovableModelBehavior::SetTranslateX(float x, bool emit)
-{
-    translation.x = x;
-}
-
-void MovableModelBehavior::SetTranslateX(float x)
-{
-    translation.x = x;
-}
-
-void MovableModelBehavior::SetTranslateY(float y, bool emit)
-{
-    translation.y = y;
-}
-
-void MovableModelBehavior::SetTranslateY(float y)
-{
-    translation.y = y;
-}
-
-const glm::vec4 & MovableModelBehavior::GetTranslate()
+const glm::vec4 & MovableModelBehavior::GetTranslate() const
 {
     return translation;
-}
-
-float MovableModelBehavior::GetTranslateX()
-{
-    return translation.x;
-}
-
-float MovableModelBehavior::GetTranslateY()
-{
-    return translation.y;
 }
 
 void MovableModelBehavior::AddOnMoveSubscriber(MoveSubscriber &subscriber)

@@ -74,7 +74,10 @@ RadioButton::RadioButton(float x, float y, float width, float height, string com
     radioCircle.GetScales().SetCalculateFromCenterY(true);
     radioCircle.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
     radioCircle.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
-    radioCircle.SetX(0.1f);
+
+    auto pos = radioCircle.GetPosition();
+    pos.x = 0.1f;
+    radioCircle.SetPosition(pos);
 
     // TODO Fix units. Potential issue if differet units are used
 
@@ -84,8 +87,9 @@ RadioButton::RadioButton(float x, float y, float width, float height, string com
     text.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
     text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
 	text.SetText(L"");
-    text.SetX(0.1f);
-    text.GetX();
+    pos = text.GetPosition();
+    pos.x = 0.1f;
+    text.SetPosition(pos);
     border.SetVisible(true);
 	SetChecked(false);
 }

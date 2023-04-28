@@ -102,7 +102,7 @@ const glm::vec4 & ScalingUtil2D::GetSize()
     return calculatedSize;
 }
 
-const glm::vec4 & ScalingUtil2D::GetPosition()
+const glm::vec4 & ScalingUtil2D::GetPosition() const
 {
     return calculatedPosition;
 }

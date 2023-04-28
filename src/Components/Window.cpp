@@ -63,16 +63,10 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(float x, float y, float z, float w, bool emit)
-{
-   // UiElement::SetPosition(x, y, 0, 0, emit);
-    if(emit)
-        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
-}
-
 void Window::SetPosition(const glm::vec4 &position, bool emit)
 {
-    SetPosition(position.x, position.y, 0, 0, emit);
+    if(emit)
+        NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)

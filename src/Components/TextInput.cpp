@@ -29,7 +29,7 @@ TextInput::TextInput() : TextInput(0, 0, 0, 0, "")
 
 }
 
-TextInput::TextInput(string name) : TextInput(0, 0, 0, 0, name)
+TextInput::TextInput(const string &name) : TextInput(0, 0, 0, 0, name)
 {
 
 }
@@ -65,9 +65,9 @@ const wstring &TextInput::GetText()
     return text.GetText();
 }
 
-void TextInput::SetPosition(glm::vec4 position)
+void TextInput::SetPosition(const glm::vec4& position, bool emit)
 {
-    UiElement::SetPosition(position);
+    UiElement::SetPosition(position, emit);
     UiElement::SetViewportPosition(position);
 }
 

@@ -37,50 +37,21 @@ private:
     static constexpr bool isSmartPtr = IsSmartPtr<T>::value;
 
 public:
-	UiMoveBehavior(MultiTree<T>& component);
+    UiMoveBehavior(MultiTree<T>& component);
 	void CalculateAbsolutePosition();
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	const glm::vec4 & GetPosition() override;
-	float GetX() override;
-	float GetY() override;
-    float GetZ() override ;
-    float GetW() override;
-	void SetPosition(const glm::vec4 &position, bool emit) override;
-	void SetPosition(float x, float y, float z, float w, bool emit) override;
-	void SetX(float x, bool emit) override;
-    void SetX(float x) override;
-	void SetY(float y, bool emit) override;
-    void SetY(float y) override;
-    void SetZ(float z, bool emit) override;
-    void SetZ(float z) override;
-    void SetW(float w, bool emit) override;
-    void SetW(float w) override;
-	float GetAbsoluteX() override;
-	float GetAbsoluteY() override;
-	const glm::vec4 & GetAbsolutePosition() override;
+	[[nodiscard]] const glm::vec4 & GetPosition() const override;
+	void SetPosition(const glm::vec4 &position, bool emit = true) override;
+	[[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
 
-	void SetTranslate(const glm::vec4 &offset, bool emit) override;
-	void SetTranslateX(float x, bool emit) override;
-	void SetTranslateY(float Y, bool emit) override;
+	void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
 
-	const glm::vec4 & GetTranslate() override;
-	float GetTranslateX() override;
-	float GetTranslateY() override;
+	[[nodiscard]] const glm::vec4 & GetTranslate() const override;
 
-	glm::vec4 GetChildrenTranslate() const;
+	[[nodiscard]] glm::vec4 GetChildrenTranslate() const;
 	void TranslateChildren(glm::vec4 translate);
-
-    void SetPosition(glm::vec4 position) override;
-
-    void SetPosition(float x, float y, float z, float w) override;
-
-    void SetTranslate(glm::vec4 offset) override;
-
-    void SetTranslateX(float x) override;
-
-    void SetTranslateY(float y) override;
 };
 
 template<class T>
@@ -118,34 +89,13 @@ void UiMoveBehavior<T>::SetTranslate(const glm::vec4 &offset, bool emit)
     if(emit)
         NotifyOnMoveSubscribers({GetPosition(), GetAbsolutePosition(), this});
 }
-template<class T>
-void UiMoveBehavior<T>::SetTranslateX(float x, bool emit)
-{
-	this->translate.x = x;
-}
-template<class T>
-void UiMoveBehavior<T>::SetTranslateY(float y, bool emit)
-{
-	this->translate.y = y;
-}
 
 template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetTranslate()
+const glm::vec4 & UiMoveBehavior<T>::GetTranslate() const
 {
 	return translate;
 }
 
-template<class T>
-float UiMoveBehavior<T>::GetTranslateX()
-{
-    return translate.x;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetTranslateY()
-{
-	return translate.y;
-}
 
 template<class T>
 UiMoveBehavior<T>::UiMoveBehavior(MultiTree<T>& adjustable) : associatedAdjustableNode(adjustable)
@@ -193,33 +143,9 @@ void UiMoveBehavior<T>::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 }
 
 template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetPosition()
+const glm::vec4 & UiMoveBehavior<T>::GetPosition() const
 {
 	return relativePosition;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetX()
-{
-	return relativePosition.x;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetY()
-{
-	return relativePosition.y;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetZ()
-{
-    return relativePosition.z;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetW()
-{
-    return relativePosition.w;
 }
 
 template<class T>
@@ -229,7 +155,6 @@ void UiMoveBehavior<T>::SetPosition(const glm::vec4 &position, bool emit)
     auto oldAbsPosition = absolutePosition;
 	relativePosition = position;
 	CalculateAbsolutePosition();
-    //TODO this is a hack, fix it as get is a unique_ptr
     if(emit)
     {
         auto event = EventMoveInfo{relativePosition, absolutePosition, this};
@@ -239,103 +164,8 @@ void UiMoveBehavior<T>::SetPosition(const glm::vec4 &position, bool emit)
 }
 
 template<class T>
-void UiMoveBehavior<T>::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, z, w}, emit);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetX(float x, bool emit)
-{
-    SetPosition({x, relativePosition.y, relativePosition.z, relativePosition.w}, emit);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetX(float x)
-{
-    SetX(x, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetY(float y, bool emit)
-{
-    SetPosition({relativePosition.x, y, relativePosition.z, relativePosition.w}, emit);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetY(float y)
-{
-    SetY(y, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetZ(float z, bool emit)
-{
-    SetPosition({relativePosition.x, relativePosition.y, z, relativePosition.w}, emit);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetZ(float z)
-{
-    SetZ(z, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetW(float w, bool emit)
-{
-    SetPosition({relativePosition.x, relativePosition.y, relativePosition.z, w}, emit);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetW(float w)
-{
-    SetW(w, true);
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetAbsoluteX()
-{
-	return absolutePosition.x;
-}
-
-template<class T>
-float UiMoveBehavior<T>::GetAbsoluteY()
-{
-	return absolutePosition.y;
-}
-
-template<class T>
-const glm::vec4 & UiMoveBehavior<T>::GetAbsolutePosition()
+const glm::vec4 & UiMoveBehavior<T>::GetAbsolutePosition() const
 {
 	return absolutePosition;
 }
 
-template<class T>
-void UiMoveBehavior<T>::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition({x, y, z, w}, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetTranslate(glm::vec4 offset)
-{
-    SetTranslate(offset, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetTranslateX(float x)
-{
-    SetTranslateX(x, true);
-}
-
-template<class T>
-void UiMoveBehavior<T>::SetTranslateY(float y)
-{
-    SetTranslateY(y, true);
-}

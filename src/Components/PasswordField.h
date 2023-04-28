@@ -30,7 +30,7 @@ public:
 	/**
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	PasswordField(std::string name);
+	explicit PasswordField(std::string name);
 
 	
 	void SetText(std::wstring text) override;
@@ -46,8 +46,8 @@ public:
 
     void SetBackgroundColor(const glm::ivec4 &color) override;
 
-    void SetPosition(const glm::vec4 &position, bool emit) override;
+    void SetPosition(const glm::vec4 &position, bool emit = true) override;
 
-    void SetSize(const glm::vec4 &size, bool emit) override;
+    void SetSize(const glm::vec4 &size, bool emit = true) override;
 };
 

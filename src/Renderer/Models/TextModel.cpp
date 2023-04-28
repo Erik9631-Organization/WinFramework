@@ -6,42 +6,12 @@
 #include "Renderer.h"
 #include "EventMoveInfo.h"
 
-const glm::vec4 & TextModel::GetPosition()
+const glm::vec4 & TextModel::GetPosition() const
 {
     return movableModelBehavior.GetPosition();
 }
 
-float TextModel::GetX()
-{
-    return movableModelBehavior.GetX();
-}
-
-float TextModel::GetY()
-{
-    return movableModelBehavior.GetY();
-}
-
-float TextModel::GetZ()
-{
-    return movableModelBehavior.GetZ();
-}
-
-float TextModel::GetW()
-{
-    return movableModelBehavior.GetW();
-}
-
-float TextModel::GetAbsoluteX()
-{
-    return movableModelBehavior.GetAbsoluteX();
-}
-
-float TextModel::GetAbsoluteY()
-{
-    return movableModelBehavior.GetAbsoluteY();
-}
-
-const glm::vec4 & TextModel::GetAbsolutePosition()
+const glm::vec4 & TextModel::GetAbsolutePosition() const
 {
     return movableModelBehavior.GetAbsolutePosition();
 }
@@ -51,116 +21,20 @@ void TextModel::SetPosition(const glm::vec4 &position, bool emit)
     movableModelBehavior.SetPosition(position, emit);
 }
 
-void TextModel::SetPosition(glm::vec4 position)
-{
-    movableModelBehavior.SetPosition(position);
-}
-
-void TextModel::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    movableModelBehavior.SetPosition(x, y, z, w, emit);
-}
-
-void TextModel::SetPosition(float x, float y, float z, float w)
-{
-    movableModelBehavior.SetPosition(x, y, z, w);
-}
-
-void TextModel::SetX(float x, bool emit)
-{
-    movableModelBehavior.SetX(x, emit);
-}
-
-void TextModel::SetX(float x)
-{
-    movableModelBehavior.SetX(x);
-}
-
-void TextModel::SetY(float y, bool emit)
-{
-    movableModelBehavior.SetY(y, emit);
-}
-
-void TextModel::SetY(float y)
-{
-    movableModelBehavior.SetY(y);
-}
-
-void TextModel::SetZ(float z, bool emit)
-{
-    movableModelBehavior.SetZ(z, emit);
-}
-
-void TextModel::SetZ(float z)
-{
-    movableModelBehavior.SetZ(z);
-}
-
-void TextModel::SetW(float w, bool emit)
-{
-    movableModelBehavior.SetW(w, emit);
-}
-
-void TextModel::SetW(float w)
-{
-    movableModelBehavior.SetW(w);
-}
-
 void TextModel::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     movableModelBehavior.SetTranslate(offset, emit);
 }
 
-void TextModel::SetTranslate(glm::vec4 offset)
-{
-    movableModelBehavior.SetTranslate(offset);
-}
-
-void TextModel::SetTranslateX(float x, bool emit)
-{
-    movableModelBehavior.SetTranslateX(x, emit);
-}
-
-void TextModel::SetTranslateX(float x)
-{
-    movableModelBehavior.SetTranslateX(x);
-}
-
-void TextModel::SetTranslateY(float y, bool emit)
-{
-    movableModelBehavior.SetTranslateY(y, emit);
-}
-
-void TextModel::SetTranslateY(float y)
-{
-    movableModelBehavior.SetTranslateY(y);
-}
-
-const glm::vec4 & TextModel::GetTranslate()
+const glm::vec4 & TextModel::GetTranslate() const
 {
     return movableModelBehavior.GetTranslate();
-}
-
-float TextModel::GetTranslateX()
-{
-    return movableModelBehavior.GetTranslateX();
-}
-
-float TextModel::GetTranslateY()
-{
-    return movableModelBehavior.GetTranslateY();
 }
 
 void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
     switch(message->GetSubMessageId())
     {
-        case SubCommands::SetX:
-            SetX(message->GetData<float>());
-            break;
-        case SubCommands::SetY:
-            SetY(message->GetData<float>());
-            break;
         case SubCommands::SetViewPortSize:
             SetViewportSize(message->GetData<glm::vec4>());
             break;
@@ -172,12 +46,6 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             break;
         case SubCommands::SetTranslate:
             SetTranslate(message->GetData<glm::vec4>());
-            break;
-        case SubCommands::SetTranslateX:
-            SetTranslateX(message->GetData<float>());
-            break;
-        case SubCommands::SetTranslateY:
-            SetTranslateY(message->GetData<float>());
             break;
         case SubCommands::SetFontSize:
             SetFontSize(message->GetData<float>());
@@ -217,7 +85,7 @@ void TextModel::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
 
 float TextModel::GetZIndex()
 {
-    return movableModelBehavior.GetZ();
+    return movableModelBehavior.GetPosition().z;
 }
 
 void TextModel::Draw()

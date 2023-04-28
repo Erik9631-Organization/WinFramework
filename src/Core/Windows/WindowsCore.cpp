@@ -214,7 +214,10 @@ void WindowsCore::UpdateScale()
 {
     if(wrapperFrame == nullptr)
         return;
-	SetWindowPos(windowHandle, NULL, wrapperFrame->GetX(), wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+	SetWindowPos(windowHandle, NULL, wrapperFrame->GetPosition().x,
+                 wrapperFrame->GetPosition().y,
+                 wrapperFrame->GetWidth(),
+                 wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
 WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
@@ -256,8 +259,8 @@ void WindowsCore::CreateWinApiWindow()
     int height = 0;
     if(wrapperFrame != nullptr)
     {
-        x = (int)wrapperFrame->GetX();
-        y = (int)wrapperFrame->GetY();
+        x = (int)wrapperFrame->GetPosition().x;
+        y = (int)wrapperFrame->GetPosition().y;
         width = (int)wrapperFrame->GetWidth();
         height = (int)wrapperFrame->GetHeight();
     }
@@ -388,10 +391,10 @@ void WindowsCore::UpdateLockCursor()
         return;
     cout << "after for" << endl;
     //Calculate the center of the wrapper frame
-    lockCursorRegion.left = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.top = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
-    lockCursorRegion.right = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.bottom = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.left = (wrapperFrame->GetPosition().x + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.top = (wrapperFrame->GetPosition().y + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.right = (wrapperFrame->GetPosition().x + wrapperFrame->GetWidth() / 2);
+    lockCursorRegion.bottom = (wrapperFrame->GetPosition().y + wrapperFrame->GetHeight() / 2);
 
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.

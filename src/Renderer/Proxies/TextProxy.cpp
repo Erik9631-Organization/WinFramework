@@ -9,71 +9,17 @@
 
 std::wstring TextProxy::defaultText = L"";
 
-const glm::vec4 & TextProxy::GetPosition()
+const glm::vec4 & TextProxy::GetPosition() const
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>();
+        return tempData->GetData<const glm::vec4&>();
     if(model == nullptr)
         return defaultVec;
     return model->GetPosition();
 }
 
-float TextProxy::GetX()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().x;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetX();
-}
-
-float TextProxy::GetY()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().y;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetY();
-}
-
-float TextProxy::GetZ()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().z;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetZ();
-}
-
-float TextProxy::GetW()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().w;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetW();
-}
-
-float TextProxy::GetAbsoluteX()
-{
-    return model->GetX();
-}
-
-float TextProxy::GetAbsoluteY()
-{
-    return model->GetY();
-}
-
-const glm::vec4 & TextProxy::GetAbsolutePosition()
+const glm::vec4 & TextProxy::GetAbsolutePosition() const
 {
     return model->GetAbsolutePosition();
 }
@@ -85,61 +31,6 @@ void TextProxy::SetPosition(const glm::vec4 &position, bool emit)
     messageSender.SendRenderingMessage(std::move(renderMessage));
 }
 
-void TextProxy::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void TextProxy::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, z, w}, emit);
-}
-
-void TextProxy::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), true);
-}
-
-void TextProxy::SetX(float x, bool emit)
-{
-    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), emit);
-}
-
-void TextProxy::SetX(float x)
-{
-    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), true);
-}
-
-void TextProxy::SetY(float y, bool emit)
-{
-    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), emit);
-}
-
-void TextProxy::SetY(float y)
-{
-    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), true);
-}
-
-void TextProxy::SetZ(float z, bool emit)
-{
-    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), emit);
-}
-
-void TextProxy::SetZ(float z)
-{
-    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), true);
-}
-
-void TextProxy::SetW(float w, bool emit)
-{
-    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, emit);
-}
-
-void TextProxy::SetW(float w)
-{
-    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, true);
-}
-
 void TextProxy::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(offset, this);
@@ -147,63 +38,17 @@ void TextProxy::SetTranslate(const glm::vec4 &offset, bool emit)
     messageSender.SendRenderingMessage(std::move(renderMessage));
 }
 
-void TextProxy::SetTranslate(glm::vec4 offset)
-{
-    SetTranslate(offset, true);
-}
-
-void TextProxy::SetTranslateX(float x, bool emit)
-{
-    SetTranslate({x, model->GetTranslateY(), 0, 0}, emit);
-}
-
-void TextProxy::SetTranslateX(float x)
-{
-    SetTranslateX(x, true);
-}
-
-void TextProxy::SetTranslateY(float y, bool emit)
-{
-    SetTranslate({model->GetTranslateX(), y, 0, 0}, emit);
-}
-
-void TextProxy::SetTranslateY(float y)
-{
-    SetTranslateY(y, true);
-}
-
-const glm::vec4 & TextProxy::GetTranslate()
+const glm::vec4 & TextProxy::GetTranslate() const
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>();
+        return tempData->GetData<const glm::vec4&>();
     if(model == nullptr)
         return defaultVec;
 
     return model->GetTranslate();
 }
 
-float TextProxy::GetTranslateX()
-{
-    auto tempData = messageSender.Get(SubCommands::SetTranslate);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().x;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetTranslateX();
-}
-
-float TextProxy::GetTranslateY()
-{
-    auto tempData = messageSender.Get(SubCommands::SetTranslate);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().y;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetTranslateY();
-}
 
 void TextProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
 {

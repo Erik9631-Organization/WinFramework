@@ -60,7 +60,7 @@ const glm::ivec4 &PasswordField::GetBackgroundColor()
 
 void PasswordField::SetPosition(const glm::vec4 &position, bool emit)
 {
-    UiElement::SetPosition(position);
+    UiElement::SetPosition(position, emit);
     UiElement::SetViewportPosition(position);
 }
 

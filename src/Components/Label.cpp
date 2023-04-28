@@ -29,7 +29,7 @@ const std::wstring & Label::GetText()
 	return text.GetText();
 }
 
-void Label::SetBackground(const glm::vec4 &color)
+void Label::SetBackground(const glm::ivec4 &color)
 {
     background.SetColor(color);
 }

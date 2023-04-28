@@ -9,120 +9,23 @@
 #include "EventMoveInfo.h"
 #include <iostream>
 
-const glm::vec4 & RectangleProxy::GetPosition()
+const glm::vec4 & RectangleProxy::GetPosition() const
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>();
+        return tempData->GetData<const glm::vec4&>();
     if(model == nullptr)
         return defaultVec4;
 
     return model->GetPosition();
 }
 
-float RectangleProxy::GetX()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().x;
-    if(model == nullptr)
-        return 0.0f;
-    return model->GetX();
-}
-
-float RectangleProxy::GetY()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().y;
-    if(model == nullptr)
-        return 0.0f;
-    return model->GetY();
-}
-
-float RectangleProxy::GetZ()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().z;
-    if(model == nullptr)
-        return 0.0f;
-
-
-    return model->GetZ();
-}
-
-float RectangleProxy::GetW()
-{
-    auto tempData = messageSender.Get(SubCommands::SetPosition);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().w;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetW();
-}
 
 void RectangleProxy::SetPosition(const glm::vec4 &position, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(position, this);
     renderMessage->SetSubMessageId(SubCommands::SetPosition);
     SendRenderingMessage(std::move(renderMessage));
-}
-
-void RectangleProxy::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void RectangleProxy::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, z, w}, emit);
-}
-
-void RectangleProxy::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition(x, y, z, w, true);
-}
-
-void RectangleProxy::SetX(float x, bool emit)
-{
-    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), emit);
-}
-
-void RectangleProxy::SetX(float x)
-{
-    SetPosition(x, model->GetY(), model->GetZ(), model->GetW(), true);
-}
-
-void RectangleProxy::SetY(float y, bool emit)
-{
-    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), emit);
-}
-
-void RectangleProxy::SetY(float y)
-{
-    SetPosition(model->GetX(), y, model->GetZ(), model->GetW(), true);
-}
-
-void RectangleProxy::SetZ(float z, bool emit)
-{
-    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), emit);
-}
-
-void RectangleProxy::SetZ(float z)
-{
-    SetPosition(model->GetX(), model->GetY(), z, model->GetW(), true);
-}
-
-void RectangleProxy::SetW(float w, bool emit)
-{
-    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, emit);
-}
-
-void RectangleProxy::SetW(float w)
-{
-    SetPosition(model->GetX(), model->GetY(), model->GetZ(), w, true);
 }
 
 void RectangleProxy::SetTranslate(const glm::vec4 &offset, bool emit)
@@ -132,64 +35,17 @@ void RectangleProxy::SetTranslate(const glm::vec4 &offset, bool emit)
     SendRenderingMessage(std::move(renderMessage));
 }
 
-void RectangleProxy::SetTranslate(glm::vec4 offset)
-{
-    SetTranslate(offset, true);
-}
-
-void RectangleProxy::SetTranslateX(float x, bool emit)
-{
-    SetTranslate({x, model->GetTranslateY(), 0, 0}, emit);
-}
-
-void RectangleProxy::SetTranslateX(float x)
-{
-    SetTranslateX(x, true);
-}
-
-void RectangleProxy::SetTranslateY(float y, bool emit)
-{
-    SetTranslate({model->GetTranslateX(), y, 0, 0}, emit);
-}
-
-void RectangleProxy::SetTranslateY(float y)
-{
-    SetTranslateY(y, true);
-}
-
-const glm::vec4 & RectangleProxy::GetTranslate()
+const glm::vec4 & RectangleProxy::GetTranslate() const
 {
     auto tempData = messageSender.Get(SubCommands::SetTranslate);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>();
+        return tempData->GetData<const glm::vec4&>();
     if(model == nullptr)
         return defaultVec4;
 
     return model->GetTranslate();
 }
 
-float RectangleProxy::GetTranslateX()
-{
-    auto tempData = messageSender.Get(SubCommands::SetTranslate);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().x;
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetTranslateX();
-}
-
-float RectangleProxy::GetTranslateY()
-{
-    auto tempData = messageSender.Get(SubCommands::SetTranslate);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().y;
-
-    if(model == nullptr)
-        return 0.0f;
-
-    return model->GetTranslateY();
-}
 
 const glm::vec4 & RectangleProxy::GetSize()
 {
@@ -310,17 +166,7 @@ void RectangleProxy::RemoveOnResizeSubscriber(ResizeSubscriber &subscriber)
     }
 }
 
-float RectangleProxy::GetAbsoluteX()
-{
-    return GetPosition().x;
-}
-
-float RectangleProxy::GetAbsoluteY()
-{
-    return GetPosition().y;
-}
-//TODO Fix returning temporary object
-const glm::vec4 & RectangleProxy::GetAbsolutePosition()
+const glm::vec4 & RectangleProxy::GetAbsolutePosition() const
 {
     return GetPosition();
 }

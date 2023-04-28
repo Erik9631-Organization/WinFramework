@@ -50,13 +50,15 @@ void VerticalScrollbarBehavior::OnMouseCaptured(EventMouseStateInfo e)
 {
     //Set viewPortSize
     //Check if scrollbar can be moved
-    if(e.GetMouseDelta().y + associatedTrackBar.GetY() + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
+    if(e.GetMouseDelta().y + associatedTrackBar.GetPosition().y + associatedTrackBar.GetHeight() > associatedScrollbar.GetControlledComponent()->GetHeight())
         return;
 
-    if(e.GetMouseDelta().y + associatedTrackBar.GetY() < 0)
+    if(e.GetMouseDelta().y + associatedTrackBar.GetPosition().y < 0)
         return;
     //Set the trackbar
-    associatedTrackBar.SetY(e.GetMouseDelta().y + associatedTrackBar.GetY());
+    auto pos = associatedTrackBar.GetPosition();
+    pos.y = e.GetMouseDelta().y + associatedTrackBar.GetPosition().y;
+    associatedTrackBar.SetPosition(pos);
 
     //Set the components
     UiElement* parent = associatedScrollbar.GetParent();
@@ -82,7 +84,7 @@ int VerticalScrollbarBehavior::GetPageHeight()
 
     if(associatedScrollbar.GetControlledComponent() == nullptr)
         return 0;
-    return bottomComponent->GetY() + bottomComponent->GetHeight();
+    return bottomComponent->GetPosition().y + bottomComponent->GetHeight();
 }
 
 Adjustable* VerticalScrollbarBehavior::GetBottomComponentFromParent()
@@ -102,7 +104,7 @@ Adjustable* VerticalScrollbarBehavior::GetBottomComponentFromParent()
         if(lastMovable == &associatedScrollbar)
             lastMovable = &movable;
 
-        if(movable.GetY() > lastMovable->GetY())
+        if(movable.GetPosition().y> lastMovable->GetPosition().y)
             lastMovable = &movable;
     }
 
@@ -114,7 +116,7 @@ Adjustable* VerticalScrollbarBehavior::GetBottomComponentFromParent()
 
 float VerticalScrollbarBehavior::GetScrollbarPercentualPos()
 {
-    return (float)associatedTrackBar.GetY() / ((float)associatedScrollbar.GetHeight() - (float)associatedTrackBar.GetHeight());
+    return (float)associatedTrackBar.GetPosition().y / ((float)associatedScrollbar.GetHeight() - (float)associatedTrackBar.GetHeight());
 }
 
 float VerticalScrollbarBehavior::GetScrollbarPercentualHeight()
@@ -173,7 +175,7 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
     if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
     {
         auto scrollbarPos = this->associatedScrollbar.GetPosition();
-        associatedScrollbar.SetPosition(e.GetSize().x - associatedScrollbar.GetWidth(), 0, scrollbarPos.z, 0);
+        associatedScrollbar.SetPosition({e.GetSize().x - associatedScrollbar.GetWidth(), 0, scrollbarPos.z, 0});
         associatedScrollbar.SetHeight(e.GetSize().y);
         UpdateChildrenViewports(*associatedScrollbar.GetControlledComponent());
     }
@@ -206,7 +208,7 @@ Adjustable *VerticalScrollbarBehavior::GetBottomComponent(Adjustable *adjustable
     if(bottomComponent == nullptr)
         return nullptr;
 
-    if(adjustable->GetY() + adjustable->GetHeight() > bottomComponent->GetY() + bottomComponent->GetHeight())
+    if(adjustable->GetPosition().y + adjustable->GetHeight() > bottomComponent->GetPosition().y + bottomComponent->GetHeight())
         return adjustable;
     return bottomComponent;
 }

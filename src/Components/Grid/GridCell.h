@@ -23,27 +23,14 @@ private:
 	Adjustable* associatedAdjustable = nullptr;
 
     glm::vec2 cellSize;
-	glm::ivec2 indexPos;
+	glm::vec4 indexPos;
     glm::vec2 position;
+    glm::vec4 absPos;
     glm::ivec2 CalculatePixelPosition();;
 
 	GridSpan span;
 
 	glm::ivec2 GetSpanSize();
-
-    void SetPosition(glm::vec4 position) override;
-
-    void SetPosition(float x, float y, float z, float w) override;
-
-    void SetX(float x) override;
-
-    void SetY(float y) override;
-
-    void SetTranslate(glm::vec4 offset) override;
-
-    void SetTranslateX(float x) override;
-
-    void SetTranslateY(float y) override;
 
     void SetSize(glm::vec4 size) override;
 
@@ -58,7 +45,7 @@ public:
 	void ControlAdjustable(Adjustable* associatedAdjustable);
 	Adjustable* GetControlledAdjustable();
 
-	GridCell(Grid& parentGrid);
+	explicit GridCell(Grid& parentGrid);
 	// Inherited via Adjustable
 
 	GridCell* GetSpanParent(); // Can't be a variable since the parent can't exist unless the row exists
@@ -82,31 +69,14 @@ public:
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	const glm::vec4 & GetPosition() override;
-	float GetX() override;
-	float GetY() override;
-    float GetZ() override;
-    float GetW() override;
-	float GetAbsoluteX() override;
-	float GetAbsoluteY() override;
-	const glm::vec4 & GetAbsolutePosition() override;
-	void SetPosition(const glm::vec4 &position, bool emit) override;
-	void SetPosition(float x, float y, float z, float w, bool emit) override;
-	void SetX(float x, bool emit) override;
-	void SetY(float y, bool emit) override;
-    void SetZ(float z, bool emit) override;
-    void SetZ(float z) override;
-    void SetW(float w, bool emit) override;
-    void SetW(float w) override;
-	void SetTranslate(const glm::vec4 &offset, bool emit) override;
-	void SetTranslateX(float x, bool emit) override;
-	void SetTranslateY(float y, bool emit) override;
-	const glm::vec4 & GetTranslate() override;
-	float GetTranslateX() override;
-	float GetTranslateY() override;
+	[[nodiscard]] const glm::vec4 & GetPosition() const override;
+	[[nodiscard]] const glm::vec4 & GetAbsolutePosition() const override;
+	void SetPosition(const glm::vec4 &position, bool emit = true) override;
+	void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
 	void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();
 	glm::vec2 GetPixelPosition();
+    [[nodiscard]] const glm::vec4 &GetTranslate() const override;
 };
 

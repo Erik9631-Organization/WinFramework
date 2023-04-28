@@ -195,87 +195,25 @@ void GridCell::NotifyOnMoveSubscribers(const EventMoveInfo &event)
     associatedAdjustable->NotifyOnMoveSubscribers(event);
 }
 
-const glm::vec4 & GridCell::GetPosition()
+const glm::vec4 & GridCell::GetPosition() const
 {
-    return {indexPos.x, indexPos.y, 0, 1};
+    return indexPos;
 }
 
-float GridCell::GetX()
+//TODO fix absolute position
+const glm::vec4 & GridCell::GetAbsolutePosition() const
 {
-    return indexPos.x;
-}
-
-float GridCell::GetY()
-{
-    return indexPos.y;
-}
-
-float GridCell::GetZ() {
-    return 0;
-}
-
-float GridCell::GetW() {
-    return 1;
-}
-
-float GridCell::GetAbsoluteX()
-{
-    return indexPos.x + parentGrid.GetAbsoluteX();
-}
-
-float GridCell::GetAbsoluteY()
-{
-    return indexPos.y + parentGrid.GetAbsoluteY();
-}
-
-const glm::vec4 & GridCell::GetAbsolutePosition()
-{
-    return {indexPos.x + parentGrid.GetAbsoluteX(), indexPos.y + parentGrid.GetAbsoluteY(), 0, 1};
+    return {indexPos.x + parentGrid.GetAbsolutePosition().x, indexPos.y + parentGrid.GetAbsolutePosition().y, 0, 1};
 }
 
 void GridCell::SetPosition(const glm::vec4 &position, bool emit)
 {
-    this->indexPos.x = static_cast<int>(position.x);
-    this->indexPos.y = static_cast<int>(position.y);
+    this->indexPos.x = position.x;
+    this->indexPos.y = position.y;
     this->position = {CalculatePixelPosition().x, CalculatePixelPosition().y};
     if (associatedAdjustable == nullptr)
         return;
     associatedAdjustable->SetPosition({this->position.x, this->position.y, 0, 1}, emit);
-}
-
-void GridCell::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, z, w}, emit);
-}
-
-void GridCell::SetX(float x, bool emit)
-{
-    SetPosition(x, indexPos.y, 0, 1, emit);
-}
-
-void GridCell::SetY(float y, bool emit)
-{
-    SetPosition(indexPos.x, y, 0, 1, emit);
-}
-
-void GridCell::SetZ(float z, bool emit)
-{
-
-}
-
-void GridCell::SetZ(float z)
-{
-
-}
-
-void GridCell::SetW(float w, bool emit)
-{
-
-}
-
-void GridCell::SetW(float w)
-{
-
 }
 
 void GridCell::SetTranslate(const glm::vec4 &offset, bool emit)
@@ -285,21 +223,7 @@ void GridCell::SetTranslate(const glm::vec4 &offset, bool emit)
     associatedAdjustable->SetTranslate(offset, true);
 }
 
-void GridCell::SetTranslateX(float x, bool emit)
-{
-    if (associatedAdjustable == nullptr)
-        return;
-    associatedAdjustable->SetTranslateX(x, emit);
-}
-
-void GridCell::SetTranslateY(float y, bool emit)
-{
-    if (associatedAdjustable == nullptr)
-        return;
-    associatedAdjustable->SetTranslateY(y, emit);
-}
-
-const glm::vec4 & GridCell::GetTranslate()
+const glm::vec4 & GridCell::GetTranslate() const
 {
     if (associatedAdjustable == nullptr)
         return {0, 0, 0, 1};
@@ -307,19 +231,6 @@ const glm::vec4 & GridCell::GetTranslate()
     return associatedAdjustable->GetTranslate();
 }
 
-float GridCell::GetTranslateX()
-{
-    if (associatedAdjustable == nullptr)
-        return 0;
-    return associatedAdjustable->GetTranslateX();
-}
-
-float GridCell::GetTranslateY()
-{
-    if (associatedAdjustable == nullptr)
-        return 0;
-    return associatedAdjustable->GetTranslateY();
-}
 
 void GridCell::OnUpdate(EventUpdateInfo e)
 {
@@ -360,40 +271,6 @@ glm::vec2 GridCell::GetPixelPosition()
     return position;
 }
 
-void GridCell::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void GridCell::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition(x, y, 0, 0, true);
-}
-
-void GridCell::SetX(float x)
-{
-    SetX(x, true);
-}
-
-void GridCell::SetY(float y)
-{
-    SetY(y, true);
-}
-
-void GridCell::SetTranslate(glm::vec4 offset)
-{
-    SetTranslate(offset, true);
-}
-
-void GridCell::SetTranslateX(float x)
-{
-    SetTranslateX(x, true);
-}
-
-void GridCell::SetTranslateY(float y)
-{
-    SetTranslateY(y, true);
-}
 
 void GridCell::SetSize(glm::vec4 size)
 {

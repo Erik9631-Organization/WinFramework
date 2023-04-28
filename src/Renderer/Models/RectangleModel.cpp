@@ -8,42 +8,12 @@
 #include "Commands.h"
 #include <iostream>
 
-const glm::vec4 & RectangleModel::GetPosition()
+const glm::vec4 & RectangleModel::GetPosition() const
 {
     return movableBehavior.GetPosition();
 }
 
-float RectangleModel::GetX()
-{
-    return movableBehavior.GetX();
-}
-
-float RectangleModel::GetY()
-{
-    return movableBehavior.GetY();
-}
-
-float RectangleModel::GetZ()
-{
-    return movableBehavior.GetZ();
-}
-
-float RectangleModel::GetW()
-{
-    return movableBehavior.GetW();
-}
-
-float RectangleModel::GetAbsoluteX()
-{
-    return movableBehavior.GetAbsoluteX();
-}
-
-float RectangleModel::GetAbsoluteY()
-{
-    return movableBehavior.GetAbsoluteY();
-}
-
-const glm::vec4 & RectangleModel::GetAbsolutePosition()
+const glm::vec4 & RectangleModel::GetAbsolutePosition() const
 {
     return movableBehavior.GetAbsolutePosition();
 }
@@ -53,104 +23,16 @@ void RectangleModel::SetPosition(const glm::vec4 &position, bool emit)
     movableBehavior.SetPosition(position, emit);
 }
 
-void RectangleModel::SetPosition(glm::vec4 position)
-{
-    movableBehavior.SetPosition(position);
-}
-
-void RectangleModel::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    movableBehavior.SetPosition(x, y, z, w, emit);
-}
-
-void RectangleModel::SetPosition(float x, float y, float z, float w)
-{
-    movableBehavior.SetPosition(x, y, 0, 0);
-}
-
-void RectangleModel::SetX(float x, bool emit)
-{
-    movableBehavior.SetX(x, emit);
-}
-
-void RectangleModel::SetX(float x)
-{
-    movableBehavior.SetX(x);
-}
-
-void RectangleModel::SetY(float y, bool emit)
-{
-    movableBehavior.SetY(y, emit);
-}
-
-void RectangleModel::SetY(float y)
-{
-    movableBehavior.SetY(y);
-}
-
-void RectangleModel::SetZ(float z, bool emit)
-{
-    movableBehavior.SetZ(z, emit);
-}
-
-void RectangleModel::SetZ(float z)
-{
-    movableBehavior.SetZ(z);
-}
-
-void RectangleModel::SetW(float w, bool emit)
-{
-    movableBehavior.SetW(w, emit);
-}
-
-void RectangleModel::SetW(float w)
-{
-    movableBehavior.SetW(w);
-}
 
 void RectangleModel::SetTranslate(const glm::vec4 &offset, bool emit)
 {
     movableBehavior.SetTranslate(offset, emit);
 }
 
-void RectangleModel::SetTranslate(glm::vec4 offset)
-{
-    movableBehavior.SetTranslate(offset);
-}
 
-void RectangleModel::SetTranslateX(float x, bool emit)
-{
-    movableBehavior.SetTranslateX(x, emit);
-}
-
-void RectangleModel::SetTranslateX(float x)
-{
-    movableBehavior.SetTranslateX(x);
-}
-
-void RectangleModel::SetTranslateY(float y, bool emit)
-{
-    movableBehavior.SetTranslateY(y, emit);
-}
-
-void RectangleModel::SetTranslateY(float y)
-{
-    movableBehavior.SetTranslateY(y);
-}
-
-const glm::vec4 & RectangleModel::GetTranslate()
+const glm::vec4 & RectangleModel::GetTranslate() const
 {
     return movableBehavior.GetTranslate();
-}
-
-float RectangleModel::GetTranslateX()
-{
-    return movableBehavior.GetTranslateX();
-}
-
-float RectangleModel::GetTranslateY()
-{
-    return movableBehavior.GetTranslateY();
 }
 
 const glm::vec4 & RectangleModel::GetSize()
@@ -252,11 +134,11 @@ void RectangleModel::Draw()
         renderingApi->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi->DrawFillRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawFillRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
     else
     {
         renderingApi->SetThickness(thickness);
-        renderingApi->DrawRectangle(movableBehavior.GetX(), movableBehavior.GetY(), resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
     }
 
 }
@@ -315,12 +197,6 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         case SubCommands::SetSize:
             SetSize(message->GetData<glm::vec4>());
             break;
-        case SubCommands::SetX:
-            SetX(message->GetData<float>());
-            break;
-        case SubCommands::SetY:
-            SetY(message->GetData<float>());
-            break;
         case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec4>());
             break;
@@ -365,7 +241,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 
 float RectangleModel::GetZIndex()
 {
-    return movableBehavior.GetZ();
+    return movableBehavior.GetPosition().z;
 }
 
 

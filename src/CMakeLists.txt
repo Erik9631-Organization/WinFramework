@@ -52,8 +52,7 @@ set(Lii_Behavior
     "Behavior/DefaultResize.h"
     "Behavior/RadioButtonBehavior.h"
     "Behavior/TextInputBehavior.h"
-    "Behavior/Viewport.h"
-    "Behavior/DefaultActivate.cpp"
+        "Behavior/DefaultActivate.cpp"
     "Behavior/DefaultKeyStateBehavior.cpp"
     "Behavior/DefaultMouseBehavior.cpp"
         "Behavior/DefaultRender.cpp"
@@ -66,8 +65,7 @@ set(Lii_Behavior
     "Components/Panel.cpp"
     "Behavior/RadioButtonBehavior.cpp"
     "Behavior/TextInputBehavior.cpp"
-    "Behavior/Viewport.cpp"
-    Behavior/VerticalScrollbarBehavior.cpp
+        Behavior/VerticalScrollbarBehavior.cpp
     Behavior/VerticalScrollbarBehavior.h
         Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h Behavior/DestroySubjectBehavior.cpp Behavior/DestroySubjectBehavior.h)
 

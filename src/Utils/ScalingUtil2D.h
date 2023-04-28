@@ -30,7 +30,7 @@ public:
     void Scale(const glm::vec4 &translationVector);
 
     const glm::vec4 & GetSize();
-    const glm::vec4 & GetPosition();
+    [[nodiscard]] const glm::vec4 & GetPosition() const;
     float GetX();
     float GetY();
     float GetWidth();

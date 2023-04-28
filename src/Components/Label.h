@@ -16,7 +16,7 @@ public:
 	/**
 	 * \param name the identification name of the component. This value is not a display value.
 	 */
-	Label(const std::string &name);
+	explicit Label(const std::string &name);
 	Label();
 
 	/**
@@ -31,7 +31,7 @@ public:
 	/**
 	 * \param color sets the color of the background.
 	 */
-	void SetBackground(const glm::vec4 &color);
+	void SetBackground(const glm::ivec4 &color);
 
 	/**
 	 * \return gets the color of the background.

@@ -32,7 +32,7 @@ public:
 	/**
 	 * \param name the identification name of the grid. This is not a display value.
 	 */
-	TextInput(std::string name);
+	explicit TextInput(const std::string &name);
 
 
 	void SetText(std::wstring text) override;
@@ -53,8 +53,8 @@ public:
 
     const std::wstring &GetText() override;
 
-    void SetPosition(glm::vec4 position) override;
+    void SetPosition(const glm::vec4& position, bool emit = true) override;
 
-    void SetSize(const glm::vec4 &size, bool emit) override;
+    void SetSize(const glm::vec4 &size, bool emit = true) override;
 };
 

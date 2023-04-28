@@ -40,7 +40,7 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
-    Window(std::string windowName);
+    explicit Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
     static std::unique_ptr<Window> Create(const std::string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const std::string &windowName);
@@ -49,9 +49,7 @@ public:
 	void SetSize(const glm::vec4 &size, bool emit) override;
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
-
-	void SetPosition(float x, float y, float z, float w, bool emit) override;
-	void SetPosition(const glm::vec4 &point, bool emit) override;
+	void SetPosition(const glm::vec4 &point, bool emit = true) override;
 
     void NotifyOnKeyDown(EventKeyStateInfo e) override;
     void NotifyOnKeyUp(EventKeyStateInfo e) override;

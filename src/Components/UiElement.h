@@ -109,17 +109,15 @@ public:
 	 */
 	UiElement& GetRoot();
 	const glm::vec4 & GetSize() override;
-	const glm::vec4 & GetPosition() override;
+	const glm::vec4 & GetPosition() const override;
 	float GetWidth() override;
 	float GetHeight() override;
-	float GetX() override;
-	
+
 	/**
 	 * Gets the current node within the containment hierarchy
 	 * \return returns a node within the Tree of the containment hierarchy.
 	 */
     MultiTree<std::unique_ptr<UiElement>> & GetUiElementNode();
-	float GetY() override;
 
 	/**
 	 * Gets the pointer to the parent of this component
@@ -152,8 +150,7 @@ public:
 	 */
 	void SetComponentName(std::string name);
 
-	virtual void SetPosition(float x, float y, float z, float w, bool emit) override;
-	virtual void SetPosition(const glm::vec4 &pos, bool emit) override;
+    void SetPosition(const glm::vec4 &pos, bool emit = true) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
@@ -185,11 +182,7 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	virtual void SetX(float x, bool emit) override;
-	virtual void SetY(float y, bool emit) override;
-	virtual float GetAbsoluteX() override;
-	virtual float GetAbsoluteY() override;
-	virtual const glm::vec4 & GetAbsolutePosition() override;
+	virtual const glm::vec4 & GetAbsolutePosition() const override;
 
 	// Inherited via Renderable
 	virtual void OnRenderSync(RenderEventInfo e) override;
@@ -276,14 +269,10 @@ public:
 	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(const glm::vec4 &offset, bool emit) override;
-	virtual void SetTranslateX(float x, bool emit) override;
-	virtual void SetTranslateY(float Y, bool emit) override;
+    void SetTranslate(const glm::vec4 &offset, bool emit = true) override;
 
 	// Inherited via Adjustable
-	virtual const glm::vec4 & GetTranslate() override;
-	virtual float GetTranslateX() override;
-	virtual float GetTranslateY() override;
+	virtual const glm::vec4 & GetTranslate() const override;
 	
 	/**
 	 * Gets the internal viewPortSize of the child components
@@ -307,20 +296,6 @@ public:
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
 
-    void SetPosition(glm::vec4 position) override;
-
-    void SetPosition(float x, float y, float z, float w) override;
-
-    void SetX(float x) override;
-
-    void SetY(float y) override;
-
-    void SetTranslate(glm::vec4 offset) override;
-
-    void SetTranslateX(float x) override;
-
-    void SetTranslateY(float y) override;
-
     void SetSize(glm::vec4 size) override;
 
     void SetSize(float width, float height) override;
@@ -339,18 +314,6 @@ public:
     * Called by the TopMost component added to the Presenter to notify the others that they have a presenter.
     */
     void OnMounted(Presenter &presenter, UiElement& element) override;
-
-    float GetZ() override;
-
-    float GetW() override;
-
-    void SetZ(float z, bool emit) override;
-
-    void SetZ(float z) override;
-
-    void SetW(float w, bool emit) override;
-
-    void SetW(float w) override;
 
     void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 

@@ -28,18 +28,6 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetPosition(position);
             break;
         }
-        case SubCommands::SetX:
-        {
-            auto x = message->GetData<float>();
-            SetX(x);
-            break;
-        }
-        case SubCommands::SetY:
-        {
-            auto y = message->GetData<float>();
-            SetY(y);
-            break;
-        }
         case SubCommands::SetSize:
         {
             auto size = message->GetData<glm::vec4>();
@@ -50,18 +38,6 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         {
             auto translate = message->GetData<glm::vec4>();
             SetTranslate(translate);
-            break;
-        }
-        case SubCommands::SetTranslateX:
-        {
-            auto translateX = message->GetData<float>();
-            SetTranslateX(translateX);
-            break;
-        }
-        case SubCommands::SetTranslateY:
-        {
-            auto translateY = message->GetData<float>();
-            SetTranslateY(translateY);
             break;
         }
         case SubCommands::SetWidth:
@@ -109,7 +85,7 @@ void EllipseModel::ResetViewport()
 
 float EllipseModel::GetZIndex()
 {
-    return movableBehavior.GetZ();
+    return movableBehavior.GetPosition().z;
 }
 
 void EllipseModel::Draw()
@@ -150,104 +126,20 @@ const size_t & EllipseModel::GetModelId()
     return id;
 }
 
-const glm::vec4 & EllipseModel::GetPosition()
+const glm::vec4 & EllipseModel::GetPosition() const
 {
     return movableBehavior.GetPosition();
 }
 
-float EllipseModel::GetX()
-{
-    return movableBehavior.GetX();
-}
 
-float EllipseModel::GetY()
-{
-    return movableBehavior.GetY();
-}
-
-float EllipseModel::GetZ()
-{
-    return movableBehavior.GetZ();
-}
-
-float EllipseModel::GetW()
-{
-    return movableBehavior.GetW();
-}
-
-float EllipseModel::GetAbsoluteX()
-{
-    return movableBehavior.GetAbsoluteX();
-}
-
-float EllipseModel::GetAbsoluteY()
-{
-    return movableBehavior.GetAbsoluteY();
-}
-
-const glm::vec4 &EllipseModel::GetAbsolutePosition()
+const glm::vec4 &EllipseModel::GetAbsolutePosition() const
 {
     return movableBehavior.GetAbsolutePosition();
 }
 
 void EllipseModel::SetPosition(const glm::vec4 &position, bool emit)
 {
-    movableBehavior.SetPosition(position);
-}
-
-void EllipseModel::SetPosition(glm::vec4 position)
-{
-    movableBehavior.SetPosition(position);
-}
-
-void EllipseModel::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    movableBehavior.SetPosition(x, y, z, w, emit);
-}
-
-void EllipseModel::SetPosition(float x, float y, float z, float w)
-{
-    movableBehavior.SetPosition(x, y, z, w);
-}
-
-void EllipseModel::SetX(float x, bool emit)
-{
-    movableBehavior.SetX(x, emit);
-}
-
-void EllipseModel::SetX(float x)
-{
-    movableBehavior.SetX(x);
-}
-
-void EllipseModel::SetY(float y, bool emit)
-{
-    movableBehavior.SetY(y, emit);
-}
-
-void EllipseModel::SetY(float y)
-{
-    movableBehavior.SetY(y);
-}
-
-void EllipseModel::SetZ(float z, bool emit)
-{
-    movableBehavior.SetZ(z, emit);
-}
-
-void EllipseModel::SetZ(float z)
-{
-    movableBehavior.SetZ(z);
-}
-
-void EllipseModel::SetW(float w, bool emit)
-{
-    movableBehavior.SetW(w, emit);
-}
-
-void EllipseModel::SetW(float w)
-{
-    movableBehavior.SetW(w);
+    movableBehavior.SetPosition(position, emit);
 }
 
 void EllipseModel::SetTranslate(const glm::vec4 &offset, bool emit)
@@ -255,44 +147,9 @@ void EllipseModel::SetTranslate(const glm::vec4 &offset, bool emit)
     movableBehavior.SetTranslate(offset, emit);
 }
 
-void EllipseModel::SetTranslate(glm::vec4 offset)
-{
-    movableBehavior.SetTranslate(offset);
-}
-
-void EllipseModel::SetTranslateX(float x, bool emit)
-{
-    movableBehavior.SetTranslateX(x, emit);
-}
-
-void EllipseModel::SetTranslateX(float x)
-{
-    movableBehavior.SetTranslateX(x);
-}
-
-void EllipseModel::SetTranslateY(float y, bool emit)
-{
-    movableBehavior.SetTranslateY(y, emit);
-}
-
-void EllipseModel::SetTranslateY(float y)
-{
-    movableBehavior.SetTranslateY(y);
-}
-
-const glm::vec4 & EllipseModel::GetTranslate()
+const glm::vec4 & EllipseModel::GetTranslate() const
 {
     return movableBehavior.GetTranslate();
-}
-
-float EllipseModel::GetTranslateX()
-{
-    return movableBehavior.GetTranslateX();
-}
-
-float EllipseModel::GetTranslateY()
-{
-    return movableBehavior.GetTranslateY();
 }
 
 const glm::vec4 &EllipseModel::GetSize()

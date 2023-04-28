@@ -80,46 +80,13 @@ ScalingUtil2D &RadioCircle::GetScales()
     return scaler;
 }
 
-const glm::vec4 & RadioCircle::GetPosition()
+const glm::vec4 & RadioCircle::GetPosition() const
 {
     return position;
 }
 
-float RadioCircle::GetX()
+const glm::vec4 &RadioCircle::GetAbsolutePosition() const
 {
-    return position.x;
-}
-
-float RadioCircle::GetY()
-{
-    return position.y;
-}
-
-float RadioCircle::GetZ()
-{
-    return position.z;
-}
-
-float RadioCircle::GetW()
-{
-    return position.w;
-}
-
-float RadioCircle::GetAbsoluteX()
-{
-    scaler.Scale(position);
-    return scaler.GetX();
-}
-
-float RadioCircle::GetAbsoluteY()
-{
-    scaler.Scale(position);
-    return scaler.GetY();
-}
-
-const glm::vec4 &RadioCircle::GetAbsolutePosition()
-{
-    scaler.Scale(position);
     return scaler.GetPosition();
 }
 
@@ -132,104 +99,16 @@ void RadioCircle::SetPosition(const glm::vec4 &position, bool emit)
         NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), this));
 }
 
-void RadioCircle::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void RadioCircle::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition({x, y, z, w}, emit);
-}
-
-void RadioCircle::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition({x, y, z, w}, true);
-}
-
-void RadioCircle::SetX(float x, bool emit)
-{
-    SetPosition({x, 0, 0, 1}, emit);
-}
-
-void RadioCircle::SetX(float x)
-{
-    SetPosition({x, position.y, position.z, position.w}, true);
-}
-
-void RadioCircle::SetY(float y, bool emit)
-{
-    SetPosition({position.x, y, position.z, position.w}, emit);
-}
-
-void RadioCircle::SetY(float y)
-{
-    SetPosition({position.x, y, position.z, position.w}, true);
-}
-
-void RadioCircle::SetZ(float z, bool emit)
-{
-    SetPosition({position.x, position.y, z, position.w}, emit);
-}
-
-void RadioCircle::SetZ(float z)
-{
-    SetPosition({position.x, position.y, z, position.w}, true);
-}
-
-void RadioCircle::SetW(float w, bool emit)
-{
-    SetPosition({position.x, position.y, position.z, w}, emit);
-}
-
-void RadioCircle::SetW(float w)
-{
-    SetPosition({position.x, position.y, position.z, w}, true);
-}
 
 void RadioCircle::SetTranslate(const glm::vec4 &offset, bool emit)
 {
 
 }
 
-void RadioCircle::SetTranslate(glm::vec4 offset)
-{
 
-}
-
-void RadioCircle::SetTranslateX(float x, bool emit)
-{
-
-}
-
-void RadioCircle::SetTranslateX(float x)
-{
-
-}
-
-void RadioCircle::SetTranslateY(float y, bool emit)
-{
-
-}
-
-void RadioCircle::SetTranslateY(float y)
-{
-
-}
-
-const glm::vec4 & RadioCircle::GetTranslate()
+const glm::vec4 & RadioCircle::GetTranslate() const
 {
     return glm::vec4();
-}
-
-float RadioCircle::GetTranslateX()
-{
-    return 0;
-}
-
-float RadioCircle::GetTranslateY()
-{
-    return 0;
 }
 
 void RadioCircle::AddOnMoveSubscriber(MoveSubscriber &subscriber)

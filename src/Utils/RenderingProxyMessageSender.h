@@ -27,7 +27,7 @@ private:
 public:
     RenderingProxyMessageSender();
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
-    RenderMessage* Get(const SubCommands &subCommand);
+    RenderMessage* Get(const SubCommands &subCommand) const;
     void OnRenderMessageProcessed(const SubCommands &processedCommand) override;
     void OnModelCreated(RenderingModel *model, RenderingConsumer *renderingConsumer);
 };

@@ -23,7 +23,7 @@ void Grid::AddRow()
 		//CreateElement last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
         cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex), false); // First viewPortSize
-        cell->SetPosition(i, lastRowIndex, 0, 0, false); // Then viewPortPosition since viewPortSize is dependent on viewPortPosition
+        cell->SetPosition({i, lastRowIndex, 0, 0}, false); // Then viewPortPosition since viewPortSize is dependent on viewPortPosition
 	}
 	if (autoExtend == false)
 		return;

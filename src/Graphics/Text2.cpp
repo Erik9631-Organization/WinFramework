@@ -115,110 +115,22 @@ Text2::~Text2()
     associatedElement.RemoveViewport2Subscriber(*this);
 }
 
-const glm::vec4 & Text2::GetPosition()
+const glm::vec4 & Text2::GetPosition() const
 {
     return textPosition;
 }
 
-float Text2::GetX()
+const glm::vec4 &Text2::GetAbsolutePosition() const
 {
-    return textPosition.x;
-}
-
-float Text2::GetY()
-{
-    return textPosition.y;
-}
-
-float Text2::GetZ()
-{
-    return textPosition.z;
-}
-
-float Text2::GetW()
-{
-    return textPosition.w;
-}
-
-float Text2::GetAbsoluteX()
-{
-    return textPosition.x;
-}
-
-float Text2::GetAbsoluteY()
-{
-    return textPosition.y;
-}
-
-const glm::vec4 &Text2::GetAbsolutePosition()
-{
-    textScaler.Scale(textPosition);
     return textScaler.GetPosition();
 }
 
 void Text2::SetPosition(const glm::vec4 &position, bool emit)
 {
-    auto oldPosition = GetPosition();
-    auto oldAbsolutePosition = GetAbsolutePosition();
     textPosition = position;
     if(emit)
         NotifyOnMoveSubscribers(EventMoveInfo(position, GetAbsolutePosition(), this));
     OnMove(EventMoveInfo(EventMoveInfo(position, GetAbsolutePosition(), this)));
-}
-
-void Text2::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void Text2::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    SetPosition(glm::vec4(x, y, z, w), emit);
-}
-
-void Text2::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition(glm::vec4(x, y, z, w), true);
-}
-
-void Text2::SetX(float x, bool emit)
-{
-    SetPosition({x, textPosition.y, textPosition.z, textPosition.w}, emit);
-}
-
-void Text2::SetX(float x)
-{
-    SetPosition({x, textPosition.y, textPosition.z, textPosition.w}, true);
-}
-
-void Text2::SetY(float y, bool emit)
-{
-    SetPosition({textPosition.x, y, textPosition.z, textPosition.w}, emit);
-}
-
-void Text2::SetY(float y)
-{
-    SetPosition({textPosition.x, y, textPosition.z, textPosition.w}, true);
-}
-
-void Text2::SetZ(float z, bool emit)
-{
-    SetPosition({textPosition.x, textPosition.y, z, textPosition.w}, emit);
-}
-
-void Text2::SetZ(float z)
-{
-    SetPosition({textPosition.x, textPosition.y, z, textPosition.w}, true);
-}
-
-void Text2::SetW(float w, bool emit)
-{
-    SetPosition({textPosition.x, textPosition.y, textPosition.z, w}, emit);
-}
-
-void Text2::SetW(float w)
-{
-    SetPosition({textPosition.x, textPosition.y, textPosition.z, w}, true);
 }
 
 void Text2::SetTranslate(const glm::vec4 &offset, bool emit)
@@ -226,45 +138,12 @@ void Text2::SetTranslate(const glm::vec4 &offset, bool emit)
 
 }
 
-void Text2::SetTranslate(glm::vec4 offset)
-{
 
-}
-
-void Text2::SetTranslateX(float x, bool emit)
-{
-
-}
-
-void Text2::SetTranslateX(float x)
-{
-
-}
-
-void Text2::SetTranslateY(float y, bool emit)
-{
-
-}
-
-void Text2::SetTranslateY(float y)
-{
-
-}
-
-const glm::vec4 & Text2::GetTranslate()
+const glm::vec4 & Text2::GetTranslate() const
 {
     return glm::vec4();
 }
 
-float Text2::GetTranslateX()
-{
-    return 0;
-}
-
-float Text2::GetTranslateY()
-{
-    return 0;
-}
 
 void Text2::AddOnMoveSubscriber(MoveSubscriber &subscriber)
 {

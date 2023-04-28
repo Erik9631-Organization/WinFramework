@@ -44,7 +44,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-    moveBehavior.SetPosition(x, y, 0, 0, false);
+    moveBehavior.SetPosition({x, y, 0, 0}, false);
     resizeBehavior.SetSize(width, height, false);
 	this->name = name;
 }
@@ -84,22 +84,6 @@ void UiElement::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 	moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-void UiElement::SetX(float x, bool emit)
-{
-    //Can't change during sync.
-    //Perform a data update
-    //Notify the root that the data was updated
-
-    moveBehavior.SetX(x, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
-void UiElement::SetY(float y, bool emit)
-{
-    moveBehavior.SetY(y, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
 void UiElement::OnRenderSync(RenderEventInfo e)
 {
     renderBehavior.OnRenderSync(e);
@@ -111,8 +95,8 @@ void UiElement::OnSync(const DrawData &data)
 
     if(!IsRoot())
     {
-        parentPos.x = GetX();
-        parentPos.y = GetY();
+        parentPos.x = GetPosition().x;
+        parentPos.y = GetPosition().y;
     }
 
     DrawData2D drawData{parentPos, GetSize()};
@@ -234,9 +218,9 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 
 bool UiElement::ColidesWithPoint(glm::vec4 point)
 {
-	if ( !(point.x >= GetAbsoluteX() && point.x <= GetAbsoluteX() + GetWidth()) )
+	if ( !(point.x >= GetAbsolutePosition().x && point.x <= GetAbsolutePosition().x + GetWidth()) )
 		return false;
-	if ( !(point.y >= GetAbsoluteY() && point.y <= GetAbsoluteY() + GetHeight()) )
+	if ( !(point.y >= GetAbsolutePosition().y && point.y <= GetAbsolutePosition().y + GetHeight()) )
 		return false;
 	return true;
 }
@@ -314,34 +298,9 @@ void UiElement::SetTranslate(const glm::vec4 &offset, bool emit)
     moveBehavior.SetTranslate(offset, emit);
 }
 
-void UiElement::SetTranslateX(float x, bool emit)
+const glm::vec4 & UiElement::GetTranslate() const
 {
-	if (ignoreTranslate)
-		return;
-    moveBehavior.SetTranslateX(x, emit);
-}
-
-void UiElement::SetTranslateY(float y, bool emit)
-{
-	if (ignoreTranslate)
-		return;
-
-    moveBehavior.SetTranslateY(y, emit);
-}
-
-const glm::vec4 & UiElement::GetTranslate()
-{
-	return moveBehavior.GetTranslate();
-}
-
-float UiElement::GetTranslateX()
-{
-	return moveBehavior.GetTranslateX();
-}
-
-float UiElement::GetTranslateY()
-{
-	return moveBehavior.GetTranslateY();
+    return moveBehavior.GetTranslate();
 }
 
 glm::vec4 UiElement::GetChildrenTranslate()
@@ -369,18 +328,7 @@ void UiElement::UpdateSubNodes(EventUpdateInfo e)
 	}
 }
 
-
-float UiElement::GetAbsoluteX()
-{
-	return moveBehavior.GetAbsoluteX();
-}
-
-float UiElement::GetAbsoluteY()
-{
-	return moveBehavior.GetAbsoluteY();
-}
-
-const glm::vec4 & UiElement::GetAbsolutePosition()
+const glm::vec4 & UiElement::GetAbsolutePosition() const
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -415,7 +363,7 @@ const glm::vec4 & UiElement::GetSize()
 	return resizeBehavior.GetSize();
 }
 
-const glm::vec4 & UiElement::GetPosition()
+const glm::vec4 & UiElement::GetPosition() const
 {
 	return moveBehavior.GetPosition();
 }
@@ -435,24 +383,6 @@ MultiTree<std::unique_ptr<UiElement>> & UiElement::GetUiElementNode()
 	return *uiElementNode;
 }
 
-float UiElement::GetX()
-{
-    return moveBehavior.GetX();
-}
-
-float UiElement::GetY()
-{
-	return moveBehavior.GetY();
-}
-
-float UiElement::GetZ() {
-    return moveBehavior.GetZ();
-}
-
-float UiElement::GetW() {
-    return moveBehavior.GetW();
-}
-
 UiElement * UiElement::GetParent()
 {
 	if (uiElementNode->GetParent() == nullptr)
@@ -460,12 +390,11 @@ UiElement * UiElement::GetParent()
 	return uiElementNode->GetParent().get();
 }
 
-
 void UiElement::SetSize(float width, float height, bool emit)
 {
     ///Wait for sync
     resizeBehavior.SetSize(width, height, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
+    OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
 void UiElement::SetSize(const glm::vec4 &size, bool emit)
@@ -479,11 +408,6 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetPosition(float x, float y, float z, float w, bool emit)
-{
-    moveBehavior.SetPosition(x, y, z, w, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
 
 void UiElement::SetPosition(const glm::vec4 &pos, bool emit)
 {
@@ -546,61 +470,6 @@ UiElement::~UiElement()
         uiElementNode->Disown(true);
         delete uiElementNode;
     }
-}
-
-void UiElement::SetPosition(glm::vec4 position)
-{
-    SetPosition(position, true);
-}
-
-void UiElement::SetPosition(float x, float y, float z, float w)
-{
-    SetPosition(x, y, 0, 0, true);
-}
-
-void UiElement::SetX(float x)
-{
-    SetX(x, true);
-}
-
-void UiElement::SetY(float y)
-{
-    SetY(y, true);
-}
-
-void UiElement::SetZ(float z, bool emit)
-{
-    SetPosition(GetX(), GetY(), z, GetW(), emit);
-}
-
-void UiElement::SetZ(float z)
-{
-    SetZ(z, true);
-}
-
-void UiElement::SetW(float w, bool emit)
-{
-    SetPosition(GetX(), GetY(), GetZ(), w, emit);
-}
-
-void UiElement::SetW(float w)
-{
-    SetZ(w);
-}
-
-void UiElement::SetTranslate(glm::vec4 offset)
-{
-    SetTranslate(offset, true);
-}
-
-void UiElement::SetTranslateX(float x)
-{
-    SetTranslateX(x, true);
-}
-
-void UiElement::SetTranslateY(float y)
-{
-    SetTranslateY(y, true);
 }
 
 void UiElement::SetSize(glm::vec4 size)

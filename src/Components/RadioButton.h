@@ -35,12 +35,12 @@ public:
 	const std::wstring & GetText() override;
 
 	RadioButton();
-	RadioButton(std::string name);
+	explicit RadioButton(std::string name);
 	RadioButton(float x, float y, float width, float height, std::string componentName);
 
 	// Inherited via RadioButtonStateSubject
-	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;
-	virtual void AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
-	virtual void RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
+    void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;
+    void AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
+    void RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
 };
 

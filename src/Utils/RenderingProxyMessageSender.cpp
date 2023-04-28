@@ -27,7 +27,7 @@ void RenderingProxyMessageSender::Remove(const SubCommands &subCommand)
     copyOnWriteMap[static_cast<int>(subCommand)] = nullptr;
 }
 
-RenderMessage *RenderingProxyMessageSender::Get(const SubCommands &subCommand)
+RenderMessage *RenderingProxyMessageSender::Get(const SubCommands &subCommand) const
 {
     return copyOnWriteMap[static_cast<int>(subCommand)];
 }
