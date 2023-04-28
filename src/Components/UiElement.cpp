@@ -415,7 +415,7 @@ const glm::vec4 & UiElement::GetSize()
 	return resizeBehavior.GetSize();
 }
 
-glm::vec4 UiElement::GetPosition()
+const glm::vec4 & UiElement::GetPosition()
 {
 	return moveBehavior.GetPosition();
 }

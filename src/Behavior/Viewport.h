@@ -48,7 +48,7 @@ public:
 	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	virtual glm::vec4 GetPosition() override;
+	virtual const glm::vec4 & GetPosition() override;
 	virtual float GetX() override;
 	virtual float GetY() override;
 	virtual float GetAbsoluteX() override;

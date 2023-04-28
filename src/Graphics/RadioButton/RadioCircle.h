@@ -57,7 +57,7 @@ public:
 
     void OnResize(EventResizeInfo e) override;
 
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

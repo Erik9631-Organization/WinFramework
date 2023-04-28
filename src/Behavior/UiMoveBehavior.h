@@ -42,7 +42,7 @@ public:
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	glm::vec4 GetPosition() override;
+	const glm::vec4 & GetPosition() override;
 	float GetX() override;
 	float GetY() override;
     float GetZ() override ;
@@ -193,7 +193,7 @@ void UiMoveBehavior<T>::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 }
 
 template<class T>
-glm::vec4 UiMoveBehavior<T>::GetPosition()
+const glm::vec4 & UiMoveBehavior<T>::GetPosition()
 {
 	return relativePosition;
 }

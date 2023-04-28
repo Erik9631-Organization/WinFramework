@@ -48,7 +48,7 @@ public:
 
     const size_t & GetModelId() override;
 
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

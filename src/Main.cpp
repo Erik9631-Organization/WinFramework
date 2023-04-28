@@ -8,6 +8,7 @@
 #include "TextInput.h"
 #include "PasswordField.h"
 #include "ScrollBar.h"
+#include "Grid.h"
 
 
 class ButtonController : public KeyStateSubscriber, public ResizeSubscriber
@@ -105,6 +106,48 @@ int main( int argc, char* argv[] )
         scrollBarTest->SetText(L"TestLabel " + std::to_wstring(i));
         panel.Add(std::move(scrollBarTest));
     }
+
+    auto mainTestGrid = std::make_unique<Grid>(800, 10, 500, 500);
+    mainTestGrid->SetGridColumns({ 100, 400 });
+    mainTestGrid->SetGridRows({ 100, 300, 100 });
+    mainTestGrid->SetColumnGap(2);
+    mainTestGrid->SetRowGap(2);
+    mainTestGrid->AddRowSpan(0, 2);
+
+    auto contentGrid = std::make_unique<Grid>(0, 0, 0, 0);
+    contentGrid->SetRowGap(2);
+    contentGrid->SetGridColumns({ 100, 100, 100, 100 });
+    contentGrid->SetDefaultRowSize(100);
+
+
+    auto header = std::make_unique<Label>(0, 0, 0, 0, "header");
+    header->SetText(L"header");
+
+    auto footer = std::make_unique<Label>(0, 0, 0, 0, "footer");
+    footer->SetText(L"footer");
+
+    auto content = std::make_unique<Label>(0, 0, 0, 0, "content");
+    content->SetText(L"content");
+
+    auto navBar = std::make_unique<Label>(0, 0, 0, 0, "navBar");
+    navBar->SetText(L"navBar");
+
+
+    mainTestGrid->Add(std::move(navBar));
+    mainTestGrid->Add(std::move(header));
+    auto& ContentGridRef = *contentGrid;
+    mainTestGrid->Add(std::move(contentGrid));
+    mainTestGrid->Add(std::move(footer));
+    ContentGridRef.Add(std::move(content));
+
+    for (int i = 0; i < 11; i++)
+    {
+        auto contentLabel = std::make_unique<Label>(0, 0, 100, 100, "ContentLabel" + std::to_string(i));
+        ContentGridRef.Add(std::move(contentLabel));
+    }
+
+    window->Add(std::move(mainTestGrid));
+
 
     ApplicationController::GetApplicationController()->JoinThreads();
     return 0;

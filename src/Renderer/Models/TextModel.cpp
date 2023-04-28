@@ -6,7 +6,7 @@
 #include "Renderer.h"
 #include "EventMoveInfo.h"
 
-glm::vec4 TextModel::GetPosition()
+const glm::vec4 & TextModel::GetPosition()
 {
     return movableModelBehavior.GetPosition();
 }

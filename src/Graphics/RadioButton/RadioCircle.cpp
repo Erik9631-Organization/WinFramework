@@ -80,7 +80,7 @@ ScalingUtil2D &RadioCircle::GetScales()
     return scaler;
 }
 
-glm::vec4 RadioCircle::GetPosition()
+const glm::vec4 & RadioCircle::GetPosition()
 {
     return position;
 }

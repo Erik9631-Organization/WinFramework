@@ -8,7 +8,7 @@
 #include "Commands.h"
 #include <iostream>
 
-glm::vec4 RectangleModel::GetPosition()
+const glm::vec4 & RectangleModel::GetPosition()
 {
     return movableBehavior.GetPosition();
 }

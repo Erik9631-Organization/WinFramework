@@ -10,7 +10,7 @@
 #include <iostream>
 
 
-glm::vec4 EllipseProxy::GetPosition()
+const glm::vec4 & EllipseProxy::GetPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)

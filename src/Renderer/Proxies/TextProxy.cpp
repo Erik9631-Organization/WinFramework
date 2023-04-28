@@ -9,7 +9,7 @@
 
 std::wstring TextProxy::defaultText = L"";
 
-glm::vec4 TextProxy::GetPosition()
+const glm::vec4 & TextProxy::GetPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)

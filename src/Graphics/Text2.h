@@ -51,7 +51,7 @@ public:
 
     void SetText(const std::wstring &text) override;
 
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

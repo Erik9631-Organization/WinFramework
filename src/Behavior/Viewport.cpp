@@ -95,7 +95,7 @@ void Viewport::NotifyOnMoveSubscribers(const EventMoveInfo &event)
     moveBehavior.NotifyOnMoveSubscribers(event);
 }
 
-glm::vec4 Viewport::GetPosition()
+const glm::vec4 & Viewport::GetPosition()
 {
     return moveBehavior.GetPosition();
 }

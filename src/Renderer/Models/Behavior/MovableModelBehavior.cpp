@@ -5,7 +5,7 @@
 #include "MovableModelBehavior.h"
 #include "EventMoveInfo.h"
 
-glm::vec4 MovableModelBehavior::GetPosition()
+const glm::vec4 & MovableModelBehavior::GetPosition()
 {
     return position;
 }

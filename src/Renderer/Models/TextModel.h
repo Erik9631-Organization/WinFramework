@@ -32,7 +32,7 @@ private:
 public:
 
     TextModel();
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

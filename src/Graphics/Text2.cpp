@@ -115,7 +115,7 @@ Text2::~Text2()
     associatedElement.RemoveViewport2Subscriber(*this);
 }
 
-glm::vec4 Text2::GetPosition()
+const glm::vec4 & Text2::GetPosition()
 {
     return textPosition;
 }

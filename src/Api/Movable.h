@@ -14,7 +14,7 @@ public:
 	 * Returns viewPortSize
 	 * \return returns Point object that specifies the X viewPortSize and the Y viewPortSize
 	 */
-	virtual glm::vec4 GetPosition() = 0;
+	virtual const glm::vec4 & GetPosition() = 0;
 
 	/**
 	 * Gets the X viewPortSize of the object

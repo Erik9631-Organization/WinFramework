@@ -9,7 +9,7 @@
 #include "EventMoveInfo.h"
 #include <iostream>
 
-glm::vec4 RectangleProxy::GetPosition()
+const glm::vec4 & RectangleProxy::GetPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetPosition);
     if(tempData != nullptr)

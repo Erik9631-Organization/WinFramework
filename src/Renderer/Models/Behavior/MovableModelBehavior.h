@@ -22,7 +22,7 @@ private:
 public:
     explicit MovableModelBehavior(Movable& associatedMovable);
 
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

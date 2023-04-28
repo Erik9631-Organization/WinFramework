@@ -27,7 +27,7 @@ private:
     RenderingProxyMessageSender messageSender;
     std::vector<Viewport2Subscriber*> viewPortSubscribers;
 public:
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

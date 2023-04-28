@@ -109,7 +109,7 @@ public:
 	 */
 	UiElement& GetRoot();
 	const glm::vec4 & GetSize() override;
-	glm::vec4 GetPosition() override;
+	const glm::vec4 & GetPosition() override;
 	float GetWidth() override;
 	float GetHeight() override;
 	float GetX() override;

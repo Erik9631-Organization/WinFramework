@@ -150,7 +150,7 @@ const size_t & EllipseModel::GetModelId()
     return id;
 }
 
-glm::vec4 EllipseModel::GetPosition()
+const glm::vec4 & EllipseModel::GetPosition()
 {
     return movableBehavior.GetPosition();
 }

@@ -41,7 +41,7 @@ public:
 
     void SetColor(const glm::ivec4 &color);
 
-    glm::vec4 GetPosition() override;
+    const glm::vec4 & GetPosition() override;
 
     float GetX() override;
 

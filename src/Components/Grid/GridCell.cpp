@@ -195,7 +195,7 @@ void GridCell::NotifyOnMoveSubscribers(const EventMoveInfo &event)
     associatedAdjustable->NotifyOnMoveSubscribers(event);
 }
 
-glm::vec4 GridCell::GetPosition()
+const glm::vec4 & GridCell::GetPosition()
 {
     return {indexPos.x, indexPos.y, 0, 1};
 }
