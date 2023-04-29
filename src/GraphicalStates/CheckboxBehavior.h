@@ -10,7 +10,7 @@ class CheckBoxBehavior : public MouseStateSubscriber, public CheckboxStateSubjec
 {
 private:
 	Checkbox& associatedCheckbox;
-	glm::vec4 onClickColor;
+	glm::vec4 onClickColor = {150, 150, 150, 150};
 	std::vector<std::reference_wrapper<CheckboxStateSubscriber>> subscribers;
 
 public:

@@ -170,104 +170,72 @@ public:
     void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
     void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
     void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
-    virtual void SetActive(bool state) override;
-    virtual bool IsActive() override;
+    void SetActive(bool state) override;
+    bool IsActive() override;
 	
 
 
 	// Inherited via Movable
-	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
-	virtual const glm::vec3 & GetAbsolutePosition() const override;
+    void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
+    void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
 	// Inherited via Renderable
-	virtual void OnRenderSync(RenderEventInfo e) override;
-	virtual void Repaint() override;
-	virtual void AddRenderCommander(RenderCommander &renderable) override;
-	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
+    void OnRenderSync(RenderEventInfo e) override;
+    void Repaint() override;
+    void AddRenderCommander(RenderCommander &renderable) override;
+    void RemoveRenderCommander(RenderCommander& renderable) override;
 
 	// Inherited via Resizable
-	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+    void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+    void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+    void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 
 	// Inherited via Renderable
-	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
+    std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 	// Inherited via UpdateSubscriber
-	virtual void OnUpdate(EventUpdateInfo e) override;
+    void OnUpdate(EventUpdateInfo e) override;
 
 	// Inherited via MouseStateSubject
-	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
-	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseHover(EventMouseStateInfo e) override;
-	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
-	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+    void NotifyOnMouseDown(EventMouseStateInfo e) override;
+    void NotifyOnMouseUp(EventMouseStateInfo e) override;
+    void NotifyOnMousePressed(EventMouseStateInfo e) override;
+    void NotifyOnMouseHover(EventMouseStateInfo e) override;
+    void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+    void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(glm::vec3 point) override;
+    bool ColidesWithPoint(glm::vec3 point) override;
 
 	// Inherited via MouseStateSubject
-	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseLeave(EventMouseStateInfo e) override;
+    void NotifyOnMouseEnter(EventMouseStateInfo e) override;
+    void NotifyOnMouseLeave(EventMouseStateInfo e) override;
 
 	// Inherited via MouseInteractable
-	virtual bool HasMouseEntered() override;
-
-	/**
-	 * Sets the property via the meta object protocol. List of available properties can be found in all classes that implement the Renderable interface.
-	 * \param name the property name that should be changed
-	 * \param args the arguments of the property that should be changed.
-	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
-	 */
-	template<typename ... Args>
-	void SetProperty(std::string name, Args ... args)
-	{
-		for (RenderCommander& renderable : GetRenderables())
-		{
-			AccessTools::Invoke<void>(name, renderable, args ...);
-		}
-		//Repaint();
-
-	}
-
-	/**
-	 * Get the property via the meta object protocol. List of available properties can be found in all classes the implement the Renderable interface.
-	 * \param name the property name the value of which you want returned.
-	 * \param args the arguments of the property.
-	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
-	 */
-	template<typename returnType, typename ... Args>
-	returnType GetPropery(std::string name, Args ... args)
-	{
-		for (RenderCommander& renderable : GetRenderables())
-		{
-			return AccessTools::Invoke<returnType>(name, renderable, args ...);
-		}
-	}
+    bool HasMouseEntered() override;
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(glm::vec3 point) override;
+    std::any ColidesWithUpmost(glm::vec3 point) override;
 
 	// Inherited via KeyStateSubject
-	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
-	virtual void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
-	virtual void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+    void NotifyOnKeyDown(EventKeyStateInfo e) override;
+	void NotifyOnKeyUp(EventKeyStateInfo e) override;
+    void NotifyOnKeyPressed(EventKeyStateInfo e) override;
+    void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+    void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
 
 
 	// Inherited via AddSubject
-	virtual void NotifyOnAddInfo(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
-	virtual void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
-	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
+    void NotifyOnAddInfo(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
+    void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
+    void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
     void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
 	// Inherited via Adjustable
-	virtual const glm::vec3 & GetTranslate() const override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 	
 	/**
 	 * Gets the internal viewPortSize of the child components
@@ -320,7 +288,7 @@ public:
 
     void ResetViewport() override;
 
-    bool IsViewportSet() const override;
+    [[nodiscard]] bool IsViewportSet() const override;
 
     void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 };

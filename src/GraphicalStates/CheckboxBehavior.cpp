@@ -7,18 +7,16 @@
 CheckBoxBehavior::CheckBoxBehavior(Checkbox& checkbox) : associatedCheckbox(checkbox)
 {
 	checkbox.AddMouseStateSubscriber(*this);
-	onClickColor = {150, 150, 150, 255};
 }
 
 void CheckBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty("background-color", onClickColor);
 	associatedCheckbox.Check();
 }
 
 void CheckBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<glm::vec3>("background-color", {100, 100, 100});
+
 }
 
 void CheckBoxBehavior::OnMousePressed(EventMouseStateInfo e)
@@ -31,17 +29,17 @@ void CheckBoxBehavior::OnMouseMove(EventMouseStateInfo e)
 
 void CheckBoxBehavior::OnMouseEntered(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<glm::vec3>("background-color", {100, 100, 100});
+
 }
 
 void CheckBoxBehavior::OnMouseLeft(EventMouseStateInfo e)
 {
-	associatedCheckbox.SetProperty<glm::vec4>("background-colorRGBA", {0, 0, 0, 0});
+
 }
 
 void CheckBoxBehavior::AddCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)
 {
-	subscribers.push_back(subscriber);
+	subscribers.emplace_back(subscriber);
 }
 
 void CheckBoxBehavior::RemoveCheckboxStateSubscriber(CheckboxStateSubscriber& subscriber)
