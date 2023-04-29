@@ -216,8 +216,8 @@ void WindowsCore::UpdateScale()
         return;
 	SetWindowPos(windowHandle, NULL, wrapperFrame->GetPosition().x,
                  wrapperFrame->GetPosition().y,
-                 wrapperFrame->GetWidth(),
-                 wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+                 wrapperFrame->GetSize().x,
+                 wrapperFrame->GetSize().y, SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
 WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
@@ -261,8 +261,8 @@ void WindowsCore::CreateWinApiWindow()
     {
         x = (int)wrapperFrame->GetPosition().x;
         y = (int)wrapperFrame->GetPosition().y;
-        width = (int)wrapperFrame->GetWidth();
-        height = (int)wrapperFrame->GetHeight();
+        width = (int)wrapperFrame->GetSize().x;
+        height = (int)wrapperFrame->GetSize().y;
     }
     windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, x,
                                 y, width, height, NULL, NULL, hInstance, NULL);
@@ -391,10 +391,10 @@ void WindowsCore::UpdateLockCursor()
         return;
     cout << "after for" << endl;
     //Calculate the center of the wrapper frame
-    lockCursorRegion.left = (wrapperFrame->GetPosition().x + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.top = (wrapperFrame->GetPosition().y + wrapperFrame->GetHeight() / 2);
-    lockCursorRegion.right = (wrapperFrame->GetPosition().x + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.bottom = (wrapperFrame->GetPosition().y + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.left = (wrapperFrame->GetPosition().x + wrapperFrame->GetSize().x / 2);
+    lockCursorRegion.top = (wrapperFrame->GetPosition().y + wrapperFrame->GetSize().y / 2);
+    lockCursorRegion.right = (wrapperFrame->GetPosition().x + wrapperFrame->GetSize().x  / 2);
+    lockCursorRegion.bottom = (wrapperFrame->GetPosition().y + wrapperFrame->GetSize().y / 2);
 
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.

@@ -28,9 +28,6 @@ namespace OpenGL
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
         void SetSize(const glm::vec4 &size, bool emit) override;
-        void SetSize(float width, float height, bool emit) override;
-        void SetWidth(float width, bool emit) override;
-        void SetHeight(float height, bool emit) override;
         void NotifyOnResizeSubscribers(EventResizeInfo event) override;
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
@@ -43,21 +40,11 @@ namespace OpenGL
         const bool &IsLoaded() override;
         void Bind() const override;
         void Unbind() const override;
-        float GetHeight() override;
-        const glm::vec4 & GetSize() override;
-        float GetWidth() override;
+        const glm::vec4 & GetSize() const override;
         void Unload() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
         const unsigned long long int &GetId() const override;
-
-        void SetSize(glm::vec4 size) override;
-
-        void SetSize(float width, float height) override;
-
-        void SetWidth(float width) override;
-
-        void SetHeight(float height) override;
     };
 }
 

@@ -12,23 +12,9 @@ private:
 public:
 	DefaultResize(Resizable& resizeComponent);
 	// Inherited via Resizable
-	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual const glm::vec4 & GetSize() override;
-	virtual float GetWidth() override;
-	virtual float GetHeight() override;
-	virtual void SetSize(const glm::vec4 &size, bool emit) override;
-	virtual void SetSize(float width, float height, bool emit) override;
-	virtual void SetWidth(float width, bool emit) override;
-	virtual void SetHeight(float height, bool emit) override;
-
-    void SetSize(glm::vec4 size) override;
-
-    void SetSize(float width, float height) override;
-
-    void SetWidth(float width) override;
-
-    void SetHeight(float height) override;
+    void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+    void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+    void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+    [[nodiscard]] const glm::vec4 & GetSize() const override;
+    void SetSize(const glm::vec4 &size, bool emit = true) override;
 };
-

@@ -36,12 +36,16 @@ public:
         auto* button = dynamic_cast<Button*>(e.GetSource());
         if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::A)
         {
-            button->SetWidth(button->GetWidth() - 10);
+            auto size = button->GetSize();
+            size.y -= 10;
+            button->SetSize(size);
         }
 
         if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::D)
         {
-            button->SetWidth(button->GetWidth() + 10);
+            auto size = button->GetSize();
+            size.y += 10;
+            button->SetSize(size);
         }
     }
 
@@ -49,12 +53,17 @@ public:
     {
         if(e.GetSize().x < 200)
         {
-            button1.SetWidth(25);
-            button2.SetWidth(25);
+            auto size1 = button1.GetSize();
+            auto size2 = button2.GetSize();
+            size1.x = 25;
+            size2.x = 25;
+
+            button1.SetSize(size1);
+            button2.SetSize(size2);
             return;
         }
-        button1.SetWidth(100);
-        button2.SetWidth(100);
+        button1.SetSize({100, button1.GetSize().y, button1.GetSize().z, button1.GetSize().w});
+        button2.SetSize({100, button2.GetSize().y, button2.GetSize().z, button2.GetSize().w});
 
     }
 

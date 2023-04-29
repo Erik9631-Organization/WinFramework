@@ -35,59 +35,14 @@ const glm::vec3 & RectangleModel::GetTranslate() const
     return movableBehavior.GetTranslate();
 }
 
-const glm::vec4 & RectangleModel::GetSize()
+const glm::vec4 & RectangleModel::GetSize() const
 {
     return resizableBehavior.GetSize();
-}
-
-float RectangleModel::GetWidth()
-{
-    return resizableBehavior.GetWidth();
-}
-
-float RectangleModel::GetHeight()
-{
-    return resizableBehavior.GetHeight();
 }
 
 void RectangleModel::SetSize(const glm::vec4 &size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
-}
-
-void RectangleModel::SetSize(glm::vec4 size)
-{
-    resizableBehavior.SetSize(size);
-}
-
-void RectangleModel::SetSize(float width, float height, bool emit)
-{
-    resizableBehavior.SetSize(width, height, emit);
-}
-
-void RectangleModel::SetSize(float width, float height)
-{
-    resizableBehavior.SetSize(width, height);
-}
-
-void RectangleModel::SetWidth(float width, bool emit)
-{
-    resizableBehavior.SetWidth(width, emit);
-}
-
-void RectangleModel::SetWidth(float width)
-{
-    resizableBehavior.SetWidth(width);
-}
-
-void RectangleModel::SetHeight(float height, bool emit)
-{
-    resizableBehavior.SetHeight(height, emit);
-}
-
-void RectangleModel::SetHeight(float height)
-{
-    resizableBehavior.SetHeight(height);
 }
 
 void RectangleModel::AddOnMoveSubscriber(MoveSubscriber &subscriber)
@@ -188,12 +143,6 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 
     switch (message->GetSubMessageId())
     {
-        case SubCommands::SetWidth:
-            SetWidth(message->GetData<float>());
-            break;
-        case SubCommands::SetHeight:
-            SetHeight(message->GetData<float>());
-            break;
         case SubCommands::SetSize:
             SetSize(message->GetData<glm::vec4>());
             break;

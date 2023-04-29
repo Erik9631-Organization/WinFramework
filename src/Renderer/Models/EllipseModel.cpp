@@ -40,18 +40,6 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             SetTranslate(translate);
             break;
         }
-        case SubCommands::SetWidth:
-        {
-            auto width = message->GetData<float>();
-            SetWidth(width);
-            break;
-        }
-        case SubCommands::SetHeight:
-        {
-            auto height = message->GetData<float>();
-            SetHeight(height);
-            break;
-        }
         case SubCommands::SetViewPortSize:
         {
             SetViewportSize(message->GetData<glm::vec4>());
@@ -105,9 +93,9 @@ void EllipseModel::Draw()
                                            viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi->DrawFillEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawFillEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetSize().x, resizableBehavior.GetSize().y);
     else
-        renderingApi->DrawEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetWidth(), resizableBehavior.GetHeight());
+        renderingApi->DrawEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetSize().x, resizableBehavior.GetSize().y);
 
 }
 
@@ -152,19 +140,9 @@ const glm::vec3 & EllipseModel::GetTranslate() const
     return movableBehavior.GetTranslate();
 }
 
-const glm::vec4 &EllipseModel::GetSize()
+const glm::vec4 &EllipseModel::GetSize() const
 {
     return resizableBehavior.GetSize();
-}
-
-float EllipseModel::GetWidth()
-{
-    return resizableBehavior.GetWidth();
-}
-
-float EllipseModel::GetHeight()
-{
-    return resizableBehavior.GetHeight();
 }
 
 void EllipseModel::SetSize(const glm::vec4 &size, bool emit)
@@ -172,40 +150,6 @@ void EllipseModel::SetSize(const glm::vec4 &size, bool emit)
     resizableBehavior.SetSize(size, emit);
 }
 
-void EllipseModel::SetSize(glm::vec4 size)
-{
-    resizableBehavior.SetSize(size);
-}
-
-void EllipseModel::SetSize(float width, float height, bool emit)
-{
-    resizableBehavior.SetSize(width, height, emit);
-}
-
-void EllipseModel::SetSize(float width, float height)
-{
-    resizableBehavior.SetSize(width, height);
-}
-
-void EllipseModel::SetWidth(float width, bool emit)
-{
-    resizableBehavior.SetWidth(width, emit);
-}
-
-void EllipseModel::SetWidth(float width)
-{
-    resizableBehavior.SetWidth(width);
-}
-
-void EllipseModel::SetHeight(float height, bool emit)
-{
-    resizableBehavior.SetHeight(height, emit);
-}
-
-void EllipseModel::SetHeight(float height)
-{
-    resizableBehavior.SetHeight(height);
-}
 
 void EllipseModel::AddOnMoveSubscriber(MoveSubscriber &subscriber)
 {

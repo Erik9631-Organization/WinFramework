@@ -17,11 +17,11 @@ ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(
     trackbar = new ScrollBar();
     layout = new Grid(0, 0, width, height+50);
 	//this->Panel::Add(std::unique_ptr<ScrollBar>(trackbar));
-    trackbar->SetWidth(10, false);
+    trackbar->SetSize({10, trackbar->GetSize().y, trackbar->GetSize().z, trackbar->GetSize().w});
     ScrollBar::Control(*this, std::unique_ptr<ScrollBar>(trackbar));
 	this->Panel::Add(std::unique_ptr<Grid>(layout));
 	layout->SetAutoExtend(true);
-	layout->SetGridColumns({ width - (int)trackbar->GetWidth() });
+	layout->SetGridColumns({ width - (int)trackbar->GetSize().x });
 	layout->SetRowGap(1);
 	layout->SetDefaultRowSize(30);
 }

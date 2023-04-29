@@ -47,7 +47,7 @@ const glm::vec3 & RectangleProxy::GetTranslate() const
 }
 
 
-const glm::vec4 & RectangleProxy::GetSize()
+const glm::vec4 & RectangleProxy::GetSize() const
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
@@ -58,66 +58,12 @@ const glm::vec4 & RectangleProxy::GetSize()
     return model->GetSize();
 }
 
-float RectangleProxy::GetWidth()
-{
-    auto tempData = messageSender.Get(SubCommands::SetSize);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().x;
-    if(model != nullptr)
-        return 0.0f;
-    return model->GetWidth();
-}
-
-float RectangleProxy::GetHeight()
-{
-    auto tempData = messageSender.Get(SubCommands::SetSize);
-    if(tempData != nullptr)
-        return tempData->GetData<glm::vec4>().y;
-    if(model != nullptr)
-        return 0.0f;
-    return model->GetHeight();
-}
 
 void RectangleProxy::SetSize(const glm::vec4 &size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
     SendRenderingMessage(std::move(renderMessage));
-}
-
-void RectangleProxy::SetSize(glm::vec4 size)
-{
-    SetSize(size, true);
-}
-
-void RectangleProxy::SetSize(float width, float height, bool emit)
-{
-    SetSize({width, height, 0, 0}, emit);
-}
-
-void RectangleProxy::SetSize(float width, float height)
-{
-    SetSize(width, height, true);
-}
-
-void RectangleProxy::SetWidth(float width, bool emit)
-{
-    SetSize(width, model->GetHeight(), emit);
-}
-
-void RectangleProxy::SetWidth(float width)
-{
-    SetWidth(width, true);
-}
-
-void RectangleProxy::SetHeight(float height, bool emit)
-{
-    SetSize(model->GetWidth(), height, emit);
-}
-
-void RectangleProxy::SetHeight(float height)
-{
-    SetHeight(height, true);
 }
 
 void RectangleProxy::AddOnMoveSubscriber(MoveSubscriber &subscriber)

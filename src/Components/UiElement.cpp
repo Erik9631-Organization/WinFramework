@@ -44,8 +44,8 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-    moveBehavior.SetPosition({x, y, 0}, false);
-    resizeBehavior.SetSize(width, height, false);
+    moveBehavior.SetPosition({x, y, 0});
+    resizeBehavior.SetSize({width, height, 0, 1});
 	this->name = name;
 }
 
@@ -136,17 +136,6 @@ void UiElement::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetWidth(float width, bool emit)
-{
-    resizeBehavior.SetWidth(width, emit);
-}
-
-void UiElement::SetHeight(float height, bool emit)
-{
-    resizeBehavior.SetHeight(height, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
 std::vector<std::reference_wrapper<RenderCommander>> UiElement::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
@@ -218,9 +207,9 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 
 bool UiElement::ColidesWithPoint(glm::vec3 point)
 {
-	if ( !(point.x >= GetAbsolutePosition().x && point.x <= GetAbsolutePosition().x + GetWidth()) )
+	if ( !(point.x >= GetAbsolutePosition().x && point.x <= GetAbsolutePosition().x + GetSize().x) )
 		return false;
-	if ( !(point.y >= GetAbsolutePosition().y && point.y <= GetAbsolutePosition().y + GetHeight()) )
+	if ( !(point.y >= GetAbsolutePosition().y && point.y <= GetAbsolutePosition().y + GetSize().y) )
 		return false;
 	return true;
 }
@@ -358,7 +347,7 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-const glm::vec4 & UiElement::GetSize()
+const glm::vec4 & UiElement::GetSize() const
 {
 	return resizeBehavior.GetSize();
 }
@@ -366,16 +355,6 @@ const glm::vec4 & UiElement::GetSize()
 const glm::vec3 & UiElement::GetPosition() const
 {
 	return moveBehavior.GetPosition();
-}
-
-float UiElement::GetWidth()
-{
-	return resizeBehavior.GetWidth();
-}
-
-float UiElement::GetHeight()
-{
-	return resizeBehavior.GetHeight();
 }
 
 MultiTree<std::unique_ptr<UiElement>> & UiElement::GetUiElementNode()
@@ -388,13 +367,6 @@ UiElement * UiElement::GetParent()
 	if (uiElementNode->GetParent() == nullptr)
 		return nullptr;
 	return uiElementNode->GetParent().get();
-}
-
-void UiElement::SetSize(float width, float height, bool emit)
-{
-    ///Wait for sync
-    resizeBehavior.SetSize(width, height, emit);
-    OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
 void UiElement::SetSize(const glm::vec4 &size, bool emit)
@@ -470,26 +442,6 @@ UiElement::~UiElement()
         uiElementNode->Disown(true);
         delete uiElementNode;
     }
-}
-
-void UiElement::SetSize(glm::vec4 size)
-{
-    SetSize(size, true);
-}
-
-void UiElement::SetSize(float width, float height)
-{
-    SetSize(width, height, true);
-}
-
-void UiElement::SetWidth(float width)
-{
-    SetWidth(width, true);
-}
-
-void UiElement::SetHeight(float height)
-{
-    SetHeight(height, true);
 }
 
 void UiElement::AddOnMountedSubscriber(MountedSubscriber &subscriber)

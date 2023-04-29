@@ -56,27 +56,9 @@ public:
 
     [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
-    const glm::vec4 &GetSize() override;
+    [[nodiscard]] const glm::vec4 &GetSize() const override;
 
-    float GetWidth() override;
-
-    float GetHeight() override;
-
-    void SetSize(const glm::vec4 &size, bool emit) override;
-
-    void SetSize(glm::vec4 size) override;
-
-    void SetSize(float width, float height, bool emit) override;
-
-    void SetSize(float width, float height) override;
-
-    void SetWidth(float width, bool emit) override;
-
-    void SetWidth(float width) override;
-
-    void SetHeight(float height, bool emit) override;
-
-    void SetHeight(float height) override;
+    void SetSize(const glm::vec4 &size, bool emit = true) override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 

@@ -26,13 +26,13 @@ public:
 	 * Sets the viewPortSize of the object.
 	 * \param position Sets the viewPortSize as a point which specifies the X and Y viewPortSize.
 	 */
-	virtual void SetPosition(const glm::vec3 &position, bool emit) = 0;
+	virtual void SetPosition(const glm::vec3 &position, bool emit = true) = 0;
 
 	/**
 	 * Sets viewPortSize from the current viewPortSize
 	 * \param offset sets the viewPortSize via a point object which specifies the X and Y viewPortSize.
 	 */
-	virtual void SetTranslate(const glm::vec3 &offset, bool emit) = 0;
+	virtual void SetTranslate(const glm::vec3 &offset, bool emit = true) = 0;
 	/**
 	 * Gets the element viewPortSize dependent on the current viewPortSize.
 	 * \return returns the point which specifies the X and Y viewPortSize.

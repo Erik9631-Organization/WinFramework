@@ -53,8 +53,8 @@ void GdiRenderer::OnInit(Core &coreWindowFrame)
     windowHdc = GetDC(windowHandle);
     windowsCore->AddOnResizePreProcessSubsriber(*this);
 
-    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetWidth(),
-                                          windowsCore->GetWrapperFrame()->GetHeight());
+    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
+                                          windowsCore->GetWrapperFrame()->GetSize().y);
     UpdateSecondaryDC();
 }
 

@@ -11,19 +11,9 @@
 
 using namespace OpenGL;
 
-const glm::vec4 & StaticTexture::GetSize()
+const glm::vec4 & StaticTexture::GetSize() const
 {
     return glm::vec4();
-}
-
-float StaticTexture::GetWidth()
-{
-    return size.x;
-}
-
-float StaticTexture::GetHeight()
-{
-    return size.y;
 }
 
 void StaticTexture::SetSize(const glm::vec4 &size, bool emit)
@@ -38,20 +28,6 @@ void StaticTexture::SetSize(const glm::vec4 &size, bool emit)
     imageData = output;
 }
 
-void StaticTexture::SetSize(float width, float height, bool emit)
-{
-    SetSize({width, height, 0, 0}, emit);
-}
-
-void StaticTexture::SetWidth(float width, bool emit)
-{
-    SetSize(width, size.y, emit);
-}
-
-void StaticTexture::SetHeight(float height, bool emit)
-{
-    SetSize(size.x, height, emit);
-}
 
 void StaticTexture::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
@@ -167,24 +143,4 @@ void StaticTexture::SetTag(const std::string &tag)
 const unsigned long long int &StaticTexture::GetId() const
 {
     return textureId;
-}
-
-void StaticTexture::SetSize(glm::vec4 size)
-{
-
-}
-
-void StaticTexture::SetSize(float width, float height)
-{
-
-}
-
-void StaticTexture::SetWidth(float width)
-{
-
-}
-
-void StaticTexture::SetHeight(float height)
-{
-
 }

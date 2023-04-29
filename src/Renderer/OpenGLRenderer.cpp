@@ -225,7 +225,7 @@ void OpenGLRenderer::InternalRender()
         element3dSyncer->SyncData(windowsCore->GetWrapperFrame()->Get3dScene().GetElementNode());
         if(window == nullptr)
             continue;
-        glViewport(0, 0, window->GetWidth(), window->GetHeight()); // Update the viewport
+        glViewport(0, 0, window->GetSize().x, window->GetSize().y); // Update the viewport
         AssignRendererToNodes();
         manager.Render();
         performRender = !windowsCore->IsEventBased();

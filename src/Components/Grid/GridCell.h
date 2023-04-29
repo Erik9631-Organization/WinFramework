@@ -31,15 +31,6 @@ private:
 	GridSpan span;
 
 	glm::ivec2 GetSpanSize();
-
-    void SetSize(glm::vec4 size) override;
-
-    void SetSize(float width, float height) override;
-
-    void SetWidth(float width) override;
-
-    void SetHeight(float height) override;
-
 public:
 
 	void ControlAdjustable(Adjustable* associatedAdjustable);
@@ -59,13 +50,8 @@ public:
 	void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	const glm::vec4 & GetSize() override;
-	float GetWidth() override;
-	float GetHeight() override;
-	void SetSize(const glm::vec4 &size, bool emit) override;
-	void SetSize(float width, float height, bool emit) override;
-	void SetWidth(float width, bool emit) override;
-	void SetHeight(float height, bool emit) override;
+	const glm::vec4 & GetSize() const override;
+	void SetSize(const glm::vec4 &size, bool emit = true) override;
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;

@@ -45,8 +45,7 @@ public:
     static std::unique_ptr<Window> Create(const std::string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const std::string &windowName);
 
-	void SetSize(float width, float height, bool emit) override;
-	void SetSize(const glm::vec4 &size, bool emit) override;
+	void SetSize(const glm::vec4 &size, bool emit = true) override;
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
 	void SetPosition(const glm::vec3 &point, bool emit = true) override;

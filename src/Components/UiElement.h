@@ -108,10 +108,8 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	const glm::vec4 & GetSize() override;
+	const glm::vec4 & GetSize() const override;
 	const glm::vec3 & GetPosition() const override;
-	float GetWidth() override;
-	float GetHeight() override;
 
 	/**
 	 * Gets the current node within the containment hierarchy
@@ -124,8 +122,7 @@ public:
 	 * \return returns pointer of the parent component.
 	 */
 	UiElement * GetParent();
-	void SetSize(float width, float height, bool emit) override;
-	void SetSize(const glm::vec4 &size, bool emit) override;
+	void SetSize(const glm::vec4 &size, bool emit = true) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -194,8 +191,6 @@ public:
 	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void SetWidth(float width, bool emit) override;
-	virtual void SetHeight(float height, bool emit) override;
 
 	// Inherited via Renderable
 	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
@@ -295,14 +290,6 @@ public:
 	void AddOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
-
-    void SetSize(glm::vec4 size) override;
-
-    void SetSize(float width, float height) override;
-
-    void SetWidth(float width) override;
-
-    void SetHeight(float height) override;
 
     void AddOnMountedSubscriber(MountedSubscriber &subscriber) override;
 

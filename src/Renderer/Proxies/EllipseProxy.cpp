@@ -94,7 +94,7 @@ void EllipseProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *cons
     messageSender.OnModelCreated(model, consumer);
 }
 
-const glm::vec4 &EllipseProxy::GetSize()
+const glm::vec4 &EllipseProxy::GetSize() const
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
@@ -105,56 +105,11 @@ const glm::vec4 &EllipseProxy::GetSize()
     return model->GetSize();
 }
 
-float EllipseProxy::GetWidth()
-{
-    return GetSize().x;
-}
-
-float EllipseProxy::GetHeight()
-{
-    return GetSize().y;
-}
-
 void EllipseProxy::SetSize(const glm::vec4 &size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
-}
-
-void EllipseProxy::SetSize(glm::vec4 size)
-{
-    SetSize(size, true);
-}
-
-void EllipseProxy::SetSize(float width, float height, bool emit)
-{
-    SetSize({width, height, 0, 0}, emit);
-}
-
-void EllipseProxy::SetSize(float width, float height)
-{
-    SetSize({width, height, 0, 0}, true);
-}
-
-void EllipseProxy::SetWidth(float width, bool emit)
-{
-    SetSize(width, model->GetHeight(), emit);
-}
-
-void EllipseProxy::SetWidth(float width)
-{
-    SetSize(width, model->GetHeight(), true);
-}
-
-void EllipseProxy::SetHeight(float height, bool emit)
-{
-    SetSize(model->GetWidth(), height, emit);
-}
-
-void EllipseProxy::SetHeight(float height)
-{
-    SetSize(model->GetWidth(), height, true);
 }
 
 void EllipseProxy::NotifyOnResizeSubscribers(EventResizeInfo event)

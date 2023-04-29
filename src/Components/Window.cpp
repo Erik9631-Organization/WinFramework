@@ -14,21 +14,15 @@
 
 using namespace std;
 
-void Window::SetSize(float width, float height, bool emit)
+void Window::SetSize(const glm::vec4 &size, bool emit)
 {
     //TODO This is a hack If emit is changed to false, it won't work.
     //The issue is that if setsize comes from
-    UiElement::SetSize(width, height, true);
+    UiElement::SetSize(size, true);
 
     //This emit can't be called if it comes from the core
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
-
-}
-
-void Window::SetSize(const glm::vec4 &size, bool emit)
-{
-    SetSize(size.x, size.y, emit);
 }
 
 void Window::Repaint()

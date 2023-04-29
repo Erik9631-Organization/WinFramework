@@ -124,7 +124,7 @@ OpenGLRenderingApi::OpenGLRenderingApi(Window &window, OpenGL::RenderingManager&
 {
     window.AddOnResizeSubscriber(*this);
     viewMatrix = &defaultViewMatrix;
-    CreateViewMatrix(window.GetWidth(), window.GetHeight(), *viewMatrix);
+    CreateViewMatrix(window.GetSize().x, window.GetSize().y, *viewMatrix);
     builder.SetProjectionMatrix(viewMatrix);
 }
 
