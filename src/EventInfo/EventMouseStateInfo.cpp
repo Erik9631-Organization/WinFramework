@@ -89,7 +89,7 @@ bool EventMouseStateInfo::IsRecursive()
 	return recursive;
 }
 
-EventMouseStateInfo::EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta,
+EventMouseStateInfo::EventMouseStateInfo(glm::vec3 position, glm::vec3 relativePosition, glm::vec3 delta,
                                          int key, MouseStateSubject *src)
 {
     this->position = position;

@@ -50,8 +50,8 @@ public:
 	void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 	void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 	void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	const glm::vec4 & GetSize() const override;
-	void SetSize(const glm::vec4 &size, bool emit = true) override;
+	const glm::vec3 & GetSize() const override;
+	void SetSize(const glm::vec3 &size, bool emit = true) override;
 	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
 	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;

@@ -36,7 +36,7 @@ void TextModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     switch(message->GetSubMessageId())
     {
         case SubCommands::SetViewPortSize:
-            SetViewportSize(message->GetData<glm::vec4>());
+            SetViewportSize(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetViewPortPosition:
             SetViewportPosition(message->GetData<glm::vec3>());
@@ -198,10 +198,10 @@ bool TextModel::IsVisible()
     return visible;
 }
 
-void TextModel::SetViewportSize(const glm::vec4 &vec4)
+void TextModel::SetViewportSize(const glm::vec3 &input)
 {
-    viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    viewPort.SetViewportSize(input);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void TextModel::SetViewportPosition(const glm::vec3 &input)
@@ -210,7 +210,7 @@ void TextModel::SetViewportPosition(const glm::vec3 &input)
     NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
-const glm::vec4 & TextModel::GetViewportSize()
+const glm::vec3 & TextModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }

@@ -45,7 +45,7 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	resizeBehavior(*this)
 {
     moveBehavior.SetPosition({x, y, 0});
-    resizeBehavior.SetSize({width, height, 0, 1});
+    resizeBehavior.SetSize({width, height, 0});
 	this->name = name;
 }
 
@@ -347,7 +347,7 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-const glm::vec4 & UiElement::GetSize() const
+const glm::vec3 & UiElement::GetSize() const
 {
 	return resizeBehavior.GetSize();
 }
@@ -369,7 +369,7 @@ UiElement * UiElement::GetParent()
 	return uiElementNode->GetParent().get();
 }
 
-void UiElement::SetSize(const glm::vec4 &size, bool emit)
+void UiElement::SetSize(const glm::vec3 &size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -507,9 +507,9 @@ void UiElement::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
     viewport.NotifyOnViewportPositionChanged(event);
 }
 
-void UiElement::SetViewportSize(const glm::vec4 &vec4)
+void UiElement::SetViewportSize(const glm::vec3 &input)
 {
-    viewport.SetViewportSize(vec4);
+    viewport.SetViewportSize(input);
 }
 
 void UiElement::SetViewportPosition(const glm::vec3 &input)
@@ -517,7 +517,7 @@ void UiElement::SetViewportPosition(const glm::vec3 &input)
     viewport.SetViewportPosition(input);
 }
 
-const glm::vec4 & UiElement::GetViewportSize()
+const glm::vec3 & UiElement::GetViewportSize()
 {
     return viewport.GetViewportSize();
 }

@@ -44,11 +44,11 @@ private:
     std::thread* updateThread;
     std::string windowName;
     LONG style;
-    glm::vec4 mousePos;
-    glm::vec4 prevMousePos;
-    glm::vec4 mouseDelta;
-    glm::vec4 relativePos;
-    glm::vec4 lockCursorSize;
+    glm::vec3 mousePos;
+    glm::vec3 prevMousePos;
+    glm::vec3 mouseDelta;
+    glm::vec3 relativePos;
+    glm::vec3 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
 	std::unique_ptr<AsyncRenderCommandHandler> renderer = nullptr;
@@ -66,7 +66,7 @@ private:
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
     static constexpr unsigned int REDRAW_MESSAGE = WM_USER + 1;
 public:
-    void SetLockCursorSize(const glm::vec4 &size);
+    void SetLockCursorSize(const glm::vec3 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;

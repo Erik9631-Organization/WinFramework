@@ -11,13 +11,13 @@
 class ResizableModelBehavior : public Resizable
 {
 private:
-    glm::vec4 size;
+    glm::vec3 size;
     std::vector<ResizeSubscriber*> resizeSubscribers;
 
 public:
-    [[nodiscard]] const glm::vec4 & GetSize() const override;
+    [[nodiscard]] const glm::vec3 & GetSize() const override;
 
-    void SetSize(const glm::vec4 &size, bool emit) override;
+    void SetSize(const glm::vec3 &size, bool emit) override;
 
     void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 

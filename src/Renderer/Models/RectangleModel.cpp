@@ -35,12 +35,12 @@ const glm::vec3 & RectangleModel::GetTranslate() const
     return movableBehavior.GetTranslate();
 }
 
-const glm::vec4 & RectangleModel::GetSize() const
+const glm::vec3 & RectangleModel::GetSize() const
 {
     return resizableBehavior.GetSize();
 }
 
-void RectangleModel::SetSize(const glm::vec4 &size, bool emit)
+void RectangleModel::SetSize(const glm::vec3 &size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
 }
@@ -144,7 +144,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     switch (message->GetSubMessageId())
     {
         case SubCommands::SetSize:
-            SetSize(message->GetData<glm::vec4>());
+            SetSize(message->GetData<glm::vec3>());
             break;
         case SubCommands::SetPosition:
             SetPosition(message->GetData<glm::vec3>());
@@ -160,7 +160,7 @@ void RectangleModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
             break;
         case SubCommands::SetViewPortSize:
         {
-            SetViewportSize(message->GetData<glm::vec4>());
+            SetViewportSize(message->GetData<glm::vec3>());
             break;
         }
         case SubCommands::SetViewPortPosition:
@@ -234,10 +234,10 @@ bool RectangleModel::IsVisible()
     return visible;
 }
 
-void RectangleModel::SetViewportSize(const glm::vec4 &vec4)
+void RectangleModel::SetViewportSize(const glm::vec3 &input)
 {
-    viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    viewPort.SetViewportSize(input);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void RectangleModel::SetViewportPosition(const glm::vec3 &input)
@@ -246,7 +246,7 @@ void RectangleModel::SetViewportPosition(const glm::vec3 &input)
     NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
-const glm::vec4 & RectangleModel::GetViewportSize()
+const glm::vec3 & RectangleModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }

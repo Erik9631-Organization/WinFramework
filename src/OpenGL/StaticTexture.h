@@ -27,24 +27,24 @@ namespace OpenGL
     public:
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
-        void SetSize(const glm::vec4 &size, bool emit) override;
+        void SetSize(const glm::vec3 &size, bool emit) override;
         void NotifyOnResizeSubscribers(EventResizeInfo event) override;
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
-        const std::string & GetPath() const override;
+        [[nodiscard]] const std::string & GetPath() const override;
         void SetPath(const std::string &wstring, const int &format) override;
-        const unsigned char * GetData() const override;
+        [[nodiscard]] const unsigned char * GetData() const override;
         const bool &LoadFromFile() override;
         void Load() override;
-        const int &GetFormat() const override;
+        [[nodiscard]] const int &GetFormat() const override;
         const bool &IsLoaded() override;
         void Bind() const override;
         void Unbind() const override;
-        const glm::vec4 & GetSize() const override;
+        [[nodiscard]] const glm::vec3 & GetSize() const override;
         void Unload() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
-        const unsigned long long int &GetId() const override;
+        [[nodiscard]] const unsigned long long int &GetId() const override;
     };
 }
 

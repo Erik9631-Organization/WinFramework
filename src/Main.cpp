@@ -62,8 +62,8 @@ public:
             button2.SetSize(size2);
             return;
         }
-        button1.SetSize({100, button1.GetSize().y, button1.GetSize().z, button1.GetSize().w});
-        button2.SetSize({100, button2.GetSize().y, button2.GetSize().z, button2.GetSize().w});
+        button1.SetSize({100, button1.GetSize().y, button1.GetSize().z});
+        button2.SetSize({100, button2.GetSize().y, button2.GetSize().z});
 
     }
 
@@ -92,7 +92,7 @@ int main( int argc, char* argv[] )
     window->GetRenderer()->RequestModel(*ellipseProxy);
     ellipseProxy->SetFill(true);
     ellipseProxy->SetColor({255, 0, 0, 255});
-    ellipseProxy->SetSize({50, 50, 0, 0});
+    ellipseProxy->SetSize({50, 50, 0});
     ellipseProxy->SetPosition({0, 0, -1});
     auto controller = ButtonController{button1, button2};
     window->AddOnResizeSubscriber(controller);

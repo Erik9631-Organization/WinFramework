@@ -17,7 +17,7 @@ void DefaultResize::NotifyOnResizeSubscribers(EventResizeInfo event)
 void DefaultResize::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
     //CRASH1
-    subscribers.push_back(subscriber);
+    subscribers.emplace_back(subscriber);
 }
 
 void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
@@ -29,12 +29,12 @@ void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     }
 }
 
-const glm::vec4 & DefaultResize::GetSize() const
+const glm::vec3 & DefaultResize::GetSize() const
 {
     return size;
 }
 
-void DefaultResize::SetSize(const glm::vec4 &size, bool emit)
+void DefaultResize::SetSize(const glm::vec3 &size, bool emit)
 {
     this->size = size;
     if(emit)

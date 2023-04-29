@@ -33,7 +33,7 @@ void OpenGLRenderingApi::DrawLine(glm::vec4 pos, glm::vec4 size)
 
 }
 
-void OpenGLRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec4 size)
+void OpenGLRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec3 size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
@@ -50,7 +50,7 @@ void OpenGLRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec4 size)
 
 void OpenGLRenderingApi::DrawRectangle(float x, float y, float width, float height)
 {
-    DrawRectangle({x, y, 0}, {width, height, 0, 0});
+    DrawRectangle({x, y, 0}, {width, height, 0});
 }
 
 void OpenGLRenderingApi::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)
@@ -73,7 +73,7 @@ void OpenGLRenderingApi::DrawFillRectangle(float x, float y, float width, float 
     //DrawFillRectangle({x, y}, {width, height});
 }
 
-void OpenGLRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec4 size)
+void OpenGLRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec3 size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {

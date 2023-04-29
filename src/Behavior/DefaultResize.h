@@ -6,7 +6,7 @@
 class DefaultResize : public Resizable
 {
 private:
-    glm::vec4 size{0};
+    glm::vec3 size{0};
 	std::vector<std::reference_wrapper<ResizeSubscriber>> subscribers;
 	Resizable& associatedResizable;
 public:
@@ -15,6 +15,6 @@ public:
     void NotifyOnResizeSubscribers(EventResizeInfo event) override;
     void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
     void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-    [[nodiscard]] const glm::vec4 & GetSize() const override;
-    void SetSize(const glm::vec4 &size, bool emit = true) override;
+    [[nodiscard]] const glm::vec3 & GetSize() const override;
+    void SetSize(const glm::vec3 &size, bool emit = true) override;
 };

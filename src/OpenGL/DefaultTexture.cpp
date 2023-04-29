@@ -11,12 +11,12 @@
 
 using namespace OpenGL;
 
-const glm::vec4 & StaticTexture::GetSize() const
+const glm::vec3 & StaticTexture::GetSize() const
 {
     return glm::vec4();
 }
 
-void StaticTexture::SetSize(const glm::vec4 &size, bool emit)
+void StaticTexture::SetSize(const glm::vec3 &size, bool emit)
 {
     if(imageData == nullptr)
         return;

@@ -71,8 +71,8 @@ float RadioCircle::GetPadding() const
 
 void RadioCircle::UpdateGraphics()
 {
-    border.SetSize({radius * 2, radius * 2, 0, 0});
-    fill.SetSize({radius * 2 * innerCirclePadding, radius * 2 * innerCirclePadding, 0, 0});
+    border.SetSize({radius * 2, radius * 2, 0});
+    fill.SetSize({radius * 2 * innerCirclePadding, radius * 2 * innerCirclePadding, 0});
 }
 
 ScalingUtil2D &RadioCircle::GetScales()
@@ -155,10 +155,10 @@ void RadioCircle::ResetViewport()
     fill.ResetViewport();
 }
 
-void RadioCircle::SetViewportSize(const glm::vec4 &vec4)
+void RadioCircle::SetViewportSize(const glm::vec3 &input)
 {
-    border.SetViewportSize(vec4);
-    fill.SetViewportSize(vec4);
+    border.SetViewportSize(input);
+    fill.SetViewportSize(input);
 }
 
 void RadioCircle::SetViewportPosition(const glm::vec3 &input)
@@ -167,7 +167,7 @@ void RadioCircle::SetViewportPosition(const glm::vec3 &input)
     fill.SetViewportPosition(input);
 }
 
-const glm::vec4 & RadioCircle::GetViewportSize()
+const glm::vec3 & RadioCircle::GetViewportSize()
 {
     return border.GetViewportSize();
 }

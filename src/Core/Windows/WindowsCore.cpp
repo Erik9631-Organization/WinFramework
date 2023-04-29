@@ -126,7 +126,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         if(renderer != nullptr)
             renderer->SetViewPortSize(width, height);
-        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0, 0}, nullptr};
+        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
@@ -378,7 +378,7 @@ void WindowsCore::UpdateGlobalInputState()
     InputManager::globalInput->SetMouseDeltaPosition(mouseDelta);
 }
 
-void WindowsCore::SetLockCursorSize(const glm::vec4 &size)
+void WindowsCore::SetLockCursorSize(const glm::vec3 &size)
 {
     lockCursorSize = size;
 }

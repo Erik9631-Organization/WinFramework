@@ -2,7 +2,7 @@
 #include "Components/UiElement.h"
 
 
-glm::vec4 EventResizeInfo::GetSize() const
+const glm::vec3 & EventResizeInfo::GetSize() const
 {
 	return this->size;
 }
@@ -13,7 +13,7 @@ Resizable* EventResizeInfo::GetSrc() const
 }
 
 
-EventResizeInfo::EventResizeInfo(glm::vec4 size, Resizable* src) : src(src)
+EventResizeInfo::EventResizeInfo(glm::vec3 size, Resizable* src) : src(src)
 {
 	this->size = size;
 	this->src = src;

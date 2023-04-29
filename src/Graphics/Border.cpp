@@ -59,9 +59,9 @@ void Border::ResetViewport()
     rectangleProxy.ResetViewport();
 }
 
-void Border::SetViewportSize(const glm::vec4 &vec4)
+void Border::SetViewportSize(const glm::vec3 &input)
 {
-    rectangleProxy.SetViewportSize(vec4);
+    rectangleProxy.SetViewportSize(input);
 }
 
 void Border::SetViewportPosition(const glm::vec3 &input)
@@ -69,7 +69,7 @@ void Border::SetViewportPosition(const glm::vec3 &input)
     rectangleProxy.SetViewportPosition(input);
 }
 
-const glm::vec4 & Border::GetViewportSize()
+const glm::vec3 & Border::GetViewportSize()
 {
     return rectangleProxy.GetViewportSize();
 }

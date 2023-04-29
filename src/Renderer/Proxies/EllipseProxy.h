@@ -15,7 +15,7 @@ class EllipseModel;
 class EllipseProxy : public virtual Movable, public Resizable, public virtual RenderProxy
 {
 private:
-    static constexpr glm::vec4 defaultVector = glm::vec4{0};
+    static constexpr glm::vec3 defaultVector = glm::vec4{0};
     static constexpr glm::ivec4 defaultColorVec = glm::vec4{0};
     RenderingModel *renderingModel = nullptr;
     RenderingProxyMessageSender messageSender;
@@ -56,7 +56,7 @@ public:
 
     void OnModelCreated(RenderingModel *model, RenderingConsumer *consumer) override;
 
-    [[nodiscard]] const glm::vec4 &GetSize() const override;
+    [[nodiscard]] const glm::vec3 & GetSize() const override;
 
     void NotifyOnResizeSubscribers(EventResizeInfo event) override;
 
@@ -70,11 +70,11 @@ public:
 
     SubCommands GetModelRequestCommand() override;
 
-    void SetViewportSize(const glm::vec4 &viewPort) override;
+    void SetViewportSize(const glm::vec3 &viewPort) override;
 
     void SetViewportPosition(const glm::vec3 &position) override;
 
-    const glm::vec4 & GetViewportSize() override;
+    const glm::vec3 & GetViewportSize() override;
 
     const glm::vec3 & GetViewportPosition() override;
 
@@ -92,7 +92,7 @@ public:
 
     void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 
-    void SetSize(const glm::vec4 &size, bool emit = true) override;
+    void SetSize(const glm::vec3 &size, bool emit = true) override;
 
 };
 

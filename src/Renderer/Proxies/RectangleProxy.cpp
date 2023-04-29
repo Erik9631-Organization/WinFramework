@@ -47,11 +47,11 @@ const glm::vec3 & RectangleProxy::GetTranslate() const
 }
 
 
-const glm::vec4 & RectangleProxy::GetSize() const
+const glm::vec3 & RectangleProxy::GetSize() const
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model != nullptr)
         return defaultVec4;
 
@@ -59,7 +59,7 @@ const glm::vec4 & RectangleProxy::GetSize() const
 }
 
 
-void RectangleProxy::SetSize(const glm::vec4 &size, bool emit)
+void RectangleProxy::SetSize(const glm::vec3 &size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
@@ -206,12 +206,12 @@ const glm::ivec4 &RectangleProxy::GetColor()
     return model->GetColor();
 }
 
-void RectangleProxy::SetViewportSize(const glm::vec4 &vec4)
+void RectangleProxy::SetViewportSize(const glm::vec3 &input)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     SendRenderingMessage(std::move(renderMessage));
-    NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 
 }
 
@@ -223,11 +223,11 @@ void RectangleProxy::SetViewportPosition(const glm::vec3 &input)
     NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
-const glm::vec4 & RectangleProxy::GetViewportSize()
+const glm::vec3 & RectangleProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVec4;
 

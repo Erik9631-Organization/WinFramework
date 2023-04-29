@@ -177,9 +177,9 @@ void Text2::ResetViewport()
     textProxy.ResetViewport();
 }
 
-void Text2::SetViewportSize(const glm::vec4 &vec4)
+void Text2::SetViewportSize(const glm::vec3 &input)
 {
-    textProxy.SetViewportSize(vec4);
+    textProxy.SetViewportSize(input);
 }
 
 void Text2::SetViewportPosition(const glm::vec3 &input)
@@ -187,7 +187,7 @@ void Text2::SetViewportPosition(const glm::vec3 &input)
     textProxy.SetViewportPosition(input);
 }
 
-const glm::vec4 & Text2::GetViewportSize()
+const glm::vec3 & Text2::GetViewportSize()
 {
     return textProxy.GetViewportSize();
 }

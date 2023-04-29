@@ -73,7 +73,7 @@ SubCommands LineProxy::GetModelRequestCommand()
     return SubCommands::RequestLine;
 }
 
-void LineProxy::SetViewportSize(const glm::vec4 &vec4)
+void LineProxy::SetViewportSize(const glm::vec3 &input)
 {
 
 }
@@ -83,7 +83,7 @@ void LineProxy::SetViewportPosition(const glm::vec3 &input)
 
 }
 
-const glm::vec4 & LineProxy::GetViewportSize()
+const glm::vec3 & LineProxy::GetViewportSize()
 {
     auto val = glm::vec4{0,0,0,0};
     return val;

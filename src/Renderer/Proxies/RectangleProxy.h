@@ -23,7 +23,7 @@ class RenderMessage;
 class RectangleProxy : public Movable, public Resizable, public RenderProxy, public MoveSubscriber, public ResizeSubscriber
 {
 private:
-    static constexpr glm::vec4 defaultVec4 = glm::vec4{0, 0, 0, 0};
+    static constexpr glm::vec3 defaultVec4 = glm::vec4{0, 0, 0, 0};
     static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
@@ -51,9 +51,9 @@ public:
 
     [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
-    const glm::vec4 & GetSize() const override;
+    [[nodiscard]] const glm::vec3 & GetSize() const override;
 
-    void SetSize(const glm::vec4 &size, bool emit = true) override;
+    void SetSize(const glm::vec3 &size, bool emit = true) override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
@@ -83,11 +83,11 @@ public:
 
     SubCommands GetModelRequestCommand() override;
 
-    void SetViewportSize(const glm::vec4 &vec4) override;
+    void SetViewportSize(const glm::vec3 &input) override;
 
     void SetViewportPosition(const glm::vec3 &input) override;
 
-    const glm::vec4 & GetViewportSize() override;
+    const glm::vec3 & GetViewportSize() override;
 
     const glm::vec3 & GetViewportPosition() override;
 

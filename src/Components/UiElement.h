@@ -108,8 +108,8 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	const glm::vec4 & GetSize() const override;
-	const glm::vec3 & GetPosition() const override;
+	[[nodiscard]] const glm::vec3 & GetSize() const override;
+	[[nodiscard]] const glm::vec3 & GetPosition() const override;
 
 	/**
 	 * Gets the current node within the containment hierarchy
@@ -122,7 +122,7 @@ public:
 	 * \return returns pointer of the parent component.
 	 */
 	UiElement * GetParent();
-	void SetSize(const glm::vec4 &size, bool emit = true) override;
+	void SetSize(const glm::vec3 &size, bool emit = true) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -310,11 +310,11 @@ public:
 
     void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
 
-    void SetViewportSize(const glm::vec4 &vec4) override;
+    void SetViewportSize(const glm::vec3 &input) override;
 
     void SetViewportPosition(const glm::vec3 &input) override;
 
-    const glm::vec4 & GetViewportSize() override;
+    const glm::vec3 & GetViewportSize() override;
 
     const glm::vec3 & GetViewportPosition() override;
 

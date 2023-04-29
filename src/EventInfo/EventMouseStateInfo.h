@@ -21,7 +21,7 @@ public:
 
     glm::vec3 GetMouseDelta();
 
-    EventMouseStateInfo(glm::vec4 position, glm::vec4 relativePosition, glm::vec4 delta, int key, MouseStateSubject* src);
+    EventMouseStateInfo(glm::vec3 position, glm::vec3 relativePosition, glm::vec3 delta, int key, MouseStateSubject* src);
 
 	/**
 	 * The relative viewPortSize is automatically calculated from the src component

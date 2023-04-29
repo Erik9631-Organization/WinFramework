@@ -30,13 +30,13 @@ public:
     void DrawEllipse(float x, float y, glm::vec4 vector4) override;
     void DrawLine(float x1, float y1, float x2, float y2) override;
     void DrawLine(glm::vec4 pos, glm::vec4 size) override;
-    void DrawRectangle(glm::vec3 pos, glm::vec4 size) override;
+    void DrawRectangle(glm::vec3 pos, glm::vec3 size) override;
     void DrawRectangle(float x, float y, float width, float height) override;
     void DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format) override;
     void DrawFillEllipse(float x, float y, float width, float height) override;
     void DrawFillEllipse(glm::vec4 pos, glm::vec4 size) override;
     void DrawFillRectangle(float x, float y, float width, float height) override;
-    void DrawFillRectangle(glm::vec3 pos, glm::vec4 size) override;
+    void DrawFillRectangle(glm::vec3 pos, glm::vec3 size) override;
     void SetFontFamily(std::wstring fontFamily) override;
     void SetFontSize(float fontSize) override;
     std::unique_ptr<FontFormat> CreateFontFormat() override;

@@ -47,32 +47,32 @@ const bool& InputManager::IsKeyUp(unsigned int key) const
     return false;
 }
 
-const glm::vec4 & InputManager::GetMouseDelta() const
+const glm::vec3 & InputManager::GetMouseDelta() const
 {
     return mouseDelta;
 }
 
-const glm::vec4 & InputManager::GetMouseScreenPosition() const
+const glm::vec3 & InputManager::GetMouseScreenPosition() const
 {
     return mouseScreenPosition;
 }
 
-const glm::vec4 & InputManager::GetMousePosition() const
+const glm::vec3 & InputManager::GetMousePosition() const
 {
     return mousePosition;
 }
 
-void InputManager::SetMousePosition(const glm::vec4 &mousePosition)
+void InputManager::SetMousePosition(const glm::vec3 &mousePosition)
 {
     this->mousePosition = mousePosition;
 }
 
-void InputManager::SetMouseScreenPosition(const glm::vec4 &mousePosition)
+void InputManager::SetMouseScreenPosition(const glm::vec3 &mousePosition)
 {
     this->mouseScreenPosition = mousePosition;
 }
 
-void InputManager::SetMouseDeltaPosition(const glm::vec4 &mousePosition)
+void InputManager::SetMouseDeltaPosition(const glm::vec3 &mousePosition)
 {
     this->mouseDelta = mousePosition;
 

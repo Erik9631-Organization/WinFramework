@@ -132,20 +132,20 @@ void GridCell::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
     associatedAdjustable->RemoveOnResizeSubscriber(subscriber);
 }
 
-const glm::vec4 & GridCell::GetSize() const
+const glm::vec3 & GridCell::GetSize() const
 {
-    return {cellSize.x, cellSize.y, 0, 1};
+    return {cellSize.x, cellSize.y, 0};
 }
 
 
-void GridCell::SetSize(const glm::vec4 &size, bool emit)
+void GridCell::SetSize(const glm::vec3 &size, bool emit)
 {
     cellSize = size;
     if (GetControlledAdjustable() == nullptr)
         return;
 
     if (span.isSet())
-        GetControlledAdjustable()->SetSize({GetSpanSize().x, GetSpanSize().y, 0, 1}, emit);
+        GetControlledAdjustable()->SetSize({GetSpanSize().x, GetSpanSize().y, 0}, emit);
     else
         GetControlledAdjustable()->SetSize(size, emit);
 }
@@ -222,7 +222,7 @@ void GridCell::OnUpdate(EventUpdateInfo e)
     }
 
     if (e.HasFlag(EventUpdateFlags::Resize))
-        SetSize({cellSize.x, cellSize.y, 0, 1});
+        SetSize({cellSize.x, cellSize.y, 0});
 
     if (e.HasFlag(EventUpdateFlags::Redraw))
     {

@@ -5,7 +5,7 @@
 #include "ScalingUtil2D.h"
 #include "Vector2DScaler.h"
 
-ScalingUtil2D::ScalingUtil2D(const glm::vec3 &viewPortPosition, const glm::vec4 &viewPortSize) :
+ScalingUtil2D::ScalingUtil2D(const glm::vec3 &viewPortPosition, const glm::vec3 &viewPortSize) :
         viewPortSize(viewPortSize),
         viewPortPosition(viewPortPosition),
         positionScaler(viewPortSize),
@@ -96,7 +96,7 @@ void ScalingUtil2D::Scale(const glm::vec3 &translationVector)
     calculatedPosition = {scaledPosition.x + viewPortPosition.x, scaledPosition.y + viewPortPosition.y, viewPortPosition.z};
 }
 
-const glm::vec4 & ScalingUtil2D::GetSize()
+const glm::vec3 & ScalingUtil2D::GetSize()
 {
     return calculatedSize;
 }

@@ -4,12 +4,12 @@
 
 #include "ResizableModelBehavior.h"
 
-const glm::vec4 & ResizableModelBehavior::GetSize() const
+const glm::vec3 & ResizableModelBehavior::GetSize() const
 {
     return size;
 }
 
-void ResizableModelBehavior::SetSize(const glm::vec4 &size, bool emit)
+void ResizableModelBehavior::SetSize(const glm::vec3 &size, bool emit)
 {
     this->size = size;
 }

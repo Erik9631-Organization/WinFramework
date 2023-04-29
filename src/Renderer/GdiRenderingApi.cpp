@@ -32,7 +32,7 @@ void GdiRenderingApi::DrawLine(glm::vec4 pos, glm::vec4 size)
     graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec4 size)
+void GdiRenderingApi::DrawRectangle(glm::vec3 pos, glm::vec3 size)
 {
     graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
@@ -68,7 +68,7 @@ void GdiRenderingApi::DrawFillRectangle(float x, float y, float width, float hei
     graphics->FillRectangle(brush, x, y, width, height);
 }
 
-void GdiRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec4 size)
+void GdiRenderingApi::DrawFillRectangle(glm::vec3 pos, glm::vec3 size)
 {
     graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }

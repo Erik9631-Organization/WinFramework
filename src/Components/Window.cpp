@@ -14,7 +14,7 @@
 
 using namespace std;
 
-void Window::SetSize(const glm::vec4 &size, bool emit)
+void Window::SetSize(const glm::vec3 &size, bool emit)
 {
     //TODO This is a hack If emit is changed to false, it won't work.
     //The issue is that if setsize comes from

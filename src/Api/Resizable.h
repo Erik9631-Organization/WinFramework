@@ -13,11 +13,11 @@ public:
      * Returns the viewPortPosition of the object.
      * \return returns a viewPortPosition object which specifies the width and height
      */
-    [[nodiscard]] virtual const glm::vec4 &GetSize() const = 0;
+    [[nodiscard]] virtual const glm::vec3 & GetSize() const = 0;
 
     /**
      * Sets the viewPortPosition of the object
      * \param size the viewPortPosition object which specifies the width and height of the target object.
      */
-    virtual void SetSize(const glm::vec4 &size, bool emit = true) = 0;
+    virtual void SetSize(const glm::vec3 &size, bool emit = true) = 0;
 };

@@ -30,7 +30,7 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         }
         case SubCommands::SetSize:
         {
-            auto size = message->GetData<glm::vec4>();
+            auto size = message->GetData<glm::vec3>();
             SetSize(size);
             break;
         }
@@ -42,7 +42,7 @@ void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
         }
         case SubCommands::SetViewPortSize:
         {
-            SetViewportSize(message->GetData<glm::vec4>());
+            SetViewportSize(message->GetData<glm::vec3>());
             break;
         }
         case SubCommands::SetViewPortPosition:
@@ -140,12 +140,12 @@ const glm::vec3 & EllipseModel::GetTranslate() const
     return movableBehavior.GetTranslate();
 }
 
-const glm::vec4 &EllipseModel::GetSize() const
+const glm::vec3 & EllipseModel::GetSize() const
 {
     return resizableBehavior.GetSize();
 }
 
-void EllipseModel::SetSize(const glm::vec4 &size, bool emit)
+void EllipseModel::SetSize(const glm::vec3 &size, bool emit)
 {
     resizableBehavior.SetSize(size, emit);
 }
@@ -226,10 +226,10 @@ bool EllipseModel::GetRenderFromCenter() const
     return renderFromCenter;
 }
 
-void EllipseModel::SetViewportSize(const glm::vec4 &vec4)
+void EllipseModel::SetViewportSize(const glm::vec3 &input)
 {
-    viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    viewPort.SetViewportSize(input);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void EllipseModel::SetViewportPosition(const glm::vec3 &input)
@@ -238,7 +238,7 @@ void EllipseModel::SetViewportPosition(const glm::vec3 &input)
     viewPort.NotifyOnViewportSizeChanged({input, GetViewportSize(), this});
 }
 
-const glm::vec4 & EllipseModel::GetViewportSize()
+const glm::vec3 & EllipseModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }

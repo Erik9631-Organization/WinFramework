@@ -50,11 +50,11 @@ public:
 
     SubCommands GetModelRequestCommand() override;
 
-    void SetViewportSize(const glm::vec4 &vec4) override;
+    void SetViewportSize(const glm::vec3 &input) override;
 
     void SetViewportPosition(const glm::vec3 &input) override;
 
-    const glm::vec4 & GetViewportSize() override;
+    const glm::vec3 & GetViewportSize() override;
 
     const glm::vec3 & GetViewportPosition() override;
 

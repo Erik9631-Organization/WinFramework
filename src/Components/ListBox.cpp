@@ -17,7 +17,7 @@ ListBox::ListBox(int x, int y, int width, int height, std::string name) : Panel(
     trackbar = new ScrollBar();
     layout = new Grid(0, 0, width, height+50);
 	//this->Panel::Add(std::unique_ptr<ScrollBar>(trackbar));
-    trackbar->SetSize({10, trackbar->GetSize().y, trackbar->GetSize().z, trackbar->GetSize().w});
+    trackbar->SetSize({10, trackbar->GetSize().y, trackbar->GetSize().z});
     ScrollBar::Control(*this, std::unique_ptr<ScrollBar>(trackbar));
 	this->Panel::Add(std::unique_ptr<Grid>(layout));
 	layout->SetAutoExtend(true);

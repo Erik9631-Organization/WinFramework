@@ -205,12 +205,12 @@ SubCommands TextProxy::GetModelRequestCommand()
     return SubCommands::RequestText;
 }
 
-void TextProxy::SetViewportSize(const glm::vec4 &vec4)
+void TextProxy::SetViewportSize(const glm::vec3 &input)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(vec4, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
-    NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void TextProxy::SetViewportPosition(const glm::vec3 &input)
@@ -221,11 +221,11 @@ void TextProxy::SetViewportPosition(const glm::vec3 &input)
     NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
-const glm::vec4 & TextProxy::GetViewportSize()
+const glm::vec3 & TextProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4&>();
+        return tempData->GetData<glm::vec3&>();
     if(model == nullptr)
         return defaultVec;
     return model->GetViewportSize();

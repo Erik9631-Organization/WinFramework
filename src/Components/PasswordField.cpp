@@ -64,7 +64,7 @@ void PasswordField::SetPosition(const glm::vec3 &position, bool emit)
     UiElement::SetViewportPosition(position);
 }
 
-void PasswordField::SetSize(const glm::vec4 &size, bool emit)
+void PasswordField::SetSize(const glm::vec3 &size, bool emit)
 {
     UiElement::SetSize(size, emit);
     auto viewportSize = size;

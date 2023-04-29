@@ -94,18 +94,18 @@ void EllipseProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *cons
     messageSender.OnModelCreated(model, consumer);
 }
 
-const glm::vec4 &EllipseProxy::GetSize() const
+const glm::vec3 & EllipseProxy::GetSize() const
 {
     auto tempData = messageSender.Get(SubCommands::SetSize);
     if(tempData != nullptr)
-        return tempData->GetData<const glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVector;
 
     return model->GetSize();
 }
 
-void EllipseProxy::SetSize(const glm::vec4 &size, bool emit)
+void EllipseProxy::SetSize(const glm::vec3 &size, bool emit)
 {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
@@ -189,12 +189,12 @@ SubCommands EllipseProxy::GetModelRequestCommand()
     return SubCommands::RequestEllipse;
 }
 
-void EllipseProxy::SetViewportSize(const glm::vec4 &viewPort)
+void EllipseProxy::SetViewportSize(const glm::vec3 &input)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(viewPort, this);
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
     renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
-    NotifyOnViewportSizeChanged({GetViewportPosition(), viewPort, this});
+    NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void EllipseProxy::SetViewportPosition(const glm::vec3 &input)
@@ -213,11 +213,11 @@ void EllipseProxy::ResetViewport()
     NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-const glm::vec4 & EllipseProxy::GetViewportSize()
+const glm::vec3 & EllipseProxy::GetViewportSize()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4& >();
+        return tempData->GetData<const glm::vec3& >();
     if(model == nullptr)
         return defaultVector;
     return model->GetViewportSize();
@@ -227,7 +227,7 @@ const glm::vec3 & EllipseProxy::GetViewportPosition()
 {
     auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
     if(tempData != nullptr)
-        return tempData->GetData<glm::vec4&>();
+        return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
         return defaultVector;
     return model->GetViewportSize();

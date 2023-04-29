@@ -15,10 +15,10 @@ void ModelViewport::ResetViewport()
     NotifyOnViewportReset(Viewport2EventInfo(viewPortPosition, viewPortSize, this));
 }
 
-void ModelViewport::SetViewportSize(const glm::vec4 &vec4)
+void ModelViewport::SetViewportSize(const glm::vec3 &input)
 {
-    viewPortSize = vec4;
-    NotifyOnViewportSizeChanged(Viewport2EventInfo(viewPortPosition, vec4, this));
+    viewPortSize = input;
+    NotifyOnViewportSizeChanged(Viewport2EventInfo(viewPortPosition, input, this));
     isSet = true;
 }
 
@@ -29,7 +29,7 @@ void ModelViewport::SetViewportPosition(const glm::vec3 &input)
     isSet = true;
 }
 
-const glm::vec4 & ModelViewport::GetViewportSize()
+const glm::vec3 & ModelViewport::GetViewportSize()
 {
     return viewPortSize;
 }

@@ -67,9 +67,9 @@ void Background::ResetViewport()
     rectangleProxy.ResetViewport();
 }
 
-void Background::SetViewportSize(const glm::vec4 &vec4)
+void Background::SetViewportSize(const glm::vec3 &input)
 {
-    rectangleProxy.SetViewportSize(vec4);
+    rectangleProxy.SetViewportSize(input);
 }
 
 void Background::SetViewportPosition(const glm::vec3 &input)
@@ -77,7 +77,7 @@ void Background::SetViewportPosition(const glm::vec3 &input)
     rectangleProxy.SetViewportPosition(input);
 }
 
-const glm::vec4 & Background::GetViewportSize()
+const glm::vec3 & Background::GetViewportSize()
 {
     return rectangleProxy.GetViewportSize();
 }

@@ -10,9 +10,9 @@ class InputManager
 private:
 	unsigned char keyboardState[256];
     static std::unique_ptr<InputManager> globalInput;
-    glm::vec4 mousePosition{0};
-    glm::vec4 mouseScreenPosition{0};
-    glm::vec4 mouseDelta{0};
+    glm::vec3 mousePosition{0};
+    glm::vec3 mouseScreenPosition{0};
+    glm::vec3 mouseDelta{0};
 public:
     static const InputManager& GetGlobalInput();
 
@@ -21,12 +21,12 @@ public:
 	void SetKeyboardState(unsigned char *keyboardState);
 	const bool& IsKeyDown(unsigned int key) const;
 	const bool& IsKeyUp(unsigned int key) const;
-    const glm::vec4 & GetMouseDelta() const;
-    const glm::vec4 & GetMouseScreenPosition() const;
-    const glm::vec4 & GetMousePosition() const;
-    void SetMousePosition(const glm::vec4 &mousePosition);
-    void SetMouseScreenPosition(const glm::vec4 &mousePosition);
-    void SetMouseDeltaPosition(const glm::vec4 &mousePosition);
+    const glm::vec3 & GetMouseDelta() const;
+    const glm::vec3 & GetMouseScreenPosition() const;
+    const glm::vec3 & GetMousePosition() const;
+    void SetMousePosition(const glm::vec3 &mousePosition);
+    void SetMouseScreenPosition(const glm::vec3 &mousePosition);
+    void SetMouseDeltaPosition(const glm::vec3 &mousePosition);
 
 
     enum class VirtualKeys : unsigned int

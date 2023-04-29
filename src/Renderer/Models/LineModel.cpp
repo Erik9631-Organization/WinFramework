@@ -121,10 +121,10 @@ bool LineModel::IsVisible()
     return visible;
 }
 
-void LineModel::SetViewportSize(const glm::vec4 &vec4)
+void LineModel::SetViewportSize(const glm::vec3 &input)
 {
-    viewPort.SetViewportSize(vec4);
-    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), vec4, this});
+    viewPort.SetViewportSize(input);
+    viewPort.NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void LineModel::SetViewportPosition(const glm::vec3 &input)
@@ -134,7 +134,7 @@ void LineModel::SetViewportPosition(const glm::vec3 &input)
 
 }
 
-const glm::vec4 & LineModel::GetViewportSize()
+const glm::vec3 & LineModel::GetViewportSize()
 {
     return viewPort.GetViewportSize();
 }

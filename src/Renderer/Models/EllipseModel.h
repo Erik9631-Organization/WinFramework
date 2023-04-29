@@ -56,9 +56,9 @@ public:
 
     [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 
-    [[nodiscard]] const glm::vec4 &GetSize() const override;
+    [[nodiscard]] const glm::vec3 & GetSize() const override;
 
-    void SetSize(const glm::vec4 &size, bool emit = true) override;
+    void SetSize(const glm::vec3 &size, bool emit = true) override;
 
     void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
 
@@ -82,11 +82,11 @@ public:
 
     bool IsVisible() override;
 
-    void SetViewportSize(const glm::vec4 &vec4) override;
+    void SetViewportSize(const glm::vec3 &input) override;
 
     void SetViewportPosition(const glm::vec3 &input) override;
 
-    const glm::vec4 & GetViewportSize() override;
+    const glm::vec3 & GetViewportSize() override;
 
     const glm::vec3 & GetViewportPosition() override;
 
@@ -102,7 +102,7 @@ public:
 
     void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 
-    const glm::vec3 & GetPosition() const override;
+    [[nodiscard]] const glm::vec3 & GetPosition() const override;
 
 };
 

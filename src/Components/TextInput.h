@@ -55,6 +55,6 @@ public:
 
     void SetPosition(const glm::vec3 &position, bool emit = true) override;
 
-    void SetSize(const glm::vec4 &size, bool emit = true) override;
+    void SetSize(const glm::vec3 &size, bool emit = true) override;
 };
 

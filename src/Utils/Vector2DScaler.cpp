@@ -4,13 +4,13 @@
 
 #include "Vector2DScaler.h"
 
-Vector2DScaler::Vector2DScaler(const glm::vec4 &parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
+Vector2DScaler::Vector2DScaler(const glm::vec3 &parentVector) : Vector2DScaler(parentVector, Decimal, Decimal)
 {
 
 }
 
 
-Vector2DScaler::Vector2DScaler(const glm::vec4 &basis, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY) : basis(basis)
+Vector2DScaler::Vector2DScaler(const glm::vec3 &basis, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY) : basis(basis)
 {
     this->scalingTypeX = scalingTypeX;
     this->scalingTypeY = scalingTypeY;
