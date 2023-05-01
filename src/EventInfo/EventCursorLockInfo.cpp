@@ -15,7 +15,7 @@ const bool &EventCursorLockInfo::GetCursorLockInfo() const
     return cursorLockInfo;
 }
 
-EventSource *EventCursorLockInfo::GetSource() const
+EventSource * EventCursorLockInfo::GetSource() const
 {
     return src;
 }

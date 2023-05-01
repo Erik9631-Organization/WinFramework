@@ -18,7 +18,10 @@ void Background::OnMove(EventMoveInfo e)
 
 void Background::OnResize(EventResizeInfo e)
 {
-   rectangleProxy.SetSize(e.GetSrc()->GetSize());
+    auto* resizable = dynamic_cast<Resizable*>(e.GetSource());
+    if(resizable == nullptr)
+        return;
+    rectangleProxy.SetSize(resizable->GetSize());
 }
 
 Background::Background(UiElement &element) : associatedElement(element)

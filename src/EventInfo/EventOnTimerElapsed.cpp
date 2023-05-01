@@ -4,7 +4,7 @@
 
 #include "EventOnTimerElapsed.h"
 
-EventOnTimerElapsed::EventOnTimerElapsed(long long int elapsedTime)
+EventOnTimerElapsed::EventOnTimerElapsed(long long elapsedTime, EventSource *source)
 {
     this->elapsedTime = elapsedTime;
 }
@@ -12,4 +12,9 @@ EventOnTimerElapsed::EventOnTimerElapsed(long long int elapsedTime)
 long long EventOnTimerElapsed::GetElapsedTime() const
 {
     return elapsedTime;
+}
+
+EventSource * EventOnTimerElapsed::GetSource() const
+{
+    return source;
 }

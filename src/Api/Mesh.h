@@ -14,7 +14,7 @@
 #include "GpuMemoryStrategy.h"
 #include "Resource.h"
 
-class Mesh : public RenderObjectSubscriber,  public Resource
+class Mesh : public RenderObjectSubscriber,  public Resource, public virtual EventSource
 {
 public:
     virtual std::vector<float> * SetVertices(std::unique_ptr<std::vector<float>> vertices) = 0;

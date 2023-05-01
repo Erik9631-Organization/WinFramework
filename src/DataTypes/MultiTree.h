@@ -3,7 +3,7 @@
 #include "AddSubject.h"
 #include <vector>
 template<class T>
-class MultiTree : AddSubject<T>
+class MultiTree : public AddSubject<T>
 {
 public:
 	virtual MultiTree<T> * AddNode(std::unique_ptr<MultiTree<T>> node) = 0;

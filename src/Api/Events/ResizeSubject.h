@@ -1,11 +1,12 @@
 #pragma once
+#include "EventSource.h"
 class EventResizeInfo;
 class ResizeSubscriber;
 /**
  * An interface for all classes which are resizable. If the interface is implemented, it will automatically become an observable subject.
  * The class implementing this interface should also implement an array where it can contain and notify its subscribers when ResizeSubject::NotifyOnResizeSubscribers is called.
  */
-class ResizeSubject
+class ResizeSubject : public virtual EventSource
 {
 public:
 	/**

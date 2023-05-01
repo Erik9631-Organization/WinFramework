@@ -18,7 +18,7 @@ void DragManager::OnDragStart()
 	isDragging = true;
 	currentDragObj = associatedDraggable;
 	srcManager = this;
-	NotifyOnDragStart(EventOnDragInfo(*currentDragObj));
+	NotifyOnDragStart(EventOnDragInfo(currentDragObj));
 }
 
 void DragManager::OnDragEnd()
@@ -33,8 +33,8 @@ void DragManager::OnDragEnd()
 		return;
 	}
 
-	srcManager->NotifyOnDragEnd(EventOnDragInfo(*currentDragObj)); // Notify the original that the drag has ended
-	NotifyOnDrop(EventOnDragInfo(*currentDragObj)); // Then notify the current that drop happened
+	srcManager->NotifyOnDragEnd(EventOnDragInfo(currentDragObj)); // Notify the original that the drag has ended
+	NotifyOnDrop(EventOnDragInfo(currentDragObj)); // Then notify the current that drop happened
 
 	//ResetSize states
 	srcManager = nullptr; 

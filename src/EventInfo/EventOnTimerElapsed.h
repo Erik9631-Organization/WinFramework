@@ -6,12 +6,18 @@
 #define LII_EVENTONTIMERELAPSED_H
 
 
-class EventOnTimerElapsed
+#include "Event.h"
+
+class EventOnTimerElapsed : public Event
 {
 public:
-    explicit EventOnTimerElapsed(long long elapsedTime);
-    long long GetElapsedTime() const;
+    explicit EventOnTimerElapsed(long long elapsedTime, EventSource *source);
+    [[nodiscard]] long long GetElapsedTime() const;
+
+    [[nodiscard]] EventSource * GetSource() const override;
+
 private:
+    EventSource* source = nullptr;
     long long elapsedTime;
 };
 

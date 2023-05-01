@@ -4,7 +4,7 @@
 /**
  * This class is responsible for holding event data related to updates.
  */
-
+//TODO Deprecated and should be deleted
 class EventUpdateInfo
 {
 public:

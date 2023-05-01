@@ -21,7 +21,7 @@ int EventAttributeInfo::GetIndex() const
     return index;
 }
 
-EventSource *EventAttributeInfo::GetSource() const
+EventSource * EventAttributeInfo::GetSource() const
 {
     return source;
 }

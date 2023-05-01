@@ -1,5 +1,5 @@
 #include "RenderEventInfo.h"
-#include "Core/Windows/WindowsCore.h"
+#include "WindowsCore.h"
 #include "RenderingPool.h"
 
 RenderingPool * RenderEventInfo::GetRenderer() const
@@ -8,7 +8,13 @@ RenderingPool * RenderEventInfo::GetRenderer() const
 }
 
 
-RenderEventInfo::RenderEventInfo(RenderingPool *g)
+RenderEventInfo::RenderEventInfo(RenderingPool *g, EventSource *source)
 {
     this->renderer = g;
+    this->source = source;
+}
+
+EventSource * RenderEventInfo::GetSource() const
+{
+    return source;
 }

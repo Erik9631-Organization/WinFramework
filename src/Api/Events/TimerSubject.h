@@ -7,7 +7,7 @@
 class TimerSubscriber;
 #include "EventOnTimerElapsed.h"
 
-class TimerSubject
+class TimerSubject : public virtual EventSource
 {
 public:
     virtual void AddTimerSubscriber(TimerSubscriber& subscriber) = 0;

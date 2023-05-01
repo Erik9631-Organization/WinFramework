@@ -1,11 +1,11 @@
 #include "EventOnDragInfo.h"
 
-EventOnDragInfo::EventOnDragInfo(Draggable& src) : src(src)
+EventOnDragInfo::EventOnDragInfo(EventSource *src) : src(src)
 {
 
 }
 
-Draggable& EventOnDragInfo::GetSrc()
+EventSource * EventOnDragInfo::GetSource() const
 {
-	return src;
+    return src;
 }

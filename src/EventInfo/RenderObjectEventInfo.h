@@ -6,20 +6,24 @@
 #define LII_RENDEROBJECTEVENTINFO_H
 #include <memory>
 #include <any>
+#include "Event.h"
+
 class RenderObjectSubscriber;
 
-class RenderObjectEventInfo
+class RenderObjectEventInfo : public Event
 {
 private:
-    std::any src;
+    EventSource* src;
     std::any eventData;
 public:
-    RenderObjectEventInfo(std::any src, std::any eventData = nullptr);
+    explicit RenderObjectEventInfo(EventSource *src, std::any eventData = nullptr);
     template<typename T>
     T* GetSrc() const
     {
         return std::any_cast<T*>(src);
     }
+
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 
 

@@ -11,7 +11,7 @@ bool EventCheckboxStateInfo::GetState() const
 	return state;
 }
 
-EventSource *EventCheckboxStateInfo::GetSource() const
+EventSource * EventCheckboxStateInfo::GetSource() const
 {
     return source;
 }

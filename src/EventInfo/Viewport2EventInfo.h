@@ -5,17 +5,17 @@
 #ifndef LII_VIEWPORT2EVENTINFO_H
 #define LII_VIEWPORT2EVENTINFO_H
 #include "glm.hpp"
-#include <any>
+#include "Event.h"
 
-class Viewport2EventInfo
+class Viewport2EventInfo : public Event
 {
 private:
     glm::vec3 size{0};
     glm::vec3 position{0};
-    std::any src;
+    EventSource* src;
 
 public:
-    Viewport2EventInfo(const glm::vec3 &position, const glm::vec3 &size, const std::any &src)
+    Viewport2EventInfo(const glm::vec3 &position, const glm::vec3 &size, EventSource *src)
     {
         this->size = size;
         this->position = position;
@@ -32,7 +32,7 @@ public:
         return position;
     }
 
-    [[nodiscard]] const std::any& GetSource() const
+    [[nodiscard]] EventSource * GetSource() const override
     {
         return src;
     }

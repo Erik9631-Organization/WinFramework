@@ -14,7 +14,7 @@ private:
 public:
     EventCursorLockInfo(bool cursorLockInfo, EventSource *src);
     [[nodiscard]] const bool& GetCursorLockInfo() const;
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 
 };
 

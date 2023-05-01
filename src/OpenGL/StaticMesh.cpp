@@ -71,7 +71,7 @@ void StaticMesh::SetIndexBufferContent(std::vector<unsigned int> indexOrders)
 
 void StaticMesh::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 {
-    RenderObjectEventInfo eventInfo{static_cast<Mesh*>(this), nullptr};
+    RenderObjectEventInfo eventInfo{static_cast<Mesh*>(this)};
     manager->OnRender(&eventInfo);
 }
 

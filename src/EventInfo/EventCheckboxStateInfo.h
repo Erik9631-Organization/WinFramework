@@ -26,6 +26,6 @@ public:
 	 */
 	[[nodiscard]] bool GetState() const;
 
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 

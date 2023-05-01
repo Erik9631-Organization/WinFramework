@@ -80,6 +80,6 @@ public:
 	 */
 	bool IsRecursive();
 
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 
 };

@@ -15,11 +15,10 @@ void Timer::timerCheck()
 	    signaled = false;
 	    long long currentTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 	    long long elapsedTime = currentTime - lastTime;
-	    //CoreWindow::ConsoleWrite(to_string(elapsedTime) + ">=" + to_string(interval));
 		if (elapsedTime >= interval)
 		{
 			lastTime = currentTime;
-			auto e = EventOnTimerElapsed(interval);
+			auto e = EventOnTimerElapsed(interval, this);
             NotifyOnTimerElapsed(e);
             signaled = true;
 			if (!IsPeriodic())

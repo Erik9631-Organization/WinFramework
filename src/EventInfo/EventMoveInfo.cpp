@@ -26,7 +26,7 @@ bool EventMoveInfo::IsOrigin() const
     return isOrigin;
 }
 
-EventSource *EventMoveInfo::GetSource() const
+EventSource * EventMoveInfo::GetSource() const
 {
     return src;
 }

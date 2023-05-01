@@ -11,7 +11,7 @@ ComboElement* EventComboBoxStateInfo::GetElement()
     return element;
 }
 
-EventSource *EventComboBoxStateInfo::GetSource() const
+EventSource * EventComboBoxStateInfo::GetSource() const
 {
     return src;
 }

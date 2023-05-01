@@ -10,7 +10,7 @@ bool EventOnActivateInfo::IsActive() const
     return state;
 }
 
-EventSource *EventOnActivateInfo::GetSource() const
+EventSource * EventOnActivateInfo::GetSource() const
 {
     return source;
 }

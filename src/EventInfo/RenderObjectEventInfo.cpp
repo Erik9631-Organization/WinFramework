@@ -3,11 +3,18 @@
 //
 
 #include "RenderObjectEventInfo.h"
+
+#include <utility>
 #include "RenderObjectSubscriber.h"
 
-RenderObjectEventInfo::RenderObjectEventInfo(std::any src, std::any eventData)
+RenderObjectEventInfo::RenderObjectEventInfo(EventSource *src, std::any eventData)
 {
+    this->eventData = std::move(eventData);
     this->src = src;
-    this->eventData = eventData;
+}
+
+EventSource * RenderObjectEventInfo::GetSource() const
+{
+    return src;
 }
 

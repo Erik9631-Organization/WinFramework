@@ -1,12 +1,13 @@
 #pragma once
+#include "Event.h"
+
 class Draggable;
 
-class EventOnDragInfo
+class EventOnDragInfo : public Event
 {
 private:
-	Draggable& src;
+	EventSource* src;
 public:
-	explicit EventOnDragInfo(Draggable& src);
-	Draggable& GetSrc();
-	
+	explicit EventOnDragInfo(EventSource *src);
+    [[nodiscard]] EventSource * GetSource() const override;
 };

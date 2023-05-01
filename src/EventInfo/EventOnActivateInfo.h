@@ -21,6 +21,6 @@ public:
 	 */
 	[[nodiscard]] bool IsActive() const;
 
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 

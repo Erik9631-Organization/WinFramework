@@ -6,7 +6,7 @@ class DragSubscriber;
 /**
  * This interface is implemented by all the classes that can send drag events
  */
-class DragSubject
+class DragSubject : public virtual EventSource
 {
 public:
 	/**

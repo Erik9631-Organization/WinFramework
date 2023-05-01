@@ -23,7 +23,10 @@ void Border::OnMove(EventMoveInfo e)
 
 void Border::OnResize(EventResizeInfo e)
 {
-    rectangleProxy.SetSize(e.GetSrc()->GetSize());
+    auto *resizable = dynamic_cast<Resizable *>(e.GetSource());
+    if(resizable == nullptr)
+        return;
+    rectangleProxy.SetSize(resizable->GetSize());
 }
 
 Border::Border(UiElement &element) : associatedElement(element)

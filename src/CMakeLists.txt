@@ -266,7 +266,6 @@ set(Lii_EventTypes
     EventInfo/EventOnTimerElapsed.h
         EventInfo/EventAttributeInfo.cpp
     EventInfo/EventAttributeInfo.h
-    EventInfo/Viewport2Event.cpp
         EventInfo/Viewport2EventInfo.h
     EventInfo/RenderObjectEventInfo.cpp
     EventInfo/RenderObjectEventInfo.h
@@ -524,7 +523,7 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        Api/CoreSubscriber.h EventInfo/EventRenderingProviderInfo.cpp EventInfo/EventRenderingProviderInfo.h EventInfo/EventCursorLockInfo.cpp EventInfo/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
+        Api/CoreSubscriber.h EventInfo/EventRenderingProviderInfo.h EventInfo/EventCursorLockInfo.cpp EventInfo/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
 
 
 ################################################################################

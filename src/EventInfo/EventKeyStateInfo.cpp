@@ -37,7 +37,7 @@ wchar_t EventKeyStateInfo::GetUnicodeKey()
 	return unicodeKey;
 }
 
-EventSource *EventKeyStateInfo::GetSource() const
+EventSource * EventKeyStateInfo::GetSource() const
 {
     return source;
 }

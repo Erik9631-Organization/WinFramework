@@ -182,8 +182,8 @@ void DefaultModel::OnRender(const RenderObjectEventInfo *renderObjectEventInfo)
 
     shaderProgram->GetUniformProperties().SetProperty("view", *viewMatrix);
     shaderProgram->GetUniformProperties().SetProperty("model", basisMatrix * modelMatrix);
-
-    NotifyOnRenderObjects({this, mesh});
+    auto event = RenderObjectEventInfo{this, mesh};
+    NotifyOnRenderObjects(event);
 }
 
 void DefaultModel::AddRenderObjectSubscriber(RenderObjectSubscriber &subscriber)

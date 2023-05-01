@@ -44,6 +44,6 @@ public:
 	 */
 	wchar_t GetUnicodeKey();
 
-    EventSource *GetSource() const override;
+    EventSource * GetSource() const override;
 };
 

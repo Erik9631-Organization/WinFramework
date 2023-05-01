@@ -149,7 +149,8 @@ void DefaultListBoxBehavior::OnDragOver(EventOnDragInfo e)
 
 void DefaultListBoxBehavior::OnDrop(EventOnDragInfo e)
 {
-	std::vector<TableElement*>* dragContent = std::any_cast<std::vector<TableElement*>*>(e.GetSrc().GetDragContent());
+    auto draggable = dynamic_cast<Draggable*>(e.GetSource());
+	std::vector<TableElement*>* dragContent = std::any_cast<std::vector<TableElement*>*>(draggable->GetDragContent());
 	if (dragContent == nullptr)
 		return;
 	for (TableElement* element : *dragContent)

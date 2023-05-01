@@ -1,8 +1,10 @@
 #pragma once
+#include "EventSource.h"
+
 class EventRadioButtonStateInfo;
 class RadioButtonStateSubscriber;
 
-class RadioButtonStateSubject
+class RadioButtonStateSubject : public virtual EventSource
 {
 public:
 	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) = 0;

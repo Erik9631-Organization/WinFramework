@@ -27,6 +27,6 @@ public:
 
     EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, EventSource *src, bool isOrigin = true);
 
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 

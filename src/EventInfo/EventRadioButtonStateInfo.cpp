@@ -1,17 +1,17 @@
 #include "EventRadioButtonStateInfo.h"
 
-EventRadioButtonStateInfo::EventRadioButtonStateInfo(bool selected, RadioButtonStateSubject* src)
+EventRadioButtonStateInfo::EventRadioButtonStateInfo(bool selected, EventSource *src)
 {
 	this->isSelected = selected;
 	this->src = src;
 }
 
-RadioButtonStateSubject* EventRadioButtonStateInfo::GetSrc()
-{
-	return src;
-}
-
-bool EventRadioButtonStateInfo::IsSelected()
+bool EventRadioButtonStateInfo::IsSelected() const
 {
 	return isSelected;
+}
+
+EventSource * EventRadioButtonStateInfo::GetSource() const
+{
+    return src;
 }

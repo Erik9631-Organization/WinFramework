@@ -9,9 +9,10 @@
 #include <vector>
 #include "RenderMessage.h"
 #include "glm.hpp"
+#include "EventSource.h"
 class Core;
 
-class Renderer
+class Renderer : public virtual EventSource
 {
 public:
     virtual void Render() = 0;
@@ -23,7 +24,7 @@ public:
     virtual std::unique_ptr<RenderingApi> AcquireRenderingApi() = 0;
     virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;
-    virtual ~Renderer() = default;
+    ~Renderer() override = default;
 };
 
 

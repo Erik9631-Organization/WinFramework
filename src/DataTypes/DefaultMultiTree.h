@@ -61,7 +61,7 @@ MultiTree<T> * DefaultMultiTree<T>::AddNode(std::unique_ptr<MultiTree<T>> object
     MultiTree<T>* treeNode = object.get();
     object->SetParentNode((MultiTree<T> *) this);
     elementList.push_back(std::move(object));
-    onAddHandler.NotifyOnAddInfo(EventOnAddInfo<T>(&value));
+    onAddHandler.NotifyOnAddInfo(EventOnAddInfo<T>{&value, this});
     return treeNode;
 }
 

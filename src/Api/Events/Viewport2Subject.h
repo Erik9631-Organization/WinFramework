@@ -5,8 +5,9 @@
 #ifndef LII_VIEWPORT2SUBJECT_H
 #define LII_VIEWPORT2SUBJECT_H
 #include "Viewport2Subscriber.h"
+#include "EventSource.h"
 
-class Viewport2Subject
+class Viewport2Subject : public virtual EventSource
 {
 public:
     virtual void AddViewport2Subscriber(Viewport2Subscriber &subscriber) = 0;

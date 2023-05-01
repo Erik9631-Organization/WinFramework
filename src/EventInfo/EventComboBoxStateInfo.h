@@ -24,6 +24,6 @@ public:
 	 */
 	ComboElement* GetElement();
 
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 

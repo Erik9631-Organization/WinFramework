@@ -7,9 +7,10 @@
 #include <mutex>
 #include "MultiTree.h"
 #include "OpenGLRenderingPool.h"
+#include "EventSource.h"
 
 class Element3d;
-class Element3dDataSyncer
+class Element3dDataSyncer : public virtual EventSource
 {
 private:
     std::condition_variable syncFinishedSignal;

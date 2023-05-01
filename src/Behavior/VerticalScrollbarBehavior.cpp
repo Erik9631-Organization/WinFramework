@@ -171,9 +171,10 @@ void VerticalScrollbarBehavior::UpdateThumbTrackSize()
 void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 {
     //Adjust scrollbar to the right side
+    auto* resizable = dynamic_cast<Resizable*>(e.GetSource());
 
 
-    if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
+    if(resizable == associatedScrollbar.GetControlledComponent())
     {
         auto scrollbarPos = this->associatedScrollbar.GetPosition();
         associatedScrollbar.SetPosition({e.GetSize().x - associatedScrollbar.GetSize().x, 0, scrollbarPos.z});
@@ -184,9 +185,9 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
     }
     else
     {
-        if(e.GetSrc() == nullptr)
+        if(e.GetSource() == nullptr)
             return;
-        bottomComponent = GetBottomComponent(dynamic_cast<Adjustable*>(e.GetSrc()));
+        bottomComponent = GetBottomComponent(dynamic_cast<Adjustable*>(e.GetSource()));
     }
 
     UpdateThumbTrackSize();

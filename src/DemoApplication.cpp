@@ -159,7 +159,7 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	// Inherited via RadioButtonStateSubscriber
 	virtual void OnRadioButtonSelected(EventRadioButtonStateInfo e) override
 	{
-		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
+		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSource());
 		if (e.IsSelected())
             std::cout << "RadioButton: " + src->GetComponentName() + " checked!" << std::endl;
 		else

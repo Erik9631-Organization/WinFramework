@@ -77,7 +77,7 @@ glm::vec3 EventMouseStateInfo::GetMouseDelta()
     return mouseDelta;
 }
 
-EventSource *EventMouseStateInfo::GetSource() const
+EventSource * EventMouseStateInfo::GetSource() const
 {
     return src;
 }

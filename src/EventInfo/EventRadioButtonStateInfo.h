@@ -1,30 +1,29 @@
 #pragma once
 #include <any>
+#include "Event.h"
+
 class RadioButtonStateSubject;
 
 /**
  * This class is responsible for holding all the information related to radio thumbTrack events.
  */
-class EventRadioButtonStateInfo
+class EventRadioButtonStateInfo : public Event
 {
 private:
 	bool isSelected;
-	RadioButtonStateSubject* src;
+	EventSource* src;
 public:
 	/**
 	 * \param selected whether the src object is selected. True for selected, false for unselected
 	 * \param src the source object that called the event.
 	 */
-	EventRadioButtonStateInfo(bool selected, RadioButtonStateSubject* src);
+	EventRadioButtonStateInfo(bool selected, EventSource *src);
 
-	/**
-	 * \return returns the source object that called the event.
-	 */
-	RadioButtonStateSubject* GetSrc();
-	
 	/**
 	 * \returns whether the src object was selected.
 	 */
-	bool IsSelected();
+	[[nodiscard]] bool IsSelected() const;
+
+    [[nodiscard]] EventSource * GetSource() const override;
 };
 

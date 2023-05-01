@@ -9,7 +9,7 @@
 class Event
 {
 public:
-    [[nodiscard]] virtual EventSource* GetSource() const = 0;
+    [[nodiscard]] virtual EventSource * GetSource() const = 0;
     virtual ~Event() = default;
 };
 

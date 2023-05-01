@@ -17,7 +17,7 @@ public:
     [[nodiscard]] int GetIndex() const;
     [[nodiscard]] long long int GetValue() const;
     EventAttributeInfo(int index, long long int value, EventSource *src);
-    [[nodiscard]] EventSource *GetSource() const override;
+    [[nodiscard]] EventSource * GetSource() const override;
 
 };
 
