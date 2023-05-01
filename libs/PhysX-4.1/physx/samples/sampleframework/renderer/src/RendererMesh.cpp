@@ -27,7 +27,7 @@
 #include <RendererMesh.h>
 #include <RendererMeshDesc.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererVertexBuffer.h>
 #include <RendererIndexBuffer.h>
 #include <RendererInstanceBuffer.h>

@@ -13,7 +13,7 @@
 #include "CoreMediator.h"
 
 class WindowsCore;
-class RenderingProvider;
+class Renderer;
 /**
  * This class wraps the CoreWindow class and is responsible for delegating most of the method calls to that class.
  * It is also the top root of the containment hierarchy and is the first component that should be created in your application.
@@ -26,7 +26,7 @@ private:
     std::unique_ptr<CoreMediator> coreMediator;
 	UiElement* currentFocus = nullptr;
 	UiElement* currentCapture = nullptr;
-	Background background;
+    std::unique_ptr<Background> background;
     std::vector<PresenterSubscriber*> presenterSubscribers;
     Scene scene3d;
     void NotifyOnRenderingProviderChanged(EventRenderingProviderInfo &e) override;
@@ -40,20 +40,15 @@ private:
     void AddPresenterSubscriber(PresenterSubscriber *subscriber) override;
     void RemovePresetnerSubscriber(PresenterSubscriber *subscriber) override;
 public:
-    Window(std::string windowName);
+    explicit Window(std::string windowName);
     Window(int x, int y, int width, int height, std::string windowName);
     static std::unique_ptr<Window> Create(const std::string &windowName);
     static std::unique_ptr<Window> Create(int x, int y, int width, int height, const std::string &windowName);
-	
-	bool initDone = false;
 
-	void SetSize(float width, float height, bool emit) override;
-	void SetSize(glm::vec2 size, bool emit) override;
+	void SetSize(const glm::vec3 &size, bool emit = true) override;
 	void Repaint() override;
     void NotifyOnMouseDown(EventMouseStateInfo e) override;
-
-	void SetPosition(float x, float y, bool emit) override;
-	void SetPosition(glm::vec2 point, bool emit) override;
+	void SetPosition(const glm::vec3 &point, bool emit = true) override;
 
     void NotifyOnKeyDown(EventKeyStateInfo e) override;
     void NotifyOnKeyUp(EventKeyStateInfo e) override;
@@ -61,12 +56,11 @@ public:
 	void CloseWindow();
 
 	void UpdateWindow();
-    void Add(std::unique_ptr<UiElement> component) override;
+    UiElement & Add(std::unique_ptr<UiElement> component) override;
 
     void NotifyOnMouseHover(EventMouseStateInfo e) override;
 
     void NotifyOnMouseUp(EventMouseStateInfo e) override;
-    void WaitForSync();
     void Add(std::unique_ptr<Element3d> element);
     template<typename type, typename ...Args>
     type& CreateElement(Args ... args)
@@ -77,5 +71,8 @@ public:
         return objRef;
     }
     Scene& Get3dScene();
+    AsyncRenderCommandHandler *GetRenderer() override;
+
+    void ScheduleRedraw() override;
 };
 

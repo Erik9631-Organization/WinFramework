@@ -15,14 +15,14 @@ class ScrollBar : public Panel
 {
 public:
     ScrollBar(int x, int y, int width, int height, const std::string &name);
-    ScrollBar(const std::string &name);
+    explicit ScrollBar(const std::string &name);
     ScrollBar();
     /**
      * \remark If control is called, the controlled component will also become owner of the scrollbar.
      * If the scrollbar owner dies, the scrollbar will be deleted
      * \param component The component the scrollbar controls
      */
-    static void Control(UiElement *component, std::unique_ptr<ScrollBar> scrollbar);
+    static void Control(UiElement &component, std::unique_ptr<ScrollBar> scrollbar);
     UiElement* GetControlledComponent();
     void ClearControl();
 private:

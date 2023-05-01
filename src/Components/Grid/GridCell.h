@@ -1,9 +1,8 @@
 #pragma once
-#include "api/Adjustable.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "EventTypes/EventMoveInfo.h"
+#include "Adjustable.h"
+#include "EventResizeInfo.h"
+#include "EventMoveInfo.h"
 #include "GridSpan.h"
-#include "Vector2Int.h"
 #include "vec2.hpp"
 
 class Grid;
@@ -13,7 +12,7 @@ class Grid;
 * 1) Each GridCell should have Setspan parameter. It recieved a data type that contains grid-column-start, grid-column-end, grid-row-start, grid-row-end
 * 2) When the span is set, the span parent is calculated. This is the top left cell of the entire span area.
 * 3) This way, all the cells within the span will refer to the top corner.
-* 4) The methods will be automatically delegated to the parent. Size and position should be an exception as the parent will use those values to calculate the spanning of its component
+* 4) The methods will be automatically delegated to the parent. Size and viewPortSize should be an exception as the parent will use those values to calculate the spanning of its component
 * The idea is that spanning should be possible with the existing grid system, without creating incompatibilities
 */
 
@@ -24,42 +23,20 @@ private:
 	Adjustable* associatedAdjustable = nullptr;
 
     glm::vec2 cellSize;
-	Vector2Int indexPos;
+	glm::vec3 indexPos = {0, 0, 0};
     glm::vec2 position;
-	Vector2Int CalculatePixelPosition();;
+    glm::vec4 absPos;
+    glm::ivec2 CalculatePixelPosition();;
 
 	GridSpan span;
 
-	Vector2Int GetSpanSize();
-
-    void SetPosition(glm::vec2 position) override;
-
-    void SetPosition(float x, float y) override;
-
-    void SetX(float x) override;
-
-    void SetY(float y) override;
-
-    void SetTranslate(glm::vec2 offset) override;
-
-    void SetTranslateX(float x) override;
-
-    void SetTranslateY(float y) override;
-
-    void SetSize(glm::vec2 size) override;
-
-    void SetSize(float width, float height) override;
-
-    void SetWidth(float width) override;
-
-    void SetHeight(float height) override;
-
+	glm::ivec2 GetSpanSize();
 public:
 
 	void ControlAdjustable(Adjustable* associatedAdjustable);
 	Adjustable* GetControlledAdjustable();
 
-	GridCell(Grid& parentGrid);
+	explicit GridCell(Grid& parentGrid);
 	// Inherited via Adjustable
 
 	GridCell* GetSpanParent(); // Can't be a variable since the parent can't exist unless the row exists
@@ -70,38 +47,22 @@ public:
 	bool IsSpanParent();
 
 
-	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual glm::vec2 GetSize() override;
-	virtual float GetWidth() override;
-	virtual float GetHeight() override;
-	virtual void SetSize(glm::vec2 size, bool emit) override;
-	virtual void SetSize(float width, float height, bool emit) override;
-	virtual void SetWidth(float width, bool emit) override;
-	virtual void SetHeight(float height, bool emit) override;
-	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual glm::vec2 GetPosition() override;
-	virtual float GetX() override;
-	virtual float GetY() override;
-	virtual float GetAbsoluteX() override;
-	virtual float GetAbsoluteY() override;
-	virtual glm::vec2 GetAbsolutePosition() override;
-	virtual void SetPosition(glm::vec2 position, bool emit) override;
-	virtual void SetPosition(float x, float y, bool emit) override;
-	virtual void SetX(float x, bool emit) override;
-	virtual void SetY(float y, bool emit) override;
-	virtual void SetTranslate(glm::vec2 offset, bool emit) override;
-	virtual void SetTranslateX(float x, bool emit) override;
-	virtual void SetTranslateY(float y, bool emit) override;
-	virtual glm::vec2 GetTranslate() override;
-	virtual float GetTranslateX() override;
-	virtual float GetTranslateY() override;
-	virtual void OnUpdate(EventUpdateInfo e) override;
+	void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+	void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+	void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+	const glm::vec3 & GetSize() const override;
+	void SetSize(const glm::vec3 &size, bool emit = true) override;
+	void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
+	void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
+	void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
+	[[nodiscard]] const glm::vec3 & GetPosition() const override;
+	[[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
+	void SetPosition(const glm::vec3 &position, bool emit = true) override;
+	void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
+	void OnUpdate(EventUpdateInfo e) override;
 	int GetPixelX();
 	int GetPixelY();
 	glm::vec2 GetPixelPosition();
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 };
 

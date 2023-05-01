@@ -1,31 +1,29 @@
 #include "UiElement.h"
 #include "Window.h"
-#include "EventTypes/EventResizeInfo.h"
-#include "EventTypes/RenderEventInfo.h"
-#include "EventTypes/EventUpdateInfo.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventUpdateInfo.h"
 #include "DrawData2D.h"
 #include <execution>
-#include <future>
 #include <algorithm>
-#include "Core/Windows/WindowsCore.h"
+#include "WindowsCore.h"
 using namespace std;
+//TODO Refactor movement. Incorporate z into the calculations
 
-void UiElement::Add(std::unique_ptr<UiElement> uiElement)
+UiElement & UiElement::Add(std::unique_ptr<UiElement> uiElement)
 {
+    auto& elementRef = *uiElement.release();;
     auto root = dynamic_cast<Window*>(&GetRoot());
-    if(root != nullptr)
-        root->WaitForSync();
+    //We always draw the added element on top of the current element(The parent)
 
-    addToContainerMutex.lock();
-    std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&uiElement->GetUiElementNode()};
+    std::unique_ptr<MultiTree<std::unique_ptr<UiElement>>> nodeToBeAdded {&elementRef.GetUiElementNode()};
     uiElementNode->AddNode(std::move(nodeToBeAdded));
-    //
-    uiElement.release();
-    addToContainerMutex.unlock();
 
     //RegisterComponent to the memory manager
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw)); //Recalculate offsets based on the current parent
+
+    if(root != nullptr)
+        elementRef.NotifyOnMounted(static_cast<Presenter&>(*root));
+
+    return elementRef;
 }
 
 UiElement::UiElement() : UiElement(0, 0, 0, 0, "")
@@ -43,16 +41,15 @@ UiElement::UiElement(float x, float y, float width, float height, string name) :
 	moveBehavior(*uiElementNode),
 	mouseHandler(*uiElementNode),
 	renderBehavior(*this),
-	viewport(*this),
 	keyStateBehavior(*this),
 	resizeBehavior(*this)
 {
-    moveBehavior.SetPosition(x, y, false);
-    resizeBehavior.SetSize(width, height, false);
+    moveBehavior.SetPosition({x, y, 0});
+    resizeBehavior.SetSize({width, height, 0});
 	this->name = name;
 }
 
-std::wstring UiElement::GetText()
+const wstring & UiElement::GetText()
 {
 	return text;
 }
@@ -60,7 +57,6 @@ std::wstring UiElement::GetText()
 void UiElement::SetText(std::wstring text)
 {
 	this->text = text;
-	//Repaint();
 }
 
 void UiElement::SetIgnoreTranslate(bool ignoreTranslate)
@@ -83,25 +79,9 @@ void UiElement::RemoveOnMoveSubscriber(MoveSubscriber& subscriber)
 	moveBehavior.RemoveOnMoveSubscriber(subscriber);
 }
 
-void UiElement::NotifyOnMoveSubscribers(EventMoveInfo event)
+void UiElement::NotifyOnMoveSubscribers(const EventMoveInfo &event)
 {
 	moveBehavior.NotifyOnMoveSubscribers(event);
-}
-
-void UiElement::SetX(float x, bool emit)
-{
-    //Can't change during sync.
-    //Perform a data update
-    //Notify the root that the data was updated
-
-    moveBehavior.SetX(x, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
-void UiElement::SetY(float y, bool emit)
-{
-    moveBehavior.SetY(y, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
 }
 
 void UiElement::OnRenderSync(RenderEventInfo e)
@@ -111,16 +91,17 @@ void UiElement::OnRenderSync(RenderEventInfo e)
 
 void UiElement::OnSync(const DrawData &data)
 {
-    auto parentPos = glm::vec2(0, 0);
-    if( !IsRoot())
+    auto parentPos = glm::vec3(0, 0, 0);
+
+    if(!IsRoot())
     {
-        parentPos.x = GetX();
-        parentPos.y = GetY();
+        parentPos.x = GetPosition().x;
+        parentPos.y = GetPosition().y;
     }
+
     DrawData2D drawData{parentPos, GetSize()};
     renderBehavior.OnSync(drawData);
 }
-
 
 void UiElement::Repaint()
 {
@@ -155,195 +136,18 @@ void UiElement::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 	resizeBehavior.RemoveOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetWidth(float width, bool emit)
-{
-    resizeBehavior.SetWidth(width, emit);
-}
-
-void UiElement::SetHeight(float height, bool emit)
-{
-    resizeBehavior.SetHeight(height, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
 std::vector<std::reference_wrapper<RenderCommander>> UiElement::GetRenderables()
 {
 	return renderBehavior.GetRenderables();
 }
 
-void UiElement::AddOnViewportMoveSubscriber(MoveSubscriber& subscriber)
-{
-	viewport.AddOnMoveSubscriber(subscriber);
-}
-
-void UiElement::RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber)
-{
-	viewport.RemoveOnMoveSubscriber(subscriber);
-}
-
-void UiElement::NotifyOnViewportMoveSubscribers(EventMoveInfo event)
-{
-	viewport.NotifyOnMoveSubscribers(event);
-}
-
-void UiElement::SetViewportXMultiplier(float x)
-{
-	viewport.SetXMultiplier(x);
-}
-
-void UiElement::SetViewportYMultiplier(float y)
-{
-	viewport.SetYMultiplier(y);
-}
-
-void UiElement::SetViewportWidthMultiplier(float width)
-{
-	viewport.SetWidthMultiplier(width);
-}
-
-void UiElement::SetViewportHeightMultiplier(float height)
-{
-	viewport.SetHeightMultiplier(height);
-}
-
-float UiElement::GetViewportXMultiplier()
-{
-	return viewport.GetViewportXMultiplier();
-}
-
-float UiElement::GetViewportYMultiplier()
-{
-	return viewport.GetViewportYMultiplier();
-}
-
-float UiElement::GetViewportWidthMultiplier()
-{
-	return viewport.GetViewportWidthMultiplier();
-}
-
-float UiElement::GetViewportHeightMultiplier()
-{
-	return viewport.GetViewportHeightMultiplier();
-}
-
-void UiElement::SetViewportXOffset(int x)
-{
-    viewport.SetX(x, false);
-}
-
-void UiElement::SetViewportYOffset(int y)
-{
-    viewport.SetY(y, false);
-}
-
-void UiElement::SetViewportOffset(glm::vec2 offset)
-{
-    viewport.SetPosition(offset, false);
-}
-
-int UiElement::GetViewportAbsoluteX()
-{
-	return viewport.GetAbsoluteX();
-}
-
-int UiElement::GetViewportAbsoluteY()
-{
-	return viewport.GetAbsoluteY();
-}
-
-glm::vec2 UiElement::GetViewportAbsolutePosition()
-{
-	return viewport.GetAbsolutePosition();
-}
-
-int UiElement::GetViewportX()
-{
-	return viewport.GetX();
-}
-
-int UiElement::GetViewportY()
-{
-	return viewport.GetY();
-}
-
-glm::vec2 UiElement::GetViewportPosition()
-{
-	return viewport.GetPosition();
-}
-
-void UiElement::NotifyOnViewportResizeSubscribers(EventResizeInfo event)
-{
-	viewport.NotifyOnResizeSubscribers(event);
-}
-
-void UiElement::AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
-{
-	viewport.AddOnResizeSubscriber(subscriber);
-}
-
-void UiElement::RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber)
-{
-	viewport.RemoveOnResizeSubscriber(subscriber);
-}
-
-int UiElement::GetViewportWidth()
-{
-	return viewport.GetWidth();
-}
-
-int UiElement::GetViewportHeight()
-{
-	return viewport.GetHeight();
-}
-
-void UiElement::SetViewportSize(glm::vec2 size)
-{
-    viewport.SetSize(size, false);
-}
-
-void UiElement::SetViewportSize(int width, int height)
-{
-    viewport.SetSize(width, height, false);
-}
-
-void UiElement::SetViewportWidth(int width)
-{
-    viewport.SetWidth(width, false);
-}
-
-void UiElement::SetViewportHeight(int height)
-{
-    viewport.SetHeight(height, false);
-}
-
-glm::vec2 UiElement::GetViewportSize()
-{
-	return viewport.GetSize();
-}
-
-int UiElement::GetViewportAbsoluteWidth()
-{
-	return viewport.GetViewportAbsoluteWidth();
-}
-
-int UiElement::GetViewportAbsoluteHeight()
-{
-	return viewport.GetViewportAbsoluteHeight();
-}
-
-glm::vec2 UiElement::GetViewportAbsoluteSize()
-{
-	return viewport.GetViewportAbsoluteSize();
-}
-
 void UiElement::OnUpdate(EventUpdateInfo e)
 {
-	moveBehavior.CalculateAbsolutePosition(); 
-	viewport.OnUpdate(e);
-	UpdateSubNodes(e); // Go through everything in the tree and update it, Only the first component in the tree should call redraw.
+	moveBehavior.CalculateAbsolutePosition();
+	UpdateSubNodes(e);
 	if (!e.HasFlag(EventUpdateFlags::Redraw))
 		return;
-	//Repaint();
+	Repaint();
 }
 
 void UiElement::AddOnActivateSubscriber(ActivateSubscriber& subscriber)
@@ -373,22 +177,22 @@ bool UiElement::IsActive()
 
 void UiElement::NotifyOnMouseDown(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMouseUp(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMousePressed(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMouseHover(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseHover(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseHover(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
@@ -401,11 +205,11 @@ void UiElement::RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber)
 	mouseHandler.RemoveMouseStateSubscriber(subscriber);
 }
 
-bool UiElement::ColidesWithPoint(glm::vec2 point)
+bool UiElement::ColidesWithPoint(glm::vec3 point)
 {
-	if ( !(point.x >= GetAbsoluteX() && point.x <= GetAbsoluteX() + GetWidth()) )
+	if ( !(point.x >= GetAbsolutePosition().x && point.x <= GetAbsolutePosition().x + GetSize().x) )
 		return false;
-	if ( !(point.y >= GetAbsoluteY() && point.y <= GetAbsoluteY() + GetHeight()) )
+	if ( !(point.y >= GetAbsolutePosition().y && point.y <= GetAbsolutePosition().y + GetSize().y) )
 		return false;
 	return true;
 }
@@ -425,7 +229,7 @@ bool UiElement::HasMouseEntered()
 	return mouseHandler.HasMouseEntered();
 }
 
-std::any UiElement::ColidesWithUpmost(glm::vec2 point)
+std::any UiElement::ColidesWithUpmost(glm::vec3 point)
 {
 	for (int i = 0; i < uiElementNode->GetNodeCount(); i++)
 	{
@@ -475,7 +279,7 @@ void UiElement::RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>
 	uiElementNode->RemoveOnAddSubscriber(subscriber);
 }
 
-void UiElement::SetTranslate(glm::vec2 offset, bool emit)
+void UiElement::SetTranslate(const glm::vec3 &offset, bool emit)
 {
 	if (ignoreTranslate)
 		return;
@@ -483,42 +287,17 @@ void UiElement::SetTranslate(glm::vec2 offset, bool emit)
     moveBehavior.SetTranslate(offset, emit);
 }
 
-void UiElement::SetTranslateX(float x, bool emit)
+const glm::vec3 & UiElement::GetTranslate() const
 {
-	if (ignoreTranslate)
-		return;
-    moveBehavior.SetTranslateX(x, emit);
+    return moveBehavior.GetTranslate();
 }
 
-void UiElement::SetTranslateY(float y, bool emit)
-{
-	if (ignoreTranslate)
-		return;
-
-    moveBehavior.SetTranslateY(y, emit);
-}
-
-glm::vec2 UiElement::GetTranslate()
-{
-	return moveBehavior.GetTranslate();
-}
-
-float UiElement::GetTranslateX()
-{
-	return moveBehavior.GetTranslateX();
-}
-
-float UiElement::GetTranslateY()
-{
-	return moveBehavior.GetTranslateY();
-}
-
-glm::vec2 UiElement::GetChildrenTranslate()
+glm::vec3 UiElement::GetChildrenTranslate()
 {
 	return moveBehavior.GetChildrenTranslate();
 }
 
-void UiElement::SetChildrenTranslate(glm::vec2 internalOffset)
+void UiElement::SetChildrenTranslate(glm::vec4 internalOffset)
 {
 	if (ignoreTranslate)
 		return;
@@ -538,18 +317,7 @@ void UiElement::UpdateSubNodes(EventUpdateInfo e)
 	}
 }
 
-
-float UiElement::GetAbsoluteX()
-{
-	return moveBehavior.GetAbsoluteX();
-}
-
-float UiElement::GetAbsoluteY()
-{
-	return moveBehavior.GetAbsoluteY();
-}
-
-glm::vec2 UiElement::GetAbsolutePosition()
+const glm::vec3 & UiElement::GetAbsolutePosition() const
 {
 	return moveBehavior.GetAbsolutePosition();
 }
@@ -579,40 +347,19 @@ void UiElement::SetComponentName(string name)
 	this->name = name;
 }
 
-glm::vec2 UiElement::GetSize()
+const glm::vec3 & UiElement::GetSize() const
 {
 	return resizeBehavior.GetSize();
 }
 
-glm::vec2 UiElement::GetPosition()
+const glm::vec3 & UiElement::GetPosition() const
 {
 	return moveBehavior.GetPosition();
-}
-
-float UiElement::GetWidth()
-{
-	return resizeBehavior.GetWidth();
-}
-
-float UiElement::GetHeight()
-{
-	return resizeBehavior.GetHeight();
-}
-
-float UiElement::GetX()
-{
-	return moveBehavior.GetX();
 }
 
 MultiTree<std::unique_ptr<UiElement>> & UiElement::GetUiElementNode()
 {
 	return *uiElementNode;
-}
-
-
-float UiElement::GetY()
-{
-	return moveBehavior.GetY();
 }
 
 UiElement * UiElement::GetParent()
@@ -622,15 +369,7 @@ UiElement * UiElement::GetParent()
 	return uiElementNode->GetParent().get();
 }
 
-
-void UiElement::SetSize(float width, float height, bool emit)
-{
-    ///Wait for sync
-    resizeBehavior.SetSize(width, height, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
-
-void UiElement::SetSize(glm::vec2 size, bool emit)
+void UiElement::SetSize(const glm::vec3 &size, bool emit)
 {
     resizeBehavior.SetSize(size, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -641,13 +380,8 @@ void UiElement::AddOnResizeListener(ResizeSubscriber& subscriber)
 	resizeBehavior.AddOnResizeSubscriber(subscriber);
 }
 
-void UiElement::SetPosition(float x, float y, bool emit)
-{
-    moveBehavior.SetPosition(x, y, emit);
-	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
-}
 
-void UiElement::SetPosition(glm::vec2 pos, bool emit)
+void UiElement::SetPosition(const glm::vec3 &pos, bool emit)
 {
     moveBehavior.SetPosition(pos, emit);
 	OnUpdate(EventUpdateInfo(EventUpdateFlags::Redraw | EventUpdateFlags::Move));
@@ -655,7 +389,7 @@ void UiElement::SetPosition(glm::vec2 pos, bool emit)
 
 void UiElement::NotifyOnMouseCapture(EventMouseStateInfo e)
 {
-    mouseHandler.NotifyOnMouseCapture(EventMouseStateInfo(e, this));
+    mouseHandler.NotifyOnMouseCapture(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 bool UiElement::IsMouseCaptured()
@@ -694,9 +428,9 @@ void UiElement::NotifyOnTick()
     for(OnTickSubscriber* i : tickSubscribers)
         i->OnTick();
 
-    std::for_each(std::execution::par, uiElementNode->GetNodes().begin(), uiElementNode->GetNodes().end(), [&](auto& node)
+    std::for_each(std::execution::par, tickSubscribers.begin(), tickSubscribers.end(), [&](auto* subscriber)
     {
-        node->GetValue()->NotifyOnTick();
+        subscriber->OnTick();
     });
     addToContainerMutex.unlock();
 }
@@ -710,57 +444,100 @@ UiElement::~UiElement()
     }
 }
 
-void UiElement::SetPosition(glm::vec2 position)
+void UiElement::AddOnMountedSubscriber(MountedSubscriber &subscriber)
 {
-    SetPosition(position, true);
+    mountedSubscribers.push_back(&subscriber);
+    if(this->GetPresenter() != nullptr)
+        NotifyOnMounted(*this->GetPresenter());
 }
 
-void UiElement::SetPosition(float x, float y)
+void UiElement::RemoveOnMountedSubscriber(MountedSubscriber &subscriber)
 {
-    SetPosition(x, y, true);
+    for(auto it = mountedSubscribers.begin(); it != mountedSubscribers.end(); it++)
+    {
+        if(*it == &subscriber)
+        {
+            mountedSubscribers.erase(it);
+            return;
+        }
+    }
 }
 
-void UiElement::SetX(float x)
+void UiElement::NotifyOnMounted(Presenter &presenter)
 {
-    SetX(x, true);
+    for(auto subscriber : mountedSubscribers)
+        subscriber->OnMounted(presenter, *this);
+
+    for(auto& element : GetUiElementNode().GetNodes())
+    {
+        element->GetValue()->NotifyOnMounted(presenter);
+    }
+    this->presenter = &presenter;
+    OnMounted(presenter, *this);
 }
 
-void UiElement::SetY(float y)
+Presenter *UiElement::GetPresenter()
 {
-    SetY(y, true);
+    return presenter;
 }
 
-void UiElement::SetTranslate(glm::vec2 offset)
+
+void UiElement::OnMounted(Presenter &presenter, UiElement& element)
 {
-    SetTranslate(offset, true);
+    this->presenter = &presenter;
 }
 
-void UiElement::SetTranslateX(float x)
+void UiElement::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    SetTranslateX(x, true);
+    viewport.AddViewport2Subscriber(subscriber);
 }
 
-void UiElement::SetTranslateY(float y)
+void UiElement::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    SetTranslateY(y, true);
+    viewport.RemoveViewport2Subscriber(subscriber);
 }
 
-void UiElement::SetSize(glm::vec2 size)
+void UiElement::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
 {
-    SetSize(size, true);
+    viewport.NotifyOnViewportSizeChanged(event);
 }
 
-void UiElement::SetSize(float width, float height)
+void UiElement::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
 {
-    SetSize(width, height, true);
+    viewport.NotifyOnViewportPositionChanged(event);
 }
 
-void UiElement::SetWidth(float width)
+void UiElement::SetViewportSize(const glm::vec3 &input)
 {
-    SetWidth(width, true);
+    viewport.SetViewportSize(input);
 }
 
-void UiElement::SetHeight(float height)
+void UiElement::SetViewportPosition(const glm::vec3 &input)
 {
-    SetHeight(height, true);
+    viewport.SetViewportPosition(input);
+}
+
+const glm::vec3 & UiElement::GetViewportSize()
+{
+    return viewport.GetViewportSize();
+}
+
+const glm::vec3 & UiElement::GetViewportPosition()
+{
+    return viewport.GetViewportPosition();
+}
+
+void UiElement::ResetViewport()
+{
+    viewport.ResetViewport();
+}
+
+bool UiElement::IsViewportSet() const
+{
+    return viewport.IsViewportSet();
+}
+
+void UiElement::NotifyOnViewportReset(const Viewport2EventInfo &event)
+{
+    viewport.NotifyOnViewportReset(event);
 }

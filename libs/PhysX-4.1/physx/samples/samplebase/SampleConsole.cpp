@@ -31,7 +31,7 @@
 #include "SamplePreprocessor.h"
 #include "SampleConsole.h"
 #include "RendererMemoryMacros.h"
-#include "Renderer.h"
+#include RenderingApi.h
 #include "PsString.h"
 #include "PsUtilities.h"
 #include "SampleBaseInputEventIds.h"

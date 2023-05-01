@@ -1,21 +1,21 @@
 /**
-* Class responsibility is to generate resize events, position change events, onHover events and onAction evenets.
+* Class responsibility is to generate resize events, viewPortSize change events, onHover events and onAction evenets.
   The class acts as an observer and is a composite for the class Shape and class Vgraphics
 */
 #pragma once
 #include <vector>
 #include <string>
 #include "DefaultMultiTree.h"
-#include "DefaultMove.h"
+#include "UiMoveBehavior.h"
 #include "DefaultResize.h"
-#include "api/RenderCommander.h"
+#include "RenderCommander.h"
 #include "DefaultRender.h"
-#include "Viewport.h"
-#include "api/Viewable.h"
+#include "ModelViewport.h"
+#include "Viewable.h"
 #include "UpdateSubscriber.h"
 #include "DefaultActivate.h"
-#include "api/Collidable.h"
-#include "api/MouseInteractable.h"
+#include "Collidable.h"
+#include "MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
 #include "DefaultKeyStateBehavior.h"
 #include "AccessTools.h"
@@ -24,6 +24,7 @@
 #include "OnTickSubscriber.h"
 #include "Presenter.h"
 #include "KeyStateSubject.h"
+#include "MountedSubject.h"
 
 
 class EventInfo;
@@ -34,11 +35,13 @@ class EventHoverInfo;
 
 class UiElement : virtual public Adjustable,
     public virtual RenderCommander,
-    public virtual Viewable,
     public virtual MouseInteractable,
     public virtual KeyStateSubject,
     public virtual AddSubject<std::unique_ptr<UiElement>>,
-    public virtual TickSubject
+    public virtual TickSubject,
+    public virtual MountedSubject,
+    public virtual MountedSubscriber,
+    public virtual Viewport2
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -48,28 +51,34 @@ protected:
 	std::string name;
 	DefaultMultiTree<std::unique_ptr<UiElement>>* uiElementNode;
 	DefaultRender renderBehavior;
-	DefaultMove<std::unique_ptr<UiElement>> moveBehavior;
+	UiMoveBehavior<std::unique_ptr<UiElement>> moveBehavior;
 	DefaultMouseBehavior<MultiTree<std::unique_ptr<UiElement>> &> mouseHandler;
+    std::vector<MountedSubscriber*>mountedSubscribers;
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
-	Viewport viewport;
+	ModelViewport viewport;
 	std::wstring text;
 	bool ignoreTranslate = false;
 	std::vector<OnTickSubscriber*> tickSubscribers;
+    Presenter* presenter = nullptr;
     //Used to check for a special case where there is no parent and UiElementNode was already deleted to prevent cyclic
     //Deletion
     bool deletedElementNode = false;
 public:
 	UiElement();
-	UiElement(std::string name);
+	explicit UiElement(std::string name);
 	UiElement(float x, float y, float width, float height, std::string name);
+    Presenter* GetPresenter();
+
+
 	/**
 	 * Returns the text value of the component. (Usually used for name or description)
 	 * \return returns unicode string value
 	 */
-	virtual std::wstring GetText();
-	
+	virtual const std::wstring & GetText();
+
+    //TODO UI element doesn't have text. Only tag. Should be moved to individual interfaces
 	/**
 	 * Sets the text value of the component. (Usually used for name or description)
 	 * \param text sets the unicode text value of the component.
@@ -78,13 +87,13 @@ public:
 
 	/**
 	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
-	 * \param ignoreTranslate true for ignoring the position, false for not ignoring the position
+	 * \param ignoreTranslate true for ignoring the viewPortSize, false for not ignoring the viewPortSize
 	 */
 	void SetIgnoreTranslate(bool ignoreTranslate);
 	
 	/**
 	 * Sets whether the component should ignore values set by SetTranslate, SetTranslateX, SetTranslateY
-	 * \param ignoreOffset true for ignoring the position, false for not ignoring the position
+	 * \param ignoreOffset true for ignoring the viewPortSize, false for not ignoring the viewPortSize
 	 */
 	bool IsIgnoringTranslate();
 
@@ -99,26 +108,21 @@ public:
 	 * \return returns reference to the component at the top of the containment hierarchy.
 	 */
 	UiElement& GetRoot();
-	glm::vec2 GetSize() override;
-	glm::vec2 GetPosition() override;
-	float GetWidth() override;
-	float GetHeight() override;
-	float GetX() override;
-	
+	[[nodiscard]] const glm::vec3 & GetSize() const override;
+	[[nodiscard]] const glm::vec3 & GetPosition() const override;
+
 	/**
 	 * Gets the current node within the containment hierarchy
 	 * \return returns a node within the Tree of the containment hierarchy.
 	 */
     MultiTree<std::unique_ptr<UiElement>> & GetUiElementNode();
-	float GetY() override;
 
 	/**
 	 * Gets the pointer to the parent of this component
 	 * \return returns pointer of the parent component.
 	 */
 	UiElement * GetParent();
-	void SetSize(float width, float height, bool emit) override;
-	void SetSize(glm::vec2 size, bool emit) override;
+	void SetSize(const glm::vec3 &size, bool emit = true) override;
 	
 	/**
 	 * \deprecated use AddOnResizeSubscriber instead
@@ -143,188 +147,107 @@ public:
 	 */
 	void SetComponentName(std::string name);
 
-	virtual void SetPosition(float x, float y, bool emit) override;
-	virtual void SetPosition(glm::vec2 pos, bool emit) override;
+    void SetPosition(const glm::vec3 &pos, bool emit = true) override;
 
 	/**
 	 * Adds a new uiElement to the containment hierarchy. A uiElement that wants to be displayed has to be within a hierarchy that contains a window.
 	 * \param uiElement the uiElement to be added
 	 */
-	virtual void Add(std::unique_ptr<UiElement> uiElement);
+	virtual UiElement & Add(std::unique_ptr<UiElement> uiElement);
 	
 	template <typename type, typename ... Args>
-	type& Create(Args  ... args)
+	type& CreateElement(Args  ... args)
 	{
-		std::unique_ptr<type> instance = std::make_unique(args ...);
-		auto ref = instance;
-		uiElementNode->Add(instance);
+		std::unique_ptr<type> instance = std::make_unique<type>(std::forward<Args>(args) ...);
+		auto& ref = *instance;
+		Add(std::move(instance));
 		return ref;
 	}
 
 	virtual ~UiElement();
+
+    // Inherited via Activatable
+    void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+    void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
+    void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
+    void SetActive(bool state) override;
+    bool IsActive() override;
 	
 
 
 	// Inherited via Movable
-	virtual void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnMoveSubscribers(EventMoveInfo event) override;
-	virtual void SetX(float x, bool emit) override;
-	virtual void SetY(float y, bool emit) override;
-	virtual float GetAbsoluteX() override;
-	virtual float GetAbsoluteY() override;
-	virtual glm::vec2 GetAbsolutePosition() override;
+    void AddOnMoveSubscriber(MoveSubscriber& subscriber) override;
+    void RemoveOnMoveSubscriber(MoveSubscriber& subscriber) override;
+    void NotifyOnMoveSubscribers(const EventMoveInfo &event) override;
+    [[nodiscard]] const glm::vec3 & GetAbsolutePosition() const override;
 
 	// Inherited via Renderable
-	virtual void OnRenderSync(RenderEventInfo e) override;
-	virtual void Repaint() override;
-	virtual void AddRenderCommander(RenderCommander &renderable) override;
-	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
+    void OnRenderSync(RenderEventInfo e) override;
+    void Repaint() override;
+    void AddRenderCommander(RenderCommander &renderable) override;
+    void RemoveRenderCommander(RenderCommander& renderable) override;
 
 	// Inherited via Resizable
-	virtual void NotifyOnResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void SetWidth(float width, bool emit) override;
-	virtual void SetHeight(float height, bool emit) override;
+    void NotifyOnResizeSubscribers(EventResizeInfo event) override;
+    void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;
+    void RemoveOnResizeSubscriber(ResizeSubscriber& subscriber) override;
 
 	// Inherited via Renderable
-	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-
-	// Inherited via Viewable
-	virtual void AddOnViewportMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void RemoveOnViewportMoveSubscriber(MoveSubscriber& subscriber) override;
-	virtual void NotifyOnViewportMoveSubscribers(EventMoveInfo event) override;
-	virtual void SetViewportXMultiplier(float x) override;
-	virtual void SetViewportYMultiplier(float y) override;
-	virtual void SetViewportWidthMultiplier(float width) override;
-	virtual void SetViewportHeightMultiplier(float height) override;
-	virtual float GetViewportXMultiplier() override;
-	virtual float GetViewportYMultiplier() override;
-	virtual float GetViewportWidthMultiplier() override;
-	virtual float GetViewportHeightMultiplier() override;
-	virtual void SetViewportXOffset(int x) override;
-	virtual void SetViewportYOffset(int y) override;
-	virtual void SetViewportOffset(glm::vec2 offset) override;
-	virtual int GetViewportAbsoluteX() override;
-	virtual int GetViewportAbsoluteY() override;
-	virtual glm::vec2 GetViewportAbsolutePosition() override;
-	virtual int GetViewportX() override;
-	virtual int GetViewportY() override;
-	virtual glm::vec2 GetViewportPosition() override;
-	virtual void NotifyOnViewportResizeSubscribers(EventResizeInfo event) override;
-	virtual void AddOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual void RemoveOnViewportResizeSubscriber(ResizeSubscriber& subscriber) override;
-	virtual int GetViewportWidth() override;
-	virtual int GetViewportHeight() override;
-	virtual void SetViewportSize(glm::vec2 size) override;
-	virtual void SetViewportSize(int width, int height) override;
-	virtual void SetViewportWidth(int width) override;
-	virtual void SetViewportHeight(int height) override;
-	virtual glm::vec2 GetViewportSize() override;
-
-	// Inherited via Viewable
-	virtual int GetViewportAbsoluteWidth() override;
-	virtual int GetViewportAbsoluteHeight() override;
-	virtual glm::vec2 GetViewportAbsoluteSize() override;
-
+    std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
 	// Inherited via UpdateSubscriber
-	virtual void OnUpdate(EventUpdateInfo e) override;
-
-	// Inherited via Activatable
-	virtual void AddOnActivateSubscriber(ActivateSubscriber& subscriber) override;
-	virtual void RemoveOnActivateSubscriber(ActivateSubscriber& subscriber) override;
-	virtual void NotifyOnActivateStateChanged(EventOnActivateInfo& activateInfo) override;
-	virtual void SetActive(bool state) override;
-	virtual bool IsActive() override;
+    void OnUpdate(EventUpdateInfo e) override;
 
 	// Inherited via MouseStateSubject
-	virtual void NotifyOnMouseDown(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseUp(EventMouseStateInfo e) override;
-	virtual void NotifyOnMousePressed(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseHover(EventMouseStateInfo e) override;
-	virtual void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
-	virtual void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+    void NotifyOnMouseDown(EventMouseStateInfo e) override;
+    void NotifyOnMouseUp(EventMouseStateInfo e) override;
+    void NotifyOnMousePressed(EventMouseStateInfo e) override;
+    void NotifyOnMouseHover(EventMouseStateInfo e) override;
+    void AddMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
+    void RemoveMouseStateSubscriber(MouseStateSubscriber& subscriber) override;
 
 	// Inherited via Collidable
-	virtual bool ColidesWithPoint(glm::vec2 point) override;
+    bool ColidesWithPoint(glm::vec3 point) override;
 
 	// Inherited via MouseStateSubject
-	virtual void NotifyOnMouseEnter(EventMouseStateInfo e) override;
-	virtual void NotifyOnMouseLeave(EventMouseStateInfo e) override;
+    void NotifyOnMouseEnter(EventMouseStateInfo e) override;
+    void NotifyOnMouseLeave(EventMouseStateInfo e) override;
 
 	// Inherited via MouseInteractable
-	virtual bool HasMouseEntered() override;
-
-	/**
-	 * Sets the property via the meta object protocol. List of available properties can be found in all classes that implement the Renderable interface.
-	 * \param name the property name that should be changed
-	 * \param args the arguments of the property that should be changed.
-	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
-	 */
-	template<typename ... Args>
-	void SetProperty(std::string name, Args ... args)
-	{
-		for (RenderCommander& renderable : GetRenderables())
-		{
-			AccessTools::Invoke<void>(name, renderable, args ...);
-		}
-		//Repaint();
-
-	}
-
-	/**
-	 * Get the property via the meta object protocol. List of available properties can be found in all classes the implement the Renderable interface.
-	 * \param name the property name the value of which you want returned.
-	 * \param args the arguments of the property.
-	 * \tparam Args the type of arguments that the property receives (Should be auto resolved by the compiler).
-	 */
-	template<typename returnType, typename ... Args>
-	returnType GetPropery(std::string name, Args ... args)
-	{
-		for (RenderCommander& renderable : GetRenderables())
-		{
-			return AccessTools::Invoke<returnType>(name, renderable, args ...);
-		}
-	}
+    bool HasMouseEntered() override;
 
 	// Inherited via MouseInteractable
-	virtual std::any ColidesWithUpmost(glm::vec2 point) override;
+    std::any ColidesWithUpmost(glm::vec3 point) override;
 
 	// Inherited via KeyStateSubject
-	virtual void NotifyOnKeyDown(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyUp(EventKeyStateInfo e) override;
-	virtual void NotifyOnKeyPressed(EventKeyStateInfo e) override;
-	virtual void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
-	virtual void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+    void NotifyOnKeyDown(EventKeyStateInfo e) override;
+	void NotifyOnKeyUp(EventKeyStateInfo e) override;
+    void NotifyOnKeyPressed(EventKeyStateInfo e) override;
+    void AddKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
+    void RemoveKeyStateSubscriber(KeyStateSubscriber& subscriber) override;
 
 
 	// Inherited via AddSubject
-	virtual void NotifyOnAddInfo(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
-	virtual void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
-	virtual void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
+    void NotifyOnAddInfo(EventOnAddInfo<std::unique_ptr<UiElement>> e) override;
+    void AddOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
+    void RemoveOnAddSubscriber(OnAddSubscriber<std::unique_ptr<UiElement>>& subscriber) override;
 
 	// Inherited via Viewable
-	virtual void SetTranslate(glm::vec2 offset, bool emit) override;
-	virtual void SetTranslateX(float x, bool emit) override;
-	virtual void SetTranslateY(float Y, bool emit) override;
+    void SetTranslate(const glm::vec3 &offset, bool emit = true) override;
 
 	// Inherited via Adjustable
-	virtual glm::vec2 GetTranslate() override;
-	virtual float GetTranslateX() override;
-	virtual float GetTranslateY() override;
+    [[nodiscard]] const glm::vec3 & GetTranslate() const override;
 	
 	/**
-	 * Gets the internal position of the child components
-	 * \return returns the point that contains X and Y of the internal position.
+	 * Gets the internal viewPortSize of the child components
+	 * \return returns the point that contains X and Y of the internal viewPortSize.
 	 */
-    glm::vec2 GetChildrenTranslate();
+    glm::vec3 GetChildrenTranslate();
 	
 	/**
-	 * Sets the position of all the subcomponents that are owned by this component at once
-	 * \param internalOffset the position
+	 * Sets the viewPortSize of all the subcomponents that are owned by this component at once
+	 * \param internalOffset the viewPortSize
 	 */
-	void SetChildrenTranslate(glm::vec2 internalOffset);
+	void SetChildrenTranslate(glm::vec4 internalOffset);
 
     void NotifyOnMouseCapture(EventMouseStateInfo e) override;
 
@@ -336,25 +259,36 @@ public:
 	void RemoveOnTickSubscriber(OnTickSubscriber *subscriber) override;
 	void NotifyOnTick() override;
 
-    void SetPosition(glm::vec2 position) override;
+    void AddOnMountedSubscriber(MountedSubscriber &subscriber) override;
 
-    void SetPosition(float x, float y) override;
+    void RemoveOnMountedSubscriber(MountedSubscriber &subscriber) override;
 
-    void SetX(float x) override;
+    void NotifyOnMounted(Presenter &presenter) override;
 
-    void SetY(float y) override;
+    /**
+    * Called by the TopMost component added to the Presenter to notify the others that they have a presenter.
+    */
+    void OnMounted(Presenter &presenter, UiElement& element) override;
 
-    void SetTranslate(glm::vec2 offset) override;
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
-    void SetTranslateX(float x) override;
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
 
-    void SetTranslateY(float y) override;
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
 
-    void SetSize(glm::vec2 size) override;
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
 
-    void SetSize(float width, float height) override;
+    void SetViewportSize(const glm::vec3 &input) override;
 
-    void SetWidth(float width) override;
+    void SetViewportPosition(const glm::vec3 &input) override;
 
-    void SetHeight(float height) override;
+    const glm::vec3 & GetViewportSize() override;
+
+    const glm::vec3 & GetViewportPosition() override;
+
+    void ResetViewport() override;
+
+    [[nodiscard]] bool IsViewportSet() const override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
 };

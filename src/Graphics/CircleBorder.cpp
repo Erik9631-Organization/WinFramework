@@ -1,5 +1,5 @@
 #include "CircleBorder.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 #include "DrawData.h"
 #include "RenderingPool.h"
 
@@ -16,9 +16,9 @@ CircleBorder::~CircleBorder()
 
 void CircleBorder::OnRenderSync(RenderEventInfo e)
 {
-    Renderer& renderer = e.GetRenderer()->Acquire(*this);
+    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
 
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    graphicsUtil.Scale(drawData.GetSize());
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
     renderer.DrawEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
@@ -41,7 +41,7 @@ void CircleBorder::RemoveRenderCommander(RenderCommander& renderable)
 
 void CircleBorder::SetDiameter(float diameter)
 {
-    this->size = {diameter, diameter};
+    this->size = {diameter, diameter, 0, 0};
     this->diameter = diameter;
 }
 
@@ -64,9 +64,9 @@ float CircleBorder::GetThickness()
     return thickness;
 }
 
-void CircleBorder::SetColor(Vector3 color)
+void CircleBorder::SetColor(glm::ivec3 color)
 {
-    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    this->color = {color.x, color.y, color.z, 255};
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeX() const
@@ -76,7 +76,7 @@ GraphicsScaling CircleBorder::GetScalingTypeX() const
 
 void CircleBorder::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    graphicsUtil.SetScalingTypeX(scalingTypeX);
+    graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeY() const
@@ -86,7 +86,7 @@ GraphicsScaling CircleBorder::GetScalingTypeY() const
 
 void CircleBorder::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    return graphicsUtil.SetScalingTypeY(scalingTypeY);
+    return graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 GraphicsScaling CircleBorder::GetScalingTypeWidth() const
@@ -129,12 +129,12 @@ void CircleBorder::SetDrawFromCenterX(bool drawFromCenterX)
     graphicsUtil.SetCalculateFromCenterX(drawFromCenterX);
 }
 
-glm::vec2 CircleBorder::GetPosition()
+glm::vec4 CircleBorder::GetPosition()
 {
     return position;
 }
 
-void CircleBorder::SetPosition(glm::vec2 point)
+void CircleBorder::SetPosition(glm::vec4 point)
 {
     this->position = point;
 }
@@ -159,7 +159,7 @@ float CircleBorder::GetY()
     return position.y;
 }
 
-void CircleBorder::SetColor(Vector4 color)
+void CircleBorder::SetColor(glm::ivec4 color)
 {
     this->color = color;
 }

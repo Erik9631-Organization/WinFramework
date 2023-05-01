@@ -1,6 +1,6 @@
 #include "DefaultActivate.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "Events/ActivateSubscriber.h"
+#include "EventOnActivateInfo.h"
+#include "ActivateSubscriber.h"
 
 void DefaultActivate::SetActivatable(bool state)
 {
@@ -33,13 +33,13 @@ void DefaultActivate::RemoveOnActivateSubscriber(ActivateSubscriber& subscriber)
 void DefaultActivate::SetActive(bool state)
 {
     this->state = state;
-    NotifyOnActivateStateChanged(EventOnActivateInfo(state));
-    return;
+    auto event{EventOnActivateInfo(state, this)};
+    NotifyOnActivateStateChanged(event);
 }
 
 bool DefaultActivate::IsActive()
 {
-    if (activatable == false)
+    if (!activatable)
         return false;
 
     return state;

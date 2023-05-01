@@ -6,9 +6,9 @@
 #include "Utils/ApplicationController.h"
 #include "Events/ResizeSubscriber.h"
 #include "Events/MoveSubscriber.h"
-#include "api/Movable.h"
-#include "api/Resizable.h"
-#include "EventTypes/EventMoveInfo.h"
+#include "Movable.h"
+#include "Resizable.h"
+#include "EventMoveInfo.h"
 #include "TimerSubscriber.h"
 #include "Timer.h"
 #include "RenderEventInfo.h"
@@ -16,15 +16,13 @@
 #include "CoreMediator.h"
 #include "CoreSubject.h"
 #include "Core.h"
-class RenderingProvider;
+class Renderer;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
  * This class is responsible for handling the windows messaging, creating events and responsible for the rendering system.
  */
 class WindowsCore : public RenderCommander, public Core
 {
-
-
 private:
     class MsgSubject : ResizeSubject
     {
@@ -46,15 +44,14 @@ private:
     std::thread* updateThread;
     std::string windowName;
     LONG style;
-
-    glm::vec2 mousePos;
-    glm::vec2 prevMousePos;
-    glm::vec2 mouseDelta;
-    glm::vec2 relativePos;
-    glm::vec2 lockCursorSize;
+    glm::vec3 mousePos;
+    glm::vec3 prevMousePos;
+    glm::vec3 mouseDelta;
+    glm::vec3 relativePos;
+    glm::vec3 lockCursorSize;
     RECT lockCursorRegion;
     bool cursorLocked = false;
-	std::unique_ptr<RenderingProvider> renderingProvider = nullptr;
+	std::unique_ptr<AsyncRenderCommandHandler> renderer = nullptr;
 	bool updateFinished = true;
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;
@@ -67,8 +64,9 @@ private:
     void CreateWinApiWindow();
     WindowsCore(Window *wrapperFrame, const std::string &windowName, LONG style);
     static LRESULT WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+    static constexpr unsigned int REDRAW_MESSAGE = WM_USER + 1;
 public:
-    void SetLockCursorSize(const glm::vec2 &size);
+    void SetLockCursorSize(const glm::vec3 &size);
     void LockCursor(const bool& lockState);
     const bool& IsCursorLocked() const;
     bool IsEventBased() const;
@@ -97,7 +95,7 @@ public:
 	/**
 	 * Repaints the current window.
 	 */
-	void Redraw();
+	void ScheduleRedraw();
 	/**
 	 * Closes the current window.
 	 */
@@ -128,7 +126,7 @@ public:
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	
 	/**
-	 * Similar to Redraw, but also updates the position and scale.
+	 * Similar to ScheduleRedraw, but also updates the viewPortSize and scale.
 	 * \param e event object to pass.
 	 */
 	virtual void Repaint() override;
@@ -165,8 +163,8 @@ public:
 
 	void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
 	void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber);
-	void SetRenderingProvider(std::unique_ptr<RenderingProvider> provider);
-	RenderingProvider* GetRenderingProvider();
+	void SetRenderer(std::unique_ptr<AsyncRenderCommandHandler> provider);
+	AsyncRenderCommandHandler * GetRenderer();
     void OnSync(const DrawData &data) override;
     void WaitForUpdateToFinish();
     void NotifyCoreOnDestroy(std::any src) override;
@@ -192,6 +190,6 @@ public:
 
     void SetWindow(Window *window) override;
 
-    void WaitForRenderingSyncToFinish() override;
+    void ForceRedraw() override;
 };
 

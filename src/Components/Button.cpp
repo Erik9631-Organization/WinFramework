@@ -2,105 +2,75 @@
 #include "Core/Windows/WindowsCore.h"
 #include "FontAlignment.h"
 
-void Button::SetBorderColor(Vector3 color)
+void Button::SetBorderColor(const glm::ivec4 &color)
 {
 	border.SetColor(color);
-	//Repaint();
 }
 
-void Button::SetBackgroundColor(Vector3 color)
+void Button::SetBackgroundColor(const glm::ivec4 &color)
 {
 	background.SetColor(color);
-	buttonBehavior.SetStatelessColor(color);
-	//Repaint();
 }
 
-
-Vector3 Button::GetBackgroundColor()
+const glm::ivec4 & Button::GetBackgroundColor()
 {
     return buttonBehavior.GetStandardColor();
 }
 
-Vector3 Button::GetBorderColor()
+const glm::ivec4 & Button::GetBorderColor()
 {
-	return border.GetColor();
+	return glm::vec4{0};
+}
+
+Button::Button(float x, float y, float width, float height, const std::string& name = "") : UiElement(x, y, width, height, name),
+    buttonBehavior(*this),
+    background(*this),
+    text(*this),
+    border(*this)
+{
+    componentType = "Button";
+    border.SetColor({0, 0, 0, 255});
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetColor({255, 0, 0, 255});
 }
 
 void Button::SetBorderThickness(float thickness)
 {
-	border.SetThickness(thickness);
-	//Repaint();
-}
 
-
-Button::Button(int x, int y, int width, int height) : text("Arial"), buttonBehavior(*this)
-{
-    SetSize(width, height, false);
-    SetPosition(x, y, false);
-	componentType = "Button";
-
-	border.SetColor({0, 0, 0});
-	border.SetThickness(1.0f);
-
-	SetBackgroundColor({30, 30, 30});
-
-	text.SetScalingTypeY(Percentual);
-	text.SetScalingTypeY(Percentual);
-
-	text.SetPosition({0.5f, 0.5f});
-	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
-	text.SetAlignment(FontAlingnment::FontAlignmentCenter);
-
-    renderBehavior.AddRenderCommander(background);
-    renderBehavior.AddRenderCommander(border);
-    renderBehavior.AddRenderCommander(text);
 }
 
 void Button::SetText(std::wstring text)
 {
 	this->text.SetText(text);
-	//Repaint();
 }
 
-std::wstring Button::GetText()
+const std::wstring & Button::GetText()
 {
 	return text.GetText();
 }
 
-
-Button::~Button()
+void Button::SetOnHoverColor(const glm::ivec4 &color)
 {
-
+    buttonBehavior.SetOnHoverBackgroundColor(color);
 }
 
-void Button::SetOnHoverColor(Vector3 color)
+void Button::SetOnClickColor(const glm::vec4 &color)
 {
-    buttonBehavior.SetOnHoverColor(color);
+    buttonBehavior.SetOnClickBackgroundColor(color);
 }
 
-void Button::SetOnClickColor(Vector3 color)
-{
-    buttonBehavior.SetOnClickColor(color);
-}
-
-
-void Button::SetColor(Vector3 color)
-{
-    background.SetColor(color);
-    //Repaint();
-}
-
-Vector3 Button::GetOnClickColor()
+const glm::ivec4 & Button::GetOnClickColor()
 {
     return buttonBehavior.GetOnClickColor();
 }
 
-Vector3 Button::GetOnHoverColor()
+const glm::ivec4 & Button::GetOnHoverColor()
 {
     return buttonBehavior.GetOnHoverColor();
 }
 
-Vector3 Button::GetColor()
+void Button::SetStatelessBackgroundColor(const glm::ivec4 &color)
 {
-    return background.GetColor();
+    buttonBehavior.SetBackgroundColor(color);
 }

@@ -26,13 +26,13 @@ OpenGL::DefaultGpuMemoryAllocator::Push(Mesh &mesh)
     realSize = mesh.GetVertices()->size();
 
     pointerPair.first = gpuMemoryManager.Copy<float>((float*)mesh.GetVertices()->data(), paddedSize);
-    //pointerPair.first = gpuMemoryManager.Copy<float>((float*)mesh.GetVertices()->data(), mesh.GetVertices()->size());
+    //pointerPair.first = gpuMemoryManager.Copy<float>((float*)mesh.GetVertices()->data(), mesh.GetVertices()->viewPortPosition());
     if(mesh.GetIndices() == nullptr)
         return pointerPair;
 
     paddedSize = CalculatePadding(mesh.GetIndices()->size(), vertexAttributes->GetVerticeCount());
     realSize = mesh.GetIndices()->size();
-    //pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), mesh.GetIndices()->size());
+    //pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), mesh.GetIndices()->viewPortPosition());
     pointerPair.second = gpuMemoryManager.Copy<unsigned int>((unsigned int*)mesh.GetIndices()->data(), paddedSize);
 
     return pointerPair;

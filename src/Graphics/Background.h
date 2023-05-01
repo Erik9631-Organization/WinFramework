@@ -2,10 +2,11 @@
 #include "api/RenderCommander.h"
 #include "DefaultRender.h"
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "ScalingUtil2D.h"
 #include "DrawData2D.h"
+#include "Appearance.h"
+#include "RectangleProxy.h"
+#include "DefaultRelativeZIndex.h"
 
 /**
  * A background renderable. Displays a backround with the defined color in the entire canvas of the component.
@@ -13,61 +14,62 @@
  * background-color, args: Gdiplus::Color, return void
  * get-background-color, return Gdiplus::Color
  */
-class Background : public RenderCommander, public Reflectable<Background>
+
+//TODO const correctness---Mark functions that return const as const functions
+
+class Background : public Appearance
 {
 private:
-
-	DefaultRender renderBehavior;
-	Vector4 currentColor;
-	ReflectionContainer<Background> reflectionContainer;
-    glm::vec2 position;
-	ScalingUtil graphicsUtil;
-    glm::vec2 size;
-	DrawData2D drawData;
-
+    Presenter* presenter = nullptr;
+    RectangleProxy rectangleProxy;
+    UiElement& associatedElement;
+    glm::vec3 relativeZIndex = {0, 0, DefaultRelativeZIndex::GetInstance()->GetIndex("BackgroundIndex")};
 public:
-	Background();
-	~Background();
+    explicit Background(UiElement& element);
+    ~Background() override;
 
-	void SetColor(Vector3 color);
-	void SetColor(Vector4 color);
-	Vector3 GetColor();
-	Vector4 GetColorRGBA();
-	void SetWidth(float width);
-	void SetHeight(float height);
-	void SetPosition(glm::vec2 position);
-	void SetSize(glm::vec2 size);
+    const glm::ivec4& GetColor();
 
-	GraphicsScaling GetScalingTypeX() const;
-	void SetScalingTypeX(GraphicsScaling scalingTypeX);
-	GraphicsScaling GetScalingTypeY() const;
-	void SetScalingTypeY(GraphicsScaling scalingTypeY);
-	GraphicsScaling GetScalingTypeWidth() const;
-	void SetScalingTypeWidth(GraphicsScaling scalingTypeWidth);
-	GraphicsScaling GetScalingTypeHeight() const;
-	void SetScalingTypeHeight(GraphicsScaling scalingTypeHeight);
+    void SetColor(glm::ivec4 color);
 
-	void SetX(float x);
-	void SetY(float y);
+    void OnMounted(Presenter &presenter, UiElement& element) override;
 
-	float GetWidth();
-	float GetHeight();
-	float GetX();
-	float GetY();
+    void OnMove(EventMoveInfo e) override;
 
-	glm::vec2 GetSize();
-	glm::vec2 GetPosition();
+    void OnResize(EventResizeInfo e) override;
 
-	// Inherited via Renderable
-	virtual void OnRenderSync(RenderEventInfo e) override;
-	virtual void Repaint() override;
-	virtual void AddRenderCommander(RenderCommander &renderable) override;
-	virtual void RemoveRenderCommander(RenderCommander& renderable) override;
-	virtual std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
+    void SetVisible(bool state) override;
 
-	// Inherited via Reflectable
-	virtual bool HasMethod(std::string method) override;
-	virtual ReflectionContainer<Background>& GetReflectionContainer();
-    void OnSync(const DrawData &data) override;
+    void ResetViewport() override;
+
+    void SetViewportSize(const glm::vec3 &input) override;
+
+    void SetViewportPosition(const glm::vec3 &input) override;
+
+    const glm::vec3 & GetViewportSize() override;
+
+    const glm::vec3 & GetViewportPosition() override;
+
+    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+
+    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+
+    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    bool IsViewportSet() const override;
+
+    void OnViewportSizeChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportPositionChanged(const Viewport2EventInfo &event) override;
+
+    void OnViewportReset(const Viewport2EventInfo &event) override;
+
+    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+
+private:
+    float GetRelativeZIndex() override;
+
+    void SetRelativeZIndex(float relativeZIndex) override;
 };
-

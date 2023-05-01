@@ -1,5 +1,7 @@
 #pragma once
 
+#include "EventSource.h"
+
 template<class T>
 class OnAddSubscriber;
 
@@ -11,7 +13,7 @@ class EventOnAddInfo;
  * \tparam type the type of object which can be added.
  */
 template<class type>
-class AddSubject
+class AddSubject : public virtual EventSource
 {
 	/**
 	 * Sends an event when a new object is added to the containment hierarchy.

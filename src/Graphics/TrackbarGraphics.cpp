@@ -1,54 +1,54 @@
 #include "TrackbarGraphics.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 
 TrackbarGraphics::TrackbarGraphics() : renderBehavior(*this), reflectionContainer(*this)
 {
     reflectionContainer.RegisterMethod("tracker-color", "SetTrackerColor", &TrackbarGraphics::SetTrackerColor);
-    reflectionContainer.RegisterMethod("tracker-position", "SetPercentualPosition", &TrackbarGraphics::SetPercentualPosition);
+    reflectionContainer.RegisterMethod("tracker-viewPortSize", "SetPercentualPosition", &TrackbarGraphics::SetPercentualPosition);
     reflectionContainer.RegisterMethod("tracker-height", "SetPercentualHeight", &TrackbarGraphics::SetPercentualHeight);
 
     reflectionContainer.RegisterMethod("get-tracker-height", "GetPercentualHeight", &TrackbarGraphics::GetPercentualHeight);
-    reflectionContainer.RegisterMethod("get-tracker-position", "GetX", &TrackbarGraphics::GetPercentualPosition);
+    reflectionContainer.RegisterMethod("get-tracker-viewPortSize", "GetX", &TrackbarGraphics::GetPercentualPosition);
 
     reflectionContainer.RegisterMethod("get-tracker-color", "GetTrackerColor", &TrackbarGraphics::GetTrackerColor);
 
     border.SetColor({0, 0, 0});
-    tracker.SetColor({0, 0, 0});
+    // tracker.SetBackgroundColor({0, 0, 0});
 
-    AddRenderCommander(tracker);
+    // AddRenderCommander(tracker);
     AddRenderCommander(border);
 }
 
 void TrackbarGraphics::SetPercentualHeight(float height)
 {
-    tracker.SetHeight(height);
+    // tracker.SetHeight(height);
     //Repaint();
 }
 
 float TrackbarGraphics::GetPercentualHeight()
 {
-    return tracker.GetHeight();
+    return 0.0f; // tracker.GetHeight();
 }
 
 void TrackbarGraphics::SetPercentualPosition(float posY)
 {
-    tracker.SetY(posY);
+    //tracker.SetY(posY);
     //Repaint();
 }
 
 float TrackbarGraphics::GetPercentualPosition()
 {
-    return tracker.GetY();
+    return 0.0f; // tracker.GetY();
 }
 
-void TrackbarGraphics::SetTrackerColor(Vector3 color)
+void TrackbarGraphics::SetTrackerColor(glm::vec3 color)
 {
-    tracker.SetColor(color);
+    //tracker.SetBackgroundColor(color);
 }
 
-Vector3 TrackbarGraphics::GetTrackerColor()
+glm::vec3 TrackbarGraphics::GetTrackerColor()
 {
-    return tracker.GetColor();
+    return {0, 0, 0}; //tracker.GetColor();
 }
 
 void TrackbarGraphics::OnRenderSync(RenderEventInfo e)

@@ -1,6 +1,6 @@
 #include "Text.h"
-#include "EventTypes/RenderEventInfo.h"
-#include "MetaObjects/ClassMethod.h"
+#include "RenderEventInfo.h"
+#include "ClassMethod.h"
 #include "FontFormat.h"
 #include "RenderingPool.h"
 
@@ -25,15 +25,15 @@ int Text::GetAlignment()
 }
 
 
-Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position)
+Text::Text(std::string fontFamily) : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, position)
 {
-    reflectionContainer.RegisterMethod("text-color", "SetColor", &Text::SetColor);
-    reflectionContainer.RegisterMethod("font-size", "SetFontSize", &Text::SetFontSize);
+    reflectionContainer.RegisterMethod("text-color", "SetBackgroundColor", &Text::SetColor);
+    reflectionContainer.RegisterMethod("font-viewPortPosition", "SetFontSize", &Text::SetFontSize);
 
     std::wstring family = std::wstring(fontFamily.begin(), fontFamily.end());
     this->fontFamily = family;
     this->color = {255, 255, 255, 255};
-    position = {0, 0};
+    position = {0, 0, 0, 0};
 }
 
 void Text::SetText(std::wstring text)
@@ -46,19 +46,19 @@ std::wstring Text::GetText()
     return this->text;
 }
 
-void Text::SetPosition(glm::vec2 position)
+void Text::SetPosition(glm::vec4 position)
 {
     this->position = position;
 }
 
-glm::vec2 Text::GetPosition()
+glm::vec4 Text::GetPosition()
 {
     return position;
 }
 
-void Text::SetColor(Vector3 color)
+void Text::SetColor(glm::ivec3 color)
 {
-    this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    this->color = {color.x, color.y, color.z, 255};
 }
 
 void Text::SetFontSize(float fontSize)
@@ -68,14 +68,14 @@ void Text::SetFontSize(float fontSize)
 
 void Text::OnRenderSync(RenderEventInfo e)
 {
-    Renderer& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    graphicsUtil.Scale(drawData.GetSize());
     std::unique_ptr<FontFormat> format = renderer.CreateFontFormat();
-    format->SetAlignment(alignment);
-    format->SetLineAlignment(lineAlignment);
+//    format->SetAlignment(alignment);
+//    format->SetLineAlignment(lineAlignment);
     renderer.SetColor(color);
     renderer.SetFontFamily(fontFamily);
-    renderer.DrawString(text, graphicsUtil.GetPosition(), *format, text.size());
+    renderer.DrawString(text, graphicsUtil.GetPosition(), *format);
 }
 
 void Text::Repaint()
@@ -115,7 +115,7 @@ GraphicsScaling Text::GetScalingTypeX() const
 
 void Text::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    return graphicsUtil.SetScalingTypeX(scalingTypeX);
+    return graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling Text::GetScalingTypeY() const
@@ -125,7 +125,7 @@ GraphicsScaling Text::GetScalingTypeY() const
 
 void Text::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    graphicsUtil.SetScalingTypeY(scalingTypeY);
+    graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 void Text::SetX(float x)

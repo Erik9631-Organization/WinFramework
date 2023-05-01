@@ -3,13 +3,13 @@
 //
 
 #include "OpenGLRenderingProviderFactory.h"
-#include "OpenGLRenderingProvider.h"
+#include "OpenGLRenderer.h"
 #include <memory>
 
-std::unique_ptr<RenderingProvider> OpenGLRenderingProviderFactory::Create()
+std::unique_ptr<Renderer> OpenGLRenderingProviderFactory::Create()
 {
-    auto* openGLRenderingProvider = new OpenGLRenderingProvider();
-    return std::unique_ptr<RenderingProvider>(openGLRenderingProvider);
+    auto* openGLRenderingProvider = new OpenGLRenderer();
+    return std::unique_ptr<Renderer>(openGLRenderingProvider);
 }
 
 const std::string &OpenGLRenderingProviderFactory::GetTag()
@@ -22,7 +22,7 @@ void OpenGLRenderingProviderFactory::SetTag(const std::string &tag)
     this->tag = tag;
 }
 
-std::unique_ptr<RenderingProvider> OpenGLRenderingProviderFactory::Create(std::any args)
+std::unique_ptr<Renderer> OpenGLRenderingProviderFactory::Create(std::any args)
 {
     return Create();
 }

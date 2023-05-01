@@ -5,7 +5,7 @@
 #ifndef GRAPHICS_TESTGRAPHICS_H
 #define GRAPHICS_TESTGRAPHICS_H
 #include "RenderCommander.h"
-#include <Renderer.h>
+#include <RenderingApi.h>
 
 
 class TestGraphics : public RenderCommander

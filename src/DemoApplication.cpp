@@ -25,7 +25,7 @@
 #include "Components/ListBox.h"
 #include "ScrollBar.h"
 #include <iostream>
-#include "OpenGLRenderingProvider.h"
+#include "OpenGLRenderer.h"
 #include "GraphicsShader.h"
 #include "OnTickSubscriber.h"
 #include "CameraManager.h"
@@ -81,7 +81,7 @@ public:
 
 	virtual void OnMouseUp(EventMouseStateInfo e) override
 	{
-		Button* button = dynamic_cast<Button*>(e.GetSrc());
+		Button* button = dynamic_cast<Button*>(e.GetSource());
 		if (button->GetText().compare(L"Add") == 0)
 		{
 			AddValues(currentValue);
@@ -146,7 +146,7 @@ class CheckboxTester : public CheckboxStateSubscriber
 	// Inherited via CheckboxStateSubscriber
 	virtual void OnChecked(EventCheckboxStateInfo e) override
 	{
-		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
+		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSource());
 		if (e.GetState())
             std::cout << "Checkbox: " << src->GetComponentName() << " checked!" << std::endl;
 		else
@@ -159,7 +159,7 @@ class RadioButtonTester : public RadioButtonStateSubscriber
 	// Inherited via RadioButtonStateSubscriber
 	virtual void OnRadioButtonSelected(EventRadioButtonStateInfo e) override
 	{
-		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSrc());
+		RadioButton* src = dynamic_cast<RadioButton*>(e.GetSource());
 		if (e.IsSelected())
             std::cout << "RadioButton: " + src->GetComponentName() + " checked!" << std::endl;
 		else
@@ -260,7 +260,7 @@ public:
 	}
 	virtual void OnMouseUp(EventMouseStateInfo e) override
 	{
-		Button* src = dynamic_cast<Button*>(e.GetSrc());
+		Button* src = dynamic_cast<Button*>(e.GetSource());
 
 		if (src->GetText().compare(L"Browse") == 0)
 			ReadFile();
@@ -317,7 +317,7 @@ void DemoApplication::LaunchDemoApp()
     auto scrollbar = std::make_unique<ScrollBar>(0, 0, 10, 0, "ScrollBar");
 
 	auto panel = std::make_unique<Panel>(50, 300, 300, 250, "panel");
-    ScrollBar::Control(panel.get(), std::move(scrollbar));
+    ScrollBar::Control(*panel, std::move(scrollbar));
 
 
 	/*
@@ -381,9 +381,9 @@ void DemoApplication::LaunchDemoApp()
 	/*
 	* File browser test start
 	*/
-	auto fileBrowseButton = std::make_unique<Button>(490, 320, 100, 25);
-	auto fileSaveButton = std::make_unique<Button>(595, 320, 100, 25);
-	auto clearButton = std::make_unique<Button>(700, 320, 100, 25);
+	auto fileBrowseButton = std::make_unique<Button>(490, 320, 100, 25, "FileBrowseButton");
+	auto fileSaveButton = std::make_unique<Button>(595, 320, 100, 25, "FileSaveButton");
+	auto clearButton = std::make_unique<Button>(700, 320, 100, 25, "ClearButton");
 	auto fileOutput = std::make_unique<TextInput>(490, 350, 300, 100, "File Content");
 	fileOutput->SetMultiline(true);
 	fileBrowseButton->SetText(L"Browse");
@@ -407,7 +407,7 @@ void DemoApplication::LaunchDemoApp()
 	* Password Form START
 	*/
 	auto passwordField = std::make_unique<PasswordField>(490, 210, 100, 30, "PasswordField");
-	auto submitButton = std::make_unique<Button>(600, 210, 100, 30);
+	auto submitButton = std::make_unique<Button>(600, 210, 100, 30, "SubmitButton");
 	submitButton->SetText(L"Submit");
     submitButton->SetComponentName("SubmitButton");
 	auto resultLabel = std::make_unique<Label>(490, 250, 100, 50, "resultLabel");
@@ -526,7 +526,7 @@ void DemoApplication::LaunchDemoApp()
 
 	for (int i = 0; i < 11; i++)
 	{
-		auto inputButtonPtr = std::make_unique<Button>(0, 0, 0, 0);
+		auto inputButtonPtr = std::make_unique<Button>(0, 0, 0, 0, "inputButton" + to_string(i));
         auto* inputButton = inputButtonPtr.get();
 		inputButton->SetText(to_wstring(i));
 		if (i == 3)
@@ -623,7 +623,7 @@ void DemoApplication::LaunchOpenGLApp()
 {
     //    Window* frame = new Window(0, 0, 800, 600, "TestFrame2");
 //    shared_ptr<OpenGLRenderingProvider> glProvider = make_shared<OpenGLRenderingProvider>();
-//    frame->SetRenderingProvider(static_pointer_cast<RenderingProvider>(glProvider));
+//    frame->SetRenderer(static_pointer_cast<Renderer>(glProvider));
 //
 //
 //
@@ -648,24 +648,24 @@ void DemoApplication::LaunchOpenGLApp()
 //    ModeledElement& wallBlockElement = frame->CreateElement<ModeledElement>(std::move(wallBlock));
 //
 //    ModeledElement& blockElement = frame->CreateElement<ModeledElement>(std::move(block));
-//    blockElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    blockElement.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
 //
 //    rectangle->SetCamera(nullptr);
 //    rectangle->CustomCameraEnabled(true);
 //    auto& rectangleElement = frame->CreateElement<ModeledElement>(std::move(rectangle));
-//    rectangleElement.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    rectangleElement.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
 //    rectangleElement.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
 //
 //    wallBlockElement.GetModel()->SetTexture("WallTexture");
 //
 //    DirectionalLight& light = frame->CreateElement<DirectionalLight>(std::move(builder3D.CreateEmptyModel()), glm::vec3{0.0f, 1.0f, 0.1f});
-//    light.SetColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
+//    light.SetBackgroundColor({64.0f/255.0f, 156.0f/255.0f, 1.0f, 1.0f});
 //
 //    auto pointLightModel = builder3D.CreateBlock(0, 0, 0, 5.0f, 5.0f, 5.0f);
 //    auto& pointLight = frame->CreateElement<PointLight>(std::move(pointLightModel));
 //    pointLight.GetModel()->GetMaterial().SetAmbient({1.0f, 1.0f, 1.0f});
-//    pointLight.GetModel()->GetMaterial().SetColor({1.0f, 1.0f, 1.0f, 1.0f});
-//    pointLight.SetColor({0.5f, 0.5f, 0.7f, 1.0f});
+//    pointLight.GetModel()->GetMaterial().SetBackgroundColor({1.0f, 1.0f, 1.0f, 1.0f});
+//    pointLight.SetBackgroundColor({0.5f, 0.5f, 0.7f, 1.0f});
 //    pointLight.SetTranslation({30.0f, 0.0f, 0.0f});
 //
 //

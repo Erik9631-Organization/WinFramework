@@ -4,7 +4,7 @@
 #include "RenderEventInfo.h"
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 #include <processthreadsapi.h>
 #include "Messages.h"
 #include <chrono>
@@ -96,16 +96,7 @@ long long int WindowsCore::RemoveAttribute(int index, long long int parameter)
 void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 {
     updateFinished = false;
-    //CoreWindow::ConsoleWrite("Update started");
 	PAINTSTRUCT paintInfo;
-
-	//Wait for sync to finish.
-	if(renderingProvider != nullptr)
-	{
-	    //CoreWindow::ConsoleWrite("Waiting for sync to finish...");
-	    renderingProvider->WaitForSyncToFinish();
-	    //CoreWindow::ConsoleWrite("Sync finished, continuing update");
-	}
 
 	switch (msg)
 	{
@@ -114,15 +105,16 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         if(!UnregisterClassA(this->windowName.c_str(), hInstance))
             cout << "UnRegister Class error: " << GetLastError() << endl;
         processMessages = false;
-        renderingProvider->OnDestroy(*this);
+        renderer->OnDestroy(*this);
         return;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
 	case WM_MOVE:
     {
-        auto pos = glm::vec2((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]);
-        EventMoveInfo e = {pos, nullptr};
+        auto pos = glm::vec4((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1], 0, 0);
+        //TODO use separate event for core
+        EventMoveInfo e = {pos, pos, nullptr};
         NotifyCoreOnMove(e);
         //wrapperFrame.::UiElement::SetPosition({(float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1]});
         UpdateLockCursor();
@@ -132,7 +124,9 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	{
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
-        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height}, nullptr};
+        if(renderer != nullptr)
+            renderer->SetViewPortSize(width, height);
+        EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);
 	    //wrapperFrame.::UiElement::SetSize({(float)width, (float)height});
@@ -166,6 +160,10 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_PRINT:
         DefWindowProcA(windowHandle, msg, wParam, lParam); // Call default implementation for WM_PRINT
         break;
+    case REDRAW_MESSAGE:
+        if(renderer != nullptr)
+            renderer->SwapScreenBuffer();
+
 	}
     if(cursorLocked)
     {
@@ -173,29 +171,28 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
         ClipCursor(&lockCursorRegion);
     }
 
+    //If redraw falg is set then redraw
+
 
     UpdateGlobalInputState();
     //Notify that update happened
     wrapperFrame->NotifyOnTick();
 
-
-	if(renderingProvider != nullptr)
-	    renderingProvider->Render();
 	lock_guard<std::mutex>updateFinishedLock(updateMutex);
     updateFinished = true;
     //CoreWindow::ConsoleWrite("Update finished");
 	updateFinishedSignal.notify_all();
-
-    //Reset the delta as it is 0
+//    if(renderer != nullptr)
+//        renderer->SwapScreenBuffer();
+    //ResetSize the delta as it is 0
     mouseDelta.x = 0;
     mouseDelta.y = 0;
 }
 
-void WindowsCore::Redraw()
+void WindowsCore::ScheduleRedraw()
 {
-    if(renderingProvider != nullptr)
-        renderingProvider->Render();
-	UpdateWindow(windowHandle);
+    //If call comes from the same thread as the one that is processing messages then schedule a redraw else redraw immidiatelly
+    PostMessageA(windowHandle, REDRAW_MESSAGE, 0, 0);
 }
 
 void WindowsCore::Close()
@@ -217,7 +214,10 @@ void WindowsCore::UpdateScale()
 {
     if(wrapperFrame == nullptr)
         return;
-	SetWindowPos(windowHandle, NULL, wrapperFrame->GetX(), wrapperFrame->GetY(), wrapperFrame->GetWidth(), wrapperFrame->GetHeight(), SWP_SHOWWINDOW | SWP_DRAWFRAME);
+	SetWindowPos(windowHandle, NULL, wrapperFrame->GetPosition().x,
+                 wrapperFrame->GetPosition().y,
+                 wrapperFrame->GetSize().x,
+                 wrapperFrame->GetSize().y, SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
 WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
@@ -259,10 +259,10 @@ void WindowsCore::CreateWinApiWindow()
     int height = 0;
     if(wrapperFrame != nullptr)
     {
-        x = (int)wrapperFrame->GetX();
-        y = (int)wrapperFrame->GetY();
-        width = (int)wrapperFrame->GetWidth();
-        height = (int)wrapperFrame->GetHeight();
+        x = (int)wrapperFrame->GetPosition().x;
+        y = (int)wrapperFrame->GetPosition().y;
+        width = (int)wrapperFrame->GetSize().x;
+        height = (int)wrapperFrame->GetSize().y;
     }
     windowHandle = CreateWindow(windowInfo->lpszClassName, windowInfo->lpszClassName, style, x,
                                 y, width, height, NULL, NULL, hInstance, NULL);
@@ -294,7 +294,7 @@ WindowsCore::~WindowsCore()
 
 void WindowsCore::Repaint()
 {
-    Redraw();
+    ScheduleRedraw();
 }
 
 void WindowsCore::AddRenderCommander(RenderCommander &renderable)
@@ -318,8 +318,8 @@ void WindowsCore::OnRenderSync(RenderEventInfo e)
     //Wait for on sync to finish before returning the call.
     //The reason why is because we want to capture the current snapshot of the draw state and then draw the complete data.
     //During the sync we can't end up in a case where the data is changed.
-    /*if(renderingProvider != nullptr)
-        renderingProvider->Render();*/
+    /*if(renderer != nullptr)
+        renderer->Render();*/
 }
 
 void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -327,15 +327,15 @@ void WindowsCore::AddOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
     preProcessSubject.AddOnResizeSubscriber(subscriber);
 }
 
-RenderingProvider *WindowsCore::GetRenderingProvider()
+AsyncRenderCommandHandler * WindowsCore::GetRenderer()
 {
-    return renderingProvider.get();
+    return renderer.get();
 }
 
-void WindowsCore::SetRenderingProvider(unique_ptr<RenderingProvider> provider)
+void WindowsCore::SetRenderer(unique_ptr<AsyncRenderCommandHandler> provider)
 {
-    renderingProvider = std::move(provider);
-    renderingProvider->OnInit(*this);
+    renderer = std::move(provider);
+    renderer->OnInit(*this);
 }
 
 void WindowsCore::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -378,7 +378,7 @@ void WindowsCore::UpdateGlobalInputState()
     InputManager::globalInput->SetMouseDeltaPosition(mouseDelta);
 }
 
-void WindowsCore::SetLockCursorSize(const glm::vec2 &size)
+void WindowsCore::SetLockCursorSize(const glm::vec3 &size)
 {
     lockCursorSize = size;
 }
@@ -389,12 +389,12 @@ void WindowsCore::UpdateLockCursor()
         return;
     if(wrapperFrame == nullptr)
         return;
-
+    cout << "after for" << endl;
     //Calculate the center of the wrapper frame
-    lockCursorRegion.left = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.top = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
-    lockCursorRegion.right = (wrapperFrame->GetX() + wrapperFrame->GetWidth() / 2);
-    lockCursorRegion.bottom = (wrapperFrame->GetY() + wrapperFrame->GetHeight() / 2);
+    lockCursorRegion.left = (wrapperFrame->GetPosition().x + wrapperFrame->GetSize().x / 2);
+    lockCursorRegion.top = (wrapperFrame->GetPosition().y + wrapperFrame->GetSize().y / 2);
+    lockCursorRegion.right = (wrapperFrame->GetPosition().x + wrapperFrame->GetSize().x  / 2);
+    lockCursorRegion.bottom = (wrapperFrame->GetPosition().y + wrapperFrame->GetSize().y / 2);
 
     //Find the collision. Each time the mouse collides, reset it to the center. Mouse can move 1 pixel in any direction.
     //The single pixel determines how much to add towards the delta.
@@ -542,9 +542,9 @@ void WindowsCore::SetWindow(Window *window)
     this->wrapperFrame = window;
 }
 
-void WindowsCore::WaitForRenderingSyncToFinish()
+void WindowsCore::ForceRedraw()
 {
-    renderingProvider->WaitForSyncToFinish();
+
 }
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

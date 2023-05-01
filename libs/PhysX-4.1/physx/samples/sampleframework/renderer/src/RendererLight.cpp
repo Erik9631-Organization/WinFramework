@@ -27,7 +27,7 @@
 #include <RendererLight.h>
 #include <RendererLightDesc.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 
 using namespace SampleRenderer;
 

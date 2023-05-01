@@ -25,17 +25,17 @@ namespace OpenGL
     public:
         ModelBuilder();
         std::unique_ptr<Model> CreateFillRectangle(float x, float y, float width, float height);
-        std::unique_ptr<Model> CreateFillRectangle(glm::vec2 position, glm::vec2 size);
+        std::unique_ptr<Model> CreateFillRectangle(glm::vec4 position, glm::vec4 size);
         std::unique_ptr<Model> CreateRectangle(float x, float y, float width, float height);
-        std::unique_ptr<Model> CreateRectangle(glm::vec2 position, glm::vec2 size);
+        std::unique_ptr<Model> CreateRectangle(glm::vec4 position, glm::vec4 size);
         std::unique_ptr<Model> CreateFillEllipse(float x, float y, float width, float height);
-        std::unique_ptr<Model> CreateFillEllipse(glm::vec2 position, glm::vec2 size);
-        std::unique_ptr<Model> CreateEllipse(glm::vec2 position, glm::vec2 size);
+        std::unique_ptr<Model> CreateFillEllipse(glm::vec4 position, glm::vec4 size);
+        std::unique_ptr<Model> CreateEllipse(glm::vec4 position, glm::vec4 size);
         std::unique_ptr<Model> CreateEllipse(float x, float y, float width, float height);
-        std::unique_ptr<Model> CreateTriangle(glm::vec2 a1,glm::vec2 a2, glm::vec2 a3);
-        std::unique_ptr<Model> CreateTriangle(std::initializer_list<glm::vec2> vertices);
+        std::unique_ptr<Model> CreateTriangle(glm::vec4 a1, glm::vec4 a2, glm::vec4 a3);
+        std::unique_ptr<Model> CreateTriangle(std::initializer_list<glm::vec4> vertices);
         std::unique_ptr<Model> CreateBlock(float x, float y, float z, float width, float height, float depth);
-        std::unique_ptr<Model> CreateBlock(glm::vec3 position, glm::vec3 size);
+        std::unique_ptr<Model> CreateBlock(glm::vec4 position, glm::vec4 size);
         std::unique_ptr<Model> CreateEmptyModel();
         void SetProjectionMatrix(glm::mat4 *projection);
     };

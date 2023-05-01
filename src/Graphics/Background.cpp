@@ -1,185 +1,137 @@
 #include "Background.h"
-#include "RenderEventInfo.h"
 #include "Core/Windows/WindowsCore.h"
 #include "RenderingPool.h"
 
-
-Background::Background() : renderBehavior(*this), reflectionContainer(*this), graphicsUtil(position, size)
+void Background::OnMounted(Presenter &presenter, UiElement& element)
 {
-    position = {0.0f, 0.0f};
-    size = {1.0f, 1.0f};
+    presenter.GetRenderer()->RequestModel(rectangleProxy);
+    this->presenter = &presenter;
+    rectangleProxy.SetSize(element.GetSize());
+    rectangleProxy.SetPosition(element.GetAbsolutePosition() + relativeZIndex);
+}
 
-    reflectionContainer.RegisterMethod<Vector3>("background-color", "SetColor", &Background::SetColor);
-    reflectionContainer.RegisterMethod<Vector4>("background-colorRGBA", "SetColor", &Background::SetColor);
-    reflectionContainer.RegisterMethod("get-background-color", "SetColor", &Background::GetColor);
+void Background::OnMove(EventMoveInfo e)
+{
+    auto* movable = dynamic_cast<Movable*>(e.GetSource());
+    rectangleProxy.SetPosition(movable->GetAbsolutePosition() + relativeZIndex);
+}
+
+void Background::OnResize(EventResizeInfo e)
+{
+    auto* resizable = dynamic_cast<Resizable*>(e.GetSource());
+    if(resizable == nullptr)
+        return;
+    rectangleProxy.SetSize(resizable->GetSize());
+}
+
+Background::Background(UiElement &element) : associatedElement(element)
+{
+    element.AddOnMoveSubscriber(*this);
+    element.AddOnResizeSubscriber(*this);
+    element.AddOnMountedSubscriber(*this);
+    element.AddViewport2Subscriber(*this);
+
+}
+
+void Background::SetColor(glm::ivec4 color)
+{
+    rectangleProxy.SetColor(color);
 }
 
 Background::~Background()
 {
+    associatedElement.RemoveOnResizeSubscriber(*this);
+    associatedElement.RemoveOnMoveSubscriber(*this);
+    associatedElement.RemoveOnMountedSubscriber(*this);
+    associatedElement.RemoveViewport2Subscriber(*this);
 }
 
-void Background::SetColor(Vector3 color)
+float Background::GetRelativeZIndex()
 {
-    currentColor = {color.GetX(), color.GetY(), color.GetZ(), 255};
+    return relativeZIndex.z;
 }
 
-Vector3 Background::GetColor()
+void Background::SetRelativeZIndex(float relativeZIndex)
 {
-    return {currentColor.GetX(), currentColor.GetY(), currentColor.GetZ()};
+    this->relativeZIndex.z = relativeZIndex;
 }
 
-void Background::SetWidth(float width)
+void Background::SetVisible(bool state)
 {
-    size.x = width;
+    rectangleProxy.SetVisible(false);
 }
 
-void Background::SetHeight(float height)
+const glm::ivec4 &Background::GetColor()
 {
-    size.y = height;
+    return rectangleProxy.GetColor();
 }
 
-void Background::SetX (float x)
+void Background::ResetViewport()
 {
-    position.x = x;
+    rectangleProxy.ResetViewport();
 }
 
-void Background::SetY(float y)
+void Background::SetViewportSize(const glm::vec3 &input)
 {
-    position.y = y;
+    rectangleProxy.SetViewportSize(input);
 }
 
-float Background::GetWidth()
+void Background::SetViewportPosition(const glm::vec3 &input)
 {
-    return size.x;
+    rectangleProxy.SetViewportPosition(input);
 }
 
-float Background::GetHeight()
+const glm::vec3 & Background::GetViewportSize()
 {
-    return size.y;
+    return rectangleProxy.GetViewportSize();
 }
 
-float Background::GetX()
+const glm::vec3 & Background::GetViewportPosition()
 {
-    return position.x;
+    return rectangleProxy.GetViewportPosition();
 }
 
-float Background::GetY()
+void Background::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    return position.y;
+    rectangleProxy.AddViewport2Subscriber(subscriber);
 }
 
-void Background::OnRenderSync(RenderEventInfo e)
+void Background::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
 {
-    Renderer& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
-    renderer.SetColor(currentColor);
-    renderer.FillRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    rectangleProxy.RemoveViewport2Subscriber(subscriber);
 }
 
-void Background::Repaint()
+void Background::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
 {
-
+    rectangleProxy.NotifyOnViewportSizeChanged(event);
 }
 
-void Background::AddRenderCommander(RenderCommander &renderable)
+void Background::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
 {
-    renderBehavior.AddRenderCommander(renderable);
+    rectangleProxy.NotifyOnViewportPositionChanged(event);
 }
 
-void Background::RemoveRenderCommander(RenderCommander& renderable)
+bool Background::IsViewportSet() const
 {
-    renderBehavior.RemoveRenderCommander(renderable);
+    return rectangleProxy.IsViewportSet();
 }
 
-std::vector<std::reference_wrapper<RenderCommander>> Background::GetRenderables()
+void Background::OnViewportSizeChanged(const Viewport2EventInfo &event)
 {
-    return std::vector<std::reference_wrapper<RenderCommander>>();
+    rectangleProxy.SetViewportSize(event.GetSize());
 }
 
-bool Background::HasMethod(std::string method)
+void Background::OnViewportPositionChanged(const Viewport2EventInfo &event)
 {
-    return reflectionContainer.HasMethod(method);
+    rectangleProxy.SetViewportPosition(event.GetPosition());
 }
 
-ReflectionContainer<Background>& Background::GetReflectionContainer()
+void Background::OnViewportReset(const Viewport2EventInfo &event)
 {
-    return reflectionContainer;
+    rectangleProxy.ResetViewport();
 }
 
-GraphicsScaling Background::GetScalingTypeX() const
+void Background::NotifyOnViewportReset(const Viewport2EventInfo &event)
 {
-    return graphicsUtil.GetScalingTypeX();
-}
-
-void Background::SetScalingTypeX(GraphicsScaling scalingTypeX)
-{
-    graphicsUtil.SetScalingTypeX(scalingTypeX);
-}
-
-GraphicsScaling Background::GetScalingTypeY() const
-{
-    return graphicsUtil.GetScalingTypeY();
-}
-
-void Background::SetScalingTypeY(GraphicsScaling scalingTypeY)
-{
-    graphicsUtil.SetScalingTypeY(scalingTypeY);
-}
-
-GraphicsScaling Background::GetScalingTypeWidth() const
-{
-    return graphicsUtil.GetScalingTypeWidth();
-}
-
-void Background::SetScalingTypeWidth(GraphicsScaling scalingTypeWidth)
-{
-    graphicsUtil.SetScalingTypeWidth(scalingTypeWidth);
-}
-
-GraphicsScaling Background::GetScalingTypeHeight() const
-{
-    return graphicsUtil.GetScalingTypeHeight();
-}
-
-void Background::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
-{
-    graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
-}
-
-glm::vec2 Background::GetSize()
-{
-    return size;
-}
-
-glm::vec2 Background::GetPosition()
-{
-    return position;
-}
-
-void Background::SetPosition(glm::vec2 position)
-{
-    this->position = position;
-}
-
-void Background::SetSize(glm::vec2 size)
-{
-    this->size = size;
-}
-
-void Background::SetColor(Vector4 color)
-{
-    this->currentColor = color;
-}
-
-Vector4 Background::GetColorRGBA()
-{
-    return currentColor;
-}
-
-void Background::OnSync(const DrawData &data)
-{
-    if(data.GetDataType() != DrawData::drawData2D)
-        return;
-    const DrawData2D& syncedData = static_cast<const DrawData2D&>(data);
-    drawData = DrawData2D(syncedData);
+    rectangleProxy.NotifyOnViewportReset(event);
 }

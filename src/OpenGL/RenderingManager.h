@@ -10,7 +10,7 @@
 
 namespace OpenGL
 {
-class RenderingManager
+class RenderingManager : public virtual EventSource
     {
     public:
         virtual void Render() = 0;
@@ -18,8 +18,8 @@ class RenderingManager
         virtual void AddModel(const Model &model) = 0;
         virtual void RemoveModel(Model& model) = 0;
         virtual void Move(const Model& model) = 0;
-        virtual bool HasModel(const Model &model) const = 0;
-        ~RenderingManager() = default;
+        [[nodiscard]] virtual bool HasModel(const Model &model) const = 0;
+        ~RenderingManager() override = default;
     };
 }
 

@@ -20,9 +20,10 @@ private:
 	template<typename RealType, typename ReturnType, typename ... Args>
 	static ReturnType HandleInvoke(std::string functionName, void* instance, Args ... args)
 	{
-		RealType& target = static_cast<RealType&>(*((RealType*)instance));
-		if (target.HasMethod(functionName))
-			return target.GetReflectionContainer().template Invoke<ReturnType>(functionName, args ...);
+//		RealType& target = static_cast<RealType&>(*((RealType*)instance));
+//		if (target.HasMethod(functionName))
+//			return target.GetReflectionContainer().template Invoke<ReturnType>(functionName, args ...);
+        return ReturnType();
 	}
 public:
 	template<typename ReturnType, typename Type, typename ... Args>

@@ -29,7 +29,7 @@
 #define RENDERER_DESC_H
 
 #include <RendererConfig.h>
-#include <Renderer.h>
+#include RenderingApi.h
 
 namespace SampleRenderer
 {

@@ -10,23 +10,24 @@
 #include "RenderingProviderManager.h"
 #include "CoreManager.h"
 #include <iostream>
+#include "DefaultAsyncRenderCommandHandler.h"
+
 using namespace std;
 
-void Window::SetSize(float width, float height, bool emit)
+void Window::SetSize(const glm::vec3 &size, bool emit)
 {
-    UiElement::SetSize(width, height, emit);
+    //TODO This is a hack If emit is changed to false, it won't work.
+    //The issue is that if setsize comes from
+    UiElement::SetSize(size, true);
+
+    //This emit can't be called if it comes from the core
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
 }
 
-void Window::SetSize(glm::vec2 size, bool emit)
-{
-    SetSize(size.x, size.y, emit);
-}
-
 void Window::Repaint()
 {
-    NotifyOnRedraw(std::make_any<Window*>(this));
+    coreMediator->Redraw(this);
 }
 
 void Window::NotifyOnMouseDown(EventMouseStateInfo e)
@@ -35,7 +36,6 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
     {
         currentFocus = nullptr;
     }
-
 
 	UiElement::NotifyOnMouseDown(e);
 	UiElement* result = std::any_cast<UiElement*>(ColidesWithUpmost(e.GetMouseAbsolutePosition()));
@@ -57,16 +57,10 @@ void Window::NotifyOnMouseDown(EventMouseStateInfo e)
 	currentFocus = result;
 }
 
-void Window::SetPosition(float x, float y, bool emit)
+void Window::SetPosition(const glm::vec3 &position, bool emit)
 {
-    UiElement::SetPosition(x, y, emit);
     if(emit)
         NotifyOnScaleUpdate(std::make_any<Presenter*>(this));
-}
-
-void Window::SetPosition(glm::vec2 point, bool emit)
-{
-    SetPosition(point.x, point.y, emit);
 }
 
 void Window::NotifyOnKeyDown(EventKeyStateInfo e)
@@ -105,15 +99,18 @@ Window::Window(string windowName) : Window(800, 600, 800, 600, windowName)
 
 }
 
-Window::Window(int x, int y, int width, int height, string windowName) : UiElement(x, y, width, height, windowName)
+Window::Window(int x, int y, int width, int height, string windowName) :
+    UiElement(x, y, width, height, windowName)
 {
+    UiElement::presenter = this;
 	componentType = "Window";
-	background.SetColor({255, 255, 255});
 }
 
-void Window::Add(unique_ptr<UiElement> component)
+UiElement & Window::Add(unique_ptr<UiElement> component)
 {
-	UiElement::Add(std::move(component));
+    auto& element = *component;
+    UiElement::Add(std::move(component));
+    return element;
 }
 
 
@@ -131,11 +128,6 @@ void Window::NotifyOnMouseUp(EventMouseStateInfo e)
         return;
     currentCapture->SetMouseCaptured(false);
     currentCapture = nullptr;
-}
-
-void Window::WaitForSync()
-{
-    coreMediator->WaitForRenderingSyncToFinish();
 }
 
 
@@ -176,13 +168,13 @@ void Window::NotifyOnScaleUpdate(std::any src)
 void Window::NotifyOnRedraw(std::any src)
 {
     for(auto subscriber : presenterSubscribers)
-        subscriber->OnRedraw(src);
+        subscriber->Redraw(src);
 }
 
 void Window::NotifyOnClose(std::any src)
 {
     for(auto subscriber : presenterSubscribers)
-        subscriber->OnRedraw(src);
+        subscriber->OnClose(src);
 }
 
 void Window::NotifyOnLockCursorSizeChanged(EventResizeInfo &e)
@@ -218,11 +210,12 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 {
     auto* window = new Window(x, y, width, height, windowName);
     window->AddOnTickSubscriber(&window->scene3d);
-    window->AddRenderCommander(window->background);
+    //window->AddRenderCommander(window->background);
 
-    //Create all window DEPENDENCIES
+    //CreateElement all window DEPENDENCIES
     //TODO use try and catch here
-    auto renderingProvider = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    auto renderer = new DefaultAsyncRenderCommandHandler();
+    auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(renderer);
     if(renderingProvider == nullptr)
     {
         cout << "Error, failed to create window" << endl;
@@ -230,14 +223,23 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     }
 
     auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
-    core->SetRenderingProvider(std::move(renderingProvider));
+    core->SetRenderer(std::move(renderingProvider));
 
-    //Create core mediator
+    //CreateElement core mediator
     auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
 
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);
-    window->NotifyOnRedraw(std::make_any<Window*>(window));
-
+    window->background = std::make_unique<Background>(*window);
     return std::unique_ptr<Window>(window);
+}
+
+AsyncRenderCommandHandler *Window::GetRenderer()
+{
+    return coreMediator->GetRenderer();
+}
+
+void Window::ScheduleRedraw()
+{
+    return Repaint();
 }

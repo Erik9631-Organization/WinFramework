@@ -14,6 +14,8 @@ out
 
 cmake-build-debug/
 cmake-build-release/
+cmake-build-debug-visual-studio/
+cmake-build-release-visual-studio/
 libs/PhysX-4.1/physx/documentation
 libs/PhysX-4.1/physx/bin
 libs/PhysX-4.1/physx/platform_readme.html

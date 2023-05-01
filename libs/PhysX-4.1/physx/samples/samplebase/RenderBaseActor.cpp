@@ -31,7 +31,7 @@
 #include "RenderBaseActor.h"
 #include "RenderMaterial.h"
 #include "RendererShape.h"
-#include "Renderer.h"
+#include RenderingApi.h
 #include "RendererMemoryMacros.h"
 #include "extensions/PxShapeExt.h"
 #include "RaycastCCD.h"

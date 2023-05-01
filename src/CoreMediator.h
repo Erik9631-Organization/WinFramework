@@ -8,11 +8,8 @@
 #include "PresenterSubscriber.h"
 #include "Presenter.h"
 #include "Core.h"
+#include "AsyncRenderCommandHandler.h"
 class Window;
-
-/**
- * TODO refactor so it meets names of existing interfaces
- */
 
 class CoreMediator : public CoreSubscriber, public PresenterSubscriber
 {
@@ -42,13 +39,12 @@ public:
     void OnAttributesChanged(EventAttributeInfo &e) override;
     void OnAttributesRemoved(EventAttributeInfo &e) override;
     void OnScaleUpdate(std::any src) override;
-    void OnRedraw(std::any src) override;
+    void Redraw(std::any src) override;
     void OnClose(std::any src) override;
     void OnLockCursorSizeChanged(EventResizeInfo &e) override;
     void OnCursorLockStateChanged(EventCursorLockInfo &e) override;
-    void WaitForRenderingSyncToFinish();
     const bool IsCursorLocked() override;
-    RenderingProvider * GetRenderingProvider() override;
+    AsyncRenderCommandHandler * GetRenderer();
 };
 
 

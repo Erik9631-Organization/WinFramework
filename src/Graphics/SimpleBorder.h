@@ -5,8 +5,7 @@
 #include <unordered_map>
 #include "Reflectable.h"
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
-#include "Vector4.h"
+#include "ScalingUtil2D.h"
 #include "DrawData2D.h"
 
 
@@ -23,22 +22,22 @@ class SimpleBorder : public RenderCommander, public Reflectable<SimpleBorder>
 private:
 	//Field map
 	DefaultRender renderBehavior;
-	Vector4 color;
+	glm::ivec4 color;
 
-	ScalingUtil graphicsUtil;
+	ScalingUtil2D graphicsUtil;
 	float thickness;
-    glm::vec2 position{0};
-    glm::vec2 size{0};
+    glm::vec4 position{0};
+    glm::vec4 size{0};
 	DrawData2D drawData;
 
 public:
 	ReflectionContainer<SimpleBorder> reflectionContainer;
 	SimpleBorder(); 
 	~SimpleBorder();
-	void SetColor(Vector3 color);
-	void SetColor(Vector4 color);
-	Vector3 GetColor();
-	Vector4 GetColorRGBA();
+	void SetColor(glm::ivec3 color);
+	void SetColor(glm::ivec4 color);
+	glm::ivec3 GetColor();
+	glm::ivec4 GetColorRGBA();
 	void SetThickness(float thickness);
 	void DrawFromCenterY(bool state);
 	void DrawFromCenterX(bool state);
@@ -49,10 +48,10 @@ public:
 	void AddRenderCommander(RenderCommander &renderable) override;
 	void RemoveRenderCommander(RenderCommander& renderable) override;
 	std::vector<std::reference_wrapper<RenderCommander>> GetRenderables() override;
-	glm::vec2 GetSize();
-	glm::vec2 GetPosition();
-	void SetSize(glm::vec2 size);
-	void SetPosition(glm::vec2 point);
+	glm::vec4 GetSize();
+	glm::vec4 GetPosition();
+	void SetSize(glm::vec4 size);
+	void SetPosition(glm::vec4 point);
 	void SetX(float x);
 	void SetY(float y);
 	void SetWidth(float width);

@@ -18,7 +18,6 @@ private:
     std::mutex syncFinishedMutex;
 public:
     void SyncData(MultiTree<std::unique_ptr<UiElement>> &node);
-    void WaitForSync();
 };
 
 #endif //LII_UITREEDATASYNCER_H

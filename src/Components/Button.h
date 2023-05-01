@@ -4,19 +4,20 @@
 #include "Graphics/SimpleBorder.h"
 #include "Graphics/Text.h"
 #include "DefaultButtonBehavior.h"
+#include "RectangleProxy.h"
+#include "Border.h"
+#include "Text2.h"
 
 class Button : public UiElement
 {
 
 private:
-	SimpleBorder border;
-	Background background;
-	Text text;
+    Border border;
+    Background background;
+	Text2 text;
 	DefaultButtonBehavior buttonBehavior;
-
 public:
-	Button(int x, int y, int width, int height);
-	
+    Button(float x, float y, float width, float height, const std::string &name);
 	/**
 	 * \param text unicode text of the thumbTrack which is to be displayed.
 	 */
@@ -25,41 +26,41 @@ public:
 	/**
 	 * \return returns the unicode text of the thumbTrack which is displayed.
 	 */
-	std::wstring GetText() override;
-
-	/**
-	 * \param color sets the color of the border.
-	 */
-	void SetBorderColor(Vector3 color);
-
-	/**
-	 * \param color sets the color of the background.
-	 */
-	void SetBackgroundColor(Vector3 color);
-
+    const std::wstring & GetText() override;
 
 	/**
 	 * \return returns the background color of the thumbTrack.
 	 */
-    Vector3 GetBackgroundColor();
+    const glm::ivec4 & GetBackgroundColor();
 
 	/*
 	 * \return returns the border color of the thumbTrack.
 	 */
-    Vector3 GetBorderColor();
+    const glm::ivec4 & GetBorderColor();
 
 
 	/**
 	 * \param thickness sets the border thickness of the thumbTrack.
 	 */
 	void SetBorderThickness(float thickness);
-	void SetOnHoverColor(Vector3 color);
-	void SetOnClickColor(Vector3 color);
-	void SetColor(Vector3 color);
-	Vector3 GetColor();
+	void SetOnHoverColor(const glm::ivec4 &color);
+	void SetOnClickColor(const glm::vec4 &color);
 
-	Vector3 GetOnClickColor();
-	Vector3 GetOnHoverColor();
-	~Button();
+    /**
+     * \param color sets the color of the background.
+     */
+    void SetBackgroundColor(const glm::ivec4 &color);
+
+    void SetStatelessBackgroundColor(const glm::ivec4 &color);
+
+
+    /**
+     * \param color sets the color of the border.
+     */
+    void SetBorderColor(const glm::ivec4 &color);
+
+	const glm::ivec4 & GetOnClickColor();
+	const glm::ivec4 & GetOnHoverColor();
+	~Button() override = default;
 };
 

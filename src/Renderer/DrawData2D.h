@@ -11,15 +11,15 @@ class DrawData2D : public DrawData
 {
 public:
     DrawData2D(const DrawData2D& data);
-    DrawData2D();
+    DrawData2D() = default;
 
-    DrawData2D(glm::vec2 position, glm::vec2 size);
+    DrawData2D(glm::vec3 position, glm::vec3 size);
     int GetDataType() const override;
-    glm::vec2 GetPosition() const;
-    glm::vec2 GetSize() const;
+    [[nodiscard]] glm::vec3 GetPosition() const;
+    [[nodiscard]] glm::vec3 GetSize() const;
 private:
-    glm::vec2 position;
-    glm::vec2 size;
+    glm::vec3 position{0};
+    glm::vec3 size{0};
 };
 
 

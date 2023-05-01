@@ -1,5 +1,5 @@
 #include "RadioButtonGraphics.h"
-#include "EventTypes/RenderEventInfo.h"
+#include "RenderEventInfo.h"
 #include <algorithm>
 #include <execution>
 
@@ -38,21 +38,21 @@ void RadioButtonGraphics::SetDiameter(float Diameter)
 }
 
 
-void RadioButtonGraphics::SetPosition(glm::vec2 position)
+void RadioButtonGraphics::SetPosition(glm::vec4 position)
 {
 	border.position = position;
 	fill.position = position;
 }
 
 
-void RadioButtonGraphics::SetBorderColor(Vector3 borderColor)
+void RadioButtonGraphics::SetBorderColor(glm::ivec3 borderColor)
 {
 	border.SetColor(borderColor);
 }
 
-void RadioButtonGraphics::SetFillColor(Vector3 color)
+void RadioButtonGraphics::SetFillColor(glm::ivec3 color)
 {
-	fillBackground = {color.GetX(), color.GetY(), color.GetZ(), 0};
+	fillBackground = {color.x, color.y, color.z, 0};
 	fill.SetColor(color);
 }
 
@@ -97,7 +97,7 @@ std::vector<std::reference_wrapper<RenderCommander>> RadioButtonGraphics::GetRen
 	return renderBehavior.GetRenderables();
 }
 
-glm::vec2 RadioButtonGraphics::GetPosition()
+glm::vec4 RadioButtonGraphics::GetPosition()
 {
     return border.GetPosition();
 }
@@ -185,12 +185,12 @@ void RadioButtonGraphics::SetDrawFromCenterX(bool drawFromCenterX)
     fill.SetDrawFromCenterX(drawFromCenterX);
 }
 
-void RadioButtonGraphics::SetBorderColor(Vector4 borderColor)
+void RadioButtonGraphics::SetBorderColor(glm::ivec4 borderColor)
 {
     border.SetColor(borderColor);
 }
 
-void RadioButtonGraphics::SetFillColor(Vector4 color)
+void RadioButtonGraphics::SetFillColor(glm::ivec4 color)
 {
     fill.SetColor(color);
 }

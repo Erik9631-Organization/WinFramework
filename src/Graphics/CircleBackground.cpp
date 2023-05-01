@@ -1,13 +1,14 @@
 #include "CircleBackground.h"
 #include "RenderEventInfo.h"
-#include "Renderer.h"
+#include "RenderingApi.h"
 #include "RenderingPool.h"
 
 void CircleBackground::OnRenderSync(RenderEventInfo e)
 {
-    Renderer& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    graphicsUtil.Scale(drawData.GetSize());
     renderer.SetColor(color);
-    renderer.FillEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.DrawFillEllipse(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(),
+                             graphicsUtil.GetHeight());
     renderBehavior.OnRenderSync(e);
 }

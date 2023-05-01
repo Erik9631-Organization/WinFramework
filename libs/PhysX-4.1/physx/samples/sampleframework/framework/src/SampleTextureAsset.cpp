@@ -26,7 +26,7 @@
 // Copyright (c) 2008-2021 NVIDIA Corporation. All rights reserved.
 #include <SampleTextureAsset.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererTexture2D.h>
 #include <RendererTexture2DDesc.h>
 #include <RendererMemoryMacros.h>

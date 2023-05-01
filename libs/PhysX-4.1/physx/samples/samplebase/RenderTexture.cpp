@@ -30,7 +30,7 @@
 #include "SamplePreprocessor.h"
 #include "RendererMemoryMacros.h"
 #include "RenderTexture.h"
-#include "Renderer.h"
+#include RenderingApi.h
 #include "RendererTexture2DDesc.h"
 
 using namespace physx;

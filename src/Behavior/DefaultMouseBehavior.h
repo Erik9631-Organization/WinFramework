@@ -1,10 +1,10 @@
 #pragma once
 #include <vector>
-#include "Events/MouseStateSubject.h"
-#include "api/MouseInteractable.h"
+#include "MouseStateSubject.h"
+#include "MouseInteractable.h"
 #include "DefaultMouseBehavior.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Events/MouseStateSubscriber.h"
+#include "EventMouseStateInfo.h"
+#include "MouseStateSubscriber.h"
 
 template<class TreeNode>
 class DefaultMouseBehavior : public MouseStateSubject
@@ -100,9 +100,6 @@ void DefaultMouseBehavior<TreeNode>::NotifyOnMousePressed(EventMouseStateInfo e)
 			subscriber.OnMousePressed(e);
 		return;
 	}
-
-
-
 
 	bool subComponentCollision = false;
 	for (int i = 0; i < associatedNode.GetNodeCount(); i++) // Should also notify subNodes

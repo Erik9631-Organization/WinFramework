@@ -1,38 +1,40 @@
 #include "Label.h"
 
-Label::Label(std::string name) : UiElement(name), text("Arial")
+Label::Label(const std::string &name) : Label(0, 0, 0, 0, name)
 {
 }
 
-Label::Label() : text("Arial")
+Label::Label() : Label(0, 0, 0, 0, "")
 {
 }
 
-Label::Label(int x, int y, int width, int height, std::string name) : UiElement(x, y, width, height, name), text("Arial")
+Label::Label(int x, int y, int width, int height, std::string name) : UiElement(x, y, width, height, name),
+        text(*this),
+        background(*this)
 {
-	background.SetColor({30, 30, 30});
-    AddRenderCommander(background);
-    AddRenderCommander(text);
+	background.SetColor({30, 30, 30, 255});
+    text.SetColor({255, 255, 255, 255});
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
 }
 
-void Label::SetBackground(Vector3 color)
-{
-	background.SetColor(color);
-	//Repaint();
-}
-
-Vector3 Label::GetBackground()
-{
-	return background.GetColor();
-}
 
 void Label::SetText(std::wstring str)
 {
 	text.SetText(str);
-	//Repaint();
 }
 
-std::wstring Label::GetText()
+const std::wstring & Label::GetText()
 {
 	return text.GetText();
+}
+
+void Label::SetBackground(const glm::ivec4 &color)
+{
+    background.SetColor(color);
+}
+
+const glm::ivec4 &Label::GetBackground()
+{
+    return background.GetColor();
 }

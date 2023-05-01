@@ -4,7 +4,7 @@
 
 #include "CoreMediator.h"
 #include "Window.h"
-#include "RenderingProvider.h"
+#include "Renderer.h"
 using namespace std;
 
 void CoreMediator::CoreOnDestroy(std::any src)
@@ -58,7 +58,6 @@ void CoreMediator::CoreOnMousePressed(EventMouseStateInfo e)
         return;
     presenter->NotifyOnMousePressed(e);
 }
-
 
 void CoreMediator::CoreOnKeyUp(EventKeyStateInfo e)
 {
@@ -115,11 +114,11 @@ void CoreMediator::OnScaleUpdate(std::any src)
     core->UpdateScale();
 }
 
-void CoreMediator::OnRedraw(std::any src)
+void CoreMediator::Redraw(std::any src)
 {
     if(core == nullptr)
         return;
-    core->Redraw();
+    core->ScheduleRedraw();
 }
 
 void CoreMediator::OnClose(std::any src)
@@ -150,11 +149,11 @@ const bool CoreMediator::IsCursorLocked()
     return core->IsCursorLocked();
 }
 
-RenderingProvider * CoreMediator::GetRenderingProvider()
+AsyncRenderCommandHandler * CoreMediator::GetRenderer()
 {
     if(core == nullptr)
         return nullptr;
-    return core->GetRenderingProvider();
+    return core->GetRenderer();
 }
 
 void CoreMediator::SetPresenter(Presenter *presenter)
@@ -165,11 +164,6 @@ void CoreMediator::SetPresenter(Presenter *presenter)
 void CoreMediator::SetCore(unique_ptr<Core> core)
 {
     SetupCore(std::move(core));
-}
-
-void CoreMediator::WaitForRenderingSyncToFinish()
-{
-    core->WaitForRenderingSyncToFinish();
 }
 
 CoreMediator::CoreMediator(Presenter* presenter, std::unique_ptr<Core> core)

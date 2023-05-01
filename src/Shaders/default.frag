@@ -37,8 +37,7 @@ uniform Light pointLights[MAX_POINT_LIGHTS];
 vec3 defaultAmbient = vec3(0.1f, 0.1f, 0.1f);
 vec3 defaultSpecular = vec3(0.5f, 0.5f, 0.5f);
 vec3 defaultDiffuseElement = vec3(1.0f, 1.0f, 1.0f);
-
-vec3 CameraPos = {0,0,0};
+vec3 CameraPos = vec3(0.0f, 0.0f, 0.0f);
 
 out vec4 FragColor;
 in vec3 FragPos;

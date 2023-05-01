@@ -10,12 +10,12 @@
 class Vector2DScaler
 {
 private:
-    glm::vec2 parentVector{0};
+    const glm::vec3& basis;
     GraphicsScaling scalingTypeX;
     GraphicsScaling scalingTypeY;
 public:
-    Vector2DScaler(glm::vec2 parentVector, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
-    Vector2DScaler(glm::vec2 parentVector);
+    Vector2DScaler(const glm::vec3 &basis, GraphicsScaling scalingTypeX, GraphicsScaling scalingTypeY);
+    Vector2DScaler(const glm::vec3 &parentVector);
 
     GraphicsScaling GetScalingTypeX() const;
 
@@ -24,9 +24,7 @@ public:
     GraphicsScaling GetScalingTypeY() const;
 
     void SetScalingTypeY(GraphicsScaling scalingTypeY);
-    glm::vec2 GetScaledValues(glm::vec2 input);
-
-
+    glm::vec3 GetScaledValues(glm::vec3 input);
 };
 
 

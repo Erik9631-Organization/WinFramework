@@ -22,8 +22,8 @@ void Grid::AddRow()
 		//Get spans Y find the different between current row and preemtivly add rows till the last span, use recursion
 		//CreateElement last assigned row variable which keeps track of which row was the last gridCell assigned to.
 		row->push_back(cell);
-        cell->SetSize(GetGridColumnSize(i), GetGridRowSize(lastRowIndex), false); // First position
-        cell->SetPosition(i, lastRowIndex, false); // Then size since position is dependent on size
+        cell->SetSize({GetGridColumnSize(i), GetGridRowSize(lastRowIndex), 0}, false); // First viewPortSize
+        cell->SetPosition({i, lastRowIndex, 0}, false); // Then viewPortPosition since viewPortSize is dependent on viewPortPosition
 	}
 	if (autoExtend == false)
 		return;
@@ -36,10 +36,10 @@ void Grid::AddRow()
 	//If autoextend enabled check if grid extention required
 	
 	int lastY = gridArray.at(gridArray.size()-1)->at(0)->GetPixelY();
-	int lastHeight = gridArray.at(gridArray.size() - 1)->at(0)->GetHeight();
+	int lastHeight = gridArray.at(gridArray.size() - 1)->at(0)->GetSize().y;
 
-	if (lastY + lastHeight > GetHeight())
-        SetHeight(lastY + lastHeight, false);
+	if (lastY + lastHeight > GetSize().y)
+        SetSize({GetSize().x,lastY + lastHeight, GetSize().z}, false);
 
 }
 
@@ -216,7 +216,7 @@ void Grid::SetGridRows(std::initializer_list<int> rows)
 	rowHeights.assign(rows);
 }
 
-void Grid::Add(unique_ptr<UiElement> component)
+UiElement & Grid::Add(unique_ptr<UiElement> component)
 {
     UiElement& componentRef = *component;
 	Panel::Add(std::move(component)); //Super
@@ -231,7 +231,7 @@ void Grid::Add(unique_ptr<UiElement> component)
 				if (cell->GetControlledAdjustable() == nullptr)
 				{
 					cell->ControlAdjustable(&static_cast<Adjustable&>(componentRef));
-					return; //Successfully added
+					return componentRef; //Successfully added
 				}
 			}
 		}
@@ -243,6 +243,6 @@ void Grid::Add(unique_ptr<UiElement> component)
 	if (gridArray.size() > 1)
 		currentRowIndex++;
 	if(gridArray.at(currentRowIndex)->size() == 0)
-	    return;
+	    return componentRef;
 	gridArray.at(currentRowIndex)->at(0)->ControlAdjustable(&static_cast<Adjustable&>(componentRef));
 }

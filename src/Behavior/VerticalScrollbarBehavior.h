@@ -7,7 +7,7 @@
 
 
 #include "MouseStateSubscriber.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "OnAddSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "EventResizeInfo.h"
@@ -21,16 +21,16 @@ class Button;
 class Adjustable;
 
 /**
-    the trackbar moves from position 0 to 100.
+    the trackbar moves from viewPortSize 0 to 100.
     the trackbar has a height or width.
 
-    the size of the scrollbar is defined as following:
+    the viewPortPosition of the scrollbar is defined as following:
     scrollbarSizeInPercent = windowHeight / pageHeight //If >= 1, hide, if smaller than minSize, then ensure it is always minSize
 
     the empty space in which the scrollbar moves is defined as:
     emptyArea = height - scrollbarHeight
 
-    the scrollbar position in % is defined as
+    the scrollbar viewPortSize in % is defined as
     percentualPosition = (scrollbarHeight + scrollbar.Y) / emptyArea
 
     the height of the page is defined as following:
@@ -40,9 +40,9 @@ class Adjustable;
     transform.Y = pageHeight * percentualPosition
 
     1. Set default value. Should start at top left with full width. Height should be calculated based on current number of elements.
-    2. Calculate the initial position of the elements based on the position of the trackbar.
+    2. Calculate the initial viewPortSize of the elements based on the viewPortSize of the trackbar.
     3. Subscribe to trackbar mouse events
-    4. calculate the position of the elements based on the position of the trackbar again when capture is received.
+    4. calculate the viewPortSize of the elements based on the viewPortSize of the trackbar again when capture is received.
  */
 
 
@@ -68,6 +68,8 @@ public:
     void OnMove(EventMoveInfo e) override;
 
 private:
+    void UpdateChildrenViewports(UiElement& root);
+
     int padding = 0;
     ScrollBar& associatedScrollbar;
     Button& associatedTrackBar;

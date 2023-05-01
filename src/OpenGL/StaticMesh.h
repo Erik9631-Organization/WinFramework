@@ -6,6 +6,7 @@
 #define LII_STATICMESH_H
 #include "Mesh.h"
 #include "DefaultGpuMemoryAllocator.h"
+#include "EventSource.h"
 
 
 namespace OpenGL

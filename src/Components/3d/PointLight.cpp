@@ -58,12 +58,12 @@ const int &PointLight::GetPriority()
 }
 
 
-const glm::vec4 PointLight::GetColor() const
+const glm::ivec4 PointLight::GetColor() const
 {
-    return glm::vec4();
+    return glm::ivec4();
 }
 
-void PointLight::SetColor(const glm::vec4 &color)
+void PointLight::SetColor(const glm::ivec4 &color)
 {
     this->color = color;
 }

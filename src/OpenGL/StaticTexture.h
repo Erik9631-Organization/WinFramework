@@ -9,7 +9,6 @@
 #include "LiiImage.h"
 #include "DefaultResize.h"
 #include <string>
-#include "Vector2Int.h"
 #include "Texture.h"
 
 namespace OpenGL
@@ -20,7 +19,7 @@ namespace OpenGL
         DefaultResize resizeBehavior;
         std::string path;
         unsigned char* imageData;
-        Vector2Int size;
+        glm::ivec4 size;
         unsigned int textureId = 0;
         int format = 0;
         bool loaded = false;
@@ -28,37 +27,24 @@ namespace OpenGL
     public:
         StaticTexture();
         StaticTexture(const std::string &path, const int &format);
-        void SetSize(glm::vec2 size, bool emit) override;
-        void SetSize(float width, float height, bool emit) override;
-        void SetWidth(float width, bool emit) override;
-        void SetHeight(float height, bool emit) override;
+        void SetSize(const glm::vec3 &size, bool emit) override;
         void NotifyOnResizeSubscribers(EventResizeInfo event) override;
         void AddOnResizeSubscriber(ResizeSubscriber &subscriber) override;
         void RemoveOnResizeSubscriber(ResizeSubscriber &subscriber) override;
-        const std::string & GetPath() const override;
+        [[nodiscard]] const std::string & GetPath() const override;
         void SetPath(const std::string &wstring, const int &format) override;
-        const unsigned char * GetData() const override;
+        [[nodiscard]] const unsigned char * GetData() const override;
         const bool &LoadFromFile() override;
         void Load() override;
-        const int &GetFormat() const override;
+        [[nodiscard]] const int &GetFormat() const override;
         const bool &IsLoaded() override;
         void Bind() const override;
         void Unbind() const override;
-        float GetHeight() override;
-        glm::vec2 GetSize() override;
-        float GetWidth() override;
+        [[nodiscard]] const glm::vec3 & GetSize() const override;
         void Unload() override;
         const std::string &GetTag() override;
         void SetTag(const std::string &tag) override;
-        const unsigned long long int &GetId() const override;
-
-        void SetSize(glm::vec2 size) override;
-
-        void SetSize(float width, float height) override;
-
-        void SetWidth(float width) override;
-
-        void SetHeight(float height) override;
+        [[nodiscard]] const unsigned long long int &GetId() const override;
     };
 }
 

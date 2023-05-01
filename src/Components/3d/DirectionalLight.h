@@ -20,14 +20,14 @@ public:
     static unsigned int GetMaxDirectionalLights();
     bool enabled = true;
     ~DirectionalLight();
-    const glm::vec4 GetColor() const override;
-    void SetColor(const glm::vec4 &color) override;
+    const glm::ivec4 GetColor() const override;
+    void SetColor(const glm::ivec4 &color) override;
 private:
     void SetLight(const glm::vec3 &direction);
     static IdManager idManager;
     static constexpr unsigned int maxDirectionalLights = 20;
     unsigned int assignedId = -1;
-    glm::vec4 lightColor;
+    glm::ivec4 lightColor;
 };
 
 

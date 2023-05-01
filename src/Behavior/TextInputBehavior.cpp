@@ -1,8 +1,7 @@
 #include "TextInputBehavior.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "EventKeyStateInfo.h"
 #include "Components/TextInput.h"
-#include "EventTypes/EventOnActivateInfo.h"
-#include "Components/UiElement.h"
+#include "EventOnActivateInfo.h"
 using namespace std;
 
 void TextInputBehavior::InsertCharacter(EventKeyStateInfo e)
@@ -31,15 +30,14 @@ void TextInputBehavior::SetActiveBackground()
 {
 	//originalColor = associatedTextInput.GetBackgroundColor();
 
-	originalColor = associatedTextInput.GetPropery<Vector4>("get-background-color");
-	associatedTextInput.SetProperty("background-color", activeColor);
+	originalColor = associatedTextInput.GetBackgroundColor();
+	associatedTextInput.SetBackgroundColor(activeColor);
 	//associatedTextInput.SetBackgroundColor(activeColor);
 }
 
 void TextInputBehavior::SetInactiveBackground()
 {
-	associatedTextInput.SetProperty("background-color", originalColor);
-	//associatedTextInput.SetBackgroundColor(originalColor);
+	associatedTextInput.SetBackgroundColor(originalColor);
 }
 
 void TextInputBehavior::RemoveLastChar()
@@ -52,7 +50,7 @@ void TextInputBehavior::RemoveLastChar()
 }
 
 
-TextInputBehavior::TextInputBehavior(UiElement& textInput) : associatedTextInput(textInput)
+TextInputBehavior::TextInputBehavior(TextInputApi &textInput) : associatedTextInput(textInput)
 {
 	activeColor = {255, 255, 255, 0};
 	textInput.AddOnActivateSubscriber(*this);

@@ -13,10 +13,13 @@
 class GdiFontFormat : public FontFormat
 {
 public:
+    GdiFontFormat();
+    explicit GdiFontFormat(const FontFormat& fontFormat);
+
     void SetAlignment(int alignment) override;
     void SetLineAlignment(int lineAlignment) override;
-    int GetAlingment() const override;
-    int GetLineAlingment() const override;
+    [[nodiscard]] int GetAlignment() const override;
+    [[nodiscard]] int GetLineAlignment() const override;
 private:
     Gdiplus::StringAlignment alignment;
     Gdiplus::StringAlignment lineAlignment;

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2021 NVIDIA Corporation. All rights reserved.
 #include <SamplePointDebugRender.h>
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererVertexBuffer.h>
 #include <RendererVertexBufferDesc.h>
 #include <RendererMesh.h>

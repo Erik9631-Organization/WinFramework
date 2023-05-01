@@ -1,5 +1,5 @@
 #include "RadioButton.h"
-#include "EventTypes/EventRadioButtonStateInfo.h"
+#include "EventRadioButtonStateInfo.h"
 using namespace std;
 
 void RadioButton::Check()
@@ -22,8 +22,7 @@ void RadioButton::SetChecked(bool checked)
 	this->checked = checked;
 	behavior.NotifyOnRadioButtonSelected(EventRadioButtonStateInfo(checked, this));
 
-	radioButtonGraphics.SetFillEnabled(checked);
-	//Repaint();
+	radioCircle.SetFillEnabled(checked);
 }
 
 void RadioButton::AddToGroup(RadioButton& button)
@@ -47,7 +46,7 @@ void RadioButton::SetText(std::wstring text)
 	//Repaint();
 }
 
-std::wstring RadioButton::GetText()
+const wstring & RadioButton::GetText()
 {
 	return text.GetText();
 }
@@ -62,32 +61,37 @@ RadioButton::RadioButton(std::string name) : RadioButton(0, 0, 0, 0, name)
 
 }
 
-RadioButton::RadioButton(int x, int y, int width, int height, string componentName) : UiElement(x, y, width, height, componentName), text("Arial"), behavior(*this)
+RadioButton::RadioButton(float x, float y, float width, float height, string componentName) :
+    UiElement(x, y, width, height, componentName),
+    behavior(*this),
+    border(*this),
+    text(*this),
+    radioCircle(*this)
 {
-	border.SetColor({0, 0, 0});
-	border.SetThickness(1.0f);
-	radioButtonGraphics.SetFillEnabled(false);
-    radioButtonGraphics.SetDiameter(15.0f);
-	radioButtonGraphics.SetFillPadding(5.0f);
-	radioButtonGraphics.SetDrawFromCenterY(true);
-	radioButtonGraphics.SetDrawFromCenterX(true);
-	radioButtonGraphics.SetScalingTypeWidth(Decimal);
-	radioButtonGraphics.SetScalingTypeHeight(Decimal);
-	radioButtonGraphics.SetY(0.5f);
-	radioButtonGraphics.SetX(0.1f);
+	border.SetColor({0, 0, 0, 255});
+    radioCircle.SetRadius(7.5f);
+	radioCircle.GetScales().SetCalculateFromCenterX(false);
+    radioCircle.GetScales().SetCalculateFromCenterY(true);
+    radioCircle.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
+    radioCircle.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
 
-	text.SetColor({0, 0, 0});
+    auto pos = radioCircle.GetPosition();
+    pos.x = 0.1f;
+    radioCircle.SetPosition(pos);
+
+    // TODO Fix units. Potential issue if differet units are used
+
 	text.SetFontSize(12.0f);
-	text.SetLineAlignment(FontAlingnment::FontAlignmentCenter);
-	text.SetScalingTypeX(Percentual);
-	text.SetScalingTypeY(Percentual);
-	text.SetPosition({0.23f, 0.52f});
-	text.SetText(L"Radio");
+	text.SetFontLineAlignment(FontAlignment::FontAlignmentCenter);
+    text.SetFontAlignment(FontAlignment::FontAlignmentCenter);
+    text.GetScales().SetUnitTypePosX(GraphicsScaling::Percentual);
+    text.GetScales().SetUnitTypePosY(GraphicsScaling::Percentual);
+	text.SetText(L"");
+    pos = text.GetPosition();
+    pos.x = 0.1f;
+    text.SetPosition(pos);
+    border.SetVisible(true);
 	SetChecked(false);
-
-    AddRenderCommander(radioButtonGraphics);
-    AddRenderCommander(border);
-    AddRenderCommander(text);
 }
 
 void RadioButton::NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e)
@@ -103,4 +107,9 @@ void RadioButton::AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subs
 void RadioButton::RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber)
 {
 	behavior.RemoveRadiobuttonStateSubscriber(subscriber);
+}
+
+void RadioButton::SetBorder(bool state)
+{
+    border.SetVisible(state);
 }

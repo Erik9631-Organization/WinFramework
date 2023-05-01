@@ -1,7 +1,7 @@
 #include "DefaultListBoxBehavior.h"
-#include "../TableElement.h"
-#include "Components/ListBox.h"
-#include "EventTypes/EventKeyStateInfo.h"
+#include "TableElement.h"
+#include "ListBox.h"
+#include "EventKeyStateInfo.h"
 using namespace std;
 
 void DefaultListBoxBehavior::SelectClickAction(TableElement* element)
@@ -96,7 +96,7 @@ void DefaultListBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 
 void DefaultListBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	TableElement* element = dynamic_cast<TableElement*>(e.GetSrc());
+	TableElement* element = dynamic_cast<TableElement*>(e.GetSource());
 	if (element == nullptr)
 		return;
 	if (lastInputSnapshot.IsKeyDown(InputManager::VirtualKeys::Control))
@@ -149,7 +149,8 @@ void DefaultListBoxBehavior::OnDragOver(EventOnDragInfo e)
 
 void DefaultListBoxBehavior::OnDrop(EventOnDragInfo e)
 {
-	std::vector<TableElement*>* dragContent = std::any_cast<std::vector<TableElement*>*>(e.GetSrc().GetDragContent());
+    auto draggable = dynamic_cast<Draggable*>(e.GetSource());
+	std::vector<TableElement*>* dragContent = std::any_cast<std::vector<TableElement*>*>(draggable->GetDragContent());
 	if (dragContent == nullptr)
 		return;
 	for (TableElement* element : *dragContent)

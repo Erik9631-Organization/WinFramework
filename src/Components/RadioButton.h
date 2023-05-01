@@ -8,19 +8,23 @@
 #include <vector>
 #include <memory>
 #include "Events/RadioButtonStateSubject.h"
+#include "Border.h"
+#include "Text2.h"
+#include "RadioCircle.h"
 
 class RadioButton : public UiElement, public RadioButtonStateSubject
 {
 private:
-	SimpleBorder border;
-	RadioButtonGraphics radioButtonGraphics;
+	Border border;
+	RadioCircle radioCircle;
 	RadioButtonBehavior behavior;
-	Text text;
+	Text2 text;
 	
-	Background background;
+	// Background background;
 	//radioButtonBehavior
 	bool checked = false;
 public:
+    void SetBorder(bool state);
 	void Check();
 	bool IsChecked();
 	void SetChecked(bool state);
@@ -28,15 +32,15 @@ public:
 	void SetGroup(std::shared_ptr<std::vector<std::reference_wrapper<RadioButton>>> group);
 	void UnGroup();
 	void SetText(std::wstring text) override;
-	std::wstring GetText() override;
+	const std::wstring & GetText() override;
 
 	RadioButton();
-	RadioButton(std::string name);
-	RadioButton(int x, int y, int width, int height, std::string componentName);
+	explicit RadioButton(std::string name);
+	RadioButton(float x, float y, float width, float height, std::string componentName);
 
 	// Inherited via RadioButtonStateSubject
-	virtual void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;
-	virtual void AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
-	virtual void RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
+    void NotifyOnRadioButtonSelected(EventRadioButtonStateInfo e) override;
+    void AddRadioButtonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
+    void RemoveRadiobuttonStateSubscriber(RadioButtonStateSubscriber& subscriber) override;
 };
 

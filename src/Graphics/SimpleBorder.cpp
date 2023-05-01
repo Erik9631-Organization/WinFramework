@@ -11,13 +11,13 @@ SimpleBorder::SimpleBorder() :
     graphicsUtil(position, size)
 {
 	//Set up meta data
-	reflectionContainer.RegisterMethod<Vector3>("border-color", "SetColor", &SimpleBorder::SetColor);
-	reflectionContainer.RegisterMethod<Vector4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<glm::ivec3>("border-color", "SetBackgroundColor", &SimpleBorder::SetColor);
+	reflectionContainer.RegisterMethod<glm::ivec4>("border-color", "SetColorRGBA", &SimpleBorder::SetColor);
 	reflectionContainer.RegisterMethod("border-thickness", "SetThickness", &SimpleBorder::SetThickness);
 
 
-    position = {0, 0};
-    size = {1, 1};
+    position = {0, 0, 0, 0};
+    size = {1, 1, 0, 0};
 }
 
 
@@ -26,14 +26,14 @@ SimpleBorder::~SimpleBorder()
 
 }
 
-void SimpleBorder::SetColor(Vector3 color)
+void SimpleBorder::SetColor(glm::ivec3 color)
 {
-	this->color = {color.GetX(), color.GetY(), color.GetZ(), 255};
+	this->color = {color.x, color.y, color.z, 255};
 }
 
-Vector3 SimpleBorder::GetColor()
+glm::ivec3 SimpleBorder::GetColor()
 {
-	return {color.GetX(), color.GetY(), color.GetZ()};
+	return {color.x, color.y, color.z};
 }
 
 
@@ -54,8 +54,8 @@ void SimpleBorder::DrawFromCenterY(bool state)
 
 void SimpleBorder::OnRenderSync(RenderEventInfo e)
 {
-    Renderer& renderer = e.GetRenderer()->Acquire(*this);
-    graphicsUtil.CreateRatio(drawData.GetPosition(), drawData.GetSize());
+    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    graphicsUtil.Scale(drawData.GetSize());
 
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
@@ -93,12 +93,12 @@ ReflectionContainer<SimpleBorder>& SimpleBorder::GetReflectionContainer()
 	return reflectionContainer;
 }
 
-glm::vec2 SimpleBorder::GetSize()
+glm::vec4 SimpleBorder::GetSize()
 {
 	return this->size;
 }
 
-glm::vec2 SimpleBorder::GetPosition()
+glm::vec4 SimpleBorder::GetPosition()
 {
 	return this->position;
 }
@@ -110,7 +110,7 @@ GraphicsScaling SimpleBorder::GetScalingTypeX() const
 
 void SimpleBorder::SetScalingTypeX(GraphicsScaling scalingTypeX)
 {
-    graphicsUtil.SetScalingTypeX(scalingTypeX);
+    graphicsUtil.SetUnitTypePosX(scalingTypeX);
 }
 
 GraphicsScaling SimpleBorder::GetScalingTypeY() const
@@ -120,7 +120,7 @@ GraphicsScaling SimpleBorder::GetScalingTypeY() const
 
 void SimpleBorder::SetScalingTypeY(GraphicsScaling scalingTypeY)
 {
-    graphicsUtil.SetScalingTypeY(scalingTypeY);
+    graphicsUtil.SetUnitTypePosY(scalingTypeY);
 }
 
 GraphicsScaling SimpleBorder::GetScalingTypeWidth() const
@@ -143,12 +143,12 @@ void SimpleBorder::SetScalingTypeHeight(GraphicsScaling scalingTypeHeight)
     graphicsUtil.SetScalingTypeHeight(scalingTypeHeight);
 }
 
-void SimpleBorder::SetSize(glm::vec2 size)
+void SimpleBorder::SetSize(glm::vec4 size)
 {
     this->size = size;
 }
 
-void SimpleBorder::SetPosition(glm::vec2 point)
+void SimpleBorder::SetPosition(glm::vec4 point)
 {
     this->position = point;
 }
@@ -193,12 +193,12 @@ float SimpleBorder::GetHeight()
     return size.y;
 }
 
-void SimpleBorder::SetColor(Vector4 color)
+void SimpleBorder::SetColor(glm::ivec4 color)
 {
     this->color = color;
 }
 
-Vector4 SimpleBorder::GetColorRGBA()
+glm::ivec4 SimpleBorder::GetColorRGBA()
 {
     return color;
 }

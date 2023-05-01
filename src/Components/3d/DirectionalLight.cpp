@@ -54,12 +54,12 @@ void DirectionalLight::SetLight(const glm::vec3 &direction)
     GetModel()->GetShaderProgram().GetUniformProperties().SetProperty("directionalLights["+to_string(assignedId)+"].color", glm::vec3{0.5f, 0.5f, 0.5f});
 }
 
-const glm::vec4 DirectionalLight::GetColor() const
+const glm::ivec4 DirectionalLight::GetColor() const
 {
     return lightColor;
 }
 
-void DirectionalLight::SetColor(const glm::vec4 &color)
+void DirectionalLight::SetColor(const glm::ivec4 &color)
 {
     this->lightColor = color;
 }

@@ -5,10 +5,8 @@
 #include "Reflectable.h"
 #include <unordered_map>
 #include "ReflectionContainer.h"
-#include "ScalingUtil.h"
+#include "ScalingUtil2D.h"
 #include "FontFormat.h"
-#include "Vector4.h"
-#include "Vector3.h"
 #include "FontAlignment.h"
 #include "DrawData2D.h"
 
@@ -16,23 +14,22 @@
  * A text renderable. Draws text within the canvas of the defined object.
  * Supported properties:<br>
  * text-color, args: Gdiplus::Color<br>
- * font-size, args: double
+ * font-viewPortPosition, args: double
  */
 class Text : public RenderCommander, public Reflectable<Text>
 {
 private:
 	DefaultRender renderBehavior;
 	std::wstring fontFamily;
-    glm::vec2 position;
-	Vector4 color;
-	ScalingUtil graphicsUtil;
-
+    glm::vec4 position;
+	glm::ivec4 color;
+	ScalingUtil2D graphicsUtil;
 	ReflectionContainer<Text> reflectionContainer;
 	float fontSize = 12.0f;
 	std::wstring text;
 
-	int lineAlignment = FontAlingnment::FontAlignmentNear;
-	int alignment = FontAlingnment::FontAlignmentNear;
+	int lineAlignment = FontAlignment::FontAlignmentNear;
+	int alignment = FontAlignment::FontAlignmentNear;
 
 	DrawData2D drawData;
 
@@ -46,7 +43,7 @@ public:
 	Text(std::string fontFamily);
 	void SetText(std::wstring text);
 	std::wstring GetText();
-	virtual void SetColor(Vector3 color);
+	virtual void SetColor(glm::ivec3 color);
 	virtual void SetFontSize(float fontSize);
 	virtual void OnRenderSync(RenderEventInfo e) override;
 	virtual void Repaint() override;
@@ -61,8 +58,8 @@ public:
 	GraphicsScaling GetScalingTypeY() const;
 	void SetScalingTypeY(GraphicsScaling scalingTypeY);
 
-	glm::vec2 GetPosition();
-	void SetPosition(glm::vec2 position);
+	glm::vec4 GetPosition();
+	void SetPosition(glm::vec4 position);
 	void SetX(float x);
 	void SetY(float y);
 	float GetX();

@@ -43,7 +43,7 @@
 
 #include "SamplePlatform.h"
 
-#include "Renderer.h"
+#include RenderingApi.h
 #include "RendererDirectionalLightDesc.h"
 
 #include "RenderBoxActor.h"

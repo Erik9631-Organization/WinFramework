@@ -1,11 +1,11 @@
 #include "DragManager.h"
 #include <iostream>
-#include "api/Draggable.h"
-#include "EventTypes/EventMouseStateInfo.h"
-#include "Events/MouseStateSubject.h"
-#include "Events/DragSubscriber.h"
-#include "Events/DropSubscriber.h"
-#include "Core/Windows/WindowsCore.h"
+#include "Draggable.h"
+#include "EventMouseStateInfo.h"
+#include "MouseStateSubject.h"
+#include "DragSubscriber.h"
+#include "DropSubscriber.h"
+#include "WindowsCore.h"
 
 bool DragManager::isDragging = false;
 Draggable* DragManager::currentDragObj = nullptr;
@@ -18,7 +18,7 @@ void DragManager::OnDragStart()
 	isDragging = true;
 	currentDragObj = associatedDraggable;
 	srcManager = this;
-	NotifyOnDragStart(EventOnDragInfo(*currentDragObj));
+	NotifyOnDragStart(EventOnDragInfo(currentDragObj));
 }
 
 void DragManager::OnDragEnd()
@@ -26,17 +26,17 @@ void DragManager::OnDragEnd()
 	std::cout<< "Drag ended!" << std::endl;
 	if (currentDragObj == associatedDraggable) // Cant drop on itself
 	{
-		// Reset states
+		// ResetSize states
 		srcManager = nullptr;
 		currentDragObj = nullptr;
 		isDragging = false;
 		return;
 	}
 
-	srcManager->NotifyOnDragEnd(EventOnDragInfo(*currentDragObj)); // Notify the original that the drag has ended
-	NotifyOnDrop(EventOnDragInfo(*currentDragObj)); // Then notify the current that drop happened
+	srcManager->NotifyOnDragEnd(EventOnDragInfo(currentDragObj)); // Notify the original that the drag has ended
+	NotifyOnDrop(EventOnDragInfo(currentDragObj)); // Then notify the current that drop happened
 
-	//Reset states
+	//ResetSize states
 	srcManager = nullptr; 
 	currentDragObj = nullptr;
 	isDragging = false;

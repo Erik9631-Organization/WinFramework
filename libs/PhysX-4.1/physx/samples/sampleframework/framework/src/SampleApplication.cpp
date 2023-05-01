@@ -28,7 +28,7 @@
 #include <SampleApplication.h>
 #include <SampleCommandLine.h>
 #include <SampleAssetManager.h>
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererMemoryMacros.h>
 #include <SamplePlatform.h>
 #include "SampleFrameworkInputEventIds.h"

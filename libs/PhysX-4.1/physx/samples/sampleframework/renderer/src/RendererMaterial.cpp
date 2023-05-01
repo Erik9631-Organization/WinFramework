@@ -26,7 +26,7 @@
 // Copyright (c) 2008-2021 NVIDIA Corporation. All rights reserved.
 #include <RendererMaterial.h>
 
-#include <Renderer.h>
+#include RenderingApi.h
 #include <RendererMaterialDesc.h>
 #include <RendererMaterialInstance.h>
 

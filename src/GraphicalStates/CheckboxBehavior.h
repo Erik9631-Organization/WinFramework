@@ -2,15 +2,15 @@
 #include "Events/MouseStateSubscriber.h"
 #include <vector>
 #include "Events/CheckboxStateSubject.h"
-#include "Vector4.h"
+#include "glm.hpp"
 
 class Checkbox;
 
-class CheckBoxBehavior : public MouseStateSubscriber, public CheckboxStateSubject
+class CheckBoxBehavior : public MouseStateSubscriber, public virtual CheckboxStateSubject
 {
 private:
 	Checkbox& associatedCheckbox;
-	Vector4 onClickColor;
+	glm::vec4 onClickColor = {150, 150, 150, 150};
 	std::vector<std::reference_wrapper<CheckboxStateSubscriber>> subscribers;
 
 public:

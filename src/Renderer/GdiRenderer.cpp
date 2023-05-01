@@ -1,140 +1,180 @@
 //
-// Created by Erik on 22/01/27.
+// Created by Erik on 22/01/24.
 //
-
 #include "GdiRenderer.h"
-#include "Vector4.h"
-#include "Vector3.h"
-#include <Windows.h>
-#include <gdiplus.h>
 #include "Core/Windows/WindowsCore.h"
-#include "FontFormat.h"
-#include "GdiFontFormat.h"
-#include "Core/Windows/WindowsCore.h"
+#include "Window.h"
+#include "EventResizeInfo.h"
+#include "GdiRenderingApi.h"
+#include <execution>
+#include <chrono>
+#include "GdiRenderingPool.h"
+#include "RectangleModel.h"
+#include "EllipseModel.h"
+#include <iostream>
 
+using namespace std;
+using namespace chrono;
 using namespace Gdiplus;
-unsigned int fpsfuckingcounter = 0;
 
-void GdiRenderer::DrawEllipse(float x, float y, float width, float height)
+ULONG GdiRenderer::token = 0;
+Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
+
+void GdiRenderer::Render()
 {
-    graphics.DrawEllipse(pen, x, y, width, height);
+    std::lock_guard<std::mutex> lock(setViewPortMutex);
+    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
+        it->second->Draw();
 }
 
-void GdiRenderer::DrawEllipse(float x, float y, glm::vec2 vector2)
+void GdiRenderer::CleanDeviceContext()
 {
-    graphics.DrawEllipse(pen, x, y, vector2.x, vector2.y);
+    DeleteDC(secondaryDc);
+    GetLastError();
 }
 
-void GdiRenderer::DrawLine(float x1, float y1, float x2, float y2)
+void GdiRenderer::UpdateSecondaryDC()
 {
-    graphics.DrawLine(pen, x1, y1, x2, y2);
+    CleanDeviceContext();
+    secondaryDc = CreateCompatibleDC(windowHdc);
+    SelectObject(secondaryDc, screenBitmap);
 }
 
-void GdiRenderer::DrawLine(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::OnInit(Core &coreWindowFrame)
 {
-    graphics.DrawLine(pen, pos.x, pos.y, size.x, size.y);
+    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
+    viewPortSize = this->windowsCore->GetWrapperFrame()->GetSize();
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    windowHandle = windowsCore->GetWindowHandle();
+    windowHdc = GetDC(windowHandle);
+    windowsCore->AddOnResizePreProcessSubsriber(*this);
+
+    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
+                                          windowsCore->GetWrapperFrame()->GetSize().y);
+    UpdateSecondaryDC();
 }
 
-void GdiRenderer::DrawRectangle(glm::vec2 pos, glm::vec2 size)
+void GdiRenderer::OnDestroy(Core &coreWindow)
 {
-    graphics.DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
+    CleanDeviceContext();
 }
 
-void GdiRenderer::DrawRectangle(float x, float y, float width, float height)
+GdiRenderer::GdiRenderer()
 {
-    graphics.DrawRectangle(pen, x, y, width, height);
+    GdiStartup();
 }
 
-void GdiRenderer::DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len)
+void GdiRenderer::GdiStartup()
 {
-    StringFormat stringFormat{};
-    stringFormat.SetAlignment((StringAlignment)format.GetAlingment());
-    stringFormat.SetLineAlignment((StringAlignment)format.GetLineAlingment());
+    if(token != 0)
+        return;
 
-    font = new Gdiplus::Font(this->fontFamily, fontSize, Gdiplus::FontStyleRegular, Gdiplus::UnitPixel);
-    graphics.DrawString(string.c_str(), -1, font, {position.x, position.y}, &stringFormat, brush);
-    fpsfuckingcounter++;
-    delete font;
+    //Startup GDI
+    GdiplusStartupInput input;
+    input.GdiplusVersion = 1;
+    input.SuppressBackgroundThread = FALSE;
+    input.DebugEventCallback = NULL;
+    GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
+}
+///TODO This function should be removed and redraw should pass the rendering api though the ScheduleRedraw function as an event
+std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
+{
+    auto graphics = std::make_unique<Graphics>(secondaryDc);
+    auto renderer = new GdiRenderingApi(std::move(graphics));
+    return std::unique_ptr<RenderingApi>(renderer);
 }
 
-void GdiRenderer::FillEllipse(float x, float y, float width, float height)
+void GdiRenderer::SwapScreenBuffer()
 {
-    graphics.FillEllipse(brush, x, y, width, height);
+    std::lock_guard<std::mutex> viewPortLock{setViewPortMutex};
+    BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, MERGECOPY);
 }
 
-void GdiRenderer::FillEllipse(glm::vec2 pos, glm::vec2 size)
+RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
 {
-    graphics.FillEllipse(brush, pos.x, pos.y, size.x, size.y);
+    modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
+    RenderingModel* modelPtr = renderingModel.get();
+    renderingModels.push_back(std::move(renderingModel));
+    modelPtr->SetModelId(renderingModels.size() - 1);
+    return modelPtr;
 }
 
-void GdiRenderer::FillRectangle(float x, float y, float width, float height)
+RenderingModel *GdiRenderer::GetModel(size_t index)
 {
-    graphics.FillRectangle(brush, x, y, width, height);
+    if(index >= renderingModels.size())
+        return nullptr;
+    return renderingModels[index].get();
 }
 
-void GdiRenderer::FillRectangle(glm::vec2 pos, glm::vec2 size)
+RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 {
-    graphics.FillRectangle(brush, pos.x, pos.y, size.x, size.y);
+    switch (createCommand)
+    {
+        case SubCommands::RequestRectangle:
+        {
+            auto model = CreateModel<RectangleModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
+        }
+        case SubCommands::RequestText:
+        {
+            auto model = CreateModel<TextModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
+        }
+        case SubCommands::RequestEllipse:
+        {
+            auto model = CreateModel<EllipseModel>();
+            model->AddOnMoveSubscriber(*this);
+            return model;
+        }
+        default:
+            return nullptr;
+    }
 }
 
-GdiRenderer::GdiRenderer(Gdiplus::Graphics &graphics) : graphics(graphics)
+void GdiRenderer::OnMove(EventMoveInfo e)
 {
-    pen = new Gdiplus::Pen(Gdiplus::Color::Black, 1.0f);
-    brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
+    auto matches = modelZIndexMap.equal_range(e.GetAbsolutePosition().z);
+    auto model = dynamic_cast<RenderingModel*>(e.GetSource());
+    if (model == nullptr)
+        return;
+
+    for(auto it = matches.first; it != matches.second; ++it)
+    {
+        if(it->second == model)
+        {
+            modelZIndexMap.erase(it);
+            break;
+        }
+    }
+    modelZIndexMap.emplace(e.GetAbsolutePosition().z, model);
 }
 
-void GdiRenderer::SetColor(const Vector4 &color)
+void GdiRenderer::SetViewportSize(int width, int height)
 {
-    BYTE a = (BYTE)color.GetW();
-    BYTE r = (BYTE)color.GetX();
-    BYTE g = (BYTE)color.GetY();
-    BYTE b = (BYTE)color.GetZ();
-    Color inputColor{a, r, g, b};
-    brush->SetColor(inputColor);
-    pen->SetColor(inputColor);
+    SetViewportSize({width, height});
 }
 
-void GdiRenderer::SetColor(const Vector3 &color)
+void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
 {
-    Color inputColor {(BYTE)color.GetX(), (BYTE)color.GetY(), (BYTE)color.GetZ()};
-    brush->SetColor(inputColor);
-    pen->SetColor(inputColor);
+    std::lock_guard<std::mutex> lock(setViewPortMutex);
+    viewPortSize = size;
+    UpdateBitmap();
+    UpdateSecondaryDC();
 }
 
-void GdiRenderer::SetThickness(float thickness)
+void GdiRenderer::UpdateBitmap()
 {
-    pen->SetWidth(thickness);
+    DeleteObject(screenBitmap);
+    screenBitmap = CreateCompatibleBitmap(windowHdc, viewPortSize.x, viewPortSize.y);
 }
 
-void GdiRenderer::SetFontFamily(std::wstring fontFamily)
-{
-    delete this->fontFamily;
-    this->fontFamily = new Gdiplus::FontFamily(L"Arial");
-}
-
-void GdiRenderer::SetFontSize(float fontSize)
-{
-    this->fontSize = fontSize;
-}
-
-std::unique_ptr<FontFormat> GdiRenderer::CreateFontFormat()
-{
-    return std::make_unique<GdiFontFormat>();
-}
-
-GdiRenderer::~GdiRenderer()
-{
-    delete pen;
-    delete brush;
-    delete fontFamily;
-}
-
-void GdiRenderer::Translate(glm::vec2 translation)
-{
-    graphics.TranslateTransform(translation.x, translation.y);
-}
-
-void GdiRenderer::DrawModel(const OpenGL::Model &model)
+void GdiRenderer::OnResize(EventResizeInfo e)
 {
 
 }

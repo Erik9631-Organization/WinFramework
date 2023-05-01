@@ -6,15 +6,15 @@
 #define LII_OPENGLRENDERINGPROVIDERFACTORY_H
 #include "Factory.h"
 
-class OpenGLRenderingProviderFactory : public Factory<RenderingProvider>
+class OpenGLRenderingProviderFactory : public Factory<Renderer>
 {
 private:
     std::string tag = "OpenGLRenderingProvider";
 public:
-    std::unique_ptr<RenderingProvider> Create() override;
+    std::unique_ptr<Renderer> Create() override;
     const std::string &GetTag() override;
     void SetTag(const std::string &tag) override;
-    std::unique_ptr<RenderingProvider> Create(std::any args) override;
+    std::unique_ptr<Renderer> Create(std::any args) override;
 };
 
 

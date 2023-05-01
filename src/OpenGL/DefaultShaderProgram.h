@@ -35,9 +35,9 @@ namespace OpenGL
                 return shaderObjRef;
             }
 
-            shaders.emplace(shaderObjRef.GetId(), std::move(shaderObj));
+            shaders.emplace(shaderObjRef.GetMessageId(), std::move(shaderObj));
 
-            glAttachShader(programId, shaderObjRef.GetId());
+            glAttachShader(programId, shaderObjRef.GetMessageId());
             return shaderObjRef;
         }
         ~DefaultShaderProgram() override;

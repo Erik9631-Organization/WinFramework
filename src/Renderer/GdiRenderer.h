@@ -1,54 +1,86 @@
 //
-// Created by Erik on 22/01/27.
+// Created by Erik on 22/01/24.
 //
 
 #ifndef LII_GDIRENDERER_H
 #define LII_GDIRENDERER_H
+#include <Windows.h>
+#include <gdiplus.h>
+#pragma comment (lib, "Gdiplus.lib")
+#include "Renderer.h"
+#include "ResizeSubscriber.h"
+#include "DrawData2D.h"
+#include <functional>
+#include <thread>
+#include "Timer.h"
+#include <mutex>
+#include <condition_variable>
+#include "UiTreeDataSyncer.h"
+#include "Core.h"
+#include "RenderingModel.h"
+#include <map>
+#include "MoveSubscriber.h"
+#include <mutex>
+#include <condition_variable>
+#include "TextModel.h"
+
+
+class Timer;
+class WindowsCore;
+class UiElement;
 namespace Gdiplus
 {
-    class Graphics;
-    class Pen;
-    class SolidBrush;
-    class Font;
-    class FontFamily;
-    class Color;
+    class Region;
 }
-class Vector3;
-class Vector4;
 
-#include "Renderer.h"
+template<typename T> class MultiTree;
 
-class GdiRenderer : public Renderer
+
+class GdiRenderer : public Renderer, public ResizeSubscriber, public MoveSubscriber
 {
-public:
-    Gdiplus::Graphics& graphics;
-    GdiRenderer(Gdiplus::Graphics& graphics);
-    ~GdiRenderer();
-    void SetColor(const Vector4& color) override;
-    void SetColor(const Vector3& color) override;
-    void SetThickness(float thickness) override;
-    void DrawEllipse(float x, float y, float width, float height) override;
-    void DrawEllipse(float x, float y, glm::vec2 vector2) override;
-    void DrawLine(float x1, float y1, float x2, float y2) override;
-    void DrawLine(glm::vec2 pos, glm::vec2 size) override;
-    void DrawRectangle(glm::vec2 pos, glm::vec2 size) override;
-    void DrawRectangle(float x, float y, float width, float height) override;
-    void DrawString(const std::wstring &string, glm::vec2 position, const FontFormat &format, int len) override;
-    void FillEllipse(float x, float y, float width, float height) override;
-    void FillEllipse(glm::vec2 pos, glm::vec2 size) override;
-    void FillRectangle(float x, float y, float width, float height) override;
-    void FillRectangle(glm::vec2 pos, glm::vec2 size) override;
-    void SetFontFamily(std::wstring fontFamily) override;
-    void SetFontSize(float fontSize) override;
-    std::unique_ptr<FontFormat> CreateFontFormat() override;
-    void Translate(glm::vec2 translation) override;
-    void DrawModel(const OpenGL::Model &model) override;
 private:
-    Gdiplus::Pen* pen = nullptr;
-    Gdiplus::SolidBrush* brush = nullptr;
-    Gdiplus::Font* font = nullptr;
-    Gdiplus::FontFamily* fontFamily = nullptr;
-    float fontSize = 12.0f;
+    static void GdiStartup();
+    static Gdiplus::GdiplusStartupOutput output;
+    static ULONG token;
+    std::mutex setViewPortMutex;
+
+    WindowsCore* windowsCore;
+    void CleanDeviceContext();
+    void UpdateBitmap();
+    void UpdateSecondaryDC();
+    HWND windowHandle;
+    HDC windowHdc;
+    HDC secondaryDc;
+    HBITMAP screenBitmap;
+    std::multimap<float, RenderingModel*> modelZIndexMap;
+    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
+    glm::ivec2 viewPortSize;
+
+    template<typename T>
+    T* CreateModel()
+    {
+        auto model = std::make_unique<T>();
+        model->SetRenderer(this);
+        return static_cast<T*>(AddModel(std::move(model)));
+    }
+    RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
+public:
+    GdiRenderer();
+    void Render() override;
+    void OnInit(Core &coreWindowFrame) override;
+    void OnDestroy(Core &coreWindow) override;
+    std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
+    void SwapScreenBuffer() override;
+    RenderingModel *GetModel(size_t index) override;
+    RenderingModel * CreateModel(SubCommands createCommand) override;
+
+    void OnMove(EventMoveInfo e) override;
+
+    void SetViewportSize(int width, int height) override;
+
+    void SetViewportSize(const glm::ivec2 &size) override;
+
+    void OnResize(EventResizeInfo e) override;
 };
 
 

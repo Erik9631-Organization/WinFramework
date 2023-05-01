@@ -5,10 +5,11 @@
 #ifndef LII_RENDEROBJECTSUBJECT_H
 #define LII_RENDEROBJECTSUBJECT_H
 #include "RenderObjectSubscriber.h"
+#include "EventSource.h"
 
 namespace OpenGL
 {
-    class RenderObjectSubject
+    class RenderObjectSubject : public virtual EventSource
     {
     public:
         virtual void AddRenderObjectSubscriber(RenderObjectSubscriber& subscriber) = 0;
