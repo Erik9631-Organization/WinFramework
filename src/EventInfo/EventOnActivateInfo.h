@@ -10,11 +10,11 @@ public:
 	/**
 	 * \param state the activation state at the point the event was called. True means it has focus, false means it doesn't.
 	 */
-	EventOnActivateInfo(bool state);
+	explicit EventOnActivateInfo(bool state);
 
 	/**
 	 * \return returns the activation state of the object.
 	 */
-	bool IsActive();
+	[[nodiscard]] bool IsActive() const;
 };
 

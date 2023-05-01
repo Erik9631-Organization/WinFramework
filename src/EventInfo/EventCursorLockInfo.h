@@ -12,7 +12,7 @@ private:
     bool cursorLockInfo;
     std::any src;
 public:
-    EventCursorLockInfo(const bool& cursorLockInfo, std::any src);
+    EventCursorLockInfo(bool cursorLockInfo, const std::any &src);
     const std::any& GetSrc();
     const bool& GetCursorLockInfo();
 

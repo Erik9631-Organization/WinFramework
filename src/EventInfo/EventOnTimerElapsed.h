@@ -9,8 +9,8 @@
 class EventOnTimerElapsed
 {
 public:
-    EventOnTimerElapsed(long long elapsedTime);
-    long long GetElapsedTime();
+    explicit EventOnTimerElapsed(long long elapsedTime);
+    long long GetElapsedTime() const;
 private:
     long long elapsedTime;
 };

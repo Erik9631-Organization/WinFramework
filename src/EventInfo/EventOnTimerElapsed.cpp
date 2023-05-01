@@ -9,7 +9,7 @@ EventOnTimerElapsed::EventOnTimerElapsed(long long int elapsedTime)
     this->elapsedTime = elapsedTime;
 }
 
-long long EventOnTimerElapsed::GetElapsedTime()
+long long EventOnTimerElapsed::GetElapsedTime() const
 {
     return elapsedTime;
 }

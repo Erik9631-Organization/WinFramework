@@ -11,7 +11,6 @@
 #include "Model.h"
 #include "GlobalResourceManager.h"
 #include <cmath>
-#include <DestroyEventInfo.h>
 
 std::unique_ptr<OpenGL::Model> OpenGL::ModelBuilder::CreateFillRectangle(float x, float y, float width, float height)
 {

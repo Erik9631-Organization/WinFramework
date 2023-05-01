@@ -1,5 +1,4 @@
 #pragma once
-#include "EventInfo.h"
 #include "GenericObj.h"
 #include <glm.hpp>
 

@@ -5,7 +5,7 @@ EventOnActivateInfo::EventOnActivateInfo(bool state)
     this->state = state;
 }
 
-bool EventOnActivateInfo::IsActive()
+bool EventOnActivateInfo::IsActive() const
 {
     return state;
 }

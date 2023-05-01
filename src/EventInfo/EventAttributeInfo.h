@@ -14,10 +14,10 @@ private:
     long long int value = 0;
     std::any src;
 public:
-    const int& GetIndex() const;
-    const long long int & GetValue() const;
-    const std::any& GetSrc() const;
-    EventAttributeInfo(const int& index,const long long int& value, std::any src);
+    [[nodiscard]] int GetIndex() const;
+    [[nodiscard]] long long int GetValue() const;
+    [[nodiscard]] const std::any& GetSrc() const;
+    EventAttributeInfo(int index, long long int value, const std::any &src);
 
 };
 

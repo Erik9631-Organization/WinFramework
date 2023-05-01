@@ -4,7 +4,7 @@
 
 #include "EventAttributeInfo.h"
 
-EventAttributeInfo::EventAttributeInfo(const int &index, const long long int &value, std::any src)
+EventAttributeInfo::EventAttributeInfo(int index, long long int value, const std::any &src)
 {
     this->index = index;
     this->value = value;
@@ -16,12 +16,12 @@ const std::any &EventAttributeInfo::GetSrc() const
     return src;
 }
 
-const long long int & EventAttributeInfo::GetValue() const
+long long int EventAttributeInfo::GetValue() const
 {
     return value;
 }
 
-const int &EventAttributeInfo::GetIndex() const
+int EventAttributeInfo::GetIndex() const
 {
     return index;
 }

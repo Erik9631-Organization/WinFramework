@@ -27,8 +27,7 @@ set(Lii
     "DemoApplication.cpp"
     "DragManager.cpp"
         "DropAction.cpp"
-        "EventInfo/EventOnAddInfo.cpp"
-    "EventInfo/EventOnDragInfo.cpp"
+        "EventInfo/EventOnDragInfo.cpp"
     "GenericObj.cpp"
     "Components/Grid/GridCell.cpp"
     "Components/Grid/GridSpan.cpp"
@@ -67,7 +66,7 @@ set(Lii_Behavior
     "Behavior/TextInputBehavior.cpp"
         Behavior/VerticalScrollbarBehavior.cpp
     Behavior/VerticalScrollbarBehavior.h
-        Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h Behavior/DestroySubjectBehavior.cpp Behavior/DestroySubjectBehavior.h)
+        Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h)
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
@@ -167,8 +166,6 @@ set(Lii_Api_Events
         Api/Events/TimerSubject.h
         Api/Events/OnTickSubscriber.h
         Api/Events/TickSubject.h
-        Api/Events/DestroySubject.h
-        Api/Events/DestroySubscriber.h
         Api/Events/OnStartSubject.h
         "Api/Events/DragSubject.h"
         "Api/Events/DragSubscriber.h"
@@ -176,7 +173,7 @@ set(Lii_Api_Events
         "Api/Events/DropSubscriber.h"
         "Api/Draggable.h"
         "Api/Events/OnAddSubscriber.h"
-        Api/Events/Viewport2Subject.h)
+        Api/Events/Viewport2Subject.h Api/Events/EventSource.h)
 source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
 
@@ -248,8 +245,7 @@ source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 set(Lii_EventTypes
     "EventInfo/EventCheckboxStateInfo.h"
     "EventInfo/EventComboBoxStateInfo.h"
-    "EventInfo/EventInfo.h"
-    "EventInfo/EventKeyStateInfo.h"
+        "EventInfo/EventKeyStateInfo.h"
     "EventInfo/EventMouseStateInfo.h"
     "EventInfo/EventMoveInfo.h"
     "EventInfo/EventOnActivateInfo.h"
@@ -259,8 +255,7 @@ set(Lii_EventTypes
     "EventInfo/RenderEventInfo.h"
     "EventInfo/EventCheckboxStateInfo.cpp"
     "EventInfo/EventComboBoxStateInfo.cpp"
-    "EventInfo/EventInfo.cpp"
-    "EventInfo/EventKeyStateInfo.cpp"
+        "EventInfo/EventKeyStateInfo.cpp"
     "EventInfo/EventMouseStateInfo.cpp"
     "EventInfo/EventMoveInfo.cpp"
     "EventInfo/EventOnActivateInfo.cpp"
@@ -270,15 +265,13 @@ set(Lii_EventTypes
     "EventInfo/RenderEventInfo.cpp"
     EventInfo/EventOnTimerElapsed.cpp
     EventInfo/EventOnTimerElapsed.h
-    EventInfo/DestroyEventInfo.cpp
-    EventInfo/DestroyEventInfo.h
-    EventInfo/EventAttributeInfo.cpp
+        EventInfo/EventAttributeInfo.cpp
     EventInfo/EventAttributeInfo.h
     EventInfo/Viewport2Event.cpp
         EventInfo/Viewport2EventInfo.h
     EventInfo/RenderObjectEventInfo.cpp
     EventInfo/RenderObjectEventInfo.h
-        )
+        EventInfo/Event.h)
 
 source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
 

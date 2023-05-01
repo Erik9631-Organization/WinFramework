@@ -13,7 +13,7 @@ public:
 	 * based on the information provided in the EventUpdateFlags enum.
 	 * \param flags the update flags according to which the update should proceed. Check EventUpdateFlags enum for more info.
 	 */
-	EventUpdateInfo(EventUpdateFlags flags);
+	explicit EventUpdateInfo(EventUpdateFlags flags);
 
 	/**
 	 * \param flags overrides the old flags with the flags specified in this parameter

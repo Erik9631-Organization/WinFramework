@@ -4,7 +4,7 @@
 
 #include "EventCursorLockInfo.h"
 
-EventCursorLockInfo::EventCursorLockInfo(const bool &cursorLockInfo, std::any src)
+EventCursorLockInfo::EventCursorLockInfo(bool cursorLockInfo, const std::any &src)
 {
     this->cursorLockInfo = cursorLockInfo;
     this->src = std::move(src);

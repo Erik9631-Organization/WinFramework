@@ -6,7 +6,7 @@ class EventOnAddInfo
 private:
 	type* addedElement;
 public:
-	EventOnAddInfo(type* element)
+	explicit EventOnAddInfo(type* element)
 	{
         addedElement = element;
 	}
