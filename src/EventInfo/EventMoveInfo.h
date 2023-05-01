@@ -1,5 +1,6 @@
 #pragma once
 #include "GenericObj.h"
+#include "Event.h"
 #include <glm.hpp>
 
 class UiElement;
@@ -7,12 +8,12 @@ class Movable;
 /**
  * This class is responsible for holding event data related to movement.
  */
-class EventMoveInfo
+class EventMoveInfo : public Event
 {
 private:
 	glm::vec3 position{};
     glm::vec3 absolutePosition{};
-	Movable* src;
+	EventSource* src;
     bool isOrigin = true;
 public:
 	/**
@@ -24,11 +25,8 @@ public:
 
     [[nodiscard]] bool IsOrigin() const;
 
-	/**
-	 * \return returns the source object that called the event.
-	 */
-	[[nodiscard]] Movable* GetSrc() const;
+    EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, EventSource *src, bool isOrigin = true);
 
-    EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, Movable *src, bool isOrigin = true);
+    [[nodiscard]] EventSource *GetSource() const override;
 };
 

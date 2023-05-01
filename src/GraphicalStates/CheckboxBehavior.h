@@ -6,7 +6,7 @@
 
 class Checkbox;
 
-class CheckBoxBehavior : public MouseStateSubscriber, public CheckboxStateSubject
+class CheckBoxBehavior : public MouseStateSubscriber, public virtual CheckboxStateSubject
 {
 private:
 	Checkbox& associatedCheckbox;

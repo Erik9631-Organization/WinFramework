@@ -1,30 +1,29 @@
 #pragma once
+#include "Event.h"
+
 class ComboElement;
 class ComboBoxStateSubject;
 
 /**
  * This class is responsible for holding event information related to the combobox.
  */
-class EventComboBoxStateInfo
+class EventComboBoxStateInfo : public Event
 {
 private:
 	ComboElement* element;
-	ComboBoxStateSubject& src;
+	EventSource* src;
 public:
 	/**
 	 * \param element the newly selected element in the combobox
 	 * \param src the source object that called the event.
 	 */
-	EventComboBoxStateInfo(ComboElement* element, ComboBoxStateSubject& src);
+	EventComboBoxStateInfo(ComboElement* element, ComboBoxStateSubject *src);
 	
 	/**
 	 * \return returns the element that was selected. 
 	 */
 	ComboElement* GetElement();
-	
-	/**
-	 * \return returns the source object that called the event
-	 */
-	ComboBoxStateSubject& GetSrc();
+
+    [[nodiscard]] EventSource *GetSource() const override;
 };
 

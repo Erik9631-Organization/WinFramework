@@ -8,12 +8,7 @@ const glm::vec3 & EventMoveInfo::GetPosition() const
 	return position;
 }
 
-Movable* EventMoveInfo::GetSrc() const
-{
-	return src;
-}
-
-EventMoveInfo::EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, Movable *src, bool isOrigin)
+EventMoveInfo::EventMoveInfo(const glm::vec3 &position, const glm::vec3 &absolutePosition, EventSource *src, bool isOrigin)
 {
     this->position = position;
     this->absolutePosition = absolutePosition;
@@ -29,4 +24,9 @@ const glm::vec3 & EventMoveInfo::GetAbsolutePosition() const
 bool EventMoveInfo::IsOrigin() const
 {
     return isOrigin;
+}
+
+EventSource *EventMoveInfo::GetSource() const
+{
+    return src;
 }

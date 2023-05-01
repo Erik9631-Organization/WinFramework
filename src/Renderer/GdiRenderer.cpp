@@ -140,7 +140,7 @@ RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 void GdiRenderer::OnMove(EventMoveInfo e)
 {
     auto matches = modelZIndexMap.equal_range(e.GetAbsolutePosition().z);
-    auto model = dynamic_cast<RenderingModel*>(e.GetSrc());
+    auto model = dynamic_cast<RenderingModel*>(e.GetSource());
     if (model == nullptr)
         return;
 

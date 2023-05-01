@@ -37,14 +37,14 @@ public:
         if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::A)
         {
             auto size = button->GetSize();
-            size.y -= 10;
+            size.x -= 10;
             button->SetSize(size);
         }
 
         if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::D)
         {
             auto size = button->GetSize();
-            size.y += 10;
+            size.x += 10;
             button->SetSize(size);
         }
     }

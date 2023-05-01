@@ -1,17 +1,17 @@
 #include "EventCheckboxStateInfo.h"
 
-EventCheckboxStateInfo::EventCheckboxStateInfo(CheckboxStateSubject* src, bool state)
+EventCheckboxStateInfo::EventCheckboxStateInfo(EventSource *src, bool state)
 {
-	this->src = src;
+	this->source = src;
 	this->state = state;
 }
 
-bool EventCheckboxStateInfo::GetState()
+bool EventCheckboxStateInfo::GetState() const
 {
 	return state;
 }
 
-CheckboxStateSubject* EventCheckboxStateInfo::GetSrc()
+EventSource *EventCheckboxStateInfo::GetSource() const
 {
-	return src;
+    return source;
 }

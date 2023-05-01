@@ -1,10 +1,10 @@
 #pragma once
-#include "EventTypes/EventComboBoxStateInfo.h"
+#include "EventComboBoxStateInfo.h"
 class ComboBoxStateSubscriber;
 /**
  * This interface is implemented by all objects which contain the combobox behavior.
  */
-class ComboBoxStateSubject
+class ComboBoxStateSubject : public virtual EventSource
 {
 	/**
 	 * Calls an event on all subscribers when the combobox is unpacked / opened.

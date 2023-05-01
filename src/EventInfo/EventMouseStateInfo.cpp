@@ -2,23 +2,7 @@
 #include "Events/MouseStateSubject.h"
 #include "Components/UiElement.h"
 //TODO change to references
-EventMouseStateInfo::EventMouseStateInfo(glm::vec3 position, int key, UiElement* src) : src(src)
-{
-	this->position = position;
-	this->relativePosition = position - src->GetAbsolutePosition();
-	this->key = key;
-}
-
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, UiElement* source) : src(source)
-{
-	position = e.GetMouseAbsolutePosition();
-	relativePosition = position - source->GetAbsolutePosition();
-	recursive = e.recursive;
-	key = e.GetKey();
-	this->mouseDelta = e.GetMouseDelta();
-}
-
-EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec3 relativePosition, MouseStateSubject* src) : mouseSrc(src)
+EventMouseStateInfo::EventMouseStateInfo(EventMouseStateInfo e, glm::vec3 relativePosition, EventSource *src)
 {
 	this->position = e.GetMouseAbsolutePosition();
 	this->relativePosition = relativePosition;
@@ -39,26 +23,26 @@ glm::vec3 EventMouseStateInfo::GetMousePosition()
 	return {GetMouseX(), GetMouseY(), 0};
 }
 
-float EventMouseStateInfo::GetAbsoluteMouseX()
+float EventMouseStateInfo::GetAbsoluteMouseX() const
 {
 	return position.x;
 }
 
-float EventMouseStateInfo::GetAbsoluteMouseY()
+float EventMouseStateInfo::GetAbsoluteMouseY() const
 {
 	return position.y;
 }
 
 float EventMouseStateInfo::GetMouseX()
 {
-	if (src == nullptr && mouseSrc == nullptr)
+	if (src == nullptr)
 		return GetAbsoluteMouseX();
 	return relativePosition.x;
 }
 
 float EventMouseStateInfo::GetMouseY()
 {
-	if (src == nullptr && mouseSrc == nullptr)
+	if (src == nullptr)
 		return GetAbsoluteMouseY();
 	return relativePosition.y;
 }
@@ -66,17 +50,6 @@ float EventMouseStateInfo::GetMouseY()
 int EventMouseStateInfo::GetKey()
 {
 	return key;
-}
-
-MouseStateSubject* EventMouseStateInfo::GetSrc()
-{
-	if (src == nullptr)
-		return mouseSrc;
-
-	if(mouseSrc == nullptr)
-		return src;
-
-    return nullptr;
 }
 
 void EventMouseStateInfo::SetRecursive(bool state)
@@ -90,16 +63,21 @@ bool EventMouseStateInfo::IsRecursive()
 }
 
 EventMouseStateInfo::EventMouseStateInfo(glm::vec3 position, glm::vec3 relativePosition, glm::vec3 delta,
-                                         int key, MouseStateSubject *src)
+                                         int key, EventSource *src)
 {
     this->position = position;
     this->relativePosition = relativePosition;
     this->mouseDelta = delta;
-    this->mouseSrc = src;
+    this->src = src;
     this->key = key;
 }
 
 glm::vec3 EventMouseStateInfo::GetMouseDelta()
 {
     return mouseDelta;
+}
+
+EventSource *EventMouseStateInfo::GetSource() const
+{
+    return src;
 }

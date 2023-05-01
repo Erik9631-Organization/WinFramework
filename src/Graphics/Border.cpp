@@ -17,7 +17,8 @@ void Border::OnMounted(Presenter &presenter, UiElement &element)
 
 void Border::OnMove(EventMoveInfo e)
 {
-    rectangleProxy.SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
+    auto* movable = dynamic_cast<Movable*>(e.GetSource());
+    rectangleProxy.SetPosition(movable->GetAbsolutePosition() + relativeZIndex);
 }
 
 void Border::OnResize(EventResizeInfo e)

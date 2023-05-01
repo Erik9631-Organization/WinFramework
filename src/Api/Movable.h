@@ -2,8 +2,6 @@
 #include "MoveSubject.h"
 #include "glm.hpp"
 
-// GetPosition().x = 345
-
 /**
  * The interface should be implemented by all classes which should be able to move
  */

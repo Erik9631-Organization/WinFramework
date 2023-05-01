@@ -12,7 +12,8 @@ void Background::OnMounted(Presenter &presenter, UiElement& element)
 
 void Background::OnMove(EventMoveInfo e)
 {
-    rectangleProxy.SetPosition(e.GetSrc()->GetAbsolutePosition() + relativeZIndex);
+    auto* movable = dynamic_cast<Movable*>(e.GetSource());
+    rectangleProxy.SetPosition(movable->GetAbsolutePosition() + relativeZIndex);
 }
 
 void Background::OnResize(EventResizeInfo e)

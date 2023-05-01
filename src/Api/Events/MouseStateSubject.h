@@ -1,10 +1,13 @@
 #pragma once
+
+#include "EventSource.h"
+
 class EventMouseStateInfo;
 class MouseStateSubscriber;
 /**
  * This interface is implemented by classes which can be observed for mouse events.
  */
-class MouseStateSubject
+class MouseStateSubject : public virtual EventSource
 {
 public:
 	/**

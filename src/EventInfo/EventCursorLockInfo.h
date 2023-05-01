@@ -4,17 +4,17 @@
 
 #ifndef LII_EVENTCURSORLOCKINFO_H
 #define LII_EVENTCURSORLOCKINFO_H
-#include <any>
+#include "Event.h"
 
-class EventCursorLockInfo
+class EventCursorLockInfo : public Event
 {
 private:
     bool cursorLockInfo;
-    std::any src;
+    EventSource* src;
 public:
-    EventCursorLockInfo(bool cursorLockInfo, const std::any &src);
-    const std::any& GetSrc();
-    const bool& GetCursorLockInfo();
+    EventCursorLockInfo(bool cursorLockInfo, EventSource *src);
+    [[nodiscard]] const bool& GetCursorLockInfo() const;
+    [[nodiscard]] EventSource *GetSource() const override;
 
 };
 

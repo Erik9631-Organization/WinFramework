@@ -1,7 +1,9 @@
 #include "EventComboBoxStateInfo.h"
+#include "ComboBoxStateSubject.h"
 
-EventComboBoxStateInfo::EventComboBoxStateInfo(ComboElement* element, ComboBoxStateSubject& src) : element(element), src(src)
+EventComboBoxStateInfo::EventComboBoxStateInfo(ComboElement* element, ComboBoxStateSubject *src) : element(element), src(src)
 {
+
 }
 
 ComboElement* EventComboBoxStateInfo::GetElement()
@@ -9,7 +11,7 @@ ComboElement* EventComboBoxStateInfo::GetElement()
     return element;
 }
 
-ComboBoxStateSubject& EventComboBoxStateInfo::GetSrc()
+EventSource *EventComboBoxStateInfo::GetSource() const
 {
     return src;
 }

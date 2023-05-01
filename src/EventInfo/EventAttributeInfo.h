@@ -5,19 +5,19 @@
 #ifndef LII_EVENTATTRIBUTEINFO_H
 #define LII_EVENTATTRIBUTEINFO_H
 #include <any>
+#include "Event.h"
 
-
-class EventAttributeInfo
+class EventAttributeInfo : public Event
 {
 private:
     int index = 0;
-    long long int value = 0;
-    std::any src;
+    long long int value;
+    EventSource* source;
 public:
     [[nodiscard]] int GetIndex() const;
     [[nodiscard]] long long int GetValue() const;
-    [[nodiscard]] const std::any& GetSrc() const;
-    EventAttributeInfo(int index, long long int value, const std::any &src);
+    EventAttributeInfo(int index, long long int value, EventSource *src);
+    [[nodiscard]] EventSource *GetSource() const override;
 
 };
 

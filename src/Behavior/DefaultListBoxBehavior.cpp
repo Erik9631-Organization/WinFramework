@@ -96,7 +96,7 @@ void DefaultListBoxBehavior::OnMouseDown(EventMouseStateInfo e)
 
 void DefaultListBoxBehavior::OnMouseUp(EventMouseStateInfo e)
 {
-	TableElement* element = dynamic_cast<TableElement*>(e.GetSrc());
+	TableElement* element = dynamic_cast<TableElement*>(e.GetSource());
 	if (element == nullptr)
 		return;
 	if (lastInputSnapshot.IsKeyDown(InputManager::VirtualKeys::Control))

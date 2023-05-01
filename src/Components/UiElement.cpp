@@ -177,22 +177,22 @@ bool UiElement::IsActive()
 
 void UiElement::NotifyOnMouseDown(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseDown(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMouseUp(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseUp(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMousePressed(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMousePressed(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::NotifyOnMouseHover(EventMouseStateInfo e)
 {
-	mouseHandler.NotifyOnMouseHover(EventMouseStateInfo(e, this));
+	mouseHandler.NotifyOnMouseHover(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 void UiElement::AddMouseStateSubscriber(MouseStateSubscriber& subscriber)
@@ -389,7 +389,7 @@ void UiElement::SetPosition(const glm::vec3 &pos, bool emit)
 
 void UiElement::NotifyOnMouseCapture(EventMouseStateInfo e)
 {
-    mouseHandler.NotifyOnMouseCapture(EventMouseStateInfo(e, this));
+    mouseHandler.NotifyOnMouseCapture(EventMouseStateInfo(e, e.GetMousePosition(), this));
 }
 
 bool UiElement::IsMouseCaptured()

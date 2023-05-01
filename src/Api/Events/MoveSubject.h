@@ -1,11 +1,12 @@
 #pragma once
+#include "EventSource.h"
 class MoveSubscriber;
 class EventMoveInfo;
 
 /**
  * This interface is implemented by all classes which are capable of sending OnMove events
  */
-class MoveSubject
+class MoveSubject : public virtual EventSource
 {
 public:
 	/**

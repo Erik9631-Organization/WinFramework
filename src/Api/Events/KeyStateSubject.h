@@ -1,11 +1,14 @@
 #pragma once
+
+#include "EventSource.h"
+
 class EventKeyStateInfo;
 class KeyStateSubscriber;
 
 /**
  * This interface is implemented by all classes which are capable of sending KeyState events
  */
-class KeyStateSubject
+class KeyStateSubject : public virtual EventSource
 {
 public:
 	/**

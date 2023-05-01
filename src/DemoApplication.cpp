@@ -81,7 +81,7 @@ public:
 
 	virtual void OnMouseUp(EventMouseStateInfo e) override
 	{
-		Button* button = dynamic_cast<Button*>(e.GetSrc());
+		Button* button = dynamic_cast<Button*>(e.GetSource());
 		if (button->GetText().compare(L"Add") == 0)
 		{
 			AddValues(currentValue);
@@ -146,7 +146,7 @@ class CheckboxTester : public CheckboxStateSubscriber
 	// Inherited via CheckboxStateSubscriber
 	virtual void OnChecked(EventCheckboxStateInfo e) override
 	{
-		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSrc());
+		Checkbox* src = dynamic_cast<Checkbox*>(e.GetSource());
 		if (e.GetState())
             std::cout << "Checkbox: " << src->GetComponentName() << " checked!" << std::endl;
 		else
@@ -260,7 +260,7 @@ public:
 	}
 	virtual void OnMouseUp(EventMouseStateInfo e) override
 	{
-		Button* src = dynamic_cast<Button*>(e.GetSrc());
+		Button* src = dynamic_cast<Button*>(e.GetSource());
 
 		if (src->GetText().compare(L"Browse") == 0)
 			ReadFile();

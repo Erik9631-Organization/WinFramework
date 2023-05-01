@@ -4,11 +4,12 @@
 
 #ifndef LII_EVENT_H
 #define LII_EVENT_H
+#include "EventSource.h"
+
 class Event
 {
-private:
-
 public:
+    [[nodiscard]] virtual EventSource* GetSource() const = 0;
     virtual ~Event() = default;
 };
 

@@ -194,10 +194,10 @@ void VerticalScrollbarBehavior::OnResize(EventResizeInfo e)
 
 void VerticalScrollbarBehavior::OnMove(EventMoveInfo e)
 {
-    Adjustable* src = dynamic_cast<Adjustable*>(e.GetSrc());
+    auto * src = dynamic_cast<Adjustable*>(e.GetSource());
     if(src == nullptr)
         return;
-    if(e.GetSrc() == associatedScrollbar.GetControlledComponent())
+    if(e.GetSource() == static_cast<Adjustable*>(associatedScrollbar.GetControlledComponent()))
     {
         UpdateChildrenViewports(*associatedScrollbar.GetControlledComponent());
     }

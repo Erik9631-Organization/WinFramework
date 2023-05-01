@@ -1,11 +1,11 @@
 #include "EventKeyStateInfo.h"
 
-EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey) : EventKeyStateInfo(source, virtualKey, unicodeKey, nullptr)
+EventKeyStateInfo::EventKeyStateInfo(EventSource *source, int virtualKey, wchar_t unicodeKey) : EventKeyStateInfo(source, virtualKey, unicodeKey, nullptr)
 {
 
 }
 
-EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wchar_t unicodeKey, unsigned char *keyboardState)
+EventKeyStateInfo::EventKeyStateInfo(EventSource *source, int virtualKey, wchar_t unicodeKey, unsigned char *keyboardState)
 {
 	this->source = source;
 	this->virtualKey = virtualKey;
@@ -14,7 +14,7 @@ EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, int virtualKey, wc
 		manager.SetKeyboardState(keyboardState);
 }
 
-EventKeyStateInfo::EventKeyStateInfo(KeyStateSubject* source, EventKeyStateInfo info)
+EventKeyStateInfo::EventKeyStateInfo(EventSource *source, EventKeyStateInfo info)
 {
 	manager = info.GetInputManager();
 	unicodeKey = info.GetUnicodeKey();
@@ -27,11 +27,6 @@ InputManager& EventKeyStateInfo::GetInputManager()
 	return manager;
 }
 
-KeyStateSubject* EventKeyStateInfo::GetSource()
-{
-	return source;
-}
-
 int EventKeyStateInfo::GetVirtualKey()
 {
 	return virtualKey;
@@ -40,4 +35,9 @@ int EventKeyStateInfo::GetVirtualKey()
 wchar_t EventKeyStateInfo::GetUnicodeKey()
 {
 	return unicodeKey;
+}
+
+EventSource *EventKeyStateInfo::GetSource() const
+{
+    return source;
 }

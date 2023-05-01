@@ -162,7 +162,6 @@ set(Lii_Api_Events
         "Api/Events/ResizeSubscriber.h"
         "Api/Events/UpdateSubject.h"
         "Api/Events/UpdateSubscriber.h"
-        "Api/Events/MouseStateSubscriber.cpp"
         Api/Events/TimerSubject.h
         Api/Events/OnTickSubscriber.h
         Api/Events/TickSubject.h

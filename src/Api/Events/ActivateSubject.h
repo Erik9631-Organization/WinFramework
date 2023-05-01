@@ -1,11 +1,13 @@
 #pragma once
+#include "EventSource.h"
+
 class ActivateSubscriber;
 class EventOnActivateInfo;
 
 /**
  * This interface is implemented by all classes which can be observed for focus events.
  */
-class ActivateSubject
+class ActivateSubject : public virtual EventSource
 {
 public:
 	/**

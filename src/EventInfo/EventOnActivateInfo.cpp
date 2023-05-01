@@ -1,6 +1,6 @@
 #include "EventOnActivateInfo.h"
 
-EventOnActivateInfo::EventOnActivateInfo(bool state)
+EventOnActivateInfo::EventOnActivateInfo(bool state, EventSource *source)
 {
     this->state = state;
 }
@@ -8,4 +8,9 @@ EventOnActivateInfo::EventOnActivateInfo(bool state)
 bool EventOnActivateInfo::IsActive() const
 {
     return state;
+}
+
+EventSource *EventOnActivateInfo::GetSource() const
+{
+    return source;
 }
