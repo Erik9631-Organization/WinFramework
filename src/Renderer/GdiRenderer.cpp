@@ -80,7 +80,7 @@ void GdiRenderer::GdiStartup()
     input.DebugEventCallback = NULL;
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
-///TODO This function should be removed and redraw should pass the rendering api though the ScheduleRedraw function as an event
+
 std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
 {
     auto graphics = std::make_unique<Graphics>(secondaryDc);

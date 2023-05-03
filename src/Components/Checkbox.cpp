@@ -10,7 +10,7 @@ void Checkbox::SetText(std::wstring text)
 
 void Checkbox::Check()
 {
-	if (checked == true)
+	if (checked)
 		SetChecked(false);
 	else
 		SetChecked(true);
