@@ -513,7 +513,7 @@ void WindowsCore::Start()
     bool initSignal = false;
     mutex initLock;
     auto initCondition = new std::condition_variable();
-    updateThread = &ApplicationController::GetApplicationController()->CreateThread([&]{
+    updateThread = &LiiApplication::GetInstance()->CreateThread([&]{
         CreateWinApiWindow();
         initSignal = true;
         std::unique_lock<mutex> lock{initLock};
@@ -525,13 +525,9 @@ void WindowsCore::Start()
     initCondition->wait(lock, [&]{return initSignal;});
 }
 
-unique_ptr<Core> WindowsCore::Create(std::any args)
+unique_ptr<Core> WindowsCore::Create(const CoreArgs &args)
 {
-    CoreArgs inputArgs{"window", WS_OVERLAPPEDWINDOW, nullptr};
-    if(args.type() == typeid(CoreArgs))
-        inputArgs = std::any_cast<CoreArgs>(args);
-
-    auto core = new WindowsCore(inputArgs.associatedWindow, inputArgs.name, WS_OVERLAPPEDWINDOW);
+    auto core = new WindowsCore(args.associatedWindow, args.name, WS_OVERLAPPEDWINDOW);
     auto corePtr = std::unique_ptr<WindowsCore>(core);
     corePtr->Start();
     return std::move(corePtr);

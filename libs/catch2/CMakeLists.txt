@@ -8,4 +8,4 @@ set(ALL_FILES
 ADD_DEFINITIONS(-DCATCH_AMALGAMATED_CUSTOM_MAIN)
 
 add_library(catch2Lib ${ALL_FILES})
-target_include_directories(catch2Lib PUBLIC catch.hpp)
+target_include_directories(catch2Lib PUBLIC .)

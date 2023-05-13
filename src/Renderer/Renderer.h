@@ -10,9 +10,10 @@
 #include "RenderMessage.h"
 #include "glm.hpp"
 #include "EventSource.h"
+#include <Injector.hpp>
 class Core;
 
-class Renderer : public virtual EventSource
+class Renderer : public virtual EventSource, public LiiInjector::Injectable
 {
 public:
     virtual void Render() = 0;

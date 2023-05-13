@@ -2,7 +2,7 @@
 // Created by erik9 on 12/7/2022.
 //
 #include "catch_amalgamated.hpp"
-#include "ApplicationController.h"
+#include "LiiApplication.h"
 #include "Window.h"
 #include "MountedSubscriber.h"
 
@@ -53,7 +53,7 @@ TEST_CASE("Mounted event test with subscriber and custom component", "[mountedEv
     CHECK(subscriber.GetNumberOfOnMountedCalls() == 1);
 
     window->CloseWindow();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 }
 
 
@@ -64,7 +64,7 @@ TEST_CASE("Mounted event one subscriber test", "[mountedEventSubscriber1][mounte
     window->AddOnMountedSubscriber(subscriber);
     CHECK(subscriber.GetNumberOfOnMountedCalls() == 1);
     window->CloseWindow();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 }
 
 
@@ -74,7 +74,7 @@ TEST_CASE("Mounted event one component", "[mountedEvent1][mountedEvents]")
     auto& testElement1 = window->CreateElement<TestComponent>("component1");
     CHECK(testElement1.GetNumberOfOnMountedCalls() == 1);
     window->CloseWindow();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 }
 
 TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2][mountedEvents]")
@@ -94,7 +94,7 @@ TEST_CASE("Mounted event multiple components in a tree", "[mountedEvent2][mounte
     }
 
     window->CloseWindow();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 
 }
 
@@ -117,5 +117,5 @@ TEST_CASE("Mounted event multiple components, added last", "[mountedEvent3][moun
     }
 
     window->CloseWindow();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 }

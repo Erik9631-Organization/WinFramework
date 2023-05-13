@@ -3,7 +3,7 @@
 #include <string>
 #include <windows.h>
 #include <gdiplus.h>
-#include "Utils/ApplicationController.h"
+#include "Utils/LiiApplication.h"
 #include "Events/ResizeSubscriber.h"
 #include "Events/MoveSubscriber.h"
 #include "Movable.h"
@@ -16,6 +16,8 @@
 #include "CoreMediator.h"
 #include "CoreSubject.h"
 #include "Core.h"
+#include "CoreArgs.h"
+
 class Renderer;
 /**
  * The core frame, the raw root of the entire system. The class is wrapped by Window class.
@@ -186,7 +188,7 @@ public:
 
     void Start() override;
 
-    static std::unique_ptr<Core> Create(std::any args);
+    static std::unique_ptr<Core> Create(const CoreArgs &args);
 
     void SetWindow(Window *window) override;
 

@@ -6,13 +6,13 @@
 #include "Commands.h"
 #include "RectangleModel.h"
 #include "LineModel.h"
-#include "RenderingProviderManager.h"
 #include "RenderMessage.h"
 #include "MessageGenerateModel.h"
 #include <algorithm>
 #include <execution>
 #include <iostream>
-#include "ApplicationController.h"
+#include "LiiApplication.h"
+#include <Injector.hpp>
 
 //TODO add release model
 
@@ -100,9 +100,9 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
 void DefaultAsyncRenderCommandHandler::OnInit(Core &core)
 {
     render = true;
-    renderer = RenderingProviderManager::GetRenderingProviderManager()->Create();
+    renderer = LiiInjector::Injector::GetInstance().ResolveTransient<Renderer>();//RenderingProviderManager::GetRenderingProviderManager()->Create();
     renderer->OnInit(core);
-    renderThread = &ApplicationController::GetApplicationController()->CreateThread([&]{RenderLoop();}, "RenderThread");
+    renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
 }
 
 void DefaultAsyncRenderCommandHandler::OnDestroy(Core &core)

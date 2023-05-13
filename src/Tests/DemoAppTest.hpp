@@ -6,13 +6,13 @@
 #define LII_DEMOAPPTEST_HPP
 #include "DemoApplication.h"
 #include "catch_amalgamated.hpp"
-#include "ApplicationController.h"
+#include "LiiApplication.h"
 #include "Window.h"
 
 TEST_CASE("Demo app test", "[demoApp]")
 {
     DemoApplication::LaunchDemoApp();
-    ApplicationController::GetApplicationController()->JoinThreads();
+    LiiApplication::GetInstance()->JoinThreads();
 }
 
 TEST_CASE("Basic background test", "[backgroundTest]")

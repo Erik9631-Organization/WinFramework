@@ -34,7 +34,7 @@ void OpenGLRenderer::OnInit(Core &coreWindowFrame)
     renderingPool = std::make_unique<OpenGLRenderingPool>(*windowsCore->GetWrapperFrame(), manager);
     element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
     GraphicsInit();
-    renderingThread = &ApplicationController::GetApplicationController()->CreateThread([=]{InternalRender();}, to_string((long long)this)+"renderThread");
+    renderingThread = &LiiApplication::GetInstance()->CreateThread([=]{InternalRender();}, to_string((long long)this) + "renderThread");
 }
 
 

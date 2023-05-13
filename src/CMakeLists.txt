@@ -333,10 +333,10 @@ source_group("Lii\\Meta Objects" FILES ${Lii_MetaObjects})
 
 set(Lii_Utils
     "Utils/AccessTools.h"
-    "Utils/ApplicationController.h"
+    "Utils/LiiApplication.h"
     "Utils/InputManager.h"
         "Utils/AccessTools.cpp"
-    "Utils/ApplicationController.cpp"
+    "Utils/LiiApplication.cpp"
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
@@ -352,30 +352,10 @@ set(Lii_Utils
         Utils/IdManager.h
         Utils/WindowBuilder.cpp
         Utils/WindowBuilder.h
-        Utils/Managers/RenderingProviderManager.cpp
-        Utils/Managers/RenderingProviderManager.h
         Utils/RenderingProxyMessageSender.cpp
         Utils/RenderingProxyMessageSender.h
         Utils/Utils.hpp)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
-
-set(Lii_Utils_Managers
-        "Utils/Managers/RenderingProviderManager.cpp"
-        "Utils/Managers/RenderingProviderManager.h"
-        Utils/Managers/CoreManager.cpp Utils/Managers/CoreManager.h)
-
-source_group("Lii\\Utils\\Managers" FILES ${Lii_Utils_Managers})
-
-set(Lii_Utils_Factories
-        Utils/Factories/GdiRenderingProviderFactory.cpp
-        Utils/Factories/GdiRenderingProviderFactory.h
-        Utils/Factories/OpenGLRenderingProviderFactory.cpp
-        Utils/Factories/OpenGLRenderingProviderFactory.h
-        Utils/Factories/CoreFactory.cpp Utils/Factories/CoreFactory.h)
-source_group("Lii\\Utils\\Factory" FILES ${Lii_Utils_Factories}
-
-)
-
 
 set(Lii_OpenGL
         OpenGL/Shader.h 
@@ -515,8 +495,6 @@ set(ALL_FILES
     ${Lii_Api_Events}
     ${Lii_Managers}
     ${Lii_Components_3d}
-    ${Lii_Utils_Managers}
-    ${Lii_Utils_Factories}
     ${Lii_Tests}
     ${Lii_Renderer_Renderers}
     ${Lii_Renderer_Messaging}
@@ -571,14 +549,4 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Proxies"
         "Graphics/RadioButton"
         "Graphics/Checkbox"
-        )
-
-target_link_libraries(${PROJECT_NAME}
-        stb
-        opengl32
-        PhysXSDK
-        catch2Lib
-        "${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
-        "${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
-        MemoryManagerLib
         )

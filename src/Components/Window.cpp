@@ -1,16 +1,12 @@
 #include "Window.h"
-#include "Core/Windows/WindowsCore.h"
 #include <thread>
-#include <mutex>
-#include "ApplicationController.h"
 #include <string>
 #include "EventMouseStateInfo.h"
 #include "EventKeyStateInfo.h"
 #include "CoreArgs.h"
-#include "RenderingProviderManager.h"
-#include "CoreManager.h"
 #include <iostream>
 #include "DefaultAsyncRenderCommandHandler.h"
+#include <Injector.hpp>
 
 using namespace std;
 
@@ -210,19 +206,27 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 {
     auto* window = new Window(x, y, width, height, windowName);
     window->AddOnTickSubscriber(&window->scene3d);
-    //window->AddRenderCommander(window->background);
 
     //CreateElement all window DEPENDENCIES
-    //TODO use try and catch here
+    //TODO refactor, the dependencies need to be managed in a different way
     auto renderer = new DefaultAsyncRenderCommandHandler();
-    auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(renderer);
+    auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(
+            static_cast<AsyncRenderCommandHandler *>(renderer));
     if(renderingProvider == nullptr)
     {
         cout << "Error, failed to create window" << endl;
         return nullptr;
     }
-
-    auto core = CoreManager::GetCoreManager()->Create(CoreArgs::Create(window->name, 0, window));
+    auto core = std::unique_ptr<Core>(nullptr);
+    try
+    {
+        core = LiiInjector::Injector::GetInstance().ResolveTransient<Core, const std::string&, long, Window*>(window->name, 0, window);
+    }
+    catch (const std::exception& e)
+    {
+        cout <<"Failed to create window: " << e.what() << endl;
+        return nullptr;
+    }
     core->SetRenderer(std::move(renderingProvider));
 
     //CreateElement core mediator

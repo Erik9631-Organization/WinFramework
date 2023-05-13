@@ -7,11 +7,12 @@
 #include "AsyncRenderCommandHandler.h"
 #include "CoreSubject.h"
 #include "ResizeSubscriber.h"
+#include "Injectable.h"
 #include <memory>
 
 class Window;
 
-class Core : public CoreSubject
+class Core : public CoreSubject, public LiiInjector::Injectable
 {
 public:
     virtual void SetRenderer(std::unique_ptr<AsyncRenderCommandHandler> provider) = 0;
