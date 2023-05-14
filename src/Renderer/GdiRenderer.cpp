@@ -5,7 +5,7 @@
 #include "Core/Windows/WindowsCore.h"
 #include "Window.h"
 #include "EventResizeInfo.h"
-#include "GdiRenderingApi.h"
+#include "GdiShapeRenderer.h"
 #include <execution>
 #include <chrono>
 #include "GdiRenderingPool.h"
@@ -40,29 +40,6 @@ void GdiRenderer::UpdateSecondaryDC()
     SelectObject(secondaryDc, screenBitmap);
 }
 
-void GdiRenderer::OnInit(Core &coreWindowFrame)
-{
-    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
-    viewPortSize = this->windowsCore->GetWrapperFrame()->GetSize();
-    if(this->windowsCore == nullptr)
-    {
-        /*TODO ADD LOGGING*/
-        //Exit the application with an error
-    }
-    windowHandle = windowsCore->GetWindowHandle();
-    windowHdc = GetDC(windowHandle);
-    windowsCore->AddOnResizePreProcessSubsriber(*this);
-
-    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
-                                          windowsCore->GetWrapperFrame()->GetSize().y);
-    UpdateSecondaryDC();
-}
-
-void GdiRenderer::OnDestroy(Core &coreWindow)
-{
-    CleanDeviceContext();
-}
-
 GdiRenderer::GdiRenderer()
 {
     GdiStartup();
@@ -81,11 +58,11 @@ void GdiRenderer::GdiStartup()
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
 
-std::unique_ptr<RenderingApi> GdiRenderer::AcquireRenderingApi()
+std::unique_ptr<ShapeRenderer> GdiRenderer::AcquireShapeRenderer()
 {
     auto graphics = std::make_unique<Graphics>(secondaryDc);
-    auto renderer = new GdiRenderingApi(std::move(graphics));
-    return std::unique_ptr<RenderingApi>(renderer);
+    auto renderer = new GdiShapeRenderer(std::move(graphics));
+    return std::unique_ptr<ShapeRenderer>(renderer);
 }
 
 void GdiRenderer::SwapScreenBuffer()
@@ -175,6 +152,39 @@ void GdiRenderer::UpdateBitmap()
 }
 
 void GdiRenderer::OnResize(EventResizeInfo e)
+{
+
+}
+
+void GdiRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
+{
+    this->windowsCore = dynamic_cast<WindowsCore*>(e.GetCore());
+    viewPortSize = this->windowsCore->GetWrapperFrame()->GetSize();
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    windowHandle = windowsCore->GetWindowHandle();
+    windowHdc = GetDC(windowHandle);
+    windowsCore->AddOnResizePreProcessSubsriber(*this);
+
+    screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
+            windowsCore->GetWrapperFrame()->GetSize().y);
+    UpdateSecondaryDC();
+}
+
+void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
+{
+
+}
+
+void GdiRenderer::OnCoreStop(const EventCoreLifecycleInfo &e)
+{
+    CleanDeviceContext();
+}
+
+void GdiRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 {
 
 }

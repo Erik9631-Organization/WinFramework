@@ -48,10 +48,10 @@ private:
     void CleanDeviceContext();
     void UpdateBitmap();
     void UpdateSecondaryDC();
-    HWND windowHandle;
-    HDC windowHdc;
-    HDC secondaryDc;
-    HBITMAP screenBitmap;
+    HWND windowHandle = nullptr;
+    HDC windowHdc = nullptr;
+    HDC secondaryDc = nullptr;
+    HBITMAP screenBitmap = nullptr;
     std::multimap<float, RenderingModel*> modelZIndexMap;
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
     glm::ivec2 viewPortSize;
@@ -67,9 +67,7 @@ private:
 public:
     GdiRenderer();
     void Render() override;
-    void OnInit(Core &coreWindowFrame) override;
-    void OnDestroy(Core &coreWindow) override;
-    std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
+    std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
     RenderingModel * CreateModel(SubCommands createCommand) override;
@@ -81,6 +79,14 @@ public:
     void SetViewportSize(const glm::ivec2 &size) override;
 
     void OnResize(EventResizeInfo e) override;
+
+    void OnCoreInit(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreStart(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreStop(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreDestroy(const EventCoreLifecycleInfo &e) override;
 };
 
 

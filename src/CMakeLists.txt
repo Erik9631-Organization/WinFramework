@@ -66,32 +66,30 @@ set(Lii_Behavior
     "Behavior/TextInputBehavior.cpp"
         Behavior/VerticalScrollbarBehavior.cpp
     Behavior/VerticalScrollbarBehavior.h
-        Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h)
+        Behavior/TickSubjectBehavior.cpp Behavior/TickSubjectBehavior.h Behavior/StartSubjectBehavior.cpp Behavior/StartSubjectBehavior.h Behavior/CoreLifecycleBehavior.cpp Behavior/CoreLifecycleBehavior.h)
 
 source_group("Lii\\Behavior" FILES ${Lii_Behavior})
 
 set(Lii_Renderer
         Renderer/Renderer.h
         Renderer/GdiRenderer.cpp
-        Renderer/RenderingApi.cpp
-        Renderer/RenderingApi.h
+        Renderer/ShapeRenderer.h
         Renderer/GdiRenderer.h
         Renderer/FontFormat.cpp
         Renderer/FontFormat.h
-        Renderer/GdiRenderingApi.cpp
-        Renderer/GdiRenderingApi.h
+        Renderer/GdiShapeRenderer.cpp
+        Renderer/GdiShapeRenderer.h
         Renderer/GdiFontFormat.cpp
         Renderer/GdiFontFormat.h
         Renderer/OpenGLRenderer.cpp
         Renderer/OpenGLRenderer.h
-        Renderer/OpenGLRenderingApi.cpp
-        Renderer/OpenGLRenderingApi.h
+        Renderer/OpenGLShapeRenderer.cpp
+        Renderer/OpenGLShapeRenderer.h
         Renderer/DrawData.cpp
         Renderer/DrawData.h
         Renderer/DrawData2D.cpp
         Renderer/DrawData2D.h
-        Renderer/RenderingPool.cpp
-        Renderer/RenderingPool.h 
+        Renderer/RenderingPool.h
         Renderer/GdiRenderingPool.cpp
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
@@ -172,7 +170,7 @@ set(Lii_Api_Events
         "Api/Events/DropSubscriber.h"
         "Api/Draggable.h"
         "Api/Events/OnAddSubscriber.h"
-        Api/Events/Viewport2Subject.h Api/Events/EventSource.h)
+        Api/Events/Viewport2Subject.h Api/Events/EventSource.h Api/Events/CoreLifecycleSubject.h Api/Events/CoreLifecycleSubscriber.h)
 source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
 
@@ -241,7 +239,7 @@ set(Lii_DataTypes
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
-set(Lii_EventTypes
+set(Lii_EventInfo
     "EventInfo/EventCheckboxStateInfo.h"
     "EventInfo/EventComboBoxStateInfo.h"
         "EventInfo/EventKeyStateInfo.h"
@@ -269,9 +267,9 @@ set(Lii_EventTypes
         EventInfo/Viewport2EventInfo.h
     EventInfo/RenderObjectEventInfo.cpp
     EventInfo/RenderObjectEventInfo.h
-        EventInfo/Event.h)
+        EventInfo/Event.h EventInfo/EventCoreLifecycleInfo.cpp EventInfo/EventCoreLifecycleInfo.h)
 
-source_group("Lii\\EventTypes" FILES ${Lii_EventTypes})
+source_group("Lii\\EventInfo" FILES ${Lii_EventInfo})
 
 
 set(Lii_Graphics
@@ -478,7 +476,7 @@ set(ALL_FILES
     ${Lii_Components_api}
     ${Lii_Core_Windows}
     ${Lii_DataTypes}
-    ${Lii_EventTypes}
+    ${Lii_EventInfo}
     ${Lii_Graphics}
     ${Lii_Graphics_RadioButton}
     ${Lii_Graphics_Checkbox}

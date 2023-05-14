@@ -12,10 +12,8 @@ class OpenGLRenderer : public Renderer
 {
 public:
     void Render() override;
-    void OnInit(Core &coreWindowFrame) override;
-    void OnDestroy(Core &coreWindow) override;
 
-    std::unique_ptr<RenderingApi> AcquireRenderingApi() override;
+    std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
 
@@ -24,6 +22,14 @@ public:
     void SetViewportSize(int width, int height) override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
+
+    void OnCoreInit(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreStart(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreStop(const EventCoreLifecycleInfo &e) override;
+
+    void OnCoreDestroy(const EventCoreLifecycleInfo &e) override;
 
 private:
     void AssignGraphicsToNodes(MultiTree<std::unique_ptr<UiElement>> &node);

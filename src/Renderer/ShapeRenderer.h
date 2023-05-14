@@ -2,8 +2,8 @@
 // Created by Erik on 22/01/26.
 //
 
-#ifndef LII_RENDERINGAPI_H
-#define LII_RENDERINGAPI_H
+#ifndef LII_SHAPERENDERER_H
+#define LII_SHAPERENDERER_H
 
 #include <string>
 #include <memory>
@@ -17,7 +17,7 @@ namespace OpenGL
     class Model;
 }
 
-class RenderingApi
+class ShapeRenderer
 {
 public:
     virtual void DrawEllipse(float x,float y, float width, float height) = 0;
@@ -43,8 +43,8 @@ public:
     virtual void SetFontSize(float fontSize) = 0;
     virtual std::unique_ptr<FontFormat> CreateFontFormat() = 0;
     virtual void Translate(glm::vec3 translation) = 0;
-    virtual ~RenderingApi() = default;
+    virtual ~ShapeRenderer() = default;
 };
 
 
-#endif //LII_RENDERINGAPI_H
+#endif //LII_SHAPERENDERER_H

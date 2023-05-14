@@ -4,23 +4,23 @@
 
 #include "OpenGLRenderingPool.h"
 #include "api/RenderCommander.h"
-#include "OpenGLRenderingApi.h"
+#include "OpenGLShapeRenderer.h"
 #include "Window.h"
 
-RenderingApi &OpenGLRenderingPool::Acquire(const RenderCommander &target)
+ShapeRenderer &OpenGLRenderingPool::Acquire(const RenderCommander &target)
 {
     auto renderableIt = renderers.find(&target);
     if(renderableIt != renderers.end())
     {
-        OpenGLRenderingApi& renderer = *renderableIt->second;
+        OpenGLShapeRenderer& renderer = *renderableIt->second;
         renderer.Translate(translation);
         return *renderableIt->second;
     }
 
     //Not found, new one needs to be created
     //CRASH1
-    renderers.insert({&target, std::make_unique<OpenGLRenderingApi>(window, renderingManager)});
-    OpenGLRenderingApi& renderer = *renderers[&target];
+    renderers.insert({&target, std::make_unique<OpenGLShapeRenderer>(window, renderingManager)});
+    OpenGLShapeRenderer& renderer = *renderers[&target];
     renderer.Translate(translation);
     return *renderers[&target];
 }

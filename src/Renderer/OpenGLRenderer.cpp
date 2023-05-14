@@ -20,24 +20,6 @@ void OpenGLRenderer::Render()
     performRenderSignal.notify_one();
 }
 
-void OpenGLRenderer::OnInit(Core &coreWindowFrame)
-{
-    this->windowsCore = dynamic_cast<WindowsCore*>(&coreWindowFrame);
-    if(this->windowsCore == nullptr)
-    {
-        /*TODO ADD LOGGING*/
-        //Exit the application with an error
-    }
-    GetGlExtensions();
-    //now create openGlWindow
-    PrepareWindowRenderer(*windowsCore);
-    renderingPool = std::make_unique<OpenGLRenderingPool>(*windowsCore->GetWrapperFrame(), manager);
-    element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
-    GraphicsInit();
-    renderingThread = &LiiApplication::GetInstance()->CreateThread([=]{InternalRender();}, to_string((long long)this) + "renderThread");
-}
-
-
 void OpenGLRenderer::PrepareWindowRenderer(WindowsCore& window)
 {
     int pixelFormat[] =
@@ -191,19 +173,6 @@ void OpenGLRenderer::GetGlExtensions()
     DestroyWindow(dummyHandle);
 }
 
-void OpenGLRenderer::OnDestroy(Core &coreWindow)
-{
-    auto* core = dynamic_cast<WindowsCore*>(&coreWindow);
-    if(core == nullptr)
-    {
-        /*TODO ADD LOGGING*/
-        //Exit the application with an error
-    }
-    ReleaseDC(core->GetWindowHandle(), GetDC(core->GetWindowHandle()));
-    startRenderingLoop = false;
-    renderingThread->join();
-
-}
 
 void OpenGLRenderer::InternalRender()
 {
@@ -308,7 +277,7 @@ void OpenGLRenderer::GraphicsInit()
 }
 
 //TODO Finish Acquire Renderer for opengl
-unique_ptr<RenderingApi> OpenGLRenderer::AcquireRenderingApi()
+unique_ptr<ShapeRenderer> OpenGLRenderer::AcquireShapeRenderer()
 {
     return nullptr;
 }
@@ -336,6 +305,46 @@ void OpenGLRenderer::SetViewportSize(int width, int height)
 }
 
 void OpenGLRenderer::SetViewportSize(const glm::ivec2 &size)
+{
+
+}
+
+void OpenGLRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
+{
+    this->windowsCore = dynamic_cast<WindowsCore*>(e.GetCore());
+    if(this->windowsCore == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    GetGlExtensions();
+    //now create openGlWindow
+    PrepareWindowRenderer(*windowsCore);
+    renderingPool = std::make_unique<OpenGLRenderingPool>(*windowsCore->GetWrapperFrame(), manager);
+    element3dSyncer = std::make_unique<Element3dDataSyncer>(*renderingPool);
+    GraphicsInit();
+    renderingThread = &LiiApplication::GetInstance()->CreateThread([=]{InternalRender();}, to_string((long long)this) + "renderThread");
+}
+
+void OpenGLRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
+{
+
+}
+
+void OpenGLRenderer::OnCoreStop(const EventCoreLifecycleInfo &e)
+{
+    auto* core = dynamic_cast<WindowsCore*>(e.GetCore());
+    if(core == nullptr)
+    {
+        /*TODO ADD LOGGING*/
+        //Exit the application with an error
+    }
+    ReleaseDC(core->GetWindowHandle(), GetDC(core->GetWindowHandle()));
+    startRenderingLoop = false;
+    renderingThread->join();
+}
+
+void OpenGLRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 {
 
 }

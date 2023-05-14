@@ -17,6 +17,8 @@
 #include "CoreSubject.h"
 #include "Core.h"
 #include "CoreArgs.h"
+#include "CoreLifecycleSubscriber.h"
+#include "CoreLifecycleBehavior.h"
 
 class Renderer;
 /**
@@ -35,6 +37,7 @@ private:
     private:
         std::vector<std::reference_wrapper<ResizeSubscriber>> resizeSubscribers;
     };
+    CoreLifecycleBehavior lifeCycleBehavior;
     std::vector<CoreSubscriber*> coreSubscribers;
     MsgSubject preProcessSubject;
 	HWND windowHandle;
@@ -193,5 +196,17 @@ public:
     void SetWindow(Window *window) override;
 
     void ForceRedraw() override;
+
+    void NotifyOnCoreInit(const EventCoreLifecycleInfo &e) override;
+
+    void NotifyOnCoreStart(const EventCoreLifecycleInfo &e) override;
+
+    void NotifyOnCoreStop(const EventCoreLifecycleInfo &e) override;
+
+    void NotifyOnCoreDestroy(const EventCoreLifecycleInfo &e) override;
+
+    void AddCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber) override;
+
+    void RemoveCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber) override;
 };
 

@@ -14,7 +14,7 @@
 #include "LiiApplication.h"
 #include <Injector.hpp>
 
-//TODO add release model
+//TODO add release model so model can be also removed
 
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
@@ -70,7 +70,6 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
     }
 }
 
-//TODO: MAKE THIS THREAD SAFE SHOULD BE A MESSAGE
 void DefaultAsyncRenderCommandHandler::SwapScreenBuffer()
 {
     if(renderer == nullptr)
@@ -97,21 +96,6 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
     this->ReceiveCommand(std::move(message));
 }
 
-void DefaultAsyncRenderCommandHandler::OnInit(Core &core)
-{
-    render = true;
-    renderer = LiiInjector::Injector::GetInstance().ResolveTransient<Renderer>();//RenderingProviderManager::GetRenderingProviderManager()->Create();
-    renderer->OnInit(core);
-    renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
-}
-
-void DefaultAsyncRenderCommandHandler::OnDestroy(Core &core)
-{
-    renderer->OnDestroy(core);
-    auto quitMessage = RenderMessage::Create(Commands::Quit, nullptr);
-    this->ReceiveCommand(std::move(quitMessage));
-}
-
 void DefaultAsyncRenderCommandHandler::SetViewPortSize(int width, int height)
 {
     renderer->SetViewportSize(width, height);
@@ -126,4 +110,29 @@ void DefaultAsyncRenderCommandHandler::RequestModel(RenderProxy &proxy)
 {
     auto message = RenderMessage::CreateModelRequestMessage(proxy.GetModelRequestCommand(), &proxy);
     this->ReceiveCommand(std::move(message));
+}
+
+void DefaultAsyncRenderCommandHandler::OnCoreInit(const EventCoreLifecycleInfo &e)
+{
+    render = true;
+    renderer = LiiInjector::Injector::GetInstance().ResolveTransient<Renderer>();
+    renderer->OnCoreInit(e);
+    renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
+}
+
+void DefaultAsyncRenderCommandHandler::OnCoreStart(const EventCoreLifecycleInfo &e)
+{
+    renderer->OnCoreStart(e);
+}
+
+void DefaultAsyncRenderCommandHandler::OnCoreStop(const EventCoreLifecycleInfo &e)
+{
+    renderer->OnCoreStop(e);
+    auto quitMessage = RenderMessage::Create(Commands::Quit, nullptr);
+    this->ReceiveCommand(std::move(quitMessage));
+}
+
+void DefaultAsyncRenderCommandHandler::OnCoreDestroy(const EventCoreLifecycleInfo &e)
+{
+    renderer->OnCoreDestroy(e);
 }

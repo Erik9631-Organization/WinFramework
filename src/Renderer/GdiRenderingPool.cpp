@@ -4,12 +4,12 @@
 
 #include "GdiRenderingPool.h"
 
-RenderingApi &GdiRenderingPool::Acquire(const RenderCommander &target)
+ShapeRenderer &GdiRenderingPool::Acquire(const RenderCommander &target)
 {
     return *renderer;
 }
 
-GdiRenderingPool::GdiRenderingPool(RenderingApi *renderer)
+GdiRenderingPool::GdiRenderingPool(ShapeRenderer *renderer)
 {
     this->renderer = renderer;
 }

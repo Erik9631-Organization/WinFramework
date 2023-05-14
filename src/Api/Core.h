@@ -8,11 +8,12 @@
 #include "CoreSubject.h"
 #include "ResizeSubscriber.h"
 #include "Injectable.h"
+#include "CoreLifecycleSubject.h"
 #include <memory>
 
 class Window;
 
-class Core : public CoreSubject, public LiiInjector::Injectable
+class Core : public CoreSubject, public LiiInjector::Injectable, public CoreLifecycleSubject
 {
 public:
     virtual void SetRenderer(std::unique_ptr<AsyncRenderCommandHandler> provider) = 0;

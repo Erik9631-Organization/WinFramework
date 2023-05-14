@@ -96,7 +96,7 @@ void TextModel::Draw()
     if(renderer == nullptr)
         return;
 
-    auto api = renderer->AcquireRenderingApi();
+    auto api = renderer->AcquireShapeRenderer();
     auto format = api->CreateFontFormat();
     format->SetAlignment(fontAlignment);
     format->SetLineAlignment(fontLineAlignment);

@@ -68,7 +68,7 @@ void Text::SetFontSize(float fontSize)
 
 void Text::OnRenderSync(RenderEventInfo e)
 {
-    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    ShapeRenderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.Scale(drawData.GetSize());
     std::unique_ptr<FontFormat> format = renderer.CreateFontFormat();
 //    format->SetAlignment(alignment);

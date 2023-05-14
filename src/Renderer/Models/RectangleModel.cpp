@@ -4,7 +4,7 @@
 
 #include "RectangleModel.h"
 #include "EventMoveInfo.h"
-#include "RenderingApi.h"
+#include "ShapeRenderer.h"
 #include "Commands.h"
 #include <iostream>
 
@@ -80,7 +80,7 @@ void RectangleModel::Draw()
     if(!visible)
         return;
 
-    auto renderingApi = this->renderer->AcquireRenderingApi();
+    auto renderingApi = this->renderer->AcquireShapeRenderer();
     if(renderingApi == nullptr)
         return;
     renderingApi->SetColor(color);

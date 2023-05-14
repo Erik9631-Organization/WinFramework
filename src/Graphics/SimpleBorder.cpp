@@ -54,7 +54,7 @@ void SimpleBorder::DrawFromCenterY(bool state)
 
 void SimpleBorder::OnRenderSync(RenderEventInfo e)
 {
-    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    ShapeRenderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.Scale(drawData.GetSize());
 
     renderer.SetThickness(thickness);

@@ -4,13 +4,13 @@
 
 #ifndef LII_RENDERINGPOOL_H
 #define LII_RENDERINGPOOL_H
-class RenderingApi;
+class ShapeRenderer;
 class RenderCommander;
 
 class RenderingPool
 {
 public:
-    virtual RenderingApi& Acquire(const RenderCommander &target) = 0;
+    virtual ShapeRenderer& Acquire(const RenderCommander &target) = 0;
 };
 
 

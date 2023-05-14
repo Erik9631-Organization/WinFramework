@@ -2,8 +2,8 @@
 // Created by Erik on 22/01/27.
 //
 
-#ifndef LII_GDIRENDERINGAPI_H
-#define LII_GDIRENDERINGAPI_H
+#ifndef LII_GDISHAPERENDERER_H
+#define LII_GDISHAPERENDERER_H
 namespace Gdiplus
 {
     class Graphics;
@@ -15,14 +15,14 @@ namespace Gdiplus
 }
 class Vector3;
 class Vector4;
-#include "RenderingApi.h"
+#include "ShapeRenderer.h"
 
-class GdiRenderingApi : public RenderingApi
+class GdiShapeRenderer : public ShapeRenderer
 {
 public:
     std::unique_ptr<Gdiplus::Graphics> graphics;
-    GdiRenderingApi(std::unique_ptr<Gdiplus::Graphics> graphics);
-    ~GdiRenderingApi();
+    GdiShapeRenderer(std::unique_ptr<Gdiplus::Graphics> graphics);
+    ~GdiShapeRenderer();
     void SetColor(const glm::ivec4 &color) override;
     void SetColor(const glm::ivec3 &color) override;
     void SetThickness(float thickness) override;
@@ -56,4 +56,4 @@ private:
 };
 
 
-#endif //LII_GDIRENDERINGAPI_H
+#endif //LII_GDISHAPERENDERER_H

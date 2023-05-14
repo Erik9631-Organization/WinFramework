@@ -101,15 +101,21 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	switch (msg)
 	{
 	case WM_CLOSE:
+    {
         DestroyWindow(windowHandle);
         if(!UnregisterClassA(this->windowName.c_str(), hInstance))
             cout << "UnRegister Class error: " << GetLastError() << endl;
         processMessages = false;
-        renderer->OnDestroy(*this);
+        NotifyOnCoreStop({this, this});
         return;
+    }
 	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
+    {
+        NotifyOnCoreDestroy({this, this});
+        PostQuitMessage(0);
+        break;
+    }
+
 	case WM_MOVE:
     {
         auto pos = glm::vec4((float)*((unsigned short*)&lParam), (float)((unsigned short*)&lParam)[1], 0, 0);
@@ -220,7 +226,10 @@ void WindowsCore::UpdateScale()
                  wrapperFrame->GetSize().y, SWP_SHOWWINDOW | SWP_DRAWFRAME);
 }
 
-WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) : wrapperFrame(wrapperFrame), renderBehavior(*this)
+WindowsCore::WindowsCore(Window *wrapperFrame, const string &windowName, LONG style) :
+    wrapperFrame(wrapperFrame),
+    renderBehavior(*this),
+    lifeCycleBehavior(*this)
 {
     this->windowName = windowName;
     this->style = style;
@@ -335,7 +344,6 @@ AsyncRenderCommandHandler * WindowsCore::GetRenderer()
 void WindowsCore::SetRenderer(unique_ptr<AsyncRenderCommandHandler> provider)
 {
     renderer = std::move(provider);
-    renderer->OnInit(*this);
 }
 
 void WindowsCore::RemoveOnResizePreProcessSubsriber(ResizeSubscriber &subscriber)
@@ -419,8 +427,7 @@ const bool &WindowsCore::IsCursorLocked() const
 
 void WindowsCore::NotifyCoreOnDestroy(std::any src)
 {
-    for(auto subscriber : coreSubscribers)
-        subscriber->CoreOnDestroy(src);
+
 }
 
 void WindowsCore::NotifyCoreOnClose(std::any src)
@@ -523,12 +530,14 @@ void WindowsCore::Start()
     },to_string((long long) this)+"window");
     std::unique_lock<mutex> lock{initLock};
     initCondition->wait(lock, [&]{return initSignal;});
+    NotifyOnCoreStart({this, this});
 }
 
 unique_ptr<Core> WindowsCore::Create(const CoreArgs &args)
 {
     auto core = new WindowsCore(args.associatedWindow, args.name, WS_OVERLAPPEDWINDOW);
     auto corePtr = std::unique_ptr<WindowsCore>(core);
+    core->NotifyOnCoreInit({core, core});
     corePtr->Start();
     return std::move(corePtr);
 }
@@ -541,6 +550,36 @@ void WindowsCore::SetWindow(Window *window)
 void WindowsCore::ForceRedraw()
 {
 
+}
+
+void WindowsCore::NotifyOnCoreInit(const EventCoreLifecycleInfo &e)
+{
+    lifeCycleBehavior.NotifyOnCoreInit(e);
+}
+
+void WindowsCore::NotifyOnCoreStart(const EventCoreLifecycleInfo &e)
+{
+    lifeCycleBehavior.NotifyOnCoreStart(e);
+}
+
+void WindowsCore::NotifyOnCoreStop(const EventCoreLifecycleInfo &e)
+{
+    lifeCycleBehavior.NotifyOnCoreStop(e);
+}
+
+void WindowsCore::NotifyOnCoreDestroy(const EventCoreLifecycleInfo &e)
+{
+    lifeCycleBehavior.NotifyOnCoreDestroy(e);
+}
+
+void WindowsCore::AddCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber)
+{
+    lifeCycleBehavior.AddCoreLifecycleSubscriber(subscriber);
+}
+
+void WindowsCore::RemoveCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber)
+{
+    lifeCycleBehavior.RemoveCoreLifecycleSubscriber(subscriber);
 }
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

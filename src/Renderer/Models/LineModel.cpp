@@ -4,7 +4,7 @@
 
 #include "LineModel.h"
 #include "Renderer.h"
-#include "RenderingApi.h"
+#include "ShapeRenderer.h"
 #include "Commands.h"
 
 void LineModel::SetStartPont(const glm::vec4 &pos)
@@ -41,7 +41,7 @@ void LineModel::Draw()
 {
     if(!visible)
         return;
-    auto renderer = renderingProvider->AcquireRenderingApi();
+    auto renderer = renderingProvider->AcquireShapeRenderer();
     renderer->SetColor(color);
     renderer->DrawLine(startPoint, endPoint);
 }

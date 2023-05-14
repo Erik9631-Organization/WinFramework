@@ -2,9 +2,9 @@
 // Created by Erik on 01/02/22.
 //
 
-#ifndef LII_OPENGLRENDERINGAPI_H
-#define LII_OPENGLRENDERINGAPI_H
-#include "RenderingApi.h"
+#ifndef LII_OPENGLSHAPERENDERER_H
+#define LII_OPENGLSHAPERENDERER_H
+#include "ShapeRenderer.h"
 #include "glm.hpp"
 #include "ModelBuilder.h"
 #include "ResizeSubscriber.h"
@@ -15,7 +15,7 @@
 class RenderCommander;
 class Window;
 
-class OpenGLRenderingApi : public RenderingApi, ResizeSubscriber
+class OpenGLShapeRenderer : public ShapeRenderer, public ResizeSubscriber
 {
 private:
     enum class ShapeType
@@ -43,7 +43,7 @@ private:
 private:
     void TransformModel(OpenGL::Model &model, const glm::vec2 &pos, const glm::vec2 &size);
 public:
-    OpenGLRenderingApi(Window &window, OpenGL::RenderingManager& manager);
+    OpenGLShapeRenderer(Window &window, OpenGL::RenderingManager& manager);
     void DrawModel(const OpenGL::Model &model) override;
     void DrawEllipse(float x, float y, float width, float height) override;
     void DrawEllipse(float x, float y, glm::vec4 vector4) override;
@@ -75,4 +75,4 @@ private:
 };
 
 
-#endif //LII_OPENGLRENDERINGAPI_H
+#endif //LII_OPENGLSHAPERENDERER_H

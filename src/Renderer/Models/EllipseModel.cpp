@@ -84,7 +84,7 @@ void EllipseModel::Draw()
     if(renderFromCenter)
         calculatedPosition = TranslateFromCornerToCenter(calculatedPosition, resizableBehavior.GetSize());
 
-    auto renderingApi = this->renderer->AcquireRenderingApi();
+    auto renderingApi = this->renderer->AcquireShapeRenderer();
     if(renderingApi == nullptr)
         return;
     renderingApi->SetColor(color);

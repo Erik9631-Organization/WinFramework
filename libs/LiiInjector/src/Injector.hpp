@@ -213,7 +213,7 @@ namespace LiiInjector
         }
 
         template<typename T, typename ... Args>
-        std::unique_ptr<T> ResolveTransientTag(const std::string& tag, Args&& ... args)
+        std::unique_ptr<T> ResolveTransientTag(const std::string& tag, Args ... args)
         {
             static_assert(std::is_base_of<Injectable, T>::value, "T must be a child of Injectable");
             auto it = transientTag.find(tag);
@@ -224,7 +224,7 @@ namespace LiiInjector
             if(functionWrapper == nullptr)
                 throw std::runtime_error("Factory function mismatch!");
 
-            auto result = dynamic_cast<T*>(functionWrapper->factoryFunc(std::forward<Args>(args) ...));
+            auto result = dynamic_cast<T*>(functionWrapper->factoryFunc(std::move(args) ...));
             if(result == nullptr)
                 throw std::runtime_error("Type mismatch!");
             return std::unique_ptr<T>(result);

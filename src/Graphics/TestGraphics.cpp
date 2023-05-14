@@ -28,7 +28,7 @@ std::vector<std::reference_wrapper<RenderCommander>> TestGraphics::GetRenderable
 
 void TestGraphics::OnRenderSync(RenderEventInfo e)
 {
-    RenderingApi& renderer = e.GetRenderer()->Acquire(*this);
+    ShapeRenderer& renderer = e.GetRenderer()->Acquire(*this);
     renderer.SetColor({0, 0, 0});
     renderer.SetThickness(0.1f);
     renderer.DrawRectangle(10, 10, 50, 50);

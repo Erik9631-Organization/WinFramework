@@ -227,7 +227,9 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         cout <<"Failed to create window: " << e.what() << endl;
         return nullptr;
     }
+    auto* renderingProviderRef = renderingProvider.get();
     core->SetRenderer(std::move(renderingProvider));
+    core->AddCoreLifecycleSubscriber(renderingProviderRef);
 
     //CreateElement core mediator
     auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));
