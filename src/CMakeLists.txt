@@ -94,7 +94,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h)
+        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
