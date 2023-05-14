@@ -11,19 +11,17 @@
 #include "glm.hpp"
 #include "EventSource.h"
 #include "CoreLifecycleSubscriber.h"
+#include "RenderingBase.h"
 #include <Injector.hpp>
 class Core;
 
-class Renderer : public virtual EventSource, public LiiInjector::Injectable, public CoreLifecycleSubscriber
+class Renderer : public virtual EventSource, public LiiInjector::Injectable, public CoreLifecycleSubscriber, public RenderingBase
 {
 public:
     virtual void Render() = 0;
     virtual RenderingModel * CreateModel(SubCommands createCommand) = 0;
     virtual RenderingModel* GetModel(size_t index) = 0;
-    virtual void SwapScreenBuffer() = 0;
     virtual std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() = 0;
-    virtual void SetViewportSize(int width, int height) = 0;
-    virtual void SetViewportSize(const glm::ivec2& size) = 0;
     ~Renderer() override = default;
 };
 

@@ -5,13 +5,13 @@
 #ifndef LII_BUFFERRENDERER_H
 #define LII_BUFFERRENDERER_H
 #include "CoreLifecycleSubscriber.h"
+#include "RenderingBase.h"
 #include <glm.hpp>
 
-class BufferRenderer : public CoreLifecycleSubscriber
+class BufferRenderer : public CoreLifecycleSubscriber, public RenderingBase
 {
 public:
     virtual void DrawFragment(const glm::ivec3& position, const glm::vec4& color) = 0;
-    virtual void SwapBuffers() = 0 ;
 };
 
 
