@@ -204,7 +204,7 @@ void RectangleModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-const ModelViewport &RectangleModel::GetViewPort() const
+const DefaultViewport &RectangleModel::GetViewPort() const
 {
     return viewPort;
 }

@@ -112,7 +112,7 @@ public:
 	/**
 	 * Gets the hardware context of the current window.
 	 */
-	HDC* GetHdc();
+	HDC GetHdc();
 	/**
 	 * Gets the handle to the current window
 	 */

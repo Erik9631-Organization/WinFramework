@@ -10,7 +10,7 @@
 #include "RenderProxy.h"
 #include <unordered_map>
 #include "Commands.h"
-#include "ModelViewport.h"
+#include "DefaultViewport.h"
 #include "MoveSubscriber.h"
 #include "ResizeSubscriber.h"
 #include "RenderingProxyMessageSender.h"

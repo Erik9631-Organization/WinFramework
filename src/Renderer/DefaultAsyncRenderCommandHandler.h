@@ -32,7 +32,6 @@ private:
 public:
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;
     void SwapScreenBuffer() override;
-    void SetViewPortSize(int width, int height) override;
 
     void SetViewPortSize(const glm::ivec2 &size) override;
 

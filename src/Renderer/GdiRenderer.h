@@ -23,6 +23,7 @@
 #include <mutex>
 #include <condition_variable>
 #include "TextModel.h"
+#include "ModelContainer.h"
 
 
 class Timer;
@@ -44,26 +45,17 @@ private:
     static ULONG token;
     std::mutex setViewPortMutex;
 
-    WindowsCore* windowsCore;
-    void CleanDeviceContext();
+    WindowsCore* windowsCore = nullptr;
+    void DeleteSecondaryDc();
     void UpdateBitmap();
-    void UpdateSecondaryDC();
+    void CreateSecondaryDc();
     HWND windowHandle = nullptr;
     HDC windowHdc = nullptr;
     HDC secondaryDc = nullptr;
     HBITMAP screenBitmap = nullptr;
     std::multimap<float, RenderingModel*> modelZIndexMap;
-    std::vector<std::unique_ptr<RenderingModel>> renderingModels;
-    glm::ivec2 viewPortSize;
-
-    template<typename T>
-    T* CreateModel()
-    {
-        auto model = std::make_unique<T>();
-        model->SetRenderer(this);
-        return static_cast<T*>(AddModel(std::move(model)));
-    }
-    RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
+    glm::ivec2 viewPortSize{0};
+    ModelContainer modelContainer;
 public:
     GdiRenderer();
     void Render() override;
@@ -73,8 +65,6 @@ public:
     RenderingModel * CreateModel(SubCommands createCommand) override;
 
     void OnMove(EventMoveInfo e) override;
-
-    void SetViewportSize(int width, int height) override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
 

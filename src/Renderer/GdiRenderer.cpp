@@ -27,20 +27,20 @@ void GdiRenderer::Render()
         it->second->Draw();
 }
 
-void GdiRenderer::CleanDeviceContext()
+void GdiRenderer::DeleteSecondaryDc()
 {
     DeleteDC(secondaryDc);
     GetLastError();
 }
 
-void GdiRenderer::UpdateSecondaryDC()
+void GdiRenderer::CreateSecondaryDc()
 {
-    CleanDeviceContext();
+    DeleteSecondaryDc();
     secondaryDc = CreateCompatibleDC(windowHdc);
     SelectObject(secondaryDc, screenBitmap);
 }
 
-GdiRenderer::GdiRenderer()
+GdiRenderer::GdiRenderer() : modelContainer(*this)
 {
     GdiStartup();
 }
@@ -68,50 +68,44 @@ std::unique_ptr<ShapeRenderer> GdiRenderer::AcquireShapeRenderer()
 void GdiRenderer::SwapScreenBuffer()
 {
     std::lock_guard<std::mutex> viewPortLock{setViewPortMutex};
-    BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, MERGECOPY);
+    BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, SRCCOPY);
 }
-
-RenderingModel * GdiRenderer::AddModel(std::unique_ptr<RenderingModel> renderingModel)
-{
-    modelZIndexMap.emplace(renderingModel->GetZIndex(), renderingModel.get());
-    RenderingModel* modelPtr = renderingModel.get();
-    renderingModels.push_back(std::move(renderingModel));
-    modelPtr->SetModelId(renderingModels.size() - 1);
-    return modelPtr;
-}
-
 RenderingModel *GdiRenderer::GetModel(size_t index)
 {
-    if(index >= renderingModels.size())
-        return nullptr;
-    return renderingModels[index].get();
+    return modelContainer.GetModel(index);
 }
 
 RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 {
+    auto* model = modelContainer.CreateModel(createCommand);
+    modelZIndexMap.emplace(model->GetZIndex(), model);
     switch (createCommand)
     {
         case SubCommands::RequestRectangle:
         {
-            auto model = CreateModel<RectangleModel>();
-            model->AddOnMoveSubscriber(*this);
-            return model;
+            auto* concreteModel = dynamic_cast<RectangleModel*>(model);
+            if(concreteModel != nullptr)
+                concreteModel->AddOnMoveSubscriber(*this);
+            break;
         }
         case SubCommands::RequestText:
         {
-            auto model = CreateModel<TextModel>();
-            model->AddOnMoveSubscriber(*this);
-            return model;
+            auto* concreteModel = dynamic_cast<TextModel*>(model);
+            if(concreteModel != nullptr)
+                concreteModel->AddOnMoveSubscriber(*this);
+            break;
         }
         case SubCommands::RequestEllipse:
         {
-            auto model = CreateModel<EllipseModel>();
-            model->AddOnMoveSubscriber(*this);
-            return model;
+            auto* concreteModel = dynamic_cast<EllipseModel*>(model);
+            if(concreteModel != nullptr)
+                concreteModel->AddOnMoveSubscriber(*this);
+            break;
         }
         default:
             return nullptr;
     }
+    return model;
 }
 
 void GdiRenderer::OnMove(EventMoveInfo e)
@@ -132,17 +126,12 @@ void GdiRenderer::OnMove(EventMoveInfo e)
     modelZIndexMap.emplace(e.GetAbsolutePosition().z, model);
 }
 
-void GdiRenderer::SetViewportSize(int width, int height)
-{
-    SetViewportSize({width, height});
-}
-
 void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
 {
     std::lock_guard<std::mutex> lock(setViewPortMutex);
     viewPortSize = size;
     UpdateBitmap();
-    UpdateSecondaryDC();
+    CreateSecondaryDc();
 }
 
 void GdiRenderer::UpdateBitmap()
@@ -165,13 +154,12 @@ void GdiRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
         /*TODO ADD LOGGING*/
         //Exit the application with an error
     }
-    windowHandle = windowsCore->GetWindowHandle();
-    windowHdc = GetDC(windowHandle);
+    windowHdc = windowsCore->GetHdc();
     windowsCore->AddOnResizePreProcessSubsriber(*this);
 
     screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
             windowsCore->GetWrapperFrame()->GetSize().y);
-    UpdateSecondaryDC();
+    CreateSecondaryDc();
 }
 
 void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
@@ -181,7 +169,7 @@ void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
 
 void GdiRenderer::OnCoreStop(const EventCoreLifecycleInfo &e)
 {
-    CleanDeviceContext();
+    DeleteSecondaryDc();
 }
 
 void GdiRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)

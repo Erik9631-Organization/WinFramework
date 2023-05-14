@@ -6,7 +6,7 @@
 #define LII_LINEMODEL_H
 #include "RenderingModel.h"
 #include "glm.hpp"
-#include "ModelViewport.h"
+#include "DefaultViewport.h"
 
 class LineModel : public RenderingModel
 {
@@ -18,7 +18,7 @@ private:
     Renderer* renderingProvider;
     float width;
     size_t id = -1;
-    ModelViewport viewPort;
+    DefaultViewport viewPort;
 public:
     void SetStartPont(const glm::vec4 &pos);
     void SetEndPoint(const glm::vec4 &pos);

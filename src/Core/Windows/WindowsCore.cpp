@@ -15,8 +15,6 @@
 #else
 #define USER_DATA (GWL_USERDATA)
 #endif
-
-HDC windowHdc;
 using namespace std;
 using namespace chrono;
 
@@ -131,7 +129,7 @@ void WindowsCore::ProcessMessage(UINT msg, WPARAM wParam, LPARAM lParam)
 	    unsigned short width = ((unsigned short*)&lParam)[0];
 	    unsigned short height = ((unsigned short*)&lParam)[1];
         if(renderer != nullptr)
-            renderer->SetViewPortSize(width, height);
+            renderer->SetViewPortSize({width, height});
         EventResizeInfo e = EventResizeInfo{{(float)width, (float)height, 0}, nullptr};
 	    preProcessSubject.NotifyOnResizeSubscribers(e);
         NotifyCoreOnResize(e);
@@ -580,6 +578,11 @@ void WindowsCore::AddCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber
 void WindowsCore::RemoveCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber)
 {
     lifeCycleBehavior.RemoveCoreLifecycleSubscriber(subscriber);
+}
+
+HDC WindowsCore::GetHdc()
+{
+    return GetDC(windowHandle);
 }
 
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)

@@ -4,6 +4,7 @@
 #include "WindowsCore.h"
 #include "Core.h"
 #include "GdiRenderer.h"
+#include "WindowsBufferRenderer.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -38,5 +39,10 @@ void LiiApplication::Init()
     LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
     {
         return new GdiRenderer();
+    });
+
+    LiiInjector::Injector::GetInstance().RegisterTransient<BufferRenderer>([]()->LiiInjector::Injectable*
+    {
+        return new WindowsBufferRenderer();
     });
 }

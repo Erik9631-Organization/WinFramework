@@ -94,7 +94,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h)
+        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 
@@ -170,7 +170,7 @@ set(Lii_Api_Events
         "Api/Events/DropSubscriber.h"
         "Api/Draggable.h"
         "Api/Events/OnAddSubscriber.h"
-        Api/Events/Viewport2Subject.h Api/Events/EventSource.h Api/Events/CoreLifecycleSubject.h Api/Events/CoreLifecycleSubscriber.h)
+        Api/Events/ViewportSubject.h Api/Events/EventSource.h Api/Events/CoreLifecycleSubject.h Api/Events/CoreLifecycleSubscriber.h)
 source_group("Lii\\api\\Events" FILES ${Lii_Api_Events})
 
 
@@ -235,7 +235,7 @@ set(Lii_DataTypes
         DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
-    DataTypes/MultiTree.cpp)
+    DataTypes/MultiTree.cpp DataTypes/ZBufferRegionValidator.cpp DataTypes/ZBufferRegionValidator.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
@@ -304,7 +304,7 @@ source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
 
 set(Lii_Graphics_api
 
-        Api/Viewport2.h Api/Events/Viewport2Subscriber.h)
+        Api/Viewport.h Api/Events/Viewport2Subscriber.h)
 source_group("Lii\\Graphics\\api" FILES ${Lii_Graphics_api})
 
 set(Lii_GraphicalStates
@@ -449,7 +449,7 @@ set(Lii_Renderer_Models
         Renderer/Messaging/RenderMessage.h
         Renderer/Models/RectangleModel.cpp
         Renderer/Models/RectangleModel.h
-        Renderer/Models/RenderingModel.h Renderer/Models/LineModel.cpp Renderer/Models/LineModel.h Renderer/Models/TextModel.cpp Renderer/Models/TextModel.h Renderer/Models/EllipseModel.cpp Renderer/Models/EllipseModel.h)
+        Renderer/Models/RenderingModel.h Renderer/Models/LineModel.cpp Renderer/Models/LineModel.h Renderer/Models/TextModel.cpp Renderer/Models/TextModel.h Renderer/Models/EllipseModel.cpp Renderer/Models/EllipseModel.h Renderer/Models/ModelContainer.cpp Renderer/Models/ModelContainer.h)
 source_group(Lii/Renderer/Models FILES ${Lii_Renderer_Models})
 
 set(Lii_Renderer_Models_Behavior
@@ -461,8 +461,8 @@ set(Lii_Renderer_Models_Behavior
 source_group(Lii/Renderer/Models/Behavior FILES ${Lii_Renderer_Models_Behavior})
 
 set(Lii_Renderer_Models_Viewports
-        Renderer/Models/Viewports/ModelViewport.cpp
-        Renderer/Models/Viewports/ModelViewport.h
+        Renderer/Models/Viewports/DefaultViewport.cpp
+        Renderer/Models/Viewports/DefaultViewport.h
 )
 source_group(Lii/Renderer/Models/Viewports FILES ${Lii_Renderer_Models_Viewports})
 

@@ -10,7 +10,7 @@
 #include "DefaultResize.h"
 #include "RenderCommander.h"
 #include "DefaultRender.h"
-#include "ModelViewport.h"
+#include "DefaultViewport.h"
 #include "Viewable.h"
 #include "UpdateSubscriber.h"
 #include "DefaultActivate.h"
@@ -41,7 +41,7 @@ class UiElement : virtual public Adjustable,
     public virtual TickSubject,
     public virtual MountedSubject,
     public virtual MountedSubscriber,
-    public virtual Viewport2
+    public virtual Viewport
 {
 private:
 	void UpdateSubNodes(EventUpdateInfo e);
@@ -57,7 +57,7 @@ protected:
 	DefaultKeyStateBehavior keyStateBehavior;
 	DefaultResize resizeBehavior;
 	DefaultActivate activateBehavior;
-	ModelViewport viewport;
+	DefaultViewport viewport;
 	std::wstring text;
 	bool ignoreTranslate = false;
 	std::vector<OnTickSubscriber*> tickSubscribers;

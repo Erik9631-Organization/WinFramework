@@ -11,7 +11,6 @@ class RenderingBase
 {
 public:
     virtual void SwapScreenBuffer() = 0;
-    virtual void SetViewportSize(int width, int height) = 0;
     virtual void SetViewportSize(const glm::ivec2& size) = 0;
     virtual ~RenderingBase() = default;
 };

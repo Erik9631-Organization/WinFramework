@@ -2,12 +2,12 @@
 // Created by erik9 on 4/23/2023.
 //
 
-#ifndef LII_VIEWPORT2_H
-#define LII_VIEWPORT2_H
+#ifndef LII_VIEWPORT_H
+#define LII_VIEWPORT_H
 #include "glm.hpp"
-#include "Viewport2Subject.h"
+#include "ViewportSubject.h"
 
-class Viewport2 : public Viewport2Subject
+class Viewport : public ViewportSubject
 {
 public:
     virtual void SetViewportSize(const glm::vec3 &) = 0;
@@ -18,4 +18,4 @@ public:
     [[nodiscard]] virtual bool IsViewportSet() const = 0;
 };
 
-#endif //LII_VIEWPORT2_H
+#endif //LII_VIEWPORT_H

@@ -7,7 +7,7 @@
 
 
 #include "RenderingModel.h"
-#include "ModelViewport.h"
+#include "DefaultViewport.h"
 #include "Resizable.h"
 #include "Movable.h"
 #include "MovableModelBehavior.h"
@@ -20,7 +20,7 @@ private:
     bool fill = false;
     bool visible = true;
     bool renderFromCenter = true;
-    ModelViewport viewPort;
+    DefaultViewport viewPort;
     glm::ivec4 color{255, 255, 255, 255};
     Renderer* renderer = nullptr;
     MovableModelBehavior movableBehavior;

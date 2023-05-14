@@ -96,11 +96,6 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
     this->ReceiveCommand(std::move(message));
 }
 
-void DefaultAsyncRenderCommandHandler::SetViewPortSize(int width, int height)
-{
-    renderer->SetViewportSize(width, height);
-}
-
 void DefaultAsyncRenderCommandHandler::SetViewPortSize(const glm::ivec2 &size)
 {
     renderer->SetViewportSize(size);

@@ -9,7 +9,7 @@
 #include "RenderingModel.h"
 #include "MovableModelBehavior.h"
 #include "FontAlignment.h"
-#include "ModelViewport.h"
+#include "DefaultViewport.h"
 #include "FontFormat.h"
 #include "api/TextApi.h"
 #include <string>
@@ -26,7 +26,7 @@ private:
     FontAlignment fontAlignment = FontAlignment::FontAlignmentNear;
     FontAlignment fontLineAlignment = FontAlignment::FontAlignmentNear;
     bool viewPortSet = false;
-    ModelViewport viewPort;
+    DefaultViewport viewPort;
     std::wstring fontFamily = L"Arial";
     std::wstring text;
 public:

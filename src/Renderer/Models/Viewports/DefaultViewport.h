@@ -2,13 +2,13 @@
 // Created by erik9 on 1/17/2023.
 //
 
-#ifndef LII_MODELVIEWPORT_H
-#define LII_MODELVIEWPORT_H
+#ifndef LII_DEFAULTVIEWPORT_H
+#define LII_DEFAULTVIEWPORT_H
 #include "glm.hpp"
-#include "Viewport2.h"
+#include "Viewport.h"
 #include <vector>
 
-class ModelViewport : public Viewport2
+class DefaultViewport : public Viewport
 {
 private:
     glm::vec3 viewPortSize{0};
@@ -41,4 +41,4 @@ public:
 };
 
 
-#endif //LII_MODELVIEWPORT_H
+#endif //LII_DEFAULTVIEWPORT_H

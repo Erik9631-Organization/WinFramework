@@ -6,12 +6,13 @@
 #define LII_BUFFERRENDERER_H
 #include "CoreLifecycleSubscriber.h"
 #include "RenderingBase.h"
+#include "Injectable.h"
 #include <glm.hpp>
 
-class BufferRenderer : public CoreLifecycleSubscriber, public RenderingBase
+class BufferRenderer : public CoreLifecycleSubscriber, public RenderingBase, public LiiInjector::Injectable
 {
 public:
-    virtual void DrawFragment(const glm::ivec3& position, const glm::vec4& color) = 0;
+    virtual void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color) = 0;
 };
 
 

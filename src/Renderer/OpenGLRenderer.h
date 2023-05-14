@@ -19,8 +19,6 @@ public:
 
     RenderingModel *CreateModel(SubCommands createCommand) override;
 
-    void SetViewportSize(int width, int height) override;
-
     void SetViewportSize(const glm::ivec2 &size) override;
 
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;

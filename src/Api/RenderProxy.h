@@ -6,13 +6,13 @@
 #define LII_RENDERPROXY_H
 #include "RenderMessageSender.h"
 #include "MountedSubscriber.h"
-#include "Viewport2.h"
+#include "Viewport.h"
 
 class RenderingModel;
 class RenderingConsumer;
 
 
-class RenderProxy : public RenderMessageSender, public Viewport2
+class RenderProxy : public RenderMessageSender, public Viewport
 {
 public:
     virtual const size_t & GetAssociatedModelId() = 0;

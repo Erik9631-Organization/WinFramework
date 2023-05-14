@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <glm.hpp>
+#include "BufferRenderer.h"
 
 class FontFormat;
 class RenderCommander;
