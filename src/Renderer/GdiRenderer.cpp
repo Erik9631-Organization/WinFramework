@@ -22,7 +22,6 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 
 void GdiRenderer::Render()
 {
-    std::lock_guard<std::mutex> lock(setViewPortMutex);
     for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
         it->second->Draw();
 }
@@ -67,7 +66,6 @@ std::unique_ptr<ShapeRenderer> GdiRenderer::AcquireShapeRenderer()
 
 void GdiRenderer::SwapScreenBuffer()
 {
-    std::lock_guard<std::mutex> viewPortLock{setViewPortMutex};
     BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, SRCCOPY);
 }
 RenderingModel *GdiRenderer::GetModel(size_t index)
@@ -128,7 +126,6 @@ void GdiRenderer::OnMove(EventMoveInfo e)
 
 void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
 {
-    std::lock_guard<std::mutex> lock(setViewPortMutex);
     viewPortSize = size;
     UpdateBitmap();
     CreateSecondaryDc();

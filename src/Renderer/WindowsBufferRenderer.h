@@ -30,7 +30,8 @@ private:
     void CreateGraphicsBuffer();
     void CreateSecondaryDc();
     void DeleteSecondaryDc();
-
+    void CreateBitmap();
+    void CopyOldBitmapToNew(Bitmap& newBitmap, Bitmap& oldBitmap);
 public:
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;
 

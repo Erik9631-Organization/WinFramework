@@ -15,6 +15,7 @@ enum class Commands : unsigned char
    RequestLine,
    Property,
    Redraw,
+   SetViewport,
    Quit,
    CommandCount
 };

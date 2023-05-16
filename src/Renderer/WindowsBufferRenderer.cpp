@@ -30,8 +30,10 @@ void WindowsBufferRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
-    unsigned int hexColor = (color.r << 24) | (color.g << 16) | (color.b << 8) | (color.a);
-    front.buffer[position.y * viewportSize.x + position.x] = 0xffffffff;
+    unsigned int hexColor = (color.a << 24) | (color.r << 16) | (color.g << 8) |  color.b;
+    for(int i = 0; i < 2000; i++)
+        front.buffer[i] = hexColor;
+
 }
 
 
@@ -73,16 +75,29 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
 
     windowHdc = core->GetHdc();
     CreateSecondaryDc();
+    CreateBitmap();
+}
+
+void WindowsBufferRenderer::CreateBitmap()
+{
     BITMAPINFO bitmapInfo{};
     bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     bitmapInfo.bmiHeader.biWidth = viewportSize.x;
-    bitmapInfo.bmiHeader.biHeight = viewportSize.y;
+    bitmapInfo.bmiHeader.biHeight = -viewportSize.y;
     bitmapInfo.bmiHeader.biPlanes = 1;
     bitmapInfo.bmiHeader.biBitCount = 32;
     bitmapInfo.bmiHeader.biCompression = BI_RGB;
 
-    front.bitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&front.buffer, nullptr, 0);
-    std::cout <<  "Front bitmap " <<GetLastError() << std::endl;
-    back.bitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&back.buffer, nullptr, 0);
-    std::cout << "Back bitmap " << GetLastError() << std::endl;
+    auto frontBitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&front.buffer, nullptr, 0);
+    auto backBitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&back.buffer, nullptr, 0);
+    if(front.buffer == nullptr || back.buffer == nullptr)
+    {
+        std::cout << "WindowsBufferRenderer::CreateBitmap: failed to create bitmap" << std::endl;
+        return;
+    }
+}
+
+void WindowsBufferRenderer::CopyOldBitmapToNew(Bitmap &newBitmap, Bitmap &oldBitmap)
+{
+
 }

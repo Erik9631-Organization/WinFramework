@@ -60,6 +60,13 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             renderer->SwapScreenBuffer();
             break;
         }
+        case Commands::SetViewport:
+        {
+            auto size = message->GetData<glm::ivec2>();
+            renderer->SetViewportSize(size);
+            RedrawScene();
+            break;
+        }
         case Commands::Quit:
         {
             render = false;
@@ -98,7 +105,8 @@ void DefaultAsyncRenderCommandHandler::RedrawScene()
 
 void DefaultAsyncRenderCommandHandler::SetViewPortSize(const glm::ivec2 &size)
 {
-    renderer->SetViewportSize(size);
+    auto message = RenderMessage::Create(Commands::SetViewport, size);
+    this->ReceiveCommand(std::move(message));
 }
 
 void DefaultAsyncRenderCommandHandler::RequestModel(RenderProxy &proxy)

@@ -11,16 +11,13 @@
 #include "ResizeSubscriber.h"
 #include "DrawData2D.h"
 #include <functional>
-#include <thread>
 #include "Timer.h"
-#include <mutex>
 #include <condition_variable>
 #include "UiTreeDataSyncer.h"
 #include "Core.h"
 #include "RenderingModel.h"
 #include <map>
 #include "MoveSubscriber.h"
-#include <mutex>
 #include <condition_variable>
 #include "TextModel.h"
 #include "ModelContainer.h"
@@ -43,7 +40,6 @@ private:
     static void GdiStartup();
     static Gdiplus::GdiplusStartupOutput output;
     static ULONG token;
-    std::mutex setViewPortMutex;
 
     WindowsCore* windowsCore = nullptr;
     void DeleteSecondaryDc();
