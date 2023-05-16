@@ -13,27 +13,12 @@
 #include "GdiFontFormat.h"
 #include "Core/Windows/WindowsCore.h"
 
-void OpenGLShapeRenderer::DrawEllipse(float x, float y, float width, float height)
+void OpenGLShapeRenderer::DrawLine(const glm::vec3 &pos, const glm::vec3 &size)
 {
 
 }
 
-void OpenGLShapeRenderer::DrawEllipse(float x, float y, glm::vec4 vector4)
-{
-
-}
-
-void OpenGLShapeRenderer::DrawLine(float x1, float y1, float x2, float y2)
-{
-
-}
-
-void OpenGLShapeRenderer::DrawLine(glm::vec4 pos, glm::vec4 size)
-{
-
-}
-
-void OpenGLShapeRenderer::DrawRectangle(glm::vec3 pos, glm::vec3 size)
+void OpenGLShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
     if(lastShapeType != ShapeType::Rectangle)
     {
@@ -48,32 +33,18 @@ void OpenGLShapeRenderer::DrawRectangle(glm::vec3 pos, glm::vec3 size)
     //lastShape->UpdateUniform();
 }
 
-void OpenGLShapeRenderer::DrawRectangle(float x, float y, float width, float height)
-{
-    DrawRectangle({x, y, 0}, {width, height, 0});
-}
-
-void OpenGLShapeRenderer::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)
+void OpenGLShapeRenderer::DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format)
 {
 
 }
 
-void OpenGLShapeRenderer::DrawFillEllipse(float x, float y, float width, float height)
+
+void OpenGLShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size)
 {
 
 }
 
-void OpenGLShapeRenderer::DrawFillEllipse(glm::vec4 pos, glm::vec4 size)
-{
-
-}
-
-void OpenGLShapeRenderer::DrawFillRectangle(float x, float y, float width, float height)
-{
-    //DrawFillRectangle({x, y}, {width, height});
-}
-
-void OpenGLShapeRenderer::DrawFillRectangle(glm::vec3 pos, glm::vec3 size)
+void OpenGLShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
     if(lastShapeType != ShapeType::FillRectangle)
     {
@@ -105,7 +76,7 @@ void OpenGLShapeRenderer::SetThickness(float thickness)
 
 }
 
-void OpenGLShapeRenderer::SetFontFamily(std::wstring fontFamily)
+void OpenGLShapeRenderer::SetFontFamily(const std::wstring &fontFamily)
 {
 
 }
@@ -170,12 +141,12 @@ void OpenGLShapeRenderer::DrawModel(const OpenGL::Model &model)
     renderingManager.Move(model);
 }
 
-void OpenGLShapeRenderer::SetClippingRectangle(float x, float y, float width, float height)
+void OpenGLShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
 
 }
 
-void OpenGLShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
+void OpenGLShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size)
 {
 
 }

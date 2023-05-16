@@ -93,9 +93,9 @@ void EllipseModel::Draw()
                                            viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi->DrawFillEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetSize().x, resizableBehavior.GetSize().y);
+        renderingApi->DrawFillEllipse(calculatedPosition, resizableBehavior.GetSize());
     else
-        renderingApi->DrawEllipse(calculatedPosition.x, calculatedPosition.y, resizableBehavior.GetSize().x, resizableBehavior.GetSize().y);
+        renderingApi->DrawEllipse(calculatedPosition, resizableBehavior.GetSize());
 
 }
 

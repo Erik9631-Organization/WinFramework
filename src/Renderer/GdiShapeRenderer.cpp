@@ -12,37 +12,17 @@
 
 using namespace Gdiplus;
 
-void GdiShapeRenderer::DrawEllipse(float x, float y, float width, float height)
-{
-    graphics->DrawEllipse(pen, x, y, width, height);
-}
-
-void GdiShapeRenderer::DrawEllipse(float x, float y, glm::vec4 vector4)
-{
-    graphics->DrawEllipse(pen, x, y, vector4.x, vector4.y);
-}
-
-void GdiShapeRenderer::DrawLine(float x1, float y1, float x2, float y2)
-{
-    graphics->DrawLine(pen, x1, y1, x2, y2);
-}
-
-void GdiShapeRenderer::DrawLine(glm::vec4 pos, glm::vec4 size)
+void GdiShapeRenderer::DrawLine(const glm::vec3 &pos, const glm::vec3 &size)
 {
     graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiShapeRenderer::DrawRectangle(glm::vec3 pos, glm::vec3 size)
+void GdiShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
     graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiShapeRenderer::DrawRectangle(float x, float y, float width, float height)
-{
-    graphics->DrawRectangle(pen, x, y, width, height);
-}
-
-void GdiShapeRenderer::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)
+void GdiShapeRenderer::DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format)
 {
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment) format.GetAlignment());
@@ -53,22 +33,13 @@ void GdiShapeRenderer::DrawString(const std::wstring &string, glm::vec3 position
     delete font;
 }
 
-void GdiShapeRenderer::DrawFillEllipse(float x, float y, float width, float height)
-{
-    graphics->FillEllipse(brush, x, y, width, height);
-}
 
-void GdiShapeRenderer::DrawFillEllipse(glm::vec4 pos, glm::vec4 size)
+void GdiShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size)
 {
     graphics->FillEllipse(brush, pos.x, pos.y, size.x, size.y);
 }
 
-void GdiShapeRenderer::DrawFillRectangle(float x, float y, float width, float height)
-{
-    graphics->FillRectangle(brush, x, y, width, height);
-}
-
-void GdiShapeRenderer::DrawFillRectangle(glm::vec3 pos, glm::vec3 size)
+void GdiShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
     graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
@@ -103,7 +74,7 @@ void GdiShapeRenderer::SetThickness(float thickness)
     pen->SetWidth(thickness);
 }
 
-void GdiShapeRenderer::SetFontFamily(std::wstring fontFamily)
+void GdiShapeRenderer::SetFontFamily(const std::wstring &fontFamily)
 {
     delete this->fontFamily;
     this->fontFamily = new Gdiplus::FontFamily(L"Arial");
@@ -136,12 +107,12 @@ void GdiShapeRenderer::DrawModel(const OpenGL::Model &model)
 
 }
 
-void GdiShapeRenderer::SetClippingRectangle(float x, float y, float width, float height)
-{
-    graphics->SetClip(RectF(x, y, width, height), CombineModeReplace);
-}
-
 void GdiShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
-    SetClippingRectangle(pos.x, pos.y, size.x, size.y);
+    graphics->SetClip(RectF(pos.x, pos.y, size.x, size.y), CombineModeReplace);
+}
+
+void GdiShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size)
+{
+    graphics->DrawEllipse(pen, position.x, position.y, size.x, size.y);
 }

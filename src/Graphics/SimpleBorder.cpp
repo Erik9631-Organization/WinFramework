@@ -59,7 +59,7 @@ void SimpleBorder::OnRenderSync(RenderEventInfo e)
 
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
-    renderer.DrawRectangle(graphicsUtil.GetX(), graphicsUtil.GetY(), graphicsUtil.GetWidth(), graphicsUtil.GetHeight());
+    renderer.DrawRectangle(graphicsUtil.GetPosition(), graphicsUtil.GetSize());
     renderBehavior.OnRenderSync(e);
 }
 

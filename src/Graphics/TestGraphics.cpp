@@ -31,7 +31,7 @@ void TestGraphics::OnRenderSync(RenderEventInfo e)
     ShapeRenderer& renderer = e.GetRenderer()->Acquire(*this);
     renderer.SetColor({0, 0, 0});
     renderer.SetThickness(0.1f);
-    renderer.DrawRectangle(10, 10, 50, 50);
+    renderer.DrawRectangle({10, 10, 0}, {50, 50, 0});
 }
 
 TestGraphics::TestGraphics()

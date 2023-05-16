@@ -30,8 +30,8 @@ void WindowsBufferRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
-//    unsigned int hexColor = (color.r << 24) | (color.g << 16) | (color.b << 8) | (color.a);
-//    front.buffer[position.y * viewportSize.x + position.x] = hexColor;
+    unsigned int hexColor = (color.r << 24) | (color.g << 16) | (color.b << 8) | (color.a);
+    front.buffer[position.y * viewportSize.x + position.x] = 0xffffffff;
 }
 
 
@@ -43,6 +43,8 @@ void WindowsBufferRenderer::DeleteSecondaryDc()
 
 void WindowsBufferRenderer::CreateSecondaryDc()
 {
+    if(windowHdc == nullptr)
+        return;
     DeleteSecondaryDc();
     secondaryHdc = CreateCompatibleDC(windowHdc);
 }
