@@ -67,9 +67,25 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
             RedrawScene();
             break;
         }
-        case Commands::Quit:
+        case Commands::Init:
+        {
+            renderer->OnCoreInit(message->GetData<EventCoreLifecycleInfo>());
+            break;
+        }
+        case Commands::Start:
+        {
+            renderer->OnCoreStart(message->GetData<EventCoreLifecycleInfo>());
+            break;
+        }
+        case Commands::Stop:
         {
             render = false;
+            renderer->OnCoreStop(message->GetData<EventCoreLifecycleInfo>());
+            break;
+        }
+        case Commands::Destroy:
+        {
+            renderer->OnCoreDestroy(message->GetData<EventCoreLifecycleInfo>());
             break;
         }
         default:
@@ -118,24 +134,26 @@ void DefaultAsyncRenderCommandHandler::RequestModel(RenderProxy &proxy)
 void DefaultAsyncRenderCommandHandler::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
     renderer = LiiInjector::Injector::GetInstance().ResolveTransient<Renderer>();
-    renderer->OnCoreInit(e);
+    auto message = RenderMessage::Create(Commands::Init, e);
+    this->ReceiveCommand(std::move(message));
 }
 
 void DefaultAsyncRenderCommandHandler::OnCoreStart(const EventCoreLifecycleInfo &e)
 {
     render = true;
     renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
-    renderer->OnCoreStart(e);
+    auto message = RenderMessage::Create(Commands::Start, e);
+    this->ReceiveCommand(std::move(message));
 }
 
 void DefaultAsyncRenderCommandHandler::OnCoreStop(const EventCoreLifecycleInfo &e)
 {
-    renderer->OnCoreStop(e);
-    auto quitMessage = RenderMessage::Create(Commands::Quit, nullptr);
-    this->ReceiveCommand(std::move(quitMessage));
+    auto message = RenderMessage::Create(Commands::Stop, e);
+    this->ReceiveCommand(std::move(message));
 }
 
 void DefaultAsyncRenderCommandHandler::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 {
-    renderer->OnCoreDestroy(e);
+    auto message = RenderMessage::Create(Commands::Destroy, e);
+    this->ReceiveCommand(std::move(message));
 }

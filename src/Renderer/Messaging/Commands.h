@@ -16,7 +16,10 @@ enum class Commands : unsigned char
    Property,
    Redraw,
    SetViewport,
-   Quit,
+   Init,
+   Start,
+   Stop,
+   Destroy,
    CommandCount
 };
 

@@ -15,6 +15,13 @@ private:
     {
         HBITMAP bitmap = nullptr;
         unsigned int *buffer = nullptr;
+        void Release()
+        {
+            if(bitmap != nullptr)
+                DeleteObject(bitmap);
+            bitmap = nullptr;
+            buffer = nullptr;
+        }
         ~Bitmap()
         {
             DeleteObject(bitmap);
@@ -31,7 +38,6 @@ private:
     void CreateSecondaryDc();
     void DeleteSecondaryDc();
     void CreateBitmap();
-    void CopyOldBitmapToNew(Bitmap& newBitmap, Bitmap& oldBitmap);
 public:
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;
 
