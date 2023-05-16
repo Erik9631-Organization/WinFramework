@@ -15,6 +15,10 @@ private:
     {
         HBITMAP bitmap;
         unsigned int *buffer;
+        ~Bitmap()
+        {
+            DeleteObject(bitmap);
+        }
     };
 
     Bitmap front;

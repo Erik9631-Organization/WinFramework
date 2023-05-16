@@ -58,6 +58,7 @@ void WindowsBufferRenderer::SwapScreenBuffer()
 void WindowsBufferRenderer::SetViewportSize(const glm::ivec2 &size)
 {
     viewportSize = size;
+    CreateSecondaryDc();
 }
 
 void WindowsBufferRenderer::CreateGraphicsBuffer()
