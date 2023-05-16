@@ -75,6 +75,27 @@ int main( int argc, char* argv[] )
 //    int result = Catch::Session().run(argc, argv);
     LiiApplication::Init();
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
+    auto rectangle = std::make_unique<RectangleProxy>();
+    auto rectangle2 = std::make_unique<RectangleProxy>();
+    auto rectangle3 = std::make_unique<RectangleProxy>();
+    window->GetRenderer()->RequestModel(*rectangle);
+    window->GetRenderer()->RequestModel(*rectangle2);
+    window->GetRenderer()->RequestModel(*rectangle3);
+
+    rectangle->SetSize({100, 100, 0});
+    rectangle->SetPosition({50, 50, 0});
+    rectangle->SetColor({255, 0, 0, 255});
+
+    //Add the rectangles next to each other with padding of 5
+    rectangle2->SetSize({100, 100, 0});
+    rectangle2->SetPosition({rectangle->GetPosition().x + rectangle->GetSize().x + 5, 50, 0});
+    rectangle2->SetColor({0, 255, 0, 255});
+
+    rectangle3->SetSize({100, 100, 0});
+    rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, 0});
+    rectangle3->SetColor({0, 0, 255, 255});
+
+
 //     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
 //     auto pos = button1.GetPosition();
 //     pos.z = -100;

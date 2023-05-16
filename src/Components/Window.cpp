@@ -224,7 +224,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
 
     //Setup window dependencies
     window->coreMediator = std::move(coreMediator);
-    window->background = std::make_unique<Background>(*window);
+//    window->background = std::make_unique<Background>(*window);
     return std::unique_ptr<Window>(window);
 }
 

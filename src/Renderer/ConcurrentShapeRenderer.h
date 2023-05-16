@@ -7,11 +7,20 @@
 
 
 #include "ShapeRenderer.h"
+#include "Rectangle.h"
+#include "IRectangle.h"
 
 class ConcurrentShapeRenderer : public ShapeRenderer
 {
 private:
     BufferRenderer& bufferRenderer;
+    unsigned int numberOfThreads = 2;
+    glm::ivec4 color{255, 255, 255, 255};
+
+    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, int numberOfParts);
+
+    void DrawFillRectangleOnThread(const IRectangle &rectangles);
+
 public:
     explicit ConcurrentShapeRenderer(BufferRenderer& renderer);
 
