@@ -32,12 +32,11 @@ void ConcurrentShapeRenderer::DrawLine(glm::vec4 pos, glm::vec4 size)
 
 void ConcurrentShapeRenderer::DrawRectangle(glm::vec3 pos, glm::vec3 size)
 {
-
+    bufferRenderer.DrawFragment({50, 50, 0}, {255, 0, 0, 255});
 }
 
 void ConcurrentShapeRenderer::DrawRectangle(float x, float y, float width, float height)
 {
-
 }
 
 void ConcurrentShapeRenderer::DrawString(const std::wstring &string, glm::vec3 position, const FontFormat &format)

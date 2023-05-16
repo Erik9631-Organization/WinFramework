@@ -147,6 +147,11 @@ void GdiRenderer::OnResize(EventResizeInfo e)
 
 void GdiRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
+
+}
+
+void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
+{
     this->windowsCore = dynamic_cast<WindowsCore*>(e.GetCore());
     viewPortSize = this->windowsCore->GetWrapperFrame()->GetSize();
     if(this->windowsCore == nullptr)
@@ -160,11 +165,6 @@ void GdiRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
     screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
             windowsCore->GetWrapperFrame()->GetSize().y);
     CreateSecondaryDc();
-}
-
-void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
-{
-
 }
 
 void GdiRenderer::OnCoreStop(const EventCoreLifecycleInfo &e)

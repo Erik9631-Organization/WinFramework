@@ -9,6 +9,7 @@
 #include "Messages.h"
 #include <chrono>
 #include "CoreArgs.h"
+#include "DefaultAsyncRenderCommandHandler.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -534,6 +535,8 @@ void WindowsCore::Start()
 unique_ptr<Core> WindowsCore::Create(const CoreArgs &args)
 {
     auto core = new WindowsCore(args.associatedWindow, args.name, WS_OVERLAPPEDWINDOW);
+    core->renderer = std::unique_ptr<AsyncRenderCommandHandler>(new DefaultAsyncRenderCommandHandler());
+    core->AddCoreLifecycleSubscriber(core->renderer.get());
     auto corePtr = std::unique_ptr<WindowsCore>(core);
     core->NotifyOnCoreInit({core, core});
     corePtr->Start();

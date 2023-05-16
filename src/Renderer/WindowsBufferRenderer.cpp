@@ -30,8 +30,8 @@ void WindowsBufferRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
-    unsigned int hexColor = (color.r << 24) | (color.g << 16) | (color.b << 8) | (color.a);
-    front.buffer[position.y * viewportSize.x + position.x] = hexColor;
+//    unsigned int hexColor = (color.r << 24) | (color.g << 16) | (color.b << 8) | (color.a);
+//    front.buffer[position.y * viewportSize.x + position.x] = hexColor;
 }
 
 
@@ -80,5 +80,7 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
     bitmapInfo.bmiHeader.biCompression = BI_RGB;
 
     front.bitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&front.buffer, nullptr, 0);
+    std::cout <<  "Front bitmap " <<GetLastError() << std::endl;
     back.bitmap = CreateDIBSection(windowHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&back.buffer, nullptr, 0);
+    std::cout << "Back bitmap " << GetLastError() << std::endl;
 }

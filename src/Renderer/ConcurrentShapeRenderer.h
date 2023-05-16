@@ -13,7 +13,7 @@ class ConcurrentShapeRenderer : public ShapeRenderer
 private:
     BufferRenderer& bufferRenderer;
 public:
-    ConcurrentShapeRenderer(BufferRenderer& renderer);
+    explicit ConcurrentShapeRenderer(BufferRenderer& renderer);
     void DrawEllipse(float x, float y, float width, float height) override;
 
     void DrawEllipse(float x, float y, glm::vec4 vec4) override;

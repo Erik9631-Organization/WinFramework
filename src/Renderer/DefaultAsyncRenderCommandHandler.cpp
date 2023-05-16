@@ -109,14 +109,14 @@ void DefaultAsyncRenderCommandHandler::RequestModel(RenderProxy &proxy)
 
 void DefaultAsyncRenderCommandHandler::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
-    render = true;
     renderer = LiiInjector::Injector::GetInstance().ResolveTransient<Renderer>();
     renderer->OnCoreInit(e);
-    renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
 }
 
 void DefaultAsyncRenderCommandHandler::OnCoreStart(const EventCoreLifecycleInfo &e)
 {
+    render = true;
+    renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
     renderer->OnCoreStart(e);
 }
 

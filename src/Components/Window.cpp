@@ -207,16 +207,6 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
     auto* window = new Window(x, y, width, height, windowName);
     window->AddOnTickSubscriber(&window->scene3d);
 
-    //CreateElement all window DEPENDENCIES
-    //TODO refactor, the dependencies need to be managed in a different way
-    auto renderer = new DefaultAsyncRenderCommandHandler();
-    auto renderingProvider = std::unique_ptr<AsyncRenderCommandHandler>(
-            static_cast<AsyncRenderCommandHandler *>(renderer));
-    if(renderingProvider == nullptr)
-    {
-        cout << "Error, failed to create window" << endl;
-        return nullptr;
-    }
     auto core = std::unique_ptr<Core>(nullptr);
     try
     {
@@ -227,9 +217,7 @@ std::unique_ptr<Window> Window::Create(int x, int y, int width, int height, cons
         cout <<"Failed to create window: " << e.what() << endl;
         return nullptr;
     }
-    auto* renderingProviderRef = renderingProvider.get();
-    core->SetRenderer(std::move(renderingProvider));
-    core->AddCoreLifecycleSubscriber(renderingProviderRef);
+
 
     //CreateElement core mediator
     auto coreMediator = std::make_unique<CoreMediator>(window, std::move(core));

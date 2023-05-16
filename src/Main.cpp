@@ -73,7 +73,7 @@ public:
 int main( int argc, char* argv[] )
 {
 //    int result = Catch::Session().run(argc, argv);
-    LiiApplication::GetInstance()->Init();
+    LiiApplication::Init();
     auto window = Window::Create(0, 0, 800, 600, "testWindow");
      auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
      auto pos = button1.GetPosition();

@@ -13,8 +13,8 @@ class WindowsBufferRenderer : public BufferRenderer
 private:
     struct Bitmap
     {
-        HBITMAP bitmap;
-        unsigned int *buffer;
+        HBITMAP bitmap = nullptr;
+        unsigned int *buffer = nullptr;
         ~Bitmap()
         {
             DeleteObject(bitmap);
