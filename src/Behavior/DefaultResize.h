@@ -10,7 +10,7 @@ private:
 	std::vector<std::reference_wrapper<ResizeSubscriber>> subscribers;
 	Resizable& associatedResizable;
 public:
-	DefaultResize(Resizable& resizeComponent);
+	explicit DefaultResize(Resizable& resizeComponent);
 	// Inherited via Resizable
     void NotifyOnResizeSubscribers(EventResizeInfo event) override;
     void AddOnResizeSubscriber(ResizeSubscriber& subscriber) override;

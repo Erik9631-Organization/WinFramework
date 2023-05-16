@@ -97,6 +97,10 @@ set(Lii_Renderer
         Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
+set(Lii_Renderer_WindowsBufferRenderer
+        Renderer/WindowsBufferRenderer/BitmapManager.cpp Renderer/WindowsBufferRenderer/BitmapManager.h)
+source_group("Lii\\Renderer\\WindowsBufferRenderer" FILES ${Lii_Renderer_WindowsBufferRenderer})
+
 
 set(Lii_Api
         Api/Translatable.h
@@ -470,6 +474,7 @@ set(ALL_FILES
     ${Enums}
     ${Lii}
     ${Lii_Renderer}
+    ${Lii_Renderer_WindowsBufferRenderer}
     ${Lii_Behavior}
     ${Lii_Components}
     ${Lii_Components_ComboBox}
@@ -543,6 +548,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Models"
         "Renderer/Models/Behavior"
         "Renderer/Models/Viewports"
+        "Renderer/WindowsBufferRenderer"
         "Renderer"
         "Renderer/Proxies"
         "Graphics/RadioButton"

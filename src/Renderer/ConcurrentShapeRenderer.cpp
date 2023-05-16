@@ -16,7 +16,8 @@ void ConcurrentShapeRenderer::DrawLine(const glm::vec3 &pos, const glm::vec3 &si
 
 void ConcurrentShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
-    bufferRenderer.DrawFragment({0, 0, 0}, {255, 0, 0, 255});
+    for(int i = 0 ; i < 1000; i++)
+        bufferRenderer.DrawFragment({i, 5, 0}, {255, 0, 0, 255});
 }
 
 
@@ -32,7 +33,8 @@ void ConcurrentShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::v
 
 void ConcurrentShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
-    bufferRenderer.DrawFragment({50, 5, 0}, {255, 0, 0, 255});
+    for(int i = 0 ; i < 1000; i++)
+        bufferRenderer.DrawFragment({i, 5, 0}, {255, 255, 0, 255});
 }
 
 void ConcurrentShapeRenderer::SetColor(const glm::ivec4 &color)

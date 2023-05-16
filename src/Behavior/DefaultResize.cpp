@@ -22,7 +22,7 @@ void DefaultResize::AddOnResizeSubscriber(ResizeSubscriber& subscriber)
 
 void DefaultResize::RemoveOnResizeSubscriber(ResizeSubscriber& subscriber)
 {
-    for (std::vector<std::reference_wrapper<ResizeSubscriber>>::iterator i = subscribers.begin(); i != subscribers.end(); i++)
+    for (auto i = subscribers.begin(); i != subscribers.end(); i++)
     {
         if (&subscriber == &i->get())
             return;

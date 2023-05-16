@@ -31,8 +31,7 @@ void WindowsBufferRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
     unsigned int hexColor = (color.a << 24) | (color.r << 16) | (color.g << 8) |  color.b;
-    for(int i = 0; i < 2000; i++)
-        front.buffer[i] = hexColor;
+    back->DrawFragment(position.x, position.y, hexColor);
 }
 
 
@@ -48,14 +47,13 @@ void WindowsBufferRenderer::CreateSecondaryDc()
         return;
     DeleteSecondaryDc();
     secondaryHdc = CreateCompatibleDC(windowHdc);
-    std::cout << "SecondaryDC: " << secondaryHdc << " Error: " << GetLastError() << std::endl;
 }
 
 
 void WindowsBufferRenderer::SwapScreenBuffer()
 {
-    SelectObject(secondaryHdc, front.bitmap); // Associate the front buffer with the secondaryHdc
     std::swap(front, back); // We can now safely swap the buffers and rendering should continue on the other buffer.
+    SelectObject(secondaryHdc, front->GetBitmap()); // Associate the front buffer with the secondaryHdc
     BitBlt(windowHdc, 0, 0, viewportSize.x, viewportSize.y, secondaryHdc, 0, 0, SRCCOPY);
 }
 
@@ -81,19 +79,19 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
 
 void WindowsBufferRenderer::CreateBitmap()
 {
-    BITMAPINFO bitmapInfo{};
-    bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-    bitmapInfo.bmiHeader.biWidth = viewportSize.x;
-    bitmapInfo.bmiHeader.biHeight = -viewportSize.y;
-    bitmapInfo.bmiHeader.biPlanes = 1;
-    bitmapInfo.bmiHeader.biBitCount = 32;
-    bitmapInfo.bmiHeader.biCompression = BI_RGB;
+    front->SetSize(viewportSize, secondaryHdc);
+    back->SetSize(viewportSize, secondaryHdc);
+}
 
-    front.Release();
-    back.Release();
+WindowsBufferRenderer::WindowsBufferRenderer() :
+    front(new BitmapManager(glm::ivec2(0, 0), nullptr)),
+    back(new BitmapManager(glm::ivec2(0, 0), nullptr))
+{
 
-    front.bitmap = CreateDIBSection(secondaryHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&front.buffer, nullptr, 0);
-    std::cout << GetLastError() << std::endl;
-    back.bitmap = CreateDIBSection(secondaryHdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&back.buffer, nullptr, 0);
-    std::cout << GetLastError() << std::endl;
+}
+
+WindowsBufferRenderer::~WindowsBufferRenderer()
+{
+    delete front;
+    delete back;
 }

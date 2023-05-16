@@ -37,15 +37,15 @@ void LiiApplication::Init()
         return core.release();
     });
 
-//    LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
-//    {
-//        return new SoftwareRenderer();
-//    });
-
     LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
     {
-        return new GdiRenderer();
+        return new SoftwareRenderer();
     });
+
+//    LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
+//    {
+//        return new GdiRenderer();
+//    });
 
     LiiInjector::Injector::GetInstance().RegisterTransient<BufferRenderer>([]()->LiiInjector::Injectable*
     {

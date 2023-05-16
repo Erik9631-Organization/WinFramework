@@ -7,30 +7,14 @@
 #include "BufferRenderer.h"
 #include "Injectable.h"
 #include "WindowsCore.h"
+#include "BitmapManager.h"
 
 class WindowsBufferRenderer : public BufferRenderer
 {
 private:
-    struct Bitmap
-    {
-        HBITMAP bitmap = nullptr;
-        unsigned int *buffer = nullptr;
-        void Release()
-        {
-            if(bitmap != nullptr)
-                DeleteObject(bitmap);
-            bitmap = nullptr;
-            buffer = nullptr;
-        }
-        ~Bitmap()
-        {
-            DeleteObject(bitmap);
-        }
-    };
-
-    Bitmap front;
-    Bitmap back;
-    WindowsCore* core;
+    BitmapManager* front;
+    BitmapManager* back;
+    WindowsCore* core = nullptr;
     HDC windowHdc = nullptr;
     HDC secondaryHdc = nullptr;
     glm::ivec2 viewportSize{0};
@@ -39,6 +23,8 @@ private:
     void DeleteSecondaryDc();
     void CreateBitmap();
 public:
+    WindowsBufferRenderer();
+
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;
 
     void OnCoreStart(const EventCoreLifecycleInfo &e) override;
@@ -52,6 +38,8 @@ public:
     void SwapScreenBuffer() override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
+
+    ~WindowsBufferRenderer() override;
 
 };
 
