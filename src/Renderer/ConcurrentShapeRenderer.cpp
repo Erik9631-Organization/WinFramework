@@ -38,19 +38,19 @@ void ConcurrentShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::v
 
 void ConcurrentShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
-//    auto rectangles = SplitRectangle({pos, size}, static_cast<float>(numberOfThreads));
-//    std::vector<std::future<void>> futures;
-//    for(auto& rectangle : rectangles)
-//    {
-//        auto future = std::async(std::launch::async, [&]() -> void {
-//            DrawFillRectangleOnThread(rectangle);
-//        });
-//        futures.push_back(std::move(future));
-//    }
-//
-//    // Wait for all the tasks to complete
-//    for (auto &future : futures)
-//        future.wait();
+    auto rectangles = SplitRectangle({pos, size}, numberOfThreads);
+    std::vector<std::future<void>> futures;
+    for(auto& rectangle : rectangles)
+    {
+        auto future = std::async(std::launch::async, [&]() -> void {
+            DrawFillRectangleOnThread(rectangle);
+        });
+        futures.push_back(std::move(future));
+    }
+
+    // Wait for all the tasks to complete
+    for (auto &future : futures)
+        future.wait();
 }
 
 void ConcurrentShapeRenderer::SetColor(const glm::ivec4 &color)
@@ -95,7 +95,7 @@ void ConcurrentShapeRenderer::Translate(glm::vec3 translation)
 
 ConcurrentShapeRenderer::ConcurrentShapeRenderer(BufferRenderer &renderer) : bufferRenderer(renderer)
 {
-    numberOfThreads = 24;
+    numberOfThreads = std::thread::hardware_concurrency();
 }
 
 void ConcurrentShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size)
@@ -103,7 +103,7 @@ void ConcurrentShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::
 
 }
 
-std::vector<IRectangle> ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle, int numberOfParts)
+std::vector<IRectangle> ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle, unsigned int numberOfParts)
 {
     if (numberOfParts == 1) {
         return {{rectangle.position, rectangle.size}};

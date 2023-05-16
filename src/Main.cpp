@@ -95,7 +95,7 @@ int main( int argc, char* argv[] )
     rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, 0});
     rectangle3->SetColor({0, 0, 255, 255});
 
-
+//
 //     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");
 //     auto pos = button1.GetPosition();
 //     pos.z = -100;
@@ -178,7 +178,7 @@ int main( int argc, char* argv[] )
 //    }
 //
 //    window->Add(std::move(mainTestGrid));
-//
+
 
     LiiApplication::GetInstance()->JoinThreads();
     return 0;

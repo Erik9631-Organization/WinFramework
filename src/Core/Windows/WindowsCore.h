@@ -61,7 +61,7 @@ private:
 	std::condition_variable updateFinishedSignal;
 	int targetFps = 60;
 	Timer fpsTimer;
-	bool eventBased = false;
+	bool eventBased = true;
     std::mutex updateMutex;
     bool processMessages = true;
     void UpdateGlobalInputState();

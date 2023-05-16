@@ -17,7 +17,7 @@ private:
     unsigned int numberOfThreads = 2;
     glm::ivec4 color{255, 255, 255, 255};
 
-    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, int numberOfParts);
+    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int numberOfParts);
 
     void DrawFillRectangleOnThread(const IRectangle &rectangles);
 
