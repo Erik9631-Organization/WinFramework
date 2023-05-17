@@ -12,9 +12,9 @@
 
 using namespace Gdiplus;
 
-void GdiShapeRenderer::DrawLine(const glm::vec3 &pos, const glm::vec3 &size)
+void GdiShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2)
 {
-    graphics->DrawLine(pen, pos.x, pos.y, size.x, size.y);
+    graphics->DrawLine(pen, pos1.x, pos1.y, pos2.x, pos2.y);
 }
 
 void GdiShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)

@@ -12,20 +12,20 @@ bool DefaultViewport::IsViewportSet() const
 void DefaultViewport::ResetViewport()
 {
     this->isSet = false;
-    NotifyOnViewportReset(Viewport2EventInfo(viewPortPosition, viewPortSize, this));
+    NotifyOnViewportReset(ViewportEventInfo(viewPortPosition, viewPortSize, this));
 }
 
 void DefaultViewport::SetViewportSize(const glm::vec3 &input)
 {
     viewPortSize = input;
-    NotifyOnViewportSizeChanged(Viewport2EventInfo(viewPortPosition, input, this));
+    NotifyOnViewportSizeChanged(ViewportEventInfo(viewPortPosition, input, this));
     isSet = true;
 }
 
 void DefaultViewport::SetViewportPosition(const glm::vec3 &input)
 {
     viewPortPosition = input;
-    NotifyOnViewportPositionChanged(Viewport2EventInfo(input, viewPortSize, this));
+    NotifyOnViewportPositionChanged(ViewportEventInfo(input, viewPortSize, this));
     isSet = true;
 }
 
@@ -39,30 +39,30 @@ const glm::vec3 & DefaultViewport::GetViewportPosition()
     return viewPortPosition;
 }
 
-void DefaultViewport::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void DefaultViewport::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
     subscribers.push_back(&subscriber);
 }
 
-void DefaultViewport::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void DefaultViewport::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
     subscribers.erase(std::remove(subscribers.begin(), subscribers.end(), &subscriber), subscribers.end());
 }
 
-void DefaultViewport::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void DefaultViewport::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
-    for (Viewport2Subscriber* subscriber : subscribers)
+    for (ViewportSubscriber* subscriber : subscribers)
         subscriber->OnViewportSizeChanged(event);
 }
 
-void DefaultViewport::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void DefaultViewport::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
-    for (Viewport2Subscriber* subscriber : subscribers)
+    for (ViewportSubscriber* subscriber : subscribers)
         subscriber->OnViewportPositionChanged(event);
 }
 
-void DefaultViewport::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void DefaultViewport::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
-    for (Viewport2Subscriber* subscriber : subscribers)
+    for (ViewportSubscriber* subscriber : subscribers)
         subscriber->OnViewportReset(event);
 }

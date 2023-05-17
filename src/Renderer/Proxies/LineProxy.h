@@ -7,6 +7,8 @@
 #include "RenderProxy.h"
 #include "RenderingConsumer.h"
 #include "glm.hpp"
+#include "RenderingProxyMessageSender.h"
+#include "DefaultViewport.h"
 #include <vector>
 
 class RenderingConsumer;
@@ -15,11 +17,14 @@ class LineModel;
 class LineProxy : public RenderProxy
 {
 private:
-    LineModel *lineModel;
-    RenderingConsumer *renderingConsumer;
-    std::vector<Viewport2Subscriber*> viewPortSubscribers;
-public:
+    static constexpr glm::vec3 defaultVec = glm::vec4{0, 0, 0, 0};
+    static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
 
+    LineModel *model = nullptr;
+    RenderingConsumer *renderingConsumer = nullptr;
+    RenderingProxyMessageSender messageSender;
+    std::vector<ViewportSubscriber*> viewPortSubscribers;
+public:
     /**
      * Sets viewPortSize of the starting point of the line
      * @param position - viewPortSize of the starting point of the line
@@ -32,11 +37,11 @@ public:
     */
     void SetEndPosition(const glm::vec3& position);
 
-    void SetWidth(float width);
-    const float& GetWidth();
+    void SetSize(float width);
+    float GetSize();
 
-    const glm::vec4 & GetStartPoint();
-    const glm::vec4 & GetEndPoint();
+    const glm::vec3 & GetStartPoint();
+    const glm::vec3 & GetEndPoint();
 
     const size_t & GetAssociatedModelId() override;
 
@@ -60,17 +65,21 @@ public:
 
     void ResetViewport() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void AddViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void RemoveViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportSizeChanged(const ViewportEventInfo &event) override;
 
-    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportPositionChanged(const ViewportEventInfo &event) override;
 
     bool IsViewportSet() const override;
 
-    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportReset(const ViewportEventInfo &event) override;
+
+    void SetColor(const glm::ivec4& color);
+
+    const glm::ivec4& GetColor();
 
 };
 

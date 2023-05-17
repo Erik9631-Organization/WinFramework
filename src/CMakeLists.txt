@@ -268,7 +268,7 @@ set(Lii_EventInfo
     EventInfo/EventOnTimerElapsed.h
         EventInfo/EventAttributeInfo.cpp
     EventInfo/EventAttributeInfo.h
-        EventInfo/Viewport2EventInfo.h
+        EventInfo/ViewportEventInfo.h
     EventInfo/RenderObjectEventInfo.cpp
     EventInfo/RenderObjectEventInfo.h
         EventInfo/Event.h EventInfo/EventCoreLifecycleInfo.cpp EventInfo/EventCoreLifecycleInfo.h)
@@ -308,7 +308,7 @@ source_group("Lii\\Graphics\\Checkbox" FILES ${Lii_Graphics_Checkbox})
 
 set(Lii_Graphics_api
 
-        Api/Viewport.h Api/Events/Viewport2Subscriber.h)
+        Api/Viewport.h Api/Events/ViewportSubscriber.h)
 source_group("Lii\\Graphics\\api" FILES ${Lii_Graphics_api})
 
 set(Lii_GraphicalStates

@@ -34,7 +34,7 @@ Border::Border(UiElement &element) : associatedElement(element)
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
-    element.AddViewport2Subscriber(*this);
+    element.AddViewportSubscriber(*this);
     rectangleProxy.SetColor({0, 0, 0, 255});
 }
 
@@ -83,22 +83,22 @@ const glm::vec3 & Border::GetViewportPosition()
     return rectangleProxy.GetViewportSize();
 }
 
-void Border::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void Border::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    rectangleProxy.AddViewport2Subscriber(subscriber);
+    rectangleProxy.AddViewportSubscriber(subscriber);
 }
 
-void Border::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void Border::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    rectangleProxy.RemoveViewport2Subscriber(subscriber);
+    rectangleProxy.RemoveViewportSubscriber(subscriber);
 }
 
-void Border::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void Border::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     rectangleProxy.NotifyOnViewportSizeChanged(event);
 }
 
-void Border::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void Border::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     rectangleProxy.NotifyOnViewportPositionChanged(event);
 }
@@ -108,22 +108,22 @@ bool Border::IsViewportSet() const
     return rectangleProxy.IsViewportSet();
 }
 
-void Border::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void Border::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     rectangleProxy.NotifyOnViewportReset(event);
 }
 
-void Border::OnViewportSizeChanged(const Viewport2EventInfo &event)
+void Border::OnViewportSizeChanged(const ViewportEventInfo &event)
 {
     rectangleProxy.SetViewportSize(event.GetSize());
 }
 
-void Border::OnViewportPositionChanged(const Viewport2EventInfo &event)
+void Border::OnViewportPositionChanged(const ViewportEventInfo &event)
 {
     rectangleProxy.SetViewportPosition(event.GetPosition());
 }
 
-void Border::OnViewportReset(const Viewport2EventInfo &event)
+void Border::OnViewportReset(const ViewportEventInfo &event)
 {
     rectangleProxy.ResetViewport();
 }
@@ -133,5 +133,5 @@ Border::~Border()
     associatedElement.RemoveOnMoveSubscriber(*this);
     associatedElement.RemoveOnResizeSubscriber(*this);
     associatedElement.RemoveOnMountedSubscriber(*this);
-    associatedElement.RemoveViewport2Subscriber(*this);
+    associatedElement.RemoveViewportSubscriber(*this);
 }

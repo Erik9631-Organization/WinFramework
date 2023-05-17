@@ -2,12 +2,12 @@
 // Created by erik9 on 4/23/2023.
 //
 
-#ifndef LII_VIEWPORT2EVENTINFO_H
-#define LII_VIEWPORT2EVENTINFO_H
+#ifndef LII_VIEWPORTEVENTINFO_H
+#define LII_VIEWPORTEVENTINFO_H
 #include "glm.hpp"
 #include "Event.h"
 
-class Viewport2EventInfo : public Event
+class ViewportEventInfo : public Event
 {
 private:
     glm::vec3 size{0};
@@ -15,7 +15,7 @@ private:
     EventSource* src;
 
 public:
-    Viewport2EventInfo(const glm::vec3 &position, const glm::vec3 &size, EventSource *src)
+    ViewportEventInfo(const glm::vec3 &position, const glm::vec3 &size, EventSource *src)
     {
         this->size = size;
         this->position = position;
@@ -39,4 +39,4 @@ public:
 };
 
 
-#endif //LII_VIEWPORT2EVENTINFO_H
+#endif //LII_VIEWPORTEVENTINFO_H

@@ -249,23 +249,23 @@ void TextProxy::ResetViewport()
     NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-void TextProxy::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void TextProxy::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.push_back(&subscriber);
 }
 
-void TextProxy::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void TextProxy::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), &subscriber), viewPortSubscribers.end());
 }
 
-void TextProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void TextProxy::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     for(auto i : viewPortSubscribers)
         i->OnViewportSizeChanged(event);
 }
 
-void TextProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void TextProxy::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     for(auto i : viewPortSubscribers)
         i->OnViewportPositionChanged(event);
@@ -276,7 +276,7 @@ bool TextProxy::IsViewportSet() const
     return model->IsViewportSet();
 }
 
-void TextProxy::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void TextProxy::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     for(auto i : viewPortSubscribers)
         i->OnViewportReset(event);

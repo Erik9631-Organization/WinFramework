@@ -23,13 +23,13 @@ class RenderMessage;
 class RectangleProxy : public Movable, public Resizable, public RenderProxy, public MoveSubscriber, public ResizeSubscriber
 {
 private:
-    static constexpr glm::vec3 defaultVec4 = glm::vec4{0, 0, 0, 0};
+    static constexpr glm::vec3 defaultVec = glm::vec4{0, 0, 0, 0};
     static constexpr glm::ivec4 defaultColorVec = glm::vec4{0, 0, 0, 0};
     RectangleModel* model = nullptr;
     std::vector<MoveSubscriber*>moveSubscribers;
     std::vector<ResizeSubscriber*>resizeSubscribers;
     RenderingProxyMessageSender messageSender;
-    std::vector<Viewport2Subscriber*> viewPortSubscribers;
+    std::vector<ViewportSubscriber*> viewPortSubscribers;
     void SendRenderingMessage(std::unique_ptr<RenderMessage> message);
 public:
 
@@ -93,17 +93,17 @@ public:
 
     void ResetViewport() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void AddViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void RemoveViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportSizeChanged(const ViewportEventInfo &event) override;
 
-    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportPositionChanged(const ViewportEventInfo &event) override;
 
     [[nodiscard]] bool IsViewportSet() const override;
 
-    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportReset(const ViewportEventInfo &event) override;
 };
 
 

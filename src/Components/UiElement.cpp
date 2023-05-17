@@ -487,22 +487,22 @@ void UiElement::OnMounted(Presenter &presenter, UiElement& element)
     this->presenter = &presenter;
 }
 
-void UiElement::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void UiElement::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewport.AddViewport2Subscriber(subscriber);
+    viewport.AddViewportSubscriber(subscriber);
 }
 
-void UiElement::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void UiElement::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewport.RemoveViewport2Subscriber(subscriber);
+    viewport.RemoveViewportSubscriber(subscriber);
 }
 
-void UiElement::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void UiElement::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     viewport.NotifyOnViewportSizeChanged(event);
 }
 
-void UiElement::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void UiElement::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     viewport.NotifyOnViewportPositionChanged(event);
 }
@@ -537,7 +537,7 @@ bool UiElement::IsViewportSet() const
     return viewport.IsViewportSet();
 }
 
-void UiElement::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void UiElement::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewport.NotifyOnViewportReset(event);
 }

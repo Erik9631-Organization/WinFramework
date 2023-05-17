@@ -78,9 +78,12 @@ int main( int argc, char* argv[] )
     auto rectangle = std::make_unique<RectangleProxy>();
     auto rectangle2 = std::make_unique<RectangleProxy>();
     auto rectangle3 = std::make_unique<RectangleProxy>();
+    auto line = std::make_unique<LineProxy>();
+
     window->GetRenderer()->RequestModel(*rectangle);
     window->GetRenderer()->RequestModel(*rectangle2);
     window->GetRenderer()->RequestModel(*rectangle3);
+    window->GetRenderer()->RequestModel(*line);
 
     rectangle->SetSize({100, 100, 0});
     rectangle->SetPosition({50, 50, 0});
@@ -94,6 +97,10 @@ int main( int argc, char* argv[] )
     rectangle3->SetSize({100, 100, 0});
     rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, 0});
     rectangle3->SetColor({0, 0, 255, 255});
+
+    line->SetStartPosition({0, 0, 0});
+    line->SetEndPosition({50, 50, 0});
+    line->SetColor({255, 0, 0, 255});
 
 //
 //     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");

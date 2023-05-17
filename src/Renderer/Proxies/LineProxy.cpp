@@ -2,70 +2,102 @@
 // Created by erik9 on 12/11/2022.
 //
 
+#include <iostream>
 #include "LineProxy.h"
 #include "Commands.h"
 #include "LineModel.h"
 
 void LineProxy::SetStartPosition(const glm::vec3& position)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(position, lineModel->GetModelId());
-    renderMessage->SetSubMessageId(SubCommands::SetStartPoint);
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    auto message = RenderMessage::CreatePropertyMessage(position, this);
+    message->SetSubMessageId(SubCommands::SetStartPoint);
+    messageSender.SendRenderingMessage(std::move(message));
 }
 
 void LineProxy::SetEndPosition(const glm::vec3& position)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(position, lineModel->GetModelId());
-    renderMessage->SetSubMessageId(SubCommands::SetEndPoint);
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    auto message = RenderMessage::CreatePropertyMessage(position, this);
+    message->SetSubMessageId(SubCommands::SetEndPoint);
+    messageSender.SendRenderingMessage(std::move(message));
 }
 
-void LineProxy::SetWidth(float width)
+void LineProxy::SetSize(float width)
 {
-    auto renderMessage = RenderMessage::CreatePropertyMessage(width, lineModel->GetModelId());
-    renderMessage->SetSubMessageId(SubCommands::SetWidth);
-    renderingConsumer->ReceiveCommand(std::move(renderMessage));
+    auto message = RenderMessage::CreatePropertyMessage(width, this);
+    message->SetSubMessageId(SubCommands::SetSize);
+    messageSender.SendRenderingMessage(std::move(message));
 }
 
-const glm::vec4 & LineProxy::GetStartPoint()
+const glm::vec3 & LineProxy::GetStartPoint()
 {
-    return lineModel->GetStartPoint();
+    auto tempData = messageSender.Get(SubCommands::SetStartPoint);
+    if(tempData != nullptr)
+        return tempData->GetData<const glm::vec3&>();
+    if(model == nullptr)
+        return defaultVec;
+
+    return model->GetStartPoint();
 }
 
-const glm::vec4 & LineProxy::GetEndPoint()
+const glm::vec3 & LineProxy::GetEndPoint()
 {
-    return lineModel->GetEndPoint();
+    auto tempData = messageSender.Get(SubCommands::SetEndPoint);
+    if(tempData != nullptr)
+        return tempData->GetData<const glm::vec3&>();
+    if(model == nullptr)
+        return defaultVec;
+
+    return model->GetEndPoint();
 }
 
-const float &LineProxy::GetWidth()
+float LineProxy::GetSize()
 {
-    return lineModel->GetWidth();
+    auto tempData = messageSender.Get(SubCommands::SetSize);
+    if(tempData != nullptr)
+        return tempData->GetData<const float&>();
+    if(model == nullptr)
+        return 0.0f;
+
+    return model->GetSize();
 }
 
 const size_t & LineProxy::GetAssociatedModelId()
 {
-    return lineModel->GetModelId();
+    return model->GetModelId();
 }
 
 void LineProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *consumer)
 {
-    this->renderingConsumer = consumer;
-    this->lineModel = dynamic_cast<LineModel*>(model);
+    this->model = dynamic_cast<LineModel*>(model);
+    if (this->model == nullptr)
+    {
+        std::cout << "LineProxy::OnModelCreated: model is not a LineModel" << std::endl;
+        return;
+    }
+    messageSender.OnModelCreated(model, consumer);
 }
 
 void LineProxy::OnRenderMessageProcessed(const SubCommands &processedCommand)
 {
-
+    messageSender.OnRenderMessageProcessed(processedCommand);
 }
 
 void LineProxy::SetVisible(bool visible)
 {
-
+    auto message = RenderMessage::CreatePropertyMessage(visible, this);
+    message->SetSubMessageId(SubCommands::SetVisible);
+    messageSender.SendRenderingMessage(std::move(message));
 }
 
 bool LineProxy::IsVisible()
 {
-    return false;
+    auto tempData = messageSender.Get(SubCommands::SetVisible);
+    if(tempData != nullptr)
+        return tempData->GetData<const bool&>();
+    if(model == nullptr)
+        return false;
+
+    return model->IsVisible();
 }
 
 SubCommands LineProxy::GetModelRequestCommand()
@@ -75,60 +107,95 @@ SubCommands LineProxy::GetModelRequestCommand()
 
 void LineProxy::SetViewportSize(const glm::vec3 &input)
 {
-
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortSize);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportSizeChanged({GetViewportPosition(), input, this});
 }
 
 void LineProxy::SetViewportPosition(const glm::vec3 &input)
 {
-
+    auto renderMessage = RenderMessage::CreatePropertyMessage(input, this);
+    renderMessage->SetSubMessageId(SubCommands::SetViewPortPosition);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportPositionChanged({input, GetViewportSize(), this});
 }
 
 const glm::vec3 & LineProxy::GetViewportSize()
 {
-    auto val = glm::vec4{0,0,0,0};
-    return val;
+    auto tempData = messageSender.Get(SubCommands::SetViewPortSize);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec3&>();
+    if(model == nullptr)
+        return defaultVec;
+    return model->GetViewportPosition();
 }
 
 const glm::vec3 & LineProxy::GetViewportPosition()
 {
-    auto val = glm::vec4{0,0,0,0};
-    return val;
+    auto tempData = messageSender.Get(SubCommands::SetViewPortPosition);
+    if(tempData != nullptr)
+        return tempData->GetData<glm::vec3&>();
+    if(model == nullptr)
+        return defaultVec;
+    return model->GetViewportPosition();
 }
 
 void LineProxy::ResetViewport()
 {
-
+    auto renderMessage = RenderMessage::CreatePropertyMessage(this);
+    renderMessage->SetSubMessageId(SubCommands::ResetViewPort);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+    NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-void LineProxy::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void LineProxy::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.push_back(&subscriber);
+
 }
 
-void LineProxy::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void LineProxy::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), &subscriber), viewPortSubscribers.end());
 }
 
-void LineProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void LineProxy::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
-    for(auto subscriber : viewPortSubscribers)
+    for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportSizeChanged(event);
 }
 
-void LineProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void LineProxy::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
-    for(auto subscriber : viewPortSubscribers)
+    for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportPositionChanged(event);
 }
 
 bool LineProxy::IsViewportSet() const
 {
-    return lineModel->IsViewportSet();
+    return model->IsViewportSet();
 }
 
-void LineProxy::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void LineProxy::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
-    for(auto subscriber : viewPortSubscribers)
+    for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportReset(event);
+}
+
+void LineProxy::SetColor(const glm::ivec4 &color)
+{
+    auto renderMessage = RenderMessage::CreatePropertyMessage(color, this);
+    renderMessage->SetSubMessageId(SubCommands::SetColor);
+    messageSender.SendRenderingMessage(std::move(renderMessage));
+}
+
+const glm::ivec4 &LineProxy::GetColor()
+{
+    auto tempData = messageSender.Get(SubCommands::SetColor);
+    if(tempData != nullptr)
+        return tempData->GetData<const glm::ivec4&>();
+    if(model == nullptr)
+        return defaultColorVec;
+    return model->GetColor();
 }

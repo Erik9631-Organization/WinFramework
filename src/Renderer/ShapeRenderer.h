@@ -25,7 +25,7 @@ public:
     //virtual void DrawImage(const Image& imageData, float x, float y);
     //virtual void DrawImage(const Image& imageData, vector2d viewPortSize);
     virtual void DrawModel(const OpenGL::Model &model) = 0;
-    virtual void DrawLine(const glm::vec3 &pos, const glm::vec3 &size) = 0;
+    virtual void DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2) = 0;
     virtual void DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size) = 0;
     virtual void DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format) = 0;
     virtual void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) = 0;

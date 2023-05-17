@@ -256,22 +256,22 @@ const glm::vec3 & RectangleModel::GetViewportPosition()
     return viewPort.GetViewportPosition();
 }
 
-void RectangleModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RectangleModel::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.AddViewport2Subscriber(subscriber);
+    viewPort.AddViewportSubscriber(subscriber);
 }
 
-void RectangleModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RectangleModel::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.RemoveViewport2Subscriber(subscriber);
+    viewPort.RemoveViewportSubscriber(subscriber);
 }
 
-void RectangleModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void RectangleModel::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportSizeChanged(event);
 }
 
-void RectangleModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void RectangleModel::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportPositionChanged(event);
 }
@@ -281,7 +281,7 @@ bool RectangleModel::IsViewportSet() const
     return viewPort.IsViewportSet();
 }
 
-void RectangleModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void RectangleModel::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportReset(event);
 }

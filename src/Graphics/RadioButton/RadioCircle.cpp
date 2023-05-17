@@ -39,7 +39,7 @@ RadioCircle::RadioCircle(UiElement &element) : associatedElement(element), scale
     element.AddOnMoveSubscriber(*this);
     element.AddOnResizeSubscriber(*this);
     element.AddOnMountedSubscriber(*this);
-    element.AddViewport2Subscriber(*this);
+    element.AddViewportSubscriber(*this);
     border.SetColor({0, 0, 0, 255});
     fill.SetColor({0, 0, 0, 255});
     fill.SetFill(true);
@@ -177,25 +177,25 @@ const glm::vec3 & RadioCircle::GetViewportPosition()
     return border.GetViewportPosition();
 }
 
-void RadioCircle::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RadioCircle::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    border.AddViewport2Subscriber(subscriber);
-    fill.AddViewport2Subscriber(subscriber);
+    border.AddViewportSubscriber(subscriber);
+    fill.AddViewportSubscriber(subscriber);
 }
 
-void RadioCircle::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RadioCircle::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    border.RemoveViewport2Subscriber(subscriber);
-    fill.RemoveViewport2Subscriber(subscriber);
+    border.RemoveViewportSubscriber(subscriber);
+    fill.RemoveViewportSubscriber(subscriber);
 }
 
-void RadioCircle::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void RadioCircle::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     border.NotifyOnViewportSizeChanged(event);
     fill.NotifyOnViewportSizeChanged(event);
 }
 
-void RadioCircle::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void RadioCircle::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     border.NotifyOnViewportPositionChanged(event);
     fill.NotifyOnViewportPositionChanged(event);
@@ -206,25 +206,25 @@ bool RadioCircle::IsViewportSet() const
     return border.IsViewportSet();
 }
 
-void RadioCircle::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void RadioCircle::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     border.NotifyOnViewportReset(event);
     fill.NotifyOnViewportReset(event);
 }
 
-void RadioCircle::OnViewportSizeChanged(const Viewport2EventInfo &event)
+void RadioCircle::OnViewportSizeChanged(const ViewportEventInfo &event)
 {
     border.SetViewportSize(event.GetSize());
     fill.SetViewportSize(event.GetSize());
 }
 
-void RadioCircle::OnViewportPositionChanged(const Viewport2EventInfo &event)
+void RadioCircle::OnViewportPositionChanged(const ViewportEventInfo &event)
 {
     border.SetViewportPosition(event.GetPosition());
     fill.SetViewportPosition(event.GetPosition());
 }
 
-void RadioCircle::OnViewportReset(const Viewport2EventInfo &event)
+void RadioCircle::OnViewportReset(const ViewportEventInfo &event)
 {
     border.ResetViewport();
     fill.ResetViewport();
@@ -235,7 +235,7 @@ RadioCircle::~RadioCircle()
     associatedElement.RemoveOnMoveSubscriber(*this);
     associatedElement.RemoveOnResizeSubscriber(*this);
     associatedElement.RemoveOnMountedSubscriber(*this);
-    associatedElement.RemoveViewport2Subscriber(*this);
+    associatedElement.RemoveViewportSubscriber(*this);
 }
 
 void RadioCircle::Update()

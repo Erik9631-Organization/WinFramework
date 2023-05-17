@@ -248,22 +248,22 @@ const glm::vec3 & EllipseModel::GetViewportPosition()
     return viewPort.GetViewportPosition();
 }
 
-void EllipseModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void EllipseModel::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.AddViewport2Subscriber(subscriber);
+    viewPort.AddViewportSubscriber(subscriber);
 }
 
-void EllipseModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void EllipseModel::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.RemoveViewport2Subscriber(subscriber);
+    viewPort.RemoveViewportSubscriber(subscriber);
 }
 
-void EllipseModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void EllipseModel::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportSizeChanged(event);
 }
 
-void EllipseModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void EllipseModel::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportPositionChanged(event);
 }
@@ -273,7 +273,7 @@ bool EllipseModel::IsViewportSet() const
     return viewPort.IsViewportSet();
 }
 
-void EllipseModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void EllipseModel::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportReset(event);
 }

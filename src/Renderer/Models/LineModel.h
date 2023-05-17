@@ -13,21 +13,21 @@ class LineModel : public RenderingModel
 private:
     bool visible = true;
     glm::ivec4 color;
-    glm::vec4 startPoint;
-    glm::vec4 endPoint;
+    glm::vec3 startPoint;
+    glm::vec3 endPoint;
     Renderer* renderingProvider;
-    float width;
+    float size;
     size_t id = -1;
     DefaultViewport viewPort;
 public:
-    void SetStartPont(const glm::vec4 &pos);
-    void SetEndPoint(const glm::vec4 &pos);
-    const glm::vec4 & GetStartPoint();
-    const glm::vec4 & GetEndPoint();
-    void SetColor(const glm::vec4 &color);
-    const glm::vec4 & GetColor();
-    void SetWidth(float width);
-    const float& GetWidth();
+    void SetStartPont(const glm::vec3 &pos);
+    void SetEndPoint(const glm::vec3 &pos);
+    const glm::vec3 & GetStartPoint();
+    const glm::vec3 & GetEndPoint();
+    void SetColor(const glm::ivec4 &color);
+    const glm::ivec4 & GetColor();
+    void SetSize(float size);
+    [[nodiscard]] float GetSize() const;
 
     void Draw() override;
 
@@ -55,17 +55,17 @@ public:
 
     void ResetViewport() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void AddViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void RemoveViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportSizeChanged(const ViewportEventInfo &event) override;
 
-    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportPositionChanged(const ViewportEventInfo &event) override;
 
     bool IsViewportSet() const override;
 
-    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportReset(const ViewportEventInfo &event) override;
 };
 
 

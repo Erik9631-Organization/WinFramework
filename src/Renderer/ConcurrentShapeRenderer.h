@@ -15,18 +15,22 @@ class ConcurrentShapeRenderer : public ShapeRenderer
 private:
     BufferRenderer& bufferRenderer;
     unsigned int numberOfThreads = 2;
+    unsigned int threadFactorX = 2;
+    unsigned int threadFactorY = 1;
     glm::ivec4 color{255, 255, 255, 255};
+    float thickness = 5.0f;
 
-    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int numberOfParts);
+    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int rows, unsigned int columns) const;
 
-    void DrawFillRectangleOnThread(const IRectangle &rectangles);
+    void FindThreadFactors();
+    void DrawSingleRectangle(const IRectangle &rectangle);
 
 public:
     explicit ConcurrentShapeRenderer(BufferRenderer& renderer);
 
     void DrawModel(const OpenGL::Model &model) override;
 
-    void DrawLine(const glm::vec3 &pos, const glm::vec3 &size) override;
+    void DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2) override;
 
     void DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
 

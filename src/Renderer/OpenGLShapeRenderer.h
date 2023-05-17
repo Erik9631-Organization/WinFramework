@@ -45,7 +45,7 @@ private:
 public:
     OpenGLShapeRenderer(Window &window, OpenGL::RenderingManager& manager);
     void DrawModel(const OpenGL::Model &model) override;
-    void DrawLine(const glm::vec3 &pos, const glm::vec3 &size) override;
+    void DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2) override;
     void DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
     void DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format) override;
     void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) override;

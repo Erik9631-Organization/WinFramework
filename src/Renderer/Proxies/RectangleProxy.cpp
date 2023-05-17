@@ -15,7 +15,7 @@ const glm::vec3 & RectangleProxy::GetPosition() const
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
-        return defaultVec4;
+        return defaultVec;
 
     return model->GetPosition();
 }
@@ -41,7 +41,7 @@ const glm::vec3 & RectangleProxy::GetTranslate() const
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
-        return defaultVec4;
+        return defaultVec;
 
     return model->GetTranslate();
 }
@@ -53,7 +53,7 @@ const glm::vec3 & RectangleProxy::GetSize() const
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec3&>();
     if(model != nullptr)
-        return defaultVec4;
+        return defaultVec;
 
     return model->GetSize();
 }
@@ -130,9 +130,7 @@ void RectangleProxy::OnModelCreated(RenderingModel *model, RenderingConsumer *co
         std::cout << "RectangleProxy::OnModelCreated: model is not a RectangleModel" << std::endl;
         return;
     }
-
     messageSender.OnModelCreated(model, consumer);
-
 }
 
 void RectangleProxy::SendRenderingMessage(std::unique_ptr<RenderMessage> message)
@@ -229,7 +227,7 @@ const glm::vec3 & RectangleProxy::GetViewportSize()
     if(tempData != nullptr)
         return tempData->GetData<const glm::vec3&>();
     if(model == nullptr)
-        return defaultVec4;
+        return defaultVec;
 
     return model->GetViewportSize();
 }
@@ -240,7 +238,7 @@ const glm::vec3 & RectangleProxy::GetViewportPosition()
     if(tempData != nullptr)
         return tempData->GetData<glm::vec3&>();
     if(model == nullptr)
-        return defaultVec4;
+        return defaultVec;
     return model->GetViewportPosition();
 }
 
@@ -252,23 +250,23 @@ void RectangleProxy::ResetViewport()
     NotifyOnViewportReset({GetViewportPosition(), GetViewportSize(), this});
 }
 
-void RectangleProxy::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RectangleProxy::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.push_back(&subscriber);
 }
 
-void RectangleProxy::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void RectangleProxy::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), &subscriber), viewPortSubscribers.end());
 }
 
-void RectangleProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void RectangleProxy::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportSizeChanged(event);
 }
 
-void RectangleProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void RectangleProxy::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportPositionChanged(event);
@@ -279,7 +277,7 @@ bool RectangleProxy::IsViewportSet() const
     return model->IsViewportSet();
 }
 
-void RectangleProxy::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void RectangleProxy::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportReset(event);

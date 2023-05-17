@@ -14,7 +14,7 @@ private:
     glm::vec3 viewPortSize{0};
     glm::vec3 viewPortPosition{0};
     bool isSet = false;
-    std::vector<Viewport2Subscriber*> subscribers;
+    std::vector<ViewportSubscriber*> subscribers;
 
 public:
     [[nodiscard]] bool IsViewportSet() const override;
@@ -29,15 +29,15 @@ public:
 
     const glm::vec3 & GetViewportPosition() override;
 
-    void AddViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void AddViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) override;
+    void RemoveViewportSubscriber(ViewportSubscriber &subscriber) override;
 
-    void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportSizeChanged(const ViewportEventInfo &event) override;
 
-    void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportPositionChanged(const ViewportEventInfo &event) override;
 
-    void NotifyOnViewportReset(const Viewport2EventInfo &event) override;
+    void NotifyOnViewportReset(const ViewportEventInfo &event) override;
 };
 
 

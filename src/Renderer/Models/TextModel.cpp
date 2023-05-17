@@ -225,22 +225,22 @@ void TextModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-void TextModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void TextModel::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.AddViewport2Subscriber(subscriber);
+    viewPort.AddViewportSubscriber(subscriber);
 }
 
-void TextModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void TextModel::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.RemoveViewport2Subscriber(subscriber);
+    viewPort.RemoveViewportSubscriber(subscriber);
 }
 
-void TextModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void TextModel::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportSizeChanged(event);
 }
 
-void TextModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void TextModel::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportPositionChanged(event);
 }
@@ -250,7 +250,7 @@ bool TextModel::IsViewportSet() const
     return viewPort.IsViewportSet();
 }
 
-void TextModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void TextModel::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportReset(event);
 }

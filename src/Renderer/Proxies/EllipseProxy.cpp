@@ -233,23 +233,23 @@ const glm::vec3 & EllipseProxy::GetViewportPosition()
     return model->GetViewportSize();
 }
 
-void EllipseProxy::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void EllipseProxy::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.push_back(&subscriber);
 }
 
-void EllipseProxy::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void EllipseProxy::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
     viewPortSubscribers.erase(std::remove(viewPortSubscribers.begin(), viewPortSubscribers.end(), &subscriber), viewPortSubscribers.end());
 }
 
-void EllipseProxy::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void EllipseProxy::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportSizeChanged(event);
 }
 
-void EllipseProxy::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void EllipseProxy::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportPositionChanged(event);
@@ -260,7 +260,7 @@ bool EllipseProxy::IsViewportSet() const
     return model->IsViewportSet();
 }
 
-void EllipseProxy::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void EllipseProxy::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     for(auto* subscriber : viewPortSubscribers)
         subscriber->OnViewportReset(event);

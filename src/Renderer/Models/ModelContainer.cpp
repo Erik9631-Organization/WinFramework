@@ -6,6 +6,7 @@
 #include "RectangleModel.h"
 #include "TextModel.h"
 #include "EllipseModel.h"
+#include "LineModel.h"
 
 RenderingModel *ModelContainer::CreateModel(SubCommands createCommand)
 {
@@ -24,6 +25,11 @@ RenderingModel *ModelContainer::CreateModel(SubCommands createCommand)
         case SubCommands::RequestEllipse:
         {
             auto* model = CreateModel<EllipseModel>();
+            return model;
+        }
+        case SubCommands::RequestLine:
+        {
+            auto* model = CreateModel<LineModel>();
             return model;
         }
         default:

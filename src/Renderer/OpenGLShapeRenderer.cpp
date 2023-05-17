@@ -13,7 +13,7 @@
 #include "GdiFontFormat.h"
 #include "Core/Windows/WindowsCore.h"
 
-void OpenGLShapeRenderer::DrawLine(const glm::vec3 &pos, const glm::vec3 &size)
+void OpenGLShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2)
 {
 
 }

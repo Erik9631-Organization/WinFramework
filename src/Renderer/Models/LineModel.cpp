@@ -7,32 +7,32 @@
 #include "ShapeRenderer.h"
 #include "Commands.h"
 
-void LineModel::SetStartPont(const glm::vec4 &pos)
+void LineModel::SetStartPont(const glm::vec3 &pos)
 {
     startPoint = pos;
 }
 
-void LineModel::SetEndPoint(const glm::vec4 &pos)
+void LineModel::SetEndPoint(const glm::vec3 &pos)
 {
     endPoint = pos;
 }
 
-const glm::vec4 & LineModel::GetStartPoint()
+const glm::vec3 & LineModel::GetStartPoint()
 {
     return startPoint;
 }
 
-const glm::vec4 & LineModel::GetEndPoint()
+const glm::vec3 & LineModel::GetEndPoint()
 {
     return endPoint;
 }
 
-void LineModel::SetColor(const glm::vec4 &color)
+void LineModel::SetColor(const glm::ivec4 &color)
 {
     this->color = color;
 }
 
-const glm::vec4 & LineModel::GetColor()
+const glm::ivec4 & LineModel::GetColor()
 {
     return color;
 }
@@ -43,6 +43,7 @@ void LineModel::Draw()
         return;
     auto renderer = renderingProvider->AcquireShapeRenderer();
     renderer->SetColor(color);
+    renderer->SetThickness(size);
     renderer->DrawLine(startPoint, endPoint);
 }
 
@@ -51,14 +52,14 @@ void LineModel::SetRenderer(Renderer *renderer)
     this->renderingProvider = renderer;
 }
 
-void LineModel::SetWidth(float width)
+void LineModel::SetSize(float size)
 {
-    this->width = width;
+    this->size = size;
 }
 
-const float &LineModel::GetWidth()
+float LineModel::GetSize() const
 {
-    return width;
+    return size;
 }
 
 void LineModel::SetModelId(size_t id)
@@ -79,30 +80,35 @@ void LineModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
     if(message->GetMessageId() != Commands::Property)
         return;
 
-    if(message->GetSubMessageId() == SubCommands::SetWidth)
+    switch(message->GetSubMessageId())
     {
-        auto width = message->GetData<float>();
-        SetWidth(width);
-    }
-    else if(message->GetSubMessageId() == SubCommands::SetStartPoint)
-    {
-        auto point = message->GetData<glm::vec4>();
-        SetStartPont(point);
-    }
-    else if(message->GetSubMessageId() == SubCommands::SetEndPoint)
-    {
-        auto point = message->GetData<glm::vec4>();
-        SetEndPoint(point);
-    }
-    else if(message->GetSubMessageId() == SubCommands::SetColor)
-    {
-        auto color = message->GetData<glm::vec4>();
-        SetColor(color);
-    }
-    else if(message->GetSubMessageId() == SubCommands::SetVisible)
-    {
-        auto visible = message->GetData<bool>();
-        SetVisible(visible);
+        case SubCommands::SetSize:
+        {
+            SetSize(message->GetData<float>());
+            break;
+        }
+        case SubCommands::SetStartPoint:
+        {
+            SetStartPont(message->GetData<glm::vec3>());
+            break;
+        }
+        case SubCommands::SetEndPoint:
+        {
+            SetEndPoint(message->GetData<glm::vec3>());
+            break;
+        }
+        case SubCommands::SetColor:
+        {
+            SetColor(message->GetData<glm::ivec4>());
+            break;
+        }
+        case SubCommands::SetVisible:
+        {
+            SetVisible(message->GetData<bool>());
+            break;
+        }
+        default:
+            break;
     }
 }
 
@@ -149,22 +155,22 @@ void LineModel::ResetViewport()
     viewPort.ResetViewport();
 }
 
-void LineModel::AddViewport2Subscriber(Viewport2Subscriber &subscriber)
+void LineModel::AddViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.AddViewport2Subscriber(subscriber);
+    viewPort.AddViewportSubscriber(subscriber);
 }
 
-void LineModel::RemoveViewport2Subscriber(Viewport2Subscriber &subscriber)
+void LineModel::RemoveViewportSubscriber(ViewportSubscriber &subscriber)
 {
-    viewPort.RemoveViewport2Subscriber(subscriber);
+    viewPort.RemoveViewportSubscriber(subscriber);
 }
 
-void LineModel::NotifyOnViewportSizeChanged(const Viewport2EventInfo &event)
+void LineModel::NotifyOnViewportSizeChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportSizeChanged(event);
 }
 
-void LineModel::NotifyOnViewportPositionChanged(const Viewport2EventInfo &event)
+void LineModel::NotifyOnViewportPositionChanged(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportPositionChanged(event);
 }
@@ -174,7 +180,7 @@ bool LineModel::IsViewportSet() const
     return viewPort.IsViewportSet();
 }
 
-void LineModel::NotifyOnViewportReset(const Viewport2EventInfo &event)
+void LineModel::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportReset(event);
 }

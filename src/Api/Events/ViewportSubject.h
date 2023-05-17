@@ -4,16 +4,16 @@
 
 #ifndef LII_VIEWPORTSUBJECT_H
 #define LII_VIEWPORTSUBJECT_H
-#include "Viewport2Subscriber.h"
+#include "ViewportSubscriber.h"
 #include "EventSource.h"
 
 class ViewportSubject : public virtual EventSource
 {
 public:
-    virtual void AddViewport2Subscriber(Viewport2Subscriber &subscriber) = 0;
-    virtual void RemoveViewport2Subscriber(Viewport2Subscriber &subscriber) = 0;
-    virtual void NotifyOnViewportSizeChanged(const Viewport2EventInfo &event) = 0;
-    virtual void NotifyOnViewportPositionChanged(const Viewport2EventInfo &event) = 0;
-    virtual void NotifyOnViewportReset(const Viewport2EventInfo &event) = 0;
+    virtual void AddViewportSubscriber(ViewportSubscriber &subscriber) = 0;
+    virtual void RemoveViewportSubscriber(ViewportSubscriber &subscriber) = 0;
+    virtual void NotifyOnViewportSizeChanged(const ViewportEventInfo &event) = 0;
+    virtual void NotifyOnViewportPositionChanged(const ViewportEventInfo &event) = 0;
+    virtual void NotifyOnViewportReset(const ViewportEventInfo &event) = 0;
 };
 #endif //LII_VIEWPORTSUBJECT_H
