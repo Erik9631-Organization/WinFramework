@@ -11,7 +11,7 @@
 class ResizableModelBehavior : public Resizable
 {
 private:
-    glm::vec3 size;
+    glm::vec3 size{0};
     std::vector<ResizeSubscriber*> resizeSubscribers;
 
 public:

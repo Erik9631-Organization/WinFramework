@@ -78,11 +78,15 @@ int main( int argc, char* argv[] )
     auto rectangle = std::make_unique<RectangleProxy>();
     auto rectangle2 = std::make_unique<RectangleProxy>();
     auto rectangle3 = std::make_unique<RectangleProxy>();
+    auto rectangle4 = std::make_unique<RectangleProxy>();
+    auto ellipse = std::make_unique<EllipseProxy>();
     auto line = std::make_unique<LineProxy>();
 
     window->GetRenderer()->RequestModel(*rectangle);
     window->GetRenderer()->RequestModel(*rectangle2);
     window->GetRenderer()->RequestModel(*rectangle3);
+    window->GetRenderer()->RequestModel(*rectangle4);
+    window->GetRenderer()->RequestModel(*ellipse);
     window->GetRenderer()->RequestModel(*line);
 
     rectangle->SetSize({100, 100, 0});
@@ -98,9 +102,20 @@ int main( int argc, char* argv[] )
     rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, 0});
     rectangle3->SetColor({0, 0, 255, 255});
 
-    line->SetStartPosition({0, 0, 0});
-    line->SetEndPosition({50, 50, 0});
+    //Rectangle4
+    rectangle4->SetSize({100, 100, 0});
+    rectangle4->SetPosition({rectangle3->GetPosition().x + rectangle3->GetSize().x + 5, 50, 0});
+    rectangle4->SetColor({255, 255, 0, 255});
+    rectangle4->SetFill(true);
+
+    line->SetStartPosition({400, 300, 0});
+    line->SetEndPosition({0, 560, 0});
     line->SetColor({255, 0, 0, 255});
+
+    ellipse->SetSize({100, 100, 0});
+    ellipse->SetPosition({400, 300, 0});
+    ellipse->SetColor({0, 255, 0, 255});
+    ellipse->SetFill(false);
 
 //
 //     auto& button1 = window->CreateElement<Button>(50, 50, 100, 50, "button1");

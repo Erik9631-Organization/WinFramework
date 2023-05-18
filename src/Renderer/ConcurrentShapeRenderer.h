@@ -9,6 +9,7 @@
 #include "ShapeRenderer.h"
 #include "Rectangle.h"
 #include "IRectangle.h"
+#include "Line.h"
 
 class ConcurrentShapeRenderer : public ShapeRenderer
 {
@@ -18,12 +19,16 @@ private:
     unsigned int threadFactorX = 2;
     unsigned int threadFactorY = 1;
     glm::ivec4 color{255, 255, 255, 255};
-    float thickness = 5.0f;
+    float thickness = 1.0f;
 
-    std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int rows, unsigned int columns) const;
+    std::vector<Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
+    [[nodiscard]] std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int rows, unsigned int columns) const;
 
     void FindThreadFactors();
     void DrawSingleRectangle(const IRectangle &rectangle);
+    void DrawSingleLine(const Line &line);
+    void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
+    void DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB);
 
 public:
     explicit ConcurrentShapeRenderer(BufferRenderer& renderer);

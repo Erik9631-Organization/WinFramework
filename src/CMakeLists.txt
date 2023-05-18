@@ -239,7 +239,7 @@ set(Lii_DataTypes
         DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
-    DataTypes/MultiTree.cpp DataTypes/ZBufferRegionValidator.cpp DataTypes/ZBufferRegionValidator.h DataTypes/IRectangle.h DataTypes/Rectangle.h)
+    DataTypes/MultiTree.cpp DataTypes/ZBufferRegionValidator.cpp DataTypes/ZBufferRegionValidator.h DataTypes/IRectangle.h DataTypes/Rectangle.h DataTypes/Line.cpp DataTypes/Line.h DataTypes/ILine.cpp DataTypes/ILine.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
