@@ -7,6 +7,7 @@
 #include "ConcurrentShapeRenderer.h"
 #include "FontFormat.h"
 #include <future>
+#include "Tracy.hpp"
 
 
 void ConcurrentShapeRenderer::DrawModel(const OpenGL::Model &model)
@@ -17,6 +18,7 @@ void ConcurrentShapeRenderer::DrawModel(const OpenGL::Model &model)
 
 void ConcurrentShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
+    ZoneScoped;
     DrawLine(pos, {pos.x + size.x, pos.y, 0});
     DrawLine(pos, {pos.x, pos.y + size.y, 0});
     DrawLine({pos.x + size.x, pos.y, 0}, {pos.x + size.x, pos.y + size.y, 0});
@@ -32,7 +34,7 @@ void ConcurrentShapeRenderer::DrawString(const std::wstring &string, const glm::
 
 void ConcurrentShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
-
+    ZoneScoped;
     auto rectangles = SplitRectangle({pos, size});
     std::vector<std::future<void>> futures;
     for(auto& rectangle : rectangles)
@@ -61,6 +63,8 @@ void ConcurrentShapeRenderer::SetColor(const glm::ivec3 &color)
 void ConcurrentShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
 
+    clippingRectangle = {pos, size};
+    clippingSet = true;
 }
 
 void ConcurrentShapeRenderer::SetThickness(float thickness)
@@ -95,42 +99,40 @@ ConcurrentShapeRenderer::ConcurrentShapeRenderer(BufferRenderer &renderer) : buf
 
 void ConcurrentShapeRenderer::DrawEllipse(const glm::vec3 &pos, const glm::vec3 &size)
 {
-//    int height = size.y;
-//    int step = height / numberOfThreads;
-//    std::vector<std::future<void>> futures;
-//
-//    int a = size.x / 2;
-//    int b = size.y / 2;
-//    int innerA = a - thickness;
-//    int innerB = b - thickness;
-//
-//    for (int i = 0; i < numberOfThreads; ++i) {
-//        int startY = i * step;
-//        int endY = (i + 1) * step;
-//
-//        // Handle the last section to cover the entire height
-//        if (i == numberOfThreads - 1) {
-//            endY = height;
-//        }
-//
-//        futures.push_back(std::async(std::launch::async, &ConcurrentShapeRenderer::DrawEllipseSection, this, startY, endY, pos, size, innerA, innerB));
-//    }
-//
-//    for (auto &future : futures) {
-//        future.get();
-//    }
+    ZoneScoped;
+    int height = size.y;
+    int step = height / numberOfThreads;
+    std::vector<std::future<void>> futures;
+
+    int a = size.x / 2;
+    int b = size.y / 2;
+    int innerA = a - thickness;
+    int innerB = b - thickness;
+
+    for (int i = 0; i < numberOfThreads; ++i) {
+        int startY = i * step;
+        int endY = (i + 1) * step;
+
+        // Handle the last section to cover the entire height
+        if (i == numberOfThreads - 1) {
+            endY = height;
+        }
+
+        futures.push_back(std::async(std::launch::async, &ConcurrentShapeRenderer::DrawEllipseSection, this, startY, endY, pos, size, innerA, innerB));
+    }
+
+    for (auto &future : futures) {
+        future.get();
+    }
 }
 
-void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB) {
+void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB)
+{
+    ZoneScoped;
     int a = size.x / 2;
     int b = size.y / 2;
     int centerX = pos.x + a;
     int centerY = pos.y + b;
-
-    int a2 = a * a;
-    int b2 = b * b;
-    int innerA2 = innerA * innerA;
-    int innerB2 = innerB * innerB;
 
     for (int dy = startY - b; dy < endY - b; ++dy) {
         int y = centerY + dy;
@@ -146,7 +148,7 @@ void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm
         // Draw the horizontal line for the outer ellipse
         for (int x = startXOuter; x <= endXOuter; ++x) {
             if (x < startXInner || x > endXInner){
-                bufferRenderer.DrawFragment(glm::vec3(x, y, pos.z), color);
+                DrawFragment(glm::vec3(x, y, pos.z), color);
             }
         }
     }
@@ -156,6 +158,7 @@ void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm
 std::vector<IRectangle>
 ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle) const
 {
+    ZoneScoped;
     if (numberOfThreads == 1)
         return {{rectangle.position, rectangle.size}};
 
@@ -175,14 +178,16 @@ ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle) const
 
 void ConcurrentShapeRenderer::DrawSingleRectangle(const IRectangle &rectangle)
 {
+    ZoneScoped;
     for(int y = 0; y < rectangle.size.y; y++)
         for(int x = 0; x < rectangle.size.x; x++)
-            bufferRenderer.DrawFragment({rectangle.position.x + x, rectangle.position.y + y, 0}, this->color);
+            DrawFragment({rectangle.position.x + x, rectangle.position.y + y, 0}, this->color);
 }
 
 
 void ConcurrentShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2)
 {
+    ZoneScoped;
     auto lines = SplitLineIntoSegments({pos1.x, pos1.y}, {pos2.x, pos2.y}, numberOfThreads);
     std::vector<std::future<void>> futures;
     for(auto& line : lines)
@@ -199,6 +204,7 @@ void ConcurrentShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &p
 
 std::vector<Line> ConcurrentShapeRenderer::SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments)
 {
+    ZoneScoped;
     std::vector<Line> segments;
 
     if (numSegments <= 1)
@@ -225,6 +231,7 @@ std::vector<Line> ConcurrentShapeRenderer::SplitLineIntoSegments(const glm::vec2
 
 void ConcurrentShapeRenderer::DrawSingleLine(const Line &line)
 {
+    ZoneScoped;
     int x1 = static_cast<int>(line.start.x);
     int y1 = static_cast<int>(line.start.y);
     int x2 = static_cast<int>(line.end.x);
@@ -247,7 +254,7 @@ void ConcurrentShapeRenderer::DrawSingleLine(const Line &line)
             for (int j = -t; j <= t; ++j) {
                 if (sqrt(i * i + j * j) <= half_thickness) {
                     glm::vec3 position(x1 + i, y1 + j, 0);
-                    bufferRenderer.DrawFragment(position, color);
+                    DrawFragment(position, color);
                 }
             }
         }
@@ -270,7 +277,9 @@ void ConcurrentShapeRenderer::DrawSingleLine(const Line &line)
     }
 }
 
-void ConcurrentShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) {
+void ConcurrentShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size)
+{
+    ZoneScoped;
     int height = size.y;
     int subHeight = height / numberOfThreads;
     std::vector<std::future<void>> futures;
@@ -292,7 +301,9 @@ void ConcurrentShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::v
     }
 }
 
-void ConcurrentShapeRenderer::DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size) {
+void ConcurrentShapeRenderer::DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size)
+{
+    ZoneScoped;
     int a = size.x / 2;
     int b = size.y / 2;
     int centerX = pos.x + a;
@@ -310,7 +321,32 @@ void ConcurrentShapeRenderer::DrawFillEllipseSection(int startY, int endY, const
 
         // Draw the horizontal line within the x range
         for (x = startX; x <= endX; ++x) {
-            bufferRenderer.DrawFragment(glm::vec3(x, y, pos.z), color);
+            DrawFragment(glm::vec3(x, y, pos.z), color);
         }
     }
+}
+
+void ConcurrentShapeRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
+{
+    ZoneScoped;
+    if(IsOutsideBounds(position.x, position.y))
+        return;
+    bufferRenderer.DrawFragment(position, color);
+}
+
+bool ConcurrentShapeRenderer::IsOutsideBounds(unsigned int x, unsigned int y)
+{
+    ZoneScoped;
+    if(!clippingSet)
+        return false;
+
+    int relativeX = x - clippingRectangle.position.x;
+    int relativeY = y - clippingRectangle.position.y;
+    if(relativeX < 0 || relativeY < 0)
+        return true;
+
+    if(relativeX > clippingRectangle.size.x || relativeY > clippingRectangle.size.y)
+        return true;
+
+    return false;
 }

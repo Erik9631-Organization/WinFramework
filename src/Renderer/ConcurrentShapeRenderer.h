@@ -20,6 +20,8 @@ private:
     unsigned int threadFactorY = 1;
     glm::ivec4 color{255, 255, 255, 255};
     float thickness = 1.0f;
+    Rectangle clippingRectangle;
+    bool clippingSet = false;
 
     std::vector<Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
     [[nodiscard]] std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle) const;
@@ -28,6 +30,8 @@ private:
     void DrawSingleLine(const Line &line);
     void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
     void DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB);
+    bool IsOutsideBounds(unsigned int x, unsigned int y);
+    void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color);
 
 public:
     explicit ConcurrentShapeRenderer(BufferRenderer& renderer);

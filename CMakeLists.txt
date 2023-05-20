@@ -12,6 +12,7 @@ message("Windows option: ${windows}")
 IF(windows)
 	add_compile_definitions(windows)
 endif()
+add_definitions(-DNOMINMAX)
 
 
 #GetThe output dir
@@ -24,22 +25,23 @@ message("Runtime directory is: ${outputDir}")
 
 #Global libs that need to be compiled / included
 add_subdirectory(libs/stb EXCLUDE_FROM_ALL)
-add_subdirectory(libs/PhysX-4.1/physx/compiler/public EXCLUDE_FROM_ALL)
 add_subdirectory(libs/ConcurrentQueue)
 add_subdirectory(libs/LiiInjector)
 add_subdirectory(libs/MemoryManager)
 add_subdirectory(libs/catch2)
+add_subdirectory(libs/Tracy)
+include_directories(libs/Tracy/public/tracy)
 add_subdirectory(src)
 target_link_libraries(${PROJECT_NAME}
 		stb
 		opengl32
-		PhysXSDK
 		catch2Lib
 		"${CMAKE_SOURCE_DIR}/libs/glew/glew32.lib"
 		"${CMAKE_SOURCE_DIR}/libs/glew/glew32s.lib"
 		MemoryManagerLib
 		ConcurrentQueue
 		LiiInjector
+		TracyClient
 		)
 
 

@@ -33,7 +33,6 @@ public:
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual glm::ivec2 GetCombinedScreenSize() = 0;
-    virtual
     virtual ~Core() = default;
 };
 

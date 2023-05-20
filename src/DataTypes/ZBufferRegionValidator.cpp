@@ -6,6 +6,7 @@
 #include <Injector.hpp>
 #include "Core.h"
 #include "ZBufferRegionValidator.h"
+#include "Tracy.hpp"
 
 void ZBufferRegionValidator::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -31,6 +32,7 @@ void ZBufferRegionValidator::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void ZBufferRegionValidator::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
+    ZoneScoped;
     if(TestDiscardFragment(position))
         return;
     outputBuffer->DrawFragment(position, color);
@@ -38,17 +40,20 @@ void ZBufferRegionValidator::DrawFragment(const glm::ivec3 &position, const glm:
 
 void ZBufferRegionValidator::SwapScreenBuffer()
 {
+    ZoneScoped;
     ClearBuffer();
     outputBuffer->SwapScreenBuffer();
 }
 
 void ZBufferRegionValidator::SetViewportSize(const glm::ivec2 &size)
 {
+    ZoneScoped;
     outputBuffer->SetViewportSize(size);
 }
 
 void ZBufferRegionValidator::WriteToZBuffer(unsigned int x, unsigned int y, int value)
 {
+    ZoneScoped;
     if(IsOutsideBounds(x, y))
         return;
     if(zBuffer == nullptr)
@@ -59,12 +64,14 @@ void ZBufferRegionValidator::WriteToZBuffer(unsigned int x, unsigned int y, int 
 
 void ZBufferRegionValidator::ReleaseZBuffer()
 {
+    ZoneScoped;
     delete zBuffer;
     zBuffer = nullptr;
 }
 
 ZBufferRegionValidator::ZBufferRegionValidator()
 {
+    ZoneScoped;
     try
     {
         outputBuffer = LiiInjector::Injector::GetInstance().ResolveTransient<BufferRenderer>();
@@ -78,6 +85,7 @@ ZBufferRegionValidator::ZBufferRegionValidator()
 
 bool ZBufferRegionValidator::TestDiscardFragment(const glm::ivec3 &position)
 {
+    ZoneScoped;
     if(zBuffer == nullptr)
         return false;
     if(IsOutsideBounds(position.x, position.y))
@@ -93,6 +101,7 @@ bool ZBufferRegionValidator::TestDiscardFragment(const glm::ivec3 &position)
 
 void ZBufferRegionValidator::InitializeZBuffer()
 {
+    ZoneScoped;
     if(zBuffer != nullptr)
         ReleaseZBuffer();
     zBuffer = new int[bufferSize.x * bufferSize.y];
@@ -101,6 +110,7 @@ void ZBufferRegionValidator::InitializeZBuffer()
 
 void ZBufferRegionValidator::ClearBuffer()
 {
+    ZoneScoped;
     if(zBuffer == nullptr)
         return;
     for(int i = 0; i < outputBuffer->GetViewportSize().x * outputBuffer->GetViewportSize().y; i++)
@@ -114,6 +124,7 @@ const glm::ivec2 &ZBufferRegionValidator::GetViewportSize() const
 
 bool ZBufferRegionValidator::IsOutsideBounds(unsigned int x, unsigned int y)
 {
+    ZoneScoped;
     if(x >= outputBuffer->GetViewportSize().x || y >= outputBuffer->GetViewportSize().y)
         return true;
     return false;
