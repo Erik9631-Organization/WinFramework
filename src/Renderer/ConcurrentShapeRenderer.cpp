@@ -32,7 +32,8 @@ void ConcurrentShapeRenderer::DrawString(const std::wstring &string, const glm::
 
 void ConcurrentShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
-    auto rectangles = SplitRectangle({pos, size}, threadFactorX, threadFactorY);
+
+    auto rectangles = SplitRectangle({pos, size});
     std::vector<std::future<void>> futures;
     for(auto& rectangle : rectangles)
     {
@@ -89,36 +90,35 @@ void ConcurrentShapeRenderer::Translate(glm::vec3 translation)
 
 ConcurrentShapeRenderer::ConcurrentShapeRenderer(BufferRenderer &renderer) : bufferRenderer(renderer)
 {
-    numberOfThreads = std::thread::hardware_concurrency();
-    FindThreadFactors();
+    numberOfThreads = 1;//std::thread::hardware_concurrency();
 }
 
 void ConcurrentShapeRenderer::DrawEllipse(const glm::vec3 &pos, const glm::vec3 &size)
 {
-    int height = size.y;
-    int step = height / numberOfThreads;
-    std::vector<std::future<void>> futures;
-
-    int a = size.x / 2;
-    int b = size.y / 2;
-    int innerA = a - thickness;
-    int innerB = b - thickness;
-
-    for (int i = 0; i < numberOfThreads; ++i) {
-        int startY = i * step;
-        int endY = (i + 1) * step;
-
-        // Handle the last section to cover the entire height
-        if (i == numberOfThreads - 1) {
-            endY = height;
-        }
-
-        futures.push_back(std::async(std::launch::async, &ConcurrentShapeRenderer::DrawEllipseSection, this, startY, endY, pos, size, innerA, innerB));
-    }
-
-    for (auto &future : futures) {
-        future.get();
-    }
+//    int height = size.y;
+//    int step = height / numberOfThreads;
+//    std::vector<std::future<void>> futures;
+//
+//    int a = size.x / 2;
+//    int b = size.y / 2;
+//    int innerA = a - thickness;
+//    int innerB = b - thickness;
+//
+//    for (int i = 0; i < numberOfThreads; ++i) {
+//        int startY = i * step;
+//        int endY = (i + 1) * step;
+//
+//        // Handle the last section to cover the entire height
+//        if (i == numberOfThreads - 1) {
+//            endY = height;
+//        }
+//
+//        futures.push_back(std::async(std::launch::async, &ConcurrentShapeRenderer::DrawEllipseSection, this, startY, endY, pos, size, innerA, innerB));
+//    }
+//
+//    for (auto &future : futures) {
+//        future.get();
+//    }
 }
 
 void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB) {
@@ -154,30 +154,22 @@ void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm
 
 
 std::vector<IRectangle>
-ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle, unsigned int rows, unsigned int columns) const
+ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle) const
 {
     if (numberOfThreads == 1)
         return {{rectangle.position, rectangle.size}};
 
-    int columnWidth = rectangle.size.x / columns;
-    int rowHeight = rectangle.size.y / rows;
-    int errorX = static_cast<unsigned int>(rectangle.size.x) % columns;
-    int errorY = static_cast<unsigned int>(rectangle.size.y) % rows;
-
+    unsigned int height = std::floor(rectangle.size.y / numberOfThreads);
+    unsigned int error = static_cast<unsigned int>(rectangle.size.y) % numberOfThreads;
     std::vector<IRectangle> rectangles;
-
-    for (int row = 0; row < rows; row++) {
-        for (int column = 0; column < columns; column++) {
-            int xPos = rectangle.position.x + column * columnWidth;
-            int yPos = rectangle.position.y + row * rowHeight;
-            int width = columnWidth;
-            int height = rowHeight;
-
-            rectangles.push_back({{xPos, yPos}, {width, height}});
-        }
+    for(int i = 0; i < numberOfThreads; i++)
+    {
+        unsigned int y = rectangle.position.y + i * height;
+        if(i == numberOfThreads - 1)
+            height += error;
+        rectangles.push_back({{rectangle.position.x, y}, {rectangle.size.x, height}});
     }
-    rectangles.back().size.x += errorX;
-    rectangles.back().size.y += errorY;
+
     return rectangles;
 }
 
@@ -188,14 +180,6 @@ void ConcurrentShapeRenderer::DrawSingleRectangle(const IRectangle &rectangle)
             bufferRenderer.DrawFragment({rectangle.position.x + x, rectangle.position.y + y, 0}, this->color);
 }
 
-void ConcurrentShapeRenderer::FindThreadFactors()
-{
-    int closestFactor = std::floor((float)std::sqrt(numberOfThreads));
-    while(numberOfThreads % closestFactor != 0)
-        closestFactor--;
-    threadFactorX = closestFactor;
-    threadFactorY = numberOfThreads / closestFactor;
-}
 
 void ConcurrentShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2)
 {

@@ -212,5 +212,6 @@ void ComponentGallery()
 int main( int argc, char* argv[] )
 {
     ComponentGallery();
+//   BasicShapes();
     return 0;
 }

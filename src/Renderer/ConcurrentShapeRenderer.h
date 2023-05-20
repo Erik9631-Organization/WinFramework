@@ -22,9 +22,8 @@ private:
     float thickness = 1.0f;
 
     std::vector<Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
-    [[nodiscard]] std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle, unsigned int rows, unsigned int columns) const;
+    [[nodiscard]] std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle) const;
 
-    void FindThreadFactors();
     void DrawSingleRectangle(const IRectangle &rectangle);
     void DrawSingleLine(const Line &line);
     void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
