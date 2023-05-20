@@ -156,9 +156,8 @@ void ConcurrentShapeRenderer::DrawEllipseSection(int startY, int endY, const glm
 std::vector<IRectangle>
 ConcurrentShapeRenderer::SplitRectangle(const Rectangle &rectangle, unsigned int rows, unsigned int columns) const
 {
-    if (numberOfThreads == 1) {
+    if (numberOfThreads == 1)
         return {{rectangle.position, rectangle.size}};
-    }
 
     int columnWidth = rectangle.size.x / columns;
     int rowHeight = rectangle.size.y / rows;

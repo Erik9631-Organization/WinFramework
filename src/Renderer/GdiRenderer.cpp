@@ -173,3 +173,8 @@ void GdiRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 {
 
 }
+
+const glm::ivec2 &GdiRenderer::GetViewportSize() const
+{
+    return viewPortSize;
+}

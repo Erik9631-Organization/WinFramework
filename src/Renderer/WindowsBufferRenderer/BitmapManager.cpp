@@ -61,6 +61,8 @@ HBITMAP BitmapManager::GetBitmap() const
 
 void BitmapManager::DrawFragment(unsigned int x, unsigned int y, unsigned int hexColor)
 {
+    if(buffer == nullptr)
+        return;
     if(x >= size.x || y >= size.y)
         return;
     buffer[y * size.x + x] = hexColor;

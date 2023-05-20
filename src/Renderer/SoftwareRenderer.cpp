@@ -5,6 +5,7 @@
 #include "SoftwareRenderer.h"
 #include "ConcurrentShapeRenderer.h"
 #include <iostream>
+#include "ZBufferRegionValidator.h"
 
 void SoftwareRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -61,12 +62,10 @@ void SoftwareRenderer::SetViewportSize(const glm::ivec2 &size)
 SoftwareRenderer::SoftwareRenderer() :
     modelContainer(*this)
 {
-    try
-    {
-        bufferRenderer = LiiInjector::Injector::GetInstance().ResolveTransient<BufferRenderer>();
-    }
-    catch (const std::exception& e)
-    {
-        std::cout << "Software renderer failed to initialize: " <<e.what() << std::endl;
-    }
+    bufferRenderer = std::unique_ptr<BufferRenderer>(new ZBufferRegionValidator());
+}
+
+const glm::ivec2 &SoftwareRenderer::GetViewportSize() const
+{
+    return bufferRenderer->GetViewportSize();
 }

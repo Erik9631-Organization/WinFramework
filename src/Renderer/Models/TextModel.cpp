@@ -98,6 +98,8 @@ void TextModel::Draw()
 
     auto api = renderer->AcquireShapeRenderer();
     auto format = api->CreateFontFormat();
+    if(format == nullptr)
+        return;
     format->SetAlignment(fontAlignment);
     format->SetLineAlignment(fontLineAlignment);
     api->SetColor(color);

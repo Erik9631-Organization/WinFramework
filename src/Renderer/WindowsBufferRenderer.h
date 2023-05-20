@@ -12,12 +12,13 @@
 class WindowsBufferRenderer : public BufferRenderer
 {
 private:
+    glm::ivec2 viewportSize;
+    glm::ivec2 screenSize;
     BitmapManager* front;
     BitmapManager* back;
     WindowsCore* core = nullptr;
     HDC windowHdc = nullptr;
     HDC secondaryHdc = nullptr;
-    glm::ivec2 viewportSize{0};
     void CreateGraphicsBuffer();
     void CreateSecondaryDc();
     void DeleteSecondaryDc();
@@ -40,6 +41,8 @@ public:
     void SetViewportSize(const glm::ivec2 &size) override;
 
     ~WindowsBufferRenderer() override;
+
+    const glm::ivec2 &GetViewportSize() const override;
 
 };
 

@@ -345,3 +345,8 @@ void OpenGLRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 }
 
+const glm::ivec2 &OpenGLRenderer::GetViewportSize() const
+{
+    return viewportSize;
+}
+

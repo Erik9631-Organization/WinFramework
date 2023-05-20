@@ -208,5 +208,9 @@ public:
     void AddCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber) override;
 
     void RemoveCoreLifecycleSubscriber(CoreLifecycleSubscriber *subscriber) override;
+
+    glm::ivec2 GetCombinedScreenSize() override;
+
+    Window * GetWindow() override;
 };
 

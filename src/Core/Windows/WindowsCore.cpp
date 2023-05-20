@@ -588,6 +588,16 @@ HDC WindowsCore::GetHdc()
     return GetDC(windowHandle);
 }
 
+glm::ivec2 WindowsCore::GetCombinedScreenSize()
+{
+    return {GetSystemMetrics(SM_CXVIRTUALSCREEN), GetSystemMetrics(SM_CYVIRTUALSCREEN)};
+}
+
+Window * WindowsCore::GetWindow()
+{
+    return wrapperFrame;
+}
+
 void WindowsCore::MsgSubject::NotifyOnResizeSubscribers(EventResizeInfo event)
 {
     for(ResizeSubscriber& subscriber : resizeSubscribers)

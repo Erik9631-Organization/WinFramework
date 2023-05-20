@@ -24,6 +24,7 @@ public:
     virtual void ForceRedraw() = 0;
     virtual void Close() = 0;
     virtual void SetWindow(Window* window) = 0;
+    virtual Window * GetWindow() = 0;
     virtual void Start() = 0;
     virtual void SetLockCursorSize(const glm::vec3 &size) = 0;
     virtual void LockCursor(const bool& lockState) = 0;
@@ -31,6 +32,8 @@ public:
     virtual AsyncRenderCommandHandler * GetRenderer() = 0;
     virtual void AddOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
     virtual void RemoveOnResizePreProcessSubsriber(ResizeSubscriber& subscriber) = 0;
+    virtual glm::ivec2 GetCombinedScreenSize() = 0;
+    virtual
     virtual ~Core() = default;
 };
 

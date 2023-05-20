@@ -15,6 +15,8 @@ void WindowsBufferRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
     core = dynamic_cast<WindowsCore*>(e.GetCore());
     if(core == nullptr)
         std::cout << "WindowsBufferRenderer::OnCoreStart: core is not a WindowsCore instance\n" << std::endl;
+    screenSize = core->GetCombinedScreenSize();
+    viewportSize = core->GetWindow()->GetSize();
     CreateGraphicsBuffer();
 }
 
@@ -60,8 +62,6 @@ void WindowsBufferRenderer::SwapScreenBuffer()
 void WindowsBufferRenderer::SetViewportSize(const glm::ivec2 &size)
 {
     viewportSize = size;
-    CreateSecondaryDc();
-    CreateBitmap();
 }
 
 void WindowsBufferRenderer::CreateGraphicsBuffer()
@@ -79,8 +79,8 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
 
 void WindowsBufferRenderer::CreateBitmap()
 {
-    front->SetSize(viewportSize, secondaryHdc);
-    back->SetSize(viewportSize, secondaryHdc);
+    front->SetSize(screenSize, secondaryHdc);
+    back->SetSize(screenSize, secondaryHdc);
 }
 
 WindowsBufferRenderer::WindowsBufferRenderer() :
@@ -94,4 +94,9 @@ WindowsBufferRenderer::~WindowsBufferRenderer()
 {
     delete front;
     delete back;
+}
+
+const glm::ivec2 &WindowsBufferRenderer::GetViewportSize() const
+{
+    return viewportSize;
 }

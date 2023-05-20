@@ -73,6 +73,8 @@ public:
     void OnCoreStop(const EventCoreLifecycleInfo &e) override;
 
     void OnCoreDestroy(const EventCoreLifecycleInfo &e) override;
+
+    const glm::ivec2 &GetViewportSize() const override;
 };
 
 
