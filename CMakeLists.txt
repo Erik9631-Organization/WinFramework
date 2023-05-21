@@ -30,6 +30,9 @@ add_subdirectory(libs/LiiInjector)
 add_subdirectory(libs/MemoryManager)
 add_subdirectory(libs/catch2)
 add_subdirectory(src)
+add_subdirectory(libs/Tracy)
+add_subdirectory(libs/agc)
+target_include_directories(antigrain PUBLIC libs/agc/include)
 target_link_libraries(${PROJECT_NAME}
 		stb
 		opengl32
@@ -39,6 +42,8 @@ target_link_libraries(${PROJECT_NAME}
 		MemoryManagerLib
 		ConcurrentQueue
 		LiiInjector
+		TracyClient
+		antigrain
 		)
 
 

@@ -14,8 +14,8 @@ class WindowsBufferRenderer : public BufferRenderer
 private:
     glm::ivec2 viewportSize;
     glm::ivec2 screenSize;
-    BitmapManager* front;
-    BitmapManager* back;
+    BitmapManager* front = nullptr;
+    BitmapManager* back = nullptr;
     WindowsCore* core = nullptr;
     HDC windowHdc = nullptr;
     HDC secondaryHdc = nullptr;

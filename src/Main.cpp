@@ -219,7 +219,7 @@ void BasicWindow()
 int main( int argc, char* argv[] )
 {
 //    BasicShapes();
-    BasicWindow();
-//    ComponentGallery();
+//    BasicWindow();
+    ComponentGallery();
     return 0;
 }

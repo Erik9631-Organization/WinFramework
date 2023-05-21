@@ -6,11 +6,17 @@
 #define LII_BITMAPMANAGER_H
 #include <windows.h>
 #include <vector>
+#include <memory>
 #include "glm.hpp"
+#include "agg_renderer_base.h"
+#include "agg_pixfmt_rgba.h"
 
 class BitmapManager
 {
 private:
+    std::unique_ptr<agg::rendering_buffer> aggBuffer;
+    std::unique_ptr<agg::pixfmt_rgba32> pixelFormat;
+    std::unique_ptr<agg::renderer_base<agg::pixfmt_rgba32>> renderBase;
     HBITMAP bitmap = nullptr;
     unsigned int *buffer = nullptr;
     void Release();

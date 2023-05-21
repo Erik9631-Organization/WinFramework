@@ -47,11 +47,15 @@ void BitmapManager::CreateBitmap(HDC hdc)
     bitmapInfo.bmiHeader.biCompression = BI_RGB;
     Release();
     bitmap = CreateDIBSection(hdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&buffer, nullptr, 0);
+    aggBuffer = std::make_unique<agg::rendering_buffer>(reinterpret_cast<unsigned char*>(buffer), size.x, size.y, size.x * sizeof(unsigned int));
+    pixelFormat = std::make_unique<agg::pixfmt_rgba32>(*aggBuffer);
+    renderBase = std::make_unique<agg::renderer_base<agg::pixfmt_rgba32>>(*pixelFormat);
+    renderBase->clear(agg::rgba(255, 0, 0, 255));
 }
 
 unsigned int *BitmapManager::GetBuffer() const
 {
-    return buffer;
+    return reinterpret_cast<unsigned int *>(buffer);
 }
 
 HBITMAP BitmapManager::GetBitmap() const
@@ -61,9 +65,9 @@ HBITMAP BitmapManager::GetBitmap() const
 
 void BitmapManager::DrawFragment(unsigned int x, unsigned int y, unsigned int hexColor)
 {
-    if(buffer == nullptr)
-        return;
-    if(x >= size.x || y >= size.y)
-        return;
-    buffer[y * size.x + x] = hexColor;
+//    if(buffer == nullptr)
+//        return;
+//    if(x >= size.x || y >= size.y)
+//        return;
+//    buffer[y * size.x + x] = hexColor;
 }

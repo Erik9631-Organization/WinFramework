@@ -13,7 +13,7 @@
 #include <iostream>
 #include "LiiApplication.h"
 #include <Injector.hpp>
-
+#include <tracy/Tracy.hpp>
 //TODO add release model so model can be also removed
 
 void DefaultAsyncRenderCommandHandler::ReceiveCommand(std::unique_ptr<RenderMessage> message)
@@ -55,6 +55,7 @@ void DefaultAsyncRenderCommandHandler::PerformRenderCommand(std::unique_ptr<Rend
         }
         case Commands::Redraw:
         {
+            FrameMark;
             invalidated = false;
             renderer->Render();
             renderer->SwapScreenBuffer();

@@ -6,6 +6,7 @@
 #include "ConcurrentShapeRenderer.h"
 #include <iostream>
 #include "ZBufferRegionValidator.h"
+#include <tracy/Tracy.hpp>
 
 void SoftwareRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -29,6 +30,7 @@ void SoftwareRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void SoftwareRenderer::Render()
 {
+    ZoneScoped;
     for (auto it = modelContainer.GetZIndexMap().rbegin(); it != modelContainer.GetZIndexMap().rend(); ++it)
         it->second->Draw();
 }

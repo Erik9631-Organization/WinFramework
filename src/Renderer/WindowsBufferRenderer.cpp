@@ -36,7 +36,6 @@ void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::
     back->DrawFragment(position.x, position.y, hexColor);
 }
 
-
 void WindowsBufferRenderer::DeleteSecondaryDc()
 {
     if(secondaryHdc != nullptr)
@@ -54,6 +53,8 @@ void WindowsBufferRenderer::CreateSecondaryDc()
 
 void WindowsBufferRenderer::SwapScreenBuffer()
 {
+    if(front == nullptr || back == nullptr)
+        return;
     std::swap(front, back); // We can now safely swap the buffers and rendering should continue on the other buffer.
     SelectObject(secondaryHdc, front->GetBitmap()); // Associate the front buffer with the secondaryHdc
     BitBlt(windowHdc, 0, 0, viewportSize.x, viewportSize.y, secondaryHdc, 0, 0, SRCCOPY);
@@ -79,13 +80,15 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
 
 void WindowsBufferRenderer::CreateBitmap()
 {
+    if(front != nullptr && back != nullptr)
+       return;
+    front = new BitmapManager(screenSize, secondaryHdc);
+    back = new BitmapManager(screenSize, secondaryHdc);
     front->SetSize(screenSize, secondaryHdc);
     back->SetSize(screenSize, secondaryHdc);
 }
 
-WindowsBufferRenderer::WindowsBufferRenderer() :
-    front(new BitmapManager(glm::ivec2(0, 0), nullptr)),
-    back(new BitmapManager(glm::ivec2(0, 0), nullptr))
+WindowsBufferRenderer::WindowsBufferRenderer()
 {
 
 }

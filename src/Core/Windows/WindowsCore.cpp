@@ -7,7 +7,6 @@
 #include "Renderer.h"
 #include <processthreadsapi.h>
 #include "Messages.h"
-#include <chrono>
 #include "CoreArgs.h"
 #include "DefaultAsyncRenderCommandHandler.h"
 
