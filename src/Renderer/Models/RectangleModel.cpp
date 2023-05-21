@@ -80,20 +80,18 @@ void RectangleModel::Draw()
     if(!visible)
         return;
 
-    auto renderingApi = this->renderer->AcquireShapeRenderer();
-    if(renderingApi == nullptr)
-        return;
-    renderingApi->SetColor(color);
+    auto& renderingApi = this->renderer->AcquireShapeRenderer();
+    renderingApi.SetColor(color);
     //TODO Viewport position should serve only as an offset to the current position.
     if(viewPort.IsViewportSet())
-        renderingApi->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
+        renderingApi.SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi->DrawFillRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
+        renderingApi.DrawFillRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
     else
     {
-        renderingApi->SetThickness(thickness);
-        renderingApi->DrawRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
+        renderingApi.SetThickness(thickness);
+        renderingApi.DrawRectangle(movableBehavior.GetPosition(), resizableBehavior.GetSize());
     }
 
 }

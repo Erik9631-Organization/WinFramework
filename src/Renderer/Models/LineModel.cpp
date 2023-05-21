@@ -43,10 +43,10 @@ void LineModel::Draw()
 {
     if(!visible)
         return;
-    auto renderer = renderingProvider->AcquireShapeRenderer();
-    renderer->SetColor(color);
-    renderer->SetThickness(size);
-    renderer->DrawLine(startPoint + position, endPoint + position);
+    auto& renderer = renderingProvider->AcquireShapeRenderer();
+    renderer.SetColor(color);
+    renderer.SetThickness(size);
+    renderer.DrawLine(startPoint + position, endPoint + position);
 }
 
 void LineModel::SetRenderer(Renderer *renderer)

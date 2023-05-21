@@ -43,6 +43,8 @@ void LiiApplication::Init()
         return new SoftwareRenderer();
     });
 
+
+
 //    LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
 //    {
 //        return new GdiRenderer();

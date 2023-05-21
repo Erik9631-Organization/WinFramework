@@ -5,7 +5,6 @@
 #include "SoftwareRenderer.h"
 #include "ConcurrentShapeRenderer.h"
 #include <iostream>
-#include "ZBufferRegionValidator.h"
 #include <tracy/Tracy.hpp>
 
 void SoftwareRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
@@ -45,12 +44,6 @@ RenderingModel *SoftwareRenderer::GetModel(size_t index)
     return modelContainer.GetModel(index);
 }
 
-std::unique_ptr<ShapeRenderer> SoftwareRenderer::AcquireShapeRenderer()
-{
-    auto shapeRenderer = std::make_unique<ConcurrentShapeRenderer>(*bufferRenderer);
-    return shapeRenderer;
-}
-
 void SoftwareRenderer::SwapScreenBuffer()
 {
     bufferRenderer->SwapScreenBuffer();
@@ -79,4 +72,10 @@ SoftwareRenderer::SoftwareRenderer() :
 const glm::ivec2 &SoftwareRenderer::GetViewportSize() const
 {
     return bufferRenderer->GetViewportSize();
+}
+
+ShapeRenderer &SoftwareRenderer::AcquireShapeRenderer()
+{
+    auto& shapeRenderer = bufferRenderer->AcquireShapeRenderer();
+    return shapeRenderer;
 }

@@ -62,6 +62,8 @@ public:
 
     void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size) override;
 
+    void SetBufferRenderer(BufferRenderer &bufferRenderer) override;
+
 private:
     void OnResize(EventResizeInfo e) override;
 

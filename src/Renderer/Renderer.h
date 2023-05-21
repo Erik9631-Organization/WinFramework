@@ -21,7 +21,6 @@ public:
     virtual void Render() = 0;
     virtual RenderingModel * CreateModel(SubCommands createCommand) = 0;
     virtual RenderingModel* GetModel(size_t index) = 0;
-    virtual std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() = 0;
     ~Renderer() override = default;
 };
 

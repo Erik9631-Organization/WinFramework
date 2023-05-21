@@ -94,7 +94,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h)
+        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h Renderer/AGGShapeRenderer.cpp Renderer/AGGShapeRenderer.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Renderer_WindowsBufferRenderer
@@ -239,7 +239,7 @@ set(Lii_DataTypes
         DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
-    DataTypes/MultiTree.cpp DataTypes/ZBufferRegionValidator.cpp DataTypes/ZBufferRegionValidator.h DataTypes/IRectangle.h DataTypes/Rectangle.h DataTypes/Line.cpp DataTypes/Line.h DataTypes/ILine.cpp DataTypes/ILine.h)
+    DataTypes/MultiTree.cpp DataTypes/IRectangle.h DataTypes/Rectangle.h DataTypes/Line.cpp DataTypes/Line.h DataTypes/ILine.cpp DataTypes/ILine.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 

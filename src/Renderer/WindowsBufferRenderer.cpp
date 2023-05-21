@@ -4,6 +4,8 @@
 
 #include "WindowsBufferRenderer.h"
 #include "EventCoreLifecycleInfo.h"
+#include "ConcurrentShapeRenderer.h"
+#include "ShapeRenderer.h"
 
 void WindowsBufferRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -58,6 +60,7 @@ void WindowsBufferRenderer::SwapScreenBuffer()
     std::swap(front, back); // We can now safely swap the buffers and rendering should continue on the other buffer.
     SelectObject(secondaryHdc, front->GetBitmap()); // Associate the front buffer with the secondaryHdc
     BitBlt(windowHdc, 0, 0, viewportSize.x, viewportSize.y, secondaryHdc, 0, 0, SRCCOPY);
+    ReleaseRenderers();
 }
 
 void WindowsBufferRenderer::SetViewportSize(const glm::ivec2 &size)
@@ -88,10 +91,6 @@ void WindowsBufferRenderer::CreateBitmap()
     back->SetSize(screenSize, secondaryHdc);
 }
 
-WindowsBufferRenderer::WindowsBufferRenderer()
-{
-
-}
 
 WindowsBufferRenderer::~WindowsBufferRenderer()
 {
@@ -102,4 +101,18 @@ WindowsBufferRenderer::~WindowsBufferRenderer()
 const glm::ivec2 &WindowsBufferRenderer::GetViewportSize() const
 {
     return viewportSize;
+}
+
+ShapeRenderer &WindowsBufferRenderer::AcquireShapeRenderer()
+{
+    auto* shapeRenderer = new ConcurrentShapeRenderer(*this);
+    renderer.emplace_back(shapeRenderer);
+    return *shapeRenderer;
+}
+
+void WindowsBufferRenderer::ReleaseRenderers()
+{
+    for(auto* shapeRenderer : renderer)
+        delete shapeRenderer;
+    renderer.clear();
 }

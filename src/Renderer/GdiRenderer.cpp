@@ -57,16 +57,11 @@ void GdiRenderer::GdiStartup()
     GdiplusStartup(reinterpret_cast<ULONG_PTR *>(&token), &input, &output);
 }
 
-std::unique_ptr<ShapeRenderer> GdiRenderer::AcquireShapeRenderer()
-{
-    auto graphics = std::make_unique<Graphics>(secondaryDc);
-    auto renderer = new GdiShapeRenderer(std::move(graphics));
-    return std::unique_ptr<ShapeRenderer>(renderer);
-}
 
 void GdiRenderer::SwapScreenBuffer()
 {
     BitBlt(windowHdc, 0, 0, viewPortSize.x, viewPortSize.y, secondaryDc, 0, 0, SRCCOPY);
+
 }
 RenderingModel *GdiRenderer::GetModel(size_t index)
 {
@@ -126,4 +121,19 @@ void GdiRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 const glm::ivec2 &GdiRenderer::GetViewportSize() const
 {
     return viewPortSize;
+}
+
+ShapeRenderer &GdiRenderer::AcquireShapeRenderer()
+{
+    auto graphics = std::make_unique<Graphics>(secondaryDc);
+    auto* renderer = new GdiShapeRenderer(std::move(graphics));
+    shapeRenderers.push_back(renderer);
+    return *renderer;
+}
+
+void GdiRenderer::ReleaseRenderers()
+{
+    for(auto* renderer : shapeRenderers)
+        delete renderer;
+    shapeRenderers.clear();
 }

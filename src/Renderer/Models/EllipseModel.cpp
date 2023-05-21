@@ -84,18 +84,16 @@ void EllipseModel::Draw()
     if(renderFromCenter)
         calculatedPosition = TranslateFromCornerToCenter(calculatedPosition, resizableBehavior.GetSize());
 
-    auto renderingApi = this->renderer->AcquireShapeRenderer();
-    if(renderingApi == nullptr)
-        return;
-    renderingApi->SetColor(color);
+    auto& renderingApi = this->renderer->AcquireShapeRenderer();
+    renderingApi.SetColor(color);
     if(viewPort.IsViewportSet())
-        renderingApi->SetClippingRectangle(calculatedPosition + viewPort.GetViewportPosition(),
+        renderingApi.SetClippingRectangle(calculatedPosition + viewPort.GetViewportPosition(),
                                            viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi->DrawFillEllipse(calculatedPosition, resizableBehavior.GetSize());
+        renderingApi.DrawFillEllipse(calculatedPosition, resizableBehavior.GetSize());
     else
-        renderingApi->DrawEllipse(calculatedPosition, resizableBehavior.GetSize());
+        renderingApi.DrawEllipse(calculatedPosition, resizableBehavior.GetSize());
 
 }
 

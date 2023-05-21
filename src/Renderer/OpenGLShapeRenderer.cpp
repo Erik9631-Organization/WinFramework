@@ -150,3 +150,8 @@ void OpenGLShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3
 {
 
 }
+
+void OpenGLShapeRenderer::SetBufferRenderer(BufferRenderer &bufferRenderer)
+{
+
+}

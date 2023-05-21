@@ -8,6 +8,8 @@
 #include "FontFormat.h"
 #include <future>
 #include <tracy/Tracy.hpp>
+#include "BufferRenderer.h"
+using namespace Lii::Utils;
 
 void ConcurrentShapeRenderer::DrawModel(const OpenGL::Model &model)
 {
@@ -91,7 +93,7 @@ void ConcurrentShapeRenderer::Translate(glm::vec3 translation)
 
 }
 
-ConcurrentShapeRenderer::ConcurrentShapeRenderer(BufferRenderer &renderer) : bufferRenderer(renderer)
+ConcurrentShapeRenderer::ConcurrentShapeRenderer(BufferRenderer &renderer) : bufferRenderer(&renderer)
 {
     numberOfThreads = 16;
 }
@@ -331,7 +333,7 @@ void ConcurrentShapeRenderer::DrawFragment(const glm::ivec3 &position, const glm
 {
     if(IsOutsideBounds(position.x, position.y))
         return;
-    bufferRenderer.DrawFragment(position, color);
+    bufferRenderer->DrawFragment(position, color);
 }
 
 bool ConcurrentShapeRenderer::IsOutsideBounds(unsigned int x, unsigned int y) const
@@ -369,4 +371,9 @@ bool ConcurrentShapeRenderer::IsRectangleOutsideBounds(const IRectangle &rectang
         return true;
 
     return false;
+}
+
+void ConcurrentShapeRenderer::SetBufferRenderer(BufferRenderer &bufferRenderer)
+{
+    this->bufferRenderer = &bufferRenderer;
 }

@@ -277,9 +277,9 @@ void OpenGLRenderer::GraphicsInit()
 }
 
 //TODO Finish Acquire Renderer for opengl
-unique_ptr<ShapeRenderer> OpenGLRenderer::AcquireShapeRenderer()
+ShapeRenderer& OpenGLRenderer::AcquireShapeRenderer()
 {
-    return nullptr;
+    return reinterpret_cast<ShapeRenderer&>(manager);
 }
 
 void OpenGLRenderer::SwapScreenBuffer()

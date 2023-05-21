@@ -8,10 +8,10 @@
 #include <string>
 #include <memory>
 #include <glm.hpp>
-#include "BufferRenderer.h"
 
 class FontFormat;
 class RenderCommander;
+class BufferRenderer;
 
 namespace OpenGL
 {
@@ -21,6 +21,7 @@ namespace OpenGL
 class ShapeRenderer
 {
 public:
+    virtual void SetBufferRenderer(BufferRenderer &bufferRenderer) = 0;
     virtual void DrawEllipse(const glm::vec3& position, const glm::vec3& size) = 0;
     //virtual void DrawImage(const Image& imageData, float x, float y);
     //virtual void DrawImage(const Image& imageData, vector2d viewPortSize);

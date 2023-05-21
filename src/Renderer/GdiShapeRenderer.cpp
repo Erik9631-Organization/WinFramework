@@ -116,3 +116,9 @@ void GdiShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &s
 {
     graphics->DrawEllipse(pen, position.x, position.y, size.x, size.y);
 }
+
+//TODO wrap graphics into a buffer renderer
+void GdiShapeRenderer::SetBufferRenderer(BufferRenderer &bufferRenderer)
+{
+
+}

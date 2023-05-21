@@ -51,10 +51,11 @@ private:
     HBITMAP screenBitmap = nullptr;
     glm::ivec2 viewPortSize{0};
     ModelContainer modelContainer;
+    std::vector<ShapeRenderer*> shapeRenderers;
+    void ReleaseRenderers();
 public:
     GdiRenderer();
     void Render() override;
-    std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
     RenderingModel * CreateModel(SubCommands createCommand) override;
@@ -70,6 +71,8 @@ public:
     void OnCoreDestroy(const EventCoreLifecycleInfo &e) override;
 
     const glm::ivec2 &GetViewportSize() const override;
+
+    ShapeRenderer &AcquireShapeRenderer() override;
 };
 
 

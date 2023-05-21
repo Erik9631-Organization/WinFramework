@@ -6,10 +6,14 @@
 #define LII_LINE_H
 #include <glm.hpp>
 
-struct Line
+namespace Lii::Utils
 {
-    glm::vec2 start;
-    glm::vec2 end;
-};
+    struct Line
+    {
+        glm::vec2 start;
+        glm::vec2 end;
+    };
+
+}
 
 #endif //LII_LINE_H

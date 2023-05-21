@@ -10,32 +10,33 @@
 #include "Rectangle.h"
 #include "IRectangle.h"
 #include "Line.h"
+class BufferRenderer;
+
 
 class ConcurrentShapeRenderer : public ShapeRenderer
 {
 private:
-    BufferRenderer& bufferRenderer;
+    BufferRenderer* bufferRenderer;
     unsigned int numberOfThreads = 2;
-    unsigned int threadFactorX = 2;
-    unsigned int threadFactorY = 1;
     glm::ivec4 color{255, 255, 255, 255};
     float thickness = 1.0f;
-    Rectangle clippingRectangle;
+    Lii::Utils::Rectangle clippingRectangle;
     bool clippingSet = false;
 
-    std::vector<Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
-    [[nodiscard]] std::vector<IRectangle> SplitRectangle(const Rectangle& rectangle) const;
+    std::vector<Lii::Utils::Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
+    [[nodiscard]] std::vector<Lii::Utils::IRectangle> SplitRectangle(const Lii::Utils::Rectangle& rectangle) const;
 
-    void DrawSingleRectangle(const IRectangle &rectangle);
-    void DrawSingleLine(const Line &line);
+    void DrawSingleRectangle(const Lii::Utils::IRectangle &rectangle);
+    void DrawSingleLine(const Lii::Utils::Line &line);
     void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
     void DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB);
-    bool IsOutsideBounds(unsigned int x, unsigned int y) const;
-    bool IsRectangleOutsideBounds(const IRectangle& rectangle) const;
+    [[nodiscard]] bool IsOutsideBounds(unsigned int x, unsigned int y) const;
+    [[nodiscard]] bool IsRectangleOutsideBounds(const Lii::Utils::IRectangle& rectangle) const;
     void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color);
-
 public:
     explicit ConcurrentShapeRenderer(BufferRenderer& renderer);
+
+    void SetBufferRenderer(BufferRenderer& renderer) override;
 
     void DrawModel(const OpenGL::Model &model) override;
 

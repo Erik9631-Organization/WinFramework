@@ -8,6 +8,7 @@
 
 #include "Renderer.h"
 #include "ModelContainer.h"
+#include "BufferRenderer.h"
 
 class SoftwareRenderer : public Renderer
 {
@@ -30,13 +31,13 @@ public:
 
     RenderingModel *GetModel(size_t index) override;
 
-    std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() override;
-
     void SwapScreenBuffer() override;
 
     void SetViewportSize(const glm::ivec2 &size) override;
 
     [[nodiscard]] const glm::ivec2 &GetViewportSize() const override;
+
+    ShapeRenderer &AcquireShapeRenderer() override;
 
 };
 

@@ -96,19 +96,19 @@ void TextModel::Draw()
     if(renderer == nullptr)
         return;
 
-    auto api = renderer->AcquireShapeRenderer();
-    auto format = api->CreateFontFormat();
+    auto& api = renderer->AcquireShapeRenderer();
+    auto format = api.CreateFontFormat();
     if(format == nullptr)
         return;
     format->SetAlignment(fontAlignment);
     format->SetLineAlignment(fontLineAlignment);
-    api->SetColor(color);
+    api.SetColor(color);
     if(viewPort.IsViewportSet())
-        api->SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
+        api.SetClippingRectangle(viewPort.GetViewportPosition(), viewPort.GetViewportSize());
 
-    api->SetFontSize(fontSize);
-    api->SetFontFamily(fontFamily);
-    api->DrawString(text, movableModelBehavior.GetPosition(), *format);
+    api.SetFontSize(fontSize);
+    api.SetFontFamily(fontFamily);
+    api.DrawString(text, movableModelBehavior.GetPosition(), *format);
 }
 
 void TextModel::SetRenderer(Renderer *renderer)

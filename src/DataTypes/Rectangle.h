@@ -6,13 +6,17 @@
 #define LII_RECTANGLE_H
 
 
-#include "vec2.hpp"
+#include <glm.hpp>
 
-struct Rectangle
+namespace Lii::Utils
 {
-    glm::vec2 position{0};
-    glm::vec2 size{0};
-};
+    struct Rectangle
+    {
+        glm::vec2 position{0};
+        glm::vec2 size{0};
+    };
+
+}
 
 
 #endif //LII_RECTANGLE_H

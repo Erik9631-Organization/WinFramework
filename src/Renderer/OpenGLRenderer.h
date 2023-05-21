@@ -14,7 +14,7 @@ public:
     void Render() override;
     glm::ivec2 viewportSize{0};
 
-    std::unique_ptr<ShapeRenderer> AcquireShapeRenderer() override;
+    ShapeRenderer& AcquireShapeRenderer() override;
     void SwapScreenBuffer() override;
     RenderingModel *GetModel(size_t index) override;
 

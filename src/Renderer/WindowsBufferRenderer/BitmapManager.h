@@ -15,8 +15,8 @@ class BitmapManager
 {
 private:
     std::unique_ptr<agg::rendering_buffer> aggBuffer;
-    std::unique_ptr<agg::pixfmt_rgba32> pixelFormat;
-    std::unique_ptr<agg::renderer_base<agg::pixfmt_rgba32>> renderBase;
+    std::unique_ptr<agg::pixfmt_bgra32> pixelFormat;
+    std::unique_ptr<agg::renderer_base<agg::pixfmt_bgra32>> renderBase;
     HBITMAP bitmap = nullptr;
     unsigned int *buffer = nullptr;
     void Release();

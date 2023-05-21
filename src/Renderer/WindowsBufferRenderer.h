@@ -23,9 +23,9 @@ private:
     void CreateSecondaryDc();
     void DeleteSecondaryDc();
     void CreateBitmap();
+    std::vector<ShapeRenderer*> renderer;
+    void ReleaseRenderers();
 public:
-    WindowsBufferRenderer();
-
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;
 
     void OnCoreStart(const EventCoreLifecycleInfo &e) override;
@@ -43,6 +43,8 @@ public:
     ~WindowsBufferRenderer() override;
 
     const glm::ivec2 &GetViewportSize() const override;
+
+    ShapeRenderer &AcquireShapeRenderer() override;
 
 };
 
