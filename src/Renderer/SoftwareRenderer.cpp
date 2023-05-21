@@ -6,7 +6,6 @@
 #include "ConcurrentShapeRenderer.h"
 #include <iostream>
 #include "ZBufferRegionValidator.h"
-#include <Tracy.hpp>
 
 void SoftwareRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -30,9 +29,8 @@ void SoftwareRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void SoftwareRenderer::Render()
 {
-    ZoneScoped;
-    for (auto& model : modelContainer.GetModels())
-        model->Draw();
+    for (auto it = modelContainer.GetZIndexMap().rbegin(); it != modelContainer.GetZIndexMap().rend(); ++it)
+        it->second->Draw();
 }
 
 RenderingModel *SoftwareRenderer::CreateModel(SubCommands createCommand)
@@ -54,7 +52,6 @@ std::unique_ptr<ShapeRenderer> SoftwareRenderer::AcquireShapeRenderer()
 void SoftwareRenderer::SwapScreenBuffer()
 {
     bufferRenderer->SwapScreenBuffer();
-    FrameMark;
 }
 
 void SoftwareRenderer::SetViewportSize(const glm::ivec2 &size)
@@ -65,7 +62,16 @@ void SoftwareRenderer::SetViewportSize(const glm::ivec2 &size)
 SoftwareRenderer::SoftwareRenderer() :
     modelContainer(*this)
 {
-    bufferRenderer = std::unique_ptr<BufferRenderer>(new ZBufferRegionValidator());
+   // bufferRenderer = std::unique_ptr<BufferRenderer>(new ZBufferRegionValidator());
+    try
+    {
+        bufferRenderer = LiiInjector::Injector::GetInstance().ResolveTransient<BufferRenderer>();
+    }
+    catch (std::runtime_error& e)
+    {
+        std::cout <<"ZBufferRegionValidator BufferRenderer dependency injection failed with: "<< e.what() << std::endl;
+    }
+
 }
 
 const glm::ivec2 &SoftwareRenderer::GetViewportSize() const

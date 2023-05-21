@@ -209,9 +209,17 @@ void ComponentGallery()
     LiiApplication::GetInstance()->JoinThreads();
 }
 
+void BasicWindow()
+{
+    LiiApplication::Init();
+    auto window = Window::Create(0, 0, 800, 600, "testWindow");
+    LiiApplication::GetInstance()->JoinThreads();
+}
+
 int main( int argc, char* argv[] )
 {
-    ComponentGallery();
-//   BasicShapes();
+//    BasicShapes();
+    BasicWindow();
+//    ComponentGallery();
     return 0;
 }

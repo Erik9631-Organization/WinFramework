@@ -34,7 +34,7 @@ namespace Gdiplus
 template<typename T> class MultiTree;
 
 
-class GdiRenderer : public Renderer, public ResizeSubscriber, public MoveSubscriber
+class GdiRenderer : public Renderer
 {
 private:
     static void GdiStartup();
@@ -49,7 +49,6 @@ private:
     HDC windowHdc = nullptr;
     HDC secondaryDc = nullptr;
     HBITMAP screenBitmap = nullptr;
-    std::multimap<float, RenderingModel*> modelZIndexMap;
     glm::ivec2 viewPortSize{0};
     ModelContainer modelContainer;
 public:
@@ -60,11 +59,7 @@ public:
     RenderingModel *GetModel(size_t index) override;
     RenderingModel * CreateModel(SubCommands createCommand) override;
 
-    void OnMove(EventMoveInfo e) override;
-
     void SetViewportSize(const glm::ivec2 &size) override;
-
-    void OnResize(EventResizeInfo e) override;
 
     void OnCoreInit(const EventCoreLifecycleInfo &e) override;
 

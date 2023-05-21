@@ -37,6 +37,7 @@ void LiiApplication::Init()
         return core.release();
     });
 
+
     LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*
     {
         return new SoftwareRenderer();

@@ -7,18 +7,22 @@
 #include "RenderingModel.h"
 #include "glm.hpp"
 #include "DefaultViewport.h"
+#include "Movable.h"
 
-class LineModel : public RenderingModel
+class LineModel : public RenderingModel, public Movable
 {
 private:
     bool visible = true;
     glm::ivec4 color;
-    glm::vec3 startPoint;
-    glm::vec3 endPoint;
+    glm::vec3 startPoint{0};
+    glm::vec3 endPoint{0};
     Renderer* renderingProvider;
     float size;
     size_t id = -1;
     DefaultViewport viewPort;
+    glm::vec3 position{0};
+    glm::vec3 translate{0};
+    std::vector<MoveSubscriber*> moveSubscribers;
 public:
     void SetStartPont(const glm::vec3 &pos);
     void SetEndPoint(const glm::vec3 &pos);
@@ -66,6 +70,22 @@ public:
     bool IsViewportSet() const override;
 
     void NotifyOnViewportReset(const ViewportEventInfo &event) override;
+
+    void AddOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void RemoveOnMoveSubscriber(MoveSubscriber &subscriber) override;
+
+    void NotifyOnMoveSubscribers(const EventMoveInfo &e) override;
+
+    const glm::vec3 &GetPosition() const override;
+
+    const glm::vec3 &GetAbsolutePosition() const override;
+
+    void SetPosition(const glm::vec3 &position, bool emit) override;
+
+    void SetTranslate(const glm::vec3 &offset, bool emit) override;
+
+    const glm::vec3 &GetTranslate() const override;
 };
 
 

@@ -22,7 +22,7 @@ Gdiplus::GdiplusStartupOutput GdiRenderer::output = {};
 
 void GdiRenderer::Render()
 {
-    for (auto it = modelZIndexMap.rbegin(); it != modelZIndexMap.rend(); ++it)
+    for (auto it = modelContainer.GetZIndexMap().rbegin(); it != modelContainer.GetZIndexMap().rend(); ++it)
         it->second->Draw();
 }
 
@@ -76,52 +76,7 @@ RenderingModel *GdiRenderer::GetModel(size_t index)
 RenderingModel * GdiRenderer::CreateModel(SubCommands createCommand)
 {
     auto* model = modelContainer.CreateModel(createCommand);
-    modelZIndexMap.emplace(model->GetZIndex(), model);
-    switch (createCommand)
-    {
-        case SubCommands::RequestRectangle:
-        {
-            auto* concreteModel = dynamic_cast<RectangleModel*>(model);
-            if(concreteModel != nullptr)
-                concreteModel->AddOnMoveSubscriber(*this);
-            break;
-        }
-        case SubCommands::RequestText:
-        {
-            auto* concreteModel = dynamic_cast<TextModel*>(model);
-            if(concreteModel != nullptr)
-                concreteModel->AddOnMoveSubscriber(*this);
-            break;
-        }
-        case SubCommands::RequestEllipse:
-        {
-            auto* concreteModel = dynamic_cast<EllipseModel*>(model);
-            if(concreteModel != nullptr)
-                concreteModel->AddOnMoveSubscriber(*this);
-            break;
-        }
-        default:
-            return nullptr;
-    }
     return model;
-}
-
-void GdiRenderer::OnMove(EventMoveInfo e)
-{
-    auto matches = modelZIndexMap.equal_range(e.GetAbsolutePosition().z);
-    auto model = dynamic_cast<RenderingModel*>(e.GetSource());
-    if (model == nullptr)
-        return;
-
-    for(auto it = matches.first; it != matches.second; ++it)
-    {
-        if(it->second == model)
-        {
-            modelZIndexMap.erase(it);
-            break;
-        }
-    }
-    modelZIndexMap.emplace(e.GetAbsolutePosition().z, model);
 }
 
 void GdiRenderer::SetViewportSize(const glm::ivec2 &size)
@@ -135,11 +90,6 @@ void GdiRenderer::UpdateBitmap()
 {
     DeleteObject(screenBitmap);
     screenBitmap = CreateCompatibleBitmap(windowHdc, viewPortSize.x, viewPortSize.y);
-}
-
-void GdiRenderer::OnResize(EventResizeInfo e)
-{
-
 }
 
 void GdiRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
@@ -157,7 +107,6 @@ void GdiRenderer::OnCoreStart(const EventCoreLifecycleInfo &e)
         //Exit the application with an error
     }
     windowHdc = windowsCore->GetHdc();
-    windowsCore->AddOnResizePreProcessSubsriber(*this);
 
     screenBitmap = CreateCompatibleBitmap(windowHdc, windowsCore->GetWrapperFrame()->GetSize().x,
             windowsCore->GetWrapperFrame()->GetSize().y);

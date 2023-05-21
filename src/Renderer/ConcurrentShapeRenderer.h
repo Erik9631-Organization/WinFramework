@@ -30,7 +30,8 @@ private:
     void DrawSingleLine(const Line &line);
     void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
     void DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB);
-    bool IsOutsideBounds(unsigned int x, unsigned int y);
+    bool IsOutsideBounds(unsigned int x, unsigned int y) const;
+    bool IsRectangleOutsideBounds(const IRectangle& rectangle) const;
     void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color);
 
 public:

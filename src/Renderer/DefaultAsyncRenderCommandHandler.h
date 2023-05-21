@@ -24,10 +24,13 @@ private:
 
     void PerformRenderCommand(std::unique_ptr<RenderMessage> message);
     std::vector<std::unique_ptr<RenderProxy>> proxies;
-    std::thread* renderThread;
+    std::thread* renderThread = nullptr;
+    std::thread* redrawThread = nullptr;
     std::unique_ptr<Renderer> renderer;
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message);
     void RenderLoop();
+    void RedrawLoop();
+    bool redrawLoop = true;
 
 public:
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;

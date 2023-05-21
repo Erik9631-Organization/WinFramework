@@ -4,7 +4,6 @@
 
 #include "WindowsBufferRenderer.h"
 #include "EventCoreLifecycleInfo.h"
-#include "Tracy.hpp"
 
 void WindowsBufferRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -33,7 +32,6 @@ void WindowsBufferRenderer::OnCoreDestroy(const EventCoreLifecycleInfo &e)
 
 void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::ivec4 &color)
 {
-    ZoneScoped;
     unsigned int hexColor = (color.a << 24) | (color.r << 16) | (color.g << 8) |  color.b;
     back->DrawFragment(position.x, position.y, hexColor);
 }
@@ -41,14 +39,12 @@ void WindowsBufferRenderer::DrawFragment(const glm::ivec3 &position, const glm::
 
 void WindowsBufferRenderer::DeleteSecondaryDc()
 {
-    ZoneScoped;
     if(secondaryHdc != nullptr)
         DeleteDC(secondaryHdc);
 }
 
 void WindowsBufferRenderer::CreateSecondaryDc()
 {
-    ZoneScoped;
     if(windowHdc == nullptr)
         return;
     DeleteSecondaryDc();
@@ -58,7 +54,6 @@ void WindowsBufferRenderer::CreateSecondaryDc()
 
 void WindowsBufferRenderer::SwapScreenBuffer()
 {
-    ZoneScoped;
     std::swap(front, back); // We can now safely swap the buffers and rendering should continue on the other buffer.
     SelectObject(secondaryHdc, front->GetBitmap()); // Associate the front buffer with the secondaryHdc
     BitBlt(windowHdc, 0, 0, viewportSize.x, viewportSize.y, secondaryHdc, 0, 0, SRCCOPY);
@@ -71,7 +66,6 @@ void WindowsBufferRenderer::SetViewportSize(const glm::ivec2 &size)
 
 void WindowsBufferRenderer::CreateGraphicsBuffer()
 {
-    ZoneScoped;
     if(core == nullptr)
     {
         std::cout << "WindowsBufferRenderer::CreateGraphicsBuffer: core doesn't exist" << std::endl;
@@ -85,7 +79,6 @@ void WindowsBufferRenderer::CreateGraphicsBuffer()
 
 void WindowsBufferRenderer::CreateBitmap()
 {
-    ZoneScoped;
     front->SetSize(screenSize, secondaryHdc);
     back->SetSize(screenSize, secondaryHdc);
 }

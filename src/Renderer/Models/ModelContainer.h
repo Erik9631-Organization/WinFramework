@@ -8,10 +8,12 @@
 
 #include <memory>
 #include <vector>
+#include <map>
 #include "Commands.h"
 #include "RenderingModel.h"
+#include "MoveSubscriber.h"
 
-class ModelContainer
+class ModelContainer : public MoveSubscriber
 {
 private:
     RenderingModel * AddModel(std::unique_ptr<RenderingModel> renderingModel);
@@ -24,13 +26,17 @@ private:
         return static_cast<T*>(AddModel(std::move(model)));
     }
     std::vector<std::unique_ptr<RenderingModel>> renderingModels;
+    std::multimap<float, RenderingModel*> modelZIndexMap;
 public:
+    [[nodiscard]] const std::multimap<float, RenderingModel *> & GetZIndexMap() const;
     explicit ModelContainer(Renderer& renderer);
     RenderingModel *CreateModel(SubCommands createCommand);
     void RemoveModel(RenderingModel* model);
     void RemoveModel(size_t index);
     RenderingModel *GetModel(size_t index);
     const std::vector<std::unique_ptr<RenderingModel>>& GetModels();
+
+    void OnMove(EventMoveInfo e) override;
 };
 
 

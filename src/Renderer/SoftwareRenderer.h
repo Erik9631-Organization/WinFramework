@@ -36,7 +36,7 @@ public:
 
     void SetViewportSize(const glm::ivec2 &size) override;
 
-    const glm::ivec2 &GetViewportSize() const override;
+    [[nodiscard]] const glm::ivec2 &GetViewportSize() const override;
 
 };
 

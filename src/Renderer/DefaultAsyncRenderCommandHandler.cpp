@@ -142,6 +142,8 @@ void DefaultAsyncRenderCommandHandler::OnCoreStart(const EventCoreLifecycleInfo 
 {
     render = true;
     renderThread = &LiiApplication::GetInstance()->CreateThread([&]{RenderLoop();}, "RenderThread");
+    if(redrawLoop == true)
+        redrawThread = &LiiApplication::GetInstance()->CreateThread([&]{RedrawLoop();}, "RedrawThread");
     auto message = RenderMessage::Create(Commands::Start, e);
     this->ReceiveCommand(std::move(message));
 }
@@ -149,6 +151,7 @@ void DefaultAsyncRenderCommandHandler::OnCoreStart(const EventCoreLifecycleInfo 
 void DefaultAsyncRenderCommandHandler::OnCoreStop(const EventCoreLifecycleInfo &e)
 {
     auto message = RenderMessage::Create(Commands::Stop, e);
+    redrawLoop = false;
     this->ReceiveCommand(std::move(message));
 }
 
@@ -157,3 +160,21 @@ void DefaultAsyncRenderCommandHandler::OnCoreDestroy(const EventCoreLifecycleInf
     auto message = RenderMessage::Create(Commands::Destroy, e);
     this->ReceiveCommand(std::move(message));
 }
+
+void DefaultAsyncRenderCommandHandler::RedrawLoop()
+{
+    int N = 16; // Set N milliseconds
+    while(redrawLoop)
+    {
+        auto start_time = std::chrono::steady_clock::now();
+
+        RedrawScene();
+
+        auto end_time = std::chrono::steady_clock::now();
+        auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+
+        if (elapsed_time < N)
+            std::this_thread::sleep_for(std::chrono::milliseconds(N - elapsed_time));
+    }
+}
+

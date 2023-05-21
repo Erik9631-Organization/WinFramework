@@ -6,6 +6,8 @@
 #include "Renderer.h"
 #include "ShapeRenderer.h"
 #include "Commands.h"
+#include "EventMoveInfo.h"
+#include "MoveSubscriber.h"
 
 void LineModel::SetStartPont(const glm::vec3 &pos)
 {
@@ -44,7 +46,7 @@ void LineModel::Draw()
     auto renderer = renderingProvider->AcquireShapeRenderer();
     renderer->SetColor(color);
     renderer->SetThickness(size);
-    renderer->DrawLine(startPoint, endPoint);
+    renderer->DrawLine(startPoint + position, endPoint + position);
 }
 
 void LineModel::SetRenderer(Renderer *renderer)
@@ -183,4 +185,47 @@ bool LineModel::IsViewportSet() const
 void LineModel::NotifyOnViewportReset(const ViewportEventInfo &event)
 {
     viewPort.NotifyOnViewportReset(event);
+}
+
+void LineModel::AddOnMoveSubscriber(MoveSubscriber &subscriber)
+{
+    moveSubscribers.push_back(&subscriber);
+}
+
+void LineModel::RemoveOnMoveSubscriber(MoveSubscriber &subscriber)
+{
+    moveSubscribers.erase(std::remove(moveSubscribers.begin(), moveSubscribers.end(), &subscriber), moveSubscribers.end());
+}
+
+void LineModel::NotifyOnMoveSubscribers(const EventMoveInfo &e)
+{
+    for(auto &subscriber : moveSubscribers)
+        subscriber->OnMove(e);
+}
+
+const glm::vec3 &LineModel::GetPosition() const
+{
+    return position;
+}
+
+const glm::vec3 &LineModel::GetAbsolutePosition() const
+{
+    return position;
+}
+
+void LineModel::SetPosition(const glm::vec3 &position, bool emit)
+{
+    this->position = position;
+    if(emit)
+        NotifyOnMoveSubscribers({position, position, this});
+}
+
+void LineModel::SetTranslate(const glm::vec3 &offset, bool emit)
+{
+    translate = offset;
+}
+
+const glm::vec3 &LineModel::GetTranslate() const
+{
+    return translate;
 }

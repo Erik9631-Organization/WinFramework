@@ -29,8 +29,6 @@ add_subdirectory(libs/ConcurrentQueue)
 add_subdirectory(libs/LiiInjector)
 add_subdirectory(libs/MemoryManager)
 add_subdirectory(libs/catch2)
-add_subdirectory(libs/Tracy)
-include_directories(libs/Tracy/public/tracy)
 add_subdirectory(src)
 target_link_libraries(${PROJECT_NAME}
 		stb
@@ -41,7 +39,6 @@ target_link_libraries(${PROJECT_NAME}
 		MemoryManagerLib
 		ConcurrentQueue
 		LiiInjector
-		TracyClient
 		)
 
 
