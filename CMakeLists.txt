@@ -2,7 +2,18 @@ cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install) #For the installs outside the framework
+
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	message("64 bit build")
+	set(built_libs ${CMAKE_SOURCE_DIR}/libs/built/x64/freeType/freetype.lib)
+	set(install_libs ${CMAKE_SOURCE_DIR}/libs/built/x64/freeType/freetype.dll)
+else ()
+	set(built_libs ${CMAKE_SOURCE_DIR}/libs/built/x86/freeType/freetype.lib)
+	set(install_libs ${CMAKE_SOURCE_DIR}/libs/built/x64/freeType/freetype.dll)
+	message("64 bit build")
+endif ()
+
 project(Lii CXX)
 #Options
 option(windows "Use windows platform" OFF)
@@ -36,6 +47,7 @@ add_subdirectory(src)
 add_subdirectory(libs/Tracy)
 add_subdirectory(libs/agc)
 target_include_directories(antigrain PUBLIC libs/agc/include)
+target_include_directories(${PROJECT_NAME} PUBLIC libs/built/include)
 target_link_libraries(${PROJECT_NAME}
 		stb
 		opengl32
@@ -47,6 +59,7 @@ target_link_libraries(${PROJECT_NAME}
 		LiiInjector
 		TracyClient
 		antigrain
+		${built_libs}
 		)
 
 
@@ -55,3 +68,6 @@ message("current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/Shaders" DESTINATION "${outputDir}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures" DESTINATION "${outputDir}")
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/libs/glew/glew32.dll" DESTINATION ${outputDir})
+foreach (file ${install_libs})
+	install(FILES "${file}" DESTINATION ${outputDir})
+endforeach ()

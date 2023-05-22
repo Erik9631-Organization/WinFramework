@@ -1,3 +1,7 @@
+if(POLICY CMP0038)
+    cmake_policy(SET CMP0038 OLD)
+endif()
+
 SET( util_HEADERS
   ${antigrain_SOURCE_DIR}/include/util/agg_color_conv_rgb8.h
   ${antigrain_SOURCE_DIR}/include/util/agg_color_conv_rgb16.h
