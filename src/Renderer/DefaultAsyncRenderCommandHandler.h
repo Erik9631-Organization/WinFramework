@@ -30,7 +30,7 @@ private:
     void CreateModelFromMessage(std::unique_ptr<RenderMessage> message);
     void RenderLoop();
     void RedrawLoop();
-    bool redrawLoop = false;
+    bool redrawLoop = true;
 
 public:
     void ReceiveCommand(std::unique_ptr<RenderMessage> message) override;

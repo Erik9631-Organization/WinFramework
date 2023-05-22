@@ -45,8 +45,8 @@ add_subdirectory(libs/MemoryManager)
 add_subdirectory(libs/catch2)
 add_subdirectory(src)
 add_subdirectory(libs/Tracy)
-add_subdirectory(libs/agc)
-target_include_directories(antigrain PUBLIC libs/agc/include)
+add_subdirectory(libs/agg)
+target_include_directories(antigrain PUBLIC libs/agg/include)
 target_include_directories(${PROJECT_NAME} PUBLIC libs/built/include)
 target_link_libraries(${PROJECT_NAME}
 		stb
@@ -60,7 +60,7 @@ target_link_libraries(${PROJECT_NAME}
 		TracyClient
 		antigrain
 		${built_libs}
-		)
+)
 
 
 #File installations

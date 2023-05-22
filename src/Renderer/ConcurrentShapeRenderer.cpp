@@ -39,6 +39,10 @@ void ConcurrentShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm:
     IRectangle rectangle = {pos, size};
     if(IsRectangleOutsideBounds(rectangle))
         return;
+
+
+    //SetFragment(glm::ivec3, glm::color)
+
     for(int y = 0; y < rectangle.size.y; y++)
     {
         int offsetY = (rectangle.position.y + y) * buffer.GetWidth();
