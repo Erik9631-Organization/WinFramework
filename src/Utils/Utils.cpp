@@ -1,10 +1,7 @@
 //
-// Created by erik9 on 4/19/2023.
+// Created by erik9 on 5/22/2023.
 //
-
-#ifndef LII_UTILS_HPP
-#define LII_UTILS_HPP
-#include <glm.hpp>
+#include "Utils.h"
 
 glm::vec4 TranslateFromCornerToCenter(const glm::vec3 &corner, const glm::vec3 &viewPort)
 {
@@ -15,5 +12,3 @@ glm::vec4 TranslateFromCornerToCenter(const glm::vec3 &corner, const glm::vec3 &
     return translatedInput;
 }
 
-
-#endif //LII_UTILS_HPP

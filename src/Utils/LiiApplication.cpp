@@ -4,8 +4,10 @@
 #include "WindowsCore.h"
 #include "Core.h"
 #include "GdiRenderer.h"
-#include "WindowsBufferRenderer.h"
 #include "SoftwareRenderer.h"
+#include "ConcurrentShapeRenderer.h"
+#include "AggShapeRenderer.h"
+#include "WindowsBufferRenderer.h"
 
 #if defined(_M_X64)
 #define USER_DATA (GWLP_USERDATA)
@@ -43,6 +45,15 @@ void LiiApplication::Init()
         return new SoftwareRenderer();
     });
 
+    LiiInjector::Injector::GetInstance().RegisterTransient<ShapeRenderer>([]()->LiiInjector::Injectable*
+    {
+        return new AggShapeRenderer();
+    });
+
+//    LiiInjector::Injector::GetInstance().RegisterTransient<ShapeRenderer>([]()->LiiInjector::Injectable*
+//    {
+//        return new ConcurrentShapeRenderer();
+//    });
 
 
 //    LiiInjector::Injector::GetInstance().RegisterTransient<Renderer>([]()->LiiInjector::Injectable*

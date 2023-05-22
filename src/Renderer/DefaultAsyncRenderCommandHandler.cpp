@@ -164,18 +164,10 @@ void DefaultAsyncRenderCommandHandler::OnCoreDestroy(const EventCoreLifecycleInf
 
 void DefaultAsyncRenderCommandHandler::RedrawLoop()
 {
-    int N = 16; // Set N milliseconds
+    int N = 1; // Set N milliseconds
     while(redrawLoop)
     {
-        auto start_time = std::chrono::steady_clock::now();
-
         RedrawScene();
-
-        auto end_time = std::chrono::steady_clock::now();
-        auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-
-        if (elapsed_time < N)
-            std::this_thread::sleep_for(std::chrono::milliseconds(N - elapsed_time));
     }
 }
 

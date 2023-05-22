@@ -5,7 +5,7 @@
 #ifndef LII_IRECTANGLE_H
 #define LII_IRECTANGLE_H
 #include <glm.hpp>
-namespace Lii::Utils
+namespace Lii::DataTypes
 {
     struct IRectangle
     {

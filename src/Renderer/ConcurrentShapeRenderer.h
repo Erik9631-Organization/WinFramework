@@ -17,26 +17,25 @@ class ConcurrentShapeRenderer : public ShapeRenderer
 {
 private:
     BufferRenderer* bufferRenderer;
+    Lii::DataTypes::Buffer<unsigned int> buffer;
     unsigned int numberOfThreads = 2;
-    glm::ivec4 color{255, 255, 255, 255};
+    unsigned int color = 0;
     float thickness = 1.0f;
-    Lii::Utils::Rectangle clippingRectangle;
+    Lii::DataTypes::Rectangle clippingRectangle;
     bool clippingSet = false;
 
-    std::vector<Lii::Utils::Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
-    [[nodiscard]] std::vector<Lii::Utils::IRectangle> SplitRectangle(const Lii::Utils::Rectangle& rectangle) const;
+    std::vector<Lii::DataTypes::Line> SplitLineIntoSegments(const glm::vec2 &pos1, const glm::vec2 &pos2, int numSegments);
+    [[nodiscard]] std::vector<Lii::DataTypes::IRectangle> SplitRectangle(const Lii::DataTypes::Rectangle& rectangle) const;
 
-    void DrawSingleRectangle(const Lii::Utils::IRectangle &rectangle);
-    void DrawSingleLine(const Lii::Utils::Line &line);
+    void DrawSingleRectangle(const Lii::DataTypes::IRectangle &rectangle);
+    void DrawSingleLine(const Lii::DataTypes::Line &line);
     void DrawFillEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size);
     void DrawEllipseSection(int startY, int endY, const glm::vec3 &pos, const glm::vec3 &size, int innerA, int innerB);
     [[nodiscard]] bool IsOutsideBounds(unsigned int x, unsigned int y) const;
-    [[nodiscard]] bool IsRectangleOutsideBounds(const Lii::Utils::IRectangle& rectangle) const;
+    [[nodiscard]] bool IsRectangleOutsideBounds(const Lii::DataTypes::IRectangle& rectangle) const;
     void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color);
 public:
-    explicit ConcurrentShapeRenderer(BufferRenderer& renderer);
-
-    void SetBufferRenderer(BufferRenderer& renderer) override;
+    explicit ConcurrentShapeRenderer();
 
     void DrawModel(const OpenGL::Model &model) override;
 
@@ -46,7 +45,7 @@ public:
 
     void DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format) override;
 
-    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) override;
+    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size, bool drawFromCenter = true) override;
 
     void DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
 
@@ -66,7 +65,9 @@ public:
 
     void Translate(glm::vec3 translation) override;
 
-    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size) override;
+    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size, bool drawFromCenter = true) override;
+
+    void SetScreenBuffer(BufferRenderer &buffer) override;
 
 };
 

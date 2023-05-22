@@ -75,7 +75,6 @@ set(Lii_Renderer
         Renderer/GdiRenderer.cpp
         Renderer/ShapeRenderer.h
         Renderer/GdiRenderer.h
-        Renderer/FontFormat.cpp
         Renderer/FontFormat.h
         Renderer/GdiShapeRenderer.cpp
         Renderer/GdiShapeRenderer.h
@@ -94,7 +93,7 @@ set(Lii_Renderer
         Renderer/GdiRenderingPool.h
         Renderer/OpenGLRenderingPool.cpp
         Renderer/OpenGLRenderingPool.h
-        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h Renderer/AGGShapeRenderer.cpp Renderer/AGGShapeRenderer.h)
+        Renderer/DefaultAsyncRenderCommandHandler.cpp Renderer/DefaultAsyncRenderCommandHandler.h Renderer/BufferRenderer.h Renderer/RenderingBase.h Renderer/SoftwareRenderer.cpp Renderer/SoftwareRenderer.h Renderer/ConcurrentShapeRenderer.cpp Renderer/ConcurrentShapeRenderer.h Renderer/WindowsBufferRenderer.cpp Renderer/WindowsBufferRenderer.h Renderer/AggShapeRenderer.cpp Renderer/AggShapeRenderer.h Renderer/AggFontFormat.cpp Renderer/AggFontFormat.h)
 source_group("Lii\\Renderer" FILES ${Lii_Renderer})
 
 set(Lii_Renderer_WindowsBufferRenderer
@@ -239,7 +238,7 @@ set(Lii_DataTypes
         DataTypes/DefaultMultiTree.h
     DataTypes/MultiTree.h
         DataTypes/DefaultMultiTree.cpp
-    DataTypes/MultiTree.cpp DataTypes/IRectangle.h DataTypes/Rectangle.h DataTypes/Line.cpp DataTypes/Line.h DataTypes/ILine.cpp DataTypes/ILine.h)
+    DataTypes/MultiTree.cpp DataTypes/IRectangle.h DataTypes/Rectangle.h DataTypes/Line.cpp DataTypes/Line.h DataTypes/ILine.cpp DataTypes/ILine.h DataTypes/Buffer.h)
 source_group("Lii\\DataTypes" FILES ${Lii_DataTypes})
 
 
@@ -334,11 +333,9 @@ source_group("Lii\\Meta Objects" FILES ${Lii_MetaObjects})
 
 
 set(Lii_Utils
-    "Utils/AccessTools.h"
-    "Utils/LiiApplication.h"
+        "Utils/LiiApplication.h"
     "Utils/InputManager.h"
-        "Utils/AccessTools.cpp"
-    "Utils/LiiApplication.cpp"
+        "Utils/LiiApplication.cpp"
     "Utils/InputManager.cpp"
     Utils/Vector2DScaler.cpp
     Utils/Vector2DScaler.h
@@ -356,7 +353,7 @@ set(Lii_Utils
         Utils/WindowBuilder.h
         Utils/RenderingProxyMessageSender.cpp
         Utils/RenderingProxyMessageSender.h
-        Utils/Utils.hpp)
+        Utils/Utils.h Utils/Utils.cpp)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL

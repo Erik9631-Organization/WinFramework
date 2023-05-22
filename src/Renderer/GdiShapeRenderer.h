@@ -29,7 +29,7 @@ public:
     void DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2) override;
     void DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
     void DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format) override;
-    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) override;
+    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size, bool drawFromCenter = true) override;
     void DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
     void SetFontFamily(const std::wstring &fontFamily) override;
     void SetFontSize(float fontSize) override;
@@ -38,9 +38,9 @@ public:
     void DrawModel(const OpenGL::Model &model) override;
     void SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size) override;
 
-    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size) override;
+    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size, bool drawFromCenter = true) override;
 
-    void SetBufferRenderer(BufferRenderer &bufferRenderer) override;
+    void SetScreenBuffer(BufferRenderer &buffer) override;
 
 private:
     Gdiplus::Pen* pen = nullptr;

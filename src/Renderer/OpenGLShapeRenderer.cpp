@@ -39,7 +39,7 @@ void OpenGLShapeRenderer::DrawString(const std::wstring &string, const glm::vec3
 }
 
 
-void OpenGLShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size)
+void OpenGLShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size, bool drawFromCenter)
 {
 
 }
@@ -146,12 +146,12 @@ void OpenGLShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::
 
 }
 
-void OpenGLShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size)
+void OpenGLShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size, bool drawFromCenter)
 {
 
 }
 
-void OpenGLShapeRenderer::SetBufferRenderer(BufferRenderer &bufferRenderer)
+void OpenGLShapeRenderer::SetScreenBuffer(BufferRenderer &buffer)
 {
 
 }

@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 set(CMAKE_SYSTEM_VERSION 10.0 CACHE STRING "" FORCE)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/install)
 project(Lii CXX)
 #Options
 option(windows "Use windows platform" OFF)
@@ -13,6 +14,8 @@ IF(windows)
 	add_compile_definitions(windows)
 endif()
 add_definitions(-DNOMINMAX)
+
+
 
 
 #GetThe output dir
@@ -52,4 +55,3 @@ message("current source dir: ${CMAKE_CURRENT_SOURCE_DIR}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/src/Shaders" DESTINATION "${outputDir}")
 install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Resources/Textures" DESTINATION "${outputDir}")
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/libs/glew/glew32.dll" DESTINATION ${outputDir})
-install(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/libs/PhysX-4.1/physx/bin/${CMAKE_BUILD_TYPE}/" DESTINATION ${outputDir} FILES_MATCHING PATTERN "*.dll")

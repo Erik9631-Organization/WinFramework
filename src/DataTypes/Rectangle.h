@@ -8,7 +8,7 @@
 
 #include <glm.hpp>
 
-namespace Lii::Utils
+namespace Lii::DataTypes
 {
     struct Rectangle
     {

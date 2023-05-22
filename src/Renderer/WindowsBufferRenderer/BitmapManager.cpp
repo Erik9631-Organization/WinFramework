@@ -47,13 +47,11 @@ void BitmapManager::CreateBitmap(HDC hdc)
     bitmapInfo.bmiHeader.biCompression = BI_RGB;
     Release();
     bitmap = CreateDIBSection(hdc, &bitmapInfo, DIB_RGB_COLORS, (void**)&buffer, nullptr, 0);
-    aggBuffer = std::make_unique<agg::rendering_buffer>(reinterpret_cast<unsigned char*>(buffer), size.x, size.y, size.x * sizeof (unsigned int));
-    pixelFormat = std::make_unique<agg::pixfmt_bgra32>(*aggBuffer);
 }
 
 unsigned int *BitmapManager::GetBuffer() const
 {
-    return reinterpret_cast<unsigned int *>(buffer);
+    return buffer;
 }
 
 HBITMAP BitmapManager::GetBitmap() const

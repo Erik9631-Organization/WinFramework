@@ -5,13 +5,20 @@
 #ifndef LII_AGGSHAPERENDERER_H
 #define LII_AGGSHAPERENDERER_H
 #include "ShapeRenderer.h"
-
-class AGGShapeRenderer : public ShapeRenderer
+#include "agg_renderer_primitives.h"
+#include "agg_renderer_mclip.h"
+#include "agg_pixfmt_rgba.h"
+class AggShapeRenderer : public ShapeRenderer
 {
+private:
+    agg::rgba color;
+    BufferRenderer* bufferRenderer;
+    std::unique_ptr<agg::rendering_buffer> buffer;
+    std::unique_ptr<agg::pixfmt_bgra32> pixelFormat;
+    agg::renderer_mclip<agg::pixfmt_bgra32>* baseRenderer;
+    agg::renderer_primitives<agg::renderer_mclip<agg::pixfmt_bgra32>>* renderer;
 public:
-    void SetBufferRenderer(BufferRenderer &bufferRenderer) override;
-
-    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size) override;
+    void DrawEllipse(const glm::vec3 &position, const glm::vec3 &size, bool drawFromCenter = true) override;
 
     void DrawModel(const OpenGL::Model &model) override;
 
@@ -21,7 +28,7 @@ public:
 
     void DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format) override;
 
-    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size) override;
+    void DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size, bool drawFromCenter = true) override;
 
     void DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size) override;
 
@@ -40,6 +47,8 @@ public:
     std::unique_ptr<FontFormat> CreateFontFormat() override;
 
     void Translate(glm::vec3 translation) override;
+
+    void SetScreenBuffer(BufferRenderer &buffer) override;
 
 };
 

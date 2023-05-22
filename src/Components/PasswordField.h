@@ -4,6 +4,7 @@
 #include "TextInputBehavior.h"
 #include "Text2.h"
 #include "Border.h"
+#include "Background.h"
 
 class PasswordField : public UiElement, public TextInputApi
 {

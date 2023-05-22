@@ -9,21 +9,26 @@
 #include "FontFormat.h"
 #include "GdiFontFormat.h"
 #include "Core/Windows/WindowsCore.h"
+#include "Utils.h"
+#include <tracy/Tracy.hpp>
 
 using namespace Gdiplus;
 
 void GdiShapeRenderer::DrawLine(const glm::vec3 &pos1, const glm::vec3 &pos2)
 {
+    ZoneScoped;
     graphics->DrawLine(pen, pos1.x, pos1.y, pos2.x, pos2.y);
 }
 
 void GdiShapeRenderer::DrawRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
+    ZoneScoped;
     graphics->DrawRectangle(pen, pos.x, pos.y, size.x, size.y);
 }
 
 void GdiShapeRenderer::DrawString(const std::wstring &string, const glm::vec3 &position, const FontFormat &format)
 {
+    ZoneScoped;
     StringFormat stringFormat{};
     stringFormat.SetAlignment((StringAlignment) format.GetAlignment());
     stringFormat.SetLineAlignment((StringAlignment) format.GetLineAlignment());
@@ -34,18 +39,24 @@ void GdiShapeRenderer::DrawString(const std::wstring &string, const glm::vec3 &p
 }
 
 
-void GdiShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size)
+void GdiShapeRenderer::DrawFillEllipse(const glm::vec3 &pos, const glm::vec3 &size, bool drawFromCenter)
 {
-    graphics->FillEllipse(brush, pos.x, pos.y, size.x, size.y);
+    ZoneScoped;
+    auto editedPosition = pos;
+    if(drawFromCenter)
+        editedPosition = TranslateFromCornerToCenter(pos, size);
+    graphics->FillEllipse(brush, editedPosition.x, editedPosition.y, size.x, size.y);
 }
 
 void GdiShapeRenderer::DrawFillRectangle(const glm::vec3 &pos, const glm::vec3 &size)
 {
+    ZoneScoped;
     graphics->FillRectangle(brush, pos.x, pos.y, size.x, size.y);
 }
 
 GdiShapeRenderer::GdiShapeRenderer(std::unique_ptr<Graphics> graphics)
 {
+    ZoneScoped;
     this->graphics = std::move(graphics);
     pen = new Gdiplus::Pen(Gdiplus::Color::Black, 1.0f);
     brush = new Gdiplus::SolidBrush(Gdiplus::Color::Black);
@@ -53,6 +64,7 @@ GdiShapeRenderer::GdiShapeRenderer(std::unique_ptr<Graphics> graphics)
 
 void GdiShapeRenderer::SetColor(const glm::ivec4 &color)
 {
+    ZoneScoped;
     BYTE a = (BYTE)color.w;
     BYTE r = (BYTE)color.x;
     BYTE g = (BYTE)color.y;
@@ -64,6 +76,7 @@ void GdiShapeRenderer::SetColor(const glm::ivec4 &color)
 
 void GdiShapeRenderer::SetColor(const glm::ivec3 &color)
 {
+    ZoneScoped;
     Color inputColor {(BYTE)color.x, (BYTE)color.y, (BYTE)color.z};
     brush->SetColor(inputColor);
     pen->SetColor(inputColor);
@@ -71,27 +84,32 @@ void GdiShapeRenderer::SetColor(const glm::ivec3 &color)
 
 void GdiShapeRenderer::SetThickness(float thickness)
 {
+    ZoneScoped;
     pen->SetWidth(thickness);
 }
 
 void GdiShapeRenderer::SetFontFamily(const std::wstring &fontFamily)
 {
+    ZoneScoped;
     delete this->fontFamily;
     this->fontFamily = new Gdiplus::FontFamily(L"Arial");
 }
 
 void GdiShapeRenderer::SetFontSize(float fontSize)
 {
+    ZoneScoped;
     this->fontSize = fontSize;
 }
 
 std::unique_ptr<FontFormat> GdiShapeRenderer::CreateFontFormat()
 {
+    ZoneScoped;
     return std::make_unique<GdiFontFormat>();
 }
 
 GdiShapeRenderer::~GdiShapeRenderer()
 {
+    ZoneScoped;
     delete pen;
     delete brush;
     delete fontFamily;
@@ -99,6 +117,7 @@ GdiShapeRenderer::~GdiShapeRenderer()
 
 void GdiShapeRenderer::Translate(glm::vec3 translation)
 {
+    ZoneScoped;
     graphics->TranslateTransform(translation.x, translation.y);
 }
 
@@ -109,16 +128,20 @@ void GdiShapeRenderer::DrawModel(const OpenGL::Model &model)
 
 void GdiShapeRenderer::SetClippingRectangle(const glm::vec2 &pos, const glm::vec2 &size)
 {
+    ZoneScoped;
     graphics->SetClip(RectF(pos.x, pos.y, size.x, size.y), CombineModeReplace);
 }
 
-void GdiShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size)
+void GdiShapeRenderer::DrawEllipse(const glm::vec3 &position, const glm::vec3 &size, bool drawFromCenter)
 {
-    graphics->DrawEllipse(pen, position.x, position.y, size.x, size.y);
+    ZoneScoped;
+    auto editedPosition = position;
+    if(drawFromCenter)
+        editedPosition = TranslateFromCornerToCenter(position, size);
+    graphics->DrawEllipse(pen, editedPosition.x, editedPosition.y, size.x, size.y);
 }
 
-//TODO wrap graphics into a buffer renderer
-void GdiShapeRenderer::SetBufferRenderer(BufferRenderer &bufferRenderer)
+void GdiShapeRenderer::SetScreenBuffer(BufferRenderer &buffer)
 {
 
 }

@@ -70,6 +70,94 @@ public:
 
 };
 
+class CircleController : public KeyStateSubscriber, public MouseStateSubscriber
+{
+private:
+    std::unique_ptr<EllipseProxy> circle;
+public:
+    explicit CircleController(std::unique_ptr<EllipseProxy> circle) : circle(std::move(circle))
+    {
+    }
+    void OnKeyDown(EventKeyStateInfo e) override
+    {
+
+    }
+
+    void OnKeyUp(EventKeyStateInfo e) override
+    {
+
+    }
+
+    void OnKeyPressed(EventKeyStateInfo e) override
+    {
+        if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::W)
+        {
+            auto size = circle->GetSize();
+            size.y += 10;
+            circle->SetSize(size);
+        }
+
+        if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::S)
+        {
+            auto size = circle->GetSize();
+            size.y -= 10;
+            circle->SetSize(size);
+        }
+
+
+        if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::A)
+        {
+            auto size = circle->GetSize();
+            size.x -= 10;
+            circle->SetSize(size);
+        }
+
+        if(static_cast<InputManager::VirtualKeys>(e.GetVirtualKey()) == InputManager::VirtualKeys::D)
+        {
+            auto size = circle->GetSize();
+            size.x += 10;
+            circle->SetSize(size);
+        }
+    }
+
+    void OnMouseDown(EventMouseStateInfo e) override
+    {
+        auto pos = e.GetMousePosition();
+        circle->SetPosition(pos);
+    }
+
+    void OnMouseUp(EventMouseStateInfo e) override
+    {
+
+    }
+
+    void OnMousePressed(EventMouseStateInfo e) override
+    {
+
+    }
+
+    void OnMouseMove(EventMouseStateInfo e) override
+    {
+
+    }
+
+    void OnMouseEntered(EventMouseStateInfo e) override
+    {
+
+    }
+
+    void OnMouseLeft(EventMouseStateInfo e) override
+    {
+
+    }
+
+    void OnMouseCaptured(EventMouseStateInfo e) override
+    {
+
+    }
+};
+
+
 void BasicShapes()
 {
     LiiApplication::Init();
@@ -78,6 +166,7 @@ void BasicShapes()
     auto rectangle2 = std::make_unique<RectangleProxy>();
     auto rectangle3 = std::make_unique<RectangleProxy>();
     auto rectangle4 = std::make_unique<RectangleProxy>();
+    auto rectangle5 = std::make_unique<RectangleProxy>();
     auto ellipse = std::make_unique<EllipseProxy>();
     auto line = std::make_unique<LineProxy>();
 
@@ -85,36 +174,49 @@ void BasicShapes()
     window->GetRenderer()->RequestModel(*rectangle2);
     window->GetRenderer()->RequestModel(*rectangle3);
     window->GetRenderer()->RequestModel(*rectangle4);
+    window->GetRenderer()->RequestModel(*rectangle5);
     window->GetRenderer()->RequestModel(*ellipse);
     window->GetRenderer()->RequestModel(*line);
 
     rectangle->SetSize({100, 100, 0});
-    rectangle->SetPosition({50, 50, 0});
+    rectangle->SetPosition({50, 50, -1});
     rectangle->SetColor({255, 0, 0, 255});
 
     //Add the rectangles next to each other with padding of 5
     rectangle2->SetSize({100, 100, 0});
-    rectangle2->SetPosition({rectangle->GetPosition().x + rectangle->GetSize().x + 5, 50, 0});
+    rectangle2->SetPosition({rectangle->GetPosition().x + rectangle->GetSize().x + 5, 50, -1});
     rectangle2->SetColor({0, 255, 0, 255});
 
     rectangle3->SetSize({100, 100, 0});
-    rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, 0});
+    rectangle3->SetPosition({rectangle2->GetPosition().x + rectangle2->GetSize().x + 5, 50, -1});
     rectangle3->SetColor({0, 0, 255, 255});
 
     //Rectangle4
     rectangle4->SetSize({100, 100, 0});
-    rectangle4->SetPosition({rectangle3->GetPosition().x + rectangle3->GetSize().x + 5, 50, 0});
+    rectangle4->SetPosition({rectangle3->GetPosition().x + rectangle3->GetSize().x + 5, 50, -1});
     rectangle4->SetColor({255, 255, 0, 255});
     rectangle4->SetFill(true);
 
-    line->SetStartPosition({400, 300, 0});
-    line->SetEndPosition({0, 560, 0});
+    rectangle4->SetSize({10, 10, 0});
+    rectangle4->SetPosition({395, 295, -2});
+    rectangle4->SetColor({255, 255, 0, 255});
+    rectangle4->SetFill(true);
+
+
+
+    line->SetStartPosition({400, 300, -1});
+    line->SetEndPosition({0, 560, -1});
     line->SetColor({255, 0, 0, 255});
 
     ellipse->SetSize({100, 100, 0});
-    ellipse->SetPosition({400, 300, 0});
+    ellipse->SetPosition({400, 300, -1});
     ellipse->SetColor({0, 255, 0, 255});
-    ellipse->SetFill(false);
+    ellipse->SetFill(true);
+
+    CircleController controller(std::move(ellipse));
+    window->AddKeyStateSubscriber(controller);
+    window->AddMouseStateSubscriber(controller);
+
     LiiApplication::GetInstance()->JoinThreads();
 }
 
@@ -216,8 +318,10 @@ void BasicWindow()
     LiiApplication::GetInstance()->JoinThreads();
 }
 
+
 int main( int argc, char* argv[] )
 {
+
 //    BasicShapes();
 //    BasicWindow();
     ComponentGallery();

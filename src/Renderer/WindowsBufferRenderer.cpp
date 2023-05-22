@@ -5,7 +5,9 @@
 #include "WindowsBufferRenderer.h"
 #include "EventCoreLifecycleInfo.h"
 #include "ConcurrentShapeRenderer.h"
+#include "AggShapeRenderer.h"
 #include "ShapeRenderer.h"
+#include "Injector.hpp"
 
 void WindowsBufferRenderer::OnCoreInit(const EventCoreLifecycleInfo &e)
 {
@@ -105,7 +107,8 @@ const glm::ivec2 &WindowsBufferRenderer::GetViewportSize() const
 
 ShapeRenderer &WindowsBufferRenderer::AcquireShapeRenderer()
 {
-    auto* shapeRenderer = new ConcurrentShapeRenderer(*this);
+    auto* shapeRenderer = LiiInjector::Injector::GetInstance().ResolveTransient<ShapeRenderer>().release();
+    shapeRenderer->SetScreenBuffer(*this);
     renderer.emplace_back(shapeRenderer);
     return *shapeRenderer;
 }
@@ -115,4 +118,15 @@ void WindowsBufferRenderer::ReleaseRenderers()
     for(auto* shapeRenderer : renderer)
         delete shapeRenderer;
     renderer.clear();
+}
+
+Lii::DataTypes::Buffer<unsigned int> WindowsBufferRenderer::GetScreenBuffer()
+{
+    return {back->GetSize().x, back->GetSize().y, back->GetBuffer()};
+}
+
+unsigned int WindowsBufferRenderer::CreateColor(const glm::ivec4 &color)
+{
+    unsigned int hexColor = (color.a << 24) | (color.r << 16) | (color.g << 8) |  color.b;
+    return hexColor;
 }

@@ -8,6 +8,6 @@ void CircleBackground::OnRenderSync(RenderEventInfo e)
     ShapeRenderer& renderer = e.GetRenderer()->Acquire(*this);
     graphicsUtil.Scale(drawData.GetSize());
     renderer.SetColor(color);
-    renderer.DrawFillEllipse(graphicsUtil.GetPosition(), graphicsUtil.GetSize());
+    renderer.DrawFillEllipse(graphicsUtil.GetPosition(), graphicsUtil.GetSize(), true);
     renderBehavior.OnRenderSync(e);
 }

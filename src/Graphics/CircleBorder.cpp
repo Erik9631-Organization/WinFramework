@@ -21,7 +21,7 @@ void CircleBorder::OnRenderSync(RenderEventInfo e)
     graphicsUtil.Scale(drawData.GetSize());
     renderer.SetThickness(thickness);
     renderer.SetColor(color);
-    renderer.DrawEllipse(graphicsUtil.GetPosition(), graphicsUtil.GetSize());
+    renderer.DrawEllipse(graphicsUtil.GetPosition(), graphicsUtil.GetSize(), true);
     renderBehavior.OnRenderSync(e);
 }
 

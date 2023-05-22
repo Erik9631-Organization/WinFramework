@@ -6,7 +6,7 @@
 #include "EventMoveInfo.h"
 #include "Commands.h"
 #include "Renderer.h"
-#include "Utils.hpp"
+#include "Utils.h"
 
 void EllipseModel::ReceiveCommand(std::unique_ptr<RenderMessage> message)
 {
@@ -81,8 +81,6 @@ void EllipseModel::Draw()
     if(!visible)
         return;
     auto calculatedPosition = movableBehavior.GetPosition();
-    if(renderFromCenter)
-        calculatedPosition = TranslateFromCornerToCenter(calculatedPosition, resizableBehavior.GetSize());
 
     auto& renderingApi = this->renderer->AcquireShapeRenderer();
     renderingApi.SetColor(color);
@@ -91,9 +89,9 @@ void EllipseModel::Draw()
                                            viewPort.GetViewportSize());
 
     if(fill)
-        renderingApi.DrawFillEllipse(calculatedPosition, resizableBehavior.GetSize());
+        renderingApi.DrawFillEllipse(calculatedPosition, resizableBehavior.GetSize(), renderFromCenter);
     else
-        renderingApi.DrawEllipse(calculatedPosition, resizableBehavior.GetSize());
+        renderingApi.DrawEllipse(calculatedPosition, resizableBehavior.GetSize(), true);
 
 }
 

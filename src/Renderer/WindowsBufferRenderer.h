@@ -46,6 +46,9 @@ public:
 
     ShapeRenderer &AcquireShapeRenderer() override;
 
+    Lii::DataTypes::Buffer<unsigned int> GetScreenBuffer() override;
+
+    unsigned int CreateColor(const glm::ivec4 &color) override;
 };
 
 

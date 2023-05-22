@@ -8,11 +8,14 @@
 #include "RenderingBase.h"
 #include "Injectable.h"
 #include <glm.hpp>
+#include "Buffer.h"
 
 class BufferRenderer : public CoreLifecycleSubscriber, public RenderingBase, public LiiInjector::Injectable
 {
 public:
     virtual void DrawFragment(const glm::ivec3& position, const glm::ivec4 &color) = 0;
+    virtual unsigned int CreateColor(const glm::ivec4& color) = 0;
+    virtual Lii::DataTypes::Buffer<unsigned int> GetScreenBuffer() = 0;
 };
 
 

@@ -6,7 +6,7 @@
 #define LII_LINE_H
 #include <glm.hpp>
 
-namespace Lii::Utils
+namespace Lii::DataTypes
 {
     struct Line
     {

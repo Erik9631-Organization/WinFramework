@@ -105,8 +105,7 @@ const glm::vec3 & EllipseProxy::GetSize() const
     return model->GetSize();
 }
 
-void EllipseProxy::SetSize(const glm::vec3 &size, bool emit)
-{
+void EllipseProxy::SetSize(const glm::vec3 &size, bool emit) {
     auto renderMessage = RenderMessage::CreatePropertyMessage(size, this);
     renderMessage->SetSubMessageId(SubCommands::SetSize);
     messageSender.SendRenderingMessage(std::move(renderMessage));
