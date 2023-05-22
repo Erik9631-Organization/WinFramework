@@ -16,13 +16,6 @@ cmake-build-debug/
 cmake-build-release/
 cmake-build-debug-visual-studio/
 cmake-build-release-visual-studio/
-libs/PhysX-4.1/physx/documentation
-libs/PhysX-4.1/physx/bin
-libs/PhysX-4.1/physx/platform_readme.html
-libs/PhysX-4.1/physx/release_notes.html
-libs/PhysX-4.1/physx/generate_projects.sh
-libs/PhysX-4.1/physx/generate_projects.bat
-libs/PhysX-4.1/physx/version.txt
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -33,8 +26,6 @@ libs/PhysX-4.1/physx/version.txt
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
-x86/
 bld/
 [Bb]in/
 [Oo]bj/
