@@ -9,6 +9,9 @@
 #include "PasswordField.h"
 #include "ScrollBar.h"
 #include "Grid.h"
+#include "Networking.h"
+#include "Ssd/Position.h"
+#include "Ssd/DisplayPacketSerializer.h"
 
 
 class ButtonController : public KeyStateSubscriber, public ResizeSubscriber
@@ -220,6 +223,27 @@ void BasicShapes()
     LiiApplication::GetInstance()->JoinThreads();
 }
 
+void SendTestDataToSim()
+{
+    Lii::Networking::Init();
+    Lii::Udp::UdpConnectionManager manager{"0.0.0.0", 5555};
+    manager.SetDestination("127.0.0.1", 6666);
+    Position position1{5, 5};
+    Position position2{10, 5};
+    auto dataVector = std::vector<uint8_t>{};
+    for(int i = 0; i < 5; i++){
+        dataVector.push_back(0xFF);
+    }
+
+
+    DisplayPacketSerializer serializer{position1, position2, dataVector};
+    auto data = serializer.Serialize();
+    data.insert(data.begin(), 0x00);
+    manager.SendData(data.data(), data.size());
+    getchar();
+}
+
+
 void ComponentGallery()
 {
     LiiApplication::Init();
@@ -321,9 +345,9 @@ void BasicWindow()
 
 int main( int argc, char* argv[] )
 {
-
+   SendTestDataToSim();
 //    BasicShapes();
 //    BasicWindow();
-    ComponentGallery();
+ComponentGallery();
     return 0;
 }

@@ -353,7 +353,9 @@ set(Lii_Utils
         Utils/WindowBuilder.h
         Utils/RenderingProxyMessageSender.cpp
         Utils/RenderingProxyMessageSender.h
-        Utils/Utils.h Utils/Utils.cpp)
+        Utils/Utils.h Utils/Utils.cpp
+        Ssd/DisplayPacketSerializer.cpp
+        Ssd/DisplayPacketSerializer.h)
 source_group("Lii\\Utils" FILES ${Lii_Utils})
 
 set(Lii_OpenGL
@@ -464,8 +466,18 @@ source_group(Lii/Renderer/Models/Behavior FILES ${Lii_Renderer_Models_Behavior})
 set(Lii_Renderer_Models_Viewports
         Renderer/Models/Viewports/DefaultViewport.cpp
         Renderer/Models/Viewports/DefaultViewport.h
+        Ssd/DisplayPacketSerializer.cpp
+        Ssd/DisplayPacketSerializer.h
 )
 source_group(Lii/Renderer/Models/Viewports FILES ${Lii_Renderer_Models_Viewports})
+
+set(Lii_Ssd
+        Ssd/DisplayPacketSerializer.cpp
+        Ssd/DisplayPacketSerializer.h
+        Ssd/Position.h
+        Ssd/Position.cpp
+)
+source_group(Lii/Ssd FILES ${Lii_Ssd})
 
 set(ALL_FILES
     ${Enums}
@@ -501,7 +513,10 @@ set(ALL_FILES
     ${Lii_Renderer_Models}
     ${Lii_Renderer_Models_Behavior}
     ${Lii_Renderer_Models_Viewports}
-        Api/CoreSubscriber.h EventInfo/EventRenderingProviderInfo.h EventInfo/EventCursorLockInfo.cpp EventInfo/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h)
+    ${Lii_Ssd}
+        Api/CoreSubscriber.h EventInfo/EventRenderingProviderInfo.h EventInfo/EventCursorLockInfo.cpp EventInfo/EventCursorLockInfo.h Api/MountedSubject.h Tests/DemoAppTest.hpp Graphics/Text2.cpp Graphics/Text2.h Renderer/api/TextApi.h Graphics/Checkbox/CheckboxGraphics.cpp Graphics/Checkbox/CheckboxGraphics.h Components/api/TextInputApi.h
+        Ssd/DisplayPacketSerializer.cpp
+        Ssd/DisplayPacketSerializer.h)
 
 
 ################################################################################
@@ -550,4 +565,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
         "Renderer/Proxies"
         "Graphics/RadioButton"
         "Graphics/Checkbox"
+        "Lii/Ssd"
         )

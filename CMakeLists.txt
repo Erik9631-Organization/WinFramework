@@ -46,6 +46,7 @@ add_subdirectory(libs/catch2)
 add_subdirectory(src)
 add_subdirectory(libs/Tracy)
 add_subdirectory(libs/agg)
+add_subdirectory(libs/LiiNetworking)
 target_include_directories(antigrain PUBLIC libs/agg/include)
 target_include_directories(${PROJECT_NAME} PUBLIC libs/built/include)
 target_link_libraries(${PROJECT_NAME}
@@ -59,6 +60,7 @@ target_link_libraries(${PROJECT_NAME}
 		LiiInjector
 		TracyClient
 		antigrain
+		LiiNetworking
 		${built_libs}
 )
 
